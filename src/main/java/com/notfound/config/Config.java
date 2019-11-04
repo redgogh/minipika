@@ -67,20 +67,10 @@ public class Config {
     }
 
     public static Integer getMaxSize() {
-        Integer value = Integer.valueOf(StringUtils.isEmpty(maxSize) ? "10" : maxSize) * 2;
-        while(true){
-            if(value % 2 != 1) break;
-            value += 1;
-        }
-        return value;
+        return Integer.valueOf(StringUtils.isEmpty(maxSize) ? "6" : maxSize) * 2;
     }
 
     public static Integer getMinSize() {
-        Integer value = Integer.valueOf(StringUtils.isEmpty(minSize) ? "5" : minSize) * 2;
-        while(true){
-            if(value % 2 != 1) break;
-            value += 1;
-        }
-        return value;
+        return Integer.valueOf(StringUtils.isEmpty(minSize) ? "2" : minSize) * 2;
     }
 }

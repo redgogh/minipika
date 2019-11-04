@@ -4,7 +4,6 @@ import com.notfound.config.Config;
 
 import java.sql.Connection;
 import java.sql.Driver;
-import java.sql.DriverManager;
 import java.util.LinkedList;
 import java.util.Properties;
 
@@ -143,7 +142,5 @@ public class ConnectionPool {
             writeConnections.add(connection);
         }
     }
-
-
 
 }
