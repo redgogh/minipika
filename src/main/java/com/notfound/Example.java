@@ -22,8 +22,15 @@ public class Example {
     public static void main(String[] args) throws Exception{
 
         String sql = "select * from test";
-        Connection connection = pool.getQueryConnection();
+        Connection connection = pool.getConnection();
 
+        execute(connection,sql);
+
+        pool.release(connection);
+
+    }
+
+    public static void execute(Connection connection,String sql) throws Exception{
         PreparedStatement ps = null;
         ps = connection.prepareStatement(sql);
 
@@ -31,9 +38,6 @@ public class Example {
         rset.next();
 
         System.out.println(rset.getString(1));
-
-        pool.releaseQuery(connection);
-
     }
 
 }

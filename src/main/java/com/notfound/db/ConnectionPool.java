@@ -4,6 +4,7 @@ import com.notfound.config.Config;
 
 import java.sql.Connection;
 import java.sql.Driver;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.Properties;
 
@@ -31,13 +32,7 @@ public class ConnectionPool {
      * 查询专用连接池
      * LinkedList集合, 储存连接容器 --- 连接池
      */
-    private static LinkedList<Connection> queryConnections = new LinkedList<>();
-
-    /**
-     * 写入专用连接池
-     * LinkedList集合, 储存连接容器 --- 连接池
-     */
-    private static LinkedList<Connection> writeConnections = new LinkedList<>();
+    private static LinkedList<Connection> connections = new LinkedList<>();
 
     /**
      * 最大连接
@@ -55,20 +50,13 @@ public class ConnectionPool {
      * 初始化连接池
      */
     static {
-        // 根据最小连接创建连接池
-        int half = MIN_SIZE / 2;
-        // 创建查询专用连接
-        for (int i = 0; i < half; i++) {
-            queryConnections.add(createConnection());
-        }
-        // 创建写入专用连接
-        for (int i = 0; i < half; i++) {
-            writeConnections.add(createConnection());
+        for (int i = 0; i < MIN_SIZE; i++) {
+            connections.add(createConnection());
         }
     }
 
-    public static ConnectionPool getConnectionPool(){
-        if(pool == null){
+    public static ConnectionPool getConnectionPool() {
+        if (pool == null) {
             pool = new ConnectionPool();
         }
         return pool;
@@ -79,7 +67,7 @@ public class ConnectionPool {
      *
      * @return
      */
-    public static Connection createConnection() {
+    private static Connection createConnection() {
         // 连接对象
         Connection connection = null;
         try {
@@ -98,48 +86,30 @@ public class ConnectionPool {
     }
 
     /**
-     * 获取查询连接
+     * 获取连接
      *
      * @return
      */
-    public Connection getQueryConnection() {
-        if (queryConnections.isEmpty()) {
-            queryConnections.add(createConnection());
+    public synchronized Connection getConnection() {
+        if (connections.isEmpty()) {
+            connections.add(createConnection());
         }
-        return queryConnections.removeFirst();
+        return connections.removeFirst();
     }
 
     /**
-     * 获取写入连接
-     *
-     * @return
-     */
-    public Connection getWriteConnection() {
-        if (writeConnections.isEmpty()) {
-            writeConnections.add(createConnection());
-        }
-        return writeConnections.removeFirst();
-    }
-
-    /**
-     * 归还查询连接
+     * 归还连接
      *
      * @param connection
      */
-    public void releaseQuery(Connection connection) {
-        if (queryConnections.size() < (MAX_SIZE / 2)) {
-            queryConnections.add(connection);
+    public void release(Connection connection) {
+        if (connections.size() < MAX_SIZE) {
+            connections.add(connection);
         }
-    }
-
-    /**
-     * 归还写入连接
-     *
-     * @param connection
-     */
-    public void releaseWrite(Connection connection) {
-        if (writeConnections.size() < (MAX_SIZE / 2)) {
-            writeConnections.add(connection);
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
