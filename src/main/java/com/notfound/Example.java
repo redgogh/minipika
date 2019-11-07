@@ -1,10 +1,5 @@
 package com.notfound;
 
-import com.notfound.annotation.BaseTable;
-import com.notfound.annotation.Table;
-import com.notfound.config.Config;
-import com.notfound.db.ConnectionPool;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,16 +12,9 @@ import java.sql.ResultSet;
  */
 public class Example {
 
-    private static ConnectionPool pool = ConnectionPool.getConnectionPool();
-
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
 
         String sql = "select * from test";
-        Connection connection = pool.getConnection();
-
-        execute(connection,sql);
-
-        pool.release(connection);
 
     }
 
