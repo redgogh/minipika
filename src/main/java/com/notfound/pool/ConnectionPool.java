@@ -1,9 +1,14 @@
 package com.notfound.pool;
 
 import com.notfound.config.Config;
+import com.notfound.tools.StringUtils;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.Driver;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.Properties;
 
@@ -39,8 +44,8 @@ public class ConnectionPool {
 
     private static LinkedList<Connection> conns = new LinkedList<>();
 
-    static{
-        for(int i=0; i<MIN_SIZE; i++){
+    static {
+        for (int i = 0; i < MIN_SIZE; i++) {
             conns.add(createConnection());
         }
     }
@@ -57,11 +62,25 @@ public class ConnectionPool {
      * @return
      */
     public Connection getConnection() {
-        synchronized(conns) {
+        synchronized (conns) {
             if (!conns.isEmpty()) {
-                return conns.removeFirst();
+                final Connection connection = conns.removeFirst();
+                return (Connection) Proxy.newProxyInstance(ConnectionPool.class.getClassLoader(),
+                        connection.getClass().getInterfaces(),
+                        new InvocationHandler() {
+                            @Override
+                            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                                if (!"close".equals(method.getName())) {
+                                    return method.invoke(proxy, args);
+                                } else {
+                                    conns.add(connection);
+                                    return null;
+                                }
+                            }
+                        });
+            } else {
+                throw new RuntimeException("数据库链接繁忙，请稍后再试。");
             }
-            return null;
         }
     }
 
@@ -85,14 +104,6 @@ public class ConnectionPool {
             e.printStackTrace();
         }
         return connection;
-    }
-
-    public void release(Connection connection) {
-
-    }
-
-    public void destroy(Connection connection) {
-
     }
 
     public void check() {
