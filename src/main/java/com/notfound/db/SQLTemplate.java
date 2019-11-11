@@ -2,9 +2,9 @@ package com.notfound.db;
 
 /**
  * @author 404NotFoundx
+ * @date 2019/11/11 23:53
  * @version 1.0.0
- * @date 2019/11/4 17:12
  * @since 1.8
  */
-public class JdbcWrite {
+public class SQLTemplate {
 }

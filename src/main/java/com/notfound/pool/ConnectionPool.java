@@ -71,15 +71,26 @@ public class ConnectionPool {
                             @Override
                             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                                 if (!"close".equals(method.getName())) {
-                                    return method.invoke(proxy, args);
+                                    return method.invoke(connection, args);
                                 } else {
-                                    conns.add(connection);
+                                    System.out.println("###########################|- 归还链接前剩余链接有：" + conns.size() + "个");
+                                    if (MAX_SIZE < conns.size()) {
+                                        conns.add(connection);
+                                    } else {
+                                        connection.close();
+                                    }
+                                    System.out.println("###########################|- 当前链接池中剩余链接还有：" + conns.size() + "个");
                                     return null;
                                 }
                             }
                         });
             } else {
-                throw new RuntimeException("数据库链接繁忙，请稍后再试。");
+                if (MAX_SIZE <= conns.size()) {
+                    conns.add(createConnection());
+                    return getConnection();
+                } else {
+                    throw new RuntimeException("数据库链接繁忙，请稍后再试。");
+                }
             }
         }
     }
@@ -88,7 +99,7 @@ public class ConnectionPool {
      * 创建连接
      * @return
      */
-    private static Connection createConnection() {
+    public static Connection createConnection() {
         // 连接对象
         Connection connection = null;
         try {

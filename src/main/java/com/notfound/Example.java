@@ -1,5 +1,7 @@
 package com.notfound;
 
+import com.notfound.pool.ConnectionPool;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,9 +14,17 @@ import java.sql.ResultSet;
  */
 public class Example {
 
+    static ConnectionPool pool = ConnectionPool.getPool();
+
     public static void main(String[] args) throws Exception {
 
         String sql = "select * from test";
+
+        Connection connection = pool.getConnection();
+
+        execute(connection,sql);
+
+        System.out.println();
 
     }
 
@@ -26,6 +36,10 @@ public class Example {
         rset.next();
 
         System.out.println(rset.getString(1));
+
+        System.out.println();
+
+
     }
 
 }

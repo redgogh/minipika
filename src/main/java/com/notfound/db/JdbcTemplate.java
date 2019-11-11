@@ -1,10 +1,14 @@
 package com.notfound.db;
 
 /**
+ * jdbc操作模板
  * @author 404NotFoundx
+ * @date 2019/11/11 23:39
  * @version 1.0.0
- * @date 2019/11/4 17:12
  * @since 1.8
  */
-public class JdbcQuery {
+public class JdbcTemplate {
+
+
+
 }
