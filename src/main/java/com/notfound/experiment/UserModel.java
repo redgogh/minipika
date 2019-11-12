@@ -8,7 +8,7 @@ import com.notfound.annotation.*;
  * @date 2019/11/12 9:51
  * @since 1.8
  */
-@Model(name = "user_model")
+@Model("user_model")
 public class UserModel {
 
     @PrimaryKey

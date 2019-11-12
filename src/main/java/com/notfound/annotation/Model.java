@@ -21,6 +21,6 @@ public @interface Model {
      * 表名
      * @return
      */
-    String name() default "";
+    String value() default "";
 
 }
