@@ -11,9 +11,8 @@ import com.tengu.annotation.*;
 @Model("user_model")
 public class UserModel {
 
-    @Column("int(11) not null")
-    @Increase
     @PrimaryKey
+    @Column("int(11) not null")
     private Long id;
     // user_name\
     @Column("varchar(255) not null")

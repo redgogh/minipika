@@ -5,6 +5,7 @@ import com.tengu.pool.ConnectionPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -114,6 +115,21 @@ public class JdbcTemplate {
      * @return 更新条数
      */
     public Long delete(String id) {
+        return null;
+    }
+
+    /**
+     * 创建表
+     * @param sql
+     * @return
+     */
+    public Long createTable(String sql){
+        try {
+            Connection connection = pool.getConnection();
+            connection.prepareStatement(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

@@ -25,11 +25,35 @@ public class ParseModel {
      */
     public ModelMessage enhance(Class<?> target) throws TenguException {
         String tableName = null; // 表名
-        String primaryKey = null; // 主键
         ModelMessage message = new ModelMessage();
         StringBuilder script = new StringBuilder();
-        script.append("create table ");
+        script.append("create table if not exists");
         // 判断实体类有没有Model注解
+        tableName = model(target, message);
+        script.append(" `").append(tableName).append("`\n").append("(\n"); // 开头
+        // 解析字段
+        field(target, message, script);
+        // 结尾
+        if (script.charAt(script.length() - 2) == ',') {
+            script.deleteCharAt(script.length() - 2);
+        }
+        script.append(") ENGINE = InnoDB\n");
+        script.append("\tDEFAULT CHARACTER SET = utf8\n");
+        script.append("\tCOLLATE = utf8_general_ci\n");
+        script.append("\tAUTO_INCREMENT = 1;");
+        message.setCreateTableSql(script.toString());
+        return message;
+    }
+
+    /**
+     * Model注解解析操作
+     * @param target
+     * @param message
+     * @return
+     * @throws ParseException
+     */
+    public String model(Class<?> target, ModelMessage message) throws ParseException {
+        String tableName = "";
         if (target.isAnnotationPresent(Model.class)) {
             Model model = target.getDeclaredAnnotation(Model.class);
             tableName = model.value();
@@ -38,8 +62,17 @@ public class ParseModel {
             }
             message.setTableName(tableName);
         }
-        script.append("`").append(tableName).append("`\n").append("(\n"); // 开头
-        // 解析字段
+        return tableName;
+    }
+
+    /**
+     * 解析字段
+     * @param target
+     * @param message
+     * @throws ParseException
+     */
+    public void field(Class<?> target, ModelMessage message, StringBuilder script) throws ParseException {
+        String primaryKey = "";
         Field[] fields = target.getDeclaredFields();
         for (Field field : fields) {
             String columnName = TenguUtils.humpToUnderline(field.getName());
@@ -79,16 +112,6 @@ public class ParseModel {
             script.append("\t").append(tableColumn).append(",\n");
         }
         script.append(primaryKey);
-        // 结尾
-        if (script.charAt(script.length() - 2) == ',') {
-            script.deleteCharAt(script.length() - 2);
-        }
-        script.append(") ENGINE = InnoDB\n");
-        script.append("\tDEFAULT CHARACTER SET = utf8\n");
-        script.append("\tCOLLATE = utf8_general_ci\n");
-        script.append("\tAUTO_INCREMENT = 1;");
-        message.setCreateTableSql(script.toString());
-        return message;
     }
 
     /**
@@ -97,7 +120,7 @@ public class ParseModel {
      */
     public void parse(List<Class<?>> list) {
         try {
-            for(Class<?> target : list) {
+            for (Class<?> target : list) {
                 ModelMessage message = enhance(target);
                 ModelMessage.setMessages(message.getTableName(), message);
             }
