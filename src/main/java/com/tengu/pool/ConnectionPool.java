@@ -74,7 +74,7 @@ public class ConnectionPool {
                                     return method.invoke(connection, args);
                                 } else {
                                     System.out.println("------------------------------|- 归还链接前剩余链接有：" + conns.size() + "个");
-                                    if (MAX_SIZE < conns.size()) {
+                                    if (MAX_SIZE <= conns.size()) {
                                         conns.add(connection);
                                     } else {
                                         connection.close();

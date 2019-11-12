@@ -33,12 +33,25 @@ public class ModelMessage {
      */
     private String createTableSql;
 
+    /**
+     * 表的所有字段
+     */
+    private String[] columns;
+
     public static void setMessages(String key,ModelMessage value){
         messages.put(key,value);
     }
 
     public static Map<String, ModelMessage> getMessages() {
         return messages;
+    }
+
+    public String[] getColumns() {
+        return columns;
+    }
+
+    public void setColumns(String[] columns) {
+        this.columns = columns;
     }
 
     public String getTableName() {

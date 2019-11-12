@@ -1,11 +1,13 @@
 package com.tengu.db;
 
+import com.tengu.config.Config;
 import com.tengu.pool.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,8 +22,8 @@ public class JdbcTemplate {
 
     private ConnectionPool pool = ConnectionPool.getPool();
 
-    public static JdbcTemplate getTemplate(){
-        if(template == null){
+    public static JdbcTemplate getTemplate() {
+        if (template == null) {
             template = new JdbcTemplate();
         }
         return template;
@@ -132,11 +134,45 @@ public class JdbcTemplate {
      * @param sql
      * @return
      */
-    public void createTable(String sql){
+    public void createTable(String sql) {
+        execute(sql);
+    }
+
+    /**
+     * 查询某张表所有字段
+     * @param tableName
+     */
+    public ArrayList<String> getColumns(String tableName) {
+        ArrayList<String> columns = new ArrayList<>();
+        String sql = "select COLUMN_NAME " +
+                "from information_schema.COLUMNS " +
+                "where table_name = '" + tableName + "' " +
+                "and table_schema = '" + Config.getDbname() + "';";
         try {
             Connection connection = pool.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.execute();
+            ResultSet rset = statement.executeQuery();
+            while (rset.next()) {
+                columns.add(rset.getString(1));
+            }
+            System.out.println();
+            connection.close();
+            statement.close();
+            rset.close();
+        } catch (SQLException e) {
+            System.out.println("sql执行异常，执行SQL如下:");
+            System.out.println(sql);
+            e.printStackTrace();
+        }
+        return columns;
+    }
+
+    public boolean execute(String sql) {
+        boolean r = false;
+        try {
+            Connection connection = pool.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            r = statement.execute();
             statement.close();
             connection.close();
         } catch (SQLException e) {
@@ -144,6 +180,7 @@ public class JdbcTemplate {
             System.out.println(sql);
             e.printStackTrace();
         }
+        return r;
     }
 
 }

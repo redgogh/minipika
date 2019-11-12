@@ -47,14 +47,22 @@ public class Config {
     // model包路径
     private static String modelPackage = getValue("tengu.model.package");
 
+    // 数据库名
+    private static String dbname;
+
     static {
+        String temp = url;
+        for (int i = 0; i < 3; i++) {
+            temp = temp.substring(temp.indexOf("/") + 1);
+        }
+        dbname = temp.substring(0,temp.indexOf("?"));
         // 对Model进行解析
         ParseModel parseModel = new ParseModel();
         parseModel.parse(TenguUtils.getModels());
-        Map<String,ModelMessage> messages = ModelMessage.getMessages();
+        Map<String, ModelMessage> messages = ModelMessage.getMessages();
         Iterator iter = messages.entrySet().iterator();
-        while(iter.hasNext()){
-            Map.Entry<String,ModelMessage> entry = (Map.Entry<String,ModelMessage>) iter.next();
+        while (iter.hasNext()) {
+            Map.Entry<String, ModelMessage> entry = (Map.Entry<String, ModelMessage>) iter.next();
             ModelMessage message = entry.getValue();
             JdbcTemplate.getTemplate().createTable(message.getCreateTableSql());
         }
@@ -75,6 +83,10 @@ public class Config {
             e.printStackTrace();
         }
         return config.getProperty(v);
+    }
+
+    public static String getDbname() {
+        return dbname;
     }
 
     public static String getModelPackage() {

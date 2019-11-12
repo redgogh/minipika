@@ -1,5 +1,6 @@
 package com.tengu;
 
+import com.tengu.db.JdbcTemplate;
 import com.tengu.pool.ConnectionPool;
 
 import java.sql.Connection;
@@ -21,6 +22,7 @@ public class Example {
         String sql = "select * from test";
 
         Connection connection = pool.getConnection();
+        JdbcTemplate.getTemplate().getColumns("user_model");
         connection.close();
         // execute(connection, sql);
 
