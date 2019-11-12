@@ -19,6 +19,11 @@ public class ModelMessage {
     private String primaryKey;
 
     /**
+     * 表名
+     */
+    private String tableName;
+
+    /**
      * 索引字段
      */
     private String[] indexes;
@@ -28,8 +33,20 @@ public class ModelMessage {
      */
     private String createTableSql;
 
+    public static void setMessages(String key,ModelMessage value){
+        messages.put(key,value);
+    }
+
     public static Map<String, ModelMessage> getMessages() {
         return messages;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 
     public String getPrimaryKey() {

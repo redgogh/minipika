@@ -22,9 +22,10 @@ public class ParseModel {
      *
      * @param target
      */
-    public void enhance(Class<?> target) throws TenguException {
+    public ModelMessage enhance(Class<?> target) throws TenguException {
         String tableName = null; // 表名
         String primaryKey = null; // 主键
+        ModelMessage message = new ModelMessage();
         StringBuilder script = new StringBuilder();
         script.append("create table ");
         // 判断实体类有没有Model注解
@@ -34,6 +35,7 @@ public class ParseModel {
             if (StringUtils.isEmpty(tableName)) {
                 throw new ParseException("Model表名不能为空");
             }
+            message.setTableName(tableName);
         }
         script.append("`").append(tableName).append("`\n").append("(\n"); // 开头
         // 解析字段
@@ -61,7 +63,12 @@ public class ParseModel {
             }
             // 主键
             if (field.isAnnotationPresent(PrimaryKey.class)) {
+                PrimaryKey key = field.getDeclaredAnnotation(PrimaryKey.class);
+                if(key.increase()){
+                    tableColumn.append("auto_increment");
+                }
                 primaryKey = "\tPRIMARY KEY (`" + columnName + "`),\n";
+                message.setPrimaryKey(columnName);
             }
             // 注释
             if (field.isAnnotationPresent(Comment.class)) {
@@ -79,12 +86,23 @@ public class ParseModel {
         script.append("\tDEFAULT CHARACTER SET = utf8\n");
         script.append("\tCOLLATE = utf8_general_ci\n");
         script.append("\tAUTO_INCREMENT = 1;");
-        System.out.println(script.toString());
+        message.setCreateTableSql(script.toString());
+        return message;
+    }
+
+    public void parse() {
+        try {
+            ModelMessage message = enhance(UserModel.class);
+            ModelMessage.setMessages(message.getTableName(), message);
+        } catch (TenguException e) {
+            e.printStackTrace();
+        }
+        System.out.println();
     }
 
     public static void main(String[] args) throws TenguException {
         ParseModel pm = new ParseModel();
-        pm.enhance(UserModel.class);
+        pm.parse();
     }
 
     /*
