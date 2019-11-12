@@ -1,6 +1,7 @@
 package com.tengu.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,7 +37,7 @@ public class ModelMessage {
     /**
      * 表的所有字段
      */
-    private String[] columns;
+    private List<String> columns;
 
     public static void setMessages(String key,ModelMessage value){
         messages.put(key,value);
@@ -46,11 +47,11 @@ public class ModelMessage {
         return messages;
     }
 
-    public String[] getColumns() {
+    public List<String> getColumns() {
         return columns;
     }
 
-    public void setColumns(String[] columns) {
+    public void setColumns(List<String> columns) {
         this.columns = columns;
     }
 

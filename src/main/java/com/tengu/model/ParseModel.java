@@ -8,6 +8,7 @@ import com.tengu.tools.StringUtils;
 import com.tengu.tools.TenguUtils;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,12 +28,13 @@ public class ParseModel {
         String tableName = null; // 表名
         ModelMessage message = new ModelMessage();
         StringBuilder script = new StringBuilder();
+        List<String> columns = new ArrayList<>();
         script.append("create table if not exists");
         // 判断实体类有没有Model注解
         tableName = model(target, message);
         script.append(" `").append(tableName).append("`\n").append("(\n"); // 开头
         // 解析字段
-        field(target, message, script);
+        field(target, message, script,columns);
         // 结尾
         if (script.charAt(script.length() - 2) == ',') {
             script.deleteCharAt(script.length() - 2);
@@ -42,6 +44,7 @@ public class ParseModel {
         script.append("\tCOLLATE = utf8_general_ci\n");
         script.append("\tAUTO_INCREMENT = 1;");
         message.setCreateTableSql(script.toString());
+        message.setColumns(columns);
         return message;
     }
 
@@ -71,7 +74,7 @@ public class ParseModel {
      * @param message
      * @throws ParseException
      */
-    public void field(Class<?> target, ModelMessage message, StringBuilder script) throws ParseException {
+    public void field(Class<?> target, ModelMessage message, StringBuilder script,List<String> columns) throws ParseException {
         String primaryKey = "";
         Field[] fields = target.getDeclaredFields();
         for (Field field : fields) {
@@ -110,6 +113,7 @@ public class ParseModel {
                 tableColumn.append(" ").append("comment '").append(comment.value()).append("'");
             }
             script.append("\t").append(tableColumn).append(",\n");
+            columns.add(tableColumn.toString());
         }
         script.append(primaryKey);
     }
