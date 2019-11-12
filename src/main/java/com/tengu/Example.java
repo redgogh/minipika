@@ -21,8 +21,8 @@ public class Example {
         String sql = "select * from test";
 
         Connection connection = pool.getConnection();
-
-        execute(connection, sql);
+        connection.close();
+        // execute(connection, sql);
 
         System.out.println();
 

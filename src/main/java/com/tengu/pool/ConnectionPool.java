@@ -40,7 +40,7 @@ public class ConnectionPool {
      */
     private static int MAX_SIZE = Config.getMaxSize();
 
-    private static LinkedList<Connection> conns = new LinkedList<>();
+    private static LinkedList<Connection> conns;
 
     static {
         for (int i = 0; i < MIN_SIZE; i++) {
@@ -61,6 +61,7 @@ public class ConnectionPool {
      * @return
      */
     public Connection getConnection() {
+        if(conns == null) conns = new LinkedList<>();
         synchronized (conns) {
             if (!conns.isEmpty()) {
                 final Connection connection = conns.removeFirst();

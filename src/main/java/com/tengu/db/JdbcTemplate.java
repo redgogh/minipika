@@ -16,7 +16,16 @@ import java.util.List;
  */
 public class JdbcTemplate {
 
+    private static JdbcTemplate template;
+
     private ConnectionPool pool = ConnectionPool.getPool();
+
+    public static JdbcTemplate getTemplate(){
+        if(template == null){
+            template = new JdbcTemplate();
+        }
+        return template;
+    }
 
     /**
      * 查询单个结果
@@ -123,14 +132,18 @@ public class JdbcTemplate {
      * @param sql
      * @return
      */
-    public Long createTable(String sql){
+    public void createTable(String sql){
         try {
             Connection connection = pool.getConnection();
-            connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.execute();
+            statement.close();
+            connection.close();
         } catch (SQLException e) {
+            System.out.println("sql执行异常，执行SQL如下:");
+            System.out.println(sql);
             e.printStackTrace();
         }
-        return null;
     }
 
 }

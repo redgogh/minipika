@@ -1,11 +1,16 @@
 package com.tengu.config;
 
+import com.tengu.db.JdbcTemplate;
+import com.tengu.model.ModelMessage;
 import com.tengu.model.ParseModel;
 import com.tengu.tools.StringUtils;
 import com.tengu.tools.TenguUtils;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -46,6 +51,13 @@ public class Config {
         // 对Model进行解析
         ParseModel parseModel = new ParseModel();
         parseModel.parse(TenguUtils.getModels());
+        Map<String,ModelMessage> messages = ModelMessage.getMessages();
+        Iterator iter = messages.entrySet().iterator();
+        while(iter.hasNext()){
+            Map.Entry<String,ModelMessage> entry = (Map.Entry<String,ModelMessage>) iter.next();
+            ModelMessage message = entry.getValue();
+            JdbcTemplate.getTemplate().createTable(message.getCreateTableSql());
+        }
     }
 
     private static String getValue(String v) {
