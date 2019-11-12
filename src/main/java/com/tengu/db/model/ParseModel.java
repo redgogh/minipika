@@ -5,6 +5,7 @@ import com.tengu.exception.ParseException;
 import com.tengu.exception.TenguException;
 import com.tengu.experiment.UserModel;
 import com.tengu.tools.StringUtils;
+import com.tengu.tools.TenguUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -69,8 +70,39 @@ public class ParseModel {
      * @param properties 保存着该实体的所有字段
      */
     public void parseStatement(Field field, String statement, List<String> properties) {
-        String hump = field.getName();
+        String type = field.getType().getName();
+        String underline = TenguUtils.humpToUnderline(field.getName()); // 字段名
 
+        if(type.equals("java.long.String")){
+
+        }
+        if(type.equals("java.long.Integer")){
+
+        }
+        if(type.equals("java.long.Long")){
+
+        }
+        if(type.equals("java.long.Short")){
+
+        }
+        if(type.equals("java.long.Float")){
+
+        }
+        if(type.equals("java.long.Double")){
+
+        }
+        if(type.equals("java.long.Byte")){
+
+        }
+        if(type.equals("java.long.Boolean")){
+
+        }
+        if(type.equals("java.long.Character")){
+
+        }
+        if(type.equals("java.math.BigDecimal")){
+
+        }
     }
 
     public static void main(String[] args) throws TenguException {

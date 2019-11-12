@@ -6,7 +6,7 @@ package com.tengu.tools;
  * @date 2019/11/12 0:10
  * @since 1.8
  */
-public class TenguTools {
+public class TenguUtils {
 
     public static String humpToUnderline(String string) {
         StringBuilder builder = new StringBuilder(string);
