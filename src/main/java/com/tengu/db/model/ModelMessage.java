@@ -1,4 +1,4 @@
-package com.notfound.db.model;
+package com.tengu.db.model;
 
 import java.util.HashMap;
 import java.util.Map;

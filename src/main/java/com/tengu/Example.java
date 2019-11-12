@@ -1,6 +1,6 @@
-package com.notfound;
+package com.tengu;
 
-import com.notfound.pool.ConnectionPool;
+import com.tengu.pool.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,8 +38,6 @@ public class Example {
         System.out.println(rset.getString(1));
 
         System.out.println();
-
-
     }
 
 }

@@ -1,23 +1,23 @@
-package com.notfound.annotation;
+package com.tengu.annotation;
 
 import java.lang.annotation.*;
 
 /**
- * 索引,被注解的成员将会成为该表的索引.
+ * 主键注解,此注解需要放在Model类上
  * @author 404NotFoundx
  * @version 1.0.0
- * @date 2019/11/4 15:11
+ * @date 2019/11/4 15:06
  * @since 1.8
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Index {
+public @interface PrimaryKey {
 
     /**
-     * 索引别名
+     * 是否自增长
      * @return
      */
-    String alias() default "";
+    boolean increase() default true;
 
 }

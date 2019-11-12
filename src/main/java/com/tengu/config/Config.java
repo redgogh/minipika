@@ -1,6 +1,6 @@
-package com.notfound.config;
+package com.tengu.config;
 
-import com.notfound.tools.StringUtils;
+import com.tengu.tools.StringUtils;
 
 import java.io.InputStream;
 import java.util.Properties;

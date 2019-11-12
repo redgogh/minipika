@@ -1,14 +1,12 @@
-package com.notfound.pool;
+package com.tengu.pool;
 
-import com.notfound.config.Config;
-import com.notfound.tools.StringUtils;
+import com.tengu.config.Config;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.Driver;
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.Properties;
 

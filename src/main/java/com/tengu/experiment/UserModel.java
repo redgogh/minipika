@@ -1,6 +1,6 @@
-package com.notfound.experiment;
+package com.tengu.experiment;
 
-import com.notfound.annotation.*;
+import com.tengu.annotation.*;
 
 /**
  * @author 404NotFoundx

@@ -1,4 +1,4 @@
-package com.notfound.model;
+package com.tengu.model;
 
 /**
  * 解析模型

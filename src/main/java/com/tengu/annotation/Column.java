@@ -1,4 +1,4 @@
-package com.notfound.annotation;
+package com.tengu.annotation;
 
 import java.lang.annotation.*;
 

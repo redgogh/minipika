@@ -1,7 +1,6 @@
-package com.notfound.annotation;
+package com.tengu.annotation;
 
 import java.lang.annotation.*;
-import java.util.Map;
 
 /**
  * Table注解,被注解的对象代表是数据库的一张表.

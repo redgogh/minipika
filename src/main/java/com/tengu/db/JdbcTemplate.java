@@ -1,11 +1,10 @@
-package com.notfound.db;
+package com.tengu.db;
 
-import com.notfound.pool.ConnectionPool;
+import com.tengu.pool.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
