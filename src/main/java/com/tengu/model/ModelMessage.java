@@ -1,4 +1,4 @@
-package com.tengu.db.model;
+package com.tengu.model;
 
 import java.util.HashMap;
 import java.util.Map;

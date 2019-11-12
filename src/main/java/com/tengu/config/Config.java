@@ -1,7 +1,10 @@
 package com.tengu.config;
 
+import com.tengu.model.ParseModel;
 import com.tengu.tools.StringUtils;
+import com.tengu.tools.TenguUtils;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -36,6 +39,15 @@ public class Config {
     // 数据库表名前缀
     private static String tablePrefix = getValue("tengu.table.prefix");
 
+    // model包路径
+    private static String modelPackage = getValue("tengu.model.package");
+
+    static {
+        // 对Model进行解析
+        ParseModel parseModel = new ParseModel();
+        parseModel.parse(TenguUtils.getModels());
+    }
+
     private static String getValue(String v) {
         try {
             if (config == null) {
@@ -51,6 +63,10 @@ public class Config {
             e.printStackTrace();
         }
         return config.getProperty(v);
+    }
+
+    public static String getModelPackage() {
+        return modelPackage;
     }
 
     public static String getUrl() {
