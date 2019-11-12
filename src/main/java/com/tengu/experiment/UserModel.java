@@ -11,14 +11,16 @@ import com.tengu.annotation.*;
 @Model("user_model")
 public class UserModel {
 
+    @Column("int(11) not null")
+    @Increase
     @PrimaryKey
     private Long id;
-    // user_name
-    @Column("len=255,default='王十三'")
+    // user_name\
+    @Column("varchar(255) not null")
     @Comment("用户名，不作为登陆账号。")
     private String userName;
     // google_email
-    @Column("len=255,notnull")
+    @Column("varchar(255) not null default 'NoEmail'")
     @Comment("Google邮箱")
     private String googleEmail;
 

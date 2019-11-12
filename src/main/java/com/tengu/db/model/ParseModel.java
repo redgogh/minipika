@@ -8,8 +8,6 @@ import com.tengu.tools.StringUtils;
 import com.tengu.tools.TenguUtils;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author 404NotFoundx
@@ -20,13 +18,15 @@ import java.util.List;
 public class ParseModel {
 
     /**
-     * 对Model进行增强处理
+     * 对Model进行解析
      *
      * @param target
      */
     public void enhance(Class<?> target) throws TenguException {
         String tableName = null; // 表名
-        List<String> properties = null; // 字段
+        String primaryKey = null; // 主键
+        StringBuilder script = new StringBuilder();
+        script.append("create table ");
         // 判断实体类有没有Model注解
         if (target.isAnnotationPresent(Model.class)) {
             Model model = target.getDeclaredAnnotation(Model.class);
@@ -35,79 +35,94 @@ public class ParseModel {
                 throw new ParseException("Model表名不能为空");
             }
         }
+        script.append("`").append(tableName).append("`\n").append("(\n"); // 开头
         // 解析字段
         Field[] fields = target.getDeclaredFields();
         for (Field field : fields) {
+            String columnName = TenguUtils.humpToUnderline(field.getName());
+            StringBuilder tableColumn = new StringBuilder(columnName); // 字段
+            tableColumn.insert(0, "`").append("`");
+            // 字段声明
             if (field.isAnnotationPresent(Column.class)) {
                 Column column = field.getDeclaredAnnotation(Column.class);
                 String statement = column.value();
                 if (StringUtils.isEmpty(statement)) {
                     throw new ParseException("字段属性声明不能为空");
                 }
-                if(properties == null) properties = new ArrayList<>();
-                parseStatement(field, statement, properties);
+                tableColumn.append(" ").append(statement).append(" ");
             }
+            // 自增长
+            if (field.isAnnotationPresent(Increase.class)) {
+                tableColumn.append("auto_increment");
+            }
+            // 索引
             if (field.isAnnotationPresent(Index.class)) {
 
             }
-            if (field.isAnnotationPresent(Increase.class)) {
-
-            }
+            // 主键
             if (field.isAnnotationPresent(PrimaryKey.class)) {
-
+                primaryKey = "\tPRIMARY KEY (`" + columnName + "`),\n";
             }
+            // 注释
             if (field.isAnnotationPresent(Comment.class)) {
-
+                Comment comment = field.getDeclaredAnnotation(Comment.class);
+                tableColumn.append(" ").append("comment '").append(comment.value()).append("'");
             }
+            script.append("\t").append(tableColumn).append(",\n");
         }
-    }
-
-    /**
-     * 解析Column注解中的声明
-     *
-     * @param field      属性
-     * @param statement  声明
-     * @param properties 保存着该实体的所有字段
-     */
-    public void parseStatement(Field field, String statement, List<String> properties) {
-        String type = field.getType().getName();
-        String underline = TenguUtils.humpToUnderline(field.getName()); // 字段名
-
-        if(type.equals("java.long.String")){
-
+        script.append(primaryKey);
+        // 结尾
+        if (script.charAt(script.length() - 2) == ',') {
+            script.deleteCharAt(script.length() - 2);
         }
-        if(type.equals("java.long.Integer")){
-
-        }
-        if(type.equals("java.long.Long")){
-
-        }
-        if(type.equals("java.long.Short")){
-
-        }
-        if(type.equals("java.long.Float")){
-
-        }
-        if(type.equals("java.long.Double")){
-
-        }
-        if(type.equals("java.long.Byte")){
-
-        }
-        if(type.equals("java.long.Boolean")){
-
-        }
-        if(type.equals("java.long.Character")){
-
-        }
-        if(type.equals("java.math.BigDecimal")){
-
-        }
+        script.append(") ENGINE = InnoDB\n");
+        script.append("\tDEFAULT CHARACTER SET = utf8\n");
+        script.append("\tCOLLATE = utf8_general_ci\n");
+        script.append("\tAUTO_INCREMENT = 1;");
+        System.out.println(script.toString());
     }
 
     public static void main(String[] args) throws TenguException {
         ParseModel pm = new ParseModel();
         pm.enhance(UserModel.class);
     }
+
+    /*
+
+        if (type.equals("java.long.Integer")) {
+
+        }
+        if (type.equals("java.long.Long")) {
+
+        }
+        if (type.equals("java.long.Short")) {
+
+        }
+        if (type.equals("java.long.Float")) {
+
+        }
+        if (type.equals("java.long.Double")) {
+
+        }
+        if (type.equals("java.long.Byte")) {
+
+        }
+        if (type.equals("java.long.Boolean")) {
+
+        }
+        if (type.equals("java.math.BigDecimal")) {
+
+        }
+        if (type.equals("java.math.BigInteger")) {
+
+        }
+        if (type.equals("java.math.BigInteger")) {
+
+        }
+        if (type.equals("java.util.Date")) {
+
+        }
+
+     */
 
 }
