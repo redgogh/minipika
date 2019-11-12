@@ -33,6 +33,9 @@ public class Config {
     private static String maxSize = getValue("ormtools.connectionPool.maxSize");
     private static String minSize = getValue("ormtools.connectionPool.minSize");
 
+    // 数据库表名前缀
+    private static String tablePrefix = getValue("ormtools.table.prefix");
+
     private static String getValue(String v) {
         try {
             if (config == null) {
@@ -56,6 +59,10 @@ public class Config {
 
     public static String getDriver() {
         return driver;
+    }
+
+    public static String getTablePrefix() {
+        return tablePrefix;
     }
 
     public static String getUsername() {

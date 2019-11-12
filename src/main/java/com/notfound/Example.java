@@ -1,6 +1,5 @@
 package com.notfound;
 
-import com.notfound.db.Criteria;
 import com.notfound.pool.ConnectionPool;
 
 import java.sql.Connection;
@@ -24,9 +23,6 @@ public class Example {
         Connection connection = pool.getConnection();
 
         execute(connection, sql);
-
-        Criteria criteria = new Criteria();
-        criteria.Select();
 
         System.out.println();
 

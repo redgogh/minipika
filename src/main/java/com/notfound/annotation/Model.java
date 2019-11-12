@@ -1,6 +1,7 @@
 package com.notfound.annotation;
 
 import java.lang.annotation.*;
+import java.util.Map;
 
 /**
  * Table注解,被注解的对象代表是数据库的一张表.
@@ -14,7 +15,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Table {
+public @interface Model {
 
     /**
      * 表名

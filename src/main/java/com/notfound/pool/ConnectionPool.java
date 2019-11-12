@@ -59,6 +59,7 @@ public class ConnectionPool {
 
     /**
      * 获取一个连接
+     *
      * @return
      */
     public Connection getConnection() {
@@ -73,13 +74,13 @@ public class ConnectionPool {
                                 if (!"close".equals(method.getName())) {
                                     return method.invoke(connection, args);
                                 } else {
-                                    System.out.println("###########################|- 归还链接前剩余链接有：" + conns.size() + "个");
+                                    System.out.println("------------------------------|- 归还链接前剩余链接有：" + conns.size() + "个");
                                     if (MAX_SIZE < conns.size()) {
                                         conns.add(connection);
                                     } else {
                                         connection.close();
                                     }
-                                    System.out.println("###########################|- 当前链接池中剩余链接还有：" + conns.size() + "个");
+                                    System.out.println("------------------------------|- 当前链接池中剩余链接还有：" + conns.size() + "个");
                                     return null;
                                 }
                             }
@@ -97,6 +98,7 @@ public class ConnectionPool {
 
     /**
      * 创建连接
+     *
      * @return
      */
     public static Connection createConnection() {
