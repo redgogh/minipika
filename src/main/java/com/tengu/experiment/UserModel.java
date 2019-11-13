@@ -14,13 +14,18 @@ public class UserModel {
     @PrimaryKey
     @Column("int(11) not null")
     private Long id;
+
     // user_name\
     @Column("varchar(255) not null")
     @Comment("用户名，不作为登陆账号。")
     private String userName;
+
     // google_email
     @Column("varchar(255) not null default 'NoEmail'")
     @Comment("Google邮箱")
     private String googleEmail;
+
+    @Ignore
+    private String name;
 
 }

@@ -4,6 +4,7 @@ import com.tengu.annotation.Model;
 import com.tengu.db.JdbcTemplate;
 import com.tengu.exception.ParseException;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,19 @@ public class CheckModelColumn {
             String table = model.value();
             List<String> inDbColumns = JdbcTemplate.getTemplate().getColumns(table);
             Map<String,String> inMessageColumns = ModelMessage.getMessages().get(table).getColumns();
+
+            int temp = 0;
+            Iterator iter = inMessageColumns.entrySet().iterator();
+            while(iter.hasNext()){
+                Map.Entry<String,String> entry = (Map.Entry<String, String>) iter.next();
+                String inMsg = entry.getKey();
+                String indb = inDbColumns.get(temp);
+                // 如果不等于就对当前字段进行创建
+                if(!inMsg.equals(indb)){
+
+                }
+                temp++;
+            }
 
             System.out.println();
 

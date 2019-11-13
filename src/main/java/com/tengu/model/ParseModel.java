@@ -80,6 +80,8 @@ public class ParseModel {
             String columnName = TenguUtils.humpToUnderline(field.getName());
             StringBuilder tableColumn = new StringBuilder(columnName); // 字段
             tableColumn.insert(0, "`").append("`");
+            // 判断该字段是否被忽略
+            if(field.isAnnotationPresent(Ignore.class)) continue;
             // 字段声明
             if (field.isAnnotationPresent(Column.class)) {
                 Column column = field.getDeclaredAnnotation(Column.class);
