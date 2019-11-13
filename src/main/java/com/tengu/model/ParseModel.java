@@ -45,7 +45,8 @@ public class ParseModel {
         script.append("\tCOLLATE = utf8_general_ci\n");
         script.append("\tAUTO_INCREMENT = 1;");
         message.setCreateTableSql(script.toString());
-        message.setColumns(columnsScript);
+        message.setColumns(columns);
+        message.setColumnsScript(columnsScript);
         return message;
     }
 
