@@ -1,15 +1,13 @@
 package com.tengu.config;
 
-import com.tengu.db.JdbcTemplate;
+import com.tengu.db.JdbcFunction;
 import com.tengu.model.ModelMessage;
 import com.tengu.model.ParseModel;
 import com.tengu.tools.StringUtils;
 import com.tengu.tools.TenguUtils;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -64,7 +62,7 @@ public class Config {
         while (iter.hasNext()) {
             Map.Entry<String, ModelMessage> entry = (Map.Entry<String, ModelMessage>) iter.next();
             ModelMessage message = entry.getValue();
-            JdbcTemplate.getTemplate().createTable(message.getCreateTableSql());
+            JdbcFunction.getTemplate().execute(message.getCreateTableSql());
         }
     }
 

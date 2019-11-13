@@ -15,10 +15,15 @@ public class UserModel {
     @Column("int(11) not null")
     private Long id;
 
-    // user_name\
+    // user_name
     @Column("varchar(255) not null")
-    @Comment("用户名，不作为登陆账号。")
+    @Comment("用户账号")
     private String userName;
+
+    // password
+    @Column("varchar(255) not null default '123456'")
+    @Comment("用户密码")
+    private String password;
 
     // google_email
     @Column("varchar(255) not null default 'NoEmail'")
