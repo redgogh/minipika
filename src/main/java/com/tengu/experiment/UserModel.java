@@ -30,6 +30,11 @@ public class UserModel {
     @Comment("Google邮箱")
     private String googleEmail;
 
+    // product_name
+    @Column("varchar(255) not null default '敌敌畏'")
+    @Comment("产品名称")
+    private String productName;
+
     @Ignore
     private String name;
 

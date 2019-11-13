@@ -1,5 +1,6 @@
 package com.tengu;
 
+import com.tengu.annotation.Model;
 import com.tengu.db.NativeJdbc;
 import com.tengu.experiment.UserModel;
 import com.tengu.model.CheckModelColumn;
@@ -25,8 +26,8 @@ public class Example {
         String sql = "select * from test";
 
         NativeJdbc jdbc = NativeJdbc.getJdbc();
-        TenguResultSet set = jdbc.executeQuery("select * from test where id = ?",1);
-
+        TenguResultSet resultSet = jdbc.executeQuery("select * from user_model where id = ?",1);
+        UserModel model = resultSet.conversion(UserModel.class);
         // JdbcFunction.getTemplate().getColumns("user_model");
         CheckModelColumn.check(UserModel.class);
         // execute(connection, sql);

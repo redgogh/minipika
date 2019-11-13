@@ -135,42 +135,4 @@ public class ParseModel {
         System.out.println();
     }
 
-    /*
-
-        if (type.equals("java.long.Integer")) {
-
-        }
-        if (type.equals("java.long.Long")) {
-
-        }
-        if (type.equals("java.long.Short")) {
-
-        }
-        if (type.equals("java.long.Float")) {
-
-        }
-        if (type.equals("java.long.Double")) {
-
-        }
-        if (type.equals("java.long.Byte")) {
-
-        }
-        if (type.equals("java.long.Boolean")) {
-
-        }
-        if (type.equals("java.math.BigDecimal")) {
-
-        }
-        if (type.equals("java.math.BigInteger")) {
-
-        }
-        if (type.equals("java.math.BigInteger")) {
-
-        }
-        if (type.equals("java.util.Date")) {
-
-        }
-
-     */
-
 }
