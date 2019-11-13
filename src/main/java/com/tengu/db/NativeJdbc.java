@@ -1,5 +1,6 @@
 package com.tengu.db;
 
+import com.tengu.model.TenguResultSet;
 import com.tengu.pool.ConnectionPool;
 
 import java.sql.Connection;
@@ -15,19 +16,40 @@ import java.sql.SQLException;
  */
 public class NativeJdbc implements NativeJdbcService {
 
+    private static NativeJdbc njdbc;
     private final ConnectionPool pool = ConnectionPool.getPool();
 
+    public static NativeJdbc getJdbc() {
+        if (njdbc == null) njdbc = new NativeJdbc();
+        return njdbc;
+    }
+
     @Override
-    public ResultSet executeQuery(String sql, Object... args) {
+    public TenguResultSet executeQuery(String sql, Object... args) {
         try (
                 Connection connection = pool.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);
-                ResultSet resultSet = statement.executeQuery();
         ) {
-
+            ResultSet resultSet = setValues(statement, args).executeQuery();
+            return new TenguResultSet(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
+
+    public PreparedStatement setValues(PreparedStatement statement, Object... args) {
+        try {
+            if (args != null) {
+                for (int i = 0; i < args.length; i++) {
+                    statement.setObject((i + 1), args[i]);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return statement;
+    }
+
+
 }

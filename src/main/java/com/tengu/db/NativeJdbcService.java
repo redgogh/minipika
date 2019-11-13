@@ -1,6 +1,6 @@
 package com.tengu.db;
 
-import java.sql.ResultSet;
+import com.tengu.model.TenguResultSet;
 
 /**
  * @author 404NotFoundx
@@ -16,6 +16,6 @@ public interface NativeJdbcService {
      * @param args
      * @return
      */
-    ResultSet executeQuery(String sql,Object... args);
+    TenguResultSet executeQuery(String sql, Object... args);
 
 }
