@@ -5,6 +5,7 @@ import com.tengu.db.JdbcTemplate;
 import com.tengu.exception.ParseException;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 检测实体是否新增了字段
@@ -16,14 +17,16 @@ import java.util.List;
 public class CheckModelColumn {
 
 
-    public void check(Class<?> target) throws ParseException {
+    public static void check(Class<?> target) throws ParseException {
 
         if(target.isAnnotationPresent(Model.class)){
 
             Model model = target.getDeclaredAnnotation(Model.class);
             String table = model.value();
             List<String> inDbColumns = JdbcTemplate.getTemplate().getColumns(table);
-            List<String> inMessageColumns = ModelMessage.getMessages().get(table).getColumns();
+            Map<String,String> inMessageColumns = ModelMessage.getMessages().get(table).getColumns();
+
+            System.out.println();
 
         }else{
             throw new ParseException("没有@Model注解");
