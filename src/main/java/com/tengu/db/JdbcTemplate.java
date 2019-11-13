@@ -167,6 +167,11 @@ public class JdbcTemplate {
         return columns;
     }
 
+    /**
+     * 执行自定义SQL
+     * @param sql
+     * @return
+     */
     public boolean execute(String sql) {
         boolean r = false;
         try {

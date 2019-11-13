@@ -35,9 +35,14 @@ public class ModelMessage {
     private String createTableSql;
 
     /**
-     * 表的所有字段
+     * 字段名
      */
     private List<String> columns;
+
+    /**
+     * 所有字段脚本
+     */
+    private List<String> columnsScript;
 
     public static void setMessages(String key,ModelMessage value){
         messages.put(key,value);
@@ -53,6 +58,14 @@ public class ModelMessage {
 
     public void setColumns(List<String> columns) {
         this.columns = columns;
+    }
+
+    public List<String> getColumnsScript() {
+        return columnsScript;
+    }
+
+    public void setColumnsScript(List<String> columnsScript) {
+        this.columnsScript = columnsScript;
     }
 
     public String getTableName() {

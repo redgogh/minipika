@@ -25,16 +25,17 @@ public class ParseModel {
      * @param target 目标实体类
      */
     public ModelMessage enhance(Class<?> target) throws TenguException {
-        String tableName = null; // 表名
-        ModelMessage message = new ModelMessage();
-        StringBuilder script = new StringBuilder();
-        List<String> columns = new ArrayList<>();
+        String              tableName               = null;                             // 表名
+        ModelMessage        message                 = new ModelMessage();               // 完整sql
+        StringBuilder       script                  = new StringBuilder();              // sql代码
+        List<String>        columns                 = new ArrayList<>();                // 字段名
+        List<String>        columnsScript           = new ArrayList<>();                // 字段脚本
         script.append("create table if not exists");
         // 判断实体类有没有Model注解
         tableName = model(target, message);
         script.append(" `").append(tableName).append("`\n").append("(\n"); // 开头
         // 解析字段
-        field(target, message, script,columns);
+        field(target, message, script,columnsScript,columns);
         // 结尾
         if (script.charAt(script.length() - 2) == ',') {
             script.deleteCharAt(script.length() - 2);
@@ -44,7 +45,7 @@ public class ParseModel {
         script.append("\tCOLLATE = utf8_general_ci\n");
         script.append("\tAUTO_INCREMENT = 1;");
         message.setCreateTableSql(script.toString());
-        message.setColumns(columns);
+        message.setColumns(columnsScript);
         return message;
     }
 
@@ -74,11 +75,12 @@ public class ParseModel {
      * @param message
      * @throws ParseException
      */
-    public void field(Class<?> target, ModelMessage message, StringBuilder script,List<String> columns) throws ParseException {
+    public void field(Class<?> target, ModelMessage message, StringBuilder script,List<String> columnsScript,List<String> columns) throws ParseException {
         String primaryKey = "";
         Field[] fields = target.getDeclaredFields();
         for (Field field : fields) {
             String columnName = TenguUtils.humpToUnderline(field.getName());
+            columns.add(columnName);
             StringBuilder tableColumn = new StringBuilder(columnName); // 字段
             tableColumn.insert(0, "`").append("`");
             // 字段声明
@@ -113,7 +115,7 @@ public class ParseModel {
                 tableColumn.append(" ").append("comment '").append(comment.value()).append("'");
             }
             script.append("\t").append(tableColumn).append(",\n");
-            columns.add(tableColumn.toString());
+            columnsScript.add(tableColumn.toString());
         }
         script.append(primaryKey);
     }
