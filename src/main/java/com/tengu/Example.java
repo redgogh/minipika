@@ -25,7 +25,7 @@ public class Example {
         String sql = "select * from test";
 
         NativeJdbc jdbc = NativeJdbc.getJdbc();
-        TenguResultSet set = jdbc.executeQuery("select * from test where id = 1");
+        TenguResultSet set = jdbc.executeQuery("select * from test where id = ?",1);
 
         // JdbcFunction.getTemplate().getColumns("user_model");
         CheckModelColumn.check(UserModel.class);

@@ -29,8 +29,8 @@ public class NativeJdbc implements NativeJdbcService {
         try (
                 Connection connection = pool.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);
+                ResultSet resultSet = setValues(statement, args).executeQuery();
         ) {
-            ResultSet resultSet = setValues(statement, args).executeQuery();
             return new TenguResultSet(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
