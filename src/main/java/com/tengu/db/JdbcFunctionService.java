@@ -11,7 +11,7 @@ import java.util.List;
  */
  interface JdbcFunctionService {
 
-     <T> T queryForObject(String sql, T obj, Object... args);
+     <T> T queryForObject(String sql, Class<T> obj, Object... args);
 
     /**
      * 查询多个结果
@@ -21,7 +21,7 @@ import java.util.List;
      * @param <T>
      * @return 封装好的结果集
      */
-     <T> List<T> queryForList(String sql, T obj, Object... args);
+     <T> List<T> queryForList(String sql, Class<T> obj, Object... args);
 
     /**
      * 更新所有实体类中的所有数据，但不包括为空的数据。

@@ -79,7 +79,7 @@ public class Config {
         while (iter.hasNext()) {
             Map.Entry<String, ModelMessage> entry = (Map.Entry<String, ModelMessage>) iter.next();
             ModelMessage message = entry.getValue();
-            JdbcFunction.getTemplate().execute(message.getCreateTableSql());
+            JdbcFunction.getFunction().execute(message.getCreateTableSql());
         }
     }
 
@@ -94,7 +94,7 @@ public class Config {
             if (target.isAnnotationPresent(Model.class)) {
                 Model model = target.getDeclaredAnnotation(Model.class);
                 String table = model.value();
-                List<String> inDbColumns = JdbcFunction.getTemplate().getColumns(table);
+                List<String> inDbColumns = JdbcFunction.getFunction().getColumns(table);
                 ModelMessage message = ModelMessage.getMessages().get(table);
                 Map<String, String> inMessageColumns = message.getColumns();
                 Iterator iter = inMessageColumns.entrySet().iterator();

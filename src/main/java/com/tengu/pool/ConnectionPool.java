@@ -73,13 +73,11 @@ public class ConnectionPool {
                                 if (!"close".equals(method.getName())) {
                                     return method.invoke(connection, args);
                                 } else {
-                                    System.out.println("------------------------------|- 归还链接前剩余链接有：" + conns.size() + "个");
                                     if (conns.size() <= MAX_SIZE) {
                                         conns.add(connection);
                                     } else {
                                         connection.close();
                                     }
-                                    System.out.println("------------------------------|- 当前链接池中剩余链接还有：" + conns.size() + "个");
                                     return null;
                                 }
                             }

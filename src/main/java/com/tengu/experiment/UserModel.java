@@ -46,4 +46,17 @@ public class UserModel {
     @Ignore
     private String name;
 
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", userAge=" + userAge +
+                ", address='" + address + '\'' +
+                ", googleEmail='" + googleEmail + '\'' +
+                ", productName='" + productName + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

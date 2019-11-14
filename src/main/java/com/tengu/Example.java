@@ -1,5 +1,6 @@
 package com.tengu;
 
+import com.tengu.db.JdbcFunction;
 import com.tengu.db.NativeJdbc;
 import com.tengu.experiment.UserModel;
 import com.tengu.model.TenguResultSet;
@@ -22,15 +23,19 @@ public class Example {
 
     public static void main(String[] args) throws Throwable {
 
-        String sql = "select * from user_model";
+        String listSQL = "select * from user_model";
+        String singleSQL = "select * from user_model where id = ?";
 
-        NativeJdbc jdbc = NativeJdbc.getJdbc();
+        List<UserModel> models = JdbcFunction.getFunction().queryForList(listSQL,UserModel.class);
+        UserModel model = JdbcFunction.getFunction().queryForObject(singleSQL,UserModel.class,1);
 
-        TenguResultSet rset = jdbc.executeQuery(sql);
+        System.out.println(model.toString());
 
-        UserModel models = rset.conversionJavaBean(UserModel.class);
+        System.out.println("\n=============================================\n");
 
-        System.out.println();
+        for(UserModel m : models){
+            System.out.println(m.toString());
+        }
 
     }
 

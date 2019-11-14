@@ -20,10 +20,11 @@ import java.util.List;
 public class JdbcFunction implements JdbcFunctionService {
 
     private static JdbcFunction template;
+    private static NativeJdbc nativeJdbc = NativeJdbc.getJdbc();
 
     private ConnectionPool pool = ConnectionPool.getPool();
 
-    public static JdbcFunction getTemplate() {
+    public static JdbcFunction getFunction() {
         if (template == null) {
             template = new JdbcFunction();
         }
@@ -31,22 +32,13 @@ public class JdbcFunction implements JdbcFunctionService {
     }
 
     @Override
-    public <T> T queryForObject(String sql, T obj, Object... args) {
-        return null;
+    public <T> T queryForObject(String sql, Class<T> obj, Object... args) {
+        return nativeJdbc.executeQuery(sql,args).conversionJavaBean(obj);
     }
 
     @Override
-    public <T> List<T> queryForList(String sql, T obj, Object... args) {
-        List<T> list = new LinkedList<>();
-        try (
-                Connection connection = pool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);
-        ) {
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
+    public <T> List<T> queryForList(String sql, Class<T> obj, Object... args) {
+        return nativeJdbc.executeQuery(sql,args).conversionJavaList(obj);
     }
 
     @Override
