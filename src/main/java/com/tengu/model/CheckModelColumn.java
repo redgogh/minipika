@@ -2,6 +2,7 @@ package com.tengu.model;
 
 import com.tengu.annotation.Model;
 import com.tengu.db.JdbcFunction;
+import com.tengu.db.NativeJdbc;
 import com.tengu.exception.ParseException;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.Map;
  */
 public class CheckModelColumn {
 
+    private static final String ADD_COLUMN_SCRIPT = "ALTER TABLE `%s` ADD %s;";
 
     public static void check(Class<?> target) throws ParseException {
 
@@ -28,18 +30,17 @@ public class CheckModelColumn {
             Model model = target.getDeclaredAnnotation(Model.class);
             String table = model.value();
             List<String> inDbColumns = JdbcFunction.getTemplate().getColumns(table);
-            Map<String,String> inMessageColumns = ModelMessage.getMessages().get(table).getColumns();
+            ModelMessage message = ModelMessage.getMessages().get(table);
+            Map<String,String> inMessageColumns = message.getColumns();
 
-            int temp = 0;
             Iterator iter = inMessageColumns.entrySet().iterator();
             while(iter.hasNext()){
                 Map.Entry<String,String> entry = (Map.Entry<String, String>) iter.next();
-                String indb = inDbColumns.get(temp);
-                if(!indb.equals(entry.getKey())){
-                    script.add(entry.getValue());
-                    continue;
+                String key = entry.getKey();
+                if(!inDbColumns.contains(key)){
+                    String executeScript = String.format(ADD_COLUMN_SCRIPT,message.getTableName(),entry.getValue());
+                    NativeJdbc.getJdbc().execute(executeScript);
                 }
-                temp++;
             }
 
             System.out.println();

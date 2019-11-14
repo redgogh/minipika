@@ -65,7 +65,7 @@ public class TenguResultSet {
      * @return
      * @throws Exception
      */
-    public <T> T conversion(Class<T> target) {
+    public <T> T conversionJavaModel(Class<T> target) {
         List<String> names = new ArrayList<>();
         T model = null;
         try {

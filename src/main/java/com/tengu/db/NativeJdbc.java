@@ -25,11 +25,24 @@ public class NativeJdbc implements NativeJdbcService {
     }
 
     @Override
+    public boolean execute(String sql, Object... args) {
+        try (
+                Connection connection = pool.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            return setValues(statement, args).execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public TenguResultSet executeQuery(String sql, Object... args) {
         try (
                 Connection connection = pool.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);
-                ResultSet resultSet = setValues(statement, args).executeQuery();
+                ResultSet resultSet = setValues(statement, args).executeQuery()
         ) {
             return new TenguResultSet(resultSet);
         } catch (SQLException e) {
@@ -38,6 +51,12 @@ public class NativeJdbc implements NativeJdbcService {
         return null;
     }
 
+    /**
+     * 设置参数并返回statement
+     * @param statement
+     * @param args
+     * @return
+     */
     public PreparedStatement setValues(PreparedStatement statement, Object... args) {
         try {
             if (args != null) {
