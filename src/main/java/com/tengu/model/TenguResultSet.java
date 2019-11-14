@@ -40,12 +40,10 @@ public class TenguResultSet {
      */
     public TenguResultSet buildResultSet(ResultSet rset) {
         try {
-            int count = rset.getRow();
-            resultSet = new ArrayList<>(count);
-            rset.next();
+            resultSet = new ArrayList<>();
             ResultSetMetaData mdata = rset.getMetaData();
             int len = mdata.getColumnCount();
-            for (int i = 0; i < count; i++) {
+            while(rset.next()){
                 Map<String, String> resultMap = new LinkedHashMap<>(len);
                 for (int j = 0; j < len; j++) {
                     String name = mdata.getColumnName(j + 1);
@@ -53,8 +51,8 @@ public class TenguResultSet {
                     resultMap.put(name, value);
                 }
                 resultSet.add(resultMap);
-
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

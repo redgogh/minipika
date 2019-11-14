@@ -25,6 +25,10 @@ public class UserModel {
     @Comment("用户密码")
     private String password;
 
+    @Column("int(11) not null default 18")
+    @Comment("用户年龄")
+    private Integer userAge;
+
     // google_email
     @Column("varchar(255) not null default 'NoEmail'")
     @Comment("Google邮箱")

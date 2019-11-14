@@ -1,12 +1,14 @@
 package com.tengu;
 
 import com.tengu.db.NativeJdbc;
+import com.tengu.experiment.UserModel;
 import com.tengu.model.TenguResultSet;
 import com.tengu.pool.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 /**
  * @author 404NotFoundx
@@ -20,11 +22,13 @@ public class Example {
 
     public static void main(String[] args) throws Throwable {
 
-        String sql = "select * from test";
+        String sql = "select * from user_model";
 
         NativeJdbc jdbc = NativeJdbc.getJdbc();
 
         TenguResultSet rset = jdbc.executeQuery(sql);
+
+        UserModel models = rset.conversionJavaBean(UserModel.class);
 
         System.out.println();
 
