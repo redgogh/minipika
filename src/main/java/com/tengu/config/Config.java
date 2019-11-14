@@ -1,15 +1,16 @@
 package com.tengu.config;
 
+import com.tengu.annotation.Model;
 import com.tengu.db.JdbcFunction;
+import com.tengu.db.NativeJdbc;
+import com.tengu.exception.ParseException;
 import com.tengu.model.ModelMessage;
 import com.tengu.model.ParseModel;
 import com.tengu.tools.StringUtils;
 import com.tengu.tools.TenguUtils;
 
 import java.io.InputStream;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * 读取配置
@@ -48,13 +49,29 @@ public class Config {
     // 数据库名
     private static String dbname;
 
+    // 添加字段
+    private static final String ADD_COLUMN_SCRIPT = "ALTER TABLE `%s` ADD %s;";
+
     static {
-        String temp = url;
-        for (int i = 0; i < 3; i++) {
-            temp = temp.substring(temp.indexOf("/") + 1);
+        try {
+            String temp = url;
+            for (int i = 0; i < 3; i++) {
+                temp = temp.substring(temp.indexOf("/") + 1);
+            }
+            dbname = temp.substring(0, temp.indexOf("?"));
+            // 解析model
+            parseModel();
+            // 对字段进行检查
+            checkNewColumns();
+        } catch (Throwable e) {
+            e.printStackTrace();
         }
-        dbname = temp.substring(0,temp.indexOf("?"));
-        // 对Model进行解析
+    }
+
+    /**
+     * 解析model
+     */
+    private static void parseModel() {
         ParseModel parseModel = new ParseModel();
         parseModel.parse(TenguUtils.getModels());
         Map<String, ModelMessage> messages = ModelMessage.getMessages();
@@ -63,6 +80,35 @@ public class Config {
             Map.Entry<String, ModelMessage> entry = (Map.Entry<String, ModelMessage>) iter.next();
             ModelMessage message = entry.getValue();
             JdbcFunction.getTemplate().execute(message.getCreateTableSql());
+        }
+    }
+
+    /**
+     * 检测是否有新增的字段
+     *
+     * @throws ParseException
+     */
+    private static void checkNewColumns() throws ParseException {
+        List<Class<?>> models = TenguUtils.getModels();
+        for (Class<?> target : models) {
+            if (target.isAnnotationPresent(Model.class)) {
+                Model model = target.getDeclaredAnnotation(Model.class);
+                String table = model.value();
+                List<String> inDbColumns = JdbcFunction.getTemplate().getColumns(table);
+                ModelMessage message = ModelMessage.getMessages().get(table);
+                Map<String, String> inMessageColumns = message.getColumns();
+                Iterator iter = inMessageColumns.entrySet().iterator();
+                while (iter.hasNext()) {
+                    Map.Entry<String, String> entry = (Map.Entry<String, String>) iter.next();
+                    String key = entry.getKey();
+                    if (!inDbColumns.contains(key)) {
+                        String executeScript = String.format(ADD_COLUMN_SCRIPT, message.getTableName(), entry.getValue());
+                        NativeJdbc.getJdbc().execute(executeScript);
+                    }
+                }
+            } else {
+                throw new ParseException("没有@Model注解");
+            }
         }
     }
 
