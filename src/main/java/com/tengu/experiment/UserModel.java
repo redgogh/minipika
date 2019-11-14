@@ -29,6 +29,10 @@ public class UserModel {
     @Comment("用户年龄")
     private Integer userAge;
 
+    @Column("varchar(255) not null default '地球'")
+    @Comment("地址")
+    private String address;
+
     // google_email
     @Column("varchar(255) not null default 'NoEmail'")
     @Comment("Google邮箱")

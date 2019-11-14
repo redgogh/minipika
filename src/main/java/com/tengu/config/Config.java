@@ -50,7 +50,7 @@ public class Config {
     private static String dbname;
 
     // 添加字段
-    private static final String ADD_COLUMN_SCRIPT = "ALTER TABLE `%s` ADD %s;";
+    private static final String ADD_COLUMN_SCRIPT = "ALTER TABLE `%s` ADD %s after `%s`;";
 
     static {
         try {
@@ -98,13 +98,15 @@ public class Config {
                 ModelMessage message = ModelMessage.getMessages().get(table);
                 Map<String, String> inMessageColumns = message.getColumns();
                 Iterator iter = inMessageColumns.entrySet().iterator();
+                String previousKey = null;
                 while (iter.hasNext()) {
                     Map.Entry<String, String> entry = (Map.Entry<String, String>) iter.next();
                     String key = entry.getKey();
                     if (!inDbColumns.contains(key)) {
-                        String executeScript = String.format(ADD_COLUMN_SCRIPT, message.getTableName(), entry.getValue());
+                        String executeScript = String.format(ADD_COLUMN_SCRIPT, message.getTableName(), entry.getValue(),previousKey);
                         NativeJdbc.getJdbc().execute(executeScript);
                     }
+                    previousKey = key;
                 }
             } else {
                 throw new ParseException("没有@Model注解");
