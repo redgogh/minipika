@@ -38,10 +38,10 @@ public class ParseModel {
         if (script.charAt(script.length() - 2) == ',') {
             script.deleteCharAt(script.length() - 2);
         }
-        script.append(") ENGINE = InnoDB ");
-        script.append(" DEFAULT CHARACTER SET = utf8 ");
-        script.append(" COLLATE = utf8_general_ci ");
-        script.append(" AUTO_INCREMENT = 1; ");
+        script.append(") ENGINE = InnoDB\n");
+        script.append("\tDEFAULT CHARACTER SET = utf8\n");
+        script.append("\tCOLLATE = utf8_general_ci\n");
+        script.append("\tAUTO_INCREMENT = 1;");
         message.setCreateTableSql(script.toString());
         message.setColumns(columns);
         return message;
