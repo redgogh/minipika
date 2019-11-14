@@ -42,13 +42,26 @@ public class NativeJdbc implements NativeJdbcService {
         try (
                 Connection connection = pool.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);
-                ResultSet resultSet = setValues(statement, args).executeQuery()
+                ResultSet resultSet = setValues(statement, args).executeQuery();
         ) {
             return new TenguResultSet(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public int executeUpdate(String sql, Object... args) {
+        try (
+                Connection connection = pool.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            return setValues(statement, args).executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     /**

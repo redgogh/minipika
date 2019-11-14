@@ -1,5 +1,6 @@
 package com.tengu.model;
 
+import com.mysql.cj.protocol.ResultsetRow;
 import com.tengu.annotation.Ignore;
 import com.tengu.exception.TenguException;
 import com.tengu.tools.TenguUtils;
@@ -20,7 +21,7 @@ import java.util.*;
  */
 public class TenguResultSet {
 
-    private Map<String, String> resultSet;
+    private List<Map<String, String>> resultSet;
     private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public TenguResultSet() {
@@ -39,14 +40,20 @@ public class TenguResultSet {
      */
     public TenguResultSet buildResultSet(ResultSet rset) {
         try {
+            int count = rset.getRow();
+            resultSet = new ArrayList<>(count);
             rset.next();
             ResultSetMetaData mdata = rset.getMetaData();
             int len = mdata.getColumnCount();
-            resultSet = new LinkedHashMap<>(len); // 初始化Map
-            for (int i = 0; i < len; i++) {
-                String name = mdata.getColumnName(i + 1);
-                String value = rset.getString(name);
-                resultSet.put(name, value);
+            for (int i = 0; i < count; i++) {
+                Map<String, String> resultMap = new LinkedHashMap<>(len);
+                for (int j = 0; j < len; j++) {
+                    String name = mdata.getColumnName(j + 1);
+                    String value = rset.getString(name);
+                    resultMap.put(name, value);
+                }
+                resultSet.add(resultMap);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,24 +61,24 @@ public class TenguResultSet {
         return this;
     }
 
-    public Map<String, String> getResultSet() {
-        return this.resultSet;
-    }
-
     /**
      * 将查询的结果转换为实体类
+     *
      * @param target
      * @param <T>
      * @return
      * @throws Exception
      */
-    public <T> T conversionJavaModel(Class<T> target) {
+    public <T> T conversionJavaBean(Class<T> target) {
+        Map<String, String> resultMap = null;
         List<String> names = new ArrayList<>();
         T model = null;
         try {
+            if (resultSet.isEmpty()) return null;
+            resultMap = resultSet.get(0);
             model = target.newInstance();
             for (Field field : target.getDeclaredFields()) names.add(field.getName());
-            for (Map.Entry<String, String> v : resultSet.entrySet()) {
+            for (Map.Entry<String, String> v : resultMap.entrySet()) {
                 String hump = TenguUtils.UnderlineToHump(v.getKey());
                 if (!names.contains(hump)) continue;                                 // 判断Model中是否含有hump字段
                 Field field = target.getDeclaredField(hump);
@@ -83,6 +90,38 @@ public class TenguResultSet {
             e.printStackTrace();
         }
         return model;
+    }
+
+    /**
+     * 将查询的结果转换为实体集合
+     *
+     * @param target
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    public <T> List<T> conversionJavaList(Class<T> target) {
+        List<T> models = new ArrayList<>();
+        List<String> names = new ArrayList<>();
+        try {
+            if (resultSet.isEmpty()) return null;
+            for (Field field : target.getDeclaredFields()) names.add(field.getName());
+            for (Map<String, String> resultMap : resultSet) {
+                T model = target.newInstance();
+                for (Map.Entry<String, String> v : resultMap.entrySet()) {
+                    String hump = TenguUtils.UnderlineToHump(v.getKey());
+                    if (!names.contains(hump)) continue;                                 // 判断Model中是否含有hump字段
+                    Field field = target.getDeclaredField(hump);
+                    if (field.isAnnotationPresent(Ignore.class)) continue;               // 判断字段是否存在Ignore注解
+                    field.setAccessible(true);
+                    setValue(field, v.getValue(), model);
+                }
+                models.add(model);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return models;
     }
 
     public void setValue(Field field, String v, Object model) throws Exception {

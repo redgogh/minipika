@@ -1,6 +1,7 @@
 package com.tengu;
 
 import com.tengu.db.NativeJdbc;
+import com.tengu.model.TenguResultSet;
 import com.tengu.pool.ConnectionPool;
 
 import java.sql.Connection;
@@ -22,10 +23,8 @@ public class Example {
         String sql = "select * from test";
 
         NativeJdbc jdbc = NativeJdbc.getJdbc();
-        // TenguResultSet resultSet = jdbc.executeQuery("select * from user_model where id = ?",1);
-        // UserModel model = resultSet.conversionJavaModel(UserModel.class);
-        // JdbcFunction.getTemplate().getColumns("user_model");
-        // execute(connection, sql);
+
+        TenguResultSet rset = jdbc.executeQuery(sql);
 
         System.out.println();
 
