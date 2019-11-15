@@ -58,7 +58,7 @@ import java.util.List;
      * @param model 实体类
      * @return 更新条数
      */
-     <T> Integer insert(T model);
+     Integer insert(Object model);
 
     /**
      * 通过sql语句进行删除
@@ -67,13 +67,6 @@ import java.util.List;
      * @return 更新条数
      */
      Integer delete(String sql, Object... args);
-
-    /**
-     * 根据主键进行删除
-     * @param id 主键
-     * @return 更新条数
-     */
-     Integer delete(String id);
 
     /**
      * 查询某张表所有字段

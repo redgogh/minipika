@@ -37,16 +37,31 @@ public class JdbcFunction implements JdbcFunctionService {
 
     @Override
     public <T> T queryForObject(String sql, Class<T> obj, Object... args) {
-        return nativeJdbc.executeQuery(sql,args).conversionJavaBean(obj);
+        return nativeJdbc.executeQuery(sql, args).conversionJavaBean(obj);
     }
 
     @Override
     public <T> List<T> queryForList(String sql, Class<T> obj, Object... args) {
-        return nativeJdbc.executeQuery(sql,args).conversionJavaList(obj);
+        return nativeJdbc.executeQuery(sql, args).conversionJavaList(obj);
     }
 
     @Override
     public Integer update(Object obj) {
+        return 0;
+    }
+
+    @Override
+    public Integer update(String sql, Object... args) {
+        return nativeJdbc.executeUpdate(sql, args);
+    }
+
+    @Override
+    public Integer updateDoNULL(Object obj) {
+        return null;
+    }
+
+    @Override
+    public Integer insert(Object obj) {
         String script = "";
         List<Object> param = new ArrayList<>();
         try {
@@ -62,52 +77,32 @@ public class JdbcFunction implements JdbcFunctionService {
             for (Field field : target.getDeclaredFields()) {
                 field.setAccessible(true);
                 Object v = field.get(obj);
-                if(v != null){
+                if (v != null) {
                     into.append("`").append(TenguUtils.humpToUnderline(field.getName())).append("`,");
                     values.append("?,");
                     param.add(v);
                 }
             }
-            into.deleteCharAt((into.length()-1));
+            into.deleteCharAt((into.length() - 1));
             into.append(")");
-            values.deleteCharAt((values.length()-1));
+            values.deleteCharAt((values.length() - 1));
             values.append(")");
             script = into.append(values).toString();
-            return nativeJdbc.executeUpdate(script,param.toArray());
-        }catch (Exception e){
+            return nativeJdbc.executeUpdate(script, param.toArray());
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return 0;
     }
 
     @Override
-    public Integer update(String sql, Object... args) {
-        return null;
-    }
-
-    @Override
-    public Integer updateDoNULL(Object obj) {
-        return null;
-    }
-
-    @Override
     public Integer insert(String sql, Object... args) {
-        return null;
-    }
-
-    @Override
-    public <T> Integer insert(T model) {
-        return null;
+        return nativeJdbc.executeUpdate(sql,args);
     }
 
     @Override
     public Integer delete(String sql, Object... args) {
-        return null;
-    }
-
-    @Override
-    public Integer delete(String id) {
-        return null;
+        return nativeJdbc.executeUpdate(sql,args);
     }
 
     @Override
