@@ -10,6 +10,8 @@ import java.sql.Driver;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Properties;
+import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 连接池
@@ -41,7 +43,7 @@ public class ConnectionPool {
      */
     private static int MAX_SIZE = Config.getMaxSize();
 
-    private static LinkedList<Connection> conns;
+    private static Vector<Connection> conns;
 
     static {
         for (int i = 0; i < MIN_SIZE; i++) {
@@ -62,43 +64,41 @@ public class ConnectionPool {
      * @return
      */
     public Connection getConnection() {
-        if(conns == null) conns = new LinkedList<>();
-        synchronized (conns) {
-            if (!conns.isEmpty()) {
-                Iterator<Connection> iter = conns.listIterator();
-                iter.hasNext();
-                Connection tempConnection = iter.next();
-                if(tempConnection == null && conns.size() < MAX_SIZE){
-                    tempConnection = createConnection();
-                }
-                final Connection connection = tempConnection;
-                iter.remove();
-                return (Connection) Proxy.newProxyInstance(ConnectionPool.class.getClassLoader(),
-                        connection.getClass().getInterfaces(),
-                        new InvocationHandler() {
-                            @Override
-                            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                                if (!"close".equals(method.getName())) {
-                                    return method.invoke(connection, args);
+        if (conns == null) conns = new Vector<>();
+        if (!conns.isEmpty()) {
+            Iterator<Connection> iter = conns.listIterator();
+            iter.hasNext();
+            Connection tempConnection = iter.next();
+            if (tempConnection == null && conns.size() < MAX_SIZE) {
+                tempConnection = createConnection();
+            }
+            final Connection connection = tempConnection;
+            iter.remove();
+            return (Connection) Proxy.newProxyInstance(ConnectionPool.class.getClassLoader(),
+                    connection.getClass().getInterfaces(),
+                    new InvocationHandler() {
+                        @Override
+                        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                            if (!"close".equals(method.getName())) {
+                                return method.invoke(connection, args);
+                            } else {
+                                System.out.println("------------------------------|- 归还链接前剩余链接有：" + conns.size() + "个");
+                                if (conns.size() <= MAX_SIZE) {
+                                    conns.add(connection);
                                 } else {
-                                    System.out.println("------------------------------|- 归还链接前剩余链接有：" + conns.size() + "个");
-                                    if (conns.size() <= MAX_SIZE) {
-                                        conns.add(connection);
-                                    } else {
-                                        connection.close();
-                                    }
-                                    System.out.println("------------------------------|- 当前链接池中剩余链接还有：" + conns.size() + "个");
-                                    return null;
+                                    connection.close();
                                 }
+                                System.out.println("------------------------------|- 当前链接池中剩余链接还有：" + conns.size() + "个");
+                                return null;
                             }
-                        });
+                        }
+                    });
+        } else {
+            if (conns.size() <= MAX_SIZE) {
+                conns.add(createConnection());
+                return getConnection();
             } else {
-                if (conns.size() <= MAX_SIZE) {
-                    conns.add(createConnection());
-                    return getConnection();
-                } else {
-                    throw new RuntimeException("数据库链接繁忙，请稍后再试。");
-                }
+                throw new RuntimeException("数据库链接繁忙，请稍后再试。");
             }
         }
     }
