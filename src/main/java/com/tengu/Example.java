@@ -1,11 +1,10 @@
 package com.tengu;
 
 import com.tengu.db.JdbcFunction;
-import com.tengu.db.NativeJdbc;
 import com.tengu.experiment.UserModel;
-import com.tengu.model.TenguResultSet;
 import com.tengu.pool.ConnectionPool;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,6 +35,15 @@ public class Example {
         for(UserModel m : models){
             System.out.println(m.toString());
         }
+
+        UserModel userModel = new UserModel();
+        userModel.setUserName("刘备");
+        userModel.setPassword("liubei123");
+        userModel.setGoogleEmail("liubei@gmail");
+        userModel.setUserAge(60);
+
+        int sum = JdbcFunction.getFunction().update(userModel);
+        System.out.println("update: " + sum);
 
     }
 

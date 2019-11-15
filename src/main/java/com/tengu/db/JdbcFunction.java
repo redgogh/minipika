@@ -1,8 +1,12 @@
 package com.tengu.db;
 
+import com.sun.org.apache.bcel.internal.generic.ObjectType;
+import com.tengu.annotation.Model;
 import com.tengu.config.Config;
 import com.tengu.pool.ConnectionPool;
+import com.tengu.tools.TenguUtils;
 
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,37 +46,67 @@ public class JdbcFunction implements JdbcFunctionService {
     }
 
     @Override
-    public Long update(Object obj) {
+    public Integer update(Object obj) {
+        String script = "";
+        List<Object> param = new ArrayList<>();
+        try {
+            StringBuffer into = new StringBuffer("insert into ");
+            StringBuffer values = new StringBuffer(" values ");
+            Class<?> target = obj.getClass();
+            if (target.isAnnotationPresent(Model.class)) {
+                Model model = target.getDeclaredAnnotation(Model.class);
+                into.append("`").append(model.value()).append("`");
+            }
+            into.append("(");
+            values.append("(");
+            for (Field field : target.getDeclaredFields()) {
+                field.setAccessible(true);
+                Object v = field.get(obj);
+                if(v != null){
+                    into.append("`").append(TenguUtils.humpToUnderline(field.getName())).append("`,");
+                    values.append("?,");
+                    param.add(v);
+                }
+            }
+            into.deleteCharAt((into.length()-1));
+            into.append(")");
+            values.deleteCharAt((values.length()-1));
+            values.append(")");
+            script = into.append(values).toString();
+            return nativeJdbc.executeUpdate(script,param.toArray());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public Integer update(String sql, Object... args) {
         return null;
     }
 
     @Override
-    public Long update(String sql, Object... args) {
+    public Integer updateDoNULL(Object obj) {
         return null;
     }
 
     @Override
-    public Long updateDoNULL(Object obj) {
+    public Integer insert(String sql, Object... args) {
         return null;
     }
 
     @Override
-    public Long insert(String sql, Object... args) {
+    public <T> Integer insert(T model) {
         return null;
     }
 
     @Override
-    public <T> Long insert(T model) {
+    public Integer delete(String sql, Object... args) {
         return null;
     }
 
     @Override
-    public Long delete(String sql, Object... args) {
-        return null;
-    }
-
-    @Override
-    public Long delete(String id) {
+    public Integer delete(String id) {
         return null;
     }
 

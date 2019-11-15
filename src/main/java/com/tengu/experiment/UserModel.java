@@ -1,6 +1,7 @@
 package com.tengu.experiment;
 
 import com.tengu.annotation.*;
+import lombok.Data;
 
 /**
  * @author 404NotFoundx
@@ -8,6 +9,7 @@ import com.tengu.annotation.*;
  * @date 2019/11/12 9:51
  * @since 1.8
  */
+@Data
 @Model("user_model")
 public class UserModel {
 
