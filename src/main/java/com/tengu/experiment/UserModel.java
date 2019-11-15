@@ -37,6 +37,10 @@ public class UserModel {
     @Comment("地址")
     private String address;
 
+    @Column("varchar(500) not null")
+    @Comment("uuid")
+    private String uuid;
+
     // google_email
     @Column("varchar(255) not null default 'NoEmail'")
     @Comment("Google邮箱")
@@ -47,7 +51,7 @@ public class UserModel {
     @Comment("产品名称")
     private String productName;
 
-    @Column("datetime not null default now()")
+    @Column("datetime not null")
     @Comment("创建时间")
     private Date createTime;
 

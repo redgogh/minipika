@@ -15,4 +15,5 @@ public class ParseException extends TenguException {
     public ParseException(String message) {
         super(message);
     }
+
 }

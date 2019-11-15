@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.Driver;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Properties;
 
@@ -64,7 +65,14 @@ public class ConnectionPool {
         if(conns == null) conns = new LinkedList<>();
         synchronized (conns) {
             if (!conns.isEmpty()) {
-                final Connection connection = conns.removeFirst();
+                Iterator<Connection> iter = conns.listIterator();
+                iter.hasNext();
+                Connection tempConnection = iter.next();
+                if(tempConnection == null && conns.size() < MAX_SIZE){
+                    tempConnection = createConnection();
+                }
+                final Connection connection = tempConnection;
+                iter.remove();
                 return (Connection) Proxy.newProxyInstance(ConnectionPool.class.getClassLoader(),
                         connection.getClass().getInterfaces(),
                         new InvocationHandler() {
@@ -73,11 +81,13 @@ public class ConnectionPool {
                                 if (!"close".equals(method.getName())) {
                                     return method.invoke(connection, args);
                                 } else {
+                                    System.out.println("------------------------------|- 归还链接前剩余链接有：" + conns.size() + "个");
                                     if (conns.size() <= MAX_SIZE) {
                                         conns.add(connection);
                                     } else {
                                         connection.close();
                                     }
+                                    System.out.println("------------------------------|- 当前链接池中剩余链接还有：" + conns.size() + "个");
                                     return null;
                                 }
                             }
