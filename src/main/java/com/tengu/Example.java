@@ -3,10 +3,6 @@ package com.tengu;
 import com.tengu.db.JdbcFunction;
 import com.tengu.experiment.UserModel;
 import com.tengu.pool.ConnectionPool;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Date;
 import java.util.List;
 
 /**
