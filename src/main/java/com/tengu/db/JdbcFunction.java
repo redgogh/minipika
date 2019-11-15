@@ -1,6 +1,5 @@
 package com.tengu.db;
 
-import com.sun.org.apache.bcel.internal.generic.ObjectType;
 import com.tengu.annotation.Model;
 import com.tengu.config.Config;
 import com.tengu.pool.ConnectionPool;
@@ -12,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
