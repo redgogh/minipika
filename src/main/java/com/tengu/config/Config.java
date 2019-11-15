@@ -45,6 +45,8 @@ public class Config {
 
     // model包路径
     private static String modelPackage = getValue("tengu.model.package");
+    private static String modelCreateTable = getValue("tengu.model.create.table");
+    private static String modelCreateColumn = getValue("tengu.model.create.column");
 
     // 数据库名
     private static String dbname;

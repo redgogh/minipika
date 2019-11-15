@@ -11,6 +11,14 @@ import java.util.List;
  */
  interface JdbcFunctionService {
 
+    /**
+     * 查询并返回对象
+     * @param sql
+     * @param obj
+     * @param args
+     * @param <T>
+     * @return
+     */
      <T> T queryForObject(String sql, Class<T> obj, Object... args);
 
     /**
