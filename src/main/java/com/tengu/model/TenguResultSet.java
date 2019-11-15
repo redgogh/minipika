@@ -152,7 +152,7 @@ public class TenguResultSet {
             field.set(model, new BigInteger(v));
         }
         if (type.equals("java.util.Date")) {
-            field.set(model, formatter.format(v));
+            field.set(model, formatter.parse(v));
         }
         if (type.equals("java.lang.String")) {
             field.set(model, v);

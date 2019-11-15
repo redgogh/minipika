@@ -3,6 +3,8 @@ package com.tengu.experiment;
 import com.tengu.annotation.*;
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @author 404NotFoundx
  * @version 1.0.0
@@ -44,6 +46,10 @@ public class UserModel {
     @Column("varchar(255) not null default '敌敌畏'")
     @Comment("产品名称")
     private String productName;
+
+    @Column("datetime not null default now()")
+    @Comment("创建时间")
+    private Date createTime;
 
     @Ignore
     private String name;

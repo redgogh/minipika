@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,10 +38,11 @@ public class Example {
         }
 
         UserModel userModel = new UserModel();
-        userModel.setUserName("刘备");
-        userModel.setPassword("liubei123");
-        userModel.setGoogleEmail("liubei@gmail");
-        userModel.setUserAge(60);
+        userModel.setUserName("诸葛亮");
+        userModel.setPassword("zhugeliang123");
+        userModel.setGoogleEmail("zhugeliang@foxmail.com");
+        userModel.setUserAge(62);
+        userModel.setCreateTime(new Date());
 
         int sum = JdbcFunction.getFunction().update(userModel);
         System.out.println("update: " + sum);
