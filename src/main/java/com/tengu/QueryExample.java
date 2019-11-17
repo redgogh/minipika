@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2019/11/4 14:22
  * @since 1.8
  */
-public class Example {
+public class QueryExample {
 
     static ConnectionPool pool = ConnectionPool.getPool();
 
