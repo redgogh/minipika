@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.Driver;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.ReentrantLock;
@@ -35,23 +36,31 @@ public class ConnectionPool {
     /**
      * 连接池最小空间
      */
-    private static int MIN_SIZE = Config.getMinSize();
+    private static int MIN_SIZE;
 
     /**
      * 最大空间
      */
-    private static int MAX_SIZE = Config.getMaxSize();
+    private static int MAX_SIZE;
 
+    /**
+     * 链接创建总数
+     */
     private static int count = 0;
-
-    private ReentrantLock reentrantLock = new ReentrantLock();
 
     private static Set<Connection> conns;
 
-    static {
+    public ConnectionPool(){
+        init();
+    }
+
+    // 初始化
+    private void init(){
         for (int i = 0; i < MIN_SIZE; i++) {
             conns.add(createConnection());
         }
+        this.MIN_SIZE = Config.getMinSize();
+        this.MAX_SIZE = Config.getMaxSize();
     }
 
     public static ConnectionPool getPool() {
@@ -69,7 +78,7 @@ public class ConnectionPool {
     public Connection getConnection() {
         synchronized (this) {
             try {
-                if(conns == null) conns = new HashSet<>();
+                if (conns == null) conns = new HashSet<>();
                 if (!conns.isEmpty()) {
                     Iterator<Connection> iter = conns.iterator();
                     while (iter.hasNext()) {
@@ -82,6 +91,16 @@ public class ConnectionPool {
                     wait();
                     System.err.println(Thread.currentThread().getName() + "被唤醒");
                     return getConnection();
+                } else {
+                    if (count <= MAX_SIZE) {
+                        Connection connection = createConnection();
+                        if(connection == null){
+                            wait();
+                            return getConnection();
+                        }else{
+                            return connection;
+                        }
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -96,6 +115,7 @@ public class ConnectionPool {
      * @return
      */
     public static Connection createConnection() {
+        if(count >= MAX_SIZE) return null;
         System.out.println("已创建的链接有：" + count);
         try {
             if (driver == null) {
@@ -114,10 +134,22 @@ public class ConnectionPool {
         return null;
     }
 
+    /**
+     * 归还链接
+     * @param connection
+     */
     public void release(Connection connection) {
-        synchronized (this){
-            conns.add(connection);
-            notifyAll(); // 唤醒所有线程
+        synchronized (this) {
+            try {
+                if (conns.size() >= count) {
+                    connection.close();
+                    return;
+                }
+                conns.add(connection);
+                notifyAll(); // 唤醒所有线程
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
