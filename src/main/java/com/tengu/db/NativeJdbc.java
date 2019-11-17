@@ -6,8 +6,6 @@ import com.tengu.pool.ConnectionPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author 404NotFoundx
@@ -18,7 +16,6 @@ import java.util.concurrent.locks.ReentrantLock;
 public class NativeJdbc implements NativeJdbcService {
 
     private static NativeJdbc njdbc;
-    private ReentrantLock reentrant = new ReentrantLock();
     private final ConnectionPool pool = ConnectionPool.getPool();
 
     public static NativeJdbc getJdbc() {
@@ -27,28 +24,50 @@ public class NativeJdbc implements NativeJdbcService {
     }
 
     @Override
-    public synchronized boolean execute(String sql, Object... args) {
-        try (
-                Connection connection = pool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql)
-        ) {
+    public boolean execute(String sql, Object... args) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = pool.getConnection();
+            if (connection == null) {
+                synchronized (this) {
+                    wait();
+                }
+                return execute(sql, args);
+            }
+            statement = connection.prepareStatement(sql);
             return setValues(statement, args).execute();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                pool.release(connection);
+            }
         }
         return false;
     }
 
     @Override
     public TenguResultSet executeQuery(String sql, Object... args) {
-        try (
-                Connection connection = pool.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);
-                ResultSet resultSet = setValues(statement, args).executeQuery();
-        ) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = pool.getConnection();
+            if (connection == null) {
+                synchronized (this) {
+                    wait();
+                }
+                return executeQuery(sql, args);
+            }
+            statement = connection.prepareStatement(sql);
+            ResultSet resultSet = setValues(statement, args).executeQuery();
             return new TenguResultSet(resultSet);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                pool.release(connection);
+            }
         }
         return null;
     }
@@ -59,9 +78,11 @@ public class NativeJdbc implements NativeJdbcService {
         PreparedStatement statement = null;
         try {
             connection = pool.getConnection();
-            if(connection == null){
-                synchronized (this){ wait();}
-                executeUpdate(sql,args);
+            if (connection == null) {
+                synchronized (this) {
+                    wait();
+                }
+                executeUpdate(sql, args);
             }
             statement = connection.prepareStatement(sql);
             int r = setValues(statement, args).executeUpdate();
