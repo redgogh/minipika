@@ -13,7 +13,7 @@ import java.io.InputStream;
 import java.util.*;
 
 /**
- * 读取配置
+ * 配置以及初始化操作
  *
  * @author 404NotFoundx
  * @version 1.0.0
