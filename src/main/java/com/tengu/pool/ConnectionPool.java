@@ -1,17 +1,16 @@
 package com.tengu.pool;
 
 import com.tengu.config.Config;
+import org.omg.PortableServer.THREAD_POLICY_ID;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.Driver;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Properties;
-import java.util.Vector;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 连接池
@@ -43,7 +42,11 @@ public class ConnectionPool {
      */
     private static int MAX_SIZE = Config.getMaxSize();
 
-    private static Vector<Connection> conns;
+    private static int count = 0;
+
+    private ReentrantLock reentrantLock = new ReentrantLock();
+
+    private static Set<Connection> conns;
 
     static {
         for (int i = 0; i < MIN_SIZE; i++) {
@@ -64,42 +67,26 @@ public class ConnectionPool {
      * @return
      */
     public Connection getConnection() {
-        if (conns == null) conns = new Vector<>();
-        if (!conns.isEmpty()) {
-            Iterator<Connection> iter = conns.listIterator();
-            iter.hasNext();
-            Connection tempConnection = iter.next();
-            if (tempConnection == null && conns.size() < MAX_SIZE) {
-                tempConnection = createConnection();
+        synchronized (this) {
+            try {
+                if(conns == null) conns = new HashSet<>();
+                if (!conns.isEmpty()) {
+                    Iterator<Connection> iter = conns.iterator();
+                    while (iter.hasNext()) {
+                        Connection connection = iter.next();
+                        conns.remove(connection);
+                        System.out.println(Thread.currentThread().getName() + "：取出一个链接，连接池中剩余链接有" + conns.size() + "个");
+                        return connection;
+                    }
+                    System.err.println(Thread.currentThread().getName() + "：当前连接池中没有链接了，等待中....");
+                    wait();
+                    System.err.println(Thread.currentThread().getName() + "被唤醒");
+                    return getConnection();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            final Connection connection = tempConnection;
-            iter.remove();
-            return (Connection) Proxy.newProxyInstance(ConnectionPool.class.getClassLoader(),
-                    connection.getClass().getInterfaces(),
-                    new InvocationHandler() {
-                        @Override
-                        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                            if (!"close".equals(method.getName())) {
-                                return method.invoke(connection, args);
-                            } else {
-                                System.out.println("------------------------------|- 归还链接前剩余链接有：" + conns.size() + "个");
-                                if (conns.size() <= MAX_SIZE) {
-                                    conns.add(connection);
-                                } else {
-                                    connection.close();
-                                }
-                                System.out.println("------------------------------|- 当前链接池中剩余链接还有：" + conns.size() + "个");
-                                return null;
-                            }
-                        }
-                    });
-        } else {
-            if (conns.size() <= MAX_SIZE) {
-                conns.add(createConnection());
-                return getConnection();
-            } else {
-                throw new RuntimeException("数据库链接繁忙，请稍后再试。");
-            }
+            return null;
         }
     }
 
@@ -109,8 +96,7 @@ public class ConnectionPool {
      * @return
      */
     public static Connection createConnection() {
-        // 连接对象
-        Connection connection = null;
+        System.out.println("已创建的链接有：" + count);
         try {
             if (driver == null) {
                 driver = (Driver) Class.forName(Config.getDriver()).newInstance();
@@ -119,15 +105,20 @@ public class ConnectionPool {
             Properties info = new Properties();
             info.setProperty("user", Config.getUsername());
             info.setProperty("password", Config.getPassword());
-            connection = driver.connect(Config.getUrl(), info);
+            final Connection connection = driver.connect(Config.getUrl(), info);
+            count++;
+            return connection;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return connection;
+        return null;
     }
 
-    public void check() {
-
+    public void release(Connection connection) {
+        synchronized (this){
+            conns.add(connection);
+            notifyAll(); // 唤醒所有线程
+        }
     }
 
 }

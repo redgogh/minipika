@@ -28,6 +28,7 @@ public class ThreadExample {
                     model.setCreateTime(new Date());
                     JdbcFunction.getFunction().insert(model);
                 }
+                System.err.println("线程退出");
             }).start();
         }
 
