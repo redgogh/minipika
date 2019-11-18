@@ -6,6 +6,7 @@ import com.tengu.exception.ModelException;
 import com.tengu.model.ModelMessage;
 import com.tengu.pool.ConnectionPool;
 import com.tengu.tools.TenguUtils;
+import org.omg.CORBA.INTERNAL;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -47,37 +48,7 @@ public class JdbcFunction implements JdbcFunctionService {
 
     @Override
     public Integer update(Object obj) {
-        try {
-            Class<?> target = obj.getClass();
-            if (!target.isAnnotationPresent(Model.class)) {
-                throw new ModelException("对象不是实体");
-            }
-            List<Object> params = new ArrayList<>();
-            StringBuffer buffer = new StringBuffer("update ");
-            String table = target.getDeclaredAnnotation(Model.class).value();
-            buffer.append("`").append(table).append("` set ");
-            for(Field field : target.getDeclaredFields()){
-                field.setAccessible(true);
-                Object v = field.get(obj);
-                if(v != null){
-                    buffer.append("`").append(TenguUtils.humpToUnderline(field.getName())).append("` = ?, ");
-                    params.add(v);
-                }
-            }
-            int length = buffer.length();
-            buffer.delete((length - 2),(length - 1));
-            // 添加条件
-            String primaryKey = ModelMessage.getMessages().get(table).getPrimaryKey();
-            Field field = target.getDeclaredField(primaryKey);
-            field.setAccessible(true);
-            Object v = field.get(obj);
-            buffer.append("where `".concat(primaryKey).concat("` = ?"));
-            params.add(v);
-            return nativeJdbc.executeUpdate(buffer.toString(),params.toArray());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return 0;
+        return updateIsDoNULL(obj, false);
     }
 
     @Override
@@ -87,12 +58,11 @@ public class JdbcFunction implements JdbcFunctionService {
 
     @Override
     public Integer updateDoNULL(Object obj) {
-        return null;
+        return updateIsDoNULL(obj, true);
     }
 
     @Override
     public Integer insert(Object obj) {
-        String script = "";
         List<Object> param = new ArrayList<>();
         try {
             StringBuffer into = new StringBuffer("insert into ");
@@ -117,8 +87,8 @@ public class JdbcFunction implements JdbcFunctionService {
             into.append(")");
             values.deleteCharAt((values.length() - 1));
             values.append(")");
-            script = into.append(values).toString();
-            return nativeJdbc.executeUpdate(script, param.toArray());
+            into.append(values);
+            return nativeJdbc.executeUpdate(into.toString(), param.toArray());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,12 +97,12 @@ public class JdbcFunction implements JdbcFunctionService {
 
     @Override
     public Integer insert(String sql, Object... args) {
-        return nativeJdbc.executeUpdate(sql,args);
+        return nativeJdbc.executeUpdate(sql, args);
     }
 
     @Override
     public Integer delete(String sql, Object... args) {
-        return nativeJdbc.executeUpdate(sql,args);
+        return nativeJdbc.executeUpdate(sql, args);
     }
 
     @Override
@@ -176,6 +146,51 @@ public class JdbcFunction implements JdbcFunctionService {
             e.printStackTrace();
         }
         return r;
+    }
+
+    /**
+     * 是否更新为NULL的字段
+     * @param obj
+     * @param bool
+     * @return
+     */
+    public int updateIsDoNULL(Object obj, boolean bool) {
+        try {
+            Class<?> target = obj.getClass();
+            if (!target.isAnnotationPresent(Model.class)) {
+                throw new ModelException("对象不是实体");
+            }
+            List<Object> params = new ArrayList<>();
+            StringBuffer buffer = new StringBuffer("update ");
+            String table = target.getDeclaredAnnotation(Model.class).value();
+            buffer.append("`").append(table).append("` set ");
+            for (Field field : target.getDeclaredFields()) {
+                field.setAccessible(true);
+                Object v = field.get(obj);
+                if (!bool) {
+                    if (v != null) {
+                        buffer.append("`").append(TenguUtils.humpToUnderline(field.getName())).append("` = ?, ");
+                        params.add(v);
+                    }
+                } else {
+                    buffer.append("`").append(TenguUtils.humpToUnderline(field.getName())).append("` = ?, ");
+                    params.add(v);
+                }
+            }
+            int length = buffer.length();
+            buffer.delete((length - 2), (length - 1));
+            // 添加条件
+            String primaryKey = ModelMessage.getMessages().get(table).getPrimaryKey();
+            Field field = target.getDeclaredField(primaryKey);
+            field.setAccessible(true);
+            Object v = field.get(obj);
+            buffer.append("where `".concat(primaryKey).concat("` = ?"));
+            params.add(v);
+            return nativeJdbc.executeUpdate(buffer.toString(), params.toArray());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 }
