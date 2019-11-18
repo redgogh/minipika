@@ -97,7 +97,10 @@ public class ParseModel {
             }
             // 索引
             if (field.isAnnotationPresent(Index.class)) {
-
+                Index index = field.getDeclaredAnnotation(Index.class);
+                String alias = index.alias();
+                IndexType type = index.type();
+                IndexMethod method = index.method();
             }
             // 主键
             if (field.isAnnotationPresent(PrimaryKey.class)) {
