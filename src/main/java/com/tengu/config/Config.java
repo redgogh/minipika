@@ -4,7 +4,7 @@ import com.tengu.annotation.Model;
 import com.tengu.db.JdbcFunction;
 import com.tengu.db.NativeJdbc;
 import com.tengu.exception.ParseException;
-import com.tengu.model.ModelMessage;
+import com.tengu.model.ModelProperties;
 import com.tengu.model.ParseModel;
 import com.tengu.tools.StringUtils;
 import com.tengu.tools.TenguUtils;
@@ -41,12 +41,13 @@ public class Config {
     private static String minSize = getValue("tengu.connectionPool.minSize");
 
     // 数据库表名前缀
-    private static String tablePrefix = getValue("tengu.table.prefix");
+    private static String tablePrefix = getValue("tengu.model.prefix");
 
     // model包路径
     private static String modelPackage = getValue("tengu.model.package");
-    private static String modelCreateTable = getValue("tengu.model.create.table");
-    private static String modelCreateColumn = getValue("tengu.model.create.column");
+
+    // 储存引擎
+    private static String modelEngine = getValue("tengu.model.engine");
 
     // 数据库名
     private static String dbname;
@@ -76,11 +77,11 @@ public class Config {
     private static void parseModel() {
         ParseModel parseModel = new ParseModel();
         parseModel.parse(TenguUtils.getModels());
-        Map<String, ModelMessage> messages = ModelMessage.getMessages();
+        Map<String, ModelProperties> messages = ModelProperties.getMessages();
         Iterator iter = messages.entrySet().iterator();
         while (iter.hasNext()) {
-            Map.Entry<String, ModelMessage> entry = (Map.Entry<String, ModelMessage>) iter.next();
-            ModelMessage message = entry.getValue();
+            Map.Entry<String, ModelProperties> entry = (Map.Entry<String, ModelProperties>) iter.next();
+            ModelProperties message = entry.getValue();
             JdbcFunction.getFunction().execute(message.getCreateTableSql());
         }
     }
@@ -97,7 +98,7 @@ public class Config {
                 Model model = target.getDeclaredAnnotation(Model.class);
                 String table = model.value();
                 List<String> inDbColumns = JdbcFunction.getFunction().getColumns(table);
-                ModelMessage message = ModelMessage.getMessages().get(table);
+                ModelProperties message = ModelProperties.getMessages().get(table);
                 Map<String, String> inMessageColumns = message.getColumns();
                 Iterator iter = inMessageColumns.entrySet().iterator();
                 String previousKey = null;
@@ -167,5 +168,9 @@ public class Config {
 
     public static Integer getMinSize() {
         return Integer.valueOf(StringUtils.isEmpty(minSize) ? "2" : minSize);
+    }
+
+    public static String getEngine() {
+        return StringUtils.isEmpty(modelEngine) ? "innodb" : modelEngine;
     }
 }

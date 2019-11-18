@@ -1,7 +1,6 @@
 package com.tengu.model;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,9 +9,9 @@ import java.util.Map;
  * @date 2019/11/12 11:01
  * @since 1.8
  */
-public class ModelMessage {
+public class ModelProperties {
 
-    private static final Map<String,ModelMessage> messages = new HashMap<>();
+    private static final Map<String, ModelProperties> messages = new HashMap<>();
 
     /**
      * 主键字段
@@ -23,6 +22,11 @@ public class ModelMessage {
      * 表名
      */
     private String tableName;
+
+    /**
+     * 储存引擎，如：innodb
+     */
+    private String engine;
 
     /**
      * 索引字段
@@ -39,11 +43,11 @@ public class ModelMessage {
      */
     private Map<String,String> columns;
 
-    public static void setMessages(String key,ModelMessage value){
+    public static void setMessages(String key, ModelProperties value){
         messages.put(key,value);
     }
 
-    public static Map<String, ModelMessage> getMessages() {
+    public static Map<String, ModelProperties> getMessages() {
         return messages;
     }
 

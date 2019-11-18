@@ -23,9 +23,9 @@ public class ParseModel {
      *
      * @param target 目标实体类
      */
-    public ModelMessage enhance(Class<?> target) throws TenguException {
+    public ModelProperties enhance(Class<?> target) throws TenguException {
         String              tableName               = null;                             // 表名
-        ModelMessage        message                 = new ModelMessage();               // 完整sql
+        ModelProperties message                 = new ModelProperties();               // 完整sql
         StringBuilder       script                  = new StringBuilder();              // sql代码
         Map<String,String>  columns                 = new LinkedHashMap<>();            // 字段信息
         script.append("create table if not exists");
@@ -54,7 +54,7 @@ public class ParseModel {
      * @return
      * @throws ParseException
      */
-    public String model(Class<?> target, ModelMessage message) throws ParseException {
+    public String model(Class<?> target, ModelProperties message) throws ParseException {
         String tableName = "";
         if (target.isAnnotationPresent(Model.class)) {
             Model model = target.getDeclaredAnnotation(Model.class);
@@ -73,7 +73,7 @@ public class ParseModel {
      * @param message
      * @throws ParseException
      */
-    public void field(Class<?> target, ModelMessage message, StringBuilder script,Map<String,String> columns) throws ParseException {
+    public void field(Class<?> target, ModelProperties message, StringBuilder script, Map<String,String> columns) throws ParseException {
         String primaryKey = "";
         Field[] fields = target.getDeclaredFields();
         for (Field field : fields) {
@@ -129,8 +129,8 @@ public class ParseModel {
     public void parse(List<Class<?>> list) {
         try {
             for (Class<?> target : list) {
-                ModelMessage message = enhance(target);
-                ModelMessage.setMessages(message.getTableName(), message);
+                ModelProperties message = enhance(target);
+                ModelProperties.setMessages(message.getTableName(), message);
             }
         } catch (TenguException e) {
             e.printStackTrace();

@@ -3,7 +3,7 @@ package com.tengu.annotation;
 import java.lang.annotation.*;
 
 /**
- * 索引,被注解的成员将会成为该表的索引.
+ * 普通索引
  * @author 404NotFoundx
  * @version 1.0.0
  * @date 2019/11/4 15:11
