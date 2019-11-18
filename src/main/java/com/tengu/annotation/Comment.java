@@ -14,6 +14,16 @@ import java.lang.annotation.*;
 @Documented
 public @interface Comment {
 
+    /**
+     * 字段注释
+     * @return
+     */
     String value() default "";
+
+    /**
+     * 索引注释
+     * @return
+     */
+    String index() default "";
 
 }

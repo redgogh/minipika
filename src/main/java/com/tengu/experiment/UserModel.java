@@ -21,7 +21,8 @@ public class UserModel {
 
     // user_name
     @Column("varchar(255) not null")
-    @Comment("用户账号")
+    @Comment(value = "用户账号",index = "用户账号")
+    @Index(alias = "username", type = IndexType.FULLTEXT, method = IndexMethod.BTREE)
     private String userName;
 
     // password

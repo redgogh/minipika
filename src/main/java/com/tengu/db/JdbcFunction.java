@@ -6,7 +6,6 @@ import com.tengu.exception.ModelException;
 import com.tengu.model.ModelMessage;
 import com.tengu.pool.ConnectionPool;
 import com.tengu.tools.TenguUtils;
-import org.omg.CORBA.INTERNAL;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;

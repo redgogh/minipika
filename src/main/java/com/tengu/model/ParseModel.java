@@ -1,9 +1,9 @@
 package com.tengu.model;
 
 import com.tengu.annotation.*;
+import com.tengu.annotation.Index;
 import com.tengu.exception.ParseException;
 import com.tengu.exception.TenguException;
-import com.tengu.experiment.UserModel;
 import com.tengu.tools.StringUtils;
 import com.tengu.tools.TenguUtils;
 

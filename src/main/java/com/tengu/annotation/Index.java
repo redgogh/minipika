@@ -20,4 +20,16 @@ public @interface Index {
      */
     String alias() default "";
 
+    /**
+     * 索引类型
+     * @return
+     */
+    IndexType type();
+
+    /**
+     * 索引算法
+     * @return
+     */
+    IndexMethod method();
+
 }
