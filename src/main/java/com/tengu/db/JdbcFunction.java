@@ -2,6 +2,8 @@ package com.tengu.db;
 
 import com.tengu.annotation.Model;
 import com.tengu.config.Config;
+import com.tengu.exception.ModelException;
+import com.tengu.model.ModelMessage;
 import com.tengu.pool.ConnectionPool;
 import com.tengu.tools.TenguUtils;
 
@@ -45,6 +47,36 @@ public class JdbcFunction implements JdbcFunctionService {
 
     @Override
     public Integer update(Object obj) {
+        try {
+            Class<?> target = obj.getClass();
+            if (!target.isAnnotationPresent(Model.class)) {
+                throw new ModelException("对象不是实体");
+            }
+            List<Object> params = new ArrayList<>();
+            StringBuffer buffer = new StringBuffer("update ");
+            String table = target.getDeclaredAnnotation(Model.class).value();
+            buffer.append("`").append(table).append("` set ");
+            for(Field field : target.getDeclaredFields()){
+                field.setAccessible(true);
+                Object v = field.get(obj);
+                if(v != null){
+                    buffer.append("`").append(TenguUtils.humpToUnderline(field.getName())).append("` = ?, ");
+                    params.add(v);
+                }
+            }
+            int length = buffer.length();
+            buffer.delete((length - 2),(length - 1));
+            // 添加条件
+            String primaryKey = ModelMessage.getMessages().get(table).getPrimaryKey();
+            Field field = target.getDeclaredField(primaryKey);
+            field.setAccessible(true);
+            Object v = field.get(obj);
+            buffer.append("where `".concat(primaryKey).concat("` = ?"));
+            params.add(v);
+            return nativeJdbc.executeUpdate(buffer.toString(),params.toArray());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return 0;
     }
 

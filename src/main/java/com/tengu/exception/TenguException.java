@@ -6,7 +6,7 @@ package com.tengu.exception;
  * @date 2019/11/12 11:44
  * @since 1.8
  */
-public class TenguException extends Throwable{
+public class TenguException extends Exception{
 
     public TenguException() {
     }
