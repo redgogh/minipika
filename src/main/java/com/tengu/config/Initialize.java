@@ -4,6 +4,8 @@ import com.tengu.annotation.Model;
 import com.tengu.db.JdbcFunction;
 import com.tengu.db.NativeJdbc;
 import com.tengu.exception.ParseException;
+import com.tengu.model.IndexAttribute;
+import com.tengu.model.IndexModel;
 import com.tengu.model.ModelAttribute;
 import com.tengu.model.ParseModel;
 import com.tengu.tools.TenguUtils;
@@ -27,7 +29,7 @@ public class Initialize {
     /**
      * 解析model
      */
-    private void parseModel() {
+    public void parseModel() {
         ParseModel parseModel = new ParseModel();
         parseModel.parse(TenguUtils.getModels());
         Map<String, ModelAttribute> messages = ModelAttribute.getAttribute();
@@ -44,7 +46,7 @@ public class Initialize {
      *
      * @throws ParseException
      */
-    private void columnCheck() throws ParseException {
+    public void columnCheck() throws ParseException {
         List<Class<?>> models = TenguUtils.getModels();
         for (Class<?> target : models) {
             if (target.isAnnotationPresent(Model.class)) {
@@ -71,7 +73,16 @@ public class Initialize {
     }
 
     public void indexesCheck(){
+        for(Map.Entry<String,ModelAttribute> entryMap : ModelAttribute.getAttribute().entrySet()){
 
+            List<IndexModel> indexes = JdbcFunction.getFunction().getIndexes(entryMap.getKey());
+
+            ModelAttribute modelAttribute = entryMap.getValue();
+            List<IndexAttribute> modelIndex = modelAttribute.getIndexes();
+
+            System.out.println();
+
+        }
     }
 
 }

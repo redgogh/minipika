@@ -1,5 +1,6 @@
 package com.tengu;
 
+import com.tengu.config.Initialize;
 import com.tengu.db.JdbcFunction;
 import com.tengu.experiment.UserModel;
 import com.tengu.model.IndexModel;
@@ -23,6 +24,10 @@ public class QueryExample {
         long startTime = System.currentTimeMillis();
 
         List<IndexModel> models = JdbcFunction.getFunction().getIndexes("user_model");
+
+        Initialize init = new Initialize();
+        init.parseModel();
+        init.indexesCheck();
 
         long endTime = System.currentTimeMillis();
         System.out.println("耗时：" + (endTime - startTime));

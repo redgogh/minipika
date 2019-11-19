@@ -14,10 +14,7 @@ import java.util.Date;
 @Data
 @Model("user_model")
 @Indexes({
-        @Index(column = "userName", alias = "userNameIndex", type = IndexType.NORMAL, comment = "用户名唯一索引"),
-        @Index(column = "address", alias = "addressIndex", type = IndexType.NORMAL, comment = "地址索引"),
-        @Index(column = "uuid", alias = "uuidIndex", type = IndexType.NORMAL, comment = "唯一标识索引"),
-        @Index(column = "googleEmail", alias = "googleEmailIndex", type = IndexType.NORMAL, comment = "google邮箱")
+        @Index(column = "user_name", alias = "user_name_index", type = IndexType.NORMAL, comment = "用户名唯一索引"),
 })
 public class UserModel {
 
