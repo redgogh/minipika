@@ -21,9 +21,9 @@ public class QueryExample {
         long startTime = System.currentTimeMillis();
 
         String sql = "select * from user_model where user_name = '019cda9b-1da7-4d0d-9a9d-04ff7a2d8aea'";
-
+        String showIndexSQL = "show index from user_model";
         // List<UserModel> models = JdbcFunction.getFunction().queryForList(sql,UserModel.class);
-        UserModel model = JdbcFunction.getFunction().queryForObject(sql,UserModel.class);
+        UserModel model = JdbcFunction.getFunction().queryForObject(showIndexSQL,UserModel.class);
 
         model.setPassword("abcccc12333");
         model.setAddress(null);

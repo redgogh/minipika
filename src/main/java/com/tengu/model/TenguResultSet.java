@@ -43,13 +43,35 @@ public class TenguResultSet {
             resultSet = new ArrayList<>();
             ResultSetMetaData mdata = rset.getMetaData();
             int len = mdata.getColumnCount();
-            while(rset.next()){
+            while (rset.next()) {
                 Map<String, String> resultMap = new LinkedHashMap<>(len);
                 for (int j = 0; j < len; j++) {
                     String name = mdata.getColumnName(j + 1);
                     String value = rset.getString(name);
                     resultMap.put(name, value);
                 }
+                resultSet.add(resultMap);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    /**
+     * 查询索引
+     *
+     * @param rset
+     * @return
+     */
+    public TenguResultSet buildResultSetByIndex(ResultSet rset) {
+        try {
+            resultSet = new ArrayList<>();
+            while (rset.next()) {
+                Map<String, String> resultMap = new LinkedHashMap<>();
+                String value = rset.getString("");
+                resultMap.put("", value);
                 resultSet.add(resultMap);
             }
 

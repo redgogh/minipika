@@ -1,5 +1,9 @@
 package com.tengu.model;
 
+import com.tengu.annotation.Model;
+import com.tengu.exception.TenguException;
+
+import javax.jws.WebParam;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +16,11 @@ import java.util.Map;
 public class ModelProperties {
 
     private static final Map<String, ModelProperties> messages = new HashMap<>();
+
+    /**
+     * 模型的类对象
+     */
+    private static final Map<String,Class<?>> modelClass = new HashMap<>();
 
     /**
      * 主键字段
@@ -90,4 +99,22 @@ public class ModelProperties {
     public void setCreateTableSql(String createTableSql) {
         this.createTableSql = createTableSql;
     }
+
+    public static void setModelClass(Class<?> target){
+        if(target.isAnnotationPresent(Model.class)){
+            Model model = target.getDeclaredAnnotation(Model.class);
+            modelClass.put(model.value(),target);
+        }else{
+            try{
+                throw new TenguException("没有扫描到Model注解");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static Class<?> getModelClass(String tableName){
+        return modelClass.get(tableName);
+    }
+
 }
