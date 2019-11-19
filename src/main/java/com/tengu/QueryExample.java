@@ -2,8 +2,11 @@ package com.tengu;
 
 import com.tengu.db.JdbcFunction;
 import com.tengu.experiment.UserModel;
+import com.tengu.model.IndexModel;
 import com.tengu.model.ModelAttribute;
 import com.tengu.pool.ConnectionPool;
+
+import java.util.List;
 
 /**
  * @author 404NotFoundx
@@ -19,20 +22,10 @@ public class QueryExample {
 
         long startTime = System.currentTimeMillis();
 
-        String sql = "select * from user_model where id = 1";
-        String showIndexSQL = "show index from user_model";
-        // List<UserModel> models = JdbcFunction.getFunction().queryForList(sql,UserModel.class);
-        UserModel model = JdbcFunction.getFunction().queryForObject(sql,UserModel.class);
-
-        model.setPassword("abcccc12333");
-        model.setAddress(null);
-
-        int row = JdbcFunction.getFunction().update(model);
-        ModelAttribute.getModelClass("user_model");
-        System.out.println(row);
+        List<IndexModel> models = JdbcFunction.getFunction().getIndexes("user_model");
 
         long endTime = System.currentTimeMillis();
-        // System.out.println("一共查询到了 "+models.size()+" 条数据，耗时："+(endTime - startTime));
+        System.out.println("耗时：" + (endTime - startTime));
     }
 
 }

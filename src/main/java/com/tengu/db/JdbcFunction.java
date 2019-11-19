@@ -3,6 +3,7 @@ package com.tengu.db;
 import com.tengu.annotation.Model;
 import com.tengu.config.Config;
 import com.tengu.exception.ModelException;
+import com.tengu.model.IndexModel;
 import com.tengu.model.ModelAttribute;
 import com.tengu.pool.ConnectionPool;
 import com.tengu.tools.TenguUtils;
@@ -147,6 +148,18 @@ public class JdbcFunction implements JdbcFunctionService {
         return r;
     }
 
+    @Override
+    public List<IndexModel> getIndexes(String table) {
+        try {
+            String sql = "show index from `%s`";
+            sql = String.format(sql, table);
+            return nativeJdbc.executeQuery(sql).conversionIndexModelList();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * 是否更新为NULL的字段
      * @param obj
@@ -179,7 +192,7 @@ public class JdbcFunction implements JdbcFunctionService {
             int length = buffer.length();
             buffer.delete((length - 2), (length - 1));
             // 添加条件
-            String primaryKey = ModelAttribute.getMessages().get(table).getPrimaryKey();
+            String primaryKey = ModelAttribute.getAttribute().get(table).getPrimaryKey();
             Field field = target.getDeclaredField(primaryKey);
             field.setAccessible(true);
             Object v = field.get(obj);

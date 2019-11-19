@@ -1,5 +1,7 @@
 package com.tengu.db;
 
+import com.tengu.model.IndexModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,5 +90,12 @@ import java.util.List;
      * @return
      */
     boolean execute(String sql);
+
+    /**
+     * 获取一张表的索引
+     * @param table
+     * @return
+     */
+    List<IndexModel> getIndexes(String table);
 
 }

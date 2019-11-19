@@ -24,10 +24,10 @@ public class ParseModel {
      * @param target 目标实体类
      */
     public ModelAttribute enhance(Class<?> target) throws TenguException {
-        String tableName = null;                             // 表名
-        ModelAttribute message = new ModelAttribute();               // 完整sql
-        StringBuilder script = new StringBuilder();              // sql代码
-        Map<String, String> columns = new LinkedHashMap<>();            // 字段信息
+        String tableName = null;                                // 表名
+        ModelAttribute message = new ModelAttribute();          // 完整sql
+        StringBuilder script = new StringBuilder();             // sql代码
+        Map<String, String> columns = new LinkedHashMap<>();    // 字段信息
         script.append("create table if not exists");
         // 判断实体类有没有Model注解
         tableName = modelData(target, message);
@@ -141,7 +141,7 @@ public class ParseModel {
         try {
             for (Class<?> target : list) {
                 ModelAttribute message = enhance(target);
-                ModelAttribute.setMessages(message.getTableName(), message);
+                ModelAttribute.putAttribute(message.getTableName(), message);
             }
         } catch (TenguException e) {
             e.printStackTrace();

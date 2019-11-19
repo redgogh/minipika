@@ -52,9 +52,6 @@ public class Config {
     // 数据库名
     private static String dbname;
 
-    // 添加字段
-    private static final String ADD_COLUMN_SCRIPT = "ALTER TABLE `%s` ADD %s after `%s`;";
-
     static {
         try {
             String temp = url;
@@ -62,58 +59,8 @@ public class Config {
                 temp = temp.substring(temp.indexOf("/") + 1);
             }
             dbname = temp.substring(0, temp.indexOf("?"));
-            // 解析model
-            parseModel();
-            // 对字段进行检查
-            checkNewColumns();
         } catch (Throwable e) {
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * 解析model
-     */
-    private static void parseModel() {
-        ParseModel parseModel = new ParseModel();
-        parseModel.parse(TenguUtils.getModels());
-        Map<String, ModelAttribute> messages = ModelAttribute.getMessages();
-        Iterator iter = messages.entrySet().iterator();
-        while (iter.hasNext()) {
-            Map.Entry<String, ModelAttribute> entry = (Map.Entry<String, ModelAttribute>) iter.next();
-            ModelAttribute message = entry.getValue();
-            JdbcFunction.getFunction().execute(message.getCreateTableSql());
-        }
-    }
-
-    /**
-     * 检测是否有新增的字段
-     *
-     * @throws ParseException
-     */
-    private static void checkNewColumns() throws ParseException {
-        List<Class<?>> models = TenguUtils.getModels();
-        for (Class<?> target : models) {
-            if (target.isAnnotationPresent(Model.class)) {
-                Model model = target.getDeclaredAnnotation(Model.class);
-                String table = model.value();
-                List<String> inDbColumns = JdbcFunction.getFunction().getColumns(table);
-                ModelAttribute message = ModelAttribute.getMessages().get(table);
-                Map<String, String> inMessageColumns = message.getColumns();
-                Iterator iter = inMessageColumns.entrySet().iterator();
-                String previousKey = null;
-                while (iter.hasNext()) {
-                    Map.Entry<String, String> entry = (Map.Entry<String, String>) iter.next();
-                    String key = entry.getKey();
-                    if (!inDbColumns.contains(key)) {
-                        String executeScript = String.format(ADD_COLUMN_SCRIPT, message.getTableName(), entry.getValue(),previousKey);
-                        NativeJdbc.getJdbc().execute(executeScript);
-                    }
-                    previousKey = key;
-                }
-            } else {
-                throw new ParseException("没有@Model注解");
-            }
         }
     }
 

@@ -2,6 +2,7 @@ package com.tengu.model;
 
 import com.mysql.cj.protocol.ResultsetRow;
 import com.tengu.annotation.Ignore;
+import com.tengu.annotation.Index;
 import com.tengu.exception.TenguException;
 import com.tengu.tools.TenguUtils;
 
@@ -70,8 +71,19 @@ public class TenguResultSet {
             resultSet = new ArrayList<>();
             while (rset.next()) {
                 Map<String, String> resultMap = new LinkedHashMap<>();
-                String value = rset.getString("");
-                resultMap.put("", value);
+                resultMap.put("Table", rset.getString("Table"));
+                resultMap.put("NonUnique", rset.getString("Non_unique"));
+                resultMap.put("KeyName", rset.getString("Key_name"));
+                resultMap.put("SeqInIndex", rset.getString("Seq_in_index"));
+                resultMap.put("ColumnName", rset.getString("Column_name"));
+                resultMap.put("Collation", rset.getString("Collation"));
+                resultMap.put("Cardinality", rset.getString("Cardinality"));
+                resultMap.put("SubPart", rset.getString("Sub_part"));
+                resultMap.put("Packed", rset.getString("Packed"));
+                resultMap.put("Null", rset.getString("Null"));
+                resultMap.put("IndexType", rset.getString("Index_type"));
+                resultMap.put("Comment", rset.getString("Comment"));
+                resultMap.put("IndexComment", rset.getString("Index_comment"));
                 resultSet.add(resultMap);
             }
 
@@ -139,6 +151,29 @@ public class TenguResultSet {
                 models.add(model);
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return models;
+    }
+
+    /**
+     * 将结果集解析成索引实体
+     * @return
+     */
+    public List<IndexModel> conversionIndexModelList(){
+        List<IndexModel> models = new ArrayList<>();
+        try {
+            Class<?> target = IndexModel.class;
+            for (Map<String, String> resultMap : resultSet) {
+                IndexModel model = new IndexModel();
+                for (Map.Entry<String, String> v : resultMap.entrySet()) {
+                    Field field = target.getDeclaredField(v.getKey());
+                    field.setAccessible(true);
+                    setValue(field, v.getValue(), model);
+                }
+                models.add(model);
+            }
+        }catch (Exception e){
             e.printStackTrace();
         }
         return models;

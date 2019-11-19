@@ -53,11 +53,11 @@ public class ModelAttribute {
      */
     private Map<String,String> columns;
 
-    public static void setMessages(String key, ModelAttribute value){
+    public static void putAttribute(String key, ModelAttribute value){
         messages.put(key,value);
     }
 
-    public static Map<String, ModelAttribute> getMessages() {
+    public static Map<String, ModelAttribute> getAttribute() {
         return messages;
     }
 
