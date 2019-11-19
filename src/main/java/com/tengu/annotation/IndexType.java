@@ -8,9 +8,25 @@ package com.tengu.annotation;
  */
 public enum IndexType {
 
+    /**
+     * 全文索引
+     */
     FULLTEXT,
+
+    /**
+     * 普通索引
+     */
     NORMAL,
+
+    /**
+     * 空间索引
+     * 注：innodb储存引擎不支持该索引
+     */
     SPATIAL,
+
+    /**
+     * 唯一索引
+     */
     UNIQUE
 
 }

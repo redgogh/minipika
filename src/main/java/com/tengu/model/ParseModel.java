@@ -30,7 +30,7 @@ public class ParseModel {
         Map<String, String> columns = new LinkedHashMap<>();            // 字段信息
         script.append("create table if not exists");
         // 判断实体类有没有Model注解
-        tableName = isModel(target, message);
+        tableName = modelData(target, message);
         ModelAttribute.putModel(target);
         script.append(" `").append(tableName).append("`\n").append("(\n"); // 开头
         // 解析字段
@@ -56,7 +56,7 @@ public class ParseModel {
      * @return
      * @throws ParseException
      */
-    public String isModel(Class<?> target, ModelAttribute message) throws ParseException {
+    public String modelData(Class<?> target, ModelAttribute message) throws ParseException {
         String tableName = "";
         if (target.isAnnotationPresent(Model.class)) {
             Model model = target.getDeclaredAnnotation(Model.class);
@@ -65,6 +65,20 @@ public class ParseModel {
                 throw new ParseException("Model表名不能为空");
             }
             message.setTableName(tableName);
+        }
+        // 判断是否有索引注解
+        if (target.isAnnotationPresent(Indexes.class)) {
+            Index[] indices = target.getDeclaredAnnotation(Indexes.class).value();
+            for (Index index : indices) {
+                IndexAttribute ia = new IndexAttribute();
+                ia.setColumn(index.column());
+                ia.setAlias(index.alias());
+                ia.setType(index.type());
+                ia.setComment(index.comment());
+                ia.buildScript(tableName);
+                message.addIndexes(ia);
+
+            }
         }
         return tableName;
     }
@@ -97,17 +111,6 @@ public class ParseModel {
             // 自增长
             if (field.isAnnotationPresent(Increase.class)) {
                 tableColumn.append("auto_increment");
-            }
-            // 索引
-            if (field.isAnnotationPresent(Index.class)) {
-                Index index = field.getDeclaredAnnotation(Index.class);
-                String alias = index.alias();
-                IndexType type = index.type();
-                IndexAttribute ia = new IndexAttribute();
-                ia.setColumnName(columnName);
-                ia.setKeyName(TenguUtils.humpToUnderline(alias));
-                ia.setIndexType(String.valueOf(type));
-                message.addIndexes(ia);
             }
             // 主键
             if (field.isAnnotationPresent(PrimaryKey.class)) {

@@ -15,6 +15,11 @@ import java.lang.annotation.*;
 public @interface Index {
 
     /**
+     * 字段名
+     */
+    String column() default "";
+
+    /**
      * 索引别名
      * @return
      */
@@ -25,5 +30,12 @@ public @interface Index {
      * @return
      */
     IndexType type() default IndexType.NORMAL;
+
+    /**
+     * 注释
+     * @return
+     */
+    String comment() default "";
+
 
 }

@@ -13,6 +13,12 @@ import java.util.Date;
  */
 @Data
 @Model("user_model")
+@Indexes({
+        @Index(column = "userName", alias = "userNameIndex", type = IndexType.NORMAL, comment = "用户名唯一索引"),
+        @Index(column = "address", alias = "addressIndex", type = IndexType.NORMAL, comment = "地址索引"),
+        @Index(column = "uuid", alias = "uuidIndex", type = IndexType.NORMAL, comment = "唯一标识索引"),
+        @Index(column = "googleEmail", alias = "googleEmailIndex", type = IndexType.NORMAL, comment = "google邮箱")
+})
 public class UserModel {
 
     @PrimaryKey
@@ -21,8 +27,7 @@ public class UserModel {
 
     // user_name
     @Column("varchar(255) not null")
-    @Comment(value = "用户账号",index = "用户账号")
-    @Index(alias = "userNameIndex",type = IndexType.UNIQUE)
+    @Comment(value = "用户账号", index = "用户账号")
     private String userName;
 
     // password
