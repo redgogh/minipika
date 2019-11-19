@@ -1,10 +1,9 @@
 package com.tengu;
 
-import com.tengu.annotation.Model;
 import com.tengu.db.JdbcFunction;
 import com.tengu.experiment.UserModel;
+import com.tengu.model.ModelAttribute;
 import com.tengu.pool.ConnectionPool;
-import java.util.List;
 
 /**
  * @author 404NotFoundx
@@ -20,15 +19,16 @@ public class QueryExample {
 
         long startTime = System.currentTimeMillis();
 
-        String sql = "select * from user_model where user_name = '019cda9b-1da7-4d0d-9a9d-04ff7a2d8aea'";
+        String sql = "select * from user_model where id = 1";
         String showIndexSQL = "show index from user_model";
         // List<UserModel> models = JdbcFunction.getFunction().queryForList(sql,UserModel.class);
-        UserModel model = JdbcFunction.getFunction().queryForObject(showIndexSQL,UserModel.class);
+        UserModel model = JdbcFunction.getFunction().queryForObject(sql,UserModel.class);
 
         model.setPassword("abcccc12333");
         model.setAddress(null);
 
         int row = JdbcFunction.getFunction().update(model);
+        ModelAttribute.getModelClass("user_model");
         System.out.println(row);
 
         long endTime = System.currentTimeMillis();

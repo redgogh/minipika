@@ -3,8 +3,9 @@ package com.tengu.model;
 import com.tengu.annotation.Model;
 import com.tengu.exception.TenguException;
 
-import javax.jws.WebParam;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,9 +14,9 @@ import java.util.Map;
  * @date 2019/11/12 11:01
  * @since 1.8
  */
-public class ModelProperties {
+public class ModelAttribute {
 
-    private static final Map<String, ModelProperties> messages = new HashMap<>();
+    private static final Map<String, ModelAttribute> messages = new HashMap<>();
 
     /**
      * 模型的类对象
@@ -40,7 +41,7 @@ public class ModelProperties {
     /**
      * 索引字段
      */
-    private String[] indexes;
+    private List<IndexAttribute> indexes = new ArrayList<>();
 
     /**
      * 创建表的SQL语句
@@ -52,11 +53,11 @@ public class ModelProperties {
      */
     private Map<String,String> columns;
 
-    public static void setMessages(String key, ModelProperties value){
+    public static void setMessages(String key, ModelAttribute value){
         messages.put(key,value);
     }
 
-    public static Map<String, ModelProperties> getMessages() {
+    public static Map<String, ModelAttribute> getMessages() {
         return messages;
     }
 
@@ -84,12 +85,24 @@ public class ModelProperties {
         this.primaryKey = primaryKey;
     }
 
-    public String[] getIndexes() {
+    public static Map<String, Class<?>> getModelClass() {
+        return modelClass;
+    }
+
+    public String getEngine() {
+        return engine;
+    }
+
+    public void setEngine(String engine) {
+        this.engine = engine;
+    }
+
+    public List<IndexAttribute> getIndexes() {
         return indexes;
     }
 
-    public void setIndexes(String[] indexes) {
-        this.indexes = indexes;
+    public void addIndexes(IndexAttribute indexAttribute) {
+        this.indexes.add(indexAttribute);
     }
 
     public String getCreateTableSql() {
@@ -100,7 +113,7 @@ public class ModelProperties {
         this.createTableSql = createTableSql;
     }
 
-    public static void setModelClass(Class<?> target){
+    public static void putModel(Class<?> target){
         if(target.isAnnotationPresent(Model.class)){
             Model model = target.getDeclaredAnnotation(Model.class);
             modelClass.put(model.value(),target);

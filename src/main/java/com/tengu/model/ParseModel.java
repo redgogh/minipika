@@ -23,17 +23,18 @@ public class ParseModel {
      *
      * @param target 目标实体类
      */
-    public ModelProperties enhance(Class<?> target) throws TenguException {
-        String              tableName               = null;                             // 表名
-        ModelProperties message                 = new ModelProperties();               // 完整sql
-        StringBuilder       script                  = new StringBuilder();              // sql代码
-        Map<String,String>  columns                 = new LinkedHashMap<>();            // 字段信息
+    public ModelAttribute enhance(Class<?> target) throws TenguException {
+        String tableName = null;                             // 表名
+        ModelAttribute message = new ModelAttribute();               // 完整sql
+        StringBuilder script = new StringBuilder();              // sql代码
+        Map<String, String> columns = new LinkedHashMap<>();            // 字段信息
         script.append("create table if not exists");
         // 判断实体类有没有Model注解
-        tableName = model(target, message);
+        tableName = isModel(target, message);
+        ModelAttribute.putModel(target);
         script.append(" `").append(tableName).append("`\n").append("(\n"); // 开头
         // 解析字段
-        field(target, message, script,columns);
+        field(target, message, script, columns);
         // 结尾
         if (script.charAt(script.length() - 2) == ',') {
             script.deleteCharAt(script.length() - 2);
@@ -49,12 +50,13 @@ public class ParseModel {
 
     /**
      * Model注解解析操作
+     *
      * @param target
      * @param message
      * @return
      * @throws ParseException
      */
-    public String model(Class<?> target, ModelProperties message) throws ParseException {
+    public String isModel(Class<?> target, ModelAttribute message) throws ParseException {
         String tableName = "";
         if (target.isAnnotationPresent(Model.class)) {
             Model model = target.getDeclaredAnnotation(Model.class);
@@ -69,11 +71,12 @@ public class ParseModel {
 
     /**
      * 解析字段
+     *
      * @param target
      * @param message
      * @throws ParseException
      */
-    public void field(Class<?> target, ModelProperties message, StringBuilder script, Map<String,String> columns) throws ParseException {
+    public void field(Class<?> target, ModelAttribute message, StringBuilder script, Map<String, String> columns) throws ParseException {
         String primaryKey = "";
         Field[] fields = target.getDeclaredFields();
         for (Field field : fields) {
@@ -81,7 +84,7 @@ public class ParseModel {
             StringBuilder tableColumn = new StringBuilder(columnName); // 字段
             tableColumn.insert(0, "`").append("`");
             // 判断该字段是否被忽略
-            if(field.isAnnotationPresent(Ignore.class)) continue;
+            if (field.isAnnotationPresent(Ignore.class)) continue;
             // 字段声明
             if (field.isAnnotationPresent(Column.class)) {
                 Column column = field.getDeclaredAnnotation(Column.class);
@@ -100,7 +103,11 @@ public class ParseModel {
                 Index index = field.getDeclaredAnnotation(Index.class);
                 String alias = index.alias();
                 IndexType type = index.type();
-                IndexMethod method = index.method();
+                IndexAttribute ia = new IndexAttribute();
+                ia.setColumnName(columnName);
+                ia.setKeyName(TenguUtils.humpToUnderline(alias));
+                ia.setIndexType(String.valueOf(type));
+                message.addIndexes(ia);
             }
             // 主键
             if (field.isAnnotationPresent(PrimaryKey.class)) {
@@ -117,20 +124,21 @@ public class ParseModel {
                 tableColumn.append(" ").append("comment '").append(comment.value()).append("'");
             }
             script.append("\t").append(tableColumn).append(",\n");
-            columns.put(columnName,tableColumn.toString());
+            columns.put(columnName, tableColumn.toString());
         }
         script.append(primaryKey);
     }
 
     /**
      * 解析
+     *
      * @param list
      */
     public void parse(List<Class<?>> list) {
         try {
             for (Class<?> target : list) {
-                ModelProperties message = enhance(target);
-                ModelProperties.setMessages(message.getTableName(), message);
+                ModelAttribute message = enhance(target);
+                ModelAttribute.setMessages(message.getTableName(), message);
             }
         } catch (TenguException e) {
             e.printStackTrace();

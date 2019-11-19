@@ -3,7 +3,7 @@ package com.tengu.annotation;
 import java.lang.annotation.*;
 
 /**
- * 普通索引
+ * 添加索引
  * @author 404NotFoundx
  * @version 1.0.0
  * @date 2019/11/4 15:11
@@ -24,12 +24,6 @@ public @interface Index {
      * 索引类型
      * @return
      */
-    IndexType type();
-
-    /**
-     * 索引算法
-     * @return
-     */
-    IndexMethod method();
+    IndexType type() default IndexType.NORMAL;
 
 }

@@ -4,7 +4,7 @@ import com.tengu.annotation.Model;
 import com.tengu.db.JdbcFunction;
 import com.tengu.db.NativeJdbc;
 import com.tengu.exception.ParseException;
-import com.tengu.model.ModelProperties;
+import com.tengu.model.ModelAttribute;
 import com.tengu.model.ParseModel;
 import com.tengu.tools.StringUtils;
 import com.tengu.tools.TenguUtils;
@@ -77,11 +77,11 @@ public class Config {
     private static void parseModel() {
         ParseModel parseModel = new ParseModel();
         parseModel.parse(TenguUtils.getModels());
-        Map<String, ModelProperties> messages = ModelProperties.getMessages();
+        Map<String, ModelAttribute> messages = ModelAttribute.getMessages();
         Iterator iter = messages.entrySet().iterator();
         while (iter.hasNext()) {
-            Map.Entry<String, ModelProperties> entry = (Map.Entry<String, ModelProperties>) iter.next();
-            ModelProperties message = entry.getValue();
+            Map.Entry<String, ModelAttribute> entry = (Map.Entry<String, ModelAttribute>) iter.next();
+            ModelAttribute message = entry.getValue();
             JdbcFunction.getFunction().execute(message.getCreateTableSql());
         }
     }
@@ -98,7 +98,7 @@ public class Config {
                 Model model = target.getDeclaredAnnotation(Model.class);
                 String table = model.value();
                 List<String> inDbColumns = JdbcFunction.getFunction().getColumns(table);
-                ModelProperties message = ModelProperties.getMessages().get(table);
+                ModelAttribute message = ModelAttribute.getMessages().get(table);
                 Map<String, String> inMessageColumns = message.getColumns();
                 Iterator iter = inMessageColumns.entrySet().iterator();
                 String previousKey = null;
