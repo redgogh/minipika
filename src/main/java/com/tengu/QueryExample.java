@@ -1,11 +1,10 @@
 package com.tengu;
 
+import com.alibaba.fastjson.JSONObject;
 import com.tengu.config.Initialize;
 import com.tengu.db.JdbcFunction;
-import com.tengu.db.NativeJdbc;
 import com.tengu.experiment.UserModel;
 import com.tengu.model.IndexModel;
-import com.tengu.model.ModelAttribute;
 import com.tengu.pool.ConnectionPool;
 
 import java.util.List;
@@ -25,7 +24,14 @@ public class QueryExample {
         long startTime = System.currentTimeMillis();
 
         // JdbcFunction.getFunction().getEngine("user_model");
-        // UserModel models = JdbcFunction.getFunction().queryForObject("select * from user_model where id = 1", UserModel.class);
+        UserModel models = JdbcFunction.getFunction().queryForObject("select * from user_model where id = 1", UserModel.class);
+
+        List<IndexModel> user_model = JdbcFunction.getFunction().getIndexes("user_model");
+        System.out.println(JSONObject.toJSONString(user_model));
+
+        System.out.println("-------------------------------------------------------------");
+
+        System.out.println(JSONObject.toJSONString(models));
 
         long endTime = System.currentTimeMillis();
         System.out.println("耗时：" + (endTime - startTime));

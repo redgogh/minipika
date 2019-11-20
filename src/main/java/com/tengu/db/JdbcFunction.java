@@ -1,5 +1,6 @@
 package com.tengu.db;
 
+import com.tengu.annotation.Index;
 import com.tengu.annotation.Model;
 import com.tengu.config.Config;
 import com.tengu.exception.ModelException;
@@ -149,33 +150,7 @@ public class JdbcFunction extends NativeJdbc implements JdbcFunctionService {
 
     @Override
     public List<IndexModel> getIndexes(String table) {
-        ResultSet resultSet = null;
-        Connection connection = null;
-        PreparedStatement statement = null;
-        String sql = "show index from ".concat(table);
-        try {
-            connection = pool.getConnection();
-            if (connection == null) {
-                synchronized (this) {
-                    wait();
-                }
-                return getIndexes(table);
-            }
-            statement = connection.prepareStatement(sql);
-            resultSet = setValues(statement).executeQuery();
-            return new TenguResultSet().buildResultSetByIndex(resultSet).conversionIndexModelList();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (statement != null) statement.close();
-                if (resultSet != null) resultSet.close();
-                if (connection != null) pool.release(connection);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
+        return executeQuery("show index from `".concat(table).concat("`")).conversionJavaList(IndexModel.class);
     }
 
     /**

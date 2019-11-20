@@ -42,7 +42,7 @@ public class ParseModel {
         if (script.charAt(script.length() - 2) == ',') {
             script.deleteCharAt(script.length() - 2);
         }
-        script.append(") ENGINE = ".concat(engine).concat("\n"));
+        script.append(") ENGINE = ".concat("InnoDB").concat("\n"));
         script.append("\tDEFAULT CHARACTER SET = utf8\n");
         script.append("\tCOLLATE = utf8_general_ci\n");
         script.append("\tAUTO_INCREMENT = 1;");
@@ -65,13 +65,13 @@ public class ParseModel {
         if (target.isAnnotationPresent(Model.class)) {
             Model model = target.getDeclaredAnnotation(Model.class);
             tableName = model.value();
-            Engine engine = model.engine();
+            // Engine engine = model.engine();
             if (StringUtils.isEmpty(tableName)) {
                 throw new ParseException("Model表名不能为空");
             }
             message.setTableName(tableName);
             map.put("table", tableName);
-            map.put("engine", String.valueOf(engine));
+            // map.put("engine", String.valueOf(engine));
         }
         // 判断是否有索引注解
         if (target.isAnnotationPresent(Indexes.class)) {

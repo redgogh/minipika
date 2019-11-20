@@ -1,13 +1,6 @@
 package com.tengu.config;
 
-import com.tengu.annotation.Model;
-import com.tengu.db.JdbcFunction;
-import com.tengu.db.NativeJdbc;
-import com.tengu.exception.ParseException;
-import com.tengu.model.ModelAttribute;
-import com.tengu.model.ParseModel;
 import com.tengu.tools.StringUtils;
-import com.tengu.tools.TenguUtils;
 
 import java.io.InputStream;
 import java.util.*;

@@ -1,6 +1,5 @@
 package com.tengu.config;
 
-import com.alibaba.fastjson.JSONObject;
 import com.tengu.annotation.Model;
 import com.tengu.db.JdbcFunction;
 import com.tengu.db.NativeJdbc;

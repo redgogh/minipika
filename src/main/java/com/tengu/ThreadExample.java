@@ -1,6 +1,5 @@
 package com.tengu;
 
-import com.tengu.config.Config;
 import com.tengu.db.JdbcFunction;
 import com.tengu.experiment.UserModel;
 
