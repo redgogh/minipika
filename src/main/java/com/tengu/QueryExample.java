@@ -24,14 +24,16 @@ public class QueryExample {
         long startTime = System.currentTimeMillis();
 
         // JdbcFunction.getFunction().getEngine("user_model");
-        UserModel models = JdbcFunction.getFunction().queryForObject("select * from user_model where id = 1", UserModel.class);
+        // UserModel models = JdbcFunction.getFunction().queryForObject("select * from user_model where id = 1", UserModel.class);
 
-        List<IndexModel> user_model = JdbcFunction.getFunction().getIndexes("user_model");
-        System.out.println(JSONObject.toJSONString(user_model));
+        // List<IndexModel> user_model = JdbcFunction.getFunction().getIndexes("user_model");
+        // System.out.println(JSONObject.toJSONString(user_model));
 
-        System.out.println("-------------------------------------------------------------");
+        // System.out.println("-------------------------------------------------------------");
 
-        System.out.println(JSONObject.toJSONString(models));
+        // System.out.println(JSONObject.toJSONString(models));
+
+        System.out.println(JdbcFunction.getFunction().queryForJson("select * from user_model limit 0,10;"));
 
         long endTime = System.currentTimeMillis();
         System.out.println("耗时：" + (endTime - startTime));

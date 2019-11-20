@@ -22,7 +22,7 @@ public interface NativeJdbcService {
      * @param args
      * @return
      */
-    TenguResultSet executeQuery(String sql, Object... args);
+    NativeResultSet executeQuery(String sql, Object... args);
 
     /**
      * 执行更新

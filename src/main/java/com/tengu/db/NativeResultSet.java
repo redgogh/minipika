@@ -1,10 +1,9 @@
 package com.tengu.db;
 
+import com.alibaba.fastjson.JSONObject;
 import com.tengu.annotation.Ignore;
-import com.tengu.model.IndexModel;
 import com.tengu.tools.TenguUtils;
 
-import javax.swing.table.DefaultTableModel;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -19,26 +18,20 @@ import java.util.*;
  * @date 2019/11/13 18:12
  * @since 1.8
  */
-public class TenguResultSet {
+public class NativeResultSet implements NativeResultSetService {
 
     private List<Map<String, String>> resultSet;
     private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public TenguResultSet() {
+    public NativeResultSet() {
     }
 
-    public TenguResultSet(ResultSet rset) {
-        buildResultSet(rset);
+    public NativeResultSet(ResultSet rset) {
+        build(rset);
     }
 
-    /**
-     * 构建TenguResultSet
-     *
-     * @param rset
-     * @return
-     * @throws Exception
-     */
-    public TenguResultSet buildResultSet(ResultSet rset) {
+    @Override
+    public NativeResultSet build(ResultSet rset) {
         try {
             resultSet = new ArrayList<>();
             ResultSetMetaData mdata = rset.getMetaData();
@@ -59,14 +52,7 @@ public class TenguResultSet {
         return this;
     }
 
-    /**
-     * 将查询的结果转换为实体类
-     *
-     * @param target
-     * @param <T>
-     * @return
-     * @throws Exception
-     */
+    @Override
     public <T> T conversionJavaBean(Class<T> target) {
         Map<String, String> resultMap = null;
         List<String> names = new ArrayList<>();
@@ -90,14 +76,7 @@ public class TenguResultSet {
         return model;
     }
 
-    /**
-     * 将查询的结果转换为实体集合
-     *
-     * @param target
-     * @param <T>
-     * @return
-     * @throws Exception
-     */
+    @Override
     public <T> List<T> conversionJavaList(Class<T> target) {
         List<T> models = new ArrayList<>();
         List<String> names = new ArrayList<>();
@@ -122,7 +101,22 @@ public class TenguResultSet {
         return models;
     }
 
-    public void setValue(Field field, String v, Object model) throws Exception {
+    @Override
+    public String toJSONString() {
+        if(resultSet.size() == 1){
+            return JSONObject.toJSONString(resultSet.get(0));
+        }
+        return JSONObject.toJSONString(resultSet);
+    }
+
+    /**
+     * 添加对应的值
+     * @param field
+     * @param v
+     * @param model
+     * @throws Exception
+     */
+    private void setValue(Field field, String v, Object model) throws Exception {
         String type = field.getType().getName();
         if (type.equals("java.lang.Integer")) {
             field.set(model, Integer.valueOf(v));

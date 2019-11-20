@@ -34,6 +34,14 @@ import java.util.List;
      <T> List<T> queryForList(String sql, Class<T> obj, Object... args);
 
     /**
+     * 查询并返回JSON字符串
+     * @param sql
+     * @param args
+     * @return
+     */
+     String queryForJson(String sql,Object... args);
+
+    /**
      * 更新所有实体类中的所有数据，但不包括为空的数据。
      * @param obj 实体类
      * @return 更新条数

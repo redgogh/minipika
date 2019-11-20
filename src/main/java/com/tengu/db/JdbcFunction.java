@@ -47,8 +47,8 @@ public class JdbcFunction extends NativeJdbc implements JdbcFunctionService {
     }
 
     @Override
-    public Integer update(Object obj) {
-        return updateIsDoNULL(obj, false);
+    public String queryForJson(String sql, Object... args) {
+        return executeQuery(sql,args).toJSONString();
     }
 
     @Override
@@ -57,8 +57,13 @@ public class JdbcFunction extends NativeJdbc implements JdbcFunctionService {
     }
 
     @Override
+    public Integer update(Object obj) {
+        return update(obj, false);
+    }
+
+    @Override
     public Integer updateDoNULL(Object obj) {
-        return updateIsDoNULL(obj, true);
+        return update(obj, true);
     }
 
     @Override
@@ -160,7 +165,7 @@ public class JdbcFunction extends NativeJdbc implements JdbcFunctionService {
      * @param bool
      * @return
      */
-    public int updateIsDoNULL(Object obj, boolean bool) {
+    public int update(Object obj, boolean bool) {
         try {
             Class<?> target = obj.getClass();
             if (!target.isAnnotationPresent(Model.class)) {

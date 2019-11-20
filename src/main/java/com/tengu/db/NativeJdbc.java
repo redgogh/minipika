@@ -41,7 +41,7 @@ public class NativeJdbc implements NativeJdbcService {
     }
 
     @Override
-    public TenguResultSet executeQuery(String sql, Object... args) {
+    public NativeResultSet executeQuery(String sql, Object... args) {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
@@ -54,7 +54,7 @@ public class NativeJdbc implements NativeJdbcService {
             }
             statement = connection.prepareStatement(sql);
             ResultSet resultSet = setValues(statement, args).executeQuery();
-            return new TenguResultSet().buildResultSet(resultSet);
+            return new NativeResultSet().build(resultSet);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
