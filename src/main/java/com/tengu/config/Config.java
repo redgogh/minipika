@@ -49,6 +49,9 @@ public class Config {
                 temp = temp.substring(temp.indexOf("/") + 1);
             }
             dbname = temp.substring(0, temp.indexOf("?"));
+            Initialize init = new Initialize();
+            init.parseModel();
+            init.columnCheck();
         } catch (Throwable e) {
             e.printStackTrace();
         }

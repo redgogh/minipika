@@ -18,9 +18,9 @@ public class ThreadExample {
 
     public static void main(String[] args) {
 
-        for (int i = 0; i < 2000; i++) {
+        for (int i = 0; i < 200; i++) {
             new Thread(() -> {
-                for(int j=0; j<1000; j++){
+                for(int j=0; j<100; j++){
                     UserModel model = new UserModel();
                     String uuid = UUID.randomUUID().toString();
                     model.setUserName(uuid);
@@ -30,6 +30,7 @@ public class ThreadExample {
                 }
                 System.err.println("线程退出");
             }).start();
+            System.err.println("线程创建");
         }
 
     }

@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.Driver;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -48,14 +49,16 @@ public class ConnectionPool {
      */
     private static int count = 0;
 
+    private static ReentrantLock reentrant = new ReentrantLock();
+
     private static Set<Connection> conns;
 
-    public ConnectionPool(){
+    public ConnectionPool() {
         init();
     }
 
     // 初始化
-    private void init(){
+    private void init() {
         for (int i = 0; i < MIN_SIZE; i++) {
             conns.add(createConnection());
         }
@@ -94,10 +97,10 @@ public class ConnectionPool {
                 } else {
                     if (count <= MAX_SIZE) {
                         Connection connection = createConnection();
-                        if(connection == null){
+                        if (connection == null) {
                             wait();
                             return getConnection();
-                        }else{
+                        } else {
                             return connection;
                         }
                     }
@@ -114,8 +117,8 @@ public class ConnectionPool {
      *
      * @return
      */
-    public static Connection createConnection() {
-        if(count >= MAX_SIZE) return null;
+    public Connection createConnection() {
+        if (count >= MAX_SIZE) return null;
         System.out.println("已创建的链接有：" + count);
         try {
             if (driver == null) {
