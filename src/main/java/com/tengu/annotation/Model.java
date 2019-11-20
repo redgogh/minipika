@@ -22,4 +22,10 @@ public @interface Model {
      */
     String value() default "";
 
+    /**
+     * 设置表的储存引擎，默认InnoDB
+     * @return
+     */
+    Engine engine() default Engine.INNODB;
+
 }

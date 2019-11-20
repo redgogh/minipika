@@ -2,6 +2,8 @@ package com.tengu.db;
 
 import com.tengu.model.TenguResultSet;
 
+import java.sql.ResultSet;
+
 /**
  * @author 404NotFoundx
  * @version 1.0.0

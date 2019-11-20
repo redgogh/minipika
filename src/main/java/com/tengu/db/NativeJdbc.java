@@ -15,13 +15,7 @@ import java.sql.ResultSet;
  */
 public class NativeJdbc implements NativeJdbcService {
 
-    private static NativeJdbc njdbc;
-    private final ConnectionPool pool = ConnectionPool.getPool();
-
-    public static NativeJdbc getJdbc() {
-        if (njdbc == null) njdbc = new NativeJdbc();
-        return njdbc;
-    }
+    protected final ConnectionPool pool = ConnectionPool.getPool();
 
     @Override
     public boolean execute(String sql, Object... args) {
@@ -61,7 +55,7 @@ public class NativeJdbc implements NativeJdbcService {
             }
             statement = connection.prepareStatement(sql);
             ResultSet resultSet = setValues(statement, args).executeQuery();
-            return new TenguResultSet().buildResultSetByIndex(resultSet);
+            return new TenguResultSet().buildResultSet(resultSet);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

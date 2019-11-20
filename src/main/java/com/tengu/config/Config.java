@@ -46,9 +46,6 @@ public class Config {
     // model包路径
     private static String modelPackage = getValue("tengu.model.package");
 
-    // 储存引擎
-    private static String modelEngine = getValue("tengu.model.engine");
-
     // 数据库名
     private static String dbname;
 
@@ -117,7 +114,4 @@ public class Config {
         return Integer.valueOf(StringUtils.isEmpty(minSize) ? "2" : minSize);
     }
 
-    public static String getEngine() {
-        return StringUtils.isEmpty(modelEngine) ? "innodb" : modelEngine;
-    }
 }

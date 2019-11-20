@@ -24,13 +24,16 @@ public class ParseModel {
      * @param target 目标实体类
      */
     public ModelAttribute enhance(Class<?> target) throws TenguException {
+        String engine = null;                                   // 储存引擎
         String tableName = null;                                // 表名
         ModelAttribute message = new ModelAttribute();          // 完整sql
         StringBuilder script = new StringBuilder();             // sql代码
         Map<String, String> columns = new LinkedHashMap<>();    // 字段信息
         script.append("create table if not exists");
         // 判断实体类有没有Model注解
-        tableName = modelData(target, message);
+        Map<String, String> modelData = modelData(target, message);
+        tableName = modelData.get("table");
+        engine = modelData.get("engine");
         ModelAttribute.putModel(target);
         script.append(" `").append(tableName).append("`\n").append("(\n"); // 开头
         // 解析字段
@@ -39,7 +42,7 @@ public class ParseModel {
         if (script.charAt(script.length() - 2) == ',') {
             script.deleteCharAt(script.length() - 2);
         }
-        script.append(") ENGINE = InnoDB\n");
+        script.append(") ENGINE = ".concat(engine).concat("\n"));
         script.append("\tDEFAULT CHARACTER SET = utf8\n");
         script.append("\tCOLLATE = utf8_general_ci\n");
         script.append("\tAUTO_INCREMENT = 1;");
@@ -56,15 +59,19 @@ public class ParseModel {
      * @return
      * @throws ParseException
      */
-    public String modelData(Class<?> target, ModelAttribute message) throws ParseException {
+    public Map<String, String> modelData(Class<?> target, ModelAttribute message) throws ParseException {
         String tableName = "";
+        Map<String, String> map = new HashMap<>();
         if (target.isAnnotationPresent(Model.class)) {
             Model model = target.getDeclaredAnnotation(Model.class);
             tableName = model.value();
+            Engine engine = model.engine();
             if (StringUtils.isEmpty(tableName)) {
                 throw new ParseException("Model表名不能为空");
             }
             message.setTableName(tableName);
+            map.put("table", tableName);
+            map.put("engine", String.valueOf(engine));
         }
         // 判断是否有索引注解
         if (target.isAnnotationPresent(Indexes.class)) {
@@ -80,7 +87,7 @@ public class ParseModel {
 
             }
         }
-        return tableName;
+        return map;
     }
 
     /**

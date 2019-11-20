@@ -2,6 +2,7 @@ package com.tengu;
 
 import com.tengu.config.Initialize;
 import com.tengu.db.JdbcFunction;
+import com.tengu.db.NativeJdbc;
 import com.tengu.experiment.UserModel;
 import com.tengu.model.IndexModel;
 import com.tengu.model.ModelAttribute;
@@ -23,8 +24,8 @@ public class QueryExample {
 
         long startTime = System.currentTimeMillis();
 
-        List<IndexModel> models = JdbcFunction.getFunction().getIndexes("user_model");
-
+        // JdbcFunction.getFunction().getEngine("user_model");
+        // UserModel models = JdbcFunction.getFunction().queryForObject("select * from user_model where id = 1", UserModel.class);
         Initialize init = new Initialize();
         init.parseModel();
         init.indexesCheck();

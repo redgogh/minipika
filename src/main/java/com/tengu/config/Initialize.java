@@ -22,7 +22,7 @@ import java.util.Map;
  * @date 2019/11/19 18:05
  * @since 1.8
  */
-public class Initialize {
+public class Initialize extends NativeJdbc{
 
     // 添加字段
     private static final String ADD_COLUMN_SCRIPT = "ALTER TABLE `%s` ADD %s after `%s`;";
@@ -63,7 +63,7 @@ public class Initialize {
                     String key = entry.getKey();
                     if (!inDbColumns.contains(key)) {
                         String executeScript = String.format(ADD_COLUMN_SCRIPT, message.getTableName(), entry.getValue(),previousKey);
-                        NativeJdbc.getJdbc().execute(executeScript);
+                        execute(executeScript);
                     }
                     previousKey = key;
                 }
@@ -81,7 +81,7 @@ public class Initialize {
             ModelAttribute modelAttribute = entryMap.getValue();
             List<IndexAttribute> modelIndex = modelAttribute.getIndexes();
 
-            System.out.println(JSONObject.toJSONString(modelIndex));
+            System.out.println();
 
         }
     }

@@ -5,6 +5,7 @@ import com.tengu.config.Config;
 import com.tengu.exception.ModelException;
 import com.tengu.model.IndexModel;
 import com.tengu.model.ModelAttribute;
+import com.tengu.model.TenguResultSet;
 import com.tengu.pool.ConnectionPool;
 import com.tengu.tools.TenguUtils;
 
@@ -22,10 +23,9 @@ import java.util.List;
  * @date 2019/11/11 23:40
  * @since 1.8
  */
-public class JdbcFunction implements JdbcFunctionService {
+public class JdbcFunction extends NativeJdbc implements JdbcFunctionService {
 
     private static JdbcFunction template;
-    private static NativeJdbc nativeJdbc = NativeJdbc.getJdbc();
 
     private ConnectionPool pool = ConnectionPool.getPool();
 
@@ -38,12 +38,12 @@ public class JdbcFunction implements JdbcFunctionService {
 
     @Override
     public <T> T queryForObject(String sql, Class<T> obj, Object... args) {
-        return nativeJdbc.executeQuery(sql, args).conversionJavaBean(obj);
+        return executeQuery(sql, args).conversionJavaBean(obj);
     }
 
     @Override
     public <T> List<T> queryForList(String sql, Class<T> obj, Object... args) {
-        return nativeJdbc.executeQuery(sql, args).conversionJavaList(obj);
+        return executeQuery(sql, args).conversionJavaList(obj);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class JdbcFunction implements JdbcFunctionService {
 
     @Override
     public Integer update(String sql, Object... args) {
-        return nativeJdbc.executeUpdate(sql, args);
+        return executeUpdate(sql, args);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class JdbcFunction implements JdbcFunctionService {
             values.deleteCharAt((values.length() - 1));
             values.append(")");
             into.append(values);
-            return nativeJdbc.executeUpdate(into.toString(), param.toArray());
+            return executeUpdate(into.toString(), param.toArray());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -97,12 +97,12 @@ public class JdbcFunction implements JdbcFunctionService {
 
     @Override
     public Integer insert(String sql, Object... args) {
-        return nativeJdbc.executeUpdate(sql, args);
+        return executeUpdate(sql, args);
     }
 
     @Override
     public Integer delete(String sql, Object... args) {
-        return nativeJdbc.executeUpdate(sql, args);
+        return executeUpdate(sql, args);
     }
 
     @Override
@@ -150,18 +150,47 @@ public class JdbcFunction implements JdbcFunctionService {
 
     @Override
     public List<IndexModel> getIndexes(String table) {
+        ResultSet resultSet = null;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        String sql = "show index from ".concat(table);
         try {
-            String sql = "show index from `%s`";
-            sql = String.format(sql, table);
-            return nativeJdbc.executeQuery(sql).conversionIndexModelList();
-        }catch (Exception e){
+            connection = pool.getConnection();
+            if (connection == null) {
+                synchronized (this) {
+                    wait();
+                }
+                return getIndexes(table);
+            }
+            statement = connection.prepareStatement(sql);
+            resultSet = setValues(statement).executeQuery();
+            return new TenguResultSet().buildResultSetByIndex(resultSet).conversionIndexModelList();
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) statement.close();
+                if (resultSet != null) resultSet.close();
+                if (connection != null) pool.release(connection);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        return null;
+    }
+
+    @Override
+    public String getEngine(String table) {
+        String sql = "show table status from " + Config.getDbname() + " where name = '%s';";
+        sql = String.format(sql, table);
+        TenguResultSet tengu = executeQuery(sql, table);
+        System.out.println();
         return null;
     }
 
     /**
      * 是否更新为NULL的字段
+     *
      * @param obj
      * @param bool
      * @return
@@ -198,7 +227,7 @@ public class JdbcFunction implements JdbcFunctionService {
             Object v = field.get(obj);
             buffer.append("where `".concat(primaryKey).concat("` = ?"));
             params.add(v);
-            return nativeJdbc.executeUpdate(buffer.toString(), params.toArray());
+            return executeUpdate(buffer.toString(), params.toArray());
         } catch (Exception e) {
             e.printStackTrace();
         }
