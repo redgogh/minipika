@@ -15,9 +15,9 @@ import java.lang.annotation.*;
 public @interface Index {
 
     /**
-     * 字段名
+     * 索引字段
      */
-    String column() default "";
+    String[] columns() default {};
 
     /**
      * 索引别名
@@ -36,6 +36,5 @@ public @interface Index {
      * @return
      */
     String comment() default "";
-
 
 }

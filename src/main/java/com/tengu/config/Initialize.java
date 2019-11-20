@@ -1,5 +1,6 @@
 package com.tengu.config;
 
+import com.alibaba.fastjson.JSONObject;
 import com.tengu.annotation.Model;
 import com.tengu.db.JdbcFunction;
 import com.tengu.db.NativeJdbc;
@@ -80,7 +81,7 @@ public class Initialize {
             ModelAttribute modelAttribute = entryMap.getValue();
             List<IndexAttribute> modelIndex = modelAttribute.getIndexes();
 
-            System.out.println();
+            System.out.println(JSONObject.toJSONString(modelIndex));
 
         }
     }

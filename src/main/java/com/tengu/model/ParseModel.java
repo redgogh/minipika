@@ -71,7 +71,7 @@ public class ParseModel {
             Index[] indices = target.getDeclaredAnnotation(Indexes.class).value();
             for (Index index : indices) {
                 IndexAttribute ia = new IndexAttribute();
-                ia.setColumn(index.column());
+                ia.setColumns(index.columns());
                 ia.setAlias(index.alias());
                 ia.setType(index.type());
                 ia.setComment(index.comment());
