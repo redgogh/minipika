@@ -26,9 +26,6 @@ public class QueryExample {
 
         // JdbcFunction.getFunction().getEngine("user_model");
         // UserModel models = JdbcFunction.getFunction().queryForObject("select * from user_model where id = 1", UserModel.class);
-        Initialize init = new Initialize();
-        init.parseModel();
-        init.indexesCheck();
 
         long endTime = System.currentTimeMillis();
         System.out.println("耗时：" + (endTime - startTime));

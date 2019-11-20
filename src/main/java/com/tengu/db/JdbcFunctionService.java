@@ -98,11 +98,4 @@ import java.util.List;
      */
     List<IndexModel> getIndexes(String table);
 
-    /**
-     * 查询某张表使用的储存引擎
-     * @param table
-     * @return
-     */
-    String getEngine(String table);
-
 }

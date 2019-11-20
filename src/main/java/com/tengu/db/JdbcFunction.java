@@ -179,15 +179,6 @@ public class JdbcFunction extends NativeJdbc implements JdbcFunctionService {
         return null;
     }
 
-    @Override
-    public String getEngine(String table) {
-        String sql = "show table status from " + Config.getDbname() + " where name = '%s';";
-        sql = String.format(sql, table);
-        TenguResultSet tengu = executeQuery(sql, table);
-        System.out.println();
-        return null;
-    }
-
     /**
      * 是否更新为NULL的字段
      *

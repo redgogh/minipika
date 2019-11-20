@@ -13,12 +13,6 @@ import java.util.Date;
  */
 @Data
 @Model(value = "user_model")
-@Indexes({
-        @Index(columns = {"userName", "password", "productName"}, alias = "user_name_index", type = IndexType.NORMAL, comment = "普通索引"),
-        @Index(columns = {"userName", "password", "productName"}, alias = "user_name_index", type = IndexType.UNIQUE, comment = "唯一索引"),
-        @Index(columns = {"userName", "password", "productName"}, alias = "user_name_index", type = IndexType.SPATIAL, comment = "空间索引"),
-        @Index(columns = {"userName", "password", "productName"}, alias = "user_name_index", type = IndexType.FULLTEXT, comment = "全文索引"),
-})
 public class UserModel {
 
     @PrimaryKey
