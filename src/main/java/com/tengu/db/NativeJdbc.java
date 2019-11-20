@@ -1,6 +1,5 @@
 package com.tengu.db;
 
-import com.tengu.model.TenguResultSet;
 import com.tengu.pool.ConnectionPool;
 
 import java.sql.Connection;

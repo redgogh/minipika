@@ -5,7 +5,6 @@ import com.tengu.config.Config;
 import com.tengu.exception.ModelException;
 import com.tengu.model.IndexModel;
 import com.tengu.model.ModelAttribute;
-import com.tengu.model.TenguResultSet;
 import com.tengu.pool.ConnectionPool;
 import com.tengu.tools.TenguUtils;
 

@@ -1,9 +1,7 @@
-package com.tengu.model;
+package com.tengu.db;
 
-import com.mysql.cj.protocol.ResultsetRow;
 import com.tengu.annotation.Ignore;
-import com.tengu.annotation.Index;
-import com.tengu.exception.TenguException;
+import com.tengu.model.IndexModel;
 import com.tengu.tools.TenguUtils;
 
 import java.lang.reflect.Field;
