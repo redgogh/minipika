@@ -1,13 +1,7 @@
 package com.tengu;
 
-import com.alibaba.fastjson.JSONObject;
-import com.tengu.config.Initialize;
 import com.tengu.db.JdbcFunction;
-import com.tengu.experiment.UserModel;
-import com.tengu.model.IndexModel;
 import com.tengu.pool.ConnectionPool;
-
-import java.util.List;
 
 /**
  * @author 404NotFoundx
