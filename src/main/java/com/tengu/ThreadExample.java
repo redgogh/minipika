@@ -19,9 +19,6 @@ public class ThreadExample {
 
     public static void main(String[] args) {
 
-        String name = ManagementFactory.getRuntimeMXBean().getName();
-        System.out.println(name);
-
         for (int i = 0; i < 2000; i++) {
             new Thread(() -> {
                 for(int j=0; j<100; j++){

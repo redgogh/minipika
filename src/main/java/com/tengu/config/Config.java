@@ -5,6 +5,7 @@ import com.tengu.tools.StringUtils;
 
 import java.io.InputStream;
 import java.sql.Driver;
+import java.sql.DriverManager;
 import java.util.*;
 
 /**
@@ -46,6 +47,8 @@ public class Config {
 
     static {
         try {
+            System.setProperty("jdbc.drivers",driver);
+            System.out.println("getLoginTimeout()");
             String temp = url;
             for (int i = 0; i < 3; i++) {
                 temp = temp.substring(temp.indexOf("/") + 1);

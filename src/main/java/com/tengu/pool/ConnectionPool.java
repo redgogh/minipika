@@ -5,10 +5,10 @@ import com.tengu.config.Config;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Properties;
-import java.util.Set;
+import java.sql.SQLNonTransientConnectionException;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
  * 连接池
@@ -45,26 +45,29 @@ public class ConnectionPool {
      */
     private static int count = 0;
 
-    private static Set<Connection> conns;
+    private String jdbcUrl;
+
+    private static Set<Connection> conns = new LinkedHashSet<>();
+
+    // 创建连接
+    Properties info = new Properties();
 
     public ConnectionPool() {
-        synchronized (this) {
-            init();
-        }
-    }
-
-    // 初始化
-    private void init() {
+        // 设置最小值和最大值
+        this.MIN_SIZE = Config.getMinSize();
+        this.MAX_SIZE = Config.getMaxSize();
+        // 设置属性
+        info.setProperty("user", Config.getUsername());
+        info.setProperty("password", Config.getPassword());
+        // URL
+        jdbcUrl = Config.getUrl();
         // 初始化连接对象
         for (int i = 0; i < MIN_SIZE; i++) {
             conns.add(createConnection());
         }
-        // 设置最小值和最大值
-        this.MIN_SIZE = Config.getMinSize();
-        this.MAX_SIZE = Config.getMaxSize();
     }
 
-    public static ConnectionPool getPool() {
+    public static synchronized ConnectionPool getPool() {
         if (instance == null) {
             instance = new ConnectionPool();
         }
@@ -79,7 +82,6 @@ public class ConnectionPool {
     public Connection getConnection() {
         synchronized (this) {
             try {
-                if (conns == null) conns = new HashSet<>();
                 if (!conns.isEmpty()) {
                     Iterator<Connection> iter = conns.iterator();
                     while (iter.hasNext()) {
@@ -94,7 +96,7 @@ public class ConnectionPool {
                     return getConnection();
                 } else {
                     if (count <= MAX_SIZE) {
-                        Connection connection = createConnection();
+                        final Connection connection = createConnection();
                         if (connection == null) {
                             wait();
                             return getConnection();
@@ -116,22 +118,22 @@ public class ConnectionPool {
      * @return
      */
     public Connection createConnection() {
-        if (count >= MAX_SIZE) return null;
+        if (count >= MAX_SIZE) {
+            return null;
+        }
         System.out.println("已创建的链接有：" + count);
         try {
             if (driver == null) {
                 DriverLoader driverLoader = new DriverLoader();
                 driver = driverLoader.getDriver();
             }
-            // 创建连接
-            Properties info = new Properties();
-            info.setProperty("user", Config.getUsername());
-            info.setProperty("password", Config.getPassword());
-            final Connection connection = driver.connect(Config.getUrl(), info);
+            final Connection connection = driver.connect(jdbcUrl, info);
             count++;
             return connection;
         } catch (Exception e) {
-            e.printStackTrace();
+            if (e instanceof SQLNonTransientConnectionException) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

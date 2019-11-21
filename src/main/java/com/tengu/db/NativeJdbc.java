@@ -83,8 +83,11 @@ public class NativeJdbc implements NativeJdbcService {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (connection != null) {
-                pool.release(connection);
+            try {
+                if (statement != null) statement.close();
+                if (connection != null) pool.release(connection);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         return 0;
@@ -92,6 +95,7 @@ public class NativeJdbc implements NativeJdbcService {
 
     /**
      * 设置参数并返回statement
+     *
      * @param statement
      * @param args
      * @return
