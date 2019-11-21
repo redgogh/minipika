@@ -23,7 +23,7 @@ public class DriverLoader {
             if(driver != null){
                 this.driver = driver;
             }else{
-                throw new NullPointerException("未获取驱动程序，请检查配置项");
+                throw new NullPointerException("未获取驱动程序，请检查驱动路径是否有问题");
             }
         } catch (Exception e) {
             e.printStackTrace();
