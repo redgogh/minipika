@@ -3,6 +3,7 @@ package com.tengu;
 import com.tengu.db.JdbcFunction;
 import com.tengu.experiment.UserModel;
 
+import java.lang.management.ManagementFactory;
 import java.util.Date;
 import java.util.UUID;
 
@@ -18,7 +19,10 @@ public class ThreadExample {
 
     public static void main(String[] args) {
 
-        for (int i = 0; i < 200; i++) {
+        String name = ManagementFactory.getRuntimeMXBean().getName();
+        System.out.println(name);
+
+        for (int i = 0; i < 2000; i++) {
             new Thread(() -> {
                 for(int j=0; j<100; j++){
                     UserModel model = new UserModel();

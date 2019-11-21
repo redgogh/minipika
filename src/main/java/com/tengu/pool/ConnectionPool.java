@@ -1,18 +1,14 @@
 package com.tengu.pool;
 
 import com.tengu.config.Config;
-import org.omg.PortableServer.THREAD_POLICY_ID;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.Driver;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.Set;
 
 /**
  * 连接池
@@ -49,19 +45,21 @@ public class ConnectionPool {
      */
     private static int count = 0;
 
-    private static ReentrantLock reentrant = new ReentrantLock();
-
     private static Set<Connection> conns;
 
     public ConnectionPool() {
-        init();
+        synchronized (this) {
+            init();
+        }
     }
 
     // 初始化
     private void init() {
+        // 初始化连接对象
         for (int i = 0; i < MIN_SIZE; i++) {
             conns.add(createConnection());
         }
+        // 设置最小值和最大值
         this.MIN_SIZE = Config.getMinSize();
         this.MAX_SIZE = Config.getMaxSize();
     }
@@ -122,7 +120,8 @@ public class ConnectionPool {
         System.out.println("已创建的链接有：" + count);
         try {
             if (driver == null) {
-                driver = (Driver) Class.forName(Config.getDriver()).newInstance();
+                DriverLoader driverLoader = new DriverLoader();
+                driver = driverLoader.getDriver();
             }
             // 创建连接
             Properties info = new Properties();
@@ -139,6 +138,7 @@ public class ConnectionPool {
 
     /**
      * 归还链接
+     *
      * @param connection
      */
     public void release(Connection connection) {
