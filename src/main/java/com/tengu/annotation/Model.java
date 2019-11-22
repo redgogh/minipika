@@ -22,4 +22,10 @@ public @interface Model {
      */
     String value() default "";
 
+    /**
+     * 储存引擎
+     * @return
+     */
+    Engine engine() default Engine.INNODB;
+
 }

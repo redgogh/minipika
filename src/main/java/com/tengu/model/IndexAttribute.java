@@ -23,13 +23,13 @@ public class IndexAttribute {
     public void buildScript(String table) {
         StringBuffer buffer = new StringBuffer("alter table `".concat(table).concat("` "));
         if (type == IndexType.NORMAL) {
-            buffer.append("add index `").append(alias.concat("` ( ")).append(buildColumns()).append(" ) comment'").append(comment).append("';");
+            buffer.append("add index ").append(alias.concat(" ( ")).append(buildColumns()).append(" ) comment'").append(comment).append("';");
         } else if (type == IndexType.UNIQUE) {
-            buffer.append("add unique `").append(alias.concat("` ( ")).append(buildColumns()).append(" ) comment'").append(comment).append("';");
+            buffer.append("add unique ").append(alias.concat(" ( ")).append(buildColumns()).append(" ) comment'").append(comment).append("';");
         } else if (type == IndexType.SPATIAL) {
-            buffer.append("add spatial index( ").append(buildColumns()).append(" ) comment'").append(comment).append("';");
+            buffer.append("add spatial index ( ").append(buildColumns()).append(" ) comment'").append(comment).append("';");
         } else if (type == IndexType.FULLTEXT) {
-            buffer.append("add fulltext `").append(alias.concat("` ( ")).append(buildColumns()).append(" ) comment'").append(comment).append("';");
+            buffer.append("add fulltext ").append(alias.concat(" ( ")).append(buildColumns()).append(" ) comment'").append(comment).append("';");
         }
         this.script = buffer.toString();
     }

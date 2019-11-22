@@ -70,8 +70,7 @@ public class ConnectionPool {
             }
             // 当连接创建开始初始化
             Initialize init = new Initialize();
-            init.parseModel();
-            init.columnCheck();
+            init.run();
         } catch (Exception e) {
             e.printStackTrace();
         }

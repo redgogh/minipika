@@ -20,7 +20,6 @@ public enum IndexType {
 
     /**
      * 空间索引
-     * 注：innodb储存引擎不支持该索引
      */
     SPATIAL,
 

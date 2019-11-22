@@ -1,5 +1,6 @@
 package com.tengu.config;
 
+import com.alibaba.fastjson.JSONObject;
 import com.tengu.annotation.Model;
 import com.tengu.db.JdbcFunction;
 import com.tengu.db.NativeJdbc;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 /**
  * 初始化
+ *
  * @author 404NotFoundx
  * @version 1.0.0
  * @date 2019/11/19 18:05
@@ -24,12 +26,21 @@ import java.util.Map;
 public class Initialize extends NativeJdbc {
 
     // 添加字段
-    private static final String ADD_COLUMN_SCRIPT = "ALTER TABLE `%s` ADD %s after `%s`;";
+    private final String ADD_COLUMN_SCRIPT = "ALTER TABLE `%s` ADD %s after `%s`;";
+
+    public void run() throws ParseException {
+        loadModel();
+        loadColumn();
+        loadIndex();
+    }
+
+    private final String UNIQUE_NON = "1"; // 代表索引不唯一
+    private final String UNIQUE_YES = "0"; // 代表索引是唯一
 
     /**
      * 解析model
      */
-    public void parseModel() {
+    public void loadModel() {
         ParseModel parseModel = new ParseModel();
         parseModel.parse(TenguUtils.getModels());
         Map<String, ModelAttribute> messages = ModelAttribute.getAttribute();
@@ -46,7 +57,7 @@ public class Initialize extends NativeJdbc {
      *
      * @throws ParseException
      */
-    public void columnCheck() throws ParseException {
+    public void loadColumn() throws ParseException {
         List<Class<?>> models = TenguUtils.getModels();
         for (Class<?> target : models) {
             if (target.isAnnotationPresent(Model.class)) {
@@ -61,7 +72,7 @@ public class Initialize extends NativeJdbc {
                     Map.Entry<String, String> entry = (Map.Entry<String, String>) iter.next();
                     String key = entry.getKey();
                     if (!inDbColumns.contains(key)) {
-                        String executeScript = String.format(ADD_COLUMN_SCRIPT, message.getTableName(), entry.getValue(),previousKey);
+                        String executeScript = String.format(ADD_COLUMN_SCRIPT, message.getTableName(), entry.getValue(), previousKey);
                         execute(executeScript);
                     }
                     previousKey = key;
@@ -72,13 +83,39 @@ public class Initialize extends NativeJdbc {
         }
     }
 
-    public void indexesCheck(){
-        for(Map.Entry<String,ModelAttribute> entryMap : ModelAttribute.getAttribute().entrySet()){
+    public void loadIndex() {
+        for (Map.Entry<String, ModelAttribute> entryMap : ModelAttribute.getAttribute().entrySet()) {
 
+            // 数据库中的索引信息
             List<IndexModel> indexes = JdbcFunction.getFunction().getIndexes(entryMap.getKey());
 
+            // 本地的索引信息
             ModelAttribute modelAttribute = entryMap.getValue();
-            List<IndexAttribute> modelIndex = modelAttribute.getIndexes();
+            List<IndexAttribute> attributes = modelAttribute.getIndexes();
+
+            for (IndexAttribute attribute : attributes) {
+                for (IndexModel model : indexes) {
+
+                    switch (attribute.getType()) {
+                        // 普通索引
+                        case NORMAL: {
+                            break;
+                        }
+                        // 全文索引
+                        case FULLTEXT: {
+                            break;
+                        }
+                        // 唯一索引
+                        case UNIQUE: {
+                            break;
+                        }
+                        // 空间索引
+                        case SPATIAL: {
+                            break;
+                        }
+                    }
+                }
+            }
 
             System.out.println();
 

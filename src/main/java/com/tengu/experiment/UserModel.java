@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.util.Date;
 
+
 /**
  * @author 404NotFoundx
  * @version 1.0.0
@@ -13,6 +14,11 @@ import java.util.Date;
  */
 @Data
 @Model(value = "user_model")
+@Indexes({
+        @Index(columns = {"uuid"}, type = IndexType.UNIQUE),
+        @Index(columns = {"userName"}, type = IndexType.NORMAL),
+        @Index(columns = {"googleEmail"}, type = IndexType.FULLTEXT)
+})
 public class UserModel {
 
     @PrimaryKey
