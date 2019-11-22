@@ -1,6 +1,7 @@
 package com.tengu.pool;
 
 import com.tengu.config.Config;
+import com.tengu.config.Initialize;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -45,29 +46,37 @@ public class ConnectionPool {
      */
     private static int count = 0;
 
-    private String jdbcUrl;
+    private static String jdbcUrl;
 
     private static Set<Connection> conns = new LinkedHashSet<>();
 
     // 创建连接
-    Properties info = new Properties();
+    private static Properties info = new Properties();
 
-    public ConnectionPool() {
-        // 设置最小值和最大值
-        this.MIN_SIZE = Config.getMinSize();
-        this.MAX_SIZE = Config.getMaxSize();
-        // 设置属性
-        info.setProperty("user", Config.getUsername());
-        info.setProperty("password", Config.getPassword());
-        // URL
-        jdbcUrl = Config.getUrl();
-        // 初始化连接对象
-        for (int i = 0; i < MIN_SIZE; i++) {
-            conns.add(createConnection());
+    static {
+        try {
+            // 设置最小值和最大值
+            MIN_SIZE = Config.getMinSize();
+            MAX_SIZE = Config.getMaxSize();
+            // 设置属性
+            info.setProperty("user", Config.getUsername());
+            info.setProperty("password", Config.getPassword());
+            // URL
+            jdbcUrl = Config.getUrl();
+            // 初始化连接对象
+            for (int i = 0; i < MIN_SIZE; i++) {
+                conns.add(ConnectionPool.getPool().createConnection());
+            }
+            // 当连接创建开始初始化
+            Initialize init = new Initialize();
+            init.parseModel();
+            init.columnCheck();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public static synchronized ConnectionPool getPool() {
+    public static ConnectionPool getPool() {
         if (instance == null) {
             instance = new ConnectionPool();
         }
@@ -95,7 +104,7 @@ public class ConnectionPool {
                     System.err.println(Thread.currentThread().getName() + "被唤醒");
                     return getConnection();
                 } else {
-                    if (count <= MAX_SIZE) {
+                    if (count < MAX_SIZE) {
                         final Connection connection = createConnection();
                         if (connection == null) {
                             wait();

@@ -2,7 +2,11 @@ package com.tengu;
 
 import com.tengu.config.Config;
 import com.tengu.db.JdbcFunction;
+import com.tengu.experiment.UserModel;
 import com.tengu.pool.ConnectionPool;
+
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * @author 404NotFoundx
@@ -30,7 +34,16 @@ public class QueryExample {
 
         // System.out.println(JdbcFunction.getFunction().queryForJson("select * from user_model limit 0,10;"));
 
-        System.out.println(Config.getDriver());
+        for(int j=0; j<100; j++){
+            UserModel model = new UserModel();
+            String uuid = UUID.randomUUID().toString();
+            model.setUserName(uuid);
+            model.setUuid(uuid);
+            model.setCreateTime(new Date());
+            JdbcFunction.getFunction().insert(model);
+        }
+
+        // System.out.println(Config.getDriver());
 
         long endTime = System.currentTimeMillis();
         System.out.println("耗时：" + (endTime - startTime));

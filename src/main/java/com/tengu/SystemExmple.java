@@ -13,9 +13,9 @@ import java.util.Enumeration;
 public class SystemExmple {
 
     public static void main(String[] args) {
-        System.setProperty("jdbc.drivers","com.mysql.cj.jdbc.Driver");
-        Enumeration<Driver> drivers = DriverManager.getDrivers();
-        System.out.println();
+        // System.setProperty("jdbc.drivers","com.mysql.cj.jdbc.Driver");
+        // Enumeration<Driver> drivers = DriverManager.getDrivers();
+
     }
 
 }

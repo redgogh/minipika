@@ -16,7 +16,7 @@ import java.util.*;
  * @date 2019/11/4 14:10
  * @since 1.8
  */
-public class Config {
+public final class Config {
 
     // properties对象
     private static Properties config;
@@ -48,15 +48,11 @@ public class Config {
     static {
         try {
             System.setProperty("jdbc.drivers",driver);
-            System.out.println("getLoginTimeout()");
             String temp = url;
             for (int i = 0; i < 3; i++) {
                 temp = temp.substring(temp.indexOf("/") + 1);
             }
             dbname = temp.substring(0, temp.indexOf("?"));
-            Initialize init = new Initialize();
-            init.parseModel();
-            init.columnCheck();
         } catch (Throwable e) {
             e.printStackTrace();
         }
