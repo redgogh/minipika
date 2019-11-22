@@ -21,7 +21,7 @@ import java.util.Map;
  * @date 2019/11/19 18:05
  * @since 1.8
  */
-public class Initialize extends NativeJdbc{
+public class Initialize extends NativeJdbc {
 
     // 添加字段
     private static final String ADD_COLUMN_SCRIPT = "ALTER TABLE `%s` ADD %s after `%s`;";

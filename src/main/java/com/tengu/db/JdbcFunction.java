@@ -1,6 +1,5 @@
 package com.tengu.db;
 
-import com.tengu.annotation.Index;
 import com.tengu.annotation.Model;
 import com.tengu.config.Config;
 import com.tengu.exception.ModelException;
@@ -48,7 +47,7 @@ public class JdbcFunction extends NativeJdbc implements JdbcFunctionService {
 
     @Override
     public String queryForJson(String sql, Object... args) {
-        return executeQuery(sql,args).toJSONString();
+        return executeQuery(sql, args).toJSONString();
     }
 
     @Override
@@ -111,46 +110,9 @@ public class JdbcFunction extends NativeJdbc implements JdbcFunctionService {
     }
 
     @Override
-    public ArrayList<String> getColumns(String tableName) {
-        ArrayList<String> columns = new ArrayList<>();
-        String sql = "select COLUMN_NAME " +
-                "from information_schema.COLUMNS " +
-                "where table_name = '" + tableName + "' " +
-                "and table_schema = '" + Config.getDbname() + "';";
-        try {
-            Connection connection = pool.getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet rset = statement.executeQuery();
-            while (rset.next()) {
-                columns.add(rset.getString(1));
-            }
-            System.out.println();
-            connection.close();
-            statement.close();
-            rset.close();
-        } catch (SQLException e) {
-            System.out.println("sql执行异常，执行SQL如下:");
-            System.out.println(sql);
-            e.printStackTrace();
-        }
-        return columns;
-    }
-
-    @Override
-    public boolean execute(String sql) {
-        boolean r = false;
-        try {
-            Connection connection = pool.getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql);
-            r = statement.execute();
-            statement.close();
-            connection.close();
-        } catch (SQLException e) {
-            System.out.println("sql执行异常，执行SQL如下:");
-            System.out.println(sql);
-            e.printStackTrace();
-        }
-        return r;
+    public List<String> getColumns(String tableName) {
+        String sql = "select COLUMN_NAME from information_schema.COLUMNS where table_name = ? and table_schema = ?;";
+        return executeQuery(sql,tableName,Config.getDbname()).conversionJavaList(String.class);
     }
 
     @Override

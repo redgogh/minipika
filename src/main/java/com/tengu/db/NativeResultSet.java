@@ -48,6 +48,12 @@ public class NativeResultSet implements NativeResultSetService {
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (rset != null) rset.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return this;
     }
@@ -78,6 +84,7 @@ public class NativeResultSet implements NativeResultSetService {
 
     @Override
     public <T> List<T> conversionJavaList(Class<T> target) {
+        if (target.equals(String.class)) return conversionJavaStrings();
         List<T> models = new ArrayList<>();
         List<String> names = new ArrayList<>();
         try {
@@ -101,9 +108,25 @@ public class NativeResultSet implements NativeResultSetService {
         return models;
     }
 
+    /**
+     * 将查询结果转换为String集合
+     *
+     * @return
+     */
+    private <T> List<T> conversionJavaStrings() {
+        if (resultSet.isEmpty()) return null;
+        List<String> strings = new ArrayList<>();
+        for (Map<String, String> resultMap : resultSet) {
+            for (Map.Entry<String, String> v : resultMap.entrySet()) {
+                strings.add(v.getValue());
+            }
+        }
+        return (List<T>) strings;
+    }
+
     @Override
     public String toJSONString() {
-        if(resultSet.size() == 1){
+        if (resultSet.size() == 1) {
             return JSONObject.toJSONString(resultSet.get(0));
         }
         return JSONObject.toJSONString(resultSet);
@@ -111,45 +134,56 @@ public class NativeResultSet implements NativeResultSetService {
 
     /**
      * 添加对应的值
+     *
      * @param field
      * @param v
      * @param model
      * @throws Exception
      */
     private void setValue(Field field, String v, Object model) throws Exception {
-        String type = field.getType().getName();
-        if (type.equals("java.lang.Integer")) {
-            field.set(model, Integer.valueOf(v));
-        }
-        if (type.equals("java.lang.Long")) {
-            field.set(model, Long.valueOf(v));
-        }
-        if (type.equals("java.lang.Short")) {
-            field.set(model, Short.valueOf(v));
-        }
-        if (type.equals("java.lang.Float")) {
-            field.set(model, Float.valueOf(v));
-        }
-        if (type.equals("java.lang.Double")) {
-            field.set(model, Double.valueOf(v));
-        }
-        if (type.equals("java.lang.Byte")) {
-            field.set(model, Byte.valueOf(v));
-        }
-        if (type.equals("java.lang.Boolean")) {
-            field.set(model, Boolean.valueOf(v));
-        }
-        if (type.equals("java.math.BigDecimal")) {
-            field.set(model, new BigDecimal(v));
-        }
-        if (type.equals("java.math.BigInteger")) {
-            field.set(model, new BigInteger(v));
-        }
-        if (type.equals("java.util.Date")) {
-            field.set(model, formatter.parse(v));
-        }
-        if (type.equals("java.lang.String")) {
+        if (field.getType().equals(String.class)) {
             field.set(model, v);
+            return;
+        }
+        if (field.getType().equals(Date.class)) {
+            field.set(model, formatter.parse(v));
+            return;
+        }
+        if (field.getType().equals(Byte.class)) {
+            field.set(model, Byte.valueOf(v));
+            return;
+        }
+        if (field.getType().equals(Long.class)) {
+            field.set(model, Long.valueOf(v));
+            return;
+        }
+        if (field.getType().equals(Short.class)) {
+            field.set(model, Short.valueOf(v));
+            return;
+        }
+        if (field.getType().equals(Float.class)) {
+            field.set(model, Float.valueOf(v));
+            return;
+        }
+        if (field.getType().equals(Double.class)) {
+            field.set(model, Double.valueOf(v));
+            return;
+        }
+        if (field.getType().equals(Boolean.class)) {
+            field.set(model, Boolean.valueOf(v));
+            return;
+        }
+        if (field.getType().equals(Integer.class)) {
+            field.set(model, Integer.valueOf(v));
+            return;
+        }
+        if (field.getType().equals(BigDecimal.class)) {
+            field.set(model, new BigDecimal(v));
+            return;
+        }
+        if (field.getType().equals(BigInteger.class)) {
+            field.set(model, new BigInteger(v));
+            return;
         }
     }
 

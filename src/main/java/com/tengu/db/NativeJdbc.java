@@ -33,8 +33,11 @@ public class NativeJdbc implements NativeJdbcService {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (connection != null) {
-                pool.release(connection);
+            try {
+                if (statement != null) statement.close();
+                if (connection != null) pool.release(connection);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         return false;
@@ -58,8 +61,11 @@ public class NativeJdbc implements NativeJdbcService {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (connection != null) {
-                pool.release(connection);
+            try {
+                if (statement != null) statement.close();
+                if (connection != null) pool.release(connection);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         return null;

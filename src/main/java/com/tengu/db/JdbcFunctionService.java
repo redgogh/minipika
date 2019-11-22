@@ -87,17 +87,10 @@ import java.util.List;
      Integer delete(String sql, Object... args);
 
     /**
-     * 执行自定义SQL
-     * @param sql
-     * @return
-     */
-    boolean execute(String sql);
-
-    /**
      * 查询某张表所有字段
      * @param tableName
      */
-    ArrayList<String> getColumns(String tableName);
+    List<String> getColumns(String tableName);
 
     /**
      * 获取一张表的索引
