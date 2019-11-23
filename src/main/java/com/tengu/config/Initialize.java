@@ -1,6 +1,5 @@
 package com.tengu.config;
 
-import com.alibaba.fastjson.JSONObject;
 import com.tengu.annotation.Model;
 import com.tengu.db.JdbcFunction;
 import com.tengu.db.NativeJdbc;
@@ -11,6 +10,7 @@ import com.tengu.model.ModelAttribute;
 import com.tengu.model.ParseModel;
 import com.tengu.tools.TenguUtils;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -88,38 +88,37 @@ public class Initialize extends NativeJdbc {
 
             // 数据库中的索引信息
             List<IndexModel> indexes = JdbcFunction.getFunction().getIndexes(entryMap.getKey());
+            List<IndexAttribute> attributes1 = buildIndexAttribute(indexes);
 
             // 本地的索引信息
             ModelAttribute modelAttribute = entryMap.getValue();
-            List<IndexAttribute> attributes = modelAttribute.getIndexes();
+            List<IndexAttribute> attributes2 = modelAttribute.getIndexes();
 
-            for (IndexAttribute attribute : attributes) {
-                for (IndexModel model : indexes) {
-
-                    switch (attribute.getType()) {
-                        // 普通索引
-                        case NORMAL: {
-                            break;
-                        }
-                        // 全文索引
-                        case FULLTEXT: {
-                            break;
-                        }
-                        // 唯一索引
-                        case UNIQUE: {
-                            break;
-                        }
-                        // 空间索引
-                        case SPATIAL: {
-                            break;
-                        }
-                    }
-                }
-            }
-
-            System.out.println();
 
         }
+    }
+
+    private List<IndexAttribute> attributes = new ArrayList<>();
+
+    private List<IndexAttribute> buildIndexAttribute(List<IndexModel> models) {
+        if (models.isEmpty()) return attributes;
+        IndexAttribute attribute = new IndexAttribute();
+        List<String> columns = new ArrayList<>();
+        IndexModel model = models.get(0);
+        String keyName = model.getKeyName();
+        attribute.setAlias(keyName);
+        // 扫描models中有多少个重复的别名
+        Iterator<IndexModel> iter = models.iterator();
+        while (iter.hasNext()) {
+            IndexModel iterModel = iter.next();
+            if (iterModel.getKeyName().equals(keyName)) {
+                columns.add(iterModel.getColumnName());
+                attribute.setColumns(columns.toArray(new String[columns.size()]));
+                iter.remove();
+            }
+        }
+        attributes.add(attribute);
+        return buildIndexAttribute(models);
     }
 
 }

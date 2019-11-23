@@ -1,11 +1,8 @@
 package com.tengu.config;
 
-import com.tengu.pool.DriverLoader;
 import com.tengu.tools.StringUtils;
 
 import java.io.InputStream;
-import java.sql.Driver;
-import java.sql.DriverManager;
 import java.util.*;
 
 /**

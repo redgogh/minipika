@@ -15,15 +15,15 @@ import java.lang.annotation.*;
 public @interface Index {
 
     /**
-     * 索引字段
-     */
-    String[] columns() default {};
-
-    /**
      * 索引别名
      * @return
      */
-    String alias() default "";
+    String alias();
+
+    /**
+     * 索引字段
+     */
+    String[] columns() default {};
 
     /**
      * 索引类型

@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @Model(value = "product_model",engine = Engine.MYISAM)
 @Indexes({
-        @Index(columns = {"productName"},type = IndexType.FULLTEXT),
+        @Index(alias = "product_index",columns = {"productName"},type = IndexType.FULLTEXT),
 })
 public class ProductModel {
 
