@@ -10,10 +10,7 @@ import lombok.Data;
  * @since 1.8
  */
 @Data
-@Model(value = "product_model",engine = Engine.MYISAM)
-@Indexes({
-        @Index(alias = "product_index",columns = {"productName"},type = IndexType.FULLTEXT),
-})
+@Model(value = "product_model")
 public class ProductModel {
 
     @Column("int(11) not null")

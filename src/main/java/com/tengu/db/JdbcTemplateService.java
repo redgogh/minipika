@@ -1,8 +1,5 @@
 package com.tengu.db;
 
-import com.tengu.model.IndexModel;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,7 +8,7 @@ import java.util.List;
  * @date 2019/11/13 16:43
  * @since 1.8
  */
- interface JdbcFunctionService {
+ interface JdbcTemplateService {
 
     /**
      * 查询并返回对象
@@ -91,12 +88,5 @@ import java.util.List;
      * @param tableName
      */
     List<String> getColumns(String tableName);
-
-    /**
-     * 获取一张表的索引
-     * @param table
-     * @return
-     */
-    List<IndexModel> getIndexes(String table);
 
 }

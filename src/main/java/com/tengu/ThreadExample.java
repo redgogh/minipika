@@ -1,10 +1,9 @@
 package com.tengu;
 
-import com.tengu.db.JdbcFunction;
+import com.tengu.db.JdbcTemplate;
 import com.tengu.experiment.ProductModel;
 import com.tengu.experiment.UserModel;
 
-import java.lang.management.ManagementFactory;
 import java.util.Date;
 import java.util.UUID;
 
@@ -19,9 +18,8 @@ import java.util.UUID;
 public class ThreadExample {
 
     public static void main(String[] args) {
-
-        productModelInsert();
-
+        userModelInsert();
+        // productModelInsert();
     }
 
     public static void userModelInsert() {
@@ -35,7 +33,7 @@ public class ThreadExample {
                     model.setAddress(uuid);
                     model.setUuid(uuid);
                     model.setCreateTime(new Date());
-                    JdbcFunction.getFunction().insert(model);
+                    JdbcTemplate.getTemplate().insert(model);
                 }
                 System.err.println("线程退出");
             }).start();
@@ -51,7 +49,7 @@ public class ThreadExample {
                     String uuid = UUID.randomUUID().toString();
                     model.setProductName("产品[".concat(String.valueOf(new Date().getTime())).concat("]"));
                     model.setUuid(uuid);
-                    JdbcFunction.getFunction().insert(model);
+                    JdbcTemplate.getTemplate().insert(model);
                 }
                 System.err.println("线程退出");
             }).start();

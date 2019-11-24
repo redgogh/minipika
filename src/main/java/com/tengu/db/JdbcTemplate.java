@@ -3,16 +3,10 @@ package com.tengu.db;
 import com.tengu.annotation.Model;
 import com.tengu.config.Config;
 import com.tengu.exception.ModelException;
-import com.tengu.model.IndexModel;
 import com.tengu.model.ModelAttribute;
-import com.tengu.pool.ConnectionPool;
 import com.tengu.tools.TenguUtils;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,15 +16,13 @@ import java.util.List;
  * @date 2019/11/11 23:40
  * @since 1.8
  */
-public class JdbcFunction extends NativeJdbc implements JdbcFunctionService {
+public class JdbcTemplate extends NativeJdbc implements JdbcTemplateService {
 
-    private static JdbcFunction template;
+    private static JdbcTemplate template;
 
-    private ConnectionPool pool = ConnectionPool.getPool();
-
-    public static JdbcFunction getFunction() {
+    public static JdbcTemplate getTemplate() {
         if (template == null) {
-            template = new JdbcFunction();
+            template = new JdbcTemplate();
         }
         return template;
     }
@@ -112,12 +104,7 @@ public class JdbcFunction extends NativeJdbc implements JdbcFunctionService {
     @Override
     public List<String> getColumns(String tableName) {
         String sql = "select COLUMN_NAME from information_schema.COLUMNS where table_name = ? and table_schema = ?;";
-        return executeQuery(sql,tableName,Config.getDbname()).conversionJavaList(String.class);
-    }
-
-    @Override
-    public List<IndexModel> getIndexes(String table) {
-        return executeQuery("show index from `".concat(table).concat("`")).conversionJavaList(IndexModel.class);
+        return executeQuery(sql, tableName, Config.getDbname()).conversionJavaList(String.class);
     }
 
     /**

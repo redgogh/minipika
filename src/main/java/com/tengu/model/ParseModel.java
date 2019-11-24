@@ -1,7 +1,6 @@
 package com.tengu.model;
 
 import com.tengu.annotation.*;
-import com.tengu.annotation.Index;
 import com.tengu.exception.ParseException;
 import com.tengu.exception.TenguException;
 import com.tengu.tools.StringUtils;
@@ -72,20 +71,6 @@ public class ParseModel {
             message.setTableName(tableName);
             map.put("table", tableName);
             map.put("engine", String.valueOf(engine));
-        }
-        // 判断是否有索引注解
-        if (target.isAnnotationPresent(Indexes.class)) {
-            Index[] indices = target.getDeclaredAnnotation(Indexes.class).value();
-            for (Index index : indices) {
-                IndexAttribute ia = new IndexAttribute();
-                ia.setColumns(index.columns());
-                ia.setAlias(index.alias());
-                ia.setType(index.type());
-                ia.setComment(index.comment());
-                ia.buildScript(tableName);
-                message.addIndexes(ia);
-
-            }
         }
         return map;
     }

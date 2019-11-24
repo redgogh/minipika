@@ -39,11 +39,6 @@ public class ModelAttribute {
     private String engine;
 
     /**
-     * 索引字段
-     */
-    private List<IndexAttribute> indexes = new ArrayList<>();
-
-    /**
      * 创建表的SQL语句
      */
     private String createTableSql;
@@ -95,14 +90,6 @@ public class ModelAttribute {
 
     public void setEngine(String engine) {
         this.engine = engine;
-    }
-
-    public List<IndexAttribute> getIndexes() {
-        return indexes;
-    }
-
-    public void addIndexes(IndexAttribute indexAttribute) {
-        this.indexes.add(indexAttribute);
     }
 
     public String getCreateTableSql() {

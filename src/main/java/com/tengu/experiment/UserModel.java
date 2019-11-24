@@ -14,11 +14,6 @@ import java.util.Date;
  */
 @Data
 @Model(value = "user_model")
-@Indexes({
-        @Index(alias = "uuid_index",columns = {"uuid"}, type = IndexType.UNIQUE),
-        @Index(alias = "user_name_index",columns = {"userName,password"}, type = IndexType.NORMAL),
-        @Index(alias = "google_email_index",columns = {"googleEmail"}, type = IndexType.FULLTEXT)
-})
 public class UserModel {
 
     @PrimaryKey
