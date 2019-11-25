@@ -44,6 +44,21 @@ public class QueryExample {
 
         // System.out.println(Config.getDriver());
 
+        JdbcTemplate template = JdbcTemplate.getTemplate();
+
+        // 查询
+        template.queryForList("select * from user_model",UserModel.class);
+        template.queryForObject("select * from user_model",UserModel.class);
+        template.queryForJson("select * from user_model",UserModel.class);
+
+        // 插入
+        UserModel model = new UserModel();
+        model.setAddress("火星");
+        template.insert(model);
+
+        // 更新
+        template.update("","");
+
         long endTime = System.currentTimeMillis();
         System.out.println("查询【" + models.size() + "】条数据，耗时：" + (endTime - startTime));
     }

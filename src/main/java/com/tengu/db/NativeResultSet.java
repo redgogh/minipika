@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
+ * 自定义结果集，用于缓存结果从而使ResultSet提前关闭。
  * @author 404NotFoundx
  * @version 1.0.0
  * @date 2019/11/13 18:12

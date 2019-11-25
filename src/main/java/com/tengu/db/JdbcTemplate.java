@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 增删改查操作
  * @author 404NotFoundx
  * @version 1.0.0
  * @date 2019/11/11 23:40
@@ -43,22 +44,22 @@ public class JdbcTemplate extends NativeJdbc implements JdbcTemplateService {
     }
 
     @Override
-    public Integer update(String sql, Object... args) {
+    public int update(String sql, Object... args) {
         return executeUpdate(sql, args);
     }
 
     @Override
-    public Integer update(Object obj) {
+    public int updateForModel(Object obj) {
         return update(obj, false);
     }
 
     @Override
-    public Integer updateDoNULL(Object obj) {
+    public int updateDoNULL(Object obj) {
         return update(obj, true);
     }
 
     @Override
-    public Integer insert(Object obj) {
+    public int insert(Object obj) {
         List<Object> param = new ArrayList<>();
         try {
             StringBuffer into = new StringBuffer("insert into ");
@@ -92,12 +93,12 @@ public class JdbcTemplate extends NativeJdbc implements JdbcTemplateService {
     }
 
     @Override
-    public Integer insert(String sql, Object... args) {
+    public int insert(String sql, Object... args) {
         return executeUpdate(sql, args);
     }
 
     @Override
-    public Integer delete(String sql, Object... args) {
+    public int delete(String sql, Object... args) {
         return executeUpdate(sql, args);
     }
 
@@ -114,7 +115,7 @@ public class JdbcTemplate extends NativeJdbc implements JdbcTemplateService {
      * @param bool
      * @return
      */
-    public int update(Object obj, boolean bool) {
+    private int update(Object obj, boolean bool) {
         try {
             Class<?> target = obj.getClass();
             if (!target.isAnnotationPresent(Model.class)) {
