@@ -127,6 +127,7 @@ public class NativeResultSet implements NativeResultSetService {
 
     @Override
     public String toJSONString() {
+        // 为了区分数组和单个对象
         if (resultSet.size() == 1) {
             return JSONObject.toJSONString(resultSet.get(0));
         }

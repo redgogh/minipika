@@ -1,5 +1,7 @@
 package com.tengu.config;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.tengu.annotation.Model;
 import com.tengu.db.JdbcTemplate;
 import com.tengu.db.NativeJdbc;
@@ -37,11 +39,23 @@ public class Initialize extends NativeJdbc {
         ParseModel parseModel = new ParseModel();
         parseModel.parse(TenguUtils.getModels());
         Map<String, ModelAttribute> messages = ModelAttribute.getAttribute();
+        String sql = "show table status from %s where name = '%s';";
+        String updateEngineSql = "ALTER TABLE %s ENGINE = '%s'";
         Iterator iter = messages.entrySet().iterator();
         while (iter.hasNext()) {
             Map.Entry<String, ModelAttribute> entry = (Map.Entry<String, ModelAttribute>) iter.next();
             ModelAttribute message = entry.getValue();
+            String tableName = message.getTableName();
             JdbcTemplate.getTemplate().execute(message.getCreateTableSql());
+            // 判断储存引擎是被修改
+            sql = String.format(sql, Config.getDbname(), tableName);
+            String jsonString = executeQuery(sql).toJSONString();
+            JSONObject jsonObject = JSONObject.parseObject(jsonString);
+            if (!String.valueOf(message.getEngine()).toUpperCase()
+                    .equals(jsonObject.getString("Engine").toUpperCase())) {
+                updateEngineSql = String.format(updateEngineSql, tableName, message.getEngine());
+                executeUpdate(updateEngineSql);
+            }
         }
     }
 

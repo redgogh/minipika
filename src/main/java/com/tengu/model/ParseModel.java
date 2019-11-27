@@ -69,6 +69,7 @@ public class ParseModel {
                 throw new ParseException("Model表名不能为空");
             }
             message.setTableName(tableName);
+            message.setEngine(engine);
             map.put("table", tableName);
             map.put("engine", String.valueOf(engine));
         }

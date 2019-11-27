@@ -13,7 +13,7 @@ import java.util.Date;
  * @since 1.8
  */
 @Data
-@Model(value = "user_model")
+@Model(value = "user_model",engine = Engine.MYISAM)
 public class UserModel {
 
     @PrimaryKey

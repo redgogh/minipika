@@ -1,5 +1,6 @@
 package com.tengu;
 
+import java.math.BigDecimal;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.util.Enumeration;
@@ -15,6 +16,13 @@ public class SystemExmple {
     public static void main(String[] args) {
         // System.setProperty("jdbc.drivers","com.mysql.cj.jdbc.Driver");
         // Enumeration<Driver> drivers = DriverManager.getDrivers();
+
+        BigDecimal count = new BigDecimal("16");
+        BigDecimal percent = new BigDecimal("20").divide(new BigDecimal("100"));
+
+        percent = percent.multiply(count);
+
+        System.out.println(percent);
 
     }
 

@@ -1,5 +1,6 @@
 package com.tengu.model;
 
+import com.tengu.annotation.Engine;
 import com.tengu.annotation.Model;
 import com.tengu.exception.TenguException;
 
@@ -36,7 +37,7 @@ public class ModelAttribute {
     /**
      * 储存引擎，如：innodb
      */
-    private String engine;
+    private Engine engine;
 
     /**
      * 创建表的SQL语句
@@ -84,20 +85,20 @@ public class ModelAttribute {
         return modelClass;
     }
 
-    public String getEngine() {
-        return engine;
-    }
-
-    public void setEngine(String engine) {
-        this.engine = engine;
-    }
-
     public String getCreateTableSql() {
         return createTableSql;
     }
 
     public void setCreateTableSql(String createTableSql) {
         this.createTableSql = createTableSql;
+    }
+
+    public Engine getEngine() {
+        return engine;
+    }
+
+    public void setEngine(Engine engine) {
+        this.engine = engine;
     }
 
     public static void putModel(Class<?> target){
