@@ -42,8 +42,7 @@ public class QueryExample {
         // System.out.println(Config.getDriver());
 
         UserService userService = new UserService();
-        UserModel model = userService.findUserById("1");
-        System.out.println(model.getAddress());
+        System.out.println(userService.findUserCount());
 
         long endTime = System.currentTimeMillis();
         // System.out.println("查询【" + models.size() + "】条数据，耗时：" + (endTime - startTime));

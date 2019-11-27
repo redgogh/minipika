@@ -15,4 +15,8 @@ public class UserService extends JdbcSupport {
         return queryForObject("select * from user_model where id = ?", UserModel.class, id);
     }
 
+    public Long findUserCount(){
+        return count("user_model");
+    }
+
 }

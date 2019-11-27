@@ -102,8 +102,9 @@ public class JdbcSupport extends NativeJdbc implements JdbcSupportService {
 
     @Override
     public long count(String table) {
-        executeQuery("select count(*) from ".concat(table));
-        return 0L;
+        NativeResult result = executeQuery("select count(*) from ".concat(table));
+        result.hasNext();
+        return Long.valueOf(result.next());
     }
 
     @Override
