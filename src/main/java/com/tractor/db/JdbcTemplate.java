@@ -2,6 +2,8 @@ package com.tractor.db;
 
 import com.tractor.annotation.Model;
 import com.tractor.config.Config;
+import com.tractor.exception.TractorException;
+import com.tractor.model.CriteriaManager;
 import com.tractor.model.ModelAttribute;
 import com.tractor.tools.TractorUtils;
 
@@ -57,8 +59,8 @@ public class JdbcTemplate extends NativeJdbc implements JdbcTemplateService {
             StringBuffer into = new StringBuffer("insert into ");
             StringBuffer values = new StringBuffer(" values ");
             Class<?> target = obj.getClass();
-            if (target.isAnnotationPresent(Model.class)) {
-                Model model = target.getDeclaredAnnotation(Model.class);
+            if (CriteriaManager.existModel(target)) {
+                Model model = TractorUtils.getModelAnnotation(target);
                 into.append("`").append(model.value()).append("`");
             }
             into.append("(");
@@ -110,12 +112,9 @@ public class JdbcTemplate extends NativeJdbc implements JdbcTemplateService {
     private int update(Object obj, boolean bool) {
         try {
             Class<?> target = obj.getClass();
-            if (!target.isAnnotationPresent(Model.class)) {
-                throw new ModelException("对象不是实体");
-            }
             List<Object> params = new ArrayList<>();
             StringBuffer buffer = new StringBuffer("update ");
-            String table = target.getDeclaredAnnotation(Model.class).value();
+            String table = TractorUtils.getModelAnnotation(target).value();
             buffer.append("`").append(table).append("` set ");
             for (Field field : target.getDeclaredFields()) {
                 field.setAccessible(true);

@@ -5,6 +5,7 @@ import com.tractor.annotation.Model;
 import com.tractor.db.JdbcTemplate;
 import com.tractor.db.NativeJdbc;
 import com.tractor.exception.TractorException;
+import com.tractor.model.CriteriaManager;
 import com.tractor.model.ModelAttribute;
 import com.tractor.model.ParseModel;
 import com.tractor.tools.TractorUtils;
@@ -66,8 +67,8 @@ public class Initialize extends NativeJdbc {
     public void loadColumn() throws TractorException {
         List<Class<?>> models = TractorUtils.getModels();
         for (Class<?> target : models) {
-            if (target.isAnnotationPresent(Model.class)) {
-                Model model = target.getDeclaredAnnotation(Model.class);
+            if (CriteriaManager.existModel(target)) {
+                Model model = TractorUtils.getModelAnnotation(target);
                 String table = model.value();
                 List<String> inDbColumns = JdbcTemplate.getTemplate().getColumns(table);
                 ModelAttribute message = ModelAttribute.getAttribute().get(table);

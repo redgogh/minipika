@@ -60,8 +60,8 @@ public class ParseModel {
     public Map<String, String> modelData(Class<?> target, ModelAttribute message) throws TractorException {
         String tableName = "";
         Map<String, String> map = new HashMap<>();
-        if (target.isAnnotationPresent(Model.class)) {
-            Model model = target.getDeclaredAnnotation(Model.class);
+        if (CriteriaManager.existModel(target)) {
+            Model model = TractorUtils.getModelAnnotation(target);
             tableName = model.value();
             Engine engine = model.engine();
             if (StringUtils.isEmpty(tableName)) {

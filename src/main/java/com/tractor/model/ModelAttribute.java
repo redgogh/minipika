@@ -3,6 +3,7 @@ package com.tractor.model;
 import com.tractor.annotation.Engine;
 import com.tractor.annotation.Model;
 import com.tractor.exception.TractorException;
+import com.tractor.tools.TractorUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -100,15 +101,9 @@ public class ModelAttribute {
     }
 
     public static void putModel(Class<?> target){
-        if(target.isAnnotationPresent(Model.class)){
-            Model model = target.getDeclaredAnnotation(Model.class);
+        if(CriteriaManager.existModel(target)){
+            Model model = TractorUtils.getModelAnnotation(target);
             modelClass.put(model.value(),target);
-        }else{
-            try{
-                throw new TractorException("没有扫描到Model注解");
-            }catch (Exception e){
-                e.printStackTrace();
-            }
         }
     }
 
