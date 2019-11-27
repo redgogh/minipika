@@ -16,8 +16,4 @@ public class UnsafeJdbc extends NativeJdbc implements UnsafeJdbcService{
         return executeUpdate(String.format("truncate table %s",table));
     }
 
-    @Override
-    public void removeTable(Class<?> target) {
-
-    }
 }

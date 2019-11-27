@@ -17,11 +17,4 @@ public interface UnsafeJdbcService {
      */
     int clear(Class<?> target);
 
-    /**
-     * 删除某张表
-     *
-     * @param target
-     */
-    void removeTable(Class<?> target);
-
 }
