@@ -96,8 +96,11 @@ public class JdbcSupport extends NativeJdbc implements JdbcSupportService {
     }
 
     @Override
-    public int delete(String sql, Object... args) {
-        return executeUpdate(sql, args);
+    public long count(Class<?> target) {
+        if(CriteriaManager.existModel(target)){
+            return count(TractorUtils.getModelAnnotation(target).value());
+        }
+        return 0;
     }
 
     @Override

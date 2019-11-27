@@ -85,12 +85,11 @@ import java.util.List;
      int insert(Object model);
 
     /**
-     * 通过sql语句进行删除
-     * @param sql sql语句
-     * @param args 参数列表
-     * @return 更新条数
+     * 统计所有数据
+     * @param target 传入UserModel
+     * @return
      */
-     int delete(String sql, Object... args);
+    long count(Class<?> target);
 
     /**
      * 统计所有数据
