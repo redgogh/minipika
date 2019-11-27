@@ -10,14 +10,14 @@ import java.util.List;
  * @date 2019/11/13 18:12
  * @since 1.8
  */
-public interface NativeResultSetService {
+public interface NativeResultService {
 
     /**
      * 构建NativeResultSet
      * @param rset
      * @return
      */
-    NativeResultSet build(ResultSet rset);
+    NativeResult build(ResultSet rset);
 
     /**
      * 将查询结果转换为实体类
@@ -40,5 +40,21 @@ public interface NativeResultSetService {
      * @return
      */
     String toJSONString();
+
+    /**
+     * 下一条数据
+     */
+    void hasNext();
+
+    /**
+     * 下一个值
+     * @return
+     */
+    String next();
+
+    /**
+     * 重置
+     */
+    void reset();
 
 }

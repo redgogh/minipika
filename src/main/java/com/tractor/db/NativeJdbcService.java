@@ -27,7 +27,7 @@ public interface NativeJdbcService {
      * @param args
      * @return
      */
-    NativeResultSet executeQuery(String sql, Object... args);
+    NativeResult executeQuery(String sql, Object... args);
 
     /**
      * 执行更新

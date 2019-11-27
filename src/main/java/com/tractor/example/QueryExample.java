@@ -1,6 +1,6 @@
-package com.tractor;
+package com.tractor.example;
 
-import com.tractor.db.JdbcTemplate;
+import com.tractor.example.experiment.UserModel;
 
 /**
  * @author 404NotFoundx
@@ -14,7 +14,7 @@ public class QueryExample {
 
         long startTime = System.currentTimeMillis();
 
-        // List<UserModel> models = JdbcTemplate.getTemplate().queryForList("select * from user_model", UserModel.class);
+        // List<UserModel> models = JdbcSupport.getTemplate().queryForList("select * from user_model", UserModel.class);
 
         // JdbcFunction.getTemplate().getEngine("user_model");
         // UserModel models = JdbcFunction.getTemplate().queryForObject("select * from user_model where id = ?", UserModel.class,397463);
@@ -41,7 +41,9 @@ public class QueryExample {
 
         // System.out.println(Config.getDriver());
 
-        JdbcTemplate template = JdbcTemplate.getTemplate();
+        UserService userService = new UserService();
+        UserModel model = userService.findUserById("1");
+        System.out.println(model.getAddress());
 
         long endTime = System.currentTimeMillis();
         // System.out.println("查询【" + models.size() + "】条数据，耗时：" + (endTime - startTime));

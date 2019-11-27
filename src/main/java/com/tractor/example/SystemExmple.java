@@ -1,4 +1,4 @@
-package com.tractor;
+package com.tractor.example;
 
 import java.math.BigDecimal;
 

@@ -1,4 +1,4 @@
-package com.tractor.experiment;
+package com.tractor.example.experiment;
 
 import com.tractor.annotation.*;
 import lombok.Data;
@@ -13,7 +13,7 @@ import java.util.Date;
  * @since 1.8
  */
 @Data
-@Model(value = "user_model",engine = Engine.MYISAM)
+@Model(value = "user_model")
 public class UserModel {
 
     @PrimaryKey

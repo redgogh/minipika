@@ -12,7 +12,7 @@ import com.tractor.annotation.Model;
 public class CriteriaManager {
 
     public static boolean existModel(Class<?> target){
-        return CriteriaManager.existModel(target);
+        return target.isAnnotationPresent(Model.class);
     }
 
 }

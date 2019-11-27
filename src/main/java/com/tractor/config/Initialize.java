@@ -2,7 +2,7 @@ package com.tractor.config;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tractor.annotation.Model;
-import com.tractor.db.JdbcTemplate;
+import com.tractor.db.JdbcSupport;
 import com.tractor.db.NativeJdbc;
 import com.tractor.exception.TractorException;
 import com.tractor.model.CriteriaManager;
@@ -46,7 +46,7 @@ public class Initialize extends NativeJdbc {
             Map.Entry<String, ModelAttribute> entry = (Map.Entry<String, ModelAttribute>) iter.next();
             ModelAttribute message = entry.getValue();
             String tableName = message.getTableName();
-            JdbcTemplate.getTemplate().execute(message.getCreateTableSql());
+            JdbcSupport.getTemplate().execute(message.getCreateTableSql());
             // 判断储存引擎是被修改
             sql = String.format(sql, Config.getDbname(), tableName);
             String jsonString = executeQuery(sql).toJSONString();
@@ -70,7 +70,7 @@ public class Initialize extends NativeJdbc {
             if (CriteriaManager.existModel(target)) {
                 Model model = TractorUtils.getModelAnnotation(target);
                 String table = model.value();
-                List<String> inDbColumns = JdbcTemplate.getTemplate().getColumns(table);
+                List<String> inDbColumns = JdbcSupport.getTemplate().getColumns(table);
                 ModelAttribute message = ModelAttribute.getAttribute().get(table);
                 Map<String, String> inMessageColumns = message.getColumns();
                 Iterator iter = inMessageColumns.entrySet().iterator();

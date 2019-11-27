@@ -103,7 +103,7 @@ public class TractorUtils {
     public static Model getModelAnnotation(Class<?> target){
         try {
             if (CriteriaManager.existModel(target)) {
-                return TractorUtils.getModelAnnotation(target);
+                return target.getDeclaredAnnotation(Model.class);
             } else {
                 throw new TractorException("@Model Not Found.");
             }

@@ -9,7 +9,7 @@ import java.util.List;
  * @date 2019/11/11 23:40
  * @since 1.8
  */
- interface JdbcTemplateService {
+ interface JdbcSupportService {
 
     /**
      * 查询并返回对象
@@ -38,6 +38,14 @@ import java.util.List;
      * @return
      */
      String queryForJson(String sql,Object... args);
+
+    /**
+     * 查询并返回结果集
+     * @param sql
+     * @param args
+     * @return
+     */
+    NativeResult queryForResult(String sql, Object... args);
 
     /**
      * 更新所有实体类中的所有数据，但不包括为空的数据。
@@ -83,6 +91,13 @@ import java.util.List;
      * @return 更新条数
      */
      int delete(String sql, Object... args);
+
+    /**
+     * 统计所有数据
+     * @param table
+     * @return
+     */
+     long count(String table);
 
     /**
      * 查询某张表所有字段

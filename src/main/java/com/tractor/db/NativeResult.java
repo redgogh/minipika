@@ -3,6 +3,7 @@ package com.tractor.db;
 import com.alibaba.fastjson.JSONObject;
 import com.tractor.annotation.Ignore;
 import com.tractor.tools.TractorUtils;
+import sun.text.normalizer.RangeValueIterator;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -12,20 +13,24 @@ import java.sql.ResultSetMetaData;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class NativeResultSet implements NativeResultSetService {
+public class NativeResult implements NativeResultService {
 
+    private String next;
+    private int nextOffset = 0;
+    private int hasNextOffset = 0;
+    private List<String> hasNext;
     private List<Map<String, String>> resultSet;
     private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public NativeResultSet() {
+    public NativeResult() {
     }
 
-    public NativeResultSet(ResultSet rset) {
+    public NativeResult(ResultSet rset) {
         build(rset);
     }
 
     @Override
-    public NativeResultSet build(ResultSet rset) {
+    public NativeResult build(ResultSet rset) {
         try {
             resultSet = new ArrayList<>();
             ResultSetMetaData mdata = rset.getMetaData();
@@ -125,6 +130,30 @@ public class NativeResultSet implements NativeResultSetService {
             return JSONObject.toJSONString(resultSet.get(0));
         }
         return JSONObject.toJSONString(resultSet);
+    }
+
+    @Override
+    public void hasNext() {
+        if (!resultSet.isEmpty()) {
+            this.hasNext = new ArrayList<>(resultSet.get(this.hasNextOffset).values());
+            this.hasNextOffset++;
+            this.nextOffset = 0;
+        }
+    }
+
+    @Override
+    public String next() {
+        String v = hasNext.get(this.nextOffset);
+        this.nextOffset++;
+        return v;
+    }
+
+    @Override
+    public void reset() {
+        this.next = null;
+        this.hasNext = null;
+        this.nextOffset = 0;
+        this.hasNextOffset = 0;
     }
 
     /**

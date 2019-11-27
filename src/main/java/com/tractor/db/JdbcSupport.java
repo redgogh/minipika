@@ -2,7 +2,6 @@ package com.tractor.db;
 
 import com.tractor.annotation.Model;
 import com.tractor.config.Config;
-import com.tractor.exception.TractorException;
 import com.tractor.model.CriteriaManager;
 import com.tractor.model.ModelAttribute;
 import com.tractor.tools.TractorUtils;
@@ -11,13 +10,13 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcTemplate extends NativeJdbc implements JdbcTemplateService {
+public class JdbcSupport extends NativeJdbc implements JdbcSupportService {
 
-    private static JdbcTemplate template;
+    private static JdbcSupport template;
 
-    public static JdbcTemplate getTemplate() {
+    public static JdbcSupport getTemplate() {
         if (template == null) {
-            template = new JdbcTemplate();
+            template = new JdbcSupport();
         }
         return template;
     }
@@ -35,6 +34,11 @@ public class JdbcTemplate extends NativeJdbc implements JdbcTemplateService {
     @Override
     public String queryForJson(String sql, Object... args) {
         return executeQuery(sql, args).toJSONString();
+    }
+
+    @Override
+    public NativeResult queryForResult(String sql, Object... args) {
+        return executeQuery(sql,args);
     }
 
     @Override
@@ -94,6 +98,12 @@ public class JdbcTemplate extends NativeJdbc implements JdbcTemplateService {
     @Override
     public int delete(String sql, Object... args) {
         return executeUpdate(sql, args);
+    }
+
+    @Override
+    public long count(String table) {
+        executeQuery("select count(*) from ".concat(table));
+        return 0L;
     }
 
     @Override

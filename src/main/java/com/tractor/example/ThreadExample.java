@@ -1,8 +1,8 @@
-package com.tractor;
+package com.tractor.example;
 
-import com.tractor.db.JdbcTemplate;
-import com.tractor.experiment.ProductModel;
-import com.tractor.experiment.UserModel;
+import com.tractor.db.JdbcSupport;
+import com.tractor.example.experiment.ProductModel;
+import com.tractor.example.experiment.UserModel;
 
 import java.util.Date;
 import java.util.UUID;
@@ -23,9 +23,9 @@ public class ThreadExample {
     }
 
     public static void userModelInsert() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10000; i++) {
             new Thread(() -> {
-                for (int j = 0; j < 20; j++) {
+                for (int j = 0; j < 1000; j++) {
                     UserModel model = new UserModel();
                     String uuid = UUID.randomUUID().toString();
                     model.setUserName(uuid);
@@ -33,7 +33,7 @@ public class ThreadExample {
                     model.setAddress(uuid);
                     model.setUuid(uuid);
                     model.setCreateTime(new Date());
-                    JdbcTemplate.getTemplate().insert(model);
+                    JdbcSupport.getTemplate().insert(model);
                 }
                 System.err.println("线程退出");
             }).start();
@@ -49,7 +49,7 @@ public class ThreadExample {
                     String uuid = UUID.randomUUID().toString();
                     model.setProductName("产品[".concat(String.valueOf(new Date().getTime())).concat("]"));
                     model.setUuid(uuid);
-                    JdbcTemplate.getTemplate().insert(model);
+                    JdbcSupport.getTemplate().insert(model);
                 }
                 System.err.println("线程退出");
             }).start();

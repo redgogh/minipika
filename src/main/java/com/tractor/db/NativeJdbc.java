@@ -5,7 +5,6 @@ import com.tractor.pool.ConnectionPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class NativeJdbc implements NativeJdbcService {
 
@@ -26,11 +25,6 @@ public class NativeJdbc implements NativeJdbcService {
             statement = connection.prepareStatement(sql);
             return setValues(statement, args).execute();
         } catch (Exception e) {
-            try {
-                if (connection != null) connection.rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
             e.printStackTrace();
         } finally {
             try {
@@ -44,7 +38,7 @@ public class NativeJdbc implements NativeJdbcService {
     }
 
     @Override
-    public NativeResultSet executeQuery(String sql, Object... args) {
+    public NativeResult executeQuery(String sql, Object... args) {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
@@ -57,7 +51,7 @@ public class NativeJdbc implements NativeJdbcService {
             }
             statement = connection.prepareStatement(sql);
             ResultSet resultSet = setValues(statement, args).executeQuery();
-            return new NativeResultSet().build(resultSet);
+            return new NativeResult().build(resultSet);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -87,11 +81,6 @@ public class NativeJdbc implements NativeJdbcService {
             int r = setValues(statement, args).executeUpdate();
             return r;
         } catch (Exception e) {
-            try {
-                if (connection != null) connection.rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
             e.printStackTrace();
         } finally {
             try {
@@ -105,7 +94,7 @@ public class NativeJdbc implements NativeJdbcService {
     }
 
     /**
-     * 设置参数并返回statement
+     * 设置参数并返回 statement
      *
      * @param statement
      * @param args

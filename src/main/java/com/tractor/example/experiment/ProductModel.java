@@ -1,4 +1,4 @@
-package com.tractor.experiment;
+package com.tractor.example.experiment;
 
 import com.tractor.annotation.*;
 import lombok.Data;
