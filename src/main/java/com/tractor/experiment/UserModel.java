@@ -59,7 +59,6 @@ public class UserModel {
     @Ignore
     private String name;
 
-
     @Override
     public String toString() {
         return "UserModel{" +

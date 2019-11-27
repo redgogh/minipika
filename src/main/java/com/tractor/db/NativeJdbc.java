@@ -5,6 +5,7 @@ import com.tractor.pool.ConnectionPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class NativeJdbc implements NativeJdbcService {
 
@@ -25,6 +26,11 @@ public class NativeJdbc implements NativeJdbcService {
             statement = connection.prepareStatement(sql);
             return setValues(statement, args).execute();
         } catch (Exception e) {
+            try {
+                if (connection != null) connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
             e.printStackTrace();
         } finally {
             try {
@@ -81,6 +87,11 @@ public class NativeJdbc implements NativeJdbcService {
             int r = setValues(statement, args).executeUpdate();
             return r;
         } catch (Exception e) {
+            try {
+                if (connection != null) connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
             e.printStackTrace();
         } finally {
             try {
