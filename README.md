@@ -16,4 +16,4 @@ i dont like Mybatis or Hibernate those ones let me bother the config sometimes i
 
 **Tractor Framework** 使用原生SQL来作为查询语句的，后续我打算出一个叫 **TQL** 的语法来帮助大家写出更好更方便观看的SQL。
 
-**Tractor Framework** query language use original sql for v1.0.0 in after i will write a call '**TQL**' the query language it can help everyone write more good and more convenient watch the query language.
+**tractor framework** query language use original sql for v1.0.0 in after i will write a call '**tql**' the query language it can help everyone write more good and more convenient watch the query language.
