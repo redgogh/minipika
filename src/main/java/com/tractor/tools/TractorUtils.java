@@ -3,7 +3,7 @@ package com.tractor.tools;
 import com.tractor.annotation.Model;
 import com.tractor.config.Config;
 import com.tractor.exception.TractorException;
-import com.tractor.model.CriteriaManager;
+import com.tractor.model.SecurityManager;
 
 import java.io.File;
 import java.net.URL;
@@ -102,7 +102,7 @@ public class TractorUtils {
      */
     public static Model getModelAnnotation(Class<?> target){
         try {
-            if (CriteriaManager.existModel(target)) {
+            if (SecurityManager.existModel(target)) {
                 return target.getDeclaredAnnotation(Model.class);
             } else {
                 throw new TractorException("@Model Not Found.");

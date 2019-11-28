@@ -2,7 +2,6 @@ package com.tractor.model;
 
 import com.tractor.annotation.Engine;
 import com.tractor.annotation.Model;
-import com.tractor.exception.TractorException;
 import com.tractor.tools.TractorUtils;
 
 import java.util.HashMap;
@@ -14,9 +13,9 @@ import java.util.Map;
  * @date 2019/11/12 11:01
  * @since 1.8
  */
-public class ModelAttribute {
+public class GlobalMsg {
 
-    private static final Map<String, ModelAttribute> messages = new HashMap<>();
+    private static final Map<String, GlobalMsg> messages = new HashMap<>();
 
     /**
      * 模型的类对象
@@ -48,11 +47,11 @@ public class ModelAttribute {
      */
     private Map<String,String> columns;
 
-    public static void putAttribute(String key, ModelAttribute value){
+    public static void putAttribute(String key, GlobalMsg value){
         messages.put(key,value);
     }
 
-    public static Map<String, ModelAttribute> getAttribute() {
+    public static Map<String, GlobalMsg> getAttribute() {
         return messages;
     }
 
@@ -101,7 +100,7 @@ public class ModelAttribute {
     }
 
     public static void putModel(Class<?> target){
-        if(CriteriaManager.existModel(target)){
+        if(SecurityManager.existModel(target)){
             Model model = TractorUtils.getModelAnnotation(target);
             modelClass.put(model.value(),target);
         }

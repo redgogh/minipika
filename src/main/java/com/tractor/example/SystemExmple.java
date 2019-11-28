@@ -14,12 +14,28 @@ public class SystemExmple {
         // System.setProperty("jdbc.drivers","com.mysql.cj.jdbc.Driver");
         // Enumeration<Driver> drivers = DriverManager.getDrivers();
 
-        BigDecimal count = new BigDecimal("16");
-        BigDecimal percent = new BigDecimal("20").divide(new BigDecimal("100"));
-
-        percent = percent.multiply(count);
-
-        System.out.println(percent);
+        for (int i = 0; i < 10; i++) {
+            switch (String.valueOf(i)) {
+                case "1":
+                case "2":
+                case "3":{
+                    System.out.println("1,2,3");
+                    break;
+                }
+                case "4":
+                case "5":
+                case "6":{
+                    System.out.println("4,5,6");
+                    break;
+                }
+                case "7":
+                case "8":
+                case "9":{
+                    System.out.println("7,8,9");
+                    break;
+                }
+            }
+        }
 
     }
 

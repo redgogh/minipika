@@ -14,28 +14,28 @@ import java.util.*;
  * @date 2019/11/12 10:19
  * @since 1.8
  */
-public class ParseModel {
+public class ModelGetter {
 
     /**
      * 对Model进行解析
      *
      * @param target 目标实体类
      */
-    public ModelAttribute enhance(Class<?> target) throws TractorException {
+    public GlobalMsg enhance(Class<?> target) throws TractorException {
         String engine = null;                                   // 储存引擎
         String tableName = null;                                // 表名
-        ModelAttribute message = new ModelAttribute();          // 完整sql
+        GlobalMsg globalMsg = new GlobalMsg();          // 完整sql
         StringBuilder script = new StringBuilder();             // sql代码
         Map<String, String> columns = new LinkedHashMap<>();    // 字段信息
         script.append("create table if not exists");
         // 判断实体类有没有Model注解
-        Map<String, String> modelData = modelData(target, message);
+        Map<String, String> modelData = modelData(target, globalMsg);
         tableName = modelData.get("table");
         engine = modelData.get("engine");
-        ModelAttribute.putModel(target);
+        GlobalMsg.putModel(target);
         script.append(" `").append(tableName).append("`\n").append("(\n"); // 开头
         // 解析字段
-        field(target, message, script, columns);
+        field(target, globalMsg, script, columns);
         // 结尾
         if (script.charAt(script.length() - 2) == ',') {
             script.deleteCharAt(script.length() - 2);
@@ -44,31 +44,31 @@ public class ParseModel {
         script.append("\tDEFAULT CHARACTER SET = utf8\n");
         script.append("\tCOLLATE = utf8_general_ci\n");
         script.append("\tAUTO_INCREMENT = 1;");
-        message.setCreateTableSql(script.toString());
-        message.setColumns(columns);
-        return message;
+        globalMsg.setCreateTableSql(script.toString());
+        globalMsg.setColumns(columns);
+        return globalMsg;
     }
 
     /**
      * Model注解解析操作
      *
      * @param target
-     * @param message
+     * @param globalMsg
      * @return
      * @throws TractorException
      */
-    public Map<String, String> modelData(Class<?> target, ModelAttribute message) throws TractorException {
+    public Map<String, String> modelData(Class<?> target, GlobalMsg globalMsg) throws TractorException {
         String tableName = "";
         Map<String, String> map = new HashMap<>();
-        if (CriteriaManager.existModel(target)) {
+        if (SecurityManager.existModel(target)) {
             Model model = TractorUtils.getModelAnnotation(target);
             tableName = model.value();
             Engine engine = model.engine();
             if (StringUtils.isEmpty(tableName)) {
                 throw new TractorException("@Model value cannot null");
             }
-            message.setTableName(tableName);
-            message.setEngine(engine);
+            globalMsg.setTableName(tableName);
+            globalMsg.setEngine(engine);
             map.put("table", tableName);
             map.put("engine", String.valueOf(engine));
         }
@@ -79,10 +79,10 @@ public class ParseModel {
      * 解析字段
      *
      * @param target
-     * @param message
+     * @param globalMsg
      * @throws TractorException
      */
-    public void field(Class<?> target, ModelAttribute message, StringBuilder script, Map<String, String> columns) throws TractorException {
+    public void field(Class<?> target, GlobalMsg globalMsg, StringBuilder script, Map<String, String> columns) throws TractorException {
         String primaryKey = "";
         Field[] fields = target.getDeclaredFields();
         for (Field field : fields) {
@@ -111,7 +111,7 @@ public class ParseModel {
                     tableColumn.append("auto_increment");
                 }
                 primaryKey = "\tPRIMARY KEY (`" + columnName + "`),\n";
-                message.setPrimaryKey(columnName);
+                globalMsg.setPrimaryKey(columnName);
             }
             // 注释
             if (field.isAnnotationPresent(Comment.class)) {
@@ -132,8 +132,8 @@ public class ParseModel {
     public void parse(List<Class<?>> list) {
         try {
             for (Class<?> target : list) {
-                ModelAttribute message = enhance(target);
-                ModelAttribute.putAttribute(message.getTableName(), message);
+                GlobalMsg globalMsg = enhance(target);
+                GlobalMsg.putAttribute(globalMsg.getTableName(), globalMsg);
             }
         } catch (TractorException e) {
             e.printStackTrace();

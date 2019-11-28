@@ -2,8 +2,8 @@ package com.tractor.db;
 
 import com.tractor.annotation.Model;
 import com.tractor.config.Config;
-import com.tractor.model.CriteriaManager;
-import com.tractor.model.ModelAttribute;
+import com.tractor.model.SecurityManager;
+import com.tractor.model.GlobalMsg;
 import com.tractor.tools.TractorUtils;
 
 import java.lang.reflect.Field;
@@ -63,7 +63,7 @@ public class JdbcSupport extends NativeJdbc implements JdbcSupportService {
             StringBuffer into = new StringBuffer("insert into ");
             StringBuffer values = new StringBuffer(" values ");
             Class<?> target = obj.getClass();
-            if (CriteriaManager.existModel(target)) {
+            if (SecurityManager.existModel(target)) {
                 Model model = TractorUtils.getModelAnnotation(target);
                 into.append("`").append(model.value()).append("`");
             }
@@ -97,7 +97,7 @@ public class JdbcSupport extends NativeJdbc implements JdbcSupportService {
 
     @Override
     public long count(Class<?> target) {
-        if(CriteriaManager.existModel(target)){
+        if(SecurityManager.existModel(target)){
             return count(TractorUtils.getModelAnnotation(target).value());
         }
         return 0;
@@ -146,7 +146,7 @@ public class JdbcSupport extends NativeJdbc implements JdbcSupportService {
             int length = buffer.length();
             buffer.delete((length - 2), (length - 1));
             // 添加条件
-            String primaryKey = ModelAttribute.getAttribute().get(table).getPrimaryKey();
+            String primaryKey = GlobalMsg.getAttribute().get(table).getPrimaryKey();
             Field field = target.getDeclaredField(primaryKey);
             field.setAccessible(true);
             Object v = field.get(obj);

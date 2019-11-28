@@ -9,7 +9,7 @@ import com.tractor.annotation.Model;
  * @date 2019/11/27 15:56
  * @since 1.8
  */
-public class CriteriaManager {
+public class SecurityManager {
 
     public static boolean existModel(Class<?> target){
         return target.isAnnotationPresent(Model.class);
