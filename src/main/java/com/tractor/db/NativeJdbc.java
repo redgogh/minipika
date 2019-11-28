@@ -1,117 +1,60 @@
 package com.tractor.db;
 
-import com.tractor.pool.ConnectionPool;
-
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class NativeJdbc implements NativeJdbcService {
-
-    protected final ConnectionPool pool = ConnectionPool.getPool();
-
-    @Override
-    public boolean execute(String sql, Object... args) {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = pool.getConnection();
-            if (connection == null) {
-                synchronized (this) {
-                    wait();
-                }
-                return execute(sql, args);
-            }
-            statement = connection.prepareStatement(sql);
-            return setValues(statement, args).execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (statement != null) statement.close();
-                if (connection != null) pool.release(connection);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public NativeResult executeQuery(String sql, Object... args) {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = pool.getConnection();
-            if (connection == null) {
-                synchronized (this) {
-                    wait();
-                }
-                return executeQuery(sql, args);
-            }
-            statement = connection.prepareStatement(sql);
-            ResultSet resultSet = setValues(statement, args).executeQuery();
-            return new NativeResult().build(resultSet);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (statement != null) statement.close();
-                if (connection != null) pool.release(connection);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public int executeUpdate(String sql, Object... args) {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = pool.getConnection();
-            if (connection == null) {
-                synchronized (this) {
-                    wait();
-                }
-                executeUpdate(sql, args);
-            }
-            statement = connection.prepareStatement(sql);
-            int r = setValues(statement, args).executeUpdate();
-            return r;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (statement != null) statement.close();
-                if (connection != null) pool.release(connection);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return 0;
-    }
+/**
+ * NativeJdbc存在的意义是为了方便关闭流和归还连接。
+ * 将关闭操作统一控制在NativeJdbc中
+ *
+ * @author 404NotFoundx
+ * @version 1.0.0
+ * @date 2019/11/13 16:57
+ * @since 1.8
+ */
+public interface NativeJdbc {
 
     /**
-     * 设置参数并返回 statement
+     * 执行任何sql语句
+     *
+     * @param sql
+     * @param args
+     * @return
+     */
+    boolean execute(String sql, Object... args);
+
+    /**
+     * 执行查询
+     *
+     * @param sql
+     * @param args
+     * @return
+     */
+    NativeResult executeQuery(String sql, Object... args);
+
+    /**
+     * 执行更新
+     *
+     * @param sql
+     * @param args
+     * @return
+     */
+    int executeUpdate(String sql, Object... args);
+
+    /**
+     * 设置 statement 参数
      *
      * @param statement
      * @param args
      * @return
      */
-    public PreparedStatement setValues(PreparedStatement statement, Object... args) {
-        try {
-            if (args != null) {
-                for (int i = 0; i < args.length; i++) {
-                    statement.setObject((i + 1), args[i]);
-                }
+    default PreparedStatement setValues(PreparedStatement statement, Object... args) throws SQLException {
+        if (args != null) {
+            for (int i = 0; i < args.length; i++) {
+                statement.setObject((i + 1), args[i]);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return statement;
     }
-
 
 }

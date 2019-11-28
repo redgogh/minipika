@@ -39,17 +39,21 @@ public final class Config {
     // model包路径
     private static String modelPackage = getValue("tractor.model.package");
 
+    // 是否开启事物
+    private static String transaction = getValue("tractor.jdbc.transaction");
+
     // 数据库名
     private static String dbname;
 
     static {
         try {
-            System.setProperty("jdbc.drivers",driver);
+            System.setProperty("jdbc.drivers", driver);
             String temp = url;
             for (int i = 0; i < 3; i++) {
                 temp = temp.substring(temp.indexOf("/") + 1);
             }
             dbname = temp.substring(0, temp.indexOf("?"));
+            if(StringUtils.isEmpty(transaction)) transaction = "false";
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -106,6 +110,10 @@ public final class Config {
 
     public static Integer getMinSize() {
         return Integer.valueOf(StringUtils.isEmpty(minSize) ? "2" : minSize);
+    }
+
+    public static Boolean getTransaction() {
+        return Boolean.valueOf(transaction);
     }
 
 }

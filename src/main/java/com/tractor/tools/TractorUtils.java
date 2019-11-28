@@ -9,6 +9,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author 404NotFoundx
@@ -72,7 +73,7 @@ public class TractorUtils {
 
     private static void getModels(String basePackage, List<Class<?>> models) throws ClassNotFoundException {
         //扫描编译好的所有类路径
-        URL url = TractorUtils.class.getResource("/"+basePackage.replaceAll("\\.","/"));
+        URL url = TractorUtils.class.getResource("/" + basePackage.replaceAll("\\.", "/"));
         //将url转换为文件类型
         File dir = new File(url.getFile());
         for (File file : dir.listFiles()) {
@@ -88,29 +89,35 @@ public class TractorUtils {
 
     /**
      * 获取Model名
+     *
      * @param target
      * @return
      */
-    public static String getModelValue(Class<?> target){
+    public static String getModelValue(Class<?> target) {
         return getModelAnnotation(target).value();
     }
 
     /**
      * 获取Model注解
+     *
      * @param target
      * @return
      */
-    public static Model getModelAnnotation(Class<?> target){
+    public static Model getModelAnnotation(Class<?> target) {
         try {
             if (SecurityManager.existModel(target)) {
                 return target.getDeclaredAnnotation(Model.class);
             } else {
                 throw new TractorException("@Model Not Found.");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static String uuid(){
+        return UUID.randomUUID().toString();
     }
 
     public static void main(String[] args) {

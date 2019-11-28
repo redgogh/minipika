@@ -8,7 +8,7 @@ import com.tractor.tools.TractorUtils;
  * @date 2019/11/27 15:53
  * @since 1.8
  */
-public class UnsafeJdbc extends NativeJdbc implements UnsafeJdbcService{
+public class UnsafeJdbc extends NativeJdbcAutoCommit implements UnsafeJdbcService{
 
     @Override
     public int clear(Class<?> target) {

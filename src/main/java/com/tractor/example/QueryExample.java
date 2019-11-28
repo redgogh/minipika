@@ -1,6 +1,8 @@
 package com.tractor.example;
 
+import com.tractor.db.UnsafeJdbc;
 import com.tractor.example.experiment.UserModel;
+import com.tractor.example.service.UserService;
 
 /**
  * @author 404NotFoundx
@@ -41,8 +43,11 @@ public class QueryExample {
 
         // System.out.println(Config.getDriver());
 
+        new UnsafeJdbc().clear(UserModel.class);
+
         UserService userService = new UserService();
-        System.out.println(userService.findUserCount());
+        // System.out.println(userService.findUserCount());
+        userService.insert();
 
         long endTime = System.currentTimeMillis();
         // System.out.println("查询【" + models.size() + "】条数据，耗时：" + (endTime - startTime));

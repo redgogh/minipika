@@ -1,7 +1,10 @@
-package com.tractor.example;
+package com.tractor.example.service;
 
 import com.tractor.db.JdbcSupport;
 import com.tractor.example.experiment.UserModel;
+import com.tractor.tools.TractorUtils;
+
+import java.util.Date;
 
 /**
  * @author 404NotFoundx
@@ -17,6 +20,14 @@ public class UserService extends JdbcSupport {
 
     public Long findUserCount(){
         return count("user_model");
+    }
+
+    public Long insert(){
+        UserModel userModel = new UserModel();
+        userModel.setUserName(TractorUtils.uuid());
+        userModel.setUuid(TractorUtils.uuid());
+        userModel.setCreateTime(new Date());
+        return (long) insert(userModel);
     }
 
 }

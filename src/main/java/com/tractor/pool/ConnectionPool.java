@@ -51,6 +51,8 @@ public class ConnectionPool {
 
     private static Set<Connection> conns = new LinkedHashSet<>();
 
+    private static final Boolean transaction = Config.getTransaction();
+
     // 创建连接
     private static Properties info = new Properties();
 
@@ -137,6 +139,7 @@ public class ConnectionPool {
                 driver = driverLoader.getDriver();
             }
             final Connection connection = driver.connect(jdbcUrl, info);
+            if(transaction == true) connection.setAutoCommit(false);
             count++;
             return connection;
         } catch (Exception e) {

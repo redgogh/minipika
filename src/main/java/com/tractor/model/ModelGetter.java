@@ -21,21 +21,21 @@ public class ModelGetter {
      *
      * @param target 目标实体类
      */
-    public GlobalMsg enhance(Class<?> target) throws TractorException {
+    public Metadata enhance(Class<?> target) throws TractorException {
         String engine = null;                                   // 储存引擎
         String tableName = null;                                // 表名
-        GlobalMsg globalMsg = new GlobalMsg();          // 完整sql
+        Metadata metadata = new Metadata();          // 完整sql
         StringBuilder script = new StringBuilder();             // sql代码
         Map<String, String> columns = new LinkedHashMap<>();    // 字段信息
         script.append("create table if not exists");
         // 判断实体类有没有Model注解
-        Map<String, String> modelData = modelData(target, globalMsg);
+        Map<String, String> modelData = modelData(target, metadata);
         tableName = modelData.get("table");
         engine = modelData.get("engine");
-        GlobalMsg.putModel(target);
+        Metadata.putModel(target);
         script.append(" `").append(tableName).append("`\n").append("(\n"); // 开头
         // 解析字段
-        field(target, globalMsg, script, columns);
+        field(target, metadata, script, columns);
         // 结尾
         if (script.charAt(script.length() - 2) == ',') {
             script.deleteCharAt(script.length() - 2);
@@ -44,20 +44,20 @@ public class ModelGetter {
         script.append("\tDEFAULT CHARACTER SET = utf8\n");
         script.append("\tCOLLATE = utf8_general_ci\n");
         script.append("\tAUTO_INCREMENT = 1;");
-        globalMsg.setCreateTableSql(script.toString());
-        globalMsg.setColumns(columns);
-        return globalMsg;
+        metadata.setCreateTableSql(script.toString());
+        metadata.setColumns(columns);
+        return metadata;
     }
 
     /**
      * Model注解解析操作
      *
      * @param target
-     * @param globalMsg
+     * @param metadata
      * @return
      * @throws TractorException
      */
-    public Map<String, String> modelData(Class<?> target, GlobalMsg globalMsg) throws TractorException {
+    public Map<String, String> modelData(Class<?> target, Metadata metadata) throws TractorException {
         String tableName = "";
         Map<String, String> map = new HashMap<>();
         if (SecurityManager.existModel(target)) {
@@ -67,8 +67,8 @@ public class ModelGetter {
             if (StringUtils.isEmpty(tableName)) {
                 throw new TractorException("@Model value cannot null");
             }
-            globalMsg.setTableName(tableName);
-            globalMsg.setEngine(engine);
+            metadata.setTableName(tableName);
+            metadata.setEngine(engine);
             map.put("table", tableName);
             map.put("engine", String.valueOf(engine));
         }
@@ -79,10 +79,10 @@ public class ModelGetter {
      * 解析字段
      *
      * @param target
-     * @param globalMsg
+     * @param metadata
      * @throws TractorException
      */
-    public void field(Class<?> target, GlobalMsg globalMsg, StringBuilder script, Map<String, String> columns) throws TractorException {
+    public void field(Class<?> target, Metadata metadata, StringBuilder script, Map<String, String> columns) throws TractorException {
         String primaryKey = "";
         Field[] fields = target.getDeclaredFields();
         for (Field field : fields) {
@@ -111,7 +111,7 @@ public class ModelGetter {
                     tableColumn.append("auto_increment");
                 }
                 primaryKey = "\tPRIMARY KEY (`" + columnName + "`),\n";
-                globalMsg.setPrimaryKey(columnName);
+                metadata.setPrimaryKey(columnName);
             }
             // 注释
             if (field.isAnnotationPresent(Comment.class)) {
@@ -132,8 +132,8 @@ public class ModelGetter {
     public void parse(List<Class<?>> list) {
         try {
             for (Class<?> target : list) {
-                GlobalMsg globalMsg = enhance(target);
-                GlobalMsg.putAttribute(globalMsg.getTableName(), globalMsg);
+                Metadata metadata = enhance(target);
+                Metadata.putAttribute(metadata.getTableName(), metadata);
             }
         } catch (TractorException e) {
             e.printStackTrace();

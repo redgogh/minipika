@@ -13,9 +13,9 @@ import java.util.Map;
  * @date 2019/11/12 11:01
  * @since 1.8
  */
-public class GlobalMsg {
+public class Metadata {
 
-    private static final Map<String, GlobalMsg> messages = new HashMap<>();
+    private static final Map<String, Metadata> messages = new HashMap<>();
 
     /**
      * 模型的类对象
@@ -47,11 +47,11 @@ public class GlobalMsg {
      */
     private Map<String,String> columns;
 
-    public static void putAttribute(String key, GlobalMsg value){
+    public static void putAttribute(String key, Metadata value){
         messages.put(key,value);
     }
 
-    public static Map<String, GlobalMsg> getAttribute() {
+    public static Map<String, Metadata> getAttribute() {
         return messages;
     }
 

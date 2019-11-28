@@ -99,6 +99,14 @@ import java.util.List;
      long count(String table);
 
     /**
+     * 执行sql
+     * @param sql
+     * @param args
+     * @return
+     */
+     boolean execute(String sql,Object... args);
+
+    /**
      * 查询某张表所有字段
      * @param tableName
      */
