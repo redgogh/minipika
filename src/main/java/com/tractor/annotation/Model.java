@@ -6,7 +6,7 @@ import java.lang.annotation.*;
  * Table注解,被注解的对象代表是数据库的一张表.
  * 注解中可以设置表的各个属性,从而无需SQL直接创建表.
  *
- * @author 404NotFoundx
+ * @author 2Bkeyboard
  * @version 1.0.0
  * @date 2019/11/4 14:22
  * @since 1.8

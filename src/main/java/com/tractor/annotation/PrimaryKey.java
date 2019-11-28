@@ -4,7 +4,7 @@ import java.lang.annotation.*;
 
 /**
  * 主键注解,此注解需要放在Model类上
- * @author 404NotFoundx
+ * @author 2Bkeyboard
  * @version 1.0.0
  * @date 2019/11/4 15:06
  * @since 1.8

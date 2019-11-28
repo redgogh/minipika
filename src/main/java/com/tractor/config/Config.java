@@ -6,12 +6,7 @@ import java.io.InputStream;
 import java.util.*;
 
 /**
- * 配置以及初始化操作
- *
- * @author 404NotFoundx
- * @version 1.0.0
- * @date 2019/11/4 14:10
- * @since 1.8
+ * Create by 2BKeyboard on 2019/11/4 14:10
  */
 public final class Config {
 

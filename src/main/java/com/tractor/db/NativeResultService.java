@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * 封装原生结果集，用于缓存结果从而使ResultSet提前关闭。
- * @author 404NotFoundx
+ * @author 2Bkeyboard
  * @version 1.0.0
  * @date 2019/11/13 18:12
  * @since 1.8

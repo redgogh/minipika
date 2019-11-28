@@ -3,7 +3,7 @@ package com.tractor.db;
 /**
  * 能够避免让你买飞机票的类!!!
  *
- * @author 404NotFoundx
+ * @author 2Bkeyboard
  * @version 1.0.0
  * @date 2019/11/27 15:21
  * @since 1.8

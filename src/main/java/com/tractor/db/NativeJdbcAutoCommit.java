@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 /**
  * 自动提交（没有事物）
  *
- * @author 404NotFoundx
+ * @author 2Bkeyboard
  * @version 1.0.0
  * @date 2019/11/13 16:57
  * @since 1.8

@@ -4,7 +4,7 @@ import java.lang.annotation.*;
 
 /**
  * 自增长
- * @author 404NotFoundx
+ * @author 2Bkeyboard
  * @version 1.0.0
  * @date 2019/11/12 10:18
  * @since 1.8

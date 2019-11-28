@@ -1,7 +1,7 @@
 package com.tractor.annotation;
 
 /**
- * @author 404NotFoundx
+ * @author 2Bkeyboard
  * @version 1.0.0
  * @date 2019/11/20 14:53
  * @since 1.8

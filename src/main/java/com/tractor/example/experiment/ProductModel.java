@@ -4,7 +4,7 @@ import com.tractor.annotation.*;
 import lombok.Data;
 
 /**
- * @author 404NotFoundx
+ * @author 2Bkeyboard
  * @version 1.0.0
  * @date 2019/11/22 16:41
  * @since 1.8
