@@ -23,7 +23,7 @@ public final class Config {
 
     // jdbc连接驱动
     private static String url = getValue("tractor.jdbc.url");
-    private static String driver = getValue("tractor.jdbc.driver");
+    // private static String driver = getValue("tractor.jdbc.driver");
 
     // 数据库账号密码
     private static String username = getValue("tractor.jdbc.username");
@@ -47,13 +47,14 @@ public final class Config {
 
     static {
         try {
+            String driver = getValue("tractor.jdbc.driver");
             System.setProperty("jdbc.drivers", driver);
             String temp = url;
             for (int i = 0; i < 3; i++) {
                 temp = temp.substring(temp.indexOf("/") + 1);
             }
             dbname = temp.substring(0, temp.indexOf("?"));
-            if(StringUtils.isEmpty(transaction)) transaction = "false";
+            if (StringUtils.isEmpty(transaction)) transaction = "false";
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -86,10 +87,6 @@ public final class Config {
 
     public static String getUrl() {
         return url;
-    }
-
-    public static String getDriver() {
-        return driver;
     }
 
     public static String getTablePrefix() {

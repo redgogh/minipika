@@ -12,14 +12,10 @@ import java.util.List;
 
 public class JdbcSupport implements JdbcSupportService {
 
-    private static JdbcSupport template;
-    private static NativeJdbc nativeJdbc = NativeJdbcManager.getNativeJdbc();
+    private static final NativeJdbc nativeJdbc = NativeJdbcManager.getNativeJdbc();
 
     public static JdbcSupport getTemplate() {
-        if (template == null) {
-            template = new JdbcSupport();
-        }
-        return template;
+        return new JdbcSupport();
     }
 
     @Override
