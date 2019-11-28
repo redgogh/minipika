@@ -3,7 +3,6 @@ package com.tractor.db;
 import com.alibaba.fastjson.JSONObject;
 import com.tractor.annotation.Ignore;
 import com.tractor.tools.TractorUtils;
-import sun.text.normalizer.RangeValueIterator;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
