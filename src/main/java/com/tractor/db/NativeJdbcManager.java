@@ -3,7 +3,7 @@ package com.tractor.db;
 import com.tractor.config.Config;
 
 /**
- * NativeJdbcAutoCommit 管理
+ * NativeJdbcAutoCommit
  *
  * @author 404NotFoundx
  * @version 1.0.0
@@ -12,18 +12,12 @@ import com.tractor.config.Config;
  */
 public class NativeJdbcManager {
 
-    private static NativeJdbc nativeJdbc;
-    private static final Boolean transaction = Config.getTransaction();
-
-    public static NativeJdbc getNativeJdbc() {
-        if (nativeJdbc == null) {
-            if (transaction) {
-                nativeJdbc = new NativeJdbcManualCommit();
-            } else {
-                nativeJdbc = new NativeJdbcAutoCommit();
-            }
+    public static NativeJdbc createNativeJdbc() {
+        if (Config.getTransaction()) {
+            return new NativeJdbcManualCommit();
+        } else {
+            return new NativeJdbcAutoCommit();
         }
-        return nativeJdbc;
     }
 
 }

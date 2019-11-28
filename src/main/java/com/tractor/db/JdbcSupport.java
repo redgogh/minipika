@@ -12,7 +12,7 @@ import java.util.List;
 
 public class JdbcSupport implements JdbcSupportService {
 
-    private static final NativeJdbc nativeJdbc = NativeJdbcManager.getNativeJdbc();
+    private final NativeJdbc nativeJdbc = NativeJdbcManager.createNativeJdbc();
 
     public static JdbcSupport getTemplate() {
         return new JdbcSupport();
