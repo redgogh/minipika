@@ -3,11 +3,10 @@ package com.tractor.config;
 import com.alibaba.fastjson.JSONObject;
 import com.tractor.annotation.Model;
 import com.tractor.db.JdbcSupport;
-import com.tractor.db.NativeJdbcAutoCommit;
 import com.tractor.exception.TractorException;
 import com.tractor.model.SecurityManager;
 import com.tractor.model.Metadata;
-import com.tractor.model.ModelGetter;
+import com.tractor.model.GetterModel;
 import com.tractor.tools.TractorUtils;
 
 import java.util.Iterator;
@@ -36,8 +35,8 @@ public class Initialize extends JdbcSupport {
      * 解析model
      */
     public void loadModel() {
-        ModelGetter modelGetter = new ModelGetter();
-        modelGetter.parse(TractorUtils.getModels());
+        GetterModel getterModel = new GetterModel();
+        getterModel.parse(TractorUtils.getModels());
         Map<String, Metadata> messages = Metadata.getAttribute();
         String sql = "show table status from %s where name = '%s';";
         String updateEngineSql = "ALTER TABLE %s ENGINE = '%s'";

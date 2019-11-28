@@ -14,7 +14,7 @@ import java.util.*;
  * @date 2019/11/12 10:19
  * @since 1.8
  */
-public class ModelGetter {
+public class GetterModel {
 
     /**
      * 对Model进行解析
