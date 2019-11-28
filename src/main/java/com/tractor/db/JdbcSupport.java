@@ -10,6 +10,10 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Jdbc支持
+ * Create by 2BKeyboard on 2019/11/12 10:35
+ */
 public class JdbcSupport implements JdbcSupportService {
 
     private final NativeJdbc nativeJdbc = NativeJdbcManager.createNativeJdbc();
@@ -35,7 +39,7 @@ public class JdbcSupport implements JdbcSupportService {
 
     @Override
     public NativeResult queryForResult(String sql, Object... args) {
-        return nativeJdbc.executeQuery(sql,args);
+        return nativeJdbc.executeQuery(sql, args);
     }
 
     @Override
@@ -94,7 +98,7 @@ public class JdbcSupport implements JdbcSupportService {
 
     @Override
     public long count(Class<?> target) {
-        if(SecurityManager.existModel(target)){
+        if (SecurityManager.existModel(target)) {
             return count(TractorUtils.getModelAnnotation(target).value());
         }
         return 0;
@@ -109,7 +113,7 @@ public class JdbcSupport implements JdbcSupportService {
 
     @Override
     public boolean execute(String sql, Object... args) {
-        return nativeJdbc.execute(sql,args);
+        return nativeJdbc.execute(sql, args);
     }
 
     @Override
