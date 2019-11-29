@@ -10,14 +10,18 @@ import com.tractor.framework.config.Config;
  * @date 2019/11/28 17:25
  * @since 1.8
  */
-public class NativeJdbcManager {
+public class NativeManager {
 
-    public static NativeJdbc createNativeJdbc() {
+    public static NativeJdbc newNativeJdbc() {
         if (Config.getTransaction()) {
             return new NativeJdbcManualCommit();
         } else {
             return new NativeJdbcAutoCommit();
         }
+    }
+
+    public static NativeResult newNativeResult(){
+        return new NativeResultMysql();
     }
 
 }

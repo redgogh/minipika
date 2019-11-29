@@ -1,12 +1,8 @@
 package com.tractor.framework.cache;
 
-import com.tractor.framework.db.NativeResult;
-
 /**
- * Create by 2BKeyboard on 2019/11/29 16:16
+ * Create by 2BKeyboard on 2019/11/29 17:16
  */
-public interface Jcache {
-
-    void putCache();
+public class Jcache {
 
 }

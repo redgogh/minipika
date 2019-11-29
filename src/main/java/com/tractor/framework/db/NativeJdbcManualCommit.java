@@ -59,7 +59,7 @@ public class NativeJdbcManualCommit implements NativeJdbc {
                 }
                 statement = connection.prepareStatement(sql);
                 ResultSet resultSet = setValues(statement, args).executeQuery();
-                return new NativeResult().build(resultSet);
+                return NativeManager.newNativeResult().build(resultSet);
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {

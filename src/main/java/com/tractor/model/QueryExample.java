@@ -1,6 +1,10 @@
 package com.tractor.model;
 
+import com.alibaba.fastjson.JSONObject;
 import com.tractor.framework.db.JdbcSupport;
+import com.tractor.framework.db.UnsafeJdbc;
+import com.tractor.model.experiment.UserModel;
+import com.tractor.model.service.UserService;
 
 /**
  * @author 2BKeyboard
@@ -37,17 +41,18 @@ public class QueryExample {
             JdbcFunction.getTemplate().insert(model);
         }*/
 
-        // System.out.println(JSONObject.toJSONString(JdbcFunction.getTemplate().getColumns("user_model")));
+        // System.out.println(JSONObject.toJSONString(jdbc.getColumns("user_model")));
 
         // System.out.println(Config.getDriver());
 
         // new UnsafeJdbc().clear(UserModel.class);
 
-        // UserService userService = new UserService();
-        // System.out.println(userService.findUserCount());
-        // userService.insert();
+        UserService userService = new UserService();
+        System.out.println(userService.insert());
 
-        long endTime = System.currentTimeMillis();
+        System.out.println(jdbc.queryForJson("select * from user_model"));
+
+        // long endTime = System.currentTimeMillis();
         // System.out.println("查询【" + models.size() + "】条数据，耗时：" + (endTime - startTime));
     }
 
