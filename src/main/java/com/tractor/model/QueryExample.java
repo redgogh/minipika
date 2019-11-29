@@ -1,10 +1,6 @@
 package com.tractor.model;
 
 import com.tractor.framework.db.JdbcSupport;
-import com.tractor.framework.db.UnsafeJdbc;
-import com.tractor.model.experiment.KotlinModel;
-import com.tractor.model.experiment.UserModel;
-import com.tractor.model.service.UserService;
 
 /**
  * @author 2BKeyboard
@@ -50,13 +46,6 @@ public class QueryExample {
         // UserService userService = new UserService();
         // System.out.println(userService.findUserCount());
         // userService.insert();
-
-        KotlinModel km = new KotlinModel();
-
-        km.setUsername("2BKeyboard");
-        km.setPassword("123456");
-
-        jdbc.insert(km);
 
         long endTime = System.currentTimeMillis();
         // System.out.println("查询【" + models.size() + "】条数据，耗时：" + (endTime - startTime));

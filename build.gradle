@@ -13,10 +13,10 @@ allprojects {
 
 dependencies {
 
-    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.18'
 
-    // https://mvnrepository.com/artifact/com.alibaba/fastjson
     compile group: 'com.alibaba', name: 'fastjson', version: '1.2.62'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
 
 }
