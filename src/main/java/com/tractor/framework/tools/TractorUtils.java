@@ -7,6 +7,7 @@ import com.tractor.framework.model.SecurityManager;
 
 import java.io.File;
 import java.net.URL;
+import java.security.MessageDigest;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -116,8 +117,29 @@ public class TractorUtils {
         return null;
     }
 
-    public static String uuid(){
+    public static String uuid() {
         return UUID.randomUUID().toString();
+    }
+
+    /**
+     * 讲字符串加密成md5
+     * @param input
+     * @return
+     */
+    public static String encryptToMd5(String input) {
+        try {
+            MessageDigest m = MessageDigest.getInstance("MD5");
+            m.update(input.getBytes("UTF8"));
+            byte s[] = m.digest();
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < s.length; i++) {
+                builder.append(Integer.toHexString((0x000000FF & s[i]) | 0xFFFFFF00).substring(6));
+            }
+            return builder.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public static void main(String[] args) {

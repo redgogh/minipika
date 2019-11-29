@@ -1,6 +1,8 @@
 package com.tractor.model;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author 2BKeyboard
@@ -15,11 +17,8 @@ public class SystemExmple {
         // Enumeration<Driver> drivers = DriverManager.getDrivers();
         long startTime = System.currentTimeMillis();
 
-        // if 959
-        // no if 844
-        for (int i = 0; i < 100000000; i++) {
-            new Date();
-        }
+        Map<String,String> map = new HashMap<>();
+        map.remove("key");
 
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime));

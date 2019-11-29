@@ -1,6 +1,9 @@
 package com.tractor.framework.db;
 
-import com.tractor.framework.config.Config;
+import com.tractor.framework.db.NativeJdbc;
+import com.tractor.framework.db.NativeJdbcImpl;
+import com.tractor.framework.db.NativeResult;
+import com.tractor.framework.db.NativeResultMysql;
 
 /**
  * NativeJdbcAutoCommit
@@ -13,11 +16,7 @@ import com.tractor.framework.config.Config;
 public class NativeManager {
 
     public static NativeJdbc newNativeJdbc() {
-        if (Config.getTransaction()) {
-            return new NativeJdbcManualCommit();
-        } else {
-            return new NativeJdbcAutoCommit();
-        }
+        return new NativeJdbcImpl();
     }
 
     public static NativeResult newNativeResult(){
