@@ -1,6 +1,8 @@
 package com.tractor.model;
 
+import com.tractor.framework.db.JdbcSupport;
 import com.tractor.framework.db.UnsafeJdbc;
+import com.tractor.model.experiment.KotlinModel;
 import com.tractor.model.experiment.UserModel;
 import com.tractor.model.service.UserService;
 
@@ -18,7 +20,7 @@ public class QueryExample {
 
         // List<UserModel> models = JdbcSupport.getTemplate().queryForList("select * from user_model", UserModel.class);
 
-        // JdbcFunction.getTemplate().getEngine("user_model");
+        JdbcSupport jdbc = JdbcSupport.getTemplate();
         // UserModel models = JdbcFunction.getTemplate().queryForObject("select * from user_model where id = ?", UserModel.class,397463);
 
         // List<IndexModel> user_model = JdbcFunction.getTemplate().getIndexes("user_model");
@@ -43,11 +45,18 @@ public class QueryExample {
 
         // System.out.println(Config.getDriver());
 
-        new UnsafeJdbc().clear(UserModel.class);
+        // new UnsafeJdbc().clear(UserModel.class);
 
-        UserService userService = new UserService();
+        // UserService userService = new UserService();
         // System.out.println(userService.findUserCount());
-        userService.insert();
+        // userService.insert();
+
+        KotlinModel km = new KotlinModel();
+
+        km.setUsername("2BKeyboard");
+        km.setPassword("123456");
+
+        jdbc.insert(km);
 
         long endTime = System.currentTimeMillis();
         // System.out.println("查询【" + models.size() + "】条数据，耗时：" + (endTime - startTime));

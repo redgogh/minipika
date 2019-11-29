@@ -139,7 +139,7 @@ public class ConnectionPool {
                 driver = driverLoader.getDriver();
             }
             final Connection connection = driver.connect(jdbcUrl, info);
-            if(transaction == true) connection.setAutoCommit(false);
+            if (transaction == true) connection.setAutoCommit(false);
             count++;
             return connection;
         } catch (Exception e) {

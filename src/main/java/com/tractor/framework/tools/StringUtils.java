@@ -90,7 +90,7 @@ public class StringUtils {
      * @param find 需要查找的字符串
      * @return 数组 0=开始位置 1=结束位置
      */
-    public static int[] getStringStartAndEndIndex(String v, String find) {
+    public static int[] getStartAndEndIndex(String v, String find) {
         int start = -1; // 开始下标
         int end = -1; // 结束下标
         int currentIndex = 0; // 当前下标 -1等于当前源字符串长度已遍历完
