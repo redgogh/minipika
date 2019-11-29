@@ -1,6 +1,7 @@
-version '1.0.0.GUANYIN'
-
 apply plugin: 'java'
+
+group 'com.pagenotfound'
+version '1.0.0.GYS'
 
 sourceCompatibility  = 1.8
 
