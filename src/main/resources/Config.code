@@ -1,6 +1,6 @@
 Compiled from "Config.java"
-public final class com.tractor.config.Config {
-  public com.tractor.config.Config();
+public final class com.tractor.framework.config.Config {
+  public com.tractor.framework.config.Config();
     Code:
        0: aload_0
        1: invokespecial #1                  // Method java/lang/Object."<init>":()V

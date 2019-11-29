@@ -1,12 +1,12 @@
 Compiled from "JdbcSupport.java"
-public class com.tractor.db.JdbcSupport implements com.tractor.db.JdbcSupportService {
-  public com.tractor.db.JdbcSupport();
+public class com.tractor.framework.db.JdbcSupport implements com.tractor.framework.db.JdbcSupportService {
+  public com.tractor.framework.db.JdbcSupport();
     Code:
        0: aload_0
        1: invokespecial #1                  // Method java/lang/Object."<init>":()V
        4: return
 
-  public static com.tractor.db.JdbcSupport getTemplate();
+  public static com.tractor.framework.db.JdbcSupport getTemplate();
     Code:
        0: getstatic     #2                  // Field template:Lcom/tractor/db/JdbcSupport;
        3: ifnonnull     16
@@ -46,7 +46,7 @@ public class com.tractor.db.JdbcSupport implements com.tractor.db.JdbcSupportSer
       10: invokevirtual #9                  // Method com/tractor/db/NativeResult.toJSONString:()Ljava/lang/String;
       13: areturn
 
-  public com.tractor.db.NativeResult queryForResult(java.lang.String, java.lang.Object...);
+  public com.tractor.framework.db.NativeResult queryForResult(java.lang.String, java.lang.Object...);
     Code:
        0: getstatic     #5                  // Field nativeJdbc:Lcom/tractor/db/NativeJdbc;
        3: aload_1
