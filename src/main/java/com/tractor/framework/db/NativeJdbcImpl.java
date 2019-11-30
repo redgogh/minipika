@@ -18,7 +18,6 @@ import java.sql.ResultSet;
  */
 public class NativeJdbcImpl implements NativeJdbc {
 
-    private final NativeCache cache = NativeCache.getCache();
     private final boolean auto = Config.getTransaction();
     protected final ConnectionPool pool = ConnectionPool.getPool();
 
@@ -55,32 +54,26 @@ public class NativeJdbcImpl implements NativeJdbc {
     @Override
     public NativeResult executeQuery(String sql, Object... args) {
         try {
-            String keyMd5 = TractorUtils.encryptToMd5(sql.concat(JSON.toJSONString(args)));
-            NativeResult result = cache.get(keyMd5); // 获取缓存
-            if (result == null) {
-                Connection connection = null;
-                PreparedStatement statement = null;
-                try {
-                    connection = pool.getConnection();
-                    if (connection == null) {
-                        synchronized (this) {
-                            wait();
-                        }
-                        return executeQuery(sql, args);
+            NativeResult result = null;
+            Connection connection = null;
+            PreparedStatement statement = null;
+            try {
+                connection = pool.getConnection();
+                if (connection == null) {
+                    synchronized (this) {
+                        wait();
                     }
-                    statement = connection.prepareStatement(sql);
-                    ResultSet resultSet = setValues(statement, args).executeQuery();
-                    result = NativeManager.newNativeResult(resultSet);
-                    cache.save(keyMd5,result);
-                    return result;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    if (statement != null) statement.close();
-                    if (connection != null) pool.release(connection);
+                    return executeQuery(sql, args);
                 }
-            }else{
+                statement = connection.prepareStatement(sql);
+                ResultSet resultSet = setValues(statement, args).executeQuery();
+                result = NativeBeans.newNativeResult(resultSet);
                 return result;
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (statement != null) statement.close();
+                if (connection != null) pool.release(connection);
             }
         } catch (Throwable e) {
             e.printStackTrace();
@@ -93,7 +86,6 @@ public class NativeJdbcImpl implements NativeJdbc {
         try {
             Connection connection = null;
             PreparedStatement statement = null;
-            String keyMd5 = TractorUtils.encryptToMd5(sql);
             try {
                 connection = pool.getConnection();
                 if (connection == null) {
@@ -105,7 +97,6 @@ public class NativeJdbcImpl implements NativeJdbc {
                 statement = connection.prepareStatement(sql);
                 int result = setValues(statement, args).executeUpdate();
                 if (auto) connection.commit(); // 提交
-                cache.remove(keyMd5);
                 return result;
             } catch (Exception e) {
                 if (connection != null && auto) connection.rollback(); // 回滚

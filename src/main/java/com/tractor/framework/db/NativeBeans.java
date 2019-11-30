@@ -1,10 +1,5 @@
 package com.tractor.framework.db;
 
-import com.tractor.framework.db.NativeJdbc;
-import com.tractor.framework.db.NativeJdbcImpl;
-import com.tractor.framework.db.NativeResult;
-import com.tractor.framework.db.NativeResultMysql;
-
 import java.sql.ResultSet;
 
 /**
@@ -15,7 +10,7 @@ import java.sql.ResultSet;
  * @date 2019/11/28 17:25
  * @since 1.8
  */
-public class NativeManager {
+public class NativeBeans {
 
     public static NativeJdbc newNativeJdbc() {
         return new NativeJdbcImpl();

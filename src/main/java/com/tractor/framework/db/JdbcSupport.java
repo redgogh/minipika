@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class JdbcSupport implements JdbcSupportService {
 
-    private final NativeJdbc nativeJdbc = NativeManager.newNativeJdbc();
+    private final NativeJdbc nativeJdbc = NativeBeans.newNativeJdbc();
 
     public static JdbcSupport getTemplate() {
         return new JdbcSupport();
