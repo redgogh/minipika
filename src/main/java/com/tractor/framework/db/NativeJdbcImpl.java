@@ -1,5 +1,6 @@
 package com.tractor.framework.db;
 
+import com.alibaba.fastjson.JSON;
 import com.tractor.framework.cache.NativeCache;
 import com.tractor.framework.config.Config;
 import com.tractor.framework.pool.ConnectionPool;
@@ -54,8 +55,8 @@ public class NativeJdbcImpl implements NativeJdbc {
     @Override
     public NativeResult executeQuery(String sql, Object... args) {
         try {
-            String keyMd5 = TractorUtils.encryptToMd5(sql);
-            NativeResult result = cache.get(keyMd5); // 缓存
+            String keyMd5 = TractorUtils.encryptToMd5(sql.concat(JSON.toJSONString(args)));
+            NativeResult result = cache.get(keyMd5); // 获取缓存
             if (result == null) {
                 Connection connection = null;
                 PreparedStatement statement = null;
@@ -69,7 +70,7 @@ public class NativeJdbcImpl implements NativeJdbc {
                     }
                     statement = connection.prepareStatement(sql);
                     ResultSet resultSet = setValues(statement, args).executeQuery();
-                    result = NativeManager.newNativeResult().build(resultSet);
+                    result = NativeManager.newNativeResult(resultSet);
                     cache.save(keyMd5,result);
                     return result;
                 } catch (Exception e) {

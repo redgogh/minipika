@@ -5,6 +5,8 @@ import com.tractor.framework.db.NativeJdbcImpl;
 import com.tractor.framework.db.NativeResult;
 import com.tractor.framework.db.NativeResultMysql;
 
+import java.sql.ResultSet;
+
 /**
  * NativeJdbcAutoCommit
  *
@@ -19,8 +21,12 @@ public class NativeManager {
         return new NativeJdbcImpl();
     }
 
-    public static NativeResult newNativeResult(){
+    public static NativeResult newNativeResult() {
         return new NativeResultMysql();
+    }
+
+    public static NativeResult newNativeResult(ResultSet resultSet) {
+        return newNativeResult().build(resultSet);
     }
 
 }

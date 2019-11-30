@@ -47,10 +47,8 @@ public class QueryExample {
 
         // new UnsafeJdbc().clear(UserModel.class);
 
-        UserService userService = new UserService();
-        System.out.println(userService.insert());
-
-        System.out.println(jdbc.queryForJson("select * from user_model"));
+        jdbc.queryForJson("select * from user_model limit 0,10");
+        jdbc.queryForJson("select * from user_model limit 0,10");
 
         // long endTime = System.currentTimeMillis();
         // System.out.println("查询【" + models.size() + "】条数据，耗时：" + (endTime - startTime));
