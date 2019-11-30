@@ -1,6 +1,7 @@
 package com.tractor.framework.db;
 
 import com.tractor.framework.annotation.Model;
+import com.tractor.framework.beans.BeansManager;
 import com.tractor.framework.config.Config;
 import com.tractor.framework.model.SecurityManager;
 import com.tractor.framework.model.Metadata;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class JdbcSupport implements JdbcSupportService {
 
-    private final NativeJdbc nativeJdbc = NativeBeans.newNativeJdbc();
+    private final NativeJdbc nativeJdbc = BeansManager.newNativeJdbc();
 
     public static JdbcSupport getTemplate() {
         return new JdbcSupport();

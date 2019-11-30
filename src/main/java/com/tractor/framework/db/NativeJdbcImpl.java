@@ -1,10 +1,8 @@
 package com.tractor.framework.db;
 
-import com.alibaba.fastjson.JSON;
-import com.tractor.framework.cache.NativeCache;
+import com.tractor.framework.beans.BeansManager;
 import com.tractor.framework.config.Config;
 import com.tractor.framework.pool.ConnectionPool;
-import com.tractor.framework.tools.TractorUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -67,7 +65,7 @@ public class NativeJdbcImpl implements NativeJdbc {
                 }
                 statement = connection.prepareStatement(sql);
                 ResultSet resultSet = setValues(statement, args).executeQuery();
-                result = NativeBeans.newNativeResult(resultSet);
+                result = BeansManager.newNativeResult(resultSet);
                 return result;
             } catch (Exception e) {
                 e.printStackTrace();

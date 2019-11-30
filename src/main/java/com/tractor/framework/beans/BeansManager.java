@@ -1,16 +1,16 @@
-package com.tractor.framework.db;
+package com.tractor.framework.beans;
+
+import com.tractor.framework.db.NativeJdbc;
+import com.tractor.framework.db.NativeJdbcImpl;
+import com.tractor.framework.db.NativeResult;
+import com.tractor.framework.db.NativeResultMysql;
 
 import java.sql.ResultSet;
 
 /**
- * NativeJdbcAutoCommit
- *
- * @author 2BKeyboard
- * @version 1.0.0
- * @date 2019/11/28 17:25
- * @since 1.8
+ * Create by 2BKeyboard on 2019/11/28 17:25
  */
-public class NativeBeans {
+public class BeansManager {
 
     public static NativeJdbc newNativeJdbc() {
         return new NativeJdbcImpl();
