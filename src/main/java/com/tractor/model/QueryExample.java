@@ -49,6 +49,7 @@ public class QueryExample {
 
         jdbc.queryForJson("select * from user_model limit 0,10");
         jdbc.queryForJson("select * from user_model limit 0,10");
+        jdbc.queryForJson("select * from user_model as u left join product_model as p on u.product_name = p.product_name");
 
         // long endTime = System.currentTimeMillis();
         // System.out.println("查询【" + models.size() + "】条数据，耗时：" + (endTime - startTime));
