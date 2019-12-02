@@ -123,13 +123,7 @@ public class JdbcSupport implements JdbcSupportService {
         return nativeJdbc.executeQuery(sql, tableName, Config.getDbname()).conversionJavaList(String.class);
     }
 
-    /**
-     * 是否更新为NULL的字段
-     *
-     * @param obj
-     * @param bool
-     * @return
-     */
+    // 是否更新为NULL的字段是否更新为NULL的字段
     private int update(Object obj, boolean bool) {
         try {
             Class<?> target = obj.getClass();

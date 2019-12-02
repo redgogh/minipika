@@ -1,6 +1,7 @@
 package com.tractor.model;
 
 import com.tractor.framework.db.JdbcSupport;
+import com.tractor.framework.sql.SQL;
 
 /**
  * @author 2BKeyboard
@@ -42,6 +43,8 @@ public class QueryExample {
         // System.out.println(Config.getDriver());
 
         // new UnsafeJdbc().clear(UserModel.class);
+
+        SQL sql = new SQL("select *");
 
         jdbc.queryForJson("select * from user_model limit 0,10");
         jdbc.queryForJson("select * from user_model as u left join product_model as p on u.product_name = p.product_name");
