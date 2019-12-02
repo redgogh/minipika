@@ -1,5 +1,6 @@
 package com.tractor.framework.db;
 
+import com.tractor.framework.tools.StringUtils;
 import com.tractor.framework.tools.TractorUtils;
 
 /**
@@ -10,7 +11,7 @@ public class UnsafeJdbc extends JdbcSupport implements UnsafeJdbcService{
     @Override
     public int clear(Class<?> target) {
         String table = TractorUtils.getModelValue(target);
-        return update(String.format("truncate table %s",table));
+        return update(StringUtils.format("truncate table {}",table));
     }
 
 }

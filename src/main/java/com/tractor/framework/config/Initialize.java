@@ -7,6 +7,7 @@ import com.tractor.framework.exception.TractorException;
 import com.tractor.framework.model.SecurityManager;
 import com.tractor.framework.model.Metadata;
 import com.tractor.framework.model.GetterModel;
+import com.tractor.framework.tools.StringUtils;
 import com.tractor.framework.tools.TractorUtils;
 
 import java.util.Iterator;
@@ -24,7 +25,7 @@ import java.util.Map;
 public class Initialize extends JdbcSupport {
 
     // 添加字段
-    private final String ADD_COLUMN_SCRIPT = "ALTER TABLE `%s` ADD %s after `%s`;";
+    private final String ADD_COLUMN_SCRIPT = "ALTER TABLE `{}` ADD {} after `{}`;";
 
     public void run() throws TractorException {
         loadModel();
@@ -38,8 +39,8 @@ public class Initialize extends JdbcSupport {
         GetterModel getterModel = new GetterModel();
         getterModel.parse(TractorUtils.getModels());
         Map<String, Metadata> messages = Metadata.getAttribute();
-        String sql = "show table status from %s where name = '%s';";
-        String updateEngineSql = "ALTER TABLE %s ENGINE = '%s'";
+        String sql = "show table status from {} where name = '{}';";
+        String updateEngineSql = "ALTER TABLE {} ENGINE = '{}'";
         Iterator iter = messages.entrySet().iterator();
         while (iter.hasNext()) {
             Map.Entry<String, Metadata> entry = (Map.Entry<String, Metadata>) iter.next();
@@ -47,12 +48,12 @@ public class Initialize extends JdbcSupport {
             String tableName = metadata.getTableName();
             execute(metadata.getCreateTableSql());
             // 判断储存引擎是被修改
-            sql = String.format(sql, Config.getDbname(), tableName);
+            sql = StringUtils.format(sql, Config.getDbname(), tableName);
             String jsonString = queryForJson(sql);
             JSONObject jsonObject = JSONObject.parseObject(jsonString);
             if (!String.valueOf(metadata.getEngine()).toUpperCase()
                     .equals(jsonObject.getString("Engine").toUpperCase())) {
-                updateEngineSql = String.format(updateEngineSql, tableName, metadata.getEngine());
+                updateEngineSql = StringUtils.format(updateEngineSql, tableName, metadata.getEngine());
                 update(updateEngineSql);
             }
         }
@@ -78,7 +79,7 @@ public class Initialize extends JdbcSupport {
                     Map.Entry<String, String> entry = (Map.Entry<String, String>) iter.next();
                     String key = entry.getKey();
                     if (!inDbColumns.contains(key)) {
-                        String executeScript = String.format(ADD_COLUMN_SCRIPT, metadata.getTableName(), entry.getValue(), previousKey);
+                        String executeScript = StringUtils.format(ADD_COLUMN_SCRIPT, metadata.getTableName(), entry.getValue(), previousKey);
                         execute(executeScript);
                     }
                     previousKey = key;
