@@ -1,10 +1,6 @@
 package com.tractor.model;
 
-import com.alibaba.fastjson.JSONObject;
 import com.tractor.framework.db.JdbcSupport;
-import com.tractor.framework.db.UnsafeJdbc;
-import com.tractor.model.experiment.UserModel;
-import com.tractor.model.service.UserService;
 
 /**
  * @author 2BKeyboard

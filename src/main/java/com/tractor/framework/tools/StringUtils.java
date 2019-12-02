@@ -5,9 +5,10 @@ import java.util.regex.Pattern;
 
 /**
  * String工具类
+ *
  * @author tiansheng
- * @date 2019/8/23 23:52
  * @version 1.0
+ * @date 2019/8/23 23:52
  * @since 1.8
  */
 public class StringUtils {
@@ -101,7 +102,7 @@ public class StringUtils {
             for (int i = 0; i < target.length; i++) {
                 if (source[currentIndex] == target[i]) {
                     result = true;
-                }else{
+                } else {
                     result = false;
                     currentIndex++;
                     break;
@@ -119,22 +120,53 @@ public class StringUtils {
 
     /**
      * 获取文件名后缀
+     *
      * @param filename 文件名
      * @return 后缀
      */
-    public static String getSuffix(String filename){
+    public static String getSuffix(String filename) {
         int suffix = filename.lastIndexOf(".");
-        if(suffix == -1) return null;
+        if (suffix == -1) return null;
         return filename.substring(suffix);
     }
 
     /**
      * 删除后缀
+     *
      * @param filename 文件名
      * @return 删除后缀后的文件名
      */
-    public static String removeSuffix(String filename){
+    public static String removeSuffix(String filename) {
         return filename.substring(0, filename.lastIndexOf("."));
+    }
+
+    /**
+     * 格式化
+     * @param input
+     * @param args
+     * @return
+     */
+    public static String format(String input, Object... args) {
+        int offset = 0;
+        int subscript = 0;
+        char[] chars = input.toCharArray();
+        StringBuilder builder = new StringBuilder();
+        char previous = '#';
+        for (int i = 0; i < chars.length; i++) {
+            char current = chars[i];
+            if (previous == '{' && current == '}') {
+                char[] temp = new char[(i - offset) - 1];
+                System.arraycopy(chars, offset, temp, 0, (offset = i - 1));
+                builder.append(temp).append(args[subscript]);
+                temp = new char[chars.length - 2];
+                System.arraycopy(chars, 2, temp, 0, temp.length);
+                chars = temp;
+                subscript++;
+            } else {
+                previous = current;
+            }
+        }
+        return builder.toString();
     }
 
 }

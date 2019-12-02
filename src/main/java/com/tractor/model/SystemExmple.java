@@ -1,5 +1,7 @@
 package com.tractor.model;
 
+import com.tractor.framework.tools.StringUtils;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,8 +19,16 @@ public class SystemExmple {
         // Enumeration<Driver> drivers = DriverManager.getDrivers();
         long startTime = System.currentTimeMillis();
 
-        Map<String,String> map = new HashMap<>();
-        map.remove("key");
+        // String.format() 五百万次 2820ms
+        // String.format() 一亿次 46683ms
+
+        // StringUtils.format() 五百万次 1602
+        // StringUtils.format() 一亿次 22547ms
+
+        String v = "{}今天要去{}上学";
+        for(int i=0; i<100000000; i++){
+            String.format(v,"小明"+i,"怀远九义校"+i);
+        }
 
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime));
