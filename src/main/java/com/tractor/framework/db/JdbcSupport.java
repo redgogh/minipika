@@ -5,10 +5,13 @@ import com.tractor.framework.beans.BeansManager;
 import com.tractor.framework.config.Config;
 import com.tractor.framework.model.SecurityManager;
 import com.tractor.framework.model.Metadata;
-import com.tractor.framework.tools.PageVo;
+import com.tractor.framework.tools.StringUtils;
 import com.tractor.framework.tools.TractorUtils;
+import sun.reflect.generics.factory.GenericsFactory;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,13 +43,20 @@ public class JdbcSupport implements JdbcSupportService {
     }
 
     @Override
-    public PageVo queryForPage(String sql, PageVo pageVo, Object... args) {
+    public NativePageVo queryForPageVo(String sql, NativePageVo pageVo, Object... args) {
         int size = pageVo.getPageSize();
         int number = pageVo.getPageNum();
         int startPos = number * size;
-        int endPos = startPos + size;
-
-        return null;
+        pageVo.setTotal((int) count(sql, args));
+        StringBuilder value = new StringBuilder(sql);
+        if ((value.lastIndexOf(";") + 1) == value.length()) {
+            value.insert(value.length() - 1, StringUtils.format(" LIMIT {},{} ", startPos, size));
+        } else {
+            value.append(StringUtils.format(" LIMIT {},{} ", startPos, size));
+        }
+        NativeResult result = nativeJdbc.executeQuery(value.toString(), args);
+        pageVo.setData(result.conversionJavaList(null));
+        return pageVo;
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.tractor.framework.db;
 
-import com.tractor.framework.tools.PageVo;
-
 import java.util.List;
 
 /**
@@ -11,7 +9,7 @@ import java.util.List;
  * @date 2019/11/11 23:40
  * @since 1.8
  */
-interface JdbcSupportService {
+public interface JdbcSupportService {
 
     /**
      * 查询并返回对象
@@ -47,7 +45,7 @@ interface JdbcSupportService {
      * @param args
      * @return
      */
-    PageVo queryForPage(String sql, PageVo pageVo, Object... args);
+    NativePageVo queryForPageVo(String sql, NativePageVo pageVo, Object... args);
 
     /**
      * 查询并返回结果集

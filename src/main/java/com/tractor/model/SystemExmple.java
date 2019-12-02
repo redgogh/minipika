@@ -1,11 +1,6 @@
 package com.tractor.model;
 
-import com.alibaba.fastjson.JSON;
-import com.tractor.framework.tools.StringUtils;
-
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.*;
 
 /**
  * @author 2BKeyboard
@@ -31,7 +26,8 @@ public class SystemExmple {
         list.add("2");
         System.out.println(JSON.toJSONString(list));*/
 
-        /*String sql = "select * from user_model;";
+        /*String sql = "select * from user_mod;el;";
+        System.out.println(sql.length() +","+sql.lastIndexOf(";"));
         StringBuilder builder = new StringBuilder(sql);
         int selectPos = sql.indexOf("select") + "select".length();
         int fromPos = sql.indexOf("from");
@@ -40,6 +36,8 @@ public class SystemExmple {
         System.out.println(selectPos);
         System.out.println(fromPos);
         System.out.println(builder.toString());*/
+
+
 
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime));
