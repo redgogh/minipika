@@ -1,5 +1,7 @@
 package com.tractor.framework.db;
 
+import com.tractor.framework.tools.PageVo;
+
 import java.util.List;
 
 /**
@@ -9,7 +11,7 @@ import java.util.List;
  * @date 2019/11/11 23:40
  * @since 1.8
  */
- interface JdbcSupportService {
+interface JdbcSupportService {
 
     /**
      * 查询并返回对象
@@ -19,7 +21,7 @@ import java.util.List;
      * @param <T>
      * @return
      */
-     <T> T queryForObject(String sql, Class<T> obj, Object... args);
+    <T> T queryForObject(String sql, Class<T> obj, Object... args);
 
     /**
      * 查询多个结果
@@ -29,7 +31,7 @@ import java.util.List;
      * @param <T>
      * @return 封装好的结果集
      */
-     <T> List<T> queryForList(String sql, Class<T> obj, Object... args);
+    <T> List<T> queryForList(String sql, Class<T> obj, Object... args);
 
     /**
      * 查询并返回JSON字符串
@@ -37,7 +39,15 @@ import java.util.List;
      * @param args
      * @return
      */
-     String queryForJson(String sql,Object... args);
+    String queryForJson(String sql, Object... args);
+
+    /**
+     * 分页查询,SQL不用加limit
+     * @param sql
+     * @param args
+     * @return
+     */
+    PageVo queryForPage(String sql, PageVo pageVo, Object... args);
 
     /**
      * 查询并返回结果集
@@ -52,7 +62,7 @@ import java.util.List;
      * @param obj 实体类
      * @return 更新条数
      */
-     int updateForModel(Object obj);
+    int updateForModel(Object obj);
 
     /**
      * 通过SQL语句来更新数据。
@@ -60,14 +70,14 @@ import java.util.List;
      * @param args 参数列表
      * @return 更新条数
      */
-     int update(String sql, Object... args);
+    int update(String sql, Object... args);
 
     /**
      * 传入一个实体类，将实体类中为空的数据也进行更新。
      * @param obj 实体类
      * @return 更新条数
      */
-     int updateDoNULL(Object obj);
+    int updateDoNULL(Object obj);
 
     /**
      * 通过sql语句插入一条数据
@@ -75,28 +85,28 @@ import java.util.List;
      * @param args 参数列表
      * @return 更新条数
      */
-     int insert(String sql, Object... args);
+    int insert(String sql, Object... args);
 
     /**
      * 通过实体类来更新数据
      * @param model 实体类
      * @return 更新条数
      */
-     int insert(Object model);
+    int insert(Object model);
 
     /**
-     * 统计所有数据
+     * 统计单张表的所有数据
      * @param target 传入UserModel
      * @return
      */
     long count(Class<?> target);
 
     /**
-     * 统计所有数据
-     * @param table
+     * 统计sql查询到的所有数据
+     * @param sql
      * @return
      */
-     long count(String table);
+    long count(String sql,Object... args);
 
     /**
      * 执行sql
@@ -104,7 +114,7 @@ import java.util.List;
      * @param args
      * @return
      */
-     boolean execute(String sql,Object... args);
+    boolean execute(String sql, Object... args);
 
     /**
      * 查询某张表所有字段

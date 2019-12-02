@@ -5,6 +5,7 @@ import com.tractor.framework.beans.BeansManager;
 import com.tractor.framework.config.Config;
 import com.tractor.framework.model.SecurityManager;
 import com.tractor.framework.model.Metadata;
+import com.tractor.framework.tools.PageVo;
 import com.tractor.framework.tools.TractorUtils;
 
 import java.lang.reflect.Field;
@@ -36,6 +37,16 @@ public class JdbcSupport implements JdbcSupportService {
     @Override
     public String queryForJson(String sql, Object... args) {
         return nativeJdbc.executeQuery(sql, args).toJSONString();
+    }
+
+    @Override
+    public PageVo queryForPage(String sql, PageVo pageVo, Object... args) {
+        int size = pageVo.getPageSize();
+        int number = pageVo.getPageNum();
+        int startPos = number * size;
+        int endPos = startPos + size;
+
+        return null;
     }
 
     @Override
@@ -100,14 +111,20 @@ public class JdbcSupport implements JdbcSupportService {
     @Override
     public long count(Class<?> target) {
         if (SecurityManager.existModel(target)) {
-            return count(TractorUtils.getModelAnnotation(target).value());
+            String table = TractorUtils.getModelAnnotation(target).value();
+            return count("select count(*) from ".concat(table));
         }
         return 0;
     }
 
     @Override
-    public long count(String table) {
-        NativeResult result = nativeJdbc.executeQuery("select count(*) from ".concat(table));
+    public long count(String sql, Object... args) {
+        StringBuilder value = new StringBuilder(sql);
+        String select = "select";
+        int selectPos = value.indexOf(select) + select.length();
+        int fromPos = value.indexOf("from");
+        value.replace(selectPos, fromPos, " count(*) ");
+        NativeResult result = nativeJdbc.executeQuery(value.toString(), args);
         result.hasNext();
         return Long.valueOf(result.next());
     }

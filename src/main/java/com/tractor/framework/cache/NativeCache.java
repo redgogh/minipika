@@ -3,6 +3,7 @@ package com.tractor.framework.cache;
 import com.tractor.framework.db.NativeResult;
 
 /**
+ * 缓存
  * Create by 2BKeyboard on 2019/11/29 17:16
  */
 public interface NativeCache {

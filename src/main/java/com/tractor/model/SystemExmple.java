@@ -26,10 +26,20 @@ public class SystemExmple {
         // StringUtils.format() 五百万次 1602
         // StringUtils.format() 一亿次 22547ms
 
-        List list = new ArrayList<>();
+        /*List list = new ArrayList<>();
         list.add("1");
         list.add("2");
-        System.out.println(JSON.toJSONString(list));
+        System.out.println(JSON.toJSONString(list));*/
+
+        /*String sql = "select * from user_model;";
+        StringBuilder builder = new StringBuilder(sql);
+        int selectPos = sql.indexOf("select") + "select".length();
+        int fromPos = sql.indexOf("from");
+        builder.replace(selectPos,fromPos," count(*) ");
+
+        System.out.println(selectPos);
+        System.out.println(fromPos);
+        System.out.println(builder.toString());*/
 
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime));

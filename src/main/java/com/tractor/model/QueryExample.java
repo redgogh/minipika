@@ -1,7 +1,8 @@
 package com.tractor.model;
 
 import com.tractor.framework.db.JdbcSupport;
-import com.tractor.framework.sql.SQL;
+import com.tractor.framework.tools.PageVo;
+import com.tractor.model.experiment.UserModel;
 
 /**
  * @author 2BKeyboard
@@ -44,10 +45,8 @@ public class QueryExample {
 
         // new UnsafeJdbc().clear(UserModel.class);
 
-        SQL sql = new SQL("select *");
-
-        jdbc.queryForJson("select * from user_model limit 0,10");
-        jdbc.queryForJson("select * from user_model as u left join product_model as p on u.product_name = p.product_name");
+        System.out.println(jdbc.count("select * from user_model limit 0,10"));
+        // jdbc.queryForJson("select * from user_model as u left join product_model as p on u.product_name = p.product_name");
 
         // long endTime = System.currentTimeMillis();
         // System.out.println("查询【" + models.size() + "】条数据，耗时：" + (endTime - startTime));

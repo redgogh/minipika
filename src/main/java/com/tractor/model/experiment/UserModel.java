@@ -59,6 +59,10 @@ public class UserModel {
     @Ignore
     private String name;
 
+    public static String getTable(){
+        return "";
+    }
+
     @Override
     public String toString() {
         return "UserModel{" +
