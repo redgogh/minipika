@@ -109,7 +109,7 @@ public class NativeResultMysql implements NativeResult {
     /**
      * 将查询结果转换为String集合
      *
-     * @return
+     * @return1
      */
     private <T> List<T> conversionJavaStrings() {
         if (resultSet.isEmpty()) return null;
