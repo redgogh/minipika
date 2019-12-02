@@ -19,13 +19,13 @@ public class SystemExmple {
         // Enumeration<Driver> drivers = DriverManager.getDrivers();
         long startTime = System.currentTimeMillis();
 
-        // String.format() 五百万次 2820ms
-        // String.format() 一亿次 46683ms
+        // String.format() 五百万次 7175ms
+        // String.format() 一亿次 125727ms
 
         // StringUtils.format() 五百万次 1602
         // StringUtils.format() 一亿次 22547ms
 
-        String v = "{}今天要去{}上学";
+        String v = "%s今天要去%s上学";
         for(int i=0; i<100000000; i++){
             String.format(v,"小明"+i,"怀远九义校"+i);
         }
