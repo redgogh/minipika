@@ -20,7 +20,7 @@ public class QueryExample {
 
         // List<UserModel> models = JdbcSupport.getTemplate().queryForList("select * from user_model", UserModel.class);
 
-        ManualConfig.load("tractors.properties");
+        ManualConfig.load("tractor.properties");
         JdbcSupport jdbc = JdbcSupport.getTemplate();
         // UserModel models = JdbcFunction.getTemplate().queryForObject("select * from user_model where id = ?", UserModel.class,397463);
 
