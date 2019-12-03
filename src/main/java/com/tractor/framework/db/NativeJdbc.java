@@ -45,13 +45,7 @@ public interface NativeJdbc {
      */
     int executeUpdate(String sql, Object... args);
 
-    /**
-     * 设置 statement 参数
-     *
-     * @param statement
-     * @param args
-     * @return
-     */
+    // 添加预编译sql的参数
     default PreparedStatement setValues(PreparedStatement statement, Object... args) throws SQLException {
         if (args != null) {
             for (int i = 0; i < args.length; i++) {
@@ -61,6 +55,7 @@ public interface NativeJdbc {
         return statement;
     }
 
+    // 关闭流
     default void close(Connection connection, PreparedStatement statement, ResultSet resultSet) {
         try {
             if (resultSet != null) resultSet.close();
@@ -71,6 +66,7 @@ public interface NativeJdbc {
         }
     }
 
+    // 回滚
     default void rollback(Connection connection, boolean auto) {
         try {
             if (connection != null && auto) connection.rollback();
@@ -79,7 +75,8 @@ public interface NativeJdbc {
         }
     }
 
-    default void release(Connection connection,ConnectionPool pool) {
+    // 归还连接
+    default void release(Connection connection, ConnectionPool pool) {
         if (connection != null) pool.release(connection);
     }
 
