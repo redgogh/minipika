@@ -24,7 +24,7 @@ public class GetterModel {
     public Metadata enhance(Class<?> target) throws TractorException {
         String engine = null;                                   // 储存引擎
         String tableName = null;                                // 表名
-        Metadata metadata = new Metadata();          // 完整sql
+        Metadata metadata = new Metadata();                     // 完整sql
         StringBuilder script = new StringBuilder();             // sql代码
         Map<String, String> columns = new LinkedHashMap<>();    // 字段信息
         script.append("create table if not exists");

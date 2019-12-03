@@ -85,7 +85,7 @@ public final class Config {
     }
 
     public static String getTablePrefix() {
-        return tablePrefix;
+        return tablePrefix==null ? "" : tablePrefix;
     }
 
     public static String getUsername() {

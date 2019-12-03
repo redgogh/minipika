@@ -25,7 +25,7 @@ import java.util.Map;
 public class Initialize extends JdbcSupport {
 
     // 添加字段
-    private final String ADD_COLUMN_SCRIPT = "ALTER TABLE `{}` ADD {} after `{}`;";
+    private String ADD_COLUMN_SCRIPT = "ALTER TABLE `{}` ADD {} after `{}`;";
 
     public void run() throws TractorException {
         loadModel();
@@ -39,23 +39,28 @@ public class Initialize extends JdbcSupport {
         GetterModel getterModel = new GetterModel();
         getterModel.parse(TractorUtils.getModels());
         Map<String, Metadata> messages = Metadata.getAttribute();
-        String sql = "show table status from {} where name = '{}';";
-        String updateEngineSql = "ALTER TABLE {} ENGINE = '{}'";
         Iterator iter = messages.entrySet().iterator();
         while (iter.hasNext()) {
+
+            String SHOW_TABLE_STATUS = "show table status from {} where name = '{}';";
+            String UPDATE_ENGINE = "ALTER TABLE {} ENGINE = '{}'";
+
             Map.Entry<String, Metadata> entry = (Map.Entry<String, Metadata>) iter.next();
             Metadata metadata = entry.getValue();
             String tableName = metadata.getTableName();
             execute(metadata.getCreateTableSql());
+
             // 判断储存引擎是被修改
-            sql = StringUtils.format(sql, Config.getDbname(), tableName);
-            String jsonString = queryForJson(sql);
+            SHOW_TABLE_STATUS = StringUtils.format(SHOW_TABLE_STATUS, Config.getDbname(), tableName);
+            String jsonString = queryForJson(SHOW_TABLE_STATUS);
             JSONObject jsonObject = JSONObject.parseObject(jsonString);
+
             if (!String.valueOf(metadata.getEngine()).toUpperCase()
                     .equals(jsonObject.getString("Engine").toUpperCase())) {
-                updateEngineSql = StringUtils.format(updateEngineSql, tableName, metadata.getEngine());
-                update(updateEngineSql);
+                UPDATE_ENGINE = StringUtils.format(UPDATE_ENGINE, tableName, metadata.getEngine());
+                update(UPDATE_ENGINE);
             }
+
         }
     }
 
@@ -70,8 +75,10 @@ public class Initialize extends JdbcSupport {
             if (SecurityManager.existModel(target)) {
                 Model model = TractorUtils.getModelAnnotation(target);
                 String table = model.value();
+
                 List<String> inDbColumns = getColumns(table);
                 Metadata metadata = Metadata.getAttribute().get(table);
+
                 Map<String, String> inMessageColumns = metadata.getColumns();
                 Iterator iter = inMessageColumns.entrySet().iterator();
                 String previousKey = null;
@@ -84,6 +91,7 @@ public class Initialize extends JdbcSupport {
                     }
                     previousKey = key;
                 }
+                
             } else {
                 throw new TractorException("No @Model");
             }

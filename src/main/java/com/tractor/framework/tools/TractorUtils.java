@@ -6,10 +6,14 @@ import com.tractor.framework.exception.TractorException;
 import com.tractor.framework.model.SecurityManager;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -108,7 +112,17 @@ public class TractorUtils {
     public static Model getModelAnnotation(Class<?> target) {
         try {
             if (SecurityManager.existModel(target)) {
-                return target.getDeclaredAnnotation(Model.class);
+                String prefix = Config.getTablePrefix();
+                Model anno = target.getDeclaredAnnotation(Model.class);
+                String value = anno.value();
+                if(!StringUtils.isEmpty(prefix) && !value.substring(0,prefix.length()).equals(prefix)) {
+                    InvocationHandler invocationHandler = Proxy.getInvocationHandler(anno);
+                    Field values = invocationHandler.getClass().getDeclaredField("memberValues");
+                    values.setAccessible(true);
+                    Map memberValues = (Map) values.get(invocationHandler);
+                    memberValues.put("value", Config.getTablePrefix() + "_" + value);
+                }
+                return anno;
             } else {
                 throw new TractorException("@Model Not Found.");
             }
