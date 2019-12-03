@@ -2,6 +2,7 @@ package com.tractor.framework.pool;
 
 import com.tractor.framework.config.Config;
 import com.tractor.framework.config.Initialize;
+import com.tractor.model.ThreadExample;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -87,41 +88,37 @@ public class ConnectionPool {
 
     /**
      * 获取一个连接
-     * TODO 当线程过多的时候且连接池大小不够多,其他的线程就会被阻塞
-     * TODO 就算归还了连接,也只有连接池大小的线程能够顺利执行完毕,其他的线程则阻塞
      *
      * @return
      */
     public Connection getConnection() {
         synchronized (this) {
-            try {
-                if (!conns.isEmpty()) {
-                    Iterator<Connection> iter = conns.iterator();
-                    while (iter.hasNext()) {
-                        Connection connection = iter.next();
-                        conns.remove(connection);
-                        System.out.println(Thread.currentThread().getName() + "：取出一个链接，连接池中剩余链接有" + conns.size() + "个");
-                        return connection;
-                    }
-                    System.err.println(Thread.currentThread().getName() + "：当前连接池中没有链接了，等待中....");
-                    wait();
-                    System.err.println(Thread.currentThread().getName() + "被唤醒");
-                    return getConnection();
-                } else {
-                    if (count < MAX_SIZE) {
-                        final Connection connection = createConnection();
-                        if (connection == null) {
-                            wait();
-                            return getConnection();
-                        } else {
-                            return connection;
-                        }
-                    }
+            if (!conns.isEmpty()) {
+                Iterator<Connection> iter = conns.iterator();
+                while (iter.hasNext()) {
+                    Connection connection = iter.next();
+                    conns.remove(connection);
+                    System.out.println(Thread.currentThread().getName() + "：取出一个链接，连接池中剩余链接有" + conns.size() + "个");
+                    return connection;
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+                System.err.println(Thread.currentThread().getName() + "：当前连接池中没有链接了，等待中....");
+                await();
+                System.err.println(Thread.currentThread().getName() + "被唤醒");
+                Connection connection = getConnection();
+                return connection;
+            } else {
+                if (count < MAX_SIZE) {
+                    final Connection connection = createConnection();
+                    if (connection == null) {
+                        await();
+                        return getConnection();
+                    }
+                    return connection;
+                }else{
+                    await();
+                    return getConnection();
+                }
             }
-            return null;
         }
     }
 
@@ -131,9 +128,7 @@ public class ConnectionPool {
      * @return
      */
     public Connection createConnection() {
-        if (count >= MAX_SIZE) {
-            return null;
-        }
+        if (count >= MAX_SIZE) return null;
         System.out.println("已创建的链接有：" + count);
         try {
             if (driver == null) {
@@ -145,9 +140,7 @@ public class ConnectionPool {
             count++;
             return connection;
         } catch (Exception e) {
-            if (e instanceof SQLNonTransientConnectionException) {
-                e.printStackTrace();
-            }
+            e.printStackTrace();
         }
         return null;
     }
@@ -169,6 +162,14 @@ public class ConnectionPool {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void await() {
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

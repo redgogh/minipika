@@ -25,12 +25,12 @@ public class NativeJdbcImpl implements NativeJdbc {
         PreparedStatement statement = null;
         try {
             connection = pool.getConnection();
-            if (connection == null) {
+            /*if (connection == null) {
                 synchronized (this) {
                     wait();
                 }
                 return execute(sql, args);
-            }
+            }*/
             statement = connection.prepareStatement(sql);
             Boolean bool = setValues(statement, args).execute();
             if (auto) connection.commit(); // 提交
@@ -52,12 +52,12 @@ public class NativeJdbcImpl implements NativeJdbc {
         PreparedStatement statement = null;
         try {
             connection = pool.getConnection();
-            if (connection == null) {
+            /*if (connection == null) {
                 synchronized (this) {
                     wait();
                 }
                 return executeQuery(sql, args);
-            }
+            }*/
             statement = connection.prepareStatement(sql);
             ResultSet resultSet = setValues(statement, args).executeQuery();
             result = BeansManager.newNativeResult(resultSet);
@@ -77,12 +77,12 @@ public class NativeJdbcImpl implements NativeJdbc {
         PreparedStatement statement = null;
         try {
             connection = pool.getConnection();
-            if (connection == null) {
+            /*if (connection == null) {
                 synchronized (this) {
                     wait();
                 }
                 executeUpdate(sql, args);
-            }
+            }*/
             statement = connection.prepareStatement(sql);
             int result = setValues(statement, args).executeUpdate();
             if (auto) connection.commit(); // 提交

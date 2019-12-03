@@ -1,6 +1,7 @@
 package com.tractor.model;
 
 import com.tractor.framework.db.JdbcSupport;
+import com.tractor.framework.db.UnsafeJdbc;
 import com.tractor.framework.tools.StringUtils;
 import com.tractor.model.experiment.ProductModel;
 import com.tractor.model.experiment.UserModel;
@@ -18,8 +19,8 @@ import java.util.UUID;
  */
 public class ThreadExample {
 
-    static int closeCount = 0;
-    static int createCount = 0;
+    public static int closeCount = 0;
+    public static int createCount = 0;
 
     public static void main(String[] args) {
         userModelInsert();
@@ -27,7 +28,8 @@ public class ThreadExample {
     }
 
     public static void userModelInsert() {
-        for (int i = 0; i < 100; i++) {
+        new UnsafeJdbc().clear(UserModel.class);
+        for (int i = 0; i < 150; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 100; j++) {
                     UserModel model = new UserModel();
