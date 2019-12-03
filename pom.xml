@@ -16,11 +16,11 @@
 
     <dependencies>
         <!-- mysql 连接驱动 -->
-        <!--<dependency>
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.connector.version}</version>
-        </dependency>-->
+        </dependency>
         <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>

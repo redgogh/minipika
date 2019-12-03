@@ -7,11 +7,7 @@ import com.tractor.framework.model.SecurityManager;
 import com.tractor.framework.model.Metadata;
 import com.tractor.framework.tools.StringUtils;
 import com.tractor.framework.tools.TractorUtils;
-import sun.reflect.generics.factory.GenericsFactory;
-
 import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 

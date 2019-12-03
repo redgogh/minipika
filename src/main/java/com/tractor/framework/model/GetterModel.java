@@ -138,7 +138,6 @@ public class GetterModel {
         } catch (TractorException e) {
             e.printStackTrace();
         }
-        System.out.println();
     }
 
 }
