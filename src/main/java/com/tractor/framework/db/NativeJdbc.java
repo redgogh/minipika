@@ -1,6 +1,10 @@
 package com.tractor.framework.db;
 
+import com.tractor.framework.pool.ConnectionPool;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -55,6 +59,28 @@ public interface NativeJdbc {
             }
         }
         return statement;
+    }
+
+    default void close(Connection connection, PreparedStatement statement, ResultSet resultSet) {
+        try {
+            if (resultSet != null) resultSet.close();
+            if (statement != null) statement.close();
+            if (connection != null) connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    default void rollback(Connection connection, boolean auto) {
+        try {
+            if (connection != null && auto) connection.rollback();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    default void release(Connection connection,ConnectionPool pool) {
+        if (connection != null) pool.release(connection);
     }
 
 }

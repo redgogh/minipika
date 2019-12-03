@@ -8,7 +8,7 @@ import com.tractor.framework.db.NativeResultMysql;
 import java.sql.ResultSet;
 
 /**
- * 管理接口的创建
+ * 管理接口的创建，类似于spring的bean，只不过不是注解形式
  * Create by 2BKeyboard on 2019/11/28 17:25
  */
 public class BeansManager {

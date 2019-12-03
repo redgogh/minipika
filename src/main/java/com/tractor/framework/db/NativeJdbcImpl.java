@@ -10,8 +10,8 @@ import java.sql.ResultSet;
 
 /**
  * @author 404NotFoundx
- * @date 2019/11/30 2:28
  * @version 1.0.0
+ * @date 2019/11/30 2:28
  * @since 1.8
  */
 public class NativeJdbcImpl implements NativeJdbc {
@@ -21,90 +21,78 @@ public class NativeJdbcImpl implements NativeJdbc {
 
     @Override
     public boolean execute(String sql, Object... args) {
+        Connection connection = null;
+        PreparedStatement statement = null;
         try {
-            Connection connection = null;
-            PreparedStatement statement = null;
-            try {
-                connection = pool.getConnection();
-                if (connection == null) {
-                    synchronized (this) {
-                        wait();
-                    }
-                    return execute(sql, args);
+            connection = pool.getConnection();
+            if (connection == null) {
+                synchronized (this) {
+                    wait();
                 }
-                statement = connection.prepareStatement(sql);
-                Boolean bool = setValues(statement, args).execute();
-                if (auto) connection.commit(); // 提交
-                return bool;
-            } catch (Exception e) {
-                if (connection != null && auto) connection.rollback(); // 回滚
-                e.printStackTrace();
-            } finally {
-                if (statement != null) statement.close();
-                if (connection != null) pool.release(connection);
+                return execute(sql, args);
             }
-        } catch (Throwable e) {
+            statement = connection.prepareStatement(sql);
+            Boolean bool = setValues(statement, args).execute();
+            if (auto) connection.commit(); // 提交
+            return bool;
+        } catch (Exception e) {
+            rollback(connection, auto);
             e.printStackTrace();
+        } finally {
+            close(null, statement, null);
+            release(connection, pool);
         }
         return false;
     }
 
     @Override
     public NativeResult executeQuery(String sql, Object... args) {
+        NativeResult result = null;
+        Connection connection = null;
+        PreparedStatement statement = null;
         try {
-            NativeResult result = null;
-            Connection connection = null;
-            PreparedStatement statement = null;
-            try {
-                connection = pool.getConnection();
-                if (connection == null) {
-                    synchronized (this) {
-                        wait();
-                    }
-                    return executeQuery(sql, args);
+            connection = pool.getConnection();
+            if (connection == null) {
+                synchronized (this) {
+                    wait();
                 }
-                statement = connection.prepareStatement(sql);
-                ResultSet resultSet = setValues(statement, args).executeQuery();
-                result = BeansManager.newNativeResult(resultSet);
-                return result;
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (statement != null) statement.close();
-                if (connection != null) pool.release(connection);
+                return executeQuery(sql, args);
             }
-        } catch (Throwable e) {
+            statement = connection.prepareStatement(sql);
+            ResultSet resultSet = setValues(statement, args).executeQuery();
+            result = BeansManager.newNativeResult(resultSet);
+            return result;
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            close(null, statement, null);
+            release(connection, pool);
         }
         return null;
     }
 
     @Override
     public int executeUpdate(String sql, Object... args) {
+        Connection connection = null;
+        PreparedStatement statement = null;
         try {
-            Connection connection = null;
-            PreparedStatement statement = null;
-            try {
-                connection = pool.getConnection();
-                if (connection == null) {
-                    synchronized (this) {
-                        wait();
-                    }
-                    executeUpdate(sql, args);
+            connection = pool.getConnection();
+            if (connection == null) {
+                synchronized (this) {
+                    wait();
                 }
-                statement = connection.prepareStatement(sql);
-                int result = setValues(statement, args).executeUpdate();
-                if (auto) connection.commit(); // 提交
-                return result;
-            } catch (Exception e) {
-                if (connection != null && auto) connection.rollback(); // 回滚
-                e.printStackTrace();
-            } finally {
-                if (statement != null) statement.close();
-                if (connection != null) pool.release(connection);
+                executeUpdate(sql, args);
             }
-        } catch (Throwable e) {
+            statement = connection.prepareStatement(sql);
+            int result = setValues(statement, args).executeUpdate();
+            if (auto) connection.commit(); // 提交
+            return result;
+        } catch (Exception e) {
+            rollback(connection, auto); // 回滚
             e.printStackTrace();
+        } finally {
+            close(null, statement, null);
+            release(connection, pool);
         }
         return 0;
     }
