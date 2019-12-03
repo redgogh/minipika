@@ -20,6 +20,8 @@ mvn install
 
 或者使用idea的maven插件安装
 
+![maveninstallbyidea](https://github.com/PageNotFoundx/tractor/blob/master/readme/mavenisntall.png)
+
 # 在其他项目导入依赖
 
 ```xml
