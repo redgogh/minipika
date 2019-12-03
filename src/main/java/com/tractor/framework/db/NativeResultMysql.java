@@ -24,8 +24,8 @@ public class NativeResultMysql implements NativeResult {
     public NativeResultMysql() {
     }
 
-    public NativeResultMysql(ResultSet rset) {
-        build(rset);
+    public NativeResultMysql(ResultSet input) {
+        build(input);
     }
 
     @Override

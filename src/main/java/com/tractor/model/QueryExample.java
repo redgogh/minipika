@@ -53,7 +53,9 @@ public class QueryExample {
 
         PageHelper pageVo = new PageHelper(3,10,UserModel.class);
 
-        jdbc.queryForPage("select * from user_model", pageVo);
+        // jdbc.queryForPage("select * from user_model", pageVo);
+
+        jdbc.queryForJson("SELECT * FROM user_model AS u LEFT JOIN product_model AS p on u.uuid = p.uuid GROUP BY p.uuid");
 
         System.out.println(pageVo.toString());
 
