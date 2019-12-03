@@ -1,6 +1,7 @@
 package com.tractor.model;
 
 import com.tractor.framework.db.JdbcSupport;
+import com.tractor.framework.tools.StringUtils;
 import com.tractor.model.experiment.ProductModel;
 import com.tractor.model.experiment.UserModel;
 
@@ -16,6 +17,9 @@ import java.util.UUID;
  * @since 1.8
  */
 public class ThreadExample {
+
+    static int closeCount = 0;
+    static int createCount = 0;
 
     public static void main(String[] args) {
         userModelInsert();
@@ -35,9 +39,11 @@ public class ThreadExample {
                     model.setCreateTime(new Date());
                     JdbcSupport.getTemplate().insert(model);
                 }
-                System.err.println("线程退出");
+                closeCount++;
+                System.err.println(StringUtils.format("线程退出[{}]",closeCount));
             }).start();
-            System.err.println("线程创建");
+            createCount++;
+            System.err.println(StringUtils.format("线程创建[{}]",createCount));
         }
     }
 
