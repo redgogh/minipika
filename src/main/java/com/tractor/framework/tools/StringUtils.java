@@ -149,7 +149,6 @@ public class StringUtils {
      */
     public static String format(String input, Object... args) {
         int offset = 0;
-        int position = 0;
         int subscript = 0;
         char[] chars = input.toCharArray();
         StringBuilder builder = new StringBuilder();

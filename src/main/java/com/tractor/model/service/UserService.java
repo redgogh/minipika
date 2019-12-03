@@ -18,10 +18,6 @@ public class UserService extends JdbcSupport {
         return queryForObject("select * from user_model where id = ?", UserModel.class, id);
     }
 
-    public Long findUserCount(){
-        return count("user_model");
-    }
-
     public Long insert(){
         UserModel userModel = new UserModel();
         userModel.setUserName(TractorUtils.uuid());

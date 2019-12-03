@@ -1,7 +1,8 @@
 package com.tractor.model;
 
 import com.tractor.framework.db.JdbcSupport;
-import com.tractor.framework.db.NativePageVo;
+import com.tractor.framework.db.NativePageHelper;
+import com.tractor.framework.db.PageHelper;
 import com.tractor.model.experiment.UserModel;
 
 /**
@@ -48,11 +49,11 @@ public class QueryExample {
         // System.out.println(jdbc.count("select * from user_model limit 0,10"));
         // jdbc.queryForJson("select * from user_model as u left join product_model as p on u.product_name = p.product_name");
 
-        NativePageVo<UserModel> pageVo = new NativePageVo();
-        pageVo.setPageSize(10);
-        pageVo.setPageNum(3);
+        System.out.println(jdbc.count(UserModel.class));
 
-        jdbc.queryForPageVo("select * from user_model", pageVo);
+        PageHelper pageVo = new PageHelper(3,10,UserModel.class);
+
+        jdbc.queryForPage("select * from user_model", pageVo);
 
         System.out.println(pageVo.toString());
 

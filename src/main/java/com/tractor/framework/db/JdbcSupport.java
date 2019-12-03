@@ -43,11 +43,11 @@ public class JdbcSupport implements JdbcSupportService {
     }
 
     @Override
-    public NativePageVo queryForPageVo(String sql, NativePageVo pageVo, Object... args) {
+    public NativePageHelper queryForPage(String sql, NativePageHelper pageVo, Object... args) {
         int size = pageVo.getPageSize();
         int number = pageVo.getPageNum();
         int startPos = number * size;
-        pageVo.setTotal((int) count(sql, args));
+        pageVo.setRecords(count(sql, args));
         StringBuilder value = new StringBuilder(sql);
         if ((value.lastIndexOf(";") + 1) == value.length()) {
             value.insert(value.length() - 1, StringUtils.format(" LIMIT {},{} ", startPos, size));
@@ -55,7 +55,7 @@ public class JdbcSupport implements JdbcSupportService {
             value.append(StringUtils.format(" LIMIT {},{} ", startPos, size));
         }
         NativeResult result = nativeJdbc.executeQuery(value.toString(), args);
-        pageVo.setData(result.conversionJavaList(null));
+        pageVo.setData(result.conversionJavaList(pageVo.getGeneric()));
         return pageVo;
     }
 
@@ -119,7 +119,7 @@ public class JdbcSupport implements JdbcSupportService {
     }
 
     @Override
-    public long count(Class<?> target) {
+    public int count(Class<?> target) {
         if (SecurityManager.existModel(target)) {
             String table = TractorUtils.getModelAnnotation(target).value();
             return count("select count(*) from ".concat(table));
@@ -128,7 +128,7 @@ public class JdbcSupport implements JdbcSupportService {
     }
 
     @Override
-    public long count(String sql, Object... args) {
+    public int count(String sql, Object... args) {
         StringBuilder value = new StringBuilder(sql);
         String select = "select";
         int selectPos = value.indexOf(select) + select.length();
@@ -136,7 +136,7 @@ public class JdbcSupport implements JdbcSupportService {
         value.replace(selectPos, fromPos, " count(*) ");
         NativeResult result = nativeJdbc.executeQuery(value.toString(), args);
         result.hasNext();
-        return Long.valueOf(result.next());
+        return Integer.valueOf(result.next());
     }
 
     @Override

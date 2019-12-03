@@ -45,7 +45,7 @@ public interface JdbcSupportService {
      * @param args
      * @return
      */
-    NativePageVo queryForPageVo(String sql, NativePageVo pageVo, Object... args);
+    NativePageHelper queryForPage(String sql, NativePageHelper pageVo, Object... args);
 
     /**
      * 查询并返回结果集
@@ -97,14 +97,14 @@ public interface JdbcSupportService {
      * @param target 传入UserModel
      * @return
      */
-    long count(Class<?> target);
+    int count(Class<?> target);
 
     /**
      * 统计sql查询到的所有数据
      * @param sql
      * @return
      */
-    long count(String sql,Object... args);
+    int count(String sql,Object... args);
 
     /**
      * 执行sql
