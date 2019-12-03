@@ -143,7 +143,7 @@ public class JdbcSupport implements JdbcSupportService {
     @Override
     public List<String> getColumns(String tableName) {
         String sql = "select COLUMN_NAME from information_schema.COLUMNS where table_name = ? and table_schema = ?;";
-        return nativeJdbc.executeQuery(sql, tableName, Config.getDbname()).conversionJavaList(String.class);
+        return nativeJdbc.executeQuery(sql, tableName, Config.getInstance().getDbname()).conversionJavaList(String.class);
     }
 
     // 是否更新为NULL的字段是否更新为NULL的字段

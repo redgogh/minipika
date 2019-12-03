@@ -1,6 +1,10 @@
 package com.tractor.model;
 
+import com.tractor.framework.exception.ReadException;
+
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 2BKeyboard
@@ -36,6 +40,9 @@ public class SystemExmple {
         System.out.println(selectPos);
         System.out.println(fromPos);
         System.out.println(builder.toString());*/
+
+        List<String> list = new ArrayList<>();
+        list.get(1);
 
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime));

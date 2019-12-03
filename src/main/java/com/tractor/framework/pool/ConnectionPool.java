@@ -2,12 +2,10 @@ package com.tractor.framework.pool;
 
 import com.tractor.framework.config.Config;
 import com.tractor.framework.config.Initialize;
-import com.tractor.model.ThreadExample;
 
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.SQLException;
-import java.sql.SQLNonTransientConnectionException;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Properties;
@@ -52,7 +50,7 @@ public class ConnectionPool {
 
     private static Set<Connection> conns = new LinkedHashSet<>();
 
-    private static final Boolean transaction = Config.getTransaction();
+    private static final Boolean transaction = Config.getInstance().getTransaction();
 
     // 创建连接
     private static Properties info = new Properties();
@@ -60,13 +58,13 @@ public class ConnectionPool {
     static {
         try {
             // 设置最小值和最大值
-            MIN_SIZE = Config.getMinSize();
-            MAX_SIZE = Config.getMaxSize();
+            MIN_SIZE = Config.getInstance().getMinSize();
+            MAX_SIZE = Config.getInstance().getMaxSize();
             // 设置属性
-            info.setProperty("user", Config.getUsername());
-            info.setProperty("password", Config.getPassword());
+            info.setProperty("user", Config.getInstance().getUsername());
+            info.setProperty("password", Config.getInstance().getPassword());
             // URL
-            jdbcUrl = Config.getUrl();
+            jdbcUrl = Config.getInstance().getUrl();
             // 初始化连接对象
             for (int i = 0; i < MIN_SIZE; i++) {
                 conns.add(ConnectionPool.getPool().createConnection());

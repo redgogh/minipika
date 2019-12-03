@@ -67,7 +67,7 @@ public class TractorUtils {
      */
     public static List<Class<?>> getModels() {
         List<Class<?>> models = new LinkedList<>();
-        String basePackage = Config.getModelPackage();
+        String basePackage = Config.getInstance().getModelPackage();
         try {
             getModels(basePackage, models);
         } catch (ClassNotFoundException e) {
@@ -112,7 +112,7 @@ public class TractorUtils {
     public static Model getModelAnnotation(Class<?> target) {
         try {
             if (SecurityManager.existModel(target)) {
-                String prefix = Config.getTablePrefix();
+                String prefix = Config.getInstance().getTablePrefix();
                 Model anno = target.getDeclaredAnnotation(Model.class);
                 String value = anno.value();
                 if(!StringUtils.isEmpty(prefix) && !value.substring(0,prefix.length()).equals(prefix)) {
@@ -120,7 +120,7 @@ public class TractorUtils {
                     Field values = invocationHandler.getClass().getDeclaredField("memberValues");
                     values.setAccessible(true);
                     Map memberValues = (Map) values.get(invocationHandler);
-                    memberValues.put("value", Config.getTablePrefix() + "_" + value);
+                    memberValues.put("value", Config.getInstance().getTablePrefix() + "_" + value);
                 }
                 return anno;
             } else {

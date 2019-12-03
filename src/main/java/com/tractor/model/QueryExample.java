@@ -1,5 +1,6 @@
 package com.tractor.model;
 
+import com.tractor.framework.config.ManualConfig;
 import com.tractor.framework.db.JdbcSupport;
 import com.tractor.framework.db.NativePageHelper;
 import com.tractor.framework.db.PageHelper;
@@ -19,6 +20,7 @@ public class QueryExample {
 
         // List<UserModel> models = JdbcSupport.getTemplate().queryForList("select * from user_model", UserModel.class);
 
+        ManualConfig.load("tractors.properties");
         JdbcSupport jdbc = JdbcSupport.getTemplate();
         // UserModel models = JdbcFunction.getTemplate().queryForObject("select * from user_model where id = ?", UserModel.class,397463);
 
@@ -55,7 +57,7 @@ public class QueryExample {
 
         // jdbc.queryForPage("select * from user_model", pageVo);
 
-        jdbc.queryForJson("SELECT * FROM user_model AS u LEFT JOIN product_model AS p on u.uuid = p.uuid GROUP BY p.uuid");
+        jdbc.queryForJson("SELECT * FROM kkb_user_model AS u LEFT JOIN kkb_product_model AS p on u.uuid = p.uuid GROUP BY p.uuid");
 
         System.out.println(pageVo.toString());
 

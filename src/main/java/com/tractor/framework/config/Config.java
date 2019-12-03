@@ -1,7 +1,9 @@
 package com.tractor.framework.config;
 
+import com.tractor.framework.exception.ReadException;
 import com.tractor.framework.tools.StringUtils;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
@@ -11,38 +13,67 @@ import java.util.*;
 public final class Config {
 
     // properties对象
-    private static Properties config;
+    private Properties config;
 
     // 配置文件地址
-    private static String configPath;
+    private String configPath = "tractor.properties";
 
     // jdbc连接驱动
-    private static String url = getValue("tractor.jdbc.url");
-    // private static String driver = getValue("tractor.jdbc.driver");
+    private String url;
+    // private  String driver = getValue("tractor.jdbc.driver");
 
     // 数据库账号密码
-    private static String username = getValue("tractor.jdbc.username");
-    private static String password = getValue("tractor.jdbc.password");
+    private String username;
+    private String password;
 
     // 连接池配置
-    private static String maxSize = getValue("tractor.connectionPool.maxSize");
-    private static String minSize = getValue("tractor.connectionPool.minSize");
+    private String maxSize;
+    private String minSize;
 
     // 数据库表名前缀
-    private static String tablePrefix = getValue("tractor.model.prefix");
+    private String tablePrefix;
 
     // model包路径
-    private static String modelPackage = getValue("tractor.model.package");
+    private String modelPackage;
 
     // 是否开启事物
-    private static String transaction = getValue("tractor.jdbc.transaction");
+    private String transaction;
 
     // 数据库名
-    private static String dbname;
+    private String dbname;
 
-    static {
+    private static Config instance;
+
+    public static Config getInstance() {
+        if (instance == null) {
+            instance = new Config("tractor.properties");
+        }
+        return instance;
+    }
+
+    public Config(String configPath) {
+        if (!StringUtils.isEmpty(configPath)) {
+            this.configPath = configPath;
+        }
+        initConfig();
+        instance = this;
+    }
+
+    /**
+     * 初始化
+     */
+    public void initConfig() {
         try {
-            String driver = getValue("tractor.jdbc.driver");
+
+            this.url                = getValue("tractor.jdbc.url");
+            String driver           = getValue("tractor.jdbc.driver");
+            this.username           = getValue("tractor.jdbc.username");
+            this.password           = getValue("tractor.jdbc.password");
+            this.tablePrefix        = getValue("tractor.model.prefix");
+            this.modelPackage       = getValue("tractor.model.package");
+            this.transaction        = getValue("tractor.jdbc.transaction");
+            this.minSize            = getValue("tractor.connectionPool.minSize");
+
             System.setProperty("jdbc.drivers", driver);
             String temp = url;
             for (int i = 0; i < 3; i++) {
@@ -55,56 +86,59 @@ public final class Config {
         }
     }
 
-    private static String getValue(String v) {
-        try {
-            if (config == null) {
-                // 如果configPath等于空
-                if (StringUtils.isEmpty(configPath)) {
-                    configPath = "tractor.properties";
-                }
-                InputStream in = Config.class.getClassLoader().getResourceAsStream(configPath);
-                config = new Properties();
-                config.load(in);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    private String getValue(String v) {
+        if (config == null) {
+            InputStream in = Config.class.getClassLoader().getResourceAsStream(configPath);
+            configLoad(in);
         }
         return config.getProperty(v);
     }
 
-    public static String getDbname() {
+
+    private void configLoad(InputStream input) {
+        if (input == null)
+            throw new ReadException("cannot get config because config file path not exist \"" + configPath + "\"");
+        config = new Properties();
+        try {
+            config.load(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getDbname() {
         return dbname;
     }
 
-    public static String getModelPackage() {
+    public String getModelPackage() {
         return modelPackage;
     }
 
-    public static String getUrl() {
+    public String getUrl() {
         return url;
     }
 
-    public static String getTablePrefix() {
-        return tablePrefix==null ? "" : tablePrefix;
+    public String getTablePrefix() {
+        return tablePrefix == null ? "" : tablePrefix;
     }
 
-    public static String getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public static String getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public static Integer getMaxSize() {
+    public Integer getMaxSize() {
         return Integer.valueOf(StringUtils.isEmpty(maxSize) ? "6" : maxSize);
     }
 
-    public static Integer getMinSize() {
+    public Integer getMinSize() {
         return Integer.valueOf(StringUtils.isEmpty(minSize) ? "2" : minSize);
     }
 
-    public static Boolean getTransaction() {
+    public Boolean getTransaction() {
         return Boolean.valueOf(transaction);
     }
 

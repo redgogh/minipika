@@ -51,7 +51,7 @@ public class Initialize extends JdbcSupport {
             execute(metadata.getCreateTableSql());
 
             // 判断储存引擎是被修改
-            SHOW_TABLE_STATUS = StringUtils.format(SHOW_TABLE_STATUS, Config.getDbname(), tableName);
+            SHOW_TABLE_STATUS = StringUtils.format(SHOW_TABLE_STATUS, Config.getInstance().getDbname(), tableName);
             String jsonString = queryForJson(SHOW_TABLE_STATUS);
             JSONObject jsonObject = JSONObject.parseObject(jsonString);
 

@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  */
 public class NativeJdbcImpl implements NativeJdbc {
 
-    private final boolean auto = Config.getTransaction();
+    private final boolean auto = Config.getInstance().getTransaction();
     protected final ConnectionPool pool = ConnectionPool.getPool();
 
     @Override
