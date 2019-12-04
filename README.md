@@ -11,7 +11,7 @@
 **第一步先将项目check到本地**
 
 ```
-git clone https://github.com/PageNotFoundx/poseidon
+git clone https://github.com/PageNotFoundx/poseidon.git
 ```
 
 **然后将项目安装到本地仓库**
