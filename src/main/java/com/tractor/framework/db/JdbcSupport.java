@@ -7,6 +7,8 @@ import com.tractor.framework.model.SecurityManager;
 import com.tractor.framework.model.Metadata;
 import com.tractor.framework.tools.StringUtils;
 import com.tractor.framework.tools.TractorUtils;
+import com.tractor.model.experiment.UserModel;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +68,7 @@ public class JdbcSupport implements JdbcSupportService {
     }
 
     @Override
-    public int updateForModel(Object obj) {
+    public int update(Object obj) {
         return update(obj, false);
     }
 

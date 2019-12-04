@@ -60,7 +60,7 @@ public interface JdbcSupportService {
      * @param obj 实体类
      * @return 更新条数
      */
-    int updateForModel(Object obj);
+    int update(Object obj);
 
     /**
      * 通过SQL语句来更新数据。

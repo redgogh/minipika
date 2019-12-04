@@ -80,6 +80,8 @@ tractor.model.package = com.tractor.model.experiment
 
 具体Model的实现可以参考一下本项目下**com.tractor.model.experiment**包下的Model。
 
+当Model配置好了之后在启动时会自动创建表和字段。
+
 ----
 
 # Jdbc操作
@@ -112,11 +114,7 @@ public class Main{
 
 ----
 
-### **JdbcSupport提供的API**
-
-> JdbcSupport提供了很多常用的API供开发人员调用
-
-**查询单个对象并返回**
+### **查询单个对象并返回**
 
 ```java
 /**
@@ -143,7 +141,110 @@ public class Main{
     public static void main(String[] args){
         String sql = "select * from user_model where user_name = ?";
         UserModel user = jdbc.queryForObject(sql,UserModel.class,"张三");
+        // 这里的话queryForList也是一样的，没什么太大的区别。
+        List<UserModel> user = jdbc.queryForList(sql,UserModel.class,"张三");
     }
     
 }
 ```
+
+----
+
+### **分页查询**
+
+```java
+/**
+ * 分页查询,SQL不用加limit
+ * @param sql
+ * @param args
+ * @return
+ */
+NativePageHelper queryForPage(String sql, NativePageHelper pageVo, Object... args);
+```
+
+分页查询需要传入一个**NativePageHelper**对象的分页插件，**NativePageHelper**是一个抽象类，我们不会使用它。我提供了一个叫做**PageHelper**的对象，它继承自**NativePageHelper**。所以我们分页都用它来传参。
+
+**示例代码：**
+
+*假设我们要查询**user_model**这张表的**user_name**字段，查询10到20条之间的数据。*
+
+```java
+//
+// 第一步需要new一个PageHelper插件
+//
+PageHelper pageVo = new PageHelper(UserModel.class); // 构造函数需要返回结果的类型
+// 设置页码和页面大小，这两个可以通过构造函数传入。
+pageVo.setPageNum(2);     
+pageVo.setPageSize(10);
+
+//
+// 第二步编写SQL
+//
+String sql = "select `user_name` from user_model";
+
+//
+// 第三步执行查询
+//
+jdbc.queryForPage(sql,pageVo);
+
+//
+// 获取查询到的数据
+// pageVo查询完后还包含总页数、总记录数，当前第几页、以及每页显示多少条数据等这些基本信息
+//
+System.out.println(JSON.toJSONString(pageVo.getData()));
+```
+
+值得注意的是我们并不需要在sql上添加limit 2,10。
+
+NativePageHelper是为了扩展而将它写成了抽象类，大家可以去继承它然后实现自己的东西。
+
+---
+
+### **更新和新增**
+
+**update**
+
+update其实非常简单，提供了一下三种方法：
+```java
+
+    /**
+     * 更新所有实体类中的所有数据，但不包括为空的数据。
+     * @param obj 实体类
+     * @return 更新条数
+     */
+    int update(Object obj);
+
+    /**
+     * 通过SQL语句来更新数据。
+     * @param sql sql语句
+     * @param args 参数列表
+     * @return 更新条数
+     */
+    int update(String sql, Object... args);
+
+    /**
+     * 传入一个实体类，将实体类中为空的数据也进行更新。
+     * @param obj 实体类
+     * @return 更新条数
+     */
+    int updateDoNULL(Object obj);
+
+```
+
+第一个是更新传入实体对象更新，但是不会更新实体中为空的数据。
+
+第二个是通过sql来更新。
+
+第三个也是更新传入的实体对象，但是它会更新为null的数据。
+
+除了第二个，其他两个都是根据主键进行更新的。
+
+**insert**
+
+insert大致也一样，我这就不细讲了。
+
+---
+
+# 结尾
+
+    至于其他的大家看看JdbcSupportService借口就明白啦，v1.0暂时就这些了。后面在v2.0会加入缓存系统和大家提的意见。
