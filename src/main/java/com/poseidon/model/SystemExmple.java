@@ -39,9 +39,6 @@ public class SystemExmple {
         System.out.println(fromPos);
         System.out.println(builder.toString());*/
 
-        List<String> list = new ArrayList<>();
-        list.get(1);
-
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime));
     }

@@ -1,5 +1,6 @@
 package com.poseidon.model;
 
+import com.poseidon.framework.cache.PoseidonCache;
 import com.poseidon.framework.db.JdbcSupport;
 import com.poseidon.framework.db.UnsafeJdbc;
 import com.poseidon.framework.tools.StringUtils;
@@ -24,7 +25,8 @@ public class ThreadExample {
 
     public static void main(String[] args) {
         // userModelInsert();
-        productModelInsert();
+        // productModelInsert();
+        cacheReadAndWrite();
     }
 
     public static void userModelInsert() {
@@ -42,10 +44,10 @@ public class ThreadExample {
                     JdbcSupport.getTemplate().insert(model);
                 }
                 closeCount++;
-                System.err.println(StringUtils.format("线程退出[{}]",closeCount));
+                System.err.println(StringUtils.format("线程退出[{}]", closeCount));
             }).start();
             createCount++;
-            System.err.println(StringUtils.format("线程创建[{}]",createCount));
+            System.err.println(StringUtils.format("线程创建[{}]", createCount));
         }
     }
 
@@ -58,6 +60,24 @@ public class ThreadExample {
                     model.setProductName("产品[".concat(String.valueOf(new Date().getTime())).concat("]"));
                     model.setUuid(uuid);
                     JdbcSupport.getTemplate().insert(model);
+                }
+                System.err.println("线程退出");
+            }).start();
+            System.err.println("线程创建");
+        }
+    }
+
+    public static void cacheReadAndWrite() {
+        for (int i = 0; i < 1000; i++) {
+            new Thread(() -> {
+                for (int j = 0; j < 200; j++) {
+                        if(j % 2==1){
+                            PoseidonCache.getCache().save(String.valueOf(j),String.valueOf(j+1));
+                        }else{
+                            String key = String.valueOf(j-1);
+                            String value = PoseidonCache.getCache().get(key);
+                            System.out.println(StringUtils.format("key:{} value:{} current:{}",key,value,j));
+                        }
                 }
                 System.err.println("线程退出");
             }).start();
