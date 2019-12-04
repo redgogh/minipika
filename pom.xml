@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.keyboard</groupId>
-    <artifactId>tractor</artifactId>
+    <artifactId>poseidon</artifactId>
     <version>1.0.GYS</version>
 
     <properties>
