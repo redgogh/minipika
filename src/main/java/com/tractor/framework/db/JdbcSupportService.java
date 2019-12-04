@@ -13,9 +13,9 @@ public interface JdbcSupportService {
 
     /**
      * 查询并返回对象
-     * @param sql
-     * @param obj
-     * @param args
+     * @param sql sql语句
+     * @param obj 需要返回的对象class
+     * @param args 参数
      * @param <T>
      * @return
      */

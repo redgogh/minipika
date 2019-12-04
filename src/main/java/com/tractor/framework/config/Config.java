@@ -73,6 +73,7 @@ public final class Config {
             this.modelPackage       = getValue("tractor.model.package");
             this.transaction        = getValue("tractor.jdbc.transaction");
             this.minSize            = getValue("tractor.connectionPool.minSize");
+            this.maxSize            = getValue("tractor.connectionPool.maxSize");
 
             System.setProperty("jdbc.drivers", driver);
             String temp = url;
