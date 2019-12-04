@@ -23,13 +23,13 @@ public class ThreadExample {
     public static int createCount = 0;
 
     public static void main(String[] args) {
-        userModelInsert();
-        // productModelInsert();
+        // userModelInsert();
+        productModelInsert();
     }
 
     public static void userModelInsert() {
         new UnsafeJdbc().clear(UserModel.class);
-        for (int i = 0; i < 15000; i++) {
+        for (int i = 0; i < 10; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 100; j++) {
                     UserModel model = new UserModel();

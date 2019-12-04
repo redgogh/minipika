@@ -126,7 +126,7 @@ public class JdbcSupport implements JdbcSupportService {
 
     @Override
     public int count(String sql, Object... args) {
-        StringBuilder value = new StringBuilder(sql);
+        StringBuilder value = new StringBuilder(sql.toLowerCase());
         String select = "select";
         int selectPos = value.indexOf(select) + select.length();
         int fromPos = value.indexOf("from");
