@@ -1,6 +1,6 @@
 # Tractor ORM Framework
 
-> TractorFramework是一个非常简单且立马可以上手的ORM框架。它提供了表和对象之前的映射，以及封装了常用的增删改查等操作，并且非常轻。
+> TractorFramework是一个非常简单且立马可以上手的ORM框架。它提供了表和对象之前的映射，以及封装了常用的增删改查等操作，并且非常轻。除此之外TractorFramework还支持我测过最高的是一万次并发
 
 [API文档-使用手册](https://github.com/PageNotFoundx/tractor/blob/master/api/v1.0/README.md)
 
