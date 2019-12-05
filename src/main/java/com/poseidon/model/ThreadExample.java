@@ -72,11 +72,8 @@ public class ThreadExample {
             new Thread(() -> {
                 for (int j = 0; j < 200; j++) {
                         if(j % 2==1){
-                            PoseidonCache.getCache().save(String.valueOf(j),String.valueOf(j+1));
                         }else{
                             String key = String.valueOf(j-1);
-                            String value = PoseidonCache.getCache().get(key);
-                            System.out.println(StringUtils.format("key:{} value:{} current:{}",key,value,j));
                         }
                 }
                 System.err.println("线程退出");

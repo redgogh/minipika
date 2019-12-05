@@ -27,7 +27,7 @@ public class StringUtils {
         if ("\u0000".equals(s)) {
             return true;
         }
-        return s.length() == 0 || "".equals(s);
+        return s.length() == 0 || "".equals(s) || " ".equals("");
     }
 
     /**
