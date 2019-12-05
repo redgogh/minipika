@@ -71,6 +71,13 @@ public interface JdbcSupportService {
     int update(String sql, Object... args);
 
     /**
+     * 传入String
+     * @param sql
+     * @return
+     */
+    int updateByString(String sql);
+
+    /**
      * 传入一个实体类，将实体类中为空的数据也进行更新。
      * @param obj 实体类
      * @return 更新条数

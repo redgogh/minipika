@@ -20,8 +20,13 @@ public class JdbcSupport implements JdbcSupportService {
 
     private NativeJdbc nativeJdbc = BeansManager.newNativeJdbc();
 
+    private static JdbcSupport instance;
+
     public static JdbcSupport getTemplate() {
-        return new JdbcSupport();
+        if(instance == null){
+            instance = new JdbcSupport();
+        }
+        return instance;
     }
 
     @Override
@@ -64,6 +69,11 @@ public class JdbcSupport implements JdbcSupportService {
     @Override
     public int update(String sql, Object... args) {
         return nativeJdbc.executeUpdate(sql, args);
+    }
+
+    @Override
+    public int updateByString(String sql) {
+        return nativeJdbc.executeUpdate(sql);
     }
 
     @Override
