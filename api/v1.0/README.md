@@ -78,7 +78,7 @@ poseidon.model.package = com.poseidon.model.experiment
 
     **@PrimaryKey**主键
 
-具体Model的实现可以参考一下本项目下**com.poseidon.model.experiment**包下的Model。
+具体Model的实现可以参考一下本项目下的[UserModel](https://github.com/PageNotFoundx/poseidon/blob/master/src/main/java/com/poseidon/model/experiment/UserModel.java)。
 
 当Model配置好了之后在启动时会自动创建表和字段。
 
