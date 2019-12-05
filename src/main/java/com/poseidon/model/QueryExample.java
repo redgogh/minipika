@@ -52,13 +52,6 @@ public class QueryExample {
 
         System.out.println(jdbc.count(UserModel.class));
 
-        PageHelper pageVo = new PageHelper(0,10,UserModel.class);
-
-        // jdbc.queryForPage("select * from user_model", pageVo);
-
-        jdbc.queryForPage("SELECT * FROM kkb_user_model AS u LEFT JOIN kkb_product_model AS p on u.uuid = p.uuid GROUP BY p.uuid",pageVo);
-
-        System.out.println(pageVo.toString());
 
         // long endTime = System.currentTimeMillis();
         // System.out.println("查询【" + models.size() + "】条数据，耗时：" + (endTime - startTime));

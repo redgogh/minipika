@@ -2,7 +2,6 @@ package com.poseidon.model;
 
 import com.poseidon.framework.cache.PoseidonCache;
 import com.poseidon.framework.db.JdbcSupport;
-import com.poseidon.framework.db.UnsafeJdbc;
 import com.poseidon.framework.tools.StringUtils;
 import com.poseidon.model.experiment.ProductModel;
 import com.poseidon.model.experiment.UserModel;
@@ -24,14 +23,13 @@ public class ThreadExample {
     public static int createCount = 0;
 
     public static void main(String[] args) {
-        // userModelInsert();
+        userModelInsert();
         // productModelInsert();
-        cacheReadAndWrite();
+        // cacheReadAndWrite();
     }
 
     public static void userModelInsert() {
-        new UnsafeJdbc().clear(UserModel.class);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10000; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 100; j++) {
                     UserModel model = new UserModel();
