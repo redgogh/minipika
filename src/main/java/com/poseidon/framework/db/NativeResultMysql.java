@@ -142,6 +142,7 @@ public class NativeResultMysql implements NativeResult {
 
     @Override
     public String next() {
+        if(hasNext == null) return null;
         String v = hasNext.get(this.nextOffset);
         this.nextOffset++;
         return v;

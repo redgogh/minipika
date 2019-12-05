@@ -26,23 +26,4 @@ public class PoseidonCache {
         return cache;
     }
 
-    public void save(String key, NativeJdbc value) {
-        writeLock.lock();
-        map.put(key, value);
-        writeLock.unlock();
-    }
-
-    public NativeJdbc get(String key) {
-        readLock.lock();
-        NativeJdbc result = map.get(key);
-        readLock.unlock();
-        return result;
-    }
-
-    public void remove(String key) {
-        writeLock.lock();
-        map.remove(key);
-        writeLock.unlock();
-    }
-
 }

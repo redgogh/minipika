@@ -1,7 +1,9 @@
 package com.poseidon.framework.config;
 
 import com.alibaba.fastjson.JSONObject;
+import com.poseidon.framework.annotation.Assembly;
 import com.poseidon.framework.annotation.Model;
+import com.poseidon.framework.beans.BeansManager;
 import com.poseidon.framework.db.JdbcSupport;
 import com.poseidon.framework.exception.PoseidonException;
 import com.poseidon.framework.model.SecurityManager;
@@ -22,10 +24,12 @@ import java.util.Map;
  * @date 2019/11/19 18:05
  * @since 1.8
  */
-public class Initialize extends JdbcSupport {
+public class Initialize {
 
     // 添加字段
     private String ADD_COLUMN_SCRIPT = "ALTER TABLE `{}` ADD {} after `{}`;";
+
+    private JdbcSupport jdbc = BeansManager.newJdbcSupport();
 
     public void run() throws PoseidonException {
         loadModel();
@@ -48,17 +52,17 @@ public class Initialize extends JdbcSupport {
             Map.Entry<String, Metadata> entry = (Map.Entry<String, Metadata>) iter.next();
             Metadata metadata = entry.getValue();
             String tableName = metadata.getTableName();
-            execute(metadata.getCreateTableSql());
+            jdbc.execute(metadata.getCreateTableSql());
 
             // 判断储存引擎是被修改
             SHOW_TABLE_STATUS = StringUtils.format(SHOW_TABLE_STATUS, Config.getInstance().getDbname(), tableName);
-            String jsonString = queryForJson(SHOW_TABLE_STATUS);
+            String jsonString = jdbc.queryForJson(SHOW_TABLE_STATUS);
             JSONObject jsonObject = JSONObject.parseObject(jsonString);
 
             if (!String.valueOf(metadata.getEngine()).toUpperCase()
                     .equals(jsonObject.getString("Engine").toUpperCase())) {
                 UPDATE_ENGINE = StringUtils.format(UPDATE_ENGINE, tableName, metadata.getEngine());
-                update(UPDATE_ENGINE);
+                jdbc.update(UPDATE_ENGINE);
             }
 
         }
@@ -76,7 +80,7 @@ public class Initialize extends JdbcSupport {
                 Model model = PoseidonUtils.getModelAnnotation(target);
                 String table = model.value();
 
-                List<String> inDbColumns = getColumns(table);
+                List<String> inDbColumns = jdbc.getColumns(table);
                 Metadata metadata = Metadata.getAttribute().get(table);
 
                 Map<String, String> inMessageColumns = metadata.getColumns();
@@ -87,7 +91,7 @@ public class Initialize extends JdbcSupport {
                     String key = entry.getKey();
                     if (!inDbColumns.contains(key)) {
                         String executeScript = StringUtils.format(ADD_COLUMN_SCRIPT, metadata.getTableName(), entry.getValue(), previousKey);
-                        execute(executeScript);
+                        jdbc.execute(executeScript);
                     }
                     previousKey = key;
                 }

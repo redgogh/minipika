@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class JdbcSupport implements JdbcSupportService {
 
-    private final NativeJdbc nativeJdbc = BeansManager.newNativeJdbc();
+    private NativeJdbc nativeJdbc = BeansManager.newNativeJdbc();
 
     public static JdbcSupport getTemplate() {
         return new JdbcSupport();
@@ -133,7 +133,8 @@ public class JdbcSupport implements JdbcSupportService {
         value.replace(selectPos, fromPos, " count(*) ");
         NativeResult result = nativeJdbc.executeQuery(value.toString(), args);
         result.hasNext();
-        return Integer.valueOf(result.next());
+        String next = result.next();
+        return Integer.valueOf(next==null? "0" : next);
     }
 
     @Override
