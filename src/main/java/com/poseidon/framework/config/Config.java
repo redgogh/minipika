@@ -39,6 +39,9 @@ public final class Config {
     // 是否开启事物
     private String transaction;
 
+    // 是否开启缓存
+    private String cache;
+
     // 数据库名
     private String dbname;
 
@@ -66,14 +69,15 @@ public final class Config {
         try {
 
             this.url                = getValue("poseidon.jdbc.url");
+            this.cache              = getValue("poseidon.jdbc.cache");
+            this.minSize            = getValue("poseidon.connectionPool.minSize");
+            this.maxSize            = getValue("poseidon.connectionPool.maxSize");
             String driver           = getValue("poseidon.jdbc.driver");
             this.username           = getValue("poseidon.jdbc.username");
             this.password           = getValue("poseidon.jdbc.password");
+            this.transaction        = getValue("poseidon.jdbc.transaction");
             this.tablePrefix        = getValue("poseidon.model.prefix");
             this.modelPackage       = getValue("poseidon.model.package");
-            this.transaction        = getValue("poseidon.jdbc.transaction");
-            this.minSize            = getValue("poseidon.connectionPool.minSize");
-            this.maxSize            = getValue("poseidon.connectionPool.maxSize");
 
             System.setProperty("jdbc.drivers", driver);
             String temp = url;

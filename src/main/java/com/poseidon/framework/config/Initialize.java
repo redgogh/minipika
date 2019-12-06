@@ -1,7 +1,6 @@
 package com.poseidon.framework.config;
 
 import com.alibaba.fastjson.JSONObject;
-import com.poseidon.framework.annotation.Assembly;
 import com.poseidon.framework.annotation.Model;
 import com.poseidon.framework.beans.BeansManager;
 import com.poseidon.framework.db.JdbcSupport;

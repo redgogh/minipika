@@ -1,9 +1,14 @@
 package com.poseidon.framework.cache;
 
 import com.poseidon.framework.db.NativeJdbc;
+import com.poseidon.framework.db.NativeResult;
+import com.poseidon.framework.tools.PoseidonUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -13,17 +18,67 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  */
 public class PoseidonCache {
 
-    // 容器
-    private Map<String, NativeJdbc> map = new HashMap<>();
+    private Map<String, CacheKey> keyMap = new HashMap<>();
 
+    // 容器
+    private Map<String, NativeResult> container = new ConcurrentHashMap<>();
+
+    // 读写锁
     private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
     private Lock writeLock = readWriteLock.writeLock();
     private Lock readLock = readWriteLock.readLock();
 
     private final static PoseidonCache cache = new PoseidonCache();
 
-    public static PoseidonCache getCache(){
+    public static PoseidonCache getCache() {
         return cache;
+    }
+
+    public NativeResult save(String sql,NativeResult result,Object... args){
+        String key = getKey(sql, args);
+        CacheKey cacheKey = keyMap.get(key);
+        if (cacheKey == null) {
+            cacheKey = new CacheKey();
+            cacheKey.setKey(key);
+            cacheKey.setTables(PoseidonUtils.getSQLTables(sql));
+            keyMap.put(key,cacheKey);
+            return container.put(key,result);
+        }
+        return container.put(key,result);
+    }
+
+    /**
+     * 刷新缓存
+     * @param sql
+     */
+    public void refresh(String sql) {
+        List<String> tables = PoseidonUtils.getSQLTables(sql);
+        if (!tables.isEmpty()) {
+            List<String> keys = new ArrayList<>();
+            for (Map.Entry<String, CacheKey> cacheKey : keyMap.entrySet()) {
+                for (String table : tables) {
+                    if (cacheKey.getValue().getTables().contains(table)) {
+                        keys.add(cacheKey.getKey());
+                    }
+                }
+            }
+            for (String key : keys) {
+                container.remove(key);
+            }
+        }
+    }
+
+    private static String getKey(String sql, Object... args) {
+        List<String> values = new ArrayList<>(5);
+        values.add(sql);
+        for (Object arg : args) {
+            values.add(arg.toString());
+        }
+        return PoseidonUtils.encryptToMd5(values.toString());
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getKey("name:", 1, "2", 3L, true));
     }
 
 }

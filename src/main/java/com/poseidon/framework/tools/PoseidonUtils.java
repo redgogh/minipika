@@ -4,6 +4,10 @@ import com.poseidon.framework.annotation.Model;
 import com.poseidon.framework.config.Config;
 import com.poseidon.framework.exception.PoseidonException;
 import com.poseidon.framework.model.SecurityManager;
+import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.parser.CCJSqlParserUtil;
+import net.sf.jsqlparser.statement.Statement;
+import net.sf.jsqlparser.util.TablesNamesFinder;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -155,6 +159,17 @@ public class PoseidonUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static List<String> getSQLTables(String sql){
+        TablesNamesFinder finder = new TablesNamesFinder();
+        Statement statement = null;
+        try {
+            statement = CCJSqlParserUtil.parse(sql);
+        } catch (JSQLParserException e) {
+            e.printStackTrace();
+        }
+        return finder.getTableList(statement);
     }
 
     public static void main(String[] args) {
