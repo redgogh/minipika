@@ -39,6 +39,8 @@ public class SystemExmple {
         System.out.println(fromPos);
         System.out.println(builder.toString());*/
 
+        System.out.println("`aaa`".replace("`",""));
+
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime));
     }

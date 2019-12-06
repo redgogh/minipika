@@ -34,6 +34,23 @@ public class PoseidonCache {
         return cache;
     }
 
+    /**
+     * 获取缓存
+     * @param sql
+     * @param args
+     * @return
+     */
+    public NativeResult get(String sql,Object... args){
+        return container.get(getKey(sql, args));
+    }
+
+    /**
+     * 保存
+     * @param sql
+     * @param result
+     * @param args
+     * @return
+     */
     public NativeResult save(String sql,NativeResult result,Object... args){
         String key = getKey(sql, args);
         CacheKey cacheKey = keyMap.get(key);
@@ -42,7 +59,8 @@ public class PoseidonCache {
             cacheKey.setKey(key);
             cacheKey.setTables(PoseidonUtils.getSQLTables(sql));
             keyMap.put(key,cacheKey);
-            return container.put(key,result);
+            container.put(key,result);
+            return container.get(key);
         }
         return container.put(key,result);
     }
@@ -68,17 +86,13 @@ public class PoseidonCache {
         }
     }
 
-    private static String getKey(String sql, Object... args) {
+    private String getKey(String sql, Object... args) {
         List<String> values = new ArrayList<>(5);
         values.add(sql);
         for (Object arg : args) {
             values.add(arg.toString());
         }
         return PoseidonUtils.encryptToMd5(values.toString());
-    }
-
-    public static void main(String[] args) {
-        System.out.println(getKey("name:", 1, "2", 3L, true));
     }
 
 }

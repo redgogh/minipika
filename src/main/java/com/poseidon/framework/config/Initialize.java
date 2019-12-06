@@ -45,7 +45,7 @@ public class Initialize {
         Iterator iter = messages.entrySet().iterator();
         while (iter.hasNext()) {
 
-            String SHOW_TABLE_STATUS = "show table status from {} where name = '{}';";
+            String SHOW_TABLE_STATUS = "show table status from {} where name = '{}'";
             String UPDATE_ENGINE = "ALTER TABLE {} ENGINE = '{}'";
 
             Map.Entry<String, Metadata> entry = (Map.Entry<String, Metadata>) iter.next();

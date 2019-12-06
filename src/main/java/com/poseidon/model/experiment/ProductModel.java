@@ -17,7 +17,7 @@ public class ProductModel {
     @PrimaryKey
     private Long id;
 
-    @Column("varchar(50) not null")
+    @Column("varchar(255) not null")
     @Comment("产品名称")
     private String productName;
 

@@ -15,10 +15,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.net.URL;
 import java.security.MessageDigest;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author 2BKeyboard
@@ -167,9 +164,14 @@ public class PoseidonUtils {
         try {
             statement = CCJSqlParserUtil.parse(sql);
         } catch (JSQLParserException e) {
-            e.printStackTrace();
+            return new ArrayList<>();
+            // e.printStackTrace();
         }
-        return finder.getTableList(statement);
+        List<String> tables = finder.getTableList(statement);
+        for(int i=0,len=tables.size(); i<len; i++){
+            tables.set(i,tables.get(i).replace("`",""));
+        }
+        return tables;
     }
 
     public static void main(String[] args) {

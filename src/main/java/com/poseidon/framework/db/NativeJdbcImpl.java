@@ -1,6 +1,7 @@
 package com.poseidon.framework.db;
 
 import com.poseidon.framework.beans.BeansManager;
+import com.poseidon.framework.cache.PoseidonCache;
 import com.poseidon.framework.config.Config;
 import com.poseidon.framework.pool.ConnectionPool;
 
@@ -16,8 +17,12 @@ import java.sql.ResultSet;
  */
 public class NativeJdbcImpl implements NativeJdbc {
 
-    private final boolean auto = Config.getInstance().getTransaction();
+    protected final boolean isCache = Config.getInstance().getCache();
+    protected final boolean auto = Config.getInstance().getTransaction();
+
     protected final ConnectionPool pool = ConnectionPool.getPool();
+    protected final PoseidonCache cache = BeansManager.newPoseidonCache();
+
 
     @Override
     public boolean execute(String sql, Object... args) {
@@ -59,9 +64,19 @@ public class NativeJdbcImpl implements NativeJdbc {
                 return executeQuery(sql, args);
             }*/
             statement = connection.prepareStatement(sql);
-            ResultSet resultSet = setValues(statement, args).executeQuery();
-            result = BeansManager.newNativeResult(resultSet);
-            return result;
+            // 判断是否开启缓存
+            if (isCache) {
+                result = cache.get(sql, args);
+                if (result == null) {
+                    ResultSet resultSet = setValues(statement, args).executeQuery();
+                    result = BeansManager.newNativeResult(resultSet);
+                    return cache.save(sql, result, args);
+                }
+                return result;
+            } else {
+                ResultSet resultSet = setValues(statement, args).executeQuery();
+                return BeansManager.newNativeResult(resultSet);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -86,6 +101,7 @@ public class NativeJdbcImpl implements NativeJdbc {
             statement = connection.prepareStatement(sql);
             int result = setValues(statement, args).executeUpdate();
             if (auto) connection.commit(); // 提交
+            if (isCache) cache.refresh(sql); // 刷新缓存
             return result;
         } catch (Exception e) {
             rollback(connection, auto); // 回滚

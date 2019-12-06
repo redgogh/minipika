@@ -1,5 +1,6 @@
 package com.poseidon.framework.beans;
 
+import com.poseidon.framework.cache.PoseidonCache;
 import com.poseidon.framework.db.*;
 
 import java.sql.ResultSet;
@@ -27,6 +28,10 @@ public class BeansManager {
 
     public static NativeResult newNativeResult(ResultSet resultSet) {
         return newNativeResult().build(resultSet);
+    }
+
+    public static PoseidonCache newPoseidonCache(){
+        return PoseidonCache.getCache();
     }
 
 }

@@ -3,7 +3,12 @@ package com.poseidon.model;
 import com.poseidon.framework.config.ManualConfig;
 import com.poseidon.framework.db.JdbcSupport;
 import com.poseidon.framework.db.PageHelper;
+import com.poseidon.framework.tools.PoseidonUtils;
+import com.poseidon.framework.tools.StringUtils;
+import com.poseidon.model.experiment.ProductModel;
 import com.poseidon.model.experiment.UserModel;
+
+import java.util.Date;
 
 /**
  * @author 2BKeyboard
@@ -50,8 +55,31 @@ public class QueryExample {
         // System.out.println(jdbc.count("select * from user_model limit 0,10"));
         // jdbc.queryForJson("select * from user_model as u left join product_model as p on u.product_name = p.product_name");
 
-        System.out.println(jdbc.count(UserModel.class));
+        String sql = "select * from kkb_user_model as u left join kkb_product_model as p on u.uuid = p.uuid where u.id = ?";
 
+        String uuid = PoseidonUtils.uuid();
+        UserModel userModel = new UserModel();
+        userModel.setUserName(uuid);
+        userModel.setGoogleEmail(uuid);
+        userModel.setAddress(uuid);
+        userModel.setUuid(uuid);
+        userModel.setCreateTime(new Date());
+
+        ProductModel productModel = new ProductModel();
+        productModel.setProductName("产品[".concat(String.valueOf(new Date().getTime())).concat("]"));
+        productModel.setUuid(uuid);
+
+        jdbc.insert(userModel);
+        jdbc.insert(productModel);
+
+        jdbc.queryForJson(sql,1002001);
+        jdbc.queryForJson(sql,1002001);
+
+        ProductModel queryModel = jdbc.queryForObject("select * from kkb_product_model where id = ?",ProductModel.class,33);
+        queryModel.setProductName("修改后的product: "+queryModel.getProductName());
+        jdbc.update(queryModel);
+
+        jdbc.queryForJson(sql,1002001);
 
         // long endTime = System.currentTimeMillis();
         // System.out.println("查询【" + models.size() + "】条数据，耗时：" + (endTime - startTime));
