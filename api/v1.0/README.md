@@ -32,6 +32,11 @@ poseidon.jdbc.password = root
 poseidon.jdbc.transaction = true
 
 #####################################
+### 是否开启缓存，默认为false
+#####################################
+poseidon.jdbc.cache = false
+
+#####################################
 ### 连接池大小
 ### 默认最小连接为2个连接
 ### 默认最大连接为6个连接
@@ -39,8 +44,11 @@ poseidon.jdbc.transaction = true
 poseidon.connectionPool.minSize = 2
 poseidon.connectionPool.maxSize = 90
 
-# 表名前缀
+#####################################
+### 表名前缀，可为空
+#####################################
 poseidon.model.prefix = kkb
+
 # 模型所在的包
 poseidon.model.package = com.poseidon.model.experiment
 
