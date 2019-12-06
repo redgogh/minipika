@@ -21,14 +21,14 @@ public interface Timer {
      * 立刻停止当前任务，程序不会往下走
      */
     default void stop(){
-        TimerManager.stop(this);
+        TimerManager.getManager().stop(this);
     }
 
     /**
      * 中断，程序会把这次任务走完再停止
      */
     default void interrupt(){
-        TimerManager.interrupt(this);
+        TimerManager.getManager().interrupt(this);
     }
 
 }

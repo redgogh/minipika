@@ -1,5 +1,10 @@
 package com.poseidon.model;
 
+import com.poseidon.framework.config.Config;
+import com.poseidon.framework.tools.TimeUtils;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +44,10 @@ public class SystemExmple {
         System.out.println(fromPos);
         System.out.println(builder.toString());*/
 
-        System.out.println("`aaa`".replace("`",""));
+        // System.out.println("`aaa`".replace("`",""));
+
+        System.out.println(Config.getInstance().getRefresh());
+        System.out.println(1 + 1 * 2 - 1);
 
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime));

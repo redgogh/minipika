@@ -71,6 +71,7 @@ public class StringUtils {
      * @return 返回boolean
      */
     public static boolean isNumber(String v) {
+        if(isEmpty(v))return false;
         return v.matches("^[0-9]*$");
     }
 

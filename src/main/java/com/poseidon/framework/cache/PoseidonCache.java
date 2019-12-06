@@ -1,7 +1,8 @@
 package com.poseidon.framework.cache;
 
-import com.poseidon.framework.db.NativeJdbc;
 import com.poseidon.framework.db.NativeResult;
+import com.poseidon.framework.timer.Timer;
+import com.poseidon.framework.timer.TimerManager;
 import com.poseidon.framework.tools.PoseidonUtils;
 
 import java.util.ArrayList;
@@ -32,6 +33,11 @@ public class PoseidonCache {
 
     public static PoseidonCache getCache() {
         return cache;
+    }
+
+    public PoseidonCache(){
+        Timer timer = new CacheRefreshTimer();
+        TimerManager.getManager().submit(timer);
     }
 
     /**

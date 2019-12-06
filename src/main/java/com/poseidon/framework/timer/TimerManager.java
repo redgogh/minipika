@@ -9,9 +9,18 @@ import java.util.List;
  */
 public class TimerManager {
 
-    private static List<Execute> timerExecutes = new LinkedList<>();
+    private List<Execute> timerExecutes = new LinkedList<>();
 
-    public static void submit(Timer timer) {
+    private static TimerManager manager;
+
+    public static TimerManager getManager() {
+        if(manager == null){
+            manager = new TimerManager();
+        }
+        return manager;
+    }
+
+    public void submit(Timer timer) {
         Execute execute = new Execute(timer);
         execute.start();
         timerExecutes.add(execute);
@@ -20,7 +29,7 @@ public class TimerManager {
     /**
      * 立刻停止当前任务
      */
-    public static void stop(Timer timer) {
+    public void stop(Timer timer) {
         Execute execute = getExecute(timer);
         execute.stop();
     }
@@ -29,13 +38,13 @@ public class TimerManager {
      * 中断当前程序，程序会走完然后停止
      * @param timer
      */
-    public static void interrupt(Timer timer){
+    public void interrupt(Timer timer){
         Execute execute = getExecute(timer);
         timerExecutes.remove(execute);
         execute.setInterrupt(true);
     }
 
-    private static Execute getExecute(Timer timer){
+    private Execute getExecute(Timer timer){
         Iterator<Execute> iterator = timerExecutes.iterator();
         while (iterator.hasNext()) {
             Execute execute = iterator.next();

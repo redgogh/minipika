@@ -10,7 +10,7 @@ public class TimerExample {
 
     public static void main(String[] args) {
         Timer timer = new TimerImpl();
-        TimerManager.submit(timer);
+        TimerManager.getManager().submit(timer);
     }
 
 }
