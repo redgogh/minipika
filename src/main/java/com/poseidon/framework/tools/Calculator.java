@@ -31,9 +31,9 @@ public class Calculator {
 
     public static void main(String[] args) {
         Calculator calculator = new Calculator();
-        Long sum = calculator.express("1 + 2 + 3 * 4 / 5");
-        System.out.println(1 + 2 + 3 * 4 / 5);
-        System.out.println("calculator: " + sum);
+        Long sum = calculator.express("2 * ((( 2 + 3 ) * (4 * 2) + ( 3 * 3)) * ( 2 + 3 ) * (4 * 2) + ( 3 * 3))");
+        System.err.println(sum);
+        System.out.println(2 * ((( 2 + 3 ) * (4 * 2) + ( 3 * 3)) * ( 2 + 3 ) * (4 * 2) + ( 3 * 3)));
     }
 
     /**
@@ -76,6 +76,8 @@ public class Calculator {
                 && !exp.contains("/")) {
             SUM = Long.valueOf(exp);
         }
+        // 首先处理括号中的运算
+        brackets(this.exp);
         // 第一次做乘除运算
         for (Map.Entry<Integer, Status> pos : posMap.entrySet()) {
             if (posMap.size() == 0) break;
@@ -121,6 +123,29 @@ public class Calculator {
         }
         if (status == Status.SUBTRACT) {
             include(position, Status.SUBTRACT);
+        }
+    }
+
+    /**
+     * 处理括号中的运算
+     */
+    private void brackets(String exp) {
+        Integer[] offset = new Integer[2];
+        char[] chars = exp.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            char value = chars[i];
+            if (value == '(') offset[0] = i + 1;
+            if (value == ')' && offset[1] == null) {
+                offset[1] = i;
+                break;
+            }
+        }
+        if(offset[0] != null && offset[1] != null) {
+            String exp1 = exp.substring(offset[0], offset[1]);
+            Calculator calculator = new Calculator();
+            Long value = calculator.express(exp1);
+            this.exp = new StringBuilder(this.exp).replace(offset[0] - 1, offset[1] + 1, value.toString()).toString();
+            brackets(this.exp);
         }
     }
 
