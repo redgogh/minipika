@@ -4,6 +4,7 @@ import com.poseidon.framework.db.NativeResult;
 import com.poseidon.framework.timer.Timer;
 import com.poseidon.framework.timer.TimerManager;
 import com.poseidon.framework.tools.PoseidonUtils;
+import com.poseidon.framework.tools.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,19 +26,27 @@ public class PoseidonCache {
     private Map<String, NativeResult> container = new ConcurrentHashMap<>();
 
     // 读写锁
-    private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
-    private Lock writeLock = readWriteLock.writeLock();
-    private Lock readLock = readWriteLock.readLock();
+    private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+    private final Lock writeLock = readWriteLock.writeLock();
+    private final Lock readLock = readWriteLock.readLock();
 
-    private final static PoseidonCache cache = new PoseidonCache();
+    private static boolean timer = true;
+
+    private static volatile PoseidonCache cache;
 
     public static PoseidonCache getCache() {
+        if (cache == null) {
+            cache = new PoseidonCache();
+        }
         return cache;
     }
 
-    public PoseidonCache(){
-        Timer timer = new CacheRefreshTimer();
-        TimerManager.getManager().submit(timer);
+    public PoseidonCache() {
+        if(timer) {
+            timer = false;
+            Timer timer = new CacheRefreshTimer();
+            TimerManager.getManager().submit(timer);
+        }
     }
 
     /**
@@ -46,7 +55,7 @@ public class PoseidonCache {
      * @param args
      * @return
      */
-    public NativeResult get(String sql,Object... args){
+    public NativeResult get(String sql, Object... args) {
         return container.get(getKey(sql, args));
     }
 
@@ -57,18 +66,18 @@ public class PoseidonCache {
      * @param args
      * @return
      */
-    public NativeResult save(String sql,NativeResult result,Object... args){
+    public NativeResult save(String sql, NativeResult result, Object... args) {
         String key = getKey(sql, args);
         CacheKey cacheKey = keyMap.get(key);
         if (cacheKey == null) {
             cacheKey = new CacheKey();
             cacheKey.setKey(key);
             cacheKey.setTables(PoseidonUtils.getSQLTables(sql));
-            keyMap.put(key,cacheKey);
-            container.put(key,result);
+            keyMap.put(key, cacheKey);
+            container.put(key, result);
             return container.get(key);
         }
-        return container.put(key,result);
+        return container.put(key, result);
     }
 
     /**
@@ -95,9 +104,14 @@ public class PoseidonCache {
     /**
      * 刷新所有缓存
      */
-    public void refreshAll(){
+    public void refreshAll() {
+        System.err.println("[执行刷新]");
+        System.out.println("---------------------------------------------");
+        System.out.println(StringUtils.format("未刷新 - [keyMap]: {},[container]: {}", keyMap.size(), container.size()));
         keyMap.clear();
         container.clear();
+        System.out.println(StringUtils.format("缓存刷新,当前内容 - [keyMap]: {},[container]: {}", keyMap.size(), container.size()));
+        System.out.println("---------------------------------------------");
     }
 
     private String getKey(String sql, Object... args) {
@@ -107,6 +121,12 @@ public class PoseidonCache {
             values.add(arg.toString());
         }
         return PoseidonUtils.encryptToMd5(values.toString());
+    }
+
+    public void print(){
+        System.out.println("---------------------------------------------");
+        System.out.println(StringUtils.format("[keyMap]: {},[container]: {}", keyMap.size(), container.size()));
+        System.out.println("---------------------------------------------");
     }
 
 }

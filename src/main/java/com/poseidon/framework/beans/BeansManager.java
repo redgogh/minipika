@@ -30,7 +30,7 @@ public class BeansManager {
         return newNativeResult().build(resultSet);
     }
 
-    public static PoseidonCache newPoseidonCache(){
+    public static PoseidonCache getPoseidonCache(){
         return PoseidonCache.getCache();
     }
 

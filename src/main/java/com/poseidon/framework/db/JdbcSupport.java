@@ -41,7 +41,8 @@ public class JdbcSupport implements JdbcSupportService {
 
     @Override
     public String queryForJson(String sql, Object... args) {
-        return nativeJdbc.executeQuery(sql, args).toJSONString();
+        NativeResult result = nativeJdbc.executeQuery(sql, args);
+        return result.toJSONString();
     }
 
     @Override

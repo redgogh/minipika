@@ -21,7 +21,7 @@ public class NativeJdbcImpl implements NativeJdbc {
     protected final boolean auto = Config.getInstance().getTransaction();
 
     protected final ConnectionPool pool = ConnectionPool.getPool();
-    protected final PoseidonCache cache = BeansManager.newPoseidonCache();
+    protected final PoseidonCache cache = BeansManager.getPoseidonCache();
 
 
     @Override
@@ -70,7 +70,8 @@ public class NativeJdbcImpl implements NativeJdbc {
                 if (result == null) {
                     ResultSet resultSet = setValues(statement, args).executeQuery();
                     result = BeansManager.newNativeResult(resultSet);
-                    return cache.save(sql, result, args);
+                    cache.save(sql, result, args);
+                    return cache.get(sql,args);
                 }
                 return result;
             } else {

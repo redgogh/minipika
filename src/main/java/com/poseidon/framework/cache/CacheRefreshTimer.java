@@ -1,5 +1,6 @@
 package com.poseidon.framework.cache;
 
+import com.poseidon.framework.beans.BeansManager;
 import com.poseidon.framework.config.Config;
 import com.poseidon.framework.timer.Timer;
 
@@ -8,7 +9,7 @@ import com.poseidon.framework.timer.Timer;
  */
 public class CacheRefreshTimer implements Timer {
 
-    PoseidonCache cache = PoseidonCache.getCache();
+    PoseidonCache cache = BeansManager.getPoseidonCache();
 
     @Override
     public void run() {
