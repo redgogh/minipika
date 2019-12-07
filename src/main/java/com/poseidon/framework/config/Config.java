@@ -160,17 +160,26 @@ public final class Config {
     }
 
     public long getRefresh() {
-        if(StringUtils.isEmpty(refresh)){
+        if (StringUtils.isEmpty(refresh)) {
             return TimeUtils.HOUR * 6;
         }
-        refresh = refresh.toLowerCase();
-        refresh = refresh.replaceAll("second",String.valueOf(TimeUtils.SECOND));
-        refresh = refresh.replaceAll("minute",String.valueOf(TimeUtils.MINUTE));
-        refresh = refresh.replaceAll("huor",String.valueOf(TimeUtils.HOUR));
-        refresh = refresh.replaceAll("day",String.valueOf(TimeUtils.DAY));
-        refresh = refresh.replaceAll("week",String.valueOf(TimeUtils.WEEK));
         Calculator calculator = new Calculator();
-        return calculator.express(refresh);
+        if (refresh.contains(TimeUtils.SECOND_STR) ||
+                refresh.contains(TimeUtils.MINUTE_STR)
+                || refresh.contains(TimeUtils.HOUR_STR)
+                || refresh.contains(TimeUtils.DAY_STR)
+                || refresh.contains(TimeUtils.WEEK_STR)) {
+            refresh = refresh.toLowerCase();
+            refresh = refresh.replaceAll(TimeUtils.SECOND_STR, String.valueOf(TimeUtils.SECOND));
+            refresh = refresh.replaceAll(TimeUtils.MINUTE_STR, String.valueOf(TimeUtils.MINUTE));
+            refresh = refresh.replaceAll(TimeUtils.HOUR_STR, String.valueOf(TimeUtils.HOUR));
+            refresh = refresh.replaceAll(TimeUtils.DAY_STR, String.valueOf(TimeUtils.DAY));
+            refresh = refresh.replaceAll(TimeUtils.WEEK_STR, String.valueOf(TimeUtils.WEEK));
+            return calculator.express(refresh);
+        } else {
+            return calculator.express(refresh) * TimeUtils.SECOND;
+        }
+
     }
 
 }

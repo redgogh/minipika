@@ -88,8 +88,6 @@ public class QueryExample {
 
             jdbc.queryForJson(sql, 1002001);
 
-            cache.print();
-
             Thread.sleep(TimeUtils.MINUTE);
             // long endTime = System.currentTimeMillis();
             // System.out.println("查询【" + models.size() + "】条数据，耗时：" + (endTime - startTime));

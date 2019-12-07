@@ -4,7 +4,6 @@ import com.poseidon.framework.db.NativeResult;
 import com.poseidon.framework.timer.Timer;
 import com.poseidon.framework.timer.TimerManager;
 import com.poseidon.framework.tools.PoseidonUtils;
-import com.poseidon.framework.tools.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +41,7 @@ public class PoseidonCache {
     }
 
     public PoseidonCache() {
-        if(timer) {
+        if (timer) {
             timer = false;
             Timer timer = new CacheRefreshTimer(this);
             TimerManager.getManager().submit(timer);
@@ -66,7 +65,8 @@ public class PoseidonCache {
      * @param args
      * @return
      */
-    public NativeResult save(String sql, NativeResult result, Object... args) {
+    public void save(String sql, NativeResult result, Object... args) {
+        writeLock.lock();
         String key = getKey(sql, args);
         CacheKey cacheKey = keyMap.get(key);
         if (cacheKey == null) {
@@ -75,9 +75,10 @@ public class PoseidonCache {
             cacheKey.setTables(PoseidonUtils.getSQLTables(sql));
             keyMap.put(key, cacheKey);
             container.put(key, result);
-            return container.get(key);
+        } else {
+            container.put(key, result);
         }
-        return container.put(key, result);
+        writeLock.unlock();
     }
 
     /**
@@ -105,13 +106,10 @@ public class PoseidonCache {
      * 刷新所有缓存
      */
     public void refreshAll() {
-        System.err.println("[执行刷新]");
-        System.out.println("---------------------------------------------");
-        System.out.println(StringUtils.format("未刷新 - [keyMap]: {},[container]: {}", keyMap.size(), container.size()));
+        writeLock.lock();
         keyMap.clear();
         container.clear();
-        System.out.println(StringUtils.format("缓存刷新,当前内容 - [keyMap]: {},[container]: {}", keyMap.size(), container.size()));
-        System.out.println("---------------------------------------------");
+        writeLock.unlock();
     }
 
     private String getKey(String sql, Object... args) {
@@ -121,12 +119,6 @@ public class PoseidonCache {
             values.add(arg.toString());
         }
         return PoseidonUtils.encryptToMd5(values.toString());
-    }
-
-    public void print(){
-        System.out.println("---------------------------------------------");
-        System.out.println(StringUtils.format("[keyMap]: {},[container]: {}", keyMap.size(), container.size()));
-        System.out.println("---------------------------------------------");
     }
 
 }

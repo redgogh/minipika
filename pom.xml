@@ -6,7 +6,7 @@
 
     <groupId>com.keyboard</groupId>
     <artifactId>poseidon</artifactId>
-    <version>1.0.GYS</version>
+    <version>1.0.2.KEY</version>
 
     <properties>
         <lombok.version>1.18.10</lombok.version>

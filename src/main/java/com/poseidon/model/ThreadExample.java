@@ -1,12 +1,17 @@
 package com.poseidon.model;
 
+import com.poseidon.framework.beans.BeansManager;
 import com.poseidon.framework.cache.PoseidonCache;
 import com.poseidon.framework.db.JdbcSupport;
+import com.poseidon.framework.db.NativeJdbcImpl;
+import com.poseidon.framework.db.NativeResult;
 import com.poseidon.framework.tools.StringUtils;
 import com.poseidon.model.experiment.ProductModel;
 import com.poseidon.model.experiment.UserModel;
 
+import java.sql.ResultSet;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -23,9 +28,9 @@ public class ThreadExample {
     public static int createCount = 0;
 
     public static void main(String[] args) {
-        userModelInsert();
+        // userModelInsert();
         // productModelInsert();
-        // cacheReadAndWrite();
+        cacheReadAndWrite();
     }
 
     public static void userModelInsert() {
@@ -66,17 +71,57 @@ public class ThreadExample {
     }
 
     public static void cacheReadAndWrite() {
+        final PoseidonCache cache = BeansManager.getPoseidonCache();
         for (int i = 0; i < 1000; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 200; j++) {
-                        if(j % 2==1){
-                        }else{
-                            String key = String.valueOf(j-1);
-                        }
+                    if(j%2==0) {
+                        cache.save("select", new NativeResult() {
+                            @Override
+                            public NativeResult build(ResultSet rset) {
+                                return null;
+                            }
+
+                            @Override
+                            public <T> T conversionJavaBean(Class<T> target) {
+                                return null;
+                            }
+
+                            @Override
+                            public <T> List<T> conversionJavaList(Class<T> target) {
+                                return null;
+                            }
+
+                            @Override
+                            public String toJSONString() {
+                                return null;
+                            }
+
+                            @Override
+                            public void hasNext() {
+
+                            }
+
+                            @Override
+                            public String next() {
+                                return null;
+                            }
+
+                            @Override
+                            public void reset() {
+
+                            }
+                        }, "a");
+                    }else{
+                        cache.refreshAll();
+                    }
                 }
-                System.err.println("线程退出");
+                closeCount++;
+                System.err.println("线程退出:["+closeCount+"]");
+                System.out.println();
             }).start();
-            System.err.println("线程创建");
+            createCount++;
+            System.err.println("线程创建["+createCount+"]");
         }
     }
 
