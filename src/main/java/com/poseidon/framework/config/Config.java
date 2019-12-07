@@ -51,8 +51,6 @@ public final class Config {
     // 数据库名
     private String dbname;
 
-    enum Status {ADD, SUBTRACT, MULTIPLY, DIVIDE}
-
     private static Config instance;
 
     public static Config getInstance() {
