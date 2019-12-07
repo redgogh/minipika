@@ -206,18 +206,21 @@ public class Calculator {
                         iPos = iPos - 1;
                         temp = exp.substring(iPos, i);
                         offset[1] = i;
+                        i = chars.length + 1;
                         break;
                     }
                     case '*': {
                         iPos = iPos - 1;
                         temp = exp.substring(iPos, i);
                         offset[1] = i;
+                        i = chars.length + 1;
                         break;
                     }
                     case '/': {
                         iPos = iPos - 1;
                         temp = exp.substring(iPos, i);
                         offset[1] = i;
+                        i = chars.length + 1;
                         break;
                     }
                 }
