@@ -32,7 +32,7 @@ public class PoseidonCache {
 
     private static boolean timer = true;
 
-    private static volatile PoseidonCache cache;
+    private static PoseidonCache cache;
 
     public static PoseidonCache getCache() {
         if (cache == null) {
@@ -44,7 +44,7 @@ public class PoseidonCache {
     public PoseidonCache() {
         if(timer) {
             timer = false;
-            Timer timer = new CacheRefreshTimer();
+            Timer timer = new CacheRefreshTimer(this);
             TimerManager.getManager().submit(timer);
         }
     }
