@@ -92,6 +92,14 @@ public class PoseidonCache {
         }
     }
 
+    /**
+     * 刷新所有缓存
+     */
+    public void refreshAll(){
+        keyMap.clear();
+        container.clear();
+    }
+
     private String getKey(String sql, Object... args) {
         List<String> values = new ArrayList<>(5);
         values.add(sql);

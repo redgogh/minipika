@@ -8,9 +8,11 @@ import com.poseidon.framework.timer.Timer;
  */
 public class CacheRefreshTimer implements Timer {
 
+    PoseidonCache cache = PoseidonCache.getCache();
+
     @Override
     public void run() {
-
+        cache.refreshAll();
     }
 
     @Override

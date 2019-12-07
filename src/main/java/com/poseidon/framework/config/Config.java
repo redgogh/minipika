@@ -2,6 +2,7 @@ package com.poseidon.framework.config;
 
 import com.poseidon.framework.exception.ExpressionException;
 import com.poseidon.framework.exception.ReadException;
+import com.poseidon.framework.tools.Calculator;
 import com.poseidon.framework.tools.StringUtils;
 import com.poseidon.framework.tools.TimeUtils;
 
@@ -159,7 +160,17 @@ public final class Config {
     }
 
     public long getRefresh() {
-        return TimeUtils.HOUR * 6;
+        if(StringUtils.isEmpty(refresh)){
+            return TimeUtils.HOUR * 6;
+        }
+        refresh = refresh.toLowerCase();
+        refresh = refresh.replaceAll("second",String.valueOf(TimeUtils.SECOND));
+        refresh = refresh.replaceAll("minute",String.valueOf(TimeUtils.MINUTE));
+        refresh = refresh.replaceAll("huor",String.valueOf(TimeUtils.HOUR));
+        refresh = refresh.replaceAll("day",String.valueOf(TimeUtils.DAY));
+        refresh = refresh.replaceAll("week",String.valueOf(TimeUtils.WEEK));
+        Calculator calculator = new Calculator();
+        return calculator.express(refresh);
     }
 
 }
