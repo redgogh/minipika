@@ -96,6 +96,11 @@ public class Calculator {
         }
     }
 
+    /**
+     * 乘法运算
+     * @param position
+     * @param status
+     */
     private void multiplyDivide(Integer position, Status status) {
         if (status == Status.MULTIPLY) {
             include(position, Status.MULTIPLY);
@@ -105,6 +110,11 @@ public class Calculator {
         }
     }
 
+    /**
+     * 加减运算
+     * @param position
+     * @param status
+     */
     private void addSubtract(Integer position, Status status) {
         if (status == Status.ADD) {
             include(position, Status.ADD);
