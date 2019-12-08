@@ -42,7 +42,7 @@ mvn install
 <dependency>
     <groupId>com.keyboard</groupId>
     <artifactId>poseidon</artifactId>
-    <version>1.0.GYS</version>
+    <version>1.0.2.KEY</version>
 </dependency>
 ```
 
