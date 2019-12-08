@@ -31,4 +31,14 @@ public interface Timer {
         TimerManager.getManager().interrupt(this);
     }
 
+    /**
+     * 捕获异常
+     * @param e
+     * @return
+     */
+    default Object capture(Throwable e){
+        e.printStackTrace();
+        return null;
+    }
+
 }
