@@ -9,7 +9,12 @@
 
 > PoseidonFramework是一个非常简单且立马可以上手的ORM框架。它提供了表和对象之前的映射，以及封装了常用的增删改查等操作，并且非常轻。除此之外PoseidonFramework还支持并发缓存等功能。
 
-[API文档-使用手册](https://github.com/PageNotFoundx/poseidon/blob/master/api/v1.0/README.md)
+[API文档-使用手册](https://github.com/PageNotFoundx/poseidon/blob/master/api/v1.0.2/README.md)
+
+**v1.0.2更新内容**
+
+- 新增缓存功能
+- 修复了一些BUG
 
 # 安装
 
