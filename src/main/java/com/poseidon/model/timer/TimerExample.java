@@ -9,8 +9,11 @@ import com.poseidon.framework.timer.TimerManager;
 public class TimerExample {
 
     public static void main(String[] args) {
-        Timer timer = new TimerImpl();
-        TimerManager.getManager().submit(timer);
+        TimerManager manager = TimerManager.getManager();
+        Timer timer1 = new Timer1();
+        Timer timer2 = new Timer2();
+        manager.submit(timer1);
+        manager.submit(timer2);
     }
 
 }

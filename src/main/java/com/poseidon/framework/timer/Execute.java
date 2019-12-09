@@ -23,17 +23,17 @@ public class Execute extends Thread {
     public void run() {
         try {
             long time = timer.time();
-            while (true) {
-                try {
+            try {
+                while (true) {
                     timer.run();
                     if (!interrupt) {
                         Thread.sleep(time);
                     } else {
                         stop();
                     }
-                }catch (Throwable e){
-                    timer.capture(e);
                 }
+            } catch (Throwable e) {
+                timer.capture(e);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -38,6 +38,7 @@ public interface Timer {
      */
     default Object capture(Throwable e){
         e.printStackTrace();
+        TimerManager.getManager().stop(this);
         return null;
     }
 

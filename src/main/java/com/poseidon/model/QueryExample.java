@@ -10,7 +10,9 @@ import com.poseidon.framework.tools.StringUtils;
 import com.poseidon.framework.tools.TimeUtils;
 import com.poseidon.model.experiment.ProductModel;
 import com.poseidon.model.experiment.UserModel;
+import com.poseidon.model.experiment.WalletModel;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -60,7 +62,7 @@ public class QueryExample {
         // System.out.println(jdbc.count("select * from user_model limit 0,10"));
         // jdbc.queryForJson("select * from user_model as u left join product_model as p on u.product_name = p.product_name");
 
-        while(true) {
+        /*while(true) {
 
             System.out.println("[执行查询]");
             String sql = "select * from kkb_user_model as u left join kkb_product_model as p on u.uuid = p.uuid where u.id = ?";
@@ -91,7 +93,11 @@ public class QueryExample {
             Thread.sleep(TimeUtils.MINUTE);
             // long endTime = System.currentTimeMillis();
             // System.out.println("查询【" + models.size() + "】条数据，耗时：" + (endTime - startTime));
-        }
+        }*/
+
+
+        WalletModel walletModel = jdbc.queryForObject("select * from kkb_wallet where id = 1",WalletModel.class);
+
     }
 
 }

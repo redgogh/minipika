@@ -1,6 +1,7 @@
 package com.poseidon.framework.tools;
 
-import com.poseidon.framework.exception.ExpressionException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Create by 2BKeyboard on 2019/12/7 0:54
@@ -36,5 +37,10 @@ public class TimeUtils {
      */
     public static final long WEEK = DAY * 7;
     public static final String WEEK_STR = "week";
+
+    public static void main(String[] args) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
+        sdf.format(new Date());
+    }
 
 }
