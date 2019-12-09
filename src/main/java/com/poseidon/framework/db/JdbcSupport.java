@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Jdbc支持
+ * Jdbc 支持
  * Create by 2BKeyboard on 2019/11/12 10:35
  */
 public class JdbcSupport implements JdbcSupportService {

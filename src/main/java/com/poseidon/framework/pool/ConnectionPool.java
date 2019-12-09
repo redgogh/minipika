@@ -19,7 +19,7 @@ import java.util.Set;
  * @date 2019/11/11 16:31
  * @since 1.8
  */
-public class ConnectionPool {
+public class ConnectionPool implements com.poseidon.customize.ConnectionPool {
 
     /**
      * 驱动对象
@@ -112,7 +112,7 @@ public class ConnectionPool {
                         return getConnection();
                     }
                     return connection;
-                }else{
+                } else {
                     await();
                     return getConnection();
                 }

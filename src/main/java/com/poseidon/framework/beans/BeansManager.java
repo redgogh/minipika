@@ -1,10 +1,11 @@
 package com.poseidon.framework.beans;
 
+import com.poseidon.customize.ConnectionPool;
+import com.poseidon.framework.annotation.Valid;
 import com.poseidon.framework.cache.PoseidonCache;
 import com.poseidon.framework.db.*;
 
 import java.sql.ResultSet;
-import java.util.Map;
 
 /**
  * 管理接口的创建
@@ -12,26 +13,38 @@ import java.util.Map;
  */
 public class BeansManager {
 
-    private static Map<String,Object> beans;
+    /* -------------------------- NEW ---------------------------- **/
 
+    @Valid
     public static NativeJdbc newNativeJdbc() {
         return new NativeJdbcImpl();
     }
 
-    public static JdbcSupport newJdbcSupport(){
-        return JdbcSupport.getTemplate();
-    }
-
+    @Valid
     public static NativeResult newNativeResult() {
         return new NativeResultMysql();
     }
 
+    @Valid
     public static NativeResult newNativeResult(ResultSet resultSet) {
         return newNativeResult().build(resultSet);
     }
 
+    /* -------------------------- GET ---------------------------- **/
+
+    @Valid
+    public static JdbcSupport getJdbcSupport(){
+        return JdbcSupport.getTemplate();
+    }
+
+    @Valid
     public static PoseidonCache getPoseidonCache(){
         return PoseidonCache.getCache();
+    }
+
+    @Valid
+    public static ConnectionPool getConnPool(){
+        return com.poseidon.framework.pool.ConnectionPool.getPool();
     }
 
 }
