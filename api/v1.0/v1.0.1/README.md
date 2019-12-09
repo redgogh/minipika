@@ -70,27 +70,27 @@ poseidon.model.package = com.poseidon.model.experiment
 
 - **@Model**
 
-    **@Model**注解的范围在**TYPE**内，将注解放在类上即代表这是一个模型类。Model注解有两个参数分别为：**value**和**engine**，engine默认值为**InnoDB**
+    @Model注解的范围在**TYPE**内，将注解放在类上即代表这是一个模型类。Model注解有两个参数分别为：**value**和**engine**，engine默认值为**InnoDB**
 
 - **@Ignore**
 
-    **@Ignore**注解范围在**FIELD**内，将注解放在在字段上代表该字段不和数据库进行交互动作。
+    @Ignore注解范围在**FIELD**内，将注解放在在字段上代表该字段不和数据库进行交互动作。
 
-- @Column
+- **@Column**
 
-    **@Column**注解范围在**FIELD**内，代表字段的一些属性。参数为 **String value();** 假设我当前有个**private String name**字段，然后注解上传入参数 **@Column("varchar(255) not null")**。其实这就相当于省下了字段名。
+    @Column注解范围在**FIELD**内，代表字段的一些属性。参数为 **String value();** 假设我当前有个**private String name**字段，然后注解上传入参数 **@Column("varchar(255) not null")**。其实这就相当于省下了字段名。
 
-- @Increase
+- **@Increase**
 
-    **@Increase**注解范围在**FIELD**内，代表被注解的字段会进行自增。
+    @Increase注解范围在**FIELD**内，代表被注解的字段会进行自增。
 
-- @Comment
+- **@Comment**
 
-    **@Comment**字段注释
+    @Comment字段注释
 
-- @PrimaryKey
+- **@PrimaryKey**
 
-    **@PrimaryKey**主键
+    @PrimaryKey主键
 
 具体Model的实现可以参考一下本项目下的[UserModel](https://github.com/PageNotFoundx/poseidon/blob/master/src/main/java/com/poseidon/model/experiment/UserModel.java)。
 
