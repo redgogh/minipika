@@ -1,5 +1,6 @@
 package com.poseidon.framework.pool;
 
+import com.poseidon.framework.beans.BeansManager;
 import com.poseidon.framework.config.Config;
 import com.poseidon.framework.config.Initialize;
 
@@ -25,11 +26,6 @@ public class ConnectionPool implements com.poseidon.customize.ConnectionPool {
      * 驱动对象
      */
     private static Driver driver;
-
-    /**
-     * 单例模式---实例对象
-     */
-    private static ConnectionPool instance;
 
     /**
      * 连接池最小空间
@@ -67,7 +63,7 @@ public class ConnectionPool implements com.poseidon.customize.ConnectionPool {
             jdbcUrl = Config.getInstance().getUrl();
             // 初始化连接对象
             for (int i = 0; i < MIN_SIZE; i++) {
-                conns.add(ConnectionPool.getPool().createConnection());
+                conns.add(BeansManager.getConnPool().createConnection());
             }
             // 当连接创建开始初始化
             Initialize init = new Initialize();
@@ -75,13 +71,6 @@ public class ConnectionPool implements com.poseidon.customize.ConnectionPool {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static ConnectionPool getPool() {
-        if (instance == null) {
-            instance = new ConnectionPool();
-        }
-        return instance;
     }
 
     /**

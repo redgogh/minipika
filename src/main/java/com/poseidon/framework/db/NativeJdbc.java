@@ -1,6 +1,6 @@
 package com.poseidon.framework.db;
 
-import com.poseidon.framework.pool.ConnectionPool;
+import com.poseidon.customize.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

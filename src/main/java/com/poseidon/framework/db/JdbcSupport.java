@@ -1,199 +1,130 @@
 package com.poseidon.framework.db;
 
-import com.poseidon.framework.annotation.Model;
-import com.poseidon.framework.beans.BeansManager;
-import com.poseidon.framework.config.Config;
-import com.poseidon.framework.model.SecurityManager;
-import com.poseidon.framework.model.Metadata;
-import com.poseidon.framework.tools.StringUtils;
-import com.poseidon.framework.tools.PoseidonUtils;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Jdbc 支持
- * Create by 2BKeyboard on 2019/11/12 10:35
+ * 增删改查操作
+ * @author 2BKeyboard
+ * @version 1.0.0
+ * @date 2019/11/11 23:40
+ * @since 1.8
  */
-public class JdbcSupport implements JdbcSupportService {
+public interface JdbcSupport {
 
-    private NativeJdbc nativeJdbc = BeansManager.newNativeJdbc();
+    /**
+     * 查询并返回对象
+     * @param sql sql语句
+     * @param obj 需要返回的对象class
+     * @param args 参数
+     * @param <T>
+     * @return
+     */
+    <T> T queryForObject(String sql, Class<T> obj, Object... args);
 
-    private static JdbcSupport instance;
+    /**
+     * 查询多个结果
+     * @param sql sql语句
+     * @param obj 需要返回的对象
+     * @param args 参数列表
+     * @param <T>
+     * @return 封装好的结果集
+     */
+    <T> List<T> queryForList(String sql, Class<T> obj, Object... args);
 
-    public static JdbcSupport getTemplate() {
-        if(instance == null){
-            instance = new JdbcSupport();
-        }
-        return instance;
-    }
+    /**
+     * 查询并返回JSON字符串
+     * @param sql
+     * @param args
+     * @return
+     */
+    String queryForJson(String sql, Object... args);
 
-    @Override
-    public <T> T queryForObject(String sql, Class<T> obj, Object... args) {
-        return nativeJdbc.executeQuery(sql, args).conversionJavaBean(obj);
-    }
+    /**
+     * 分页查询,SQL不用加limit
+     * @param sql
+     * @param args
+     * @return
+     */
+    NativePageHelper queryForPage(String sql, NativePageHelper pageVo, Object... args);
 
-    @Override
-    public <T> List<T> queryForList(String sql, Class<T> obj, Object... args) {
-        return nativeJdbc.executeQuery(sql, args).conversionJavaList(obj);
-    }
+    /**
+     * 查询并返回结果集
+     * @param sql
+     * @param args
+     * @return
+     */
+    NativeResult queryForResult(String sql, Object... args);
 
-    @Override
-    public String queryForJson(String sql, Object... args) {
-        NativeResult result = nativeJdbc.executeQuery(sql, args);
-        return result.toJSONString();
-    }
+    /**
+     * 更新所有实体类中的所有数据，但不包括为空的数据。
+     * @param obj 实体类
+     * @return 更新条数
+     */
+    int update(Object obj);
 
-    @Override
-    public NativePageHelper queryForPage(String sql, NativePageHelper pageVo, Object... args) {
-        int size = pageVo.getPageSize();
-        int number = pageVo.getPageNum();
-        int startPos = number * size;
-        pageVo.setRecords(count(sql, args));
-        StringBuilder value = new StringBuilder(sql);
-        if ((value.lastIndexOf(";") + 1) == value.length()) {
-            value.insert(value.length() - 1, StringUtils.format(" LIMIT {},{} ", startPos, size));
-        } else {
-            value.append(StringUtils.format(" LIMIT {},{} ", startPos, size));
-        }
-        NativeResult result = nativeJdbc.executeQuery(value.toString(), args);
-        pageVo.setData(result.conversionJavaList(pageVo.getGeneric()));
-        return pageVo;
-    }
+    /**
+     * 通过SQL语句来更新数据。
+     * @param sql sql语句
+     * @param args 参数列表
+     * @return 更新条数
+     */
+    int update(String sql, Object... args);
 
-    @Override
-    public NativeResult queryForResult(String sql, Object... args) {
-        return nativeJdbc.executeQuery(sql, args);
-    }
+    /**
+     * 传入String
+     * @param sql
+     * @return
+     */
+    int updateByString(String sql);
 
-    @Override
-    public int update(String sql, Object... args) {
-        return nativeJdbc.executeUpdate(sql, args);
-    }
+    /**
+     * 传入一个实体类，将实体类中为空的数据也进行更新。
+     * @param obj 实体类
+     * @return 更新条数
+     */
+    int updateDoNULL(Object obj);
 
-    @Override
-    public int updateByString(String sql) {
-        return nativeJdbc.executeUpdate(sql);
-    }
+    /**
+     * 通过sql语句插入一条数据
+     * @param sql sql语句
+     * @param args 参数列表
+     * @return 更新条数
+     */
+    int insert(String sql, Object... args);
 
-    @Override
-    public int update(Object obj) {
-        return update(obj, false);
-    }
+    /**
+     * 通过实体类来更新数据
+     * @param model 实体类
+     * @return 更新条数
+     */
+    int insert(Object model);
 
-    @Override
-    public int updateDoNULL(Object obj) {
-        return update(obj, true);
-    }
+    /**
+     * 统计单张表的所有数据
+     * @param target 传入UserModel
+     * @return
+     */
+    int count(Class<?> target);
 
-    @Override
-    public int insert(Object obj) {
-        List<Object> param = new ArrayList<>();
-        try {
-            StringBuffer into = new StringBuffer("insert into ");
-            StringBuffer values = new StringBuffer(" values ");
-            Class<?> target = obj.getClass();
-            if (SecurityManager.existModel(target)) {
-                Model model = PoseidonUtils.getModelAnnotation(target);
-                into.append("`").append(model.value()).append("`");
-            }
-            into.append("(");
-            values.append("(");
-            for (Field field : target.getDeclaredFields()) {
-                field.setAccessible(true);
-                Object v = field.get(obj);
-                if (v != null) {
-                    into.append("`").append(PoseidonUtils.humpToUnderline(field.getName())).append("`,");
-                    values.append("?,");
-                    param.add(v);
-                }
-            }
-            into.deleteCharAt((into.length() - 1));
-            into.append(")");
-            values.deleteCharAt((values.length() - 1));
-            values.append(")");
-            into.append(values);
-            return nativeJdbc.executeUpdate(into.toString(), param.toArray());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
+    /**
+     * 统计sql查询到的所有数据
+     * @param sql
+     * @return
+     */
+    int count(String sql,Object... args);
 
-    @Override
-    public int insert(String sql, Object... args) {
-        return nativeJdbc.executeUpdate(sql, args);
-    }
+    /**
+     * 执行sql
+     * @param sql
+     * @param args
+     * @return
+     */
+    boolean execute(String sql, Object... args);
 
-    @Override
-    public int count(Class<?> target) {
-        if (SecurityManager.existModel(target)) {
-            String table = PoseidonUtils.getModelAnnotation(target).value();
-            return count("select count(*) from ".concat(table));
-        }
-        return 0;
-    }
-
-    @Override
-    public int count(String sql, Object... args) {
-        StringBuilder value = new StringBuilder(sql.toLowerCase());
-        String select = "select";
-        int selectPos = value.indexOf(select) + select.length();
-        int fromPos = value.indexOf("from");
-        value.replace(selectPos, fromPos, " count(*) ");
-        NativeResult result = nativeJdbc.executeQuery(value.toString(), args);
-        result.hasNext();
-        String next = result.next();
-        return Integer.valueOf(next==null? "0" : next);
-    }
-
-    @Override
-    public boolean execute(String sql, Object... args) {
-        return nativeJdbc.execute(sql, args);
-    }
-
-    @Override
-    public List<String> getColumns(String tableName) {
-        String sql = "select COLUMN_NAME from information_schema.COLUMNS where table_name = ? and table_schema = ?;";
-        return nativeJdbc.executeQuery(sql, tableName, Config.getInstance().getDbname()).conversionJavaList(String.class);
-    }
-
-    // 是否更新为NULL的字段是否更新为NULL的字段
-    private int update(Object obj, boolean bool) {
-        try {
-            Class<?> target = obj.getClass();
-            List<Object> params = new ArrayList<>();
-            StringBuffer buffer = new StringBuffer("update ");
-            String table = PoseidonUtils.getModelAnnotation(target).value();
-            buffer.append("`").append(table).append("` set ");
-            for (Field field : target.getDeclaredFields()) {
-                field.setAccessible(true);
-                Object v = field.get(obj);
-                if (!bool) {
-                    if (v != null) {
-                        buffer.append("`").append(PoseidonUtils.humpToUnderline(field.getName())).append("` = ?, ");
-                        params.add(v);
-                    }
-                } else {
-                    buffer.append("`").append(PoseidonUtils.humpToUnderline(field.getName())).append("` = ?, ");
-                    params.add(v);
-                }
-            }
-            int length = buffer.length();
-            buffer.delete((length - 2), (length - 1));
-            // 添加条件
-            String primaryKey = Metadata.getAttribute().get(table).getPrimaryKey();
-            Field field = target.getDeclaredField(primaryKey);
-            field.setAccessible(true);
-            Object v = field.get(obj);
-            buffer.append("where `".concat(primaryKey).concat("` = ?"));
-            params.add(v);
-            return nativeJdbc.executeUpdate(buffer.toString(), params.toArray());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
+    /**
+     * 查询某张表所有字段
+     * @param tableName
+     */
+    List<String> getColumns(String tableName);
 
 }

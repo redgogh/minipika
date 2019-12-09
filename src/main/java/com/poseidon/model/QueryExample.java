@@ -2,17 +2,15 @@ package com.poseidon.model;
 
 import com.poseidon.framework.beans.BeansManager;
 import com.poseidon.framework.cache.PoseidonCache;
+import com.poseidon.framework.cache.PoseidonCacheImpl;
 import com.poseidon.framework.config.ManualConfig;
 import com.poseidon.framework.db.JdbcSupport;
-import com.poseidon.framework.db.PageHelper;
 import com.poseidon.framework.tools.PoseidonUtils;
-import com.poseidon.framework.tools.StringUtils;
 import com.poseidon.framework.tools.TimeUtils;
 import com.poseidon.model.experiment.ProductModel;
 import com.poseidon.model.experiment.UserModel;
 import com.poseidon.model.experiment.WalletModel;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -24,15 +22,13 @@ import java.util.Date;
 public class QueryExample {
 
     static PoseidonCache cache = BeansManager.getPoseidonCache();
-
+    static JdbcSupport jdbc = BeansManager.getJdbcSupport();
     public static void main(String[] args) throws Throwable {
 
         long startTime = System.currentTimeMillis();
 
         // List<UserModel> models = JdbcSupport.getTemplate().queryForList("select * from user_model", UserModel.class);
 
-        ManualConfig.load("poseidon.properties");
-        JdbcSupport jdbc = JdbcSupport.getTemplate();
         // UserModel models = JdbcFunction.getTemplate().queryForObject("select * from user_model where id = ?", UserModel.class,397463);
 
         // List<IndexModel> user_model = JdbcFunction.getTemplate().getIndexes("user_model");
@@ -62,8 +58,15 @@ public class QueryExample {
         // System.out.println(jdbc.count("select * from user_model limit 0,10"));
         // jdbc.queryForJson("select * from user_model as u left join product_model as p on u.product_name = p.product_name");
 
-        /*while(true) {
+        // WalletModel walletModel = jdbc.queryForObject("select * from kkb_wallet where id = 1",WalletModel.class);
 
+        cacheTest();
+
+    }
+
+    public static void cacheTest() throws Exception{
+
+        while (true) {
             System.out.println("[执行查询]");
             String sql = "select * from kkb_user_model as u left join kkb_product_model as p on u.uuid = p.uuid where u.id = ?";
 
@@ -93,10 +96,7 @@ public class QueryExample {
             Thread.sleep(TimeUtils.MINUTE);
             // long endTime = System.currentTimeMillis();
             // System.out.println("查询【" + models.size() + "】条数据，耗时：" + (endTime - startTime));
-        }*/
-
-
-        WalletModel walletModel = jdbc.queryForObject("select * from kkb_wallet where id = 1",WalletModel.class);
+        }
 
     }
 

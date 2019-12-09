@@ -1,8 +1,11 @@
 package com.poseidon.framework.beans;
 
 import com.poseidon.customize.ConnectionPool;
-import com.poseidon.framework.annotation.Valid;
 import com.poseidon.framework.cache.PoseidonCache;
+import com.poseidon.framework.db.JdbcSupport;
+import com.poseidon.framework.db.NativeResult;
+import com.poseidon.framework.annotation.Valid;
+import com.poseidon.framework.cache.PoseidonCacheImpl;
 import com.poseidon.framework.db.*;
 
 import java.sql.ResultSet;
@@ -12,6 +15,10 @@ import java.sql.ResultSet;
  * Create by 2BKeyboard on 2019/11/28 17:25
  */
 public class BeansManager {
+
+    private static JdbcSupport jdbcSupport;
+    private static ConnectionPool connectionPool;
+    private static PoseidonCache poseidonCache;
 
     /* -------------------------- NEW ---------------------------- **/
 
@@ -34,17 +41,26 @@ public class BeansManager {
 
     @Valid
     public static JdbcSupport getJdbcSupport(){
-        return JdbcSupport.getTemplate();
+        if(jdbcSupport == null){
+            jdbcSupport = new JdbcSupportImpl();
+        }
+        return jdbcSupport;
     }
 
     @Valid
     public static PoseidonCache getPoseidonCache(){
-        return PoseidonCache.getCache();
+        if(poseidonCache == null){
+            poseidonCache = new PoseidonCacheImpl();
+        }
+        return poseidonCache;
     }
 
     @Valid
     public static ConnectionPool getConnPool(){
-        return com.poseidon.framework.pool.ConnectionPool.getPool();
+        if(connectionPool == null){
+            connectionPool = new com.poseidon.framework.pool.ConnectionPool();
+        }
+        return connectionPool;
     }
 
 }

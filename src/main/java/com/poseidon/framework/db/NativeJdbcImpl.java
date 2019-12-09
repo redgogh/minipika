@@ -1,9 +1,10 @@
 package com.poseidon.framework.db;
 
+import com.poseidon.customize.ConnectionPool;
 import com.poseidon.framework.beans.BeansManager;
 import com.poseidon.framework.cache.PoseidonCache;
+import com.poseidon.framework.cache.PoseidonCacheImpl;
 import com.poseidon.framework.config.Config;
-import com.poseidon.framework.pool.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ public class NativeJdbcImpl implements NativeJdbc {
     protected final boolean isCache = Config.getInstance().getCache();
     protected final boolean auto = Config.getInstance().getTransaction();
 
-    protected final ConnectionPool pool = ConnectionPool.getPool();
+    protected final ConnectionPool pool = BeansManager.getConnPool();
     protected final PoseidonCache cache = BeansManager.getPoseidonCache();
 
 

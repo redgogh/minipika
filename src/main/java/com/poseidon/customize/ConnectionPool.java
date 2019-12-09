@@ -8,6 +8,12 @@ import java.sql.Connection;
 public interface ConnectionPool {
 
     /**
+     * 创建链接
+     * @return
+     */
+    Connection createConnection();
+
+    /**
      * 获取连接
      * @return
      */
