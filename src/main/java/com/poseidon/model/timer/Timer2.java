@@ -3,7 +3,6 @@ package com.poseidon.model.timer;
 import com.poseidon.framework.timer.Timer;
 import com.poseidon.framework.tools.TimeUtils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
