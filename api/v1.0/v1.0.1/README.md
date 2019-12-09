@@ -68,11 +68,11 @@ poseidon.model.package = com.poseidon.model.experiment
 
 **提供的注解**
 
-- @Model
+- **@Model**
 
     **@Model**注解的范围在**TYPE**内，将注解放在类上即代表这是一个模型类。Model注解有两个参数分别为：**value**和**engine**，engine默认值为**InnoDB**
 
-- @Ignore
+- **@Ignore**
 
     **@Ignore**注解范围在**FIELD**内，将注解放在在字段上代表该字段不和数据库进行交互动作。
 
