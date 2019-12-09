@@ -11,7 +11,7 @@
 
 [API文档-使用手册](https://github.com/PageNotFoundx/poseidon/blob/master/api/v1.0/v1.0.1/README.md)
 
-**v1.0.1更新内容**
+**v1.0.1更新内容(持续更新中)**
 
 - 新增缓存功能
 - 修复了一些BUG
