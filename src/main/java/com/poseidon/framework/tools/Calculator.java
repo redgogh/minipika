@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class Calculator {
 
-    private String exp;
+    private String exps;
 
     private Map<Integer, Status> posMap;
 
@@ -22,13 +22,14 @@ public class Calculator {
      */
     enum Status {ADD, SUBTRACT, MULTIPLY, DIVIDE}
 
-    public Long express(String exp) {
-        this.exp = clearSpace(exp);
+    public Long express(String exps) {
+        this.exps = clearSpace(exps);
         getPosition(); // 获取运算符的位置
         calc();
         return SUM;
     }
 
+    // 测试
     public static void main(String[] args) {
         Calculator calculator = new Calculator();
         Long sum = calculator.express("2 * ((( 2 + 3 ) * (4 * 2) + ( 3 * 3)) * ( 2 + 3 ) * (4 * 2) + ( 3 * 3))");
@@ -41,7 +42,7 @@ public class Calculator {
      */
     private void getPosition() {
         posMap = new LinkedHashMap<>();
-        char[] chars = exp.toCharArray();
+        char[] chars = exps.toCharArray();
         for (int i = 0; i < chars.length; i++) {
             char value = chars[i];
             switch (value) {
@@ -70,14 +71,14 @@ public class Calculator {
      * @return
      */
     private void calc() {
-        if (!exp.contains("+")
-                && !exp.contains("-")
-                && !exp.contains("*")
-                && !exp.contains("/")) {
-            SUM = Long.valueOf(exp);
+        if (!exps.contains("+")
+                && !exps.contains("-")
+                && !exps.contains("*")
+                && !exps.contains("/")) {
+            SUM = Long.valueOf(exps);
         }
         // 首先处理括号中的运算
-        brackets(this.exp);
+        brackets(this.exps);
         // 第一次做乘除运算
         for (Map.Entry<Integer, Status> pos : posMap.entrySet()) {
             if (posMap.size() == 0) break;
@@ -129,9 +130,9 @@ public class Calculator {
     /**
      * 处理括号中的运算
      */
-    private void brackets(String exp) {
+    private void brackets(String exps) {
         Integer[] offset = new Integer[2];
-        char[] chars = exp.toCharArray();
+        char[] chars = exps.toCharArray();
         for (int i = 0; i < chars.length; i++) {
             char value = chars[i];
             if (value == '(') offset[0] = i + 1;
@@ -141,11 +142,11 @@ public class Calculator {
             }
         }
         if(offset[0] != null && offset[1] != null) {
-            String exp1 = exp.substring(offset[0], offset[1]);
+            String exp1 = exps.substring(offset[0], offset[1]);
             Calculator calculator = new Calculator();
             Long value = calculator.express(exp1);
-            this.exp = new StringBuilder(this.exp).replace(offset[0] - 1, offset[1] + 1, value.toString()).toString();
-            brackets(this.exp);
+            this.exps = new StringBuilder(this.exps).replace(offset[0] - 1, offset[1] + 1, value.toString()).toString();
+            brackets(this.exps);
         }
     }
 
@@ -159,11 +160,11 @@ public class Calculator {
         Long first = null;
         Long second = null;
         String temp = null;
-        char[] chars = exp.toCharArray();
+        char[] chars = exps.toCharArray();
         //
         // 推导出从position开始的上一个数字
         //
-        temp = exp.substring(0, position - 1);
+        temp = exps.substring(0, position - 1);
         if (temp.contains("+")
                 || temp.contains("-")
                 || temp.contains("*")
@@ -174,28 +175,28 @@ public class Calculator {
                 switch (value) {
                     case '+': {
                         i = i + 1;
-                        temp = exp.substring(i, iPos);
+                        temp = exps.substring(i, iPos);
                         offset[0] = i;
                         i = 0;
                         break;
                     }
                     case '-': {
                         i = i + 1;
-                        temp = exp.substring(i, iPos);
+                        temp = exps.substring(i, iPos);
                         offset[0] = i;
                         i = 0;
                         break;
                     }
                     case '*': {
                         i = i + 1;
-                        temp = exp.substring(i, iPos);
+                        temp = exps.substring(i, iPos);
                         offset[0] = i;
                         i = 0;
                         break;
                     }
                     case '/': {
                         i = i + 1;
-                        temp = exp.substring(i, iPos);
+                        temp = exps.substring(i, iPos);
                         offset[0] = i;
                         i = 0;
                         break;
@@ -210,7 +211,7 @@ public class Calculator {
         //
         // 推导出从position开始的下一个数字
         //
-        temp = exp.substring(position);
+        temp = exps.substring(position);
         if (temp.contains("+")
                 || temp.contains("-")
                 || temp.contains("*")
@@ -222,28 +223,28 @@ public class Calculator {
                 switch (value) {
                     case '+': {
                         iPos = iPos - 1;
-                        temp = exp.substring(iPos, i);
+                        temp = exps.substring(iPos, i);
                         offset[1] = i;
                         i = chars.length + 1;
                         break;
                     }
                     case '-': {
                         iPos = iPos - 1;
-                        temp = exp.substring(iPos, i);
+                        temp = exps.substring(iPos, i);
                         offset[1] = i;
                         i = chars.length + 1;
                         break;
                     }
                     case '*': {
                         iPos = iPos - 1;
-                        temp = exp.substring(iPos, i);
+                        temp = exps.substring(iPos, i);
                         offset[1] = i;
                         i = chars.length + 1;
                         break;
                     }
                     case '/': {
                         iPos = iPos - 1;
-                        temp = exp.substring(iPos, i);
+                        temp = exps.substring(iPos, i);
                         offset[1] = i;
                         i = chars.length + 1;
                         break;
@@ -265,18 +266,18 @@ public class Calculator {
             sum = first * second;
         if (status == Status.DIVIDE)
             sum = first / second;
-        reset(new StringBuilder(exp).replace(offset[0], offset[1], String.valueOf(sum)).toString());
+        reset(new StringBuilder(exps).replace(offset[0], offset[1], String.valueOf(sum)).toString());
         return sum;
     }
 
     /**
      * 清除空格
-     * @param exp
+     * @param exps
      * @return
      */
-    private String clearSpace(String exp) {
+    private String clearSpace(String exps) {
         StringBuilder builder = new StringBuilder();
-        char[] chars = exp.toCharArray();
+        char[] chars = exps.toCharArray();
         for (char value : chars) {
             switch (value) {
                 case ' ':
@@ -290,10 +291,10 @@ public class Calculator {
 
     /**
      * 重新设置
-     * @param exp
+     * @param exps
      */
-    private void reset(String exp) {
-        this.exp = clearSpace(exp);
+    private void reset(String exps) {
+        this.exps = clearSpace(exps);
         getPosition(); // 获取运算符的位置
     }
 
