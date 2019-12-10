@@ -17,6 +17,7 @@ import com.poseidon.framework.tools.StringUtils;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -54,6 +55,7 @@ public class BeansManager {
         return new com.poseidon.framework.pool.ConnectionPool();
     }
 
+    // get bean
     public static <T> T getBean(String name) {
         T instance = (T) factory(name);
         return instance;

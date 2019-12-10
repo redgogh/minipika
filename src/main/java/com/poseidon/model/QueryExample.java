@@ -21,8 +21,8 @@ import java.util.Date;
  */
 public class QueryExample {
 
-    static PoseidonCache cache = BeansManager.getBean("cache");
-    static JdbcSupport jdbc = BeansManager.getBean("jdbc");
+    static JdbcSupport jdbc     = BeansManager.getBean("jdbc");
+    static PoseidonCache cache  = BeansManager.getBean("cache");
 
     public static void main(String[] args) throws Throwable {
 
