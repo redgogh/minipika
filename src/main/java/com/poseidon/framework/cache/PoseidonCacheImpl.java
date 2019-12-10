@@ -1,8 +1,6 @@
 package com.poseidon.framework.cache;
 
 import com.poseidon.framework.db.NativeResult;
-import com.poseidon.framework.timer.Timer;
-import com.poseidon.framework.timer.TimerManager;
 import com.poseidon.framework.tools.PoseidonUtils;
 
 import java.util.ArrayList;
