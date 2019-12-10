@@ -27,7 +27,7 @@ public class ThreadExample {
     public static int closeCount = 0;
     public static int createCount = 0;
 
-    public static final JdbcSupport jdbc = BeansManager.getJdbcSupport();
+    public static final JdbcSupport jdbc = BeansManager.getBean("jdbc");
 
     public static void main(String[] args) {
         userModelInsert();
@@ -73,7 +73,7 @@ public class ThreadExample {
     }
 
     public static void cacheReadAndWrite() {
-        final PoseidonCache cache = BeansManager.getPoseidonCache();
+        final PoseidonCache cache = BeansManager.getBean("cache");
         for (int i = 0; i < 1000; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 200; j++) {

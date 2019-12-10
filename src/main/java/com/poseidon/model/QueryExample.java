@@ -21,8 +21,9 @@ import java.util.Date;
  */
 public class QueryExample {
 
-    static PoseidonCache cache = BeansManager.getPoseidonCache();
-    static JdbcSupport jdbc = BeansManager.getJdbcSupport();
+    static PoseidonCache cache = BeansManager.getBean("cache");
+    static JdbcSupport jdbc = BeansManager.getBean("jdbc");
+
     public static void main(String[] args) throws Throwable {
 
         long startTime = System.currentTimeMillis();
@@ -88,7 +89,7 @@ public class QueryExample {
             jdbc.queryForJson(sql, 1002001);
             jdbc.queryForJson(sql, 1002001);
 
-            ProductModel queryModel = jdbc.queryForObject("select * from kkb_product_model where id = ?", ProductModel.class, 33);
+            ProductModel queryModel = jdbc.queryForObject("select * from kkb_product_model where id = ?", ProductModel.class, 6);
             jdbc.update(queryModel);
 
             jdbc.queryForJson(sql, 1002001);

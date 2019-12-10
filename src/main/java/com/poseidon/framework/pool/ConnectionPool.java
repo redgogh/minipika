@@ -51,25 +51,30 @@ public class ConnectionPool implements com.poseidon.customize.ConnectionPool {
     // 创建连接
     private static Properties info = new Properties();
 
-    static {
-        try {
-            // 设置最小值和最大值
-            MIN_SIZE = Config.getInstance().getMinSize();
-            MAX_SIZE = Config.getInstance().getMaxSize();
-            // 设置属性
-            info.setProperty("user", Config.getInstance().getUsername());
-            info.setProperty("password", Config.getInstance().getPassword());
-            // URL
-            jdbcUrl = Config.getInstance().getUrl();
-            // 初始化连接对象
-            for (int i = 0; i < MIN_SIZE; i++) {
-                conns.add(BeansManager.getConnPool().createConnection());
+    private static boolean isInit = false;
+
+    public ConnectionPool(){
+        if(!isInit) {
+            try {
+                isInit = true;
+                // 设置最小值和最大值
+                MIN_SIZE = Config.getInstance().getMinSize();
+                MAX_SIZE = Config.getInstance().getMaxSize();
+                // 设置属性
+                info.setProperty("user", Config.getInstance().getUsername());
+                info.setProperty("password", Config.getInstance().getPassword());
+                // URL
+                jdbcUrl = Config.getInstance().getUrl();
+                // 初始化连接对象
+                for (int i = 0; i < MIN_SIZE; i++) {
+                    conns.add(createConnection());
+                }
+                // 当连接创建开始初始化
+                Initialize init = new Initialize();
+                init.run();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            // 当连接创建开始初始化
-            Initialize init = new Initialize();
-            init.run();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

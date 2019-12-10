@@ -1,6 +1,7 @@
 package com.poseidon.framework.db;
 
 import com.poseidon.framework.annotation.Model;
+import com.poseidon.framework.annotation.Valid;
 import com.poseidon.framework.beans.BeansManager;
 import com.poseidon.framework.config.Config;
 import com.poseidon.framework.model.SecurityManager;
@@ -18,7 +19,8 @@ import java.util.List;
  */
 public class JdbcSupportImpl implements JdbcSupport {
 
-    private NativeJdbc nativeJdbc = BeansManager.newNativeJdbc();
+    @Valid
+    private NativeJdbc nativeJdbc;
 
     @Override
     public <T> T queryForObject(String sql, Class<T> obj, Object... args) {

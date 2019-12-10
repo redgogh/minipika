@@ -28,7 +28,7 @@ public class Initialize {
     // 添加字段
     private String ADD_COLUMN_SCRIPT = "ALTER TABLE `{}` ADD {} after `{}`;";
 
-    private JdbcSupport jdbc = BeansManager.getJdbcSupport();
+    private JdbcSupport jdbc = BeansManager.getBean("jdbc");
 
     public void run() throws PoseidonException {
         loadModel();

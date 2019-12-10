@@ -1,66 +1,123 @@
 package com.poseidon.framework.beans;
 
 import com.poseidon.customize.ConnectionPool;
+import com.poseidon.framework.annotation.Resource;
+import com.poseidon.framework.annotation.Valid;
 import com.poseidon.framework.cache.PoseidonCache;
 import com.poseidon.framework.db.JdbcSupport;
 import com.poseidon.framework.db.NativeResult;
-import com.poseidon.framework.annotation.Valid;
 import com.poseidon.framework.cache.PoseidonCacheImpl;
 import com.poseidon.framework.db.*;
+import com.poseidon.framework.exception.BeansManagerException;
+import com.poseidon.framework.tools.StringUtils;
 
-import java.sql.ResultSet;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 /**
- * 管理接口的创建
+ * IOC
  * Create by 2BKeyboard on 2019/11/28 17:25
  */
 public class BeansManager {
 
-    private static JdbcSupport jdbcSupport;
-    private static ConnectionPool connectionPool;
-    private static PoseidonCache poseidonCache;
+    private static Map<String, Object> beans = new HashMap<>();
 
-    /* -------------------------- NEW ---------------------------- **/
-
-    @Valid
-    public static NativeJdbc newNativeJdbc() {
+    @Resource
+    private NativeJdbc newNativeJdbc() {
         return new NativeJdbcImpl();
     }
 
-    @Valid
     public static NativeResult newNativeResult() {
         return new NativeResultMysql();
     }
 
-    @Valid
-    public static NativeResult newNativeResult(ResultSet resultSet) {
-        return newNativeResult().build(resultSet);
+    @Resource(name = "jdbc")
+    private JdbcSupport newJdbcSupport() {
+        return new JdbcSupportImpl();
     }
 
-    /* -------------------------- GET ---------------------------- **/
-
-    @Valid
-    public static JdbcSupport getJdbcSupport(){
-        if(jdbcSupport == null){
-            jdbcSupport = new JdbcSupportImpl();
-        }
-        return jdbcSupport;
+    @Resource(name = "cache")
+    private PoseidonCache newPoeseidonCache() {
+        return new PoseidonCacheImpl();
     }
 
-    @Valid
-    public static PoseidonCache getPoseidonCache(){
-        if(poseidonCache == null){
-            poseidonCache = new PoseidonCacheImpl();
-        }
-        return poseidonCache;
+    @Resource(name = "pool")
+    private ConnectionPool newConnectionPool() {
+        return new com.poseidon.framework.pool.ConnectionPool();
     }
 
-    @Valid
-    public static ConnectionPool getConnPool(){
-        if(connectionPool == null){
-            connectionPool = new com.poseidon.framework.pool.ConnectionPool();
+    public static <T> T getBean(String name) {
+        T instance = (T) factory(name);
+        return instance;
+    }
+
+    private static Object factory(String name) {
+        try {
+            Object bean = beans.get(name);
+            if (bean != null) return bean;
+            Class<?> target = BeansManager.class;
+            Object instance = target.newInstance();
+            Method[] methods = target.getDeclaredMethods();
+            for (Method method : methods) {
+                if (method.isAnnotationPresent(Resource.class)) {
+                    String aname = method.getDeclaredAnnotation(Resource.class).name();
+                    if (name.equals(aname)) {
+                        put(name, method.invoke(instance));
+                        return beans.get(name);
+                    }
+                    String ReturnName = method.getReturnType().getName();
+                    ReturnName = ReturnName.substring(ReturnName.lastIndexOf(".") + 1);
+                    if (name.equals(ReturnName)) {
+                        put(name, method.invoke(instance));
+                        return beans.get(name);
+                    }
+
+                }
+            }
+            throw new BeansManagerException("bean name \"" + name + "\" is not found");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return connectionPool;
+        return null;
+    }
+
+    private static void put(String name, Object value) {
+        beans.put(name, inject(value));
+    }
+
+    /**
+     * 对象中是存在需要注入的成员
+     * @param object 目标对象
+     * @return
+     */
+    private static Object inject(Object object) {
+        try {
+            Class<?> target = object.getClass();
+            Field[] fields = target.getDeclaredFields();
+            for (Field field : fields) {
+                field.setAccessible(true);
+                if (field.isAnnotationPresent(Valid.class)) {
+                    Valid valid = field.getDeclaredAnnotation(Valid.class);
+                    String name = valid.name();
+                    if (StringUtils.isEmpty(name)) {
+                        String typeName = field.getType().getTypeName();
+                        typeName = typeName.substring(typeName.lastIndexOf(".") + 1);
+                        Object inject = factory(typeName);
+                        field.set(object, inject);
+                    } else {
+                        Object inject = factory(name);
+                        field.set(object, inject);
+                    }
+                }
+            }
+            return object;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

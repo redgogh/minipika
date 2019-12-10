@@ -15,7 +15,7 @@ import java.util.Date;
  */
 public class UserService {
 
-    private JdbcSupport jdbc = BeansManager.getJdbcSupport();
+    private JdbcSupport jdbc = BeansManager.getBean("jdbc");
 
     public UserModel findUserById(String id) {
         return jdbc.queryForObject("select * from user_model where id = ?", UserModel.class, id);

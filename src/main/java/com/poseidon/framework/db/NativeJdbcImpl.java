@@ -1,9 +1,9 @@
 package com.poseidon.framework.db;
 
 import com.poseidon.customize.ConnectionPool;
+import com.poseidon.framework.annotation.Valid;
 import com.poseidon.framework.beans.BeansManager;
 import com.poseidon.framework.cache.PoseidonCache;
-import com.poseidon.framework.cache.PoseidonCacheImpl;
 import com.poseidon.framework.config.Config;
 
 import java.sql.Connection;
@@ -21,8 +21,11 @@ public class NativeJdbcImpl implements NativeJdbc {
     protected final boolean isCache = Config.getInstance().getCache();
     protected final boolean auto = Config.getInstance().getTransaction();
 
-    protected final ConnectionPool pool = BeansManager.getConnPool();
-    protected final PoseidonCache cache = BeansManager.getPoseidonCache();
+    @Valid
+    private ConnectionPool pool;
+
+    @Valid
+    private PoseidonCache cache;
 
 
     @Override
@@ -70,14 +73,14 @@ public class NativeJdbcImpl implements NativeJdbc {
                 result = cache.get(sql, args);
                 if (result == null) {
                     ResultSet resultSet = setValues(statement, args).executeQuery();
-                    result = BeansManager.newNativeResult(resultSet);
+                    result = BeansManager.newNativeResult().build(resultSet);
                     cache.save(sql, result, args);
                     return cache.get(sql,args);
                 }
                 return result;
             } else {
                 ResultSet resultSet = setValues(statement, args).executeQuery();
-                return BeansManager.newNativeResult(resultSet);
+                return BeansManager.newNativeResult().build(resultSet);
             }
         } catch (Exception e) {
             e.printStackTrace();
