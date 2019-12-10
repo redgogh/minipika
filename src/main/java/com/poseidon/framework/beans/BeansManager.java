@@ -3,12 +3,15 @@ package com.poseidon.framework.beans;
 import com.poseidon.customize.ConnectionPool;
 import com.poseidon.framework.annotation.Resource;
 import com.poseidon.framework.annotation.Valid;
+import com.poseidon.framework.cache.CacheRefreshTimer;
 import com.poseidon.framework.cache.PoseidonCache;
 import com.poseidon.framework.db.JdbcSupport;
 import com.poseidon.framework.db.NativeResult;
 import com.poseidon.framework.cache.PoseidonCacheImpl;
 import com.poseidon.framework.db.*;
 import com.poseidon.framework.exception.BeansManagerException;
+import com.poseidon.framework.timer.Timer;
+import com.poseidon.framework.timer.TimerManager;
 import com.poseidon.framework.tools.StringUtils;
 
 import java.lang.reflect.Field;
@@ -41,7 +44,10 @@ public class BeansManager {
 
     @Resource(name = "cache")
     private PoseidonCache newPoeseidonCache() {
-        return new PoseidonCacheImpl();
+        PoseidonCache cache = new PoseidonCacheImpl();
+        Timer timer = new CacheRefreshTimer(cache);
+        TimerManager.getManager().submit(timer);
+        return cache;
     }
 
     @Resource(name = "pool")
@@ -90,6 +96,7 @@ public class BeansManager {
 
     /**
      * 对象中是存在需要注入的成员
+     *
      * @param object 目标对象
      * @return
      */

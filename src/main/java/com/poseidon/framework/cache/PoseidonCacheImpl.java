@@ -29,16 +29,6 @@ public class PoseidonCacheImpl implements PoseidonCache{
     private final Lock writeLock = readWriteLock.writeLock();
     private final Lock readLock = readWriteLock.readLock();
 
-    private static boolean timer = true;
-
-    public PoseidonCacheImpl() {
-        if (timer) {
-            timer = false;
-            Timer timer = new CacheRefreshTimer(this);
-            TimerManager.getManager().submit(timer);
-        }
-    }
-
     public NativeResult get(String sql, Object... args) {
         return container.get(getKey(sql, args));
     }

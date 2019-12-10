@@ -8,9 +8,9 @@ import com.poseidon.framework.timer.Timer;
  */
 public class CacheRefreshTimer implements Timer {
 
-    private PoseidonCacheImpl cache;
+    private PoseidonCache cache;
 
-    public CacheRefreshTimer(PoseidonCacheImpl cache){
+    public CacheRefreshTimer(PoseidonCache cache){
         this.cache = cache;
     }
 
