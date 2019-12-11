@@ -82,6 +82,11 @@ public class SqlBuilder implements Serializable {
         return this;
     }
 
+    public SqlBuilder addChildQuery(SqlBuilder builder){
+        value.append("(").append(builder.toString()).append(")");
+        return this;
+    }
+
     @Override
     public String toString() {
         value.delete(selectLastComma-1,selectLastComma);

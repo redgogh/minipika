@@ -28,7 +28,7 @@ public class UserService {
             	b.contract_name AS contract_order_currencyname,
             	b.contract_currencytype AS contract_order_currencytype,
             	c.contract_pl_closeprice AS contract_order_closeprice,
-            	c.contract_pl_profit AS contract_order_profit
+            	c.contract_pl_profit AS contract_order_profit,
             FROM
             	shiqi_contract_order a
             	LEFT JOIN shiqi_contract b ON b.contract_key = a.contract_order_currencykey
@@ -49,23 +49,21 @@ public class UserService {
 
         sql.select();
         sql.addColumn("a.*");
-        sql.addColumn("b.contract_name", "contract_order_currencyname");
-        sql.addColumn("b.contract_currencytype", "contract_order_currencytype");
-        sql.addColumn("b.contract_pl_closeprice", "contract_order_closeprice");
-        sql.addColumn("b.contract_pl_profit", "contract_order_profit");
-
+        sql.addColumn("b.contract_name","contract_order_currencyname");
+        sql.addColumn("b.contract_currencytype","contract_order_currencytype");
+        sql.addColumn("b.contract_pl_closeprice","contract_order_closeprice");
+        sql.addColumn("b.contract_pl_profit","contract_order_profit");
         sql.from();
         sql.addScript("shiqi_contract_order a");
         sql.addScript("LEFT JOIN shiqi_contract b ON b.contract_key = a.contract_order_currencykey");
         sql.addScript("LEFT JOIN shiqi_contract_pl c ON c.contract_pl_ordernumber = a.contract_order_id");
-
         sql.where();
-        sql.addCondition("a.contract_order_account", "=", username);
-        sql.addCondition("a.contract_order_status", ">", "1");
+        sql.addCondition("a.contract_order_account","=",username);
+        sql.addCondition("a.contract_order_status",">","1");
         sql.addScript("order by a.contract_order_createtime DESC");
-        sql.addLimit(2, 10);
-
+        sql.addLimit(2,10);
         System.out.println(sql.toString());
+
     }
 
 }
