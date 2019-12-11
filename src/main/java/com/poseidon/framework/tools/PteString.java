@@ -121,7 +121,7 @@ public class PteString {
      * @return
      */
     public boolean hasNext() {
-        return (this.hasNext = this.hasNext + 1) >= linePointer;
+        return (this.hasNext = this.hasNext + 1) <= linePointer;
     }
 
     /**
@@ -152,6 +152,13 @@ public class PteString {
         return new String(resultArray).replace("\n", "");
     }
 
+    @Override
+    public String toString() {
+        char[] result = new char[valuePointer];
+        System.arraycopy(value,0,result,0,valuePointer);
+        return new String(result);
+    }
+
     /**
      * value数组扩容
      * @param size 扩容大小
@@ -173,7 +180,7 @@ public class PteString {
         if (size < line.length) {
             size = line.length << 1;
         }
-        int[] intTemp = new int[size];
+        int[] intTemp = new int[(this.line.length + size)];
         System.arraycopy(this.line, 0, intTemp, 0, linePointer);
         this.line = intTemp;
     }

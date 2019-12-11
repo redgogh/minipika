@@ -1,6 +1,7 @@
 package com.poseidon.framework.sql.pte;
 
 import com.poseidon.framework.tools.PoseidonUtils;
+import com.poseidon.framework.tools.PteString;
 import com.poseidon.framework.tools.StringUtils;
 
 import java.io.*;
@@ -18,10 +19,10 @@ import java.util.regex.Pattern;
 public class PreProcess {
 
     private final List<File> files;
-    private final List<StringBuilder> values;
+    private final List<PteString> values;
 
     private Pattern lineComment = Pattern.compile("[//](.*)"); // 单行删除
-    private Pattern multiLineComment = Pattern.compile("#--.*?--#"); // 单行删除
+    private Pattern multiLineComment = Pattern.compile("#--(?s).*?(?s)--#(\\s*|\\t|\\r|\\n)"); // 多行删除
 
     public PreProcess() {
         this.files = PoseidonUtils.getPteFiles();
@@ -32,7 +33,7 @@ public class PreProcess {
      * 读取代码
      * @return
      */
-    public List<StringBuilder> readCode() {
+    public List<PteString> readCode() {
         BufferedReader reader = null;
         try {
             for (File file : files) {
@@ -42,11 +43,14 @@ public class PreProcess {
                 reader = new BufferedReader(new FileReader(file));
                 while ((line = reader.readLine()) != null) {
                     if(!StringUtils.isEmpty(line)) {
-                        builder.append(clearLineComment(line));
+                        line = clearLineComment(line).trim();
+                        if(!StringUtils.isEmpty(line)) {
+                            builder.append(line).append("\n");
+                        }
                     }
                 }
                 clearComment(builder);
-                values.add(builder);
+                values.add(new PteString(builder.toString()));
                 close(reader);
             }
         } catch (IOException e) {
