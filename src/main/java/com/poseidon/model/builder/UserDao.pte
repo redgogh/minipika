@@ -3,7 +3,7 @@ builder UserDao {
     // 根据用户名获取User
     mapper findUserByName {
 
-        select * from user_model where username = ? // sql
+        select * from user_model where username = [#username] // sql
 
     }
 
@@ -27,13 +27,14 @@ builder UserDao {
         	LEFT JOIN shiqi_contract b ON b.contract_key = a.contract_order_currencykey
         	LEFT JOIN shiqi_contract_pl c ON c.contract_pl_ordernumber = a.contract_order_id
         WHERE
-            [@NotNull]
         	a.contract_order_account = [#account]
         	and order_username = [#username]
-            [@Empty line:3]
-        	AND a.contract_order_status > [#status]
-        	and order_currency_type = [#type]
-        	and order_status = [#status]
+        	[@NotNull line:~]
+                AND a.contract_order_status > [#status]
+                and order_currency_type = [#type]
+                and order_status = [#status]
+        	[@end]
+
         ORDER BY
         	a.contract_order_createtime DESC
         	LIMIT [#limit 0 ',' 1]
@@ -43,6 +44,16 @@ builder UserDao {
     mapper userLogin {
 
         select * from user where username = [#username] and password = [#password]
+
+    }
+
+}
+
+builder MemberDao {
+
+    mapper findMemberByAccount {
+
+        select * from member where username = [#username] and password = [#password]
 
     }
 

@@ -31,7 +31,7 @@ public class ParserToken {
     /**
      * 开始
      */
-    public void start() {
+    public List<PteBuilderToken> getBuilderToken() {
         for (StringBuilder builder : this.values) {
             char[] charsValue = builder.toString().toCharArray();
             for (char value : charsValue) {
@@ -48,7 +48,7 @@ public class ParserToken {
                 }
             }
         }
-        System.out.println();
+        return tokens;
     }
 
     void dispatch(char value) {
