@@ -75,7 +75,7 @@ public class ParserToken {
                         break;
                     }
                     //
-                    // 切换到query状态
+                    // 切换到mapper状态
                     //
                     if ("mapper".equals(builderValue.toString())) {
                         status = PteStatus.MAPPER;
