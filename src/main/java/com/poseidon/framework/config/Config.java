@@ -49,6 +49,9 @@ public final class Config {
     // 缓存过期时间
     private String refresh;
 
+    // pte模板文件存放位置
+    private String pte;
+
     // 数据库名
     private String dbname;
 
@@ -75,6 +78,7 @@ public final class Config {
     public void initConfig() {
         try {
 
+            this.pte = getValue("poseidon.model.pte");
             this.url = getValue("poseidon.jdbc.url");
             this.cache = getValue("poseidon.jdbc.cache");
             this.refresh = getValue("poseidon.jdbc.refresh");
@@ -182,4 +186,7 @@ public final class Config {
 
     }
 
+    public String getPte() {
+        return pte;
+    }
 }

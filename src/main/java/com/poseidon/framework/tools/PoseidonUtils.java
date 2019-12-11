@@ -80,7 +80,7 @@ public class PoseidonUtils {
     private static void getModels(String basePackage, List<Class<?>> models) throws ClassNotFoundException {
         //扫描编译好的所有类路径
         URL url = PoseidonUtils.class.getResource("/" + basePackage.replaceAll("\\.", "/"));
-        if(url == null) return;
+        if (url == null) return;
         //将url转换为文件类型
         File dir = new File(url.getFile());
         for (File file : dir.listFiles()) {
@@ -90,6 +90,30 @@ public class PoseidonUtils {
                 getModels(basePackage + "." + file.getName(), models);
             } else {
                 models.add(Class.forName(basePackage + "." + file.getName().replace(".class", "")));
+            }
+        }
+    }
+
+    public static List<File> getPteFiles() {
+        List<File> ptes = new LinkedList<>();
+        String basePackage = Config.getInstance().getPte();
+        getPtes(basePackage, ptes);
+        return ptes;
+    }
+
+    private static void getPtes(String basePackage, List<File> files) {
+        //扫描编译好的所有类路径
+        URL url = PoseidonUtils.class.getResource("/" + basePackage.replaceAll("\\.", "/"));
+        if (url == null) return;
+        //将url转换为文件类型
+        File dir = new File(url.getFile());
+        for (File file : dir.listFiles()) {
+            //判断file是否为一个文件目录
+            if (file.isDirectory()) {
+                //如果是一个文件目录就递归再往下读取
+                getPtes(basePackage + "." + file.getName(), files);
+            } else {
+                files.add(file);
             }
         }
     }
@@ -116,7 +140,7 @@ public class PoseidonUtils {
                 String prefix = Config.getInstance().getTablePrefix();
                 Model anno = target.getDeclaredAnnotation(Model.class);
                 String value = anno.value();
-                if(!StringUtils.isEmpty(prefix) && !value.substring(0,prefix.length()).equals(prefix)) {
+                if (!StringUtils.isEmpty(prefix) && !value.substring(0, prefix.length()).equals(prefix)) {
                     InvocationHandler invocationHandler = Proxy.getInvocationHandler(anno);
                     Field values = invocationHandler.getClass().getDeclaredField("memberValues");
                     values.setAccessible(true);
@@ -139,6 +163,7 @@ public class PoseidonUtils {
 
     /**
      * 讲字符串加密成md5
+     *
      * @param input
      * @return
      */
@@ -158,7 +183,7 @@ public class PoseidonUtils {
         return "";
     }
 
-    public static List<String> getSQLTables(String sql){
+    public static List<String> getSQLTables(String sql) {
         TablesNamesFinder finder = new TablesNamesFinder();
         Statement statement = null;
         try {
@@ -168,8 +193,8 @@ public class PoseidonUtils {
             // e.printStackTrace();
         }
         List<String> tables = finder.getTableList(statement);
-        for(int i=0,len=tables.size(); i<len; i++){
-            tables.set(i,tables.get(i).replace("`",""));
+        for (int i = 0, len = tables.size(); i < len; i++) {
+            tables.set(i, tables.get(i).replace("`", ""));
         }
         return tables;
     }

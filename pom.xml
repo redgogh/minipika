@@ -45,12 +45,12 @@
 
     <build>
         <plugins>
-
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                        <descriptorRef>jar-with-
+                        </descriptorRef>
                     </descriptorRefs>
                 </configuration>
             </plugin>
@@ -62,9 +62,19 @@
                     <target>8</target>
                 </configuration>
             </plugin>
-
-
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>
+                        **/*.pte
+                    </include>
+                </includes>
+            </resource>
+        </resources>
+
     </build>
 
 </project>
