@@ -1,5 +1,6 @@
 package com.poseidon.framework.sql.pte;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ public class PteBuilderToken {
     //
     private String builderValue;
 
-    private List<PteToken> tokens;
+    private List<PteToken> tokens =new ArrayList<>();
 
     public PteBuilderToken(){}
 

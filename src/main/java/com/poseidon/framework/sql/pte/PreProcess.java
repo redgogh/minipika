@@ -4,6 +4,7 @@ import com.poseidon.framework.tools.PoseidonUtils;
 import com.poseidon.framework.tools.StringUtils;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,27 +18,26 @@ import java.util.regex.Pattern;
 public class PreProcess {
 
     private final List<File> files;
-    private final Map<String, StringBuilder> codes;
+    private final List<StringBuilder> values;
 
     private Pattern lineComment = Pattern.compile("[//](.*)"); // 单行删除
-    private Pattern multiLineComment = Pattern.compile("[#\\-\\-](.*?)[\\-\\-#]"); // 单行删除
+    private Pattern multiLineComment = Pattern.compile("#--.*?--#"); // 单行删除
 
     public PreProcess() {
         this.files = PoseidonUtils.getPteFiles();
-        this.codes = new HashMap<>(26);
+        this.values = new ArrayList<>(26);
     }
 
     /**
      * 读取代码
      * @return
      */
-    public Map<String, StringBuilder> readCode() {
+    public List<StringBuilder> readCode() {
         BufferedReader reader = null;
         try {
             for (File file : files) {
                 // 存放File文件的内容
                 StringBuilder builder = new StringBuilder(500);
-                String filename = StringUtils.removeSuffix(file.getName());
                 String line = null;
                 reader = new BufferedReader(new FileReader(file));
                 while ((line = reader.readLine()) != null) {
@@ -45,7 +45,7 @@ public class PreProcess {
                 }
                 clearComment(builder);
                 System.out.println(builder.toString());
-                codes.put(filename, builder);
+                values.add(builder);
                 close(reader);
             }
         } catch (IOException e) {
@@ -53,7 +53,7 @@ public class PreProcess {
         } finally {
             close(reader);
         }
-        return codes;
+        return values;
     }
 
     /**

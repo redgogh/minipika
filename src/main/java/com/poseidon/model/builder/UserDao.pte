@@ -1,7 +1,7 @@
 builder UserDao {
 
     // 根据用户名获取User
-    query findUserByName {
+    mapper findUserByName {
 
         select * from user_model where username = ? // sql
 
@@ -14,7 +14,7 @@ builder UserDao {
             shiqi_contract
             shiqi_contract_pl
     --#
-    query userLogin {
+    mapper queryForXX {
 
         SELECT
         	a.*,
@@ -37,6 +37,12 @@ builder UserDao {
         ORDER BY
         	a.contract_order_createtime DESC
         	LIMIT [#limit 0 ',' 1]
+
+    }
+
+    mapper userLogin {
+
+        select * from user where username = [#username] and password = [#password]
 
     }
 

@@ -7,10 +7,8 @@ public enum PteStatus {
 
     NULL,
     BUILDER,
-    QUERY,
-    INSERT,
-    UPDATE,
-    DELETE,
+    MAPPER,
+    MAPPER_BLOCK,
     ;
 
 }
