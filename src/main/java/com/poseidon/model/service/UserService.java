@@ -1,5 +1,6 @@
 package com.poseidon.model.service;
 
+import com.poseidon.framework.annotation.NotNull;
 import com.poseidon.framework.beans.BeansManager;
 import com.poseidon.framework.db.JdbcSupport;
 import com.poseidon.framework.sql.SqlBuilder;
@@ -18,7 +19,7 @@ public class UserService {
 
     private JdbcSupport jdbc = BeansManager.getBean("jdbc");
 
-    public UserModel findUserById(String id) {
+    public static void main(String[] args) {
 
         /*
 
@@ -41,22 +42,30 @@ public class UserService {
 
          */
 
+        @NotNull
+        String username = "keyboard";
+
         SqlBuilder sql = new SqlBuilder();
 
         sql.select();
         sql.addColumn("a.*");
-        sql.addColumn("b.contract_name","contract_order_currencyname");
-        sql.addColumn("b.contract_currencytype","contract_order_currencytype");
-        sql.addColumn("b.contract_pl_closeprice","contract_order_closeprice");
-        sql.addColumn("b.contract_pl_profit","contract_order_profit");
-        sql.selectEnd();
+        sql.addColumn("b.contract_name", "contract_order_currencyname");
+        sql.addColumn("b.contract_currencytype", "contract_order_currencytype");
+        sql.addColumn("b.contract_pl_closeprice", "contract_order_closeprice");
+        sql.addColumn("b.contract_pl_profit", "contract_order_profit");
 
         sql.from();
         sql.addScript("shiqi_contract_order a");
         sql.addScript("LEFT JOIN shiqi_contract b ON b.contract_key = a.contract_order_currencykey");
         sql.addScript("LEFT JOIN shiqi_contract_pl c ON c.contract_pl_ordernumber = a.contract_order_id");
 
-        return jdbc.queryForObject(sql.toString(), UserModel.class, sql.toArray());
+        sql.where();
+        sql.addCondition("a.contract_order_account", "=", username);
+        sql.addCondition("a.contract_order_status", ">", "1");
+        sql.addScript("order by a.contract_order_createtime DESC");
+        sql.addLimit(2, 10);
+
+        System.out.println(sql.toString());
     }
 
 }
