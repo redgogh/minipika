@@ -1,9 +1,12 @@
 package com.poseidon.framework.sql.pte;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * builder token 负责存放每个builder下的mapper
  * Create by 2BKeyboard on 2019/12/11 17:47
  */
 public class PteBuilderToken {
@@ -13,7 +16,8 @@ public class PteBuilderToken {
     //
     private String builderValue;
 
-    private List<PteToken> tokens =new ArrayList<>();
+    @Getter
+    private List<PteMapperToken> mapperTokens =new ArrayList<>();
 
     public PteBuilderToken(){}
 
@@ -22,10 +26,10 @@ public class PteBuilderToken {
     }
 
     public void builderToken(String tokenKey,String tokenValue){
-        PteToken token = new PteToken();
+        PteMapperToken token = new PteMapperToken();
         token.setTokenKey(tokenKey);
         token.setTokenValue(tokenValue);
-        tokens.add(token);
+        mapperTokens.add(token);
     }
 
 }

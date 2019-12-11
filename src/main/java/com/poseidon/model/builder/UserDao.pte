@@ -30,7 +30,7 @@ builder UserDao {
         	a.contract_order_account = [#account]
         	and order_username = [#username]
         	[@NotNull line:~]
-                AND a.contract_order_status > [#status]
+                and a.contract_order_status > [#status]
                 and order_currency_type = [#type]
                 and order_status = [#status]
         	[@end]

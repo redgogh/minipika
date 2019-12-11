@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 自动机
+ * 将pte文件内容解析成Token
  * Create by 2BKeyboard on 2019/12/11 16:54
  */
 public class ParserToken {
@@ -29,7 +29,7 @@ public class ParserToken {
     }
 
     /**
-     * 开始
+     * 获取builderToken
      */
     public List<PteBuilderToken> getBuilderToken() {
         for (StringBuilder builder : this.values) {

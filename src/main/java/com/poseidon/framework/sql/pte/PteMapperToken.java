@@ -4,15 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
+ * builder下的Mapper token
  * Create by 2BKeyboard on 2019/12/11 17:43
  */
 @Getter
 @Setter
-public class PteToken {
+public class PteMapperToken {
 
-    public PteToken(){}
+    public PteMapperToken(){}
 
-    public PteToken(String tokenKey, String tokenValue) {
+    public PteMapperToken(String tokenKey, String tokenValue) {
         this.tokenKey = tokenKey;
         this.tokenValue = tokenValue;
     }

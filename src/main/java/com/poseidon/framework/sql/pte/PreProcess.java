@@ -37,14 +37,15 @@ public class PreProcess {
         try {
             for (File file : files) {
                 // 存放File文件的内容
-                StringBuilder builder = new StringBuilder(500);
+                StringBuilder builder = new StringBuilder(300);
                 String line = null;
                 reader = new BufferedReader(new FileReader(file));
                 while ((line = reader.readLine()) != null) {
-                    builder.append(clearLineComment(line));
+                    if(!StringUtils.isEmpty(line)) {
+                        builder.append(clearLineComment(line));
+                    }
                 }
                 clearComment(builder);
-                System.out.println(builder.toString());
                 values.add(builder);
                 close(reader);
             }
@@ -86,10 +87,6 @@ public class PreProcess {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        new PreProcess();
     }
 
 }
