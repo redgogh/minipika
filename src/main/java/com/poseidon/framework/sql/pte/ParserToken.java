@@ -1,6 +1,6 @@
 package com.poseidon.framework.sql.pte;
 
-import com.poseidon.framework.tools.StringUtils;
+import com.poseidon.framework.tools.PteString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,136 +11,113 @@ import java.util.List;
  */
 public class ParserToken {
 
-    private List<StringBuilder> values;
-    private PteStatus status;
-    private StringBuilder builderValue;
-    private List<PteBuilderToken> tokens;
-    // 当前builder
-    private PteBuilderToken currentToken;
-
-    private String name;
-    private String block;
-
-    public ParserToken(List<StringBuilder> value) {
-        this.tokens = new ArrayList<>(16);
-        this.status = PteStatus.NULL;
-        this.values = value;
-        this.builderValue = new StringBuilder();
-    }
+    private PteBuilderToken currentBuilderToken;
 
     /**
-     * 获取builderToken
+     * 最后解析出来的结果集
      */
-    public List<PteBuilderToken> getBuilderToken() {
-        for (StringBuilder builder : this.values) {
-            char[] charsValue = builder.toString().toCharArray();
-            for (char value : charsValue) {
-                switch (value) {
-                    case '{':
-                    case '}':{
-                        dispatch(' ', true);
-                        break;
-                    }
+    private List<PteBuilderToken> builderTokenSet = new ArrayList<>();
 
-                    default: {
-                        dispatch(value);
-                    }
-                }
-            }
+    public StringBuilder builderValue = new StringBuilder();
+
+    /**
+     * 记录当前解析状态
+     * <p>
+     * {@code NULL}
+     * {@code BUILDER}
+     * {@code MAPPER}
+     */
+    private PteStatus status = PteStatus.NULL;
+
+    public void getBuilderToken(List<PteString> pteStrings) {
+        for (PteString pteString : pteStrings) {
+            parserLine(pteString);
         }
-        return tokens;
-    }
-
-    void dispatch(char value) {
-        dispatch(value, false);
+        System.out.println();
     }
 
     /**
-     * 状态调度
-     *
-     * @param value
+     * 解析一行数据
      */
-    void dispatch(char value, boolean end) {
-        if (value == ' ' && status == PteStatus.NULL) return;
-        builderValue.append(value);
-        switch (status) {
-            case NULL: {
-                if (builderValue.length() != 0) {
-                    //
-                    // 切换到builder状态
-                    //
+    private void parserLine(PteString ps) {
+        while (ps.hasNext()) {
+            String str = ps.next();      // 当前行的数据
+            int line = ps.getHasNext();  // 当前在第几行
+            char[] charArray = str.toCharArray();
+
+            for (int i = 0; i < charArray.length; i++) {
+                //
+                // 当前状态为初始状态
+                //
+                if (status == PteStatus.NULL) {
+                    builderValue.append(charArray[i]);
                     if ("builder".equals(builderValue.toString())) {
                         status = PteStatus.BUILDER;
-                        clear();
-                        break;
+                        builderValueClear();
+                        continue;
                     }
-                    //
-                    // 切换到mapper状态
-                    //
                     if ("mapper".equals(builderValue.toString())) {
                         status = PteStatus.MAPPER;
-                        clear();
-                        break;
+                        builderValueClear();
+                        continue;
+                    }
+                    continue;
+                }
+
+                //
+                // 如果当前状态为builder
+                //
+                if (status == PteStatus.BUILDER) {
+                    // 判断是否为终结符
+                    if (charArray[i] == '{' || charArray[i] == '}') {
+                        PteBuilderToken pbt = new PteBuilderToken(builderValue.toString());
+                        status = PteStatus.NULL;
+                        currentBuilderToken = pbt;
+                        builderTokenSet.add(pbt);
+                        builderValueClear();
+                    } else {
+                        builderValue.append(charArray[i]);
+                    }
+                    continue;
+                }
+
+                //
+                // 如果当前状态为mapper
+                //
+                if (status == PteStatus.MAPPER) {
+                    // 判断是否为终结符
+                    if (charArray[i] == '{' || charArray[i] == '}') {
+                        PteMapperToken pmt = new PteMapperToken();
+                        if (pmt.getTokenKey() == null) {
+                            pmt.setTokenKey(builderValue.toString().trim());
+                        }
+                        if (pmt.getTokenValue() == null && pmt.getTokenKey() != null) {
+                            PteString pteString = new PteString();
+                            while (ps.hasNext()) {
+                                String strValue = ps.next().trim();
+                                if (!"}".equals(strValue.substring(strValue.length() - 1))) {
+                                    pteString.appendLine(strValue);
+                                    continue;
+                                }else{
+                                    break;
+                                }
+                            }
+                            pmt.setTokenValue(pteString);
+                        }
+                        currentBuilderToken.builderToken(pmt);
+                        builderValueClear();
+                        status = PteStatus.NULL;
+                    } else {
+                        builderValue.append(charArray[i]);
+                        continue;
                     }
                 }
-                break;
-            }
-            case BUILDER: {
-                builder(end);
-            }
-            case MAPPER: {
-                mapper(end);
+
             }
         }
     }
 
-    /**
-     * {@code BUILDER} status
-     */
-    void builder(boolean end) {
-        if (end) {
-            PteBuilderToken token = new PteBuilderToken(builderValue.toString().trim());
-            tokens.add(token);
-            currentToken = token;
-            status = PteStatus.NULL;
-            clear();
-        }
-    }
-
-    /**
-     * {@code MAPPER} status
-     */
-    void mapper(boolean end) {
-        if (end) {
-            if (StringUtils.isEmpty(name)) {
-                name = builderValue.toString().trim();
-                clear();
-                return;
-            }
-            if (StringUtils.isEmpty(block)) {
-                block = builderValue.toString().trim();
-            }
-            if (!StringUtils.isEmpty(name) && !StringUtils.isEmpty(block)) {
-                addToken(name, block);
-                name = "";
-                block = "";
-                clear();
-                status = PteStatus.NULL;
-            }
-        }
-    }
-
-    /**
-     * 添加token
-     *
-     * @param key
-     * @param value
-     */
-    void addToken(String key, String value) {
-        currentToken.builderToken(key, value);
-    }
-
-    void clear() {
+    private void builderValueClear() {
         builderValue.delete(0, builderValue.length());
     }
 

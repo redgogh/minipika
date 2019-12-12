@@ -1,5 +1,7 @@
 package com.poseidon.framework.tools;
 
+import lombok.Getter;
+
 /**
  * 为了能够一行一行读取数据设计的String类
  * Create by 2BKeyboard on 2019/12/11 23:16
@@ -29,6 +31,7 @@ public class PteString {
     /**
      * 记录迭代器当前遍历到第几行了
      */
+    @Getter
     private int hasNext = -1;
 
     /**
@@ -61,7 +64,7 @@ public class PteString {
 
     /**
      * 追加数据
-     * @param str
+     * @param str 字符串
      * @return
      */
     public PteString append(String str) {
@@ -70,11 +73,17 @@ public class PteString {
             //
             // 扩容len的两倍
             //
-            valueExpansion(len << 1);
+            valueExpansion(valuePointer + (len << 1));
         }
         return append(str.toCharArray());
     }
 
+    /**
+     * 追加数据
+     *
+     * @param values char数组
+     * @return
+     */
     public PteString append(char[] values) {
         System.arraycopy(values, 0, this.value, valuePointer, values.length);
         this.valuePointer += values.length;
@@ -83,6 +92,16 @@ public class PteString {
                 addLine(valuePointer - values.length);
             }
         }
+        return this;
+    }
+
+    /**
+     * 添加一行数据
+     * @param str
+     * @return
+     */
+    public PteString appendLine(String str){
+        append(str.concat("\n"));
         return this;
     }
 

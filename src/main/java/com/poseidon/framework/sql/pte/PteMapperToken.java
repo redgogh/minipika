@@ -1,5 +1,6 @@
 package com.poseidon.framework.sql.pte;
 
+import com.poseidon.framework.tools.PteString;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,14 +12,14 @@ import lombok.Setter;
 @Setter
 public class PteMapperToken {
 
+    private String tokenKey;
+    private PteString tokenValue;
+
     public PteMapperToken(){}
 
-    public PteMapperToken(String tokenKey, String tokenValue) {
+    public PteMapperToken(String tokenKey, PteString tokenValue) {
         this.tokenKey = tokenKey;
         this.tokenValue = tokenValue;
     }
-
-    private String tokenKey;
-    private String tokenValue;
 
 }

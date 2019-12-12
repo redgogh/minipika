@@ -18,11 +18,8 @@ public class PteParser {
     public void parser(){
         PreProcess pre = new PreProcess();
         List<PteString> pteStrings = pre.readCode();
-        for(PteString pstr : pteStrings){
-           while(pstr.hasNext()){
-               System.out.println(pstr.next());
-           }
-        }
+        ParserToken parserToken = new ParserToken();
+        parserToken.getBuilderToken(pteStrings);
     }
 
     public void traversalToken(List<PteBuilderToken> tokens){

@@ -1,5 +1,6 @@
 package com.poseidon.framework.sql.pte;
 
+import com.poseidon.framework.tools.PteString;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -25,11 +26,15 @@ public class PteBuilderToken {
         this.builderValue = builderValue;
     }
 
-    public void builderToken(String tokenKey,String tokenValue){
+    public void builderToken(String tokenKey, PteString tokenValue){
         PteMapperToken token = new PteMapperToken();
         token.setTokenKey(tokenKey);
         token.setTokenValue(tokenValue);
         mapperTokens.add(token);
+    }
+
+    public void builderToken(PteMapperToken builderValue){
+        mapperTokens.add(builderValue);
     }
 
 }
