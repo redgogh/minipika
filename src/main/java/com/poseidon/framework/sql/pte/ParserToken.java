@@ -29,11 +29,16 @@ public class ParserToken {
      */
     private PteStatus status = PteStatus.NULL;
 
-    public void getBuilderToken(List<PteString> pteStrings) {
+    /**
+     * Get Builder Token
+     * @param pteStrings    源文件内容
+     * @return  解析到的Token集合
+     */
+    public List<PteBuilderToken> getBuilderToken(List<PteString> pteStrings) {
         for (PteString pteString : pteStrings) {
             parserLine(pteString);
         }
-        System.out.println();
+        return builderTokenSet;
     }
 
     /**
@@ -50,6 +55,9 @@ public class ParserToken {
                 // 当前状态为初始状态
                 //
                 if (status == PteStatus.NULL) {
+                    if(charArray[i] == '{' || charArray[i] == '}'){
+                        continue;
+                    }
                     builderValue.append(charArray[i]);
                     if ("builder".equals(builderValue.toString())) {
                         status = PteStatus.BUILDER;

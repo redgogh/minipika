@@ -152,7 +152,7 @@ public class PteString {
             return toString(0, line[this.hasNext]);
         }
         if (this.hasNext == linePointer) {
-            return toString(line[this.hasNext], valuePointer);
+            return toString(line[this.hasNext-1], valuePointer);
         } else {
             return toString(line[this.hasNext - 1], line[this.hasNext]);
         }

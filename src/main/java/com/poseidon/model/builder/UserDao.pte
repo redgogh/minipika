@@ -1,6 +1,6 @@
 builder UserDao {
 
-    // 根据用户名获取User
+    // 单行注释
     mapper findUserByName {
 
         select * from user_model where username = [#username] // sql
@@ -8,6 +8,7 @@ builder UserDao {
     }
 
     #--
+        多行注释
         用户登陆
         查询3张表：
             shiqi_contract_order
