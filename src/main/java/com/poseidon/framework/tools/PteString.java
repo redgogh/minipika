@@ -246,7 +246,7 @@ public class PteString {
      * @return new PteString
      */
     public PteString toPteString(int startLinePos, int endLinePos) {
-        return new PteString(toCharArray(line[startLinePos]+1, line[endLinePos]-1));
+        return new PteString(toCharArray(line[startLinePos], line[endLinePos+1]));
     }
 
     /**

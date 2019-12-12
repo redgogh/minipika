@@ -30,10 +30,7 @@ builder UserDao {
         WHERE
         	a.contract_order_account = [#account]
         	and order_username = [#username]
-        	[@NotNull process:{
-                System.out.println();
-            }]
-        	    and a.contract_order_status > [#status]
+        	[@NotNull]
         	    and a.contract_order_status > [#status]
                 and order_currency_type = [#type]
                 and order_status = [#status]
