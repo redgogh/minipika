@@ -10,12 +10,11 @@ public interface GenerateCriteria {
     /**
      * [@NotNull]
      *
-     * @param str 被解析后的字符串
-     * @param line 当前解析的代码所在行数
+     * @param   pteStr  需要被解析的字符串
      *
      * @return 生成好的Java代码
      */
-    String _NotNull(String str,int line);
+    String _NotNull(PteString pteStr);
 
     /**
      * [#*]

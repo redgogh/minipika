@@ -46,8 +46,10 @@ public class SystemExmple {
 
         // System.out.println("`aaa`".replace("`",""));
 
-        System.out.println(Config.getInstance().getRefresh());
-        System.out.println(1 + 1 * 2 - 1);
+        // System.out.println(Config.getInstance().getRefresh());
+        // System.out.println(1 + 1 * 2 - 1);
+
+
 
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime));

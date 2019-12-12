@@ -23,8 +23,7 @@ public class MarkJavaCode implements GenerateCriteria {
      */
     private StringBuilder sql = new StringBuilder(100);
 
-    private String include = ".*\\[#.*?].*";
-    private String command = ".*\\[@.*?].*";
+    private String notnull = ".*\\[@NotNull.*?].*";
 
     public MarkJavaCode() {
         marked = new PteString(100);
@@ -56,22 +55,36 @@ public class MarkJavaCode implements GenerateCriteria {
      * @return 被标记后的代码
      */
     public PteString markJavaCode(PteString sourceCode) {
-        while (sourceCode.hasNext()) {
-            String str = sourceCode.next();
-            if (str.matches(include)) {
-                _Include(str, sourceCode.getCurrentLineNumber());
-            }
-            if (str.matches(command)) {
-
-            }
-            // 处理转义
-            marked.appendLine(str);
-        }
+        _NotNull(sourceCode);
         return null;
     }
 
     @Override
-    public String _NotNull(String str, int line) {
+    public String _NotNull(PteString pteStr) {
+        int start = "[@NotNull ".length();
+        while (pteStr.hasNext()) {
+            String str = pteStr.next();
+            int line = pteStr.getCurrentLineNumber();
+            if (str.matches(notnull)) {
+                StringBuilder property = new StringBuilder();
+                char[] charArray = str.toCharArray();
+                for (int i = start; i < charArray.length; i++) {
+
+                    char value = charArray[i];
+                    //
+                    // 如果不是终结符
+                    //
+                    if (value != ':') {
+                        property.append(value);
+                        continue;
+                    }
+
+
+
+                }
+            }
+            marked.appendLine(str);
+        }
         return null;
     }
 
@@ -91,7 +104,7 @@ public class MarkJavaCode implements GenerateCriteria {
                     if (positionList == null) {
                         positionList = new ArrayList<>();
                     }
-                    positionList.add(new Position(name.toString(), start, i+1, line));
+                    positionList.add(new Position(name.toString(), start, i + 1, line));
                     start = 0;
                     name.delete(0, name.length());
                 }
