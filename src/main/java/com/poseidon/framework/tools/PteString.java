@@ -31,7 +31,6 @@ public class PteString {
     /**
      * 记录迭代器当前遍历到第几行了
      */
-    @Getter
     private int hasNext = -1;
 
     /**
@@ -53,12 +52,12 @@ public class PteString {
 
     /**
      * 传入value数组初始化大小以及line数组的初始化大小
-     * @param valueSize value数组初始化大小
-     * @param lineSize line数组初始化大小
+     * @param valueCapacity value数组初始化大小
+     * @param lineCapacity line数组初始化大小
      */
-    public PteString(int valueSize,int lineSize) {
-        this.value = new char[valueSize];
-        this.line = new int[lineSize];
+    public PteString(int valueCapacity,int lineCapacity) {
+        this.value = new char[valueCapacity];
+        this.line = new int[lineCapacity];
     }
 
     /**
@@ -95,13 +94,6 @@ public class PteString {
      * @return
      */
     public PteString append(String str) {
-        int len = str.length();
-        if (getValueRemainSpace() < len) {
-            //
-            // 扩容len的两倍
-            //
-            valueExpansion(valuePointer + (len << 1));
-        }
         return append(str.toCharArray());
     }
 
@@ -112,6 +104,13 @@ public class PteString {
      * @return
      */
     public PteString append(char[] values) {
+        int len = values.length;
+        if (getValueRemainSpace() < len) {
+            //
+            // 扩容len的两倍
+            //
+            valueExpansion(valuePointer + (len << 1));
+        }
         System.arraycopy(values, 0, this.value, valuePointer, values.length);
         this.valuePointer += values.length;
         for (int i = 0; i < values.length; i++) {
@@ -175,6 +174,14 @@ public class PteString {
     }
 
     /**
+     * 在迭代状态下当前迭代到第几行了
+     * @return 当前行号
+     */
+    public int getCurrentLineNumber(){
+        return this.hasNext;
+    }
+
+    /**
      * 获取当前遍历的行
      *
      * @return
@@ -232,7 +239,7 @@ public class PteString {
      * @param endLinePos   结束行号
      * @return new PteString
      */
-    public PteString toPteString(int startLinePos, int endLinePos) {
+        public PteString toPteString(int startLinePos, int endLinePos) {
         return new PteString(toCharArray(startLinePos, endLinePos));
     }
 

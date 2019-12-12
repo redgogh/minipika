@@ -10,18 +10,22 @@ public interface GenerateCriteria {
     /**
      * [@NotNull]
      *
-     * @param pteStr 被解析后的字符串
+     * @param str 被解析后的字符串
+     * @param line 当前解析的代码所在行数
+     *
      * @return 生成好的Java代码
      */
-    String _NotNull(PteString pteStr);
+    String _NotNull(String str,int line);
 
     /**
      * [#*]
      * 例如：[#username]
      *
-     * @param pteStr 被解析后的字符串
+     * @param str 被解析后的字符串
+     * @param line 当前解析的代码所在行数
+     *
      * @return 生成好的Java代码
      */
-    String _Include(PteString pteStr);
+    void _Include(String str,int line);
 
 }

@@ -43,7 +43,10 @@ builder UserDao {
 
     mapper userLogin {
 
-        select * from user where username = [#username] and password = [#password]
+        #--
+            @E{.*?} // 转义
+        --#
+        select * from user where @E{username} = [#username] and password = [#password]
 
     }
 

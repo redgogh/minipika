@@ -47,7 +47,7 @@ public class ParserToken {
     private void parserLine(PteString ps) {
         while (ps.hasNext()) {
             String str = ps.next();      // 当前行的数据
-            int line = ps.getHasNext();  // 当前在第几行
+            int line = ps.getCurrentLineNumber();  // 当前在第几行
             char[] charArray = str.toCharArray();
 
             for (int i = 0; i < charArray.length; i++) {
