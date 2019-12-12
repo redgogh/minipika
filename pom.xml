@@ -35,6 +35,12 @@
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
+        <!-- javassist -->
+        <dependency>
+            <groupId>javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.12.1.GA</version>
+        </dependency>
         <!-- sql解析 -->
         <dependency>
             <groupId>com.github.jsqlparser</groupId>

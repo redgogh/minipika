@@ -1,4 +1,4 @@
-package com.poseidon.framework.sql.pte;
+package com.poseidon.framework.sql.pte.parser;
 
 import com.poseidon.framework.tools.PteString;
 
@@ -10,19 +10,24 @@ import java.util.List;
  */
 public class PteParser {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         PteParser pte = new PteParser();
         pte.parser();
     }
 
-    public void parser(){
+    public void parser() {
         PreProcess pre = new PreProcess();
         List<PteString> pteStrings = pre.readCode();
         ParserToken parserToken = new ParserToken();
         parserToken.getBuilderToken(pteStrings);
     }
 
-    public void traversalToken(List<PteBuilderToken> tokens){
+    /**
+     * 将sql模板转换为可执行SQL
+     *
+     * @param tokens 解析出来的builder tokens
+     */
+    public void conversionExecuteableSQL(List<PteBuilderToken> tokens) {
 
     }
 

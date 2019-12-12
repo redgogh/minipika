@@ -30,16 +30,15 @@ builder UserDao {
         WHERE
         	a.contract_order_account = [#account]
         	and order_username = [#username]
-        	[@NotNull line:~]
-                and a.contract_order_status > [#status]
+        	[@NotNull line:3]
+        	    and a.contract_order_status > [#status]
                 and order_currency_type = [#type]
                 and order_status = [#status]
-        	[@end]
+            [@end]
 
         ORDER BY
         	a.contract_order_createtime DESC
         	LIMIT [#limit 0 ',' 1]
-
     }
 
     mapper userLogin {
