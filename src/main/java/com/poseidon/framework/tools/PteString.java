@@ -1,7 +1,5 @@
 package com.poseidon.framework.tools;
 
-import lombok.Getter;
-
 /**
  * 为了能够一行一行读取数据设计的String类
  * Create by 2BKeyboard on 2019/12/11 23:16
@@ -39,15 +37,15 @@ public class PteString {
      * 默认大小为 value: 16, line: 8
      */
     public PteString() {
-        this(16,8);
+        this(16, 8);
     }
 
     /**
      * 传入value数组初始化大小，line数组默认大小为value数组的一半
      * @param size value数组大小
      */
-    public PteString(int size){
-        this(size,size >> 1);
+    public PteString(int size) {
+        this(size, size >> 1);
     }
 
     /**
@@ -55,9 +53,11 @@ public class PteString {
      * @param valueCapacity value数组初始化大小
      * @param lineCapacity line数组初始化大小
      */
-    public PteString(int valueCapacity,int lineCapacity) {
+    public PteString(int valueCapacity, int lineCapacity) {
         this.value = new char[valueCapacity];
         this.line = new int[lineCapacity];
+        this.line[0] = 0;
+        linePointer++;
     }
 
     /**
@@ -76,8 +76,7 @@ public class PteString {
      * @param charArray
      */
     public PteString(char[] charArray) {
-        this.line = new int[6];
-        this.value = new char[charArray.length + 16];
+        this((charArray.length + 16), 6);
         System.arraycopy(charArray, 0, value, 0, charArray.length);
         this.valuePointer = charArray.length;
         for (int i = 0; i < value.length; i++) {
@@ -115,7 +114,7 @@ public class PteString {
         this.valuePointer += values.length;
         for (int i = 0; i < values.length; i++) {
             if (values[i] == '\n') {
-                addLine(valuePointer - values.length);
+                addLine(valuePointer);
             }
         }
         return this;
@@ -152,16 +151,29 @@ public class PteString {
      */
     public String readLine(int line) {
         if (linePointer >= line && line >= 0) {
-            if (line == 0) { // 第一行
-                return toString(0, this.line[0]);
-            }
-            if (line == linePointer - 1) { // 最后一行
-                return toString(this.line[line], valuePointer);
-            } else {
-                return toString(this.line[(line - 1)], this.line[line]);
-            }
+            return toString(this.line[line], this.line[line + 1]);
         }
         throw new IndexOutOfBoundsException(String.valueOf(line));
+    }
+
+    public static void main(String[] args) {
+        PteString pteString = new PteString();
+        pteString.appendLine("aaaa");
+        pteString.appendLine("bbbb");
+        pteString.appendLine("cccc");
+
+        System.out.println(pteString.readLine(0));
+        System.out.println(pteString.readLine(1));
+        System.out.println(pteString.readLine(2));
+
+        System.out.println("---------------");
+
+        while (pteString.hasNext()) {
+            System.out.println(pteString.next());
+        }
+
+        System.out.println(0 -1 );
+
     }
 
     /**
@@ -170,14 +182,15 @@ public class PteString {
      * @return
      */
     public boolean hasNext() {
-        return (this.hasNext = this.hasNext + 1) <= linePointer;
+        int len = linePointer - 2;
+        return (this.hasNext = this.hasNext + 1) <= len;
     }
 
     /**
      * 在迭代状态下当前迭代到第几行了
      * @return 当前行号
      */
-    public int getCurrentLineNumber(){
+    public int getCurrentLineNumber() {
         return this.hasNext;
     }
 
@@ -187,14 +200,7 @@ public class PteString {
      * @return
      */
     public String next() {
-        if (this.hasNext == 0) {
-            return toString(0, line[this.hasNext]);
-        }
-        if (this.hasNext == linePointer) {
-            return toString(line[this.hasNext - 1], valuePointer);
-        } else {
-            return toString(line[this.hasNext - 1], line[this.hasNext]);
-        }
+        return readLine(this.hasNext);
     }
 
     /**
@@ -217,8 +223,8 @@ public class PteString {
      * @param endLinePos 结束位置
      * @return String object
      */
-    public String toString(int startLinePos, int endLinePos){
-        return new String(toCharArray(startLinePos,endLinePos)).replaceAll("\n","");
+    public String toString(int startLinePos, int endLinePos) {
+        return new String(toCharArray(startLinePos, endLinePos)).replaceAll("\n", "");
     }
 
     /**
@@ -239,8 +245,17 @@ public class PteString {
      * @param endLinePos   结束行号
      * @return new PteString
      */
-        public PteString toPteString(int startLinePos, int endLinePos) {
-        return new PteString(toCharArray(startLinePos, endLinePos));
+    public PteString toPteString(int startLinePos, int endLinePos) {
+        return new PteString(toCharArray(line[startLinePos]+1, line[endLinePos]-1));
+    }
+
+    /**
+     * 获取从开始行号到最后一行
+     * @param startLinePos 开始行号
+     * @return new PteString
+     */
+    public PteString toPteString(int startLinePos) {
+        return toPteString(startLinePos, (linePointer - 1));
     }
 
     /**

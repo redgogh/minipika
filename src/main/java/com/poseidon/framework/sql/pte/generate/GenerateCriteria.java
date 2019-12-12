@@ -14,7 +14,7 @@ public interface GenerateCriteria {
      *
      * @return 生成好的Java代码
      */
-    String _NotNull(PteString pteStr);
+    String notNull(PteString pteStr);
 
     /**
      * [#*]
@@ -25,6 +25,6 @@ public interface GenerateCriteria {
      *
      * @return 生成好的Java代码
      */
-    void _Include(String str,int line);
+    void include(String str,int line);
 
 }

@@ -25,6 +25,8 @@ public class MarkJavaCode implements GenerateCriteria {
 
     private String notnull = ".*\\[@NotNull.*?].*";
 
+    private PteNotNullProcess pnp = new PteNotNullProcess();
+
     public MarkJavaCode() {
         marked = new PteString(100);
     }
@@ -38,7 +40,9 @@ public class MarkJavaCode implements GenerateCriteria {
         ps.appendLine("#####################");
         ps.appendLine("#####################");
         ps.appendLine("---------------------");
-        ps.appendLine("[@NotNull]");
+        ps.appendLine("[@NotNull process:{]");
+        ps.appendLine("System.out.print();");
+        ps.appendLine("}]");
         ps.appendLine("username = [#username]");
         ps.appendLine("username = [#username]");
         ps.appendLine("username = [#username]");
@@ -55,16 +59,18 @@ public class MarkJavaCode implements GenerateCriteria {
      * @return 被标记后的代码
      */
     public PteString markJavaCode(PteString sourceCode) {
-        _NotNull(sourceCode);
+        notNull(sourceCode);
         return null;
     }
 
     @Override
-    public String _NotNull(PteString pteStr) {
+    public String notNull(PteString pteStr) {
         int start = "[@NotNull ".length();
         while (pteStr.hasNext()) {
             String str = pteStr.next();
             int line = pteStr.getCurrentLineNumber();
+
+            // 获取处理属性
             if (str.matches(notnull)) {
                 StringBuilder property = new StringBuilder();
                 char[] charArray = str.toCharArray();
@@ -72,14 +78,13 @@ public class MarkJavaCode implements GenerateCriteria {
 
                     char value = charArray[i];
                     //
-                    // 如果不是终结符
+                    // 如果是终结符
                     //
-                    if (value != ':') {
-                        property.append(value);
-                        continue;
+                    if (value == ':') {
+                        pnp.analysis(pteStr.toPteString(line),property.toString());
                     }
 
-
+                    property.append(value);
 
                 }
             }
@@ -89,7 +94,7 @@ public class MarkJavaCode implements GenerateCriteria {
     }
 
     @Override
-    public void _Include(String str, int line) {
+    public void include(String str, int line) {
         int start = 0;                                  // 记录开始位置
         boolean canMark = false;                        // 是否可以标记,满足条件为brackets & well 不为空
         StringBuilder name = new StringBuilder();       // 记录名称

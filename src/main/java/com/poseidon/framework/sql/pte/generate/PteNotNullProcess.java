@@ -12,12 +12,14 @@ import java.util.List;
  * [@NotNull] 对应的处理器
  * Create by 2BKeyboard on 2019/12/12 14:50
  */
-public class PteNotNullProcess implements PteNotNullProcessor{
+public class PteNotNullProcess implements PteNotNullProcessor {
 
-    List<String> properties=new ArrayList<>();
+    private final String PROCESS = "process";
+
+    List<String> properties = new ArrayList<>();
+
     {
-        properties.add("line");
-        properties.add("process");
+        properties.add(PROCESS);
     }
 
     /**
@@ -27,19 +29,31 @@ public class PteNotNullProcess implements PteNotNullProcessor{
     @Getter
     private PteString value;
 
-    @Override
-    public void _line() {
-
-    }
-
-    @Override
-    public void _process() {
-
-    }
-
-
-    public void process(PteString value,String property){
+    public void analysis(PteString value, String property) {
         errorCheck(value, property);
+        switch (property) {
+            case PROCESS:{
+                process(value);
+            }
+        }
+    }
+
+    @Override
+    public void line(PteString value) {
+
+    }
+
+    @Override
+    public void process(PteString value) {
+        PteString processerBlock = null;
+        // 先解析出process代码块终结符的位置
+        while(value.hasNext()){
+            // 终结符
+            if("}]".equals(value.next())){
+                processerBlock = value.toPteString(0,value.getCurrentLineNumber());
+            }
+        }
+        System.out.println(processerBlock.toString());
     }
 
     /**
@@ -54,10 +68,10 @@ public class PteNotNullProcess implements PteNotNullProcessor{
      * @param       value         需要处理的字符串
      * @param       property      属性名
      */
-    private void errorCheck(PteString value,String property) {
-        if(value == null)
+    private void errorCheck(PteString value, String property) {
+        if (value == null)
             throw new NullPointerException("value is null");
-        if(!properties.contains(property))
-            throw new PteGrammarException("NotNull grammar error not \""+property+"\" property");
+        if (!properties.contains(property))
+            throw new PteGrammarException("NotNull grammar error not \"" + property + "\" property");
     }
 }
