@@ -15,10 +15,12 @@
         	LEFT JOIN shiqi_contract_pl c ON c.contract_pl_ordernumber = a.contract_order_id
         WHERE
         	a.contract_order_account = {{account}}
-            <if test="$req > 1">
-                order_username = {{username}}
-        	</if>
-        	and a.contract_order_status > {{status}}
+            <choose>
+                <e test="$req == null">
+                    and order_username = {{username}}
+                    and a.contract_order_status > {{status}}
+                </e>
+            </choose>
             and order_currency_type = {{type}}
             and order_status = {{status}}
 

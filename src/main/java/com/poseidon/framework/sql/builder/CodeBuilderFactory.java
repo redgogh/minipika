@@ -6,18 +6,6 @@ package com.poseidon.framework.sql.builder;
 public interface CodeBuilderFactory {
 
     /**
-     * 创建方法
-     *
-     * @param       modify      修饰符,传入String,需要空格分隔例如："public {} static name"
-     *                          其中 {} 代表返回对象的转移符
-     * @param       args        参数,也需要手写例如："java.lang.String a,java.lang.Integer b"
-     * @param       _return     返回对象,全路径
-     *
-     * @return      CodeBuilder
-     */
-    CodeBuilder createMethod(String modify,String args,String _return);
-
-    /**
      * 创建对象
      *
      * @param       variable    对象名
@@ -25,7 +13,7 @@ public interface CodeBuilderFactory {
      *
      * @return      CodeBuilder
      */
-    CodeBuilder createObject(String variable,String type);
+    ClassBuilder createObject(String variable, String type);
 
     /**
      * 调用方法
@@ -35,7 +23,7 @@ public interface CodeBuilderFactory {
      *
      * @return      CodeBuilder
      */
-    CodeBuilder transfer(String variable,String method);
+    ClassBuilder transfer(String variable, String method);
 
     /**
      * 调用方法
@@ -45,6 +33,13 @@ public interface CodeBuilderFactory {
      * @param       args          参数,仅限String
      * @return      CodeBuilder
      */
-    CodeBuilder transfer(String variable,String method,String... args);
+    ClassBuilder transfer(String variable, String method, String... args);
+
+    /**
+     * 添加方法
+     * @param   methodBuilder 方法对象
+     * @return  CodeBuilder
+     */
+    ClassBuilder addMethod(MethodBuilder methodBuilder);
 
 }

@@ -107,13 +107,7 @@ public abstract class StringNewline
      * @return
      */
     public StringNewline append(char[] values) {
-        int len = values.length;
-        if (getValueRemainSpace() < len) {
-            //
-            // 扩容len的两倍
-            //
-            valueExpansion(valuePointer + (len << 1));
-        }
+        capacityCheck(values);
         System.arraycopy(values, 0, this.value, valuePointer, values.length);
         this.valuePointer += values.length;
         for (int i = 0; i < values.length; i++) {
@@ -192,6 +186,8 @@ public abstract class StringNewline
      * @return StringNewline
      */
     public StringNewline insert(int line, int pos, String str) {
+        int strLen = str.length();
+        capacityCheck(strLen);
         int offset = 0;
         int linePointerValue = linePointer - 1;
         if (line > linePointerValue || line < 0)
@@ -200,7 +196,7 @@ public abstract class StringNewline
             offset = this.line[line] + pos;
         }
         char[] strValue = str.toCharArray();
-        char[] temp = new char[(offset + line) + 16];
+        char[] temp = new char[(offset + strLen) + 16];
         char[] end = new char[(valuePointer - offset)];
         System.arraycopy(value, 0, temp, 0, offset);
         System.arraycopy(value, offset, end, 0, end.length);
@@ -220,7 +216,7 @@ public abstract class StringNewline
                 linePointer++;
             }
         }
-
+        valuePointer = valuePointer + strLen;
         return this;
     }
 
@@ -266,6 +262,24 @@ public abstract class StringNewline
     }
 
     /**
+     * 容量检测，如果不够了则进行扩容
+     */
+    private void capacityCheck(int size) {
+        int remainCapacity = getValueRemainSpace(); // 剩余容量
+        if (size > remainCapacity) {
+            valueExpansion(size << 1);
+        }
+    }
+
+    private void capacityCheck(char[] value){
+        capacityCheck(value.length);
+    }
+
+    private void capacityCheck(String str){
+        capacityCheck(str.length());
+    }
+
+    /**
      * line数组扩容
      *
      * @param size 扩容大小
@@ -289,7 +303,15 @@ public abstract class StringNewline
     }
 
     /**
-     * 截取指定行
+     * 转换为char数组
+     * @return char[]
+     */
+    public char[] toCharArray() {
+        return this.value;
+    }
+
+    /**
+     * 截取指定行并转换为char[]
      *
      * @param startLinePos 开始位置
      * @param endLinePos   结束位置
