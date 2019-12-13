@@ -94,6 +94,10 @@ public class PoseidonUtils {
         }
     }
 
+    /**
+     * 获取Pte文件的File对象
+     * @return List
+     */
     public static List<File> getPteFiles() {
         List<File> ptes = new LinkedList<>();
         String basePackage = Config.getInstance().getPte();
