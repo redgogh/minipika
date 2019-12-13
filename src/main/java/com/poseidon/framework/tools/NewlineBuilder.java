@@ -24,17 +24,4 @@ public final class NewlineBuilder extends StringNewline {
         super(charArray);
     }
 
-    public static void main(String[] args) {
-        NewlineBuilder builder = new NewlineBuilder();
-        builder.newline("aaaaaa");
-        builder.newline("bbb");
-        builder.newline("cccccc");
-
-        builder.insert(2,"ddd");
-
-        while (builder.hasNext()){
-            System.out.println(builder.next());
-        }
-    }
-
 }

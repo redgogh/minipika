@@ -1,12 +1,10 @@
 package com.poseidon.framework.tools;
 
-import com.sun.deploy.util.ArrayUtil;
-
 import java.io.Serializable;
-import java.util.Arrays;
 
 /**
- * 为了能够一行一行读取数据设计的String类
+ * 为了方便能够以行读取数据设计的String类
+ *
  * Create by 2BKeyboard on 2019/12/11 23:16
  */
 public abstract class StringNewline
