@@ -46,4 +46,6 @@ mvn install
 </dependency>
 ```
 
-**最后愉快的开始写代码吧！**
+**如果你对这个项目有兴趣，可以发我邮箱我们一起开发。**
+
+**作者邮箱: spacecloud@foxmail.com**
