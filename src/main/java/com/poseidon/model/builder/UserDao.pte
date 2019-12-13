@@ -30,11 +30,10 @@ builder UserDao {
         WHERE
         	a.contract_order_account = [#account]
         	and order_username = [#username]
-        	[@NotNull]
-        	    and a.contract_order_status > [#status]
-                and order_currency_type = [#type]
-                and order_status = [#status]
-            [@end]
+            @NotNull
+        	and a.contract_order_status > [#status]
+            and order_currency_type = [#type]
+            and order_status = [#status]
 
         ORDER BY
         	a.contract_order_createtime DESC
