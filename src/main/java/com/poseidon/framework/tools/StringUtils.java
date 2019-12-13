@@ -1,5 +1,6 @@
 package com.poseidon.framework.tools;
 
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,20 +32,6 @@ public class StringUtils {
     }
 
     /**
-     * 是否存在某个字符串
-     *
-     * @param s     字符串
-     * @param regex 需要查找的字符串(支持正则)
-     * @return 返回boolean
-     */
-    public static boolean isExist(String s, String regex) {
-        if (s.contains(regex)) return true;
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(s);
-        return matcher.find();
-    }
-
-    /**
      * 获取最后一个字符
      *
      * @param v 目标字符串
@@ -60,29 +47,8 @@ public class StringUtils {
      * @param v 目标字符串
      * @return 返回处理后的字符串
      */
-    public static String removeLastString(String v) {
+    public static String deleteLastString(String v) {
         return v.substring(0, v.length() - 1);
-    }
-
-    /**
-     * 判断当前字符串是不是数字
-     *
-     * @param v 目标字符串
-     * @return 返回boolean
-     */
-    public static boolean isNumber(String v) {
-        if(isEmpty(v))return false;
-        return v.matches("^[0-9]*$");
-    }
-
-    /**
-     * 删除所有非数字的字符
-     *
-     * @param v 目标字符串
-     * @return 返回处理后的字符串
-     */
-    public static String removeNotNumber(String v) {
-        return v.replaceAll("[^\\d]", "");
     }
 
     /**
@@ -120,28 +86,6 @@ public class StringUtils {
     }
 
     /**
-     * 获取文件名后缀
-     *
-     * @param filename 文件名
-     * @return 后缀
-     */
-    public static String getSuffix(String filename) {
-        int suffix = filename.lastIndexOf(".");
-        if (suffix == -1) return null;
-        return filename.substring(suffix);
-    }
-
-    /**
-     * 删除后缀
-     *
-     * @param filename 文件名
-     * @return 删除后缀后的文件名
-     */
-    public static String removeSuffix(String filename) {
-        return filename.substring(0, filename.lastIndexOf("."));
-    }
-
-    /**
      * 格式化
      *
      * @param input
@@ -172,6 +116,24 @@ public class StringUtils {
             }
         }
         return builder.append(chars).toString();
+    }
+
+    /**
+     * 合并行去除多余空格
+     * @param text
+     * @return
+     */
+    public static String trim(String text){
+        StringBuilder content = new StringBuilder();
+        StringTokenizer tokenizer = new StringTokenizer(text);
+        while(tokenizer.hasMoreTokens()){
+            String str = tokenizer.nextToken();
+            content.append(str);
+            if(tokenizer.hasMoreTokens()){
+                content.append(" ");
+            }
+        }
+        return content.toString();
     }
 
 }

@@ -1,42 +1,48 @@
 package com.poseidon.framework.tools;
 
+import com.sun.deploy.util.ArrayUtil;
+
+import java.io.Serializable;
+import java.util.Arrays;
+
 /**
  * 为了能够一行一行读取数据设计的String类
  * Create by 2BKeyboard on 2019/12/11 23:16
  */
-public class PteString {
+public abstract class StringNewline
+        implements Serializable {
 
     /**
      * 所有String都会被转换成char数组存放
      */
-    private char[] value;
+    protected char[] value;
 
     /**
      * 指针指向value数组下一个元素插入的位置
      */
-    private int valuePointer = 0;
+    protected int valuePointer = 0;
 
     /**
      * 记录每个换行符的位置
      */
-    private int[] line;
+    protected int[] line;
 
     /**
      * 指针指向line数组下一个元素插入的位置
      */
-    private int linePointer = 0;
+    protected int linePointer = 0;
 
     /**
      * 记录迭代器当前遍历到第几行了
      */
-    private int hasNext = -1;
+    protected int hasNext = -1;
 
     /**
      * 默认构造器
      * 会初始化value数组大小以及line数组的大小
      * 默认大小为 value: 16, line: 8
      */
-    public PteString() {
+    public StringNewline() {
         this(16, 8);
     }
 
@@ -44,7 +50,7 @@ public class PteString {
      * 传入value数组初始化大小，line数组默认大小为value数组的一半
      * @param size value数组大小
      */
-    public PteString(int size) {
+    public StringNewline(int size) {
         this(size, size >> 1);
     }
 
@@ -53,7 +59,7 @@ public class PteString {
      * @param valueCapacity value数组初始化大小
      * @param lineCapacity line数组初始化大小
      */
-    public PteString(int valueCapacity, int lineCapacity) {
+    public StringNewline(int valueCapacity, int lineCapacity) {
         this.value = new char[valueCapacity];
         this.line = new int[lineCapacity];
         this.line[0] = 0;
@@ -66,7 +72,7 @@ public class PteString {
      *
      * @param str 字符串
      */
-    public PteString(String str) {
+    public StringNewline(String str) {
         this(str.toCharArray());
     }
 
@@ -75,13 +81,13 @@ public class PteString {
      *
      * @param charArray
      */
-    public PteString(char[] charArray) {
+    public StringNewline(char[] charArray) {
         this((charArray.length + 16), 6);
         System.arraycopy(charArray, 0, value, 0, charArray.length);
         this.valuePointer = charArray.length;
         for (int i = 0; i < value.length; i++) {
             if (value[i] == '\n') {
-                addLine(i);
+                addLineArray(i);
             }
         }
     }
@@ -92,7 +98,7 @@ public class PteString {
      * @param str 字符串
      * @return
      */
-    public PteString append(String str) {
+    public StringNewline append(String str) {
         return append(str.toCharArray());
     }
 
@@ -102,7 +108,7 @@ public class PteString {
      * @param values value数组
      * @return
      */
-    public PteString append(char[] values) {
+    public StringNewline append(char[] values) {
         int len = values.length;
         if (getValueRemainSpace() < len) {
             //
@@ -114,7 +120,7 @@ public class PteString {
         this.valuePointer += values.length;
         for (int i = 0; i < values.length; i++) {
             if (values[i] == '\n') {
-                addLine(valuePointer);
+                addLineArray(valuePointer);
             }
         }
         return this;
@@ -126,7 +132,7 @@ public class PteString {
      * @param str
      * @return
      */
-    public PteString appendLine(String str) {
+    public StringNewline newline(String str) {
         append(str.concat("\n"));
         return this;
     }
@@ -136,7 +142,7 @@ public class PteString {
      *
      * @param line
      */
-    private void addLine(int line) {
+    private void addLineArray(int line) {
         if (linePointer >= this.line.length) {
             lineExpansion(16);
         }
@@ -156,24 +162,68 @@ public class PteString {
         throw new IndexOutOfBoundsException(String.valueOf(line));
     }
 
-    public static void main(String[] args) {
-        PteString pteString = new PteString();
-        pteString.appendLine("aaaa");
-        pteString.appendLine("bbbb");
-        pteString.appendLine("cccc");
+    /**
+     * 从指定行插入数据（插入一行）
+     *
+     * @param    line               从line行插入
+     * @param    str                待插入的数据
+     * @return StringNewline
+     */
+    public StringNewline insertLine(int line, String str) {
+        return insert(line, readLine(line).length(), str.concat("\n"));
+    }
 
-        System.out.println(pteString.readLine(0));
-        System.out.println(pteString.readLine(1));
-        System.out.println(pteString.readLine(2));
+    /**
+     * 从指定行插入数据
+     *
+     * @param    line               从line行插入
+     * @param    str                待插入的数据
+     * @return StringNewline
+     */
+    public StringNewline insert(int line, String str) {
+        return insert(line, readLine(line).length(), str);
+    }
 
-        System.out.println("---------------");
-
-        while (pteString.hasNext()) {
-            System.out.println(pteString.next());
+    /**
+     * 从指定行插入数据
+     *
+     * @param    line               从line行开始
+     * @param    pos                从指定位置开始
+     * @param    str                待插入的数据
+     *
+     * @return StringNewline
+     */
+    public StringNewline insert(int line, int pos, String str) {
+        int offset = 0;
+        int linePointerValue = linePointer - 1;
+        if (line > linePointerValue || line < 0)
+            throw new IndexOutOfBoundsException("line:\"" + line + "\"");
+        if (line <= linePointerValue) {
+            offset = this.line[line] + pos;
+        }
+        char[] strValue = str.toCharArray();
+        char[] temp = new char[(offset + line) + 16];
+        char[] end = new char[(valuePointer - offset)];
+        System.arraycopy(value, 0, temp, 0, offset);
+        System.arraycopy(value, offset, end, 0, end.length);
+        System.arraycopy(strValue, 0, temp, offset, strValue.length);
+        offset = offset + strValue.length;
+        System.arraycopy(end, 0, temp, offset, end.length);
+        this.value = temp;
+        for (int i = line + 1; i < linePointer; i++) {
+            this.line[i] = this.line[i] + strValue.length;
+        }
+        int insertLine = line;
+        for (int i = 0; i < strValue.length; i++) {
+            if (strValue[i] == '\n') {
+                int value = this.line[line] + pos + i + 1;
+                this.line = ArrayUtils.insert(insertLine, value, this.line);
+                insertLine++;
+                linePointer++;
+            }
         }
 
-        System.out.println(0 -1 );
-
+        return this;
     }
 
     /**
@@ -187,14 +237,6 @@ public class PteString {
     }
 
     /**
-     * 在迭代状态下当前迭代到第几行了
-     * @return 当前行号
-     */
-    public int getCurrentLineNumber() {
-        return this.hasNext;
-    }
-
-    /**
      * 获取当前遍历的行
      *
      * @return
@@ -204,58 +246,11 @@ public class PteString {
     }
 
     /**
-     * 截取指定行
-     *
-     * @param startLinePos 开始位置
-     * @param endLinePos   结束位置
-     * @return char Array
+     * 在迭代状态下当前迭代到第几行了
+     * @return 当前行号
      */
-    public char[] toCharArray(int startLinePos, int endLinePos) {
-        int intValue = endLinePos - startLinePos;
-        char[] charArray = new char[intValue];
-        System.arraycopy(value, startLinePos, charArray, 0, intValue);
-        return charArray;
-    }
-
-    /**
-     * 截取指定行
-     * @param startLinePos 开始位置
-     * @param endLinePos 结束位置
-     * @return String object
-     */
-    public String toString(int startLinePos, int endLinePos) {
-        return new String(toCharArray(startLinePos, endLinePos)).replaceAll("\n", "");
-    }
-
-    /**
-     * 将整个value数组转换成字符串
-     * @return String object
-     */
-    @Override
-    public String toString() {
-        char[] result = new char[valuePointer];
-        System.arraycopy(value, 0, result, 0, valuePointer);
-        return new String(result);
-    }
-
-    /**
-     * 截取指定行数转换成新的PteString
-     *
-     * @param startLinePos 开始行号
-     * @param endLinePos   结束行号
-     * @return new PteString
-     */
-    public PteString toPteString(int startLinePos, int endLinePos) {
-        return new PteString(toCharArray(line[startLinePos], line[endLinePos+1]));
-    }
-
-    /**
-     * 获取从开始行号到最后一行
-     * @param startLinePos 开始行号
-     * @return new PteString
-     */
-    public PteString toPteString(int startLinePos) {
-        return toPteString(startLinePos, (linePointer - 1));
+    public int getCurrentLineNumber() {
+        return this.hasNext;
     }
 
     /**
@@ -293,6 +288,41 @@ public class PteString {
      */
     private int getValueRemainSpace() {
         return this.value.length - valuePointer;
+    }
+
+    /**
+     * 截取指定行
+     *
+     * @param startLinePos 开始位置
+     * @param endLinePos   结束位置
+     * @return char Array
+     */
+    public char[] toCharArray(int startLinePos, int endLinePos) {
+        int intValue = endLinePos - startLinePos;
+        char[] charArray = new char[intValue];
+        System.arraycopy(value, startLinePos, charArray, 0, intValue);
+        return charArray;
+    }
+
+    /**
+     * 截取指定行
+     * @param startLinePos 开始位置
+     * @param endLinePos 结束位置
+     * @return String object
+     */
+    public String toString(int startLinePos, int endLinePos) {
+        return new String(toCharArray(startLinePos, endLinePos)).replaceAll("\n", "");
+    }
+
+    /**
+     * 将整个value数组转换成字符串
+     * @return String object
+     */
+    @Override
+    public String toString() {
+        char[] result = new char[valuePointer];
+        System.arraycopy(value, 0, result, 0, valuePointer);
+        return new String(result);
     }
 
 }

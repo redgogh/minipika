@@ -98,14 +98,14 @@ public class PoseidonUtils {
      * 获取Pte文件的File对象
      * @return List
      */
-    public static List<File> getPteFiles() {
-        List<File> ptes = new LinkedList<>();
-        String basePackage = Config.getInstance().getPte();
-        getPtes(basePackage, ptes);
-        return ptes;
+    public static List<File> getMapperXMLs() {
+        List<File> mappers = new LinkedList<>();
+        String basePackage = Config.getInstance().getMapperBasePackage();
+        getXMLs(basePackage, mappers);
+        return mappers;
     }
 
-    private static void getPtes(String basePackage, List<File> files) {
+    private static void getXMLs(String basePackage, List<File> files) {
         //扫描编译好的所有类路径
         URL url = PoseidonUtils.class.getResource("/" + basePackage.replaceAll("\\.", "/"));
         if (url == null) return;
@@ -115,7 +115,7 @@ public class PoseidonUtils {
             //判断file是否为一个文件目录
             if (file.isDirectory()) {
                 //如果是一个文件目录就递归再往下读取
-                getPtes(basePackage + "." + file.getName(), files);
+                getXMLs(basePackage + "." + file.getName(), files);
             } else {
                 files.add(file);
             }

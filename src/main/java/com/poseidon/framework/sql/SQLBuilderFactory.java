@@ -12,7 +12,6 @@ public class SQLBuilderFactory {
 
     private static SQLBuilderFactory factory;
     private final Map<String, SQLBuilder> values;
-    private final String path = Config.getInstance().getPte();
 
     public SQLBuilderFactory() {
         values = new HashMap<>(); // initial
