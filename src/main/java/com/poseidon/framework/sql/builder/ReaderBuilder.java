@@ -19,6 +19,21 @@ import java.util.regex.Pattern;
 
 /**
  * 读取xml映射文件
+ *
+ * 将XML中的标签解析成JavaCode
+ *      1. 解析builder
+ *      2. 解析mapper
+ *              |
+ *              |--> Java Method name: findUserByName
+ *                          |
+ *                          |--> label to java code
+ *
+ *      3. 将解析完成的代码组装成Java字节码
+ *      4. 将Java字节码使用ClassLoader加载到JVM
+ *      5. 从内存中获取生成的字节码文件
+ *      6. 将字节码执行方法装载到${@link com.poseidon.framework.beans.BeansManager}中提供调用
+ *      7. 其他处理
+ *
  * Create by 2BKeyboard on 2019/12/13 0:52
  */
 public class ReaderBuilder {
@@ -26,7 +41,7 @@ public class ReaderBuilder {
     private Pattern params = Pattern.compile("\\{\\{(.*?)}}");
 
     /**
-     * 获取pte文件列表
+     * 获取xml文件列表
      * @return
      */
     private List<File> getBuilderXMLFiles() {
@@ -101,7 +116,7 @@ public class ReaderBuilder {
                                 }
 
                             }
-                            toJavaCodeByChooseLabel(test,_ifContent,_elseContent);
+                            toJavaCodeByChooseLabel(test, _ifContent, _elseContent);
                         }
 
                         //
@@ -142,16 +157,33 @@ public class ReaderBuilder {
      */
     private void toJavaCodeByChooseLabel(String test, NewlineBuilder _ifContent,
                                          NewlineBuilder _elseContent) {
-        test = test.replaceAll("and","&&");
-        test = test.replaceAll("or","||");
-        test = test.replaceAll("'","\"");
-        Map<String,String> _ifParams = getParamNameAndLineData(_ifContent);
-        Map<String,String> _elseParams = getParamNameAndLineData(_elseContent);
+        NewlineBuilder codeBuilder = new NewlineBuilder();
+        test = test.replaceAll("and", "&&");
+        test = test.replaceAll("or", "||");
+        test = test.replaceAll("'", "\"");
+        Map<String, String> _ifParams = getParamNameAndLineData(_ifContent);
+        Map<String, String> _elseParams = getParamNameAndLineData(_elseContent);
 
-        if(!test.contains("$req")){
+        StringBuilder expBuilder = new StringBuilder();
 
+        if (test.contains("$req")) {
+            for (Map.Entry<String, String> param : _ifParams.entrySet()) {
+                String key = param.getKey();
+                String values = param.getValue();
+                expBuilder.append("if(")
+                        .append(test.replaceAll("\\$req", key))
+                        .append("){\n");
+                for (String value : values.split("@")) {
+                    expBuilder.append("\t#varable#.append(\"")
+                            .append(value)
+                            .append("\");\n");
+                }
+                expBuilder.append("}\n");
+            }
+            codeBuilder.appendLine(expBuilder.toString());
+            expBuilder.delete(0, expBuilder.length());
         }
-
+        System.out.println(codeBuilder.toString());
     }
 
     /**
@@ -159,19 +191,19 @@ public class ReaderBuilder {
      * @param builder   NewlineBuilder
      * @return Map
      */
-    public Map<String,String> getParamNameAndLineData(NewlineBuilder builder){
-        Map<String,String> paramAndLine = null;
-        while(builder.hasNext()) {
+    public Map<String, String> getParamNameAndLineData(NewlineBuilder builder) {
+        Map<String, String> paramAndLine = null;
+        while (builder.hasNext()) {
             String next = builder.next();
             Matcher matcher = params.matcher(next);
-            while(matcher.find()){
+            while (matcher.find()) {
                 String value = matcher.group(1);
-                if(!StringUtils.isEmpty(value)){
-                    if(paramAndLine == null) paramAndLine = new HashMap<>();
-                    if(paramAndLine.get(value) == null){
-                        paramAndLine.put(value,next);
-                    }else{
-                        paramAndLine.put(value,paramAndLine.get(value).concat("@").concat(next));
+                if (!StringUtils.isEmpty(value)) {
+                    if (paramAndLine == null) paramAndLine = new HashMap<>();
+                    if (paramAndLine.get(value) == null) {
+                        paramAndLine.put(value, next);
+                    } else {
+                        paramAndLine.put(value, paramAndLine.get(value).concat("@").concat(next));
                     }
                 }
             }
