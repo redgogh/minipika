@@ -124,7 +124,7 @@ public abstract class StringNewline
      * @param str
      * @return
      */
-    public StringNewline newline(String str) {
+    public StringNewline appendLine(String str) {
         append(str.concat("\n"));
         return this;
     }
@@ -267,7 +267,7 @@ public abstract class StringNewline
     private void capacityCheck(int size) {
         int remainCapacity = getValueRemainSpace(); // 剩余容量
         if (size > remainCapacity) {
-            valueExpansion(size << 1);
+            valueExpansion(this.value.length + size + remainCapacity + 16);
         }
     }
 
@@ -299,7 +299,7 @@ public abstract class StringNewline
      * @return
      */
     private int getValueRemainSpace() {
-        return this.value.length - valuePointer;
+        return this.value.length - valuePointer-1;
     }
 
     /**

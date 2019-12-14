@@ -16,10 +16,14 @@
         WHERE
         	a.contract_order_account = {{account}}
             <choose>
-                <e test="$req == null">
-                    and order_username = {{username}}
+                <if test="$req == null">
+                    and order_username1 = {{username}}
+                    and order_username2 = {{username}}
                     and a.contract_order_status > {{status}}
-                </e>
+                </if>
+                <else>
+                    and a.contract_order_status > {{status}}
+                </else>
             </choose>
             and order_currency_type = {{type}}
             and order_status = {{status}}
