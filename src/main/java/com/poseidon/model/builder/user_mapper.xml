@@ -3,35 +3,16 @@
 
     <mapper name="findUserByName">
 
-        SELECT
-        	a.*,
-        	b.contract_name AS contract_order_currencyname,
-        	b.contract_currencytype AS contract_order_currencytype,
-        	b.contract_pl_closeprice AS contract_order_closeprice,
-        	b.contract_pl_profit AS contract_order_profit
-        FROM
-        	shiqi_contract_order a
-        	LEFT JOIN shiqi_contract b ON b.contract_key = a.contract_order_currencykey
-        	LEFT JOIN shiqi_contract_pl c ON c.contract_pl_ordernumber = a.contract_order_id
-        WHERE
-        	a.contract_order_account = {{account}}
-            <choose>
-                <if test="$req == null">
-                    and order_username1 = {{username}}
-                    and order_username2 = {{username}}
-                    and a.contract_order_status > {{status}}
-                </if>
-                <else>
-                    and a.contract_order_status > {{status}}
-                </else>
-            </choose>
-            and order_currency_type = {{type}}
-            and order_status = {{status}}
-
-        ORDER BY
-        	a.contract_order_createtime DESC
-        	LIMIT {{limit 0 ',' 1}}
-
+        select *
+        from user
+        where
+        1=1
+        <if test="username != null">
+            username = {{username}}
+        </if>
+        <if test="password != null">
+            password = {{password}}
+        </if>
     </mapper>
 
 </builder>

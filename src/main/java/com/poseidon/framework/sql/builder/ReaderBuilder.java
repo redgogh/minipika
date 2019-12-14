@@ -53,8 +53,6 @@ public class ReaderBuilder {
         String sbo = JavaElement.STRING_BUILDER_OBJECT;
         for (File mapperXML : getBuilderXMLFiles()) {
 
-            StringBuilder builder = new StringBuilder();
-
             Document document = saxBuilder.build(mapperXML);
             Element rootElement = document.getRootElement();
 
@@ -66,15 +64,18 @@ public class ReaderBuilder {
                 //
                 String nameValue = mapper.getAttribute("name").getValue();
                 MethodBuilder methodBuilder = new MethodBuilder();
-                methodBuilder.createMethod("public static {} {}", "sql", JavaElement.STRING_OBJECT, nameValue);
-                methodBuilder.insert(sbo.concat(" sql = ").concat(sbo).concat("();"));
+                methodBuilder.createMethod("public static {} {}", "sql.toString()", JavaElement.STRING_OBJECT, nameValue);
+                methodBuilder.insert(sbo.concat(" sql = new ").concat(sbo).concat("();"));
 
 
                 for (Content content : mapper.getContent()) {
 
                     // 如果是文本文件
                     if (content.getCType() == Content.CType.Text) {
-                        methodBuilder.insert("sql.append(\"".concat(StringUtils.trim(content.getValue())).concat("\");"));
+                        String value = content.getValue().trim();
+                        if(!StringUtils.isEmpty(value)) {
+                            methodBuilder.insert("sql.append(\"".concat(StringUtils.trim(value)).concat("\");"));
+                        }
                         continue;
                     }
 
@@ -105,31 +106,44 @@ public class ReaderBuilder {
                                     _ifContent = new NewlineBuilder(trim(chooseChild.getText()));
                                     // 判断是否存在<line>节点
                                     parseLineLabel(chooseChild, _ifContent);
+                                    continue;
                                 }
 
                                 //
                                 // else process
                                 //
                                 if ("else".equals(chooseChild.getName())) {
-                                    _elseContent = new NewlineBuilder();
+                                    _elseContent = new NewlineBuilder(trim(chooseChild.getText()));
                                     parseLineLabel(chooseChild, _elseContent);
                                 }
 
                             }
-                            toJavaCodeByChooseLabel(test, _ifContent, _elseContent);
+                            NewlineBuilder jcode = toJavaCodeByChooseLabel(test, _ifContent, _elseContent);
+                            addMethodContent(jcode, methodBuilder);
                         }
 
                         //
                         // if节点
                         //
                         if ("if".equals(elementName)) {
-
+                            // 获取if标签中的内容
+                            String test = element.getAttributeValue("test");
+                            NewlineBuilder _ifContent = new NewlineBuilder(trim(element.getText()));
+                            // 判断是否存在<line>节点
+                            parseLineLabel(element, _ifContent);
+                            NewlineBuilder jcode = toJavaCodeByChooseLabel(test, _ifContent, null);
+                            addMethodContent(jcode, methodBuilder);
                         }
                     }
-
                 }
-
+                System.out.println(methodBuilder.toString());
             }
+        }
+    }
+
+    public void addMethodContent(NewlineBuilder jcode, MethodBuilder methodBuilder) {
+        if (jcode != null) {
+            methodBuilder.insert(jcode);
         }
     }
 
@@ -155,35 +169,54 @@ public class ReaderBuilder {
      * @param _ifContent        if代码块中需要的内容
      * @param _elseContent      else代码块中需要的内容
      */
-    private void toJavaCodeByChooseLabel(String test, NewlineBuilder _ifContent,
-                                         NewlineBuilder _elseContent) {
+    private NewlineBuilder toJavaCodeByChooseLabel(String test, NewlineBuilder _ifContent,
+                                                   NewlineBuilder _elseContent) {
+        Map<String, String> _elseParams = null;
+        Map<String, String> _ifParams = getParamNameAndLineData(_ifContent);
+        if (_elseContent != null) {
+            _elseParams = getParamNameAndLineData(_elseContent);
+        }
+        if (_ifParams == null) return null;
         NewlineBuilder codeBuilder = new NewlineBuilder();
         test = test.replaceAll("and", "&&");
         test = test.replaceAll("or", "||");
         test = test.replaceAll("'", "\"");
-        Map<String, String> _ifParams = getParamNameAndLineData(_ifContent);
-        Map<String, String> _elseParams = getParamNameAndLineData(_elseContent);
 
         StringBuilder expBuilder = new StringBuilder();
 
-        if (test.contains("$req")) {
-            for (Map.Entry<String, String> param : _ifParams.entrySet()) {
-                String key = param.getKey();
-                String values = param.getValue();
-                expBuilder.append("if(")
-                        .append(test.replaceAll("\\$req", key))
-                        .append("){\n");
-                for (String value : values.split("@")) {
-                    expBuilder.append("\t#varable#.append(\"")
-                            .append(value)
-                            .append("\");\n");
-                }
-                expBuilder.append("}\n");
+        for (Map.Entry<String, String> param : _ifParams.entrySet()) {
+            String key = param.getKey();
+            String values = param.getValue();
+            expBuilder.append("if(");
+            if (test.contains("$req")) {
+                expBuilder.append(test.replaceAll("\\$req", key));
+            } else {
+                expBuilder.append(test);
             }
-            codeBuilder.appendLine(expBuilder.toString());
-            expBuilder.delete(0, expBuilder.length());
+            expBuilder.append(")\n{\n");
+            for (String value : values.split("@")) {
+                expBuilder.append("\t#varable#.append(\"")
+                        .append(value)
+                        .append("\");\n");
+            }
+            expBuilder.append("}\n");
+
+            if (_elseParams != null) {
+                String _else = _elseParams.get(key);
+                if (!StringUtils.isEmpty(_else)) {
+
+                    expBuilder.append("else\n{\n")
+                            .append("\t#varable#.append(\"")
+                            .append(_else)
+                            .append("\");\n")
+                            .append("}\n")
+                    ;
+                }
+            }
         }
-        System.out.println(codeBuilder.toString());
+        codeBuilder.appendLine(expBuilder.toString());
+        expBuilder.delete(0, expBuilder.length());
+        return codeBuilder;
     }
 
     /**
@@ -209,44 +242,6 @@ public class ReaderBuilder {
             }
         }
         return paramAndLine;
-    }
-
-    /**
-     * 解析if test属性中的内容
-     * 可能出现的运算符有以下几种
-     *
-     *      1. ==
-     *      2. !=
-     *      3. <=
-     *      4. >=
-     *      5. <
-     *      6. >
-     *
-     * @param test test属性
-     * @return 解析后的JavaCode
-     */
-    private String iftest(String test) {
-        StringBuilder result = new StringBuilder();
-        StringBuilder content = new StringBuilder();
-
-        for (char value : test.toCharArray()) {
-            if (value == ' ') {
-                String contentValue = content.toString();
-                if (contentValue.equals("==")) {
-                } else if (contentValue.equals("!=")) {
-                } else if (contentValue.equals("<=")) {
-                } else if (contentValue.equals(">=")) {
-                } else if (contentValue.equals("<")) {
-                } else if (contentValue.equals(">")) {
-                } else if (contentValue.equals("or")) {
-                } else if (contentValue.equals("and")) {
-                } else {
-                }
-            }
-            content.append(value);
-        }
-
-        return result.toString();
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.poseidon.framework.sql.builder;
 
+import com.poseidon.framework.tools.NewlineBuilder;
 import com.poseidon.framework.tools.StringNewline;
 import com.poseidon.framework.tools.StringUtils;
 
@@ -52,6 +53,13 @@ public class MethodBuilder extends StringNewline implements MethodBuilderFacotry
     public MethodBuilder insert(String value) {
         insertLine(next, "\t".concat(value));
         next++;
+        return this;
+    }
+
+    public MethodBuilder insert(NewlineBuilder value){
+        while(value.hasNext()){
+            insert(value.next());
+        }
         return this;
     }
 

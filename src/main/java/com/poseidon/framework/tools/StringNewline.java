@@ -196,12 +196,12 @@ public abstract class StringNewline
             offset = this.line[line] + pos;
         }
         char[] strValue = str.toCharArray();
-        char[] temp = new char[(offset + strLen) + 16];
+        char[] temp = new char[(strLen << 1) + this.value.length + 16];
         char[] end = new char[(valuePointer - offset)];
         System.arraycopy(value, 0, temp, 0, offset);
         System.arraycopy(value, offset, end, 0, end.length);
         System.arraycopy(strValue, 0, temp, offset, strValue.length);
-        offset = offset + strValue.length;
+        offset = offset + strLen;
         System.arraycopy(end, 0, temp, offset, end.length);
         this.value = temp;
         for (int i = line + 1; i < linePointer; i++) {
