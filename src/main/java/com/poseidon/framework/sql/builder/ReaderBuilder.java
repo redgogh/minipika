@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
  */
 public class ReaderBuilder {
 
-    private Pattern params = Pattern.compile("\\{\\{(.*?)}}");
+    private Pattern paramsPattern = Pattern.compile("\\{\\{(.*?)}}");
 
     /**
      * 获取xml文件列表
@@ -73,7 +73,7 @@ public class ReaderBuilder {
                     // 如果是文本文件
                     if (content.getCType() == Content.CType.Text) {
                         String value = content.getValue().trim();
-                        if(!StringUtils.isEmpty(value)) {
+                        if (!StringUtils.isEmpty(value)) {
                             methodBuilder.insert("sql.append(\"".concat(StringUtils.trim(value)).concat("\");"));
                         }
                         continue;
@@ -136,7 +136,18 @@ public class ReaderBuilder {
                         }
                     }
                 }
-                System.out.println(methodBuilder.toString());
+
+                //
+                // 解析完后开始添加参数
+                //
+                Matcher matcher = paramsPattern.matcher(methodBuilder.toString());
+                String args = "";
+                while(matcher.find()){
+                    String value = matcher.group(1);
+                    args = args.concat(JavaElement.OBJECT).concat(" ").concat(value).concat(", ");
+                }
+                args = args.substring(0,args.lastIndexOf(","));
+                System.out.println(methodBuilder.toString(args));
             }
         }
     }
@@ -228,7 +239,7 @@ public class ReaderBuilder {
         Map<String, String> paramAndLine = null;
         while (builder.hasNext()) {
             String next = builder.next();
-            Matcher matcher = params.matcher(next);
+            Matcher matcher = paramsPattern.matcher(next);
             while (matcher.find()) {
                 String value = matcher.group(1);
                 if (!StringUtils.isEmpty(value)) {

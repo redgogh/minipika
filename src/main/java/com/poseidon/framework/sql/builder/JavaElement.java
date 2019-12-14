@@ -5,6 +5,7 @@ package com.poseidon.framework.sql.builder;
  */
 public class JavaElement {
 
+    public static final String OBJECT                   = "java.lang.Object";
     public static final String STRING_OBJECT            = "java.lang.String";
     public static final String STRING_BUFFER_OBJECT     = "java.lang.StringBuffer";
     public static final String STRING_BUILDER_OBJECT    = "java.lang.StringBuilder";

@@ -37,7 +37,8 @@ public class MethodBuilder extends StringNewline implements MethodBuilderFacotry
         if (_return != null) {
             returnStr = "\treturn ".concat(_return).concat(";\n");
         }
-        modify = modify.concat("(").concat(")\n{\n");
+        // 这边需要格式化的是参数
+        modify = modify.concat("({}").concat(")\n{\n");
         append(modify);
         append(returnStr);
         append("}\n");
@@ -63,4 +64,12 @@ public class MethodBuilder extends StringNewline implements MethodBuilderFacotry
         return this;
     }
 
+    /**
+     * 给方法添加上参数
+     * @param args
+     * @return
+     */
+    public String toString(String args) {
+        return StringUtils.format(super.toString(),args);
+    }
 }
