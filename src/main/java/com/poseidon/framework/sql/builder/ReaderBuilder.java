@@ -142,22 +142,41 @@ public class ReaderBuilder {
      */
     private void toJavaCodeByChooseLabel(String test, NewlineBuilder _ifContent,
                                          NewlineBuilder _elseContent) {
-        Map<String,String> _ifParams = null;
-        while(_ifContent.hasNext()) {
-            String next = _ifContent.next();
+        test = test.replaceAll("and","&&");
+        test = test.replaceAll("or","||");
+        test = test.replaceAll("'","\"");
+        Map<String,String> _ifParams = getParamNameAndLineData(_ifContent);
+        Map<String,String> _elseParams = getParamNameAndLineData(_elseContent);
+
+        if(!test.contains("$req")){
+
+        }
+
+    }
+
+    /**
+     * 获取参数变量以及所在行
+     * @param builder   NewlineBuilder
+     * @return Map
+     */
+    public Map<String,String> getParamNameAndLineData(NewlineBuilder builder){
+        Map<String,String> paramAndLine = null;
+        while(builder.hasNext()) {
+            String next = builder.next();
             Matcher matcher = params.matcher(next);
             while(matcher.find()){
                 String value = matcher.group(1);
                 if(!StringUtils.isEmpty(value)){
-                    if(_ifParams == null) _ifParams = new HashMap<>();
-                    if(_ifParams.get(value) == null){
-                        _ifParams.put(value,next);
+                    if(paramAndLine == null) paramAndLine = new HashMap<>();
+                    if(paramAndLine.get(value) == null){
+                        paramAndLine.put(value,next);
                     }else{
-                        _ifParams.put(value,_ifParams.get(value).concat("@").concat(next));
+                        paramAndLine.put(value,paramAndLine.get(value).concat("@").concat(next));
                     }
                 }
             }
         }
+        return paramAndLine;
     }
 
     /**
