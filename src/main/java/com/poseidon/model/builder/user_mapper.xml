@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<builder>
+<builder name="UserMapper">
 
     <mapper name="findUserByName">
 
@@ -13,6 +13,20 @@
         <if test="password != null">
             password = {{password}}
         </if>
+    </mapper>
+
+    <mapper name="findUserByXX">
+
+        aaa
+        <chose>
+            <if test="1 = 1">
+                bbb
+            </if>
+            <else>
+                ccc
+            </else>
+        </chose>
+
     </mapper>
 
 </builder>

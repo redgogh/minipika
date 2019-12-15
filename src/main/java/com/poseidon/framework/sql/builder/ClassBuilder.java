@@ -3,6 +3,10 @@ package com.poseidon.framework.sql.builder;
 import com.poseidon.framework.tools.NewlineBuilder;
 import com.poseidon.framework.tools.StringNewline;
 import com.poseidon.framework.tools.StringUtils;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,56 +14,44 @@ import java.util.List;
  */
 public class ClassBuilder extends StringNewline implements CodeBuilderFactory{
 
+    @Setter
+    @Getter
+    private String fullClassName;
+
+    @Setter
+    @Getter
+    private String name;
+
+    private int next = 0;
+
     private List<MethodBuilder> methods;
     private List<NewlineBuilder> varibale;
 
-    public ClassBuilder() {
+    public ClassBuilder(String name,String fullClassName){
+        this.name = name;
+        this.fullClassName = fullClassName.concat(name);
     }
-
-    public ClassBuilder(int size) {
-        super(size);
-    }
-
-    public ClassBuilder(int valueCapacity, int lineCapacity) {
-        super(valueCapacity, lineCapacity);
-    }
-
-    public ClassBuilder(String str) {
-        super(str);
-    }
-
-    public ClassBuilder(char[] charArray) {
-        super(charArray);
-    }
-
 
     @Override
-    public ClassBuilder createObject(String name, String type){
-        append(type).append(" ").append(name).append(" = ").append(type).append("();\n");
+    public ClassBuilder methodToClassBody() {
+        for (MethodBuilder method : methods) {
+            insertLine(next++,method.toString(method.getArgs()));
+        }
         return this;
     }
 
     @Override
-    public ClassBuilder transfer(String variable, String method) {
-        return transfer(variable, method,null);
-    }
-
-    @Override
-    public ClassBuilder transfer(String variable, String method, String... args) {
-        String content = "(";
-        if(args != null){
-            for(String arg : args){
-                content.concat(arg).concat(",");
-            }
-            content = StringUtils.deleteLastString(content);
-        }
-        content.concat(");\n");
-        append(variable).append(".").append(method).append(content);
+    public ClassBuilder createClassStatement() {
+        appendLine("public class ".concat(name).concat(" {"));
+        appendLine("}");
         return null;
     }
 
     @Override
-    public ClassBuilder addMethod(MethodBuilder methodBuilder) {
+    public ClassBuilder putMethod(MethodBuilder methodBuilder) {
+        if(methods == null){
+            methods = new ArrayList<>();
+        }
         methods.add(methodBuilder);
         return this;
     }

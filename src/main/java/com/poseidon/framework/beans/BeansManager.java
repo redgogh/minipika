@@ -13,6 +13,7 @@ import com.poseidon.framework.exception.BeansManagerException;
 import com.poseidon.framework.timer.Timer;
 import com.poseidon.framework.timer.TimerManager;
 import com.poseidon.framework.tools.StringUtils;
+import javassist.ClassPool;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -52,6 +53,11 @@ public class BeansManager {
     @Resource(name = "pool")
     private ConnectionPool newConnectionPool() {
         return new com.poseidon.framework.pool.ConnectionPool();
+    }
+
+    @Resource(name = "classPool")
+    private ClassPool getClassPool(){
+        return ClassPool.getDefault();
     }
 
     // get bean

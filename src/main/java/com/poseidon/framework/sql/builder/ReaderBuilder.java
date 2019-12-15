@@ -1,6 +1,7 @@
 package com.poseidon.framework.sql.builder;
 
 
+import com.poseidon.framework.compiler.LoaderClassBuilder;
 import com.poseidon.framework.exception.BuilderXmlException;
 import com.poseidon.framework.tools.NewlineBuilder;
 import com.poseidon.framework.tools.PoseidonUtils;
@@ -11,6 +12,7 @@ import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +42,8 @@ public class ReaderBuilder {
 
     private Pattern paramsPattern = Pattern.compile("\\{\\{(.*?)}}");
 
+    private String fullPath = "com.poseidon.mapper.$class.";
+
     /**
      * 获取xml文件列表
      * @return
@@ -49,14 +53,29 @@ public class ReaderBuilder {
     }
 
     public void parseXML() throws Exception {
+
+        List<ClassBuilder> classBuilderList = new ArrayList<>();
+
         SAXBuilder saxBuilder = new SAXBuilder();
         String sbo = JavaElement.STRING_BUILDER_OBJECT;
+
+        /*
+         * 开始解析mapper xml
+         */
         for (File mapperXML : getBuilderXMLFiles()) {
 
             Document document = saxBuilder.build(mapperXML);
             Element rootElement = document.getRootElement();
 
+            String builderName = rootElement.getAttributeValue("name");
+            if(StringUtils.isEmpty(builderName))
+                throw new BuilderXmlException("builder label attribute \"name\" cannot null");
+
             List<Element> mappers = rootElement.getChildren();
+            // 构建一个ClassBuilder
+            ClassBuilder classBuilder=new ClassBuilder(builderName,fullPath);
+            classBuilder.createClassStatement();
+
             for (Element mapper : mappers) {
 
                 //
@@ -66,7 +85,6 @@ public class ReaderBuilder {
                 MethodBuilder methodBuilder = new MethodBuilder();
                 methodBuilder.createMethod("public static {} {}", "sql.toString()", JavaElement.STRING_OBJECT, nameValue);
                 methodBuilder.insert(sbo.concat(" sql = new ").concat(sbo).concat("();"));
-
 
                 for (Content content : mapper.getContent()) {
 
@@ -146,12 +164,25 @@ public class ReaderBuilder {
                     String value = matcher.group(1);
                     args = args.concat(JavaElement.OBJECT).concat(" ").concat(value).concat(", ");
                 }
-                args = args.substring(0,args.lastIndexOf(","));
-                System.out.println(methodBuilder.toString(args));
+                if(!StringUtils.isEmpty(args)) {
+                    args = args.substring(0, args.lastIndexOf(","));
+                }
+                methodBuilder.setArgs(args);
+                classBuilder.putMethod(methodBuilder);
             }
+            classBuilderList.add(classBuilder);
         }
+
+        LoaderClassBuilder loader = new LoaderClassBuilder();
+        loader.put(classBuilderList);
+
     }
 
+    /**
+     * 添加解析后的代码
+     * @param jcode             javaCode我简写成jcode
+     * @param methodBuilder     methodBuilder对象
+     */
     public void addMethodContent(NewlineBuilder jcode, MethodBuilder methodBuilder) {
         if (jcode != null) {
             methodBuilder.insert(jcode);

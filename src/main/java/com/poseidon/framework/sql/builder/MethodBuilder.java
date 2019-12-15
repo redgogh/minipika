@@ -3,6 +3,8 @@ package com.poseidon.framework.sql.builder;
 import com.poseidon.framework.tools.NewlineBuilder;
 import com.poseidon.framework.tools.StringNewline;
 import com.poseidon.framework.tools.StringUtils;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Create by 2BKeyboard on 2019/12/13 23:57
@@ -10,6 +12,10 @@ import com.poseidon.framework.tools.StringUtils;
 public class MethodBuilder extends StringNewline implements MethodBuilderFacotry {
 
     private int next = 1;
+
+    @Getter
+    @Setter
+    private String args;
 
     public MethodBuilder() {
     }
