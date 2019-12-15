@@ -7,26 +7,12 @@
         from user
         where
         1=1
-        <if test="username != null">
+        <if test="username != 1">
             username = {{username}}
         </if>
         <if test="password != null">
             password = {{password}}
         </if>
-    </mapper>
-
-    <mapper name="findUserByXX">
-
-        aaa
-        <chose>
-            <if test="1 = 1">
-                bbb
-            </if>
-            <else>
-                ccc
-            </else>
-        </chose>
-
     </mapper>
 
 </builder>

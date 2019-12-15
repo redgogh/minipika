@@ -34,15 +34,17 @@ public class ClassBuilder extends StringNewline implements CodeBuilderFactory{
 
     @Override
     public ClassBuilder methodToClassBody() {
+        StringBuilder builder = new StringBuilder();
         for (MethodBuilder method : methods) {
-            insertLine(next++,method.toString(method.getArgs()));
+            builder.append(method.toString(method.getArgs()));
         }
+        insertLine(next,builder.toString());
         return this;
     }
 
     @Override
     public ClassBuilder createClassStatement() {
-        appendLine("public class ".concat(name).concat(" {"));
+        appendLine("public class ".concat(name).concat(" {\n"));
         appendLine("}");
         return null;
     }

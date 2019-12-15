@@ -92,7 +92,7 @@ public class ReaderBuilder {
                     if (content.getCType() == Content.CType.Text) {
                         String value = content.getValue().trim();
                         if (!StringUtils.isEmpty(value)) {
-                            methodBuilder.insert("sql.append(\"".concat(StringUtils.trim(value)).concat("\");"));
+                            methodBuilder.insert("sql.append(\" ".concat(StringUtils.trim(value)).concat(" \");"));
                         }
                         continue;
                     }
@@ -220,8 +220,8 @@ public class ReaderBuilder {
         }
         if (_ifParams == null) return null;
         NewlineBuilder codeBuilder = new NewlineBuilder();
-        test = test.replaceAll("and", "&&");
-        test = test.replaceAll("or", "||");
+        test = test.replaceAll(" and ", "&&");
+        test = test.replaceAll(" or ", "||");
         test = test.replaceAll("'", "\"");
 
         StringBuilder expBuilder = new StringBuilder();
@@ -235,23 +235,23 @@ public class ReaderBuilder {
             } else {
                 expBuilder.append(test);
             }
-            expBuilder.append(")\n{\n");
+            expBuilder.append(") { ");
             for (String value : values.split("@")) {
-                expBuilder.append("\t#varable#.append(\"")
+                expBuilder.append(" sql.append(\" ")
                         .append(value)
-                        .append("\");\n");
+                        .append(" \"); ");
             }
-            expBuilder.append("}\n");
+            expBuilder.append("} ");
 
             if (_elseParams != null) {
                 String _else = _elseParams.get(key);
                 if (!StringUtils.isEmpty(_else)) {
 
-                    expBuilder.append("else\n{\n")
-                            .append("\t#varable#.append(\"")
+                    expBuilder.append("else { ")
+                            .append("\tsql.append(\" ")
                             .append(_else)
-                            .append("\");\n")
-                            .append("}\n")
+                            .append(" \"); ")
+                            .append("} ")
                     ;
                 }
             }
@@ -259,6 +259,15 @@ public class ReaderBuilder {
         codeBuilder.appendLine(expBuilder.toString());
         expBuilder.delete(0, expBuilder.length());
         return codeBuilder;
+    }
+
+    /**
+     * 处理test中的表达式
+     * @param test
+     * @return
+     */
+    private String testProcess(String test){
+        return test;
     }
 
     /**
