@@ -12,10 +12,7 @@ import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,6 +41,8 @@ public class ReaderBuilder {
 
     private String fullPath = "com.poseidon.mapper.$class.";
 
+    enum TestToken {EXPS, IDEN}
+
     /**
      * 获取xml文件列表
      * @return
@@ -68,12 +67,12 @@ public class ReaderBuilder {
             Element rootElement = document.getRootElement();
 
             String builderName = rootElement.getAttributeValue("name");
-            if(StringUtils.isEmpty(builderName))
+            if (StringUtils.isEmpty(builderName))
                 throw new BuilderXmlException("builder label attribute \"name\" cannot null");
 
             List<Element> mappers = rootElement.getChildren();
             // 构建一个ClassBuilder
-            ClassBuilder classBuilder=new ClassBuilder(builderName,fullPath);
+            ClassBuilder classBuilder = new ClassBuilder(builderName, fullPath);
             classBuilder.createClassStatement();
 
             for (Element mapper : mappers) {
@@ -160,11 +159,11 @@ public class ReaderBuilder {
                 //
                 Matcher matcher = paramsPattern.matcher(methodBuilder.toString());
                 String args = "";
-                while(matcher.find()){
+                while (matcher.find()) {
                     String value = matcher.group(1);
                     args = args.concat(JavaElement.OBJECT).concat(" ").concat(value).concat(", ");
                 }
-                if(!StringUtils.isEmpty(args)) {
+                if (!StringUtils.isEmpty(args)) {
                     args = args.substring(0, args.lastIndexOf(","));
                 }
                 methodBuilder.setArgs(args);
@@ -223,6 +222,7 @@ public class ReaderBuilder {
         test = test.replaceAll(" and ", "&&");
         test = test.replaceAll(" or ", "||");
         test = test.replaceAll("'", "\"");
+        testProcess(test);
 
         StringBuilder expBuilder = new StringBuilder();
 
@@ -266,7 +266,9 @@ public class ReaderBuilder {
      * @param test
      * @return
      */
-    private String testProcess(String test){
+    private String testProcess(String test) {
+        boolean isString = false;
+        Map<TestToken, String> testMap = new LinkedHashMap<>();
         return test;
     }
 
