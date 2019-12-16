@@ -1,0 +1,29 @@
+package org.laniakea.poseidon.model.timer;
+
+import org.laniakea.poseidon.framework.timer.Timer;
+import org.laniakea.poseidon.framework.tools.TimeUtils;
+
+import java.util.ArrayList;
+
+/**
+ * Create by 2BKeyboard on 2019/12/9 11:19
+ */
+public class Timer2 implements Timer {
+
+    private int count;
+
+    @Override
+    public void run() {
+        if(count == 2){
+            ArrayList a = null;
+            a.clear();
+        }
+        System.err.println("timer2");
+        count++;
+    }
+
+    @Override
+    public long time() {
+        return TimeUtils.SECOND * 2;
+    }
+}
