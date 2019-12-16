@@ -1,6 +1,6 @@
 package org.maitreya.poseidon.framework.model;
 
-import com.poseidon.framework.annotation.*;
+
 import org.maitreya.poseidon.framework.exception.PoseidonException;
 import org.maitreya.poseidon.framework.tools.StringUtils;
 import org.maitreya.poseidon.framework.tools.PoseidonUtils;

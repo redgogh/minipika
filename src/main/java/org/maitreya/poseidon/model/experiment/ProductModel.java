@@ -1,6 +1,5 @@
 package org.maitreya.poseidon.model.experiment;
 
-import com.poseidon.framework.annotation.*;
 import lombok.Data;
 import org.maitreya.poseidon.framework.annotation.Column;
 import org.maitreya.poseidon.framework.annotation.Comment;

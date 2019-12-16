@@ -565,8 +565,8 @@ public class ReaderBuilderOld {
 
     public static void main(String[] args) throws Exception {
         ReaderBuilderOld readerBuilder = new ReaderBuilderOld();
-        // readerBuilder.parseXML();
-        System.out.println(readerBuilder.testProcess("1 != $empty"));
+        readerBuilder.parseXML();
+        // System.out.println(readerBuilder.testProcess("1 != $empty"));
     }
 
 }

@@ -8,7 +8,6 @@ import org.maitreya.poseidon.framework.cache.PoseidonCache;
 import org.maitreya.poseidon.framework.db.JdbcSupport;
 import org.maitreya.poseidon.framework.db.NativeResult;
 import org.maitreya.poseidon.framework.cache.PoseidonCacheImpl;
-import com.poseidon.framework.db.*;
 import org.maitreya.poseidon.framework.exception.BeansManagerException;
 import org.maitreya.poseidon.framework.timer.Timer;
 import org.maitreya.poseidon.framework.timer.TimerManager;
@@ -53,7 +52,7 @@ public class BeansManager {
 
     @Resource(name = "pool")
     private ConnectionPool newConnectionPool() {
-        return new ConnectionPool();
+        return new org.maitreya.poseidon.framework.pool.ConnectionPool();
     }
 
     @Resource(name = "classPool")

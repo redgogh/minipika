@@ -1,4 +1,4 @@
-package org.maitreya.poseidon.compiler;
+package org.maitreya.poseidon.framework.compiler;
 
 import javax.tools.*;
 import java.io.*;

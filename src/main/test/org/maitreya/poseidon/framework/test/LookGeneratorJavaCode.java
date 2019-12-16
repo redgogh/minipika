@@ -1,4 +1,4 @@
-package org.maitreya.poseidon.test;
+package org.maitreya.poseidon.framework.test;
 
 import java.util.HashMap;
 import java.util.Map;
