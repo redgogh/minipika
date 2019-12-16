@@ -9,7 +9,6 @@ import java.util.Map;
 public class LookGeneratorJavaCode {
 
     public static void main(String[] args) {
-
         System.out.println(findUserByName());
 
     }
