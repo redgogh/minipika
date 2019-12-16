@@ -37,7 +37,7 @@ public class StringUtils {
      * @param v 目标字符串
      * @return 返回该字符串的最后一个字符
      */
-    public static String getLastString(String v) {
+    public static String getLastCharacter(String v) {
         return v.substring(v.length() - 1);
     }
 
