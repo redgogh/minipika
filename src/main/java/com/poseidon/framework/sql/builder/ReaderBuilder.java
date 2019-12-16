@@ -3,15 +3,18 @@ package com.poseidon.framework.sql.builder;
 
 import com.poseidon.framework.compiler.LoaderClassBuilder;
 import com.poseidon.framework.exception.BuilderXmlException;
+import com.poseidon.framework.exception.ExpressionException;
 import com.poseidon.framework.tools.NewlineBuilder;
 import com.poseidon.framework.tools.PoseidonUtils;
 import com.poseidon.framework.tools.StringUtils;
+import jdk.nashorn.internal.parser.Token;
+import lombok.Data;
 import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 
-import java.io.*;
+import java.io.File;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,8 +43,6 @@ public class ReaderBuilder {
     private Pattern paramsPattern = Pattern.compile("\\{\\{(.*?)}}");
 
     private String fullPath = "com.poseidon.mapper.$class.";
-
-    enum TestToken {EXPS, IDEN}
 
     /**
      * 获取xml文件列表
@@ -219,9 +220,6 @@ public class ReaderBuilder {
         }
         if (_ifParams == null) return null;
         NewlineBuilder codeBuilder = new NewlineBuilder();
-        test = test.replaceAll(" and ", "&&");
-        test = test.replaceAll(" or ", "||");
-        test = test.replaceAll("'", "\"");
         testProcess(test);
 
         StringBuilder expBuilder = new StringBuilder();
@@ -266,10 +264,139 @@ public class ReaderBuilder {
      * @param test
      * @return
      */
+    @SuppressWarnings({"all"})
     private String testProcess(String test) {
         boolean isString = false;
-        Map<TestToken, String> testMap = new LinkedHashMap<>();
+        // test = test.replaceAll("'", "\"");
+        test = test.replaceAll(" or ", " || ");
+        test = test.replaceAll(" and ", " && ");
+        char[] charArray = test.toCharArray();
+        StringBuilder builder = new StringBuilder();
+        List<TokenValue> tokens = new LinkedList<>();
+        // Map<String, TestToken> testMap = new LinkedHashMap<>();
+        for (int i = 0; i < charArray.length; i++) {
+            char c = charArray[i];
+            // 处理String
+            if (isString) {
+                if (c == '\'') {
+                    isString = false;
+                    builder.append("\"");
+                    {
+                        tokens.add(TokenValue.buildToken(TestToken.IDEN, builder.toString()));
+                    }
+                    clear(builder);
+                } else {
+                    builder.append(c);
+                }
+                continue;
+            }
+
+            if (c == ' ') continue; // 如果不是String内扫描到空格直接跳过
+
+            switch (c) {
+                case '=': {
+                    String builderValue = builder.toString();
+                    if (!builderValue.equals("=")
+                            && !builderValue.equals("!")
+                            && !builderValue.equals("<")
+                            && !builderValue.equals(">")) {
+                        if (!StringUtils.isEmpty(builder.toString())) {
+                            tokens.add(TokenValue.buildToken(TestToken.IDEN, builder.toString()));
+                        }
+                        clear(builder);
+                        builder.append(c);
+                        break;
+                    } else {
+                        builder.append(c);
+                        if (!StringUtils.isEmpty(builder.toString())) {
+                            tokens.add(TokenValue.buildToken(TestToken.OP, builder.toString()));
+                        }
+                        clear(builder);
+                        break;
+                    }
+                }
+                case '!': {
+                    if (!StringUtils.isEmpty(builder.toString())) {
+                        tokens.add(TokenValue.buildToken(TestToken.IDEN, builder.toString()));
+                    }
+                    clear(builder);
+                    builder.append(c);
+                    break;
+                }
+                case '<': {
+                    if (!StringUtils.isEmpty(builder.toString())) {
+                        tokens.add(TokenValue.buildToken(TestToken.IDEN, builder.toString()));
+                    }
+                    clear(builder);
+                    builder.append(c);
+                    break;
+                }
+                case '>': {
+                    if (!StringUtils.isEmpty(builder.toString())) {
+                        tokens.add(TokenValue.buildToken(TestToken.IDEN, builder.toString()));
+                    }
+                    clear(builder);
+                    builder.append(c);
+                    break;
+                }
+                case '&': {
+                    String builderValue = builder.toString();
+                    if (!builderValue.equals("&")) {
+                        if (!StringUtils.isEmpty(builder.toString())) {
+                            tokens.add(TokenValue.buildToken(TestToken.IDEN, builder.toString()));
+                        }
+                        clear(builder);
+                        builder.append(c);
+                    } else {
+                        builder.append(c);
+                        if (!StringUtils.isEmpty(builder.toString())) {
+                            tokens.add(TokenValue.buildToken(TestToken.LOGICAL, builder.toString()));
+                        }
+                        clear(builder);
+                    }
+                    break;
+                }
+                case '|': {
+                    String builderValue = builder.toString();
+                    if (!builderValue.equals("|")) {
+                        if (!StringUtils.isEmpty(builder.toString()))
+                            tokens.add(TokenValue.buildToken(TestToken.IDEN, builderValue));
+                        clear(builder);
+                        builder.append(c);
+                    } else {
+                        builder.append(c);
+                        if (!StringUtils.isEmpty(builder.toString())) {
+                            tokens.add(TokenValue.buildToken(TestToken.LOGICAL, builder.toString()));
+                        }
+                        clear(builder);
+                    }
+                    break;
+                }
+                case '\'': {
+                    if (!isString) {
+                        builder.append("\"");
+                        isString = true;
+                    }
+                    break;
+                }
+                default: {
+                    builder.append(c);
+                }
+            }
+        }
+        {
+            tokens.add(TokenValue.buildToken(TestToken.IDEN, builder.toString()));
+        }
+        clear(builder);
         return test;
+    }
+
+    /**
+     * 清空StringBuilder
+     * @param builder 被清空的对象
+     */
+    private void clear(StringBuilder builder) {
+        builder.delete(0, builder.length());
     }
 
     /**
@@ -336,7 +463,8 @@ public class ReaderBuilder {
 
     public static void main(String[] args) throws Exception {
         ReaderBuilder readerBuilder = new ReaderBuilder();
-        readerBuilder.parseXML();
+        // readerBuilder.parseXML();
+        readerBuilder.testProcess("abc == 1 and name == 'aa' or c ==123");
     }
 
 }
