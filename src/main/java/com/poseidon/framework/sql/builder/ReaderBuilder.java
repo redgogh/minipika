@@ -282,9 +282,7 @@ public class ReaderBuilder {
                 if (c == '\'') {
                     isString = false;
                     builder.append("\"");
-                    {
-                        tokens.add(TokenValue.buildToken(Token.IDEN, builder.toString()));
-                    }
+                    tokens.add(TokenValue.buildToken(Token.IDEN, builder.toString()));
                     clear(builder);
                 } else {
                     builder.append(c);
@@ -431,76 +429,22 @@ public class ReaderBuilder {
     private String toJavaCodeByTokenValue(TokenValue previous, TokenValue next, TokenValue op) {
         String nextValue = next.getValue();
         Token nextToken = getToken(nextValue);
-        String nextFirstCharacter = StringUtils.getFirstCharacter(nextValue);
         String previousValue = checkPrevious(previous);
         Token previousToken = getToken(previousValue);
-        String previousFirstCharacter = StringUtils.getFirstCharacter(previousValue);
         StringBuilder result = new StringBuilder();
 
-        //
-        // 如果参数是内置提供的参数如：$empty
-        //
-        if (nextToken == Token.PROVIDE) {
-            //
-            // 如果是PROVIDE_EMPTY
-            //
-            if (PROVIDE_EMPTY.equals(nextValue)) {
-                checkCondition(previousToken,nextToken);
-                if (op.getToken() == Token.EQ) {
-                    if (nextToken != Token.VARIABLE) {
-                        result.append("com.poseidon.framework.tools.StringUtils.isEmpty(")
-                                .append("map.get(\"")
-                                .append(previousValue)
-                                .append("\"))");
-                    } else {
-                        result.append("com.poseidon.framework.tools.StringUtils.isEmpty(").append(previousValue).append(")");
-                    }
-                } else if (op.getToken() == Token.NE) {
-                    if (nextToken != Token.VARIABLE) {
-                        result.append("!com.poseidon.framework.tools.StringUtils.isEmpty(")
-                                .append("map.get(\"")
-                                .append(previousValue)
-                                .append("\"))");
-                    } else {
-                        result.append("!com.poseidon.framework.tools.StringUtils.isEmpty(").append(previousValue).append(")");
-                    }
-                } else {
-                    throw new ExpressionException("String type condition operator only ‘==’ or ‘!=’ cannot other");
-                }
-            }
-        }
+        Token opToken = op.getToken();
 
-        //
-        // 如果nextValue是String类型
-        //
-        if (nextToken == Token.STRING) {
-            checkCondition(previousToken,nextToken);
-            if(previousToken == Token.VARIABLE){
-                previousValue = "map.get(\"".concat(previousValue).concat("\")");
-                result.append(previousValue);
-            }
-            if(op.getToken() == Token.EQ){
-                result.append(StringUtils.format(".equals({})",nextValue));
-            }else if(op.getToken() == Token.NE){
-                result.append(StringUtils.format(".equals({})",nextValue));
-                result.insert(0,"!");
-            }else{
-                throw new ExpressionException("String type condition operator only ‘==’ or ‘!=’ cannot other");
-            }
-        }
-
-        //
-        // 如果nextValue是Number类型
-        //
-        if (nextToken == Token.NUMBER) {
-            checkCondition(previousToken,nextToken);
-            if(previousToken == Token.VARIABLE){
-                previousValue = "map.get(\"".concat(previousValue).concat("\")");
-            }
-            result.append(previousValue).append(" ".concat(op.getValue()).concat(" ")).append(nextValue);
-        }
+        if (nextToken == Token.VARIABLE)
+            nextValue = StringUtils.format("map.get(\"{}\")", nextValue);
+        if (previousToken == Token.VARIABLE)
+            previousValue = StringUtils.format("map.get(\"{}\")", previousValue);
 
         return result.toString();
+    }
+
+    private String format(String value, Object... args) {
+        return StringUtils.format(value, args);
     }
 
     /**
@@ -519,7 +463,7 @@ public class ReaderBuilder {
         if ("null".equals(value)) {
             return Token.NULL;
         }
-        if(StringUtils.isNumber(value)){
+        if (StringUtils.isNumber(value)) {
             return Token.NUMBER;
         }
         return Token.VARIABLE;
@@ -611,12 +555,12 @@ public class ReaderBuilder {
      * @param nextToken
      */
     private void checkCondition(Token previousToken, Token nextToken) {
-        if(nextToken == Token.STRING){
-            if(previousToken != Token.VARIABLE && previousToken != Token.PROVIDE && previousToken != Token.STRING)
+        if (nextToken == Token.STRING) {
+            if (previousToken != Token.VARIABLE && previousToken != Token.PROVIDE && previousToken != Token.STRING)
                 throw new ExpressionException("test content error: string cannot compare " + String.valueOf(previousToken).toLowerCase());
         }
-        if(nextToken == Token.NUMBER){
-            if(previousToken != Token.VARIABLE && previousToken != Token.PROVIDE && previousToken != Token.NUMBER)
+        if (nextToken == Token.NUMBER) {
+            if (previousToken != Token.VARIABLE && previousToken != Token.NUMBER)
                 throw new ExpressionException("test content error: string cannot compare " + String.valueOf(previousToken).toLowerCase());
         }
     }
@@ -624,7 +568,7 @@ public class ReaderBuilder {
     public static void main(String[] args) throws Exception {
         ReaderBuilder readerBuilder = new ReaderBuilder();
         // readerBuilder.parseXML();
-        readerBuilder.testProcess("name != 'lisi'");
+        System.out.println(readerBuilder.testProcess("1 != $empty"));
     }
 
 }

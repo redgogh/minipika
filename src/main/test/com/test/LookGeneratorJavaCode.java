@@ -12,15 +12,13 @@ public class LookGeneratorJavaCode {
 
         System.out.println(findUserByName());
 
-        StringBuilder builder = new StringBuilder("=");
-        System.out.println();
-
     }
 
     public static Object findUserByName(){
         Map<String,Object> map = new HashMap<>();
-        map.put("name",1);
-        return map.get("name") == "";
+        map.put("age1",20);
+        map.put("age2",30);
+        return (int) map.get("age1") > (int) map.get("age2");
     }
 
 }
