@@ -17,7 +17,7 @@ public class LookGeneratorJavaCode {
         Map<String,Object> map = new HashMap<>();
         map.put("age1",20);
         map.put("age2",30);
-        return (int) map.get("age1") > (int) map.get("age2");
+        return map.get("age1").equals(map.get("age2"));
     }
 
 }
