@@ -17,7 +17,7 @@ public class CompilerSQLMethod {
         //
         // sql
         //
-        StringBuilder sql = new StringBuilder("select * from user where 1=1 ");
+        StringBuilder sql = new StringBuilder("select * from users where 1=1 ");
 
         Object age = map.get("age");
 
