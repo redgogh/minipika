@@ -3,12 +3,9 @@ package com.poseidon.framework.sql.builder;
 
 import com.poseidon.framework.compiler.LoaderClassBuilder;
 import com.poseidon.framework.exception.BuilderXmlException;
-import com.poseidon.framework.exception.ExpressionException;
 import com.poseidon.framework.tools.NewlineBuilder;
 import com.poseidon.framework.tools.PoseidonUtils;
 import com.poseidon.framework.tools.StringUtils;
-import jdk.nashorn.internal.parser.Token;
-import lombok.Data;
 import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -260,8 +257,8 @@ public class ReaderBuilder {
     }
 
     /**
-     * todo 处理test中的表达式
-     * @param test
+     * 处理test中的表达式
+     * @param test test表达式内容
      * @return
      */
     @SuppressWarnings({"all"})
@@ -384,10 +381,11 @@ public class ReaderBuilder {
                 }
             }
         }
-        {
-            tokens.add(TokenValue.buildToken(TestToken.IDEN, builder.toString()));
-        }
+        tokens.add(TokenValue.buildToken(TestToken.IDEN, builder.toString()));
         clear(builder);
+
+        // todo 将变量转成从Map中获取,将基本数据类型包括String的转换成 equals
+
         return test;
     }
 
