@@ -477,6 +477,25 @@ public class ReaderBuilder {
             checkCondition(previousToken,nextToken);
             if(previousToken == Token.VARIABLE){
                 previousValue = "map.get(\"".concat(previousValue).concat("\")");
+                result.append(previousValue);
+            }
+            if(op.getToken() == Token.EQ){
+                result.append(StringUtils.format(".equals({})",nextValue));
+            }else if(op.getToken() == Token.NE){
+                result.append(StringUtils.format(".equals({})",nextValue));
+                result.insert(0,"!");
+            }else{
+                throw new ExpressionException("String type condition operator only ‘==’ or ‘!=’ cannot other");
+            }
+        }
+
+        //
+        // 如果nextValue是Number类型
+        //
+        if (nextToken == Token.NUMBER) {
+            checkCondition(previousToken,nextToken);
+            if(previousToken == Token.VARIABLE){
+                previousValue = "map.get(\"".concat(previousValue).concat("\")");
             }
             result.append(previousValue).append(" ".concat(op.getValue()).concat(" ")).append(nextValue);
         }
@@ -605,7 +624,7 @@ public class ReaderBuilder {
     public static void main(String[] args) throws Exception {
         ReaderBuilder readerBuilder = new ReaderBuilder();
         // readerBuilder.parseXML();
-        readerBuilder.testProcess("name == 'lisi'");
+        readerBuilder.testProcess("name != 'lisi'");
     }
 
 }
