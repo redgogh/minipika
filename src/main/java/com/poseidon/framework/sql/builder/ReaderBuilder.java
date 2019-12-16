@@ -3,6 +3,7 @@ package com.poseidon.framework.sql.builder;
 
 import com.poseidon.framework.compiler.LoaderClassBuilder;
 import com.poseidon.framework.exception.BuilderXmlException;
+import com.poseidon.framework.exception.ExpressionException;
 import com.poseidon.framework.tools.NewlineBuilder;
 import com.poseidon.framework.tools.PoseidonUtils;
 import com.poseidon.framework.tools.StringUtils;
@@ -306,7 +307,19 @@ public class ReaderBuilder {
                     } else {
                         builder.append(c);
                         if (!StringUtils.isEmpty(builder.toString())) {
-                            tokens.add(TokenValue.buildToken(TestToken.OP, builder.toString()));
+                            String value = builder.toString();
+                            if (value.equals("=="))
+                                tokens.add(TokenValue.buildToken(TestToken.EQ, TestToken.OP, value));
+                            if (value.equals("!="))
+                                tokens.add(TokenValue.buildToken(TestToken.NE, TestToken.OP, value));
+                            if (value.equals("<"))
+                                tokens.add(TokenValue.buildToken(TestToken.LT, TestToken.OP, value));
+                            if (value.equals("<="))
+                                tokens.add(TokenValue.buildToken(TestToken.LE, TestToken.OP, value));
+                            if (value.equals(">"))
+                                tokens.add(TokenValue.buildToken(TestToken.GE, TestToken.OP, value));
+                            if (value.equals(">="))
+                                tokens.add(TokenValue.buildToken(TestToken.GT, TestToken.OP, value));
                         }
                         clear(builder);
                         break;
@@ -347,7 +360,7 @@ public class ReaderBuilder {
                     } else {
                         builder.append(c);
                         if (!StringUtils.isEmpty(builder.toString())) {
-                            tokens.add(TokenValue.buildToken(TestToken.LOGICAL, builder.toString()));
+                            tokens.add(TokenValue.buildToken(TestToken.AND, builder.toString()));
                         }
                         clear(builder);
                     }
@@ -363,7 +376,7 @@ public class ReaderBuilder {
                     } else {
                         builder.append(c);
                         if (!StringUtils.isEmpty(builder.toString())) {
-                            tokens.add(TokenValue.buildToken(TestToken.LOGICAL, builder.toString()));
+                            tokens.add(TokenValue.buildToken(TestToken.OR, builder.toString()));
                         }
                         clear(builder);
                     }
@@ -384,9 +397,43 @@ public class ReaderBuilder {
         tokens.add(TokenValue.buildToken(TestToken.IDEN, builder.toString()));
         clear(builder);
 
-        // todo 将变量转成从Map中获取,将基本数据类型包括String的转换成 equals
+        // todo 将变量转成从Map中获取,将基本数据类型包括String的转换成equals
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0, len = tokens.size(); i < len; i++) {
+            String value = tokens.get(i).getValue();
+            TestToken root = tokens.get(i).getRoot();
+            TestToken token = tokens.get(i).getToken();
+
+            if (root == TestToken.OP) {
+
+                TokenValue next = tokens.get(i + 1);
+                TokenValue previous = tokens.get(i - 1);
+                toJavaCodeByTokenValue(previous, next);
+            }
+
+
+        }
 
         return test;
+    }
+
+    /**
+     * 获取更详细的Token值
+     * @param previous
+     * @param next
+     */
+    private void toJavaCodeByTokenValue(TokenValue previous, TokenValue next) {
+        String nextValue = checkPrevious(next);
+        String nextFirstCharacter = StringUtils.getFirstCharacter(nextValue);
+        String previousValue = checkPrevious(previous);
+        String previousFirstCharacter = StringUtils.getFirstCharacter(previousValue);
+        /*
+            如果条件的第一个值是String的话那么next就只能是$empty或者String类型以及NULL
+         */
+        if ("\"".equals(previousFirstCharacter)) {
+
+        }
     }
 
     /**
@@ -457,6 +504,16 @@ public class ReaderBuilder {
             throw new BuilderXmlException("tag: choose at least include a if label " + nameValue);
         if (StringUtils.isEmpty(_if.getAttribute("test").getValue()))
             throw new BuilderXmlException("tag: choose in if attribute test cannot null in " + nameValue);
+    }
+
+    /**
+     * 检查条件的第一个值是否符合要求
+     * @param previous
+     */
+    private String checkPrevious(TokenValue previous) {
+        if ("$".equals(StringUtils.getFirstCharacter(previous.getValue())))
+            throw new ExpressionException("condition the first value cannot is poseidon provide the object：" + previous.getValue());
+        return previous.getValue();
     }
 
     public static void main(String[] args) throws Exception {

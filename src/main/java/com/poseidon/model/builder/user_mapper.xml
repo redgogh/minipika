@@ -7,7 +7,7 @@
         from user
         where
         1=1
-        <if test="username != 'a'">
+        <if test="username != $empty">
             username = {{username}}
         </if>
         <if test="password != null">

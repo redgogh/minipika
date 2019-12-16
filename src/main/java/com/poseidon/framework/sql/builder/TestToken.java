@@ -5,5 +5,8 @@ package com.poseidon.framework.sql.builder;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public enum TestToken {
-    OP, IDEN, LOGICAL
+    OP, IDEN, LOGICAL,
+    LT,LE,EQ,NE,GE,GT, AND,OR,
+    STRING, NUMBER, VARIABLE,
+    PROVIDE,NULL
 }

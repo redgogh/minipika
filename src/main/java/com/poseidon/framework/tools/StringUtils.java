@@ -52,6 +52,25 @@ public class StringUtils {
     }
 
     /**
+     * 判断字符串是不是数字
+     * @param v
+     * @return
+     */
+    public static boolean isNumber(String v){
+        Pattern pattern = Pattern.compile("[0-9]*");
+        return pattern.matcher(v).matches();
+    }
+
+    /**
+     * 获取首字符
+     * @param v
+     * @return
+     */
+    public static String getFirstCharacter(String v){
+        return v.substring(0,1);
+    }
+
+    /**
      * 获取一个字符串的开始位置和结束位置
      *
      * @param v    源字符串
