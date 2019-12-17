@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Create by 2BKeyboard on 2019/12/11 23:16
  */
 public abstract class StringNewline
-        implements LineBuilderSupport,Serializable {
+        implements LineBuilder, Serializable {
 
     /**
      * 所有String都会被转换成char数组存放
@@ -271,11 +271,11 @@ public abstract class StringNewline
         }
     }
 
-    private void capacityCheck(char[] value){
+    private void capacityCheck(char[] value) {
         capacityCheck(value.length);
     }
 
-    private void capacityCheck(String str){
+    private void capacityCheck(String str) {
         capacityCheck(str.length());
     }
 
@@ -299,7 +299,7 @@ public abstract class StringNewline
      * @return
      */
     private int getValueRemainSpace() {
-        return this.value.length - valuePointer-1;
+        return this.value.length - valuePointer - 1;
     }
 
     /**

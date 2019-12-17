@@ -8,10 +8,16 @@
         where`
         1=1
 
-        <if test="$req != null">
-            <cond>and username1 = {{username1}}</cond>
-            <cond>and username2 = {{username2}}</cond>
-        </if>
+        <choose>
+            <if test="$req != null">
+                <cond>and username1 = {{username1}}</cond>
+                <cond>and username2 = {{username2}}</cond>
+            </if>
+            <else>
+                <cond>and username3 = {{username3}}</cond>
+                <cond>and username4 = {{username4}}</cond>
+            </else>
+        </choose>
 
     </mapper>
 

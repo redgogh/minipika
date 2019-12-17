@@ -30,7 +30,7 @@ public class XMLParserUtils {
      * @param str
      * @return
      */
-    private String trim(String str) {
+    public String trim(String str) {
         if (StringUtils.isEmpty(str)) return "";
         NewlineBuilder result = new NewlineBuilder();
         NewlineBuilder builder = new NewlineBuilder(str);

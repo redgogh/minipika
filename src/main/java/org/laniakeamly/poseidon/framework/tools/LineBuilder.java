@@ -7,7 +7,7 @@ package org.laniakeamly.poseidon.framework.tools;
  *
  * Create by 2BKeyboard on 2019/12/17 11:48
  */
-public interface LineBuilderSupport {
+public interface LineBuilder {
 
     /**
      * 追加数据
@@ -15,7 +15,7 @@ public interface LineBuilderSupport {
      * @param str 字符串
      * @return
      */
-    LineBuilderSupport append(String str);
+    LineBuilder append(String str);
 
     /**
      * 追加数据
@@ -23,7 +23,7 @@ public interface LineBuilderSupport {
      * @param values value数组
      * @return
      */
-    LineBuilderSupport append(char[] values);
+    LineBuilder append(char[] values);
 
     /**
      * 添加一行数据
@@ -31,7 +31,7 @@ public interface LineBuilderSupport {
      * @param str
      * @return
      */
-    LineBuilderSupport appendLine(String str);
+    LineBuilder appendLine(String str);
 
     /**
      * 读取一行数据
@@ -47,7 +47,7 @@ public interface LineBuilderSupport {
      * @param    str                待插入的数据
      * @return StringNewline
      */
-    LineBuilderSupport insertLine(int line, String str);
+    LineBuilder insertLine(int line, String str);
 
     /**
      * 从指定行插入数据
@@ -56,7 +56,7 @@ public interface LineBuilderSupport {
      * @param    str                待插入的数据
      * @return StringNewline
      */
-    LineBuilderSupport insert(int line, String str);
+    LineBuilder insert(int line, String str);
 
     /**
      * 从指定行插入数据
@@ -67,7 +67,7 @@ public interface LineBuilderSupport {
      *
      * @return StringNewline
      */
-    LineBuilderSupport insert(int line, int pos, String str);
+    LineBuilder insert(int line, int pos, String str);
 
     /**
      * 迭代器,每调用一次代表指针移动到下一行

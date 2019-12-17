@@ -108,7 +108,7 @@ public class ReaderBuilderOld {
 
                     // 如果是节点
                     if (content.getCType() == Content.CType.Element) {
-                        Element element = ((Element) content);
+                            Element element = ((Element) content);
                         String elementName = element.getName();
 
                         //
