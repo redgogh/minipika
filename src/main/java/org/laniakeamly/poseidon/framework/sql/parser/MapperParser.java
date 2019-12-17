@@ -42,7 +42,7 @@ public class MapperParser implements XMLParserService {
     public Node ifOrEels(Element element) {
         String ieName = element.getName();
         Node ieNode = new Node(ieName);
-        if("if".equals(ieName)) {
+        if ("if".equals(ieName)) {
             String test = util.getIfLabelTestAttribute(element);
             if (StringUtils.isEmpty(test))
                 throw new ExpressionException("tag: if label attribute test content cannot null.");

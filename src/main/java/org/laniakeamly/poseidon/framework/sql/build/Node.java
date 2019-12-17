@@ -1,10 +1,11 @@
 package org.laniakeamly.poseidon.framework.sql.build;
 
-import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Create by 2BKeyboard on 2019/12/17 14:57

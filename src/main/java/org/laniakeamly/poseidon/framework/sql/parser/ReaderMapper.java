@@ -4,6 +4,7 @@ import org.jdom2.Content;
 import org.jdom2.Element;
 import org.laniakeamly.poseidon.framework.exception.ExpressionException;
 import org.laniakeamly.poseidon.framework.sql.build.Node;
+import org.laniakeamly.poseidon.framework.sql.build.XMLBuilder;
 import org.laniakeamly.poseidon.framework.sql.build.XMLMapper;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
@@ -12,12 +13,15 @@ import java.util.List;
 /**
  * Create by 2BKeyboard on 2019/12/17 10:58
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class ReaderMapper {
 
-    private MapperParser mapperParser = new MapperParser();
+    private MapperParser xmlparser;
 
-    @SuppressWarnings("SpellCheckingInspection")
-    public void reader(List<Element> mappers, MapperParser xmlparser) {
+    public XMLBuilder reader(List<Element> mappers, MapperParser xmlparser) {
+
+        this.xmlparser = xmlparser;
+        XMLBuilder xmlBuilder = new XMLBuilder(xmlparser.getCurrentBuilder());
 
         for (Element mapper : mappers) {
 
@@ -33,23 +37,24 @@ public class ReaderMapper {
             // 解析mapper
             //
             parserMapperContent(mapper.getContent(), xmlMapper);
-            System.out.println();
+            xmlBuilder.addMapper(xmlMapper);
+
         }
 
+        return xmlBuilder;
     }
 
     /**
      * 解析mapper标签下的内容
      * @param contents
      */
-    @SuppressWarnings("SpellCheckingInspection")
     public void parserMapperContent(List<Content> contents, XMLMapper xmlMapper) {
 
         for (Content content : contents) {
 
             if (content.getCType() == Content.CType.Text) {
                 String text = StringUtils.trim(content.getValue());
-                if(!StringUtils.isEmpty(text)) {
+                if (!StringUtils.isEmpty(text)) {
                     xmlMapper.addNode(new Node("text", text));
                 }
                 continue;
@@ -60,14 +65,14 @@ public class ReaderMapper {
                 //
                 // 如果是if标签
                 //
-                if("if".equals(element.getName())){
-                    xmlMapper.addNode(mapperParser.ifOrEels(element));
+                if ("if".equals(element.getName())) {
+                    xmlMapper.addNode(xmlparser.ifOrEels(element));
                 }
                 //
                 // 如果是choose标签
                 //
-                if("choose".equals(element.getName())){
-                    xmlMapper.addNode(mapperParser.choose(element));
+                if ("choose".equals(element.getName())) {
+                    xmlMapper.addNode(xmlparser.choose(element));
                 }
                 continue;
             }
