@@ -12,6 +12,7 @@ import java.sql.ResultSetMetaData;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class NativeResultMysql implements NativeResult {
 
     private String next;
@@ -58,7 +59,7 @@ public class NativeResultMysql implements NativeResult {
 
     @Override
     public <T> T conversionJavaBean(Class<T> target) {
-        Map<String, String> resultMap = null;
+        Map<String, String> resultMap;
         List<String> names = new ArrayList<>();
         T model = null;
         try {
