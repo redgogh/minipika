@@ -10,5 +10,6 @@ public class ProvideConstant {
     public static final String TEXT             = "text";
     public static final String ELSE             = "else";
     public static final String CHOOSE           = "choose";
+    public static final String CONDITION        = "cond";
 
 }

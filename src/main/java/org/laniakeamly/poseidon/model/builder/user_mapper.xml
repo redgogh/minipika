@@ -8,8 +8,9 @@
         where
             1 = 1
 
-        <if test="$req == '18'">
-            <cond>and age &lt; 18;</cond>
+        <if test="$req &lt; 100086">
+            and {this:{age}} &lt; 18
+            and {{age1}} &lt; 18
         </if>
 
         <!--<choose>

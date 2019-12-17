@@ -56,14 +56,9 @@ public class ParserMapperNode {
             //
             if (ProvideConstant.IF.equals(node.getName())) {
                 List<TokenValue> values = testProcess(node.getAttribute("test"));
-                if (node.getChildren().size() > 1) {
-                    for (XMLNode child : node.getChildren()) {
-                        String test = buildTestContent(values, child);
-                        dynamic.addif(test, child.getContent());
-                    }
-                } else {
-                    String test = buildTestContent(values, node);
-                    dynamic.addif(test, node.getContent());
+                for (XMLNode child : node.getChildren()) {
+                    String test = buildTestContent(values, child);
+                    dynamic.addif(test, child.getContent());
                 }
                 continue;
             }
@@ -129,20 +124,24 @@ public class ParserMapperNode {
         }
         int cont = 0;
         String name = null;
-        Matcher matcher = Pattern.compile("\\{\\{(.*?)}}").matcher(content);
+        Matcher matcher = Pattern.compile("\\{\\{(.*?)}} || \\{\\{(.*?)}}").matcher(content);
         while (matcher.find()) {
             name = matcher.group(1);
-            if (cont++ > 2) break;
+            if (cont++ > 1) break;
         }
-        if (cont > 2) {
+        if (cont >= 2) {
             matcher = Pattern.compile("\\{this:\\{(.*?)}}").matcher(content);
             cont = 0;
             while (matcher.find()) {
                 name = matcher.group(1);
-                if (cont++ > 2)
-                    throw new DynamicSQLException("tag: multiple parameter can only have one 'this' in builder: "
-                            + builderName + " mapper: " + mapperName);
+                cont++;
             }
+            if (cont == 0)
+                throw new DynamicSQLException("tag: multiple parameter need at least one 'this' in builder: "
+                        + builderName + " mapper: " + mapperName);
+            if (cont > 1)
+                throw new DynamicSQLException("tag: multiple parameter can only have one 'this' in builder: "
+                        + builderName + " mapper: " + mapperName);
         }
         if (StringUtils.isEmpty(name)) {
             throw new DynamicSQLException("tag: test content if have '$req' at least one parameter in builder: "
@@ -236,9 +235,16 @@ public class ParserMapperNode {
                         tokens.add(TokenValue.buildToken(Token.LE, Token.OP, "<="));
                     } else {
                         if (!StringUtils.isEmpty(builder.toString())) {
-                            builder.append(value);
-                            tokens.add(TokenValue.buildToken(Token.IDEN, builder.toString()));
-                            clear(builder);
+                            if(value == '\'') {
+                                tokens.add(TokenValue.buildToken(Token.IDEN, builder.toString()));
+                                clear(builder);
+                                builder.append("\"");
+                                isString = true;
+                            }else{
+                                tokens.add(TokenValue.buildToken(Token.IDEN, builder.toString()));
+                                clear(builder);
+                                builder.append(value);
+                            }
                         }
                         tokens.add(TokenValue.buildToken(Token.LT, Token.OP, "<"));
                     }
@@ -255,9 +261,16 @@ public class ParserMapperNode {
                         tokens.add(TokenValue.buildToken(Token.GE, Token.OP, ">="));
                     } else {
                         if (!StringUtils.isEmpty(builder.toString())) {
-                            builder.append(value);
-                            tokens.add(TokenValue.buildToken(Token.IDEN, builder.toString()));
-                            clear(builder);
+                            if(value == '\'') {
+                                tokens.add(TokenValue.buildToken(Token.IDEN, builder.toString()));
+                                clear(builder);
+                                builder.append("\"");
+                                isString = true;
+                            }else{
+                                tokens.add(TokenValue.buildToken(Token.IDEN, builder.toString()));
+                                clear(builder);
+                                builder.append(value);
+                            }
                         }
                         tokens.add(TokenValue.buildToken(Token.GT, Token.OP, ">"));
                     }

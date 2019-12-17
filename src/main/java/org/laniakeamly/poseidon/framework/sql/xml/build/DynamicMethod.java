@@ -28,12 +28,14 @@ public class DynamicMethod {
     /**
      * 添加if条件表达式
      * @param test
-     * @param content
+     * @param contents
      */
-    public void addif(String test, String content){
+    public void addif(String test, String... contents){
         method.append(StringUtils.format("if({})",test));
         method.append("{");
-        method.append(StringUtils.format("sql.append(\"{}\")",content));
+        for (String content : contents) {
+            method.append(StringUtils.format("sql.append(\"{}\");",content));
+        }
         method.append("}");
     }
 
