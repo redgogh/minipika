@@ -5,7 +5,8 @@ import org.jdom2.Element;
 import org.laniakeamly.poseidon.framework.sql.build.Node;
 
 /**
- * 为了方便观看所以写了这么一个接口
+ * 解析XML
+ * 为了整理所以写了这么一个接口
  * Create by 2BKeyboard on 2019/12/17 0:31
  */
 interface XMLParserService {

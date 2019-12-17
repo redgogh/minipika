@@ -12,7 +12,6 @@
             <if test="$req != null">
                 <cond>and username1 = {{username1}}</cond>
                 <cond>and username2 = {{username2}}</cond>
-                <cond>and username2 = {{username2}}</cond>
             </if>
             <else>
                 <cond>and username3 = {{username3}}</cond>

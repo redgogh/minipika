@@ -19,10 +19,8 @@ public class GrammarCheck {
      */
     public void chooseCheck(List<Element> chooseChildren, String builderName, String mapperName) {
         if (chooseChildren.size() <= 0)
-            throw new BuilderXmlException("tag: choose cannot if and else label in builder " + builderName + " mapper: " + mapperName);
+            throw new BuilderXmlException("tag: the choose label must contain if label in builder " + builderName + " mapper: " + mapperName);
         Element _if = chooseChildren.get(0);
-        if (chooseChildren.size() > 0 && !"if".equals(_if.getName()))
-            throw new BuilderXmlException("tag: choose at least include a if label builder " + builderName + " mapper: " + mapperName);
         if (StringUtils.isEmpty(_if.getAttribute("test").getValue()))
             throw new BuilderXmlException("tag: choose in if attribute test cannot null in builder " + builderName + " mapper: " + mapperName);
     }
