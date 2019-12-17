@@ -1,11 +1,11 @@
-package org.laniakeamly.poseidon.framework.sql.parser;
+package org.laniakeamly.poseidon.framework.sql.xml.parser;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
-import org.laniakeamly.poseidon.framework.sql.build.Node;
+import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
 import org.laniakeamly.poseidon.framework.exception.BuilderXmlException;
-import org.laniakeamly.poseidon.framework.sql.build.XMLBuilder;
+import org.laniakeamly.poseidon.framework.sql.xml.node.XMLBuilderNode;
 import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
@@ -16,16 +16,16 @@ import java.util.List;
 /**
  * Create by 2BKeyboard on 2019/12/16 23:23
  */
-public class ReaderBuilder {
+public class ReaderBuilderXML {
 
     /**
      * 解析xml中的标签
      */
     @SuppressWarnings("SpellCheckingInspection")
-    private MapperParser xmlparser = new MapperParser();
-    private ReaderMapper readerMapper = new ReaderMapper();
+    private MapperLabelParser xmlparser = new MapperLabelParser();
+    private ReaderMapperElement readerMapper = new ReaderMapperElement();
 
-    private List<XMLBuilder> builders = new ArrayList();
+    private List<XMLBuilderNode> builders = new ArrayList();
 
     /**
      * 获取xml文件列表
@@ -37,10 +37,10 @@ public class ReaderBuilder {
 
     /**
      * 读取并解析XML
-     * XML to {@link Node}
+     * XML to {@link XMLNode}
      * @throws Exception
      */
-    public List<XMLBuilder> parseXML() throws Exception {
+    public List<XMLBuilderNode> parseXML() throws Exception {
 
         SAXBuilder saxBuilder = new SAXBuilder();
 
@@ -69,7 +69,7 @@ public class ReaderBuilder {
     }
 
     public static void main(String[] args) throws Exception {
-        new ReaderBuilder().parseXML();
+        new ReaderBuilderXML().parseXML();
     }
 
 }

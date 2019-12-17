@@ -1,11 +1,12 @@
-package org.laniakeamly.poseidon.framework.sql.parser;
+package org.laniakeamly.poseidon.framework.sql.xml.parser;
 
 import org.jdom2.Content;
 import org.jdom2.Element;
 import org.laniakeamly.poseidon.framework.exception.ExpressionException;
-import org.laniakeamly.poseidon.framework.sql.build.Node;
-import org.laniakeamly.poseidon.framework.sql.build.XMLBuilder;
-import org.laniakeamly.poseidon.framework.sql.build.XMLMapper;
+import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
+import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
+import org.laniakeamly.poseidon.framework.sql.xml.node.XMLBuilderNode;
+import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.util.List;
@@ -15,21 +16,21 @@ import java.util.List;
  * Create by 2BKeyboard on 2019/12/17 10:58
  */
 @SuppressWarnings("SpellCheckingInspection")
-public class ReaderMapper {
+public class ReaderMapperElement {
 
     /**
      * 解析Mapper中标签的方法
      */
-    private MapperParser xmlparser;
+    private MapperLabelParser xmlparser;
 
-    public XMLBuilder reader(List<Element> mappers, MapperParser xmlparser) {
+    public XMLBuilderNode reader(List<Element> mappers, MapperLabelParser xmlparser) {
 
         this.xmlparser = xmlparser;
-        XMLBuilder xmlBuilder = new XMLBuilder(xmlparser.getCurrentBuilder());
+        XMLBuilderNode xmlBuilder = new XMLBuilderNode(xmlparser.getCurrentBuilder());
 
         for (Element mapper : mappers) {
 
-            XMLMapper xmlMapper = new XMLMapper();
+            XMLMapperNode xmlMapper = new XMLMapperNode();
 
             String mappername = mapper.getAttributeValue("name");
             xmlMapper.setName(mappername);
@@ -52,14 +53,14 @@ public class ReaderMapper {
      * 解析mapper标签下的内容
      * @param contents
      */
-    public void parserMapperContent(List<Content> contents, XMLMapper xmlMapper) {
+    public void parserMapperContent(List<Content> contents, XMLMapperNode xmlMapper) {
 
         for (Content content : contents) {
 
             if (content.getCType() == Content.CType.Text) {
                 String text = StringUtils.trim(content.getValue());
                 if (!StringUtils.isEmpty(text)) {
-                    xmlMapper.addNode(new Node("text", text));
+                    xmlMapper.addNode(new XMLNode(ProvideConstant.TEXT, text));
                 }
                 continue;
             }
@@ -69,13 +70,13 @@ public class ReaderMapper {
                 //
                 // 如果是if标签
                 //
-                if ("if".equals(element.getName())) {
+                if (ProvideConstant.IF.equals(element.getName())) {
                     xmlMapper.addNode(xmlparser.ifOrEels(element));
                 }
                 //
                 // 如果是choose标签
                 //
-                if ("choose".equals(element.getName())) {
+                if (ProvideConstant.CHOOSE.equals(element.getName())) {
                     xmlMapper.addNode(xmlparser.choose(element));
                 }
                 continue;

@@ -1,11 +1,8 @@
-package org.laniakeamly.poseidon.framework.sql.parser;
+package org.laniakeamly.poseidon.framework.sql.xml.parser;
 
 import org.jdom2.Element;
 import org.laniakeamly.poseidon.framework.exception.ExpressionException;
-import org.laniakeamly.poseidon.framework.tools.NewlineBuilder;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
-
-import java.util.List;
 
 /**
  * 解析工具类

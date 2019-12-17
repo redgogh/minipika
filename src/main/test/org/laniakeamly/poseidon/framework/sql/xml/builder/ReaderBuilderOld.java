@@ -1,8 +1,9 @@
-package org.laniakeamly.poseidon.framework.sql.builder;
+package org.laniakeamly.poseidon.framework.sql.xml.builder;
 
 
 import org.laniakeamly.poseidon.framework.exception.BuilderXmlException;
 import org.laniakeamly.poseidon.framework.exception.ExpressionException;
+import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.sql.token.Token;
 import org.laniakeamly.poseidon.framework.sql.token.TokenValue;
 import org.laniakeamly.poseidon.framework.tools.NewlineBuilder;
@@ -114,7 +115,7 @@ public class ReaderBuilderOld {
                         //
                         // choose节点
                         //
-                        if ("choose".equals(elementName)) {
+                        if (ProvideConstant.CHOOSE.equals(elementName)) {
                             List<Element> chooseChildren = element.getChildren();
                             chooseCheck(chooseChildren, nameValue);
 
@@ -127,7 +128,7 @@ public class ReaderBuilderOld {
                                 //
                                 // if process
                                 //
-                                if ("if".equals(chooseChild.getName())) {
+                                if (ProvideConstant.IF.equals(chooseChild.getName())) {
                                     // 获取if标签中的内容
                                     test = chooseChild.getAttributeValue("test");
                                     _ifContent = new NewlineBuilder(trim(chooseChild.getText()));
@@ -139,7 +140,7 @@ public class ReaderBuilderOld {
                                 //
                                 // else process
                                 //
-                                if ("else".equals(chooseChild.getName())) {
+                                if (ProvideConstant.ELSE.equals(chooseChild.getName())) {
                                     _elseContent = new NewlineBuilder(trim(chooseChild.getText()));
                                     parseLineLabel(chooseChild, _elseContent);
                                 }
@@ -152,7 +153,7 @@ public class ReaderBuilderOld {
                         //
                         // if节点
                         //
-                        if ("if".equals(elementName)) {
+                        if (ProvideConstant.IF.equals(elementName)) {
                             // 获取if标签中的内容
                             String test = element.getAttributeValue("test");
                             NewlineBuilder _ifContent = new NewlineBuilder(trim(element.getText()));
@@ -528,7 +529,7 @@ public class ReaderBuilderOld {
         if (chooseChildren.size() <= 0)
             throw new BuilderXmlException("tag: choose cannot if and else tag in " + nameValue);
         Element _if = chooseChildren.get(0);
-        if (chooseChildren.size() > 0 && !"if".equals(_if.getName()))
+        if (chooseChildren.size() > 0 && !ProvideConstant.IF.equals(_if.getName()))
             throw new BuilderXmlException("tag: choose at least include a if label " + nameValue);
         if (StringUtils.isEmpty(_if.getAttribute("test").getValue()))
             throw new BuilderXmlException("tag: choose in if attribute test cannot null in " + nameValue);

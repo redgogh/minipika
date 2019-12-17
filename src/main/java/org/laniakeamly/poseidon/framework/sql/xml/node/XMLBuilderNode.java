@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.framework.sql.build;
+package org.laniakeamly.poseidon.framework.sql.xml.node;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,17 +10,17 @@ import java.util.LinkedList;
  */
 @Getter
 @Setter
-public class XMLBuilder {
+public class XMLBuilderNode {
 
     private String name;
-    private LinkedList<XMLMapper> mappers
+    private LinkedList<XMLMapperNode> mappers
             = new LinkedList<>();
 
-    public XMLBuilder(String name) {
+    public XMLBuilderNode(String name) {
         this.name = name;
     }
 
-    public void addMapper(XMLMapper mapper){
+    public void addMapper(XMLMapperNode mapper){
         mappers.add(mapper);
     }
 
