@@ -52,7 +52,7 @@ public class MapperParser implements XMLParserService {
         for (Content condition : conditions) {
             // 文本
             if (condition.getCType() == Content.CType.Text) {
-                String text = StringUtils.trim(condition.getValue());
+                String text = util.trim(condition.getValue());
                 if (!StringUtils.isEmpty(text)) {
                     ieNode.addChild(new Node("text", text));
                 }

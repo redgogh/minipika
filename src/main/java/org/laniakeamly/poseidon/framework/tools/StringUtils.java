@@ -72,9 +72,9 @@ public class StringUtils {
     /**
      * 获取一个字符串的开始位置和结束位置
      *
-     * @param v    源字符串
-     * @param find 需要查找的字符串
-     * @return 数组 0=开始位置 1=结束位置
+     * @param v         源字符串
+     * @param find      需要查找的字符串
+     * @return          数组 0=开始位置 1=结束位置
      */
     public static int[] getStartAndEndIndex(String v, String find) {
         int start = -1; // 开始下标
@@ -137,7 +137,7 @@ public class StringUtils {
     }
 
     /**
-     * 合并行去除多余空格
+     * 将字符串合并成一行
      * @param text
      * @return
      */

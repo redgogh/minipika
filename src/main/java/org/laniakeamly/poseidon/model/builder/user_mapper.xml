@@ -3,7 +3,15 @@
 
     <mapper name="findUserByName">
 
-        select * from user where` 1 = 1
+        select *
+        from
+            user
+        where
+            1 = 1
+
+        <foreach item="item" index="index" collection="users">
+            and cusername = item.cusername;
+        </foreach>
 
         <choose>
             <if test="$req != null">

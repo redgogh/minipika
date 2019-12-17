@@ -11,11 +11,15 @@ import org.laniakeamly.poseidon.framework.tools.StringUtils;
 import java.util.List;
 
 /**
+ * 读取Mapper并解析
  * Create by 2BKeyboard on 2019/12/17 10:58
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class ReaderMapper {
 
+    /**
+     * 解析Mapper中标签的方法
+     */
     private MapperParser xmlparser;
 
     public XMLBuilder reader(List<Element> mappers, MapperParser xmlparser) {

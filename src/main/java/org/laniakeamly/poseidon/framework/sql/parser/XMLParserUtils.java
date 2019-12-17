@@ -31,20 +31,7 @@ public class XMLParserUtils {
      * @return
      */
     public String trim(String str) {
-        if (StringUtils.isEmpty(str)) return "";
-        NewlineBuilder result = new NewlineBuilder();
-        NewlineBuilder builder = new NewlineBuilder(str);
-        if (!builder.hasNext()) {
-            result.appendLine(str);
-        } else {
-            while (builder.hasNext()) {
-                String value = builder.next().trim();
-                if (!StringUtils.isEmpty(value)) {
-                    result.appendLine(value);
-                }
-            }
-        }
-        return result.toString();
+        return StringUtils.trim(str);
     }
 
 }
