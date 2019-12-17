@@ -8,7 +8,7 @@ import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCacheImpl;
-import org.laniakeamly.poseidon.framework.exception.BeansManagerException;
+import org.laniakeamly.poseidon.framework.exception.runtime.BeansManagerException;
 import org.laniakeamly.poseidon.framework.timer.Timer;
 import org.laniakeamly.poseidon.framework.timer.TimerManager;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;

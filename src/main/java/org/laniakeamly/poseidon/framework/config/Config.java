@@ -1,6 +1,6 @@
 package org.laniakeamly.poseidon.framework.config;
 
-import org.laniakeamly.poseidon.framework.exception.ReadException;
+import org.laniakeamly.poseidon.framework.exception.runtime.ReadException;
 import org.laniakeamly.poseidon.framework.tools.Calculator;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 import org.laniakeamly.poseidon.framework.tools.TimeUtils;

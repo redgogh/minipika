@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.sql.xml.parser;
 
 import org.jdom2.Element;
-import org.laniakeamly.poseidon.framework.exception.BuilderXmlException;
+import org.laniakeamly.poseidon.framework.exception.runtime.BuilderXmlException;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.util.List;

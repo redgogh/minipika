@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.framework.exception;
+package org.laniakeamly.poseidon.framework.exception.runtime;
 
 /**
  * mapper xml文件异常

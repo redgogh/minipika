@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.framework.exception;
+package org.laniakeamly.poseidon.framework.exception.runtime;
 
 /**
  * Create by 2BKeyboard on 2019/12/7 1:10

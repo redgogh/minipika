@@ -1,11 +1,11 @@
 package org.laniakeamly.poseidon.framework.sql.xml.builder;
 
 
-import org.laniakeamly.poseidon.framework.exception.BuilderXmlException;
-import org.laniakeamly.poseidon.framework.exception.ExpressionException;
+import org.laniakeamly.poseidon.framework.exception.runtime.BuilderXmlException;
+import org.laniakeamly.poseidon.framework.exception.runtime.ExpressionException;
 import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
-import org.laniakeamly.poseidon.framework.sql.token.Token;
-import org.laniakeamly.poseidon.framework.sql.token.TokenValue;
+import org.laniakeamly.poseidon.framework.sql.xml.token.Token;
+import org.laniakeamly.poseidon.framework.sql.xml.token.TokenValue;
 import org.laniakeamly.poseidon.framework.tools.NewlineBuilder;
 import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;

@@ -16,7 +16,7 @@ public class ParserBuilderNode {
     public void readBuilderNode(List<XMLBuilderNode> xmlBuilderNode){
         for (XMLBuilderNode builderNode : xmlBuilderNode) {
             for (XMLMapperNode mapperNode : builderNode.getMappers()){
-                parseMapper.parse(mapperNode);
+                parseMapper.parse(mapperNode,builderNode);
             }
         }
     }

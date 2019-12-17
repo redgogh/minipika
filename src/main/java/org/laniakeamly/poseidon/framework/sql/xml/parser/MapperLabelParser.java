@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jdom2.Content;
 import org.jdom2.Element;
-import org.laniakeamly.poseidon.framework.exception.ExpressionException;
+import org.laniakeamly.poseidon.framework.exception.runtime.ExpressionException;
 import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;

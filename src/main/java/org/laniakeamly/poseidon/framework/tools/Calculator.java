@@ -1,6 +1,6 @@
 package org.laniakeamly.poseidon.framework.tools;
 
-import org.laniakeamly.poseidon.framework.exception.ExpressionException;
+import org.laniakeamly.poseidon.framework.exception.runtime.ExpressionException;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

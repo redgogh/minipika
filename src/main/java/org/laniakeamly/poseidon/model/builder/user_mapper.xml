@@ -8,17 +8,21 @@
         where
             1 = 1
 
-        <choose>
-            <if test="$req != null">
+        <if test="$req == '18'">
+            <cond>and age &lt; 18;</cond>
+        </if>
+
+        <!--<choose>
+            <if test="$req != username">
                 <cond>and username1 = {{username1}}</cond>
                 <cond>and username2 = {{username2}}</cond>
-                <cond>and username2 = {{username2}}</cond>
+                <cond>and username3 = {{username3}}</cond>
             </if>
             <else>
                 <cond>and username3 = {{username3}}</cond>
                 <cond>and username4 = {{username4}}</cond>
             </else>
-        </choose>
+        </choose>-->
 
     </mapper>
 

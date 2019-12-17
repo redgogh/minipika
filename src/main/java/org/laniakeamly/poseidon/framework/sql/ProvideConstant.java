@@ -6,6 +6,7 @@ package org.laniakeamly.poseidon.framework.sql;
 public class ProvideConstant {
 
     public static final String IF               = "if";
+    public static final String REQ              = "$req";
     public static final String TEXT             = "text";
     public static final String ELSE             = "else";
     public static final String CHOOSE           = "choose";

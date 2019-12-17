@@ -4,7 +4,7 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
-import org.laniakeamly.poseidon.framework.exception.BuilderXmlException;
+import org.laniakeamly.poseidon.framework.exception.runtime.BuilderXmlException;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLBuilderNode;
 import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;

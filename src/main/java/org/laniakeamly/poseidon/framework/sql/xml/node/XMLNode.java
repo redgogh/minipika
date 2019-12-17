@@ -33,6 +33,10 @@ public class XMLNode {
         attributes.put(key, value);
     }
 
+    public String getAttribute(String name){
+        return attributes.get(name);
+    }
+
     public void addChild(XMLNode node){
        if(children == null){
            children = new ArrayList<>();

@@ -33,8 +33,12 @@ public class DynamicMethod {
     public void addif(String test, String content){
         method.append(StringUtils.format("if({})",test));
         method.append("{");
-        method.append(content);
+        method.append(StringUtils.format("sql.append(\"{}\")",content));
         method.append("}");
     }
 
+    @Override
+    public String toString() {
+        return method.toString();
+    }
 }
