@@ -21,7 +21,14 @@ import java.util.regex.Pattern;
  */
 public class ParserMapperNode {
 
+    /**
+     * mapper name用于异常追踪
+     */
     private String mapperName;
+
+    /**
+     * builder name用于异常追踪
+     */
     private String builderName;
 
     public DynamicMethod parse(XMLMapperNode mapperNode, XMLBuilderNode builderNode) {
@@ -124,24 +131,25 @@ public class ParserMapperNode {
         }
         int cont = 0;
         String name = null;
-        Matcher matcher = Pattern.compile("\\{\\{(.*?)}} || \\{\\{(.*?)}}").matcher(content);
+        Matcher matcher = Pattern.compile("\\{this:\\{(.*?)}}").matcher(content);
         while (matcher.find()) {
             name = matcher.group(1);
-            if (cont++ > 1) break;
+            if (cont++ >= 2) break;
         }
         if (cont >= 2) {
-            matcher = Pattern.compile("\\{this:\\{(.*?)}}").matcher(content);
+            throw new DynamicSQLException("tag: this can only have one. "
+                    + builderName + " mapper: " + mapperName);
+        }else{
+            matcher = Pattern.compile("\\{\\{(.*?)}}").matcher(content);
             cont = 0;
             while (matcher.find()) {
                 name = matcher.group(1);
-                cont++;
+                if (cont++ > 2) break;
             }
-            if (cont == 0)
-                throw new DynamicSQLException("tag: multiple parameter need at least one 'this' in builder: "
+            if(cont >= 2){
+                throw new DynamicSQLException("tag: multiple parameter need specify parameter in builder: "
                         + builderName + " mapper: " + mapperName);
-            if (cont > 1)
-                throw new DynamicSQLException("tag: multiple parameter can only have one 'this' in builder: "
-                        + builderName + " mapper: " + mapperName);
+            }
         }
         if (StringUtils.isEmpty(name)) {
             throw new DynamicSQLException("tag: test content if have '$req' at least one parameter in builder: "
@@ -235,12 +243,12 @@ public class ParserMapperNode {
                         tokens.add(TokenValue.buildToken(Token.LE, Token.OP, "<="));
                     } else {
                         if (!StringUtils.isEmpty(builder.toString())) {
-                            if(value == '\'') {
+                            if (value == '\'') {
                                 tokens.add(TokenValue.buildToken(Token.IDEN, builder.toString()));
                                 clear(builder);
                                 builder.append("\"");
                                 isString = true;
-                            }else{
+                            } else {
                                 tokens.add(TokenValue.buildToken(Token.IDEN, builder.toString()));
                                 clear(builder);
                                 builder.append(value);
@@ -261,12 +269,12 @@ public class ParserMapperNode {
                         tokens.add(TokenValue.buildToken(Token.GE, Token.OP, ">="));
                     } else {
                         if (!StringUtils.isEmpty(builder.toString())) {
-                            if(value == '\'') {
+                            if (value == '\'') {
                                 tokens.add(TokenValue.buildToken(Token.IDEN, builder.toString()));
                                 clear(builder);
                                 builder.append("\"");
                                 isString = true;
-                            }else{
+                            } else {
                                 tokens.add(TokenValue.buildToken(Token.IDEN, builder.toString()));
                                 clear(builder);
                                 builder.append(value);

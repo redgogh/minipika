@@ -41,6 +41,7 @@ public class DynamicMethod {
 
     @Override
     public String toString() {
+        method.append("}");
         return method.toString();
     }
 }

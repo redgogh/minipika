@@ -4,26 +4,21 @@
 
         select *
         from
-            user
+        user
         where
-            1 = 1
+        1 = 1
 
-        <if test="$req &lt; 100086">
-            and {this:{age}} &lt; 18
-            and {{age1}} &lt; 18
-        </if>
-
-        <!--<choose>
+        <choose>
             <if test="$req != username">
-                <cond>and username1 = {{username1}}</cond>
-                <cond>and username2 = {{username2}}</cond>
                 <cond>and username3 = {{username3}}</cond>
+                <cond>and username1 = {this:{username1}}</cond>
             </if>
             <else>
-                <cond>and username3 = {{username3}}</cond>
-                <cond>and username4 = {{username4}}</cond>
+                <cond>
+                    and username3 = {{username3}}
+                </cond>
             </else>
-        </choose>-->
+        </choose>
 
     </mapper>
 
