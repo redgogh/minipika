@@ -112,9 +112,11 @@ public interface LineBuilderSupport {
      *
      * @return String object
      */
-     String toString(int startLinePos, int endLinePos);
+    String toString(int startLinePos, int endLinePos);
 
-    @Override
+    /**
+     * @return String
+     */
     String toString();
 
 }
