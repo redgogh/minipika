@@ -1,11 +1,9 @@
 package org.laniakeamly.poseidon.framework.sql.parser;
 
-import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 import org.laniakeamly.poseidon.framework.exception.BuilderXmlException;
-import org.laniakeamly.poseidon.framework.sql.parser.XMLParser;
 import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
@@ -20,7 +18,8 @@ public class ReaderBuilder {
     /**
      * 解析xml中的标签
      */
-    private XMLParser xmlparser = new XMLParser();
+    @SuppressWarnings("SpellCheckingInspection")
+    private MapperParser xmlparser = new MapperParser();
     private ReaderMapper readerMapper = new ReaderMapper();
 
     /**

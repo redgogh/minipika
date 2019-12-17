@@ -26,21 +26,6 @@ public class XMLParserUtils {
     }
 
     /**
-     * 解析line标签
-     * @param root 包含line标签的节点
-     * @param builder 解析出来的数据存放到这个对象
-     */
-    private void parseLineLabel(Element root, NewlineBuilder builder) {
-        // 判断是否存在<line>节点
-        List<Element> children = root.getChildren();
-        if (children.size() > 0) {
-            for (Element child : children) {
-                builder.appendLine(StringUtils.trim(child.getText()));
-            }
-        }
-    }
-
-    /**
      * 清除xml中不合法的换行
      * @param str
      * @return

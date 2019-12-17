@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Create by 2BKeyboard on 2019/12/11 23:16
  */
 public abstract class StringNewline
-        implements Serializable {
+        implements LineBuilderSupport,Serializable {
 
     /**
      * 所有String都会被转换成char数组存放

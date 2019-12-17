@@ -13,7 +13,7 @@ import java.util.List;
 public class ReaderMapper {
 
     @SuppressWarnings("SpellCheckingInspection")
-    public void reader(List<Element> mappers, XMLParser xmlparser) {
+    public void reader(List<Element> mappers, MapperParser xmlparser) {
 
         for (Element mapper : mappers) {
 
@@ -22,6 +22,9 @@ public class ReaderMapper {
                 throw new ExpressionException("tag: mapper attribute name cannot null from builder '" + xmlparser.getCurrentBuilder() + "'");
             }
             xmlparser.setCurrentMapper(mappername);
+            //
+            // 解析mapper
+            //
             parserMapperContent(mapper.getContent(),mappername);
         }
 
@@ -39,7 +42,10 @@ public class ReaderMapper {
             if(content.getCType() == Content.CType.Text){
                 String text = StringUtils.trim(content.getValue());
             }
-            if(content.getCType() == Content.CType.Element){}
+
+            if(content.getCType() == Content.CType.Element){
+
+            }
 
         }
         

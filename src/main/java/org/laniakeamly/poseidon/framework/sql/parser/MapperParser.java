@@ -12,9 +12,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * xml mapper下的标签解析
  * Create by 2BKeyboard on 2019/12/17 0:17
  */
-public class XMLParser implements XMLParserService {
+public class MapperParser implements XMLParserService {
 
     // 解析工具类
     private XMLParserUtils utils = new XMLParserUtils();
