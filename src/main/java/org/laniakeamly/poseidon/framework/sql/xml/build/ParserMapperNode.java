@@ -10,6 +10,8 @@ import org.laniakeamly.poseidon.framework.sql.xml.token.Token;
 import org.laniakeamly.poseidon.framework.sql.xml.token.TokenValue;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -35,12 +37,12 @@ public class ParserMapperNode {
         mapperName = mapperNode.getName();
         builderName = builderNode.getName();
         DynamicMethod dynamic = new DynamicMethod(mapperNode.getName());
-        parseNode(mapperNode.getNodes(), dynamic);
+        parseNode(mapperNode.getNodes(), dynamic, null,false);
         System.out.println(dynamic.toString());
         return dynamic;
     }
 
-    public void parseNode(List<XMLNode> xmlNodes, DynamicMethod dynamic) {
+    public void parseNode(List<XMLNode> xmlNodes, DynamicMethod dynamic,IEValue ieValue,boolean choose) {
         for (XMLNode node : xmlNodes) {
 
             //
@@ -54,7 +56,9 @@ public class ParserMapperNode {
             // choose标签
             //
             if (ProvideConstant.CHOOSE.equals(node.getName())) {
-                parseNode(node.getChildren(), dynamic);
+                IEValue _ieValue = new IEValue();
+                parseNode(node.getChildren(), dynamic, _ieValue,true);
+                dynamic.addif(_ieValue);
                 continue;
             }
 
@@ -65,7 +69,14 @@ public class ParserMapperNode {
                 List<TokenValue> values = testProcess(node.getAttribute("test"));
                 for (XMLNode child : node.getChildren()) {
                     String test = buildTestContent(values, child);
-                    dynamic.addif(test, child.getContent());
+                    ieValue.addTest(test);
+                    if(choose) {
+                        ieValue.addIfContent(child.getContent());
+                    }else{
+                        IEValue _ieValue = new IEValue();
+                        _ieValue.addIfContent(child.getContent());
+                        dynamic.addif(_ieValue);
+                    }
                 }
                 continue;
             }
@@ -74,6 +85,11 @@ public class ParserMapperNode {
             // else标签
             //
             if (ProvideConstant.ELSE.equals(node.getName())) {
+                if(choose){
+                    for (XMLNode child : node.getChildren()) {
+                        ieValue.addElseContent(child.getContent());
+                    }
+                }
                 continue;
             }
 
@@ -139,14 +155,14 @@ public class ParserMapperNode {
         if (cont >= 2) {
             throw new DynamicSQLException("tag: this can only have one. "
                     + builderName + " mapper: " + mapperName);
-        }else{
+        } else {
             matcher = Pattern.compile("\\{\\{(.*?)}}").matcher(content);
             cont = 0;
             while (matcher.find()) {
                 name = matcher.group(1);
                 if (cont++ > 2) break;
             }
-            if(cont >= 2){
+            if (cont >= 2) {
                 throw new DynamicSQLException("tag: multiple parameter need specify parameter in builder: "
                         + builderName + " mapper: " + mapperName);
             }

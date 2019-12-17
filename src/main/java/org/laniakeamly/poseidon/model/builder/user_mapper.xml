@@ -10,13 +10,10 @@
 
         <choose>
             <if test="$req != username">
-                <cond>and username3 = {{username3}}</cond>
-                <cond>and username1 = {this:{username1}}</cond>
+                and user_a = {{usera}}
             </if>
             <else>
-                <cond>
-                    and username3 = {{username3}}
-                </cond>
+                and user_b = {{userb}}
             </else>
         </choose>
 
