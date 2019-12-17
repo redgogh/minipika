@@ -20,7 +20,8 @@ public class ReaderBuilder {
     /**
      * 解析xml中的标签
      */
-    private XMLParser parser = new XMLParser();
+    private XMLParser xmlparser = new XMLParser();
+    private ReaderMapper readerMapper = new ReaderMapper();
 
     /**
      * 获取xml文件列表
@@ -47,53 +48,17 @@ public class ReaderBuilder {
             if (StringUtils.isEmpty(builderName))
                 throw new BuilderXmlException("builder label attribute \"name\" cannot null");
 
-            parser.setCurrentBuilder(builderName); // 设置当前BuilderName
+            xmlparser.setCurrentBuilder(builderName); // 设置当前BuilderName
 
             List<Element> mappers = rootElement.getChildren();
+            readerMapper.reader(mappers,xmlparser);
 
-            for (Element mapper : mappers) {
-
-                //
-                // mapper标签的name属性内容
-                //
-                String mapperName = mapper.getAttribute("name").getValue();
-                parser.setCurrentMapper(mapperName); // 设置当前MapperName
-                for (Content content : mapper.getContent()) {
-
-                    //
-                    // 如果是文本内容
-                    //
-                    if (content.getCType() == Content.CType.Text) {
-
-                    }
-
-                    //
-                    // 如果是节点
-                    //
-                    if (content.getCType() == Content.CType.Element) {
-                        Element element = ((Element) content);
-                        String elementName = element.getName();
-
-                        //
-                        // choose节点
-                        //
-                        if ("choose".equals(elementName)) {
-
-                        }
-
-                        //
-                        // if节点
-                        //
-                        if ("if".equals(elementName)) {
-
-                        }
-
-                    }
-
-
-                }
-            }
         }
+
+    }
+
+    public static void main(String[] args) throws Exception {
+        new ReaderBuilder().parseXML();
     }
 
 }

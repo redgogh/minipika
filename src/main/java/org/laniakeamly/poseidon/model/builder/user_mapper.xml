@@ -7,12 +7,12 @@
         from user
         where`
         1=1
-        <if test="eq(name,1)">
-            username = {{username}}
+
+        <if test="$req != null">
+            <cond>and username1 = {{username1}}</cond>
+            <cond>and username2 = {{username2}}</cond>
         </if>
-        <if test="password != null">
-            password = {{password}}
-        </if>
+
     </mapper>
 
 </builder>

@@ -1,11 +1,14 @@
 package org.laniakeamly.poseidon.framework.sql.parser;
 
+import lombok.Getter;
 import lombok.Setter;
 import org.jdom2.Content;
 import org.jdom2.Element;
 import org.laniakeamly.poseidon.framework.exception.ExpressionException;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -20,8 +23,11 @@ public class XMLParser implements XMLParserService {
     private GrammarCheck grammarCheck = new GrammarCheck();
 
     @Setter
+    @Getter
     private String currentBuilder;
+
     @Setter
+    @Getter
     private String currentMapper;
 
     @Override
@@ -34,6 +40,9 @@ public class XMLParser implements XMLParserService {
         String test = checkTestContent(element);
         if(StringUtils.isEmpty(test))
             throw new ExpressionException("tag: if label attribute test content cannot null.");
+
+        List<Content> conditions = element.getContent();
+
 
         return null;
     }

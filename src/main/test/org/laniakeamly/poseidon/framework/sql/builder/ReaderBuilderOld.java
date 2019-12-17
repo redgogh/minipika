@@ -1,7 +1,6 @@
 package org.laniakeamly.poseidon.framework.sql.builder;
 
 
-import org.laniakeamly.poseidon.framework.compiler.LoaderClassBuilder;
 import org.laniakeamly.poseidon.framework.exception.BuilderXmlException;
 import org.laniakeamly.poseidon.framework.exception.ExpressionException;
 import org.laniakeamly.poseidon.framework.sql.token.Token;
@@ -182,9 +181,6 @@ public class ReaderBuilderOld {
             }
             classBuilderList.add(classBuilder);
         }
-
-        LoaderClassBuilder loader = new LoaderClassBuilder();
-
     }
 
     /**
