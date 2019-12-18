@@ -1,10 +1,6 @@
 package org.laniakeamly.poseidon.framework.sql.xml;
 
 import org.laniakeamly.poseidon.framework.sql.xml.build.ParserBuilderNode;
-import org.laniakeamly.poseidon.framework.sql.xml.node.XMLBuilderNode;
-import org.laniakeamly.poseidon.framework.sql.xml.parser.ReaderBuilderXML;
-
-import java.util.List;
 
 /**
  * 加载mapper
@@ -13,12 +9,10 @@ import java.util.List;
  */
 public class LoaderMapper {
 
-    private ReaderBuilderXML readerBuilderXML = new ReaderBuilderXML();
     private ParserBuilderNode parserBuilderNode = new ParserBuilderNode();
 
     public void load() throws Exception {
-        List<XMLBuilderNode> xmlBuilderNodes = readerBuilderXML.parseXML();
-        parserBuilderNode.readBuilderNode(xmlBuilderNodes);
+        parserBuilderNode.readBuilderNode();
     }
 
 }

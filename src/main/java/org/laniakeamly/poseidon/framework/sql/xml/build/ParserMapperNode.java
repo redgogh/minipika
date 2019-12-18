@@ -35,7 +35,6 @@ public class ParserMapperNode {
         builderName = builderNode.getName();
         DynamicMethod dynamic = new DynamicMethod(mapperNode.getName());
         parseNode(mapperNode.getNodes(), dynamic, null,false);
-        System.out.println(dynamic.toString());
         return dynamic;
     }
 
@@ -107,6 +106,13 @@ public class ParserMapperNode {
         }
     }
 
+    /**
+     * 构建循环体
+     * @param index             index相当于我们平常for循环中的i
+     * @param item              相当于list获取到的值
+     * @param collections       集合对象
+     * @return 构建好的Java代码
+     */
     private String buildCycleBody(String index,String item,String collections){
         StringBuilder builder = new StringBuilder();
         String listName        = "$".concat(item);

@@ -1,9 +1,8 @@
 package org.laniakeamly.poseidon.framework.sql.xml;
 
 import org.junit.Test;
+import org.laniakeamly.poseidon.framework.sql.xml.build.DynamicClass;
 import org.laniakeamly.poseidon.framework.sql.xml.build.ParserBuilderNode;
-import org.laniakeamly.poseidon.framework.sql.xml.node.XMLBuilderNode;
-import org.laniakeamly.poseidon.framework.sql.xml.parser.ReaderBuilderXML;
 
 import java.util.List;
 
@@ -14,13 +13,11 @@ import java.util.List;
  */
 public class LoaderMapper {
 
-    private ReaderBuilderXML readerBuilderXML = new ReaderBuilderXML();
     private ParserBuilderNode parserBuilderNode = new ParserBuilderNode();
 
     @Test
-    public void load() throws Exception {
-        List<XMLBuilderNode> xmlBuilderNodes = readerBuilderXML.parseXML();
-        parserBuilderNode.readBuilderNode(xmlBuilderNodes);
+    public void simulation() throws Exception {
+        List<DynamicClass> dynamicClasses = parserBuilderNode.readBuilderNode();
     }
 
 }
