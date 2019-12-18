@@ -35,7 +35,7 @@ public class Jdom {
         map.put("age", 100810);
         StringBuilder sql = new StringBuilder();
         sql.append("select * from usaer where 1 = 1");
-        if ((java.lang.Integer) map.get("agdde") < 100086) {
+        if ((java.lang.Integer) map.get("age") < 100086) {
             System.out.println("age小于10086");
         } else {
             System.out.println("age大于10086");

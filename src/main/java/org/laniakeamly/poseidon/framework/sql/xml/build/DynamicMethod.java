@@ -1,6 +1,5 @@
 package org.laniakeamly.poseidon.framework.sql.xml.build;
 
-import jdk.nashorn.internal.parser.Token;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.util.List;
@@ -9,6 +8,7 @@ import java.util.List;
  * 动态方法，需要在调用时被加载的JVM中，以提供获取动态sql
  * Create by 2BKeyboard on 2019/12/17 17:56
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class DynamicMethod {
 
     private StringBuilder method = new StringBuilder();
@@ -19,11 +19,15 @@ public class DynamicMethod {
         method.append("StringBuilder sql = new StringBuilder();");
     }
 
+    public void append(String str) {
+        method.append(str);
+    }
+
     /**
      * 添加sql
      * @param sql
      */
-    public void append(String sql) {
+    public void appendSql(String sql) {
         method.append(StringUtils.format("sql.append(\"{}\");", sql));
     }
 

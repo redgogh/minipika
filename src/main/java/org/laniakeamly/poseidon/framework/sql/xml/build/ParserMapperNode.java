@@ -43,14 +43,14 @@ public class ParserMapperNode {
         for (XMLNode node : xmlNodes) {
 
             //
-            // 文本文件
+            // text
             //
             if (ProvideConstant.TEXT.equals(node.getName())) {
-                dynamic.append(node.getContent());
+                dynamic.appendSql(node.getContent());
             }
 
             //
-            // choose标签
+            // choose
             //
             if (ProvideConstant.CHOOSE.equals(node.getName())) {
                 IEValue _ieValue = new IEValue();
@@ -60,7 +60,7 @@ public class ParserMapperNode {
             }
 
             //
-            // if标签
+            // if
             //
             if (ProvideConstant.IF.equals(node.getName())) {
                 List<TokenValue> values = testProcess(node.getAttribute("test"));
@@ -79,7 +79,7 @@ public class ParserMapperNode {
             }
 
             //
-            // else标签
+            // else
             //
             if (ProvideConstant.ELSE.equals(node.getName())) {
                 if(choose){
@@ -90,7 +90,38 @@ public class ParserMapperNode {
                 continue;
             }
 
+            //
+            // foreach
+            //
+            if (ProvideConstant.FOREACH.equals(node.getName())) {
+                String item = node.getAttribute(ProvideConstant.ITEM);
+                String index = node.getAttribute(ProvideConstant.INDEX);
+                String collections = node.getAttribute(ProvideConstant.COLLECTIONS);
+                dynamic.append(buildCycleBody(index,item,collections));
+                parseNode(node.getChildren(),dynamic,null,false);
+                dynamic.append("}");
+                dynamic.append("}");
+                continue;
+            }
+
         }
+    }
+
+    private String buildCycleBody(String index,String item,String collections){
+        StringBuilder builder = new StringBuilder();
+        String listName        = "$".concat(item);
+        builder.append(
+                StringUtils.format("List {} = (List) map.get(\"{}\");",listName,collections,
+                        collections,collections)
+        );
+        builder.append(StringUtils.format("if(!{}.isEmpty()){",listName)); // 如果不等于空才进行遍历
+        builder.append(StringUtils.format(
+                "for(int {}=0,len={}.size(); {}<len; {}++){",index,listName,index,index)
+        );
+        builder.append(
+                StringUtils.format("")
+        );
+        return builder.toString();
     }
 
     /**

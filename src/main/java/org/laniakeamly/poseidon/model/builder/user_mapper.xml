@@ -32,7 +32,8 @@
         foreach =========================S
         <foreach index="index" item="item" collections="users">
             insert into user(name,sex) values ({{item.name}},{{item.sex}});
-            <choose>
+
+        <choose>
                 <if test="$req != username">
                     and user_a = {{usera}}
                 </if>
@@ -40,6 +41,7 @@
                     and user_b = {{userb}}
                 </else>
             </choose>
+
         </foreach>
         foreach =========================E
     </mapper>
