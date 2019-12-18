@@ -3,12 +3,15 @@ package org.laniakeamly.poseidon.framework.sql.xml.parser;
 import org.jdom2.Content;
 import org.jdom2.Element;
 import org.laniakeamly.poseidon.framework.exception.runtime.ExpressionException;
+import org.laniakeamly.poseidon.framework.exception.runtime.MapperXMLException;
 import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLBuilderNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
+import org.omg.CORBA.portable.UnknownException;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -54,13 +57,26 @@ public class ReaderMapperElement {
      * @param contents
      */
     public void parserMapperContent(List<Content> contents, XMLMapperNode xmlMapper) {
+        List<XMLNode> nodes = new LinkedList<>();
+        parseContents(contents, nodes);
+        for (XMLNode node : nodes) {
+            xmlMapper.addNode(node);
+        }
+    }
+
+    /**
+     * 解析标签
+     * @param contents
+     * @return
+     */
+    public void parseContents(List<Content> contents, List<XMLNode> nodes) {
 
         for (Content content : contents) {
 
             if (content.getCType() == Content.CType.Text) {
                 String text = StringUtils.trim(content.getValue());
                 if (!StringUtils.isEmpty(text)) {
-                    xmlMapper.addNode(new XMLNode(ProvideConstant.TEXT, text));
+                    nodes.add(new XMLNode(ProvideConstant.TEXT, text));
                 }
                 continue;
             }
@@ -68,22 +84,42 @@ public class ReaderMapperElement {
             if (content.getCType() == Content.CType.Element) {
                 Element element = ((Element) content);
                 //
-                // 如果是if标签
+                // if标签
                 //
                 if (ProvideConstant.IF.equals(element.getName())) {
-                    xmlMapper.addNode(xmlparser.ifOrEels(element));
+                    nodes.add(xmlparser.ifOrEels(element));
+                    continue;
                 }
+
                 //
-                // 如果是choose标签
+                // choose标签
                 //
                 if (ProvideConstant.CHOOSE.equals(element.getName())) {
-                    xmlMapper.addNode(xmlparser.choose(element));
+                    nodes.add(xmlparser.choose(element));
+                    continue;
                 }
-                continue;
+
+                //
+                // foreach标签
+                //
+                if (ProvideConstant.FOREACH.equals(element.getName())) {
+                    XMLNode forNode = xmlparser.foreach(element);
+                    if (element.getContent().size() > 0) {
+                        List<XMLNode> forNodes = new LinkedList<>();
+                        parseContents(element.getContent(), forNodes);
+                        for (XMLNode node : forNodes) {
+                            forNode.addChild(node);
+                        }
+                    }
+                    nodes.add(forNode);
+                    continue;
+                }
+
+                throw new MapperXMLException("unknown lbael '" + element.getName() + "' error location in builder: "
+                        + xmlparser.getCurrentBuilder() + " mapper " + xmlparser.getCurrentMapper());
             }
 
         }
-
     }
 
 }

@@ -1,7 +1,6 @@
 package org.laniakeamly.poseidon.framework.sql.xml.build;
 
 import org.laniakeamly.poseidon.framework.exception.runtime.DynamicSQLException;
-import org.laniakeamly.poseidon.framework.exception.runtime.ExpressionException;
 import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLBuilderNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
@@ -10,8 +9,6 @@ import org.laniakeamly.poseidon.framework.sql.xml.token.Token;
 import org.laniakeamly.poseidon.framework.sql.xml.token.TokenValue;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;

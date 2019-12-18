@@ -17,6 +17,31 @@
             </else>
         </choose>
 
+        limit 1,0
+
+    </mapper>
+
+    <mapper name="insertUsers">
+        <!--
+
+            for(int i=0,len=users.size; i<len; i++){
+                sql.append("insert into user(name,sex) values ({{item.name}},{{item.sex}});");
+            }
+
+        -->
+        foreach =========================S
+        <foreach index="index" item="item" collections="users">
+            insert into user(name,sex) values ({{item.name}},{{item.sex}});
+            <choose>
+                <if test="$req != username">
+                    and user_a = {{usera}}
+                </if>
+                <else>
+                    and user_b = {{userb}}
+                </else>
+            </choose>
+        </foreach>
+        foreach =========================E
     </mapper>
 
 </builder>

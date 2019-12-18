@@ -32,4 +32,11 @@ interface MapperLabelParserService {
      */
     XMLNode choose(Element element);
 
+    /**
+     * 解析foreach标签
+     * @param element
+     * @return
+     */
+    XMLNode foreach(Element element);
+
 }

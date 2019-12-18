@@ -78,4 +78,12 @@ public class MapperLabelParser implements MapperLabelParserService {
         return chooseNode;
     }
 
+    @Override
+    public XMLNode foreach(Element element) {
+        XMLNode eachNode = new XMLNode(element.getName());
+        eachNode.addAttribute(ProvideConstant.ITEM,element.getAttributeValue(ProvideConstant.ITEM));
+        eachNode.addAttribute(ProvideConstant.INDEX,element.getAttributeValue(ProvideConstant.INDEX));
+        eachNode.addAttribute(ProvideConstant.COLLECTIONS,element.getAttributeValue(ProvideConstant.COLLECTIONS));
+        return eachNode;
+    }
 }
