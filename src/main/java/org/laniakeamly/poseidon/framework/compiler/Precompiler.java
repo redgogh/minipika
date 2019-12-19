@@ -3,12 +3,14 @@ package org.laniakeamly.poseidon.framework.compiler;
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledMethod;
+import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -61,6 +63,7 @@ public class Precompiler {
         while (matcher.find()) {
             names.add(matcher.group(1));
         }
+        // 处理null
         str = str.replaceAll("\\(#null#\\) map.get\\(\"null\"\\)", "null");
         for (String name : names) {
             if (!name.equals("null")) {
@@ -68,7 +71,82 @@ public class Precompiler {
                 str = str.replaceAll(("#" + name + "#"), trueName);
             }
         }
-        System.out.println(str);
+        // 解析所有变量所在的地方
+        boolean isString = false;
+        char[] charArray = str.toCharArray();
+        StringBuilder builder = new StringBuilder();
+        List<Position> positions = new ArrayList<>();
+        int endPos = 0;
+        int startPos = 0;
+        for (int i = 0; i < charArray.length; i++) {
+            char c = charArray[i];
+
+            if (c == '"') {
+                if (!isString) {
+                    isString = true;
+                    startPos = i;
+                } else {
+                    endPos = i;
+                    isString = false;
+                }
+            } else {
+                if (isString) {
+                    builder.append(c);
+                }
+            }
+
+            if (c == ';') {
+
+                if (isString == false && builder.length() != 0) {
+                    positions.add(new Position(builder.toString(), startPos, endPos, i));
+                    StringUtils.clear(builder);
+                }
+            }
+        }
+        Collections.reverse(positions);
+        builder = new StringBuilder(str);
+        for (Position position : positions) {
+            List<String> params = new ArrayList<>();
+            pattern = Pattern.compile("\\{\\{(.*?)}}");
+            matcher = pattern.matcher(position.str);
+            int count = 0;
+            while (matcher.find()) {
+                params.add(matcher.group(1));
+                count++;
+            }
+            if(count <= 0){
+                continue;
+            }
+            String addParamCode = position.addParams(params);
+            String replaced = position.str.replaceAll("\\{\\{(.*?)}}", "?");
+            builder.replace(position.semicolonPos, position.semicolonPos + 1, ";".concat(addParamCode));
+            builder.replace(position.startPos, position.endPos+1, "\"".concat(replaced).concat("\""));
+        }
+        System.out.println(builder);
+
+    }
+
+    private class Position {
+        String str;
+        int startPos;
+        int endPos;
+        int semicolonPos;
+
+        public Position(String str, int startPos, int endPos, int semicolonPos) {
+            this.str = str;
+            this.startPos = startPos;
+            this.endPos = endPos;
+            this.semicolonPos = semicolonPos;
+        }
+
+        public String addParams(List<String> args) {
+            StringBuilder builder = new StringBuilder();
+            for (String arg : args) {
+                builder.append(StringUtils.format("params.add(map.get(\"{}\"));", arg));
+            }
+            return builder.toString();
+        }
+
     }
 
 }

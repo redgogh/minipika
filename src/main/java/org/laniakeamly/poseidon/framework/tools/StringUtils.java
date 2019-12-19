@@ -70,6 +70,14 @@ public class StringUtils {
     }
 
     /**
+     * 清空StringBuilder
+     * @param builder
+     */
+    public static void clear(StringBuilder builder){
+        builder.delete(0,builder.length());
+    }
+
+    /**
      * 获取一个字符串的开始位置和结束位置
      *
      * @param v         源字符串
