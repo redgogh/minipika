@@ -25,6 +25,7 @@ public class ParserBuilderNode {
             for (XMLMapperNode mapperNode : builderNode.getMappers()){
                 dc.addDynamicMethod(parseMapper.parse(mapperNode,builderNode));
             }
+            classes.add(dc);
         }
         return classes;
     }
