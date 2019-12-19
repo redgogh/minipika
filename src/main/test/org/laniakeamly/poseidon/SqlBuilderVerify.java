@@ -26,6 +26,7 @@ public class SqlBuilderVerify {
                 params.put("username",name);
             }
         });
+        System.out.println(sqlMapper.getSql());
     }
 
 }

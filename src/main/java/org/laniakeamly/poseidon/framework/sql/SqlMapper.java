@@ -1,5 +1,7 @@
 package org.laniakeamly.poseidon.framework.sql;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.compiler.Precompiler;
 import org.laniakeamly.poseidon.framework.container.Container;
@@ -15,8 +17,21 @@ import java.util.Map;
  */
 public class SqlMapper {
 
+    @Getter
+    private String sql;
+
+    @Getter
+    private Object[] args;
+
     private static Container precompiled = BeansManager.getBean("precompiled");
     private static Precompiler precompiler = BeansManager.getBean("precompiler");
+
+    public SqlMapper(){}
+
+    public SqlMapper(String sql, Object[] args) {
+        this.sql = sql;
+        this.args = args;
+    }
 
     /**
      * 构建一个sqlMapper
@@ -33,8 +48,8 @@ public class SqlMapper {
         }
         precompiler.compilerMethod(pc, mapperName, parameters);
         List args = new LinkedList();
-        pc.getPrecompiledMethod("findUserByName").invoke(parameters,args);
-        return null;
+        String sql = pc.getPrecompiledMethod("findUserByName").invoke(parameters,args);
+        return new SqlMapper(sql,args.toArray());
     }
 
 }

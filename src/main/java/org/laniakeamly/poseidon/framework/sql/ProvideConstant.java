@@ -17,5 +17,6 @@ public class ProvideConstant {
     public static final String COLLECTIONS              = "collections";
     public static final String SQL_PARAMS_SET           = "params";
     public static final String CLASS_FULL_NAME          = "org.laniakeamly.poseidon.$builder.";
+    public static final String SQL_APPEND               = "sql.append(\" {} \");";
 
 }
