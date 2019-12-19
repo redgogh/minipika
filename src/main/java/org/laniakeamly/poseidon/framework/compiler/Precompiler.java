@@ -6,6 +6,7 @@ import javassist.CtClass;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledMethod;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
@@ -114,13 +115,13 @@ public class Precompiler {
                 params.add(matcher.group(1));
                 count++;
             }
-            if(count <= 0){
+            if (count <= 0) {
                 continue;
             }
             String addParamCode = position.addParams(params);
             String replaced = position.str.replaceAll("\\{\\{(.*?)}}", "?");
             builder.replace(position.semicolonPos, position.semicolonPos + 1, ";".concat(addParamCode));
-            builder.replace(position.startPos, position.endPos+1, "\"".concat(replaced).concat("\""));
+            builder.replace(position.startPos, position.endPos + 1, "\"".concat(replaced).concat("\""));
         }
         System.out.println(builder);
 
@@ -142,7 +143,7 @@ public class Precompiler {
         public String addParams(List<String> args) {
             StringBuilder builder = new StringBuilder();
             for (String arg : args) {
-                builder.append(StringUtils.format("params.add(map.get(\"{}\"));", arg));
+                builder.append(StringUtils.format(ProvideConstant.SQL_PARAMS_SET + ".add(map.get(\"{}\"));", arg));
             }
             return builder.toString();
         }

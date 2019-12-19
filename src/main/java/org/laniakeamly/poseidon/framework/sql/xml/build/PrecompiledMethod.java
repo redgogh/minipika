@@ -2,6 +2,7 @@ package org.laniakeamly.poseidon.framework.sql.xml.build;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.lang.reflect.Method;
@@ -29,7 +30,7 @@ public class PrecompiledMethod {
 
     public PrecompiledMethod(String name) {
         this.name = name;
-        method.append(StringUtils.format("public String {} (Map map)", name));
+        method.append(StringUtils.format("public String {} (Map map,List<Object> "+ ProvideConstant.SQL_PARAMS_SET+")", name));
         method.append("{");
         method.append("StringBuilder sql = new StringBuilder();");
     }
