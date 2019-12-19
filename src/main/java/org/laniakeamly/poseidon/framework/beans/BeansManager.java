@@ -1,5 +1,6 @@
 package org.laniakeamly.poseidon.framework.beans;
 
+import javassist.ClassPool;
 import org.laniakeamly.poseidon.customize.ConnectionPool;
 import org.laniakeamly.poseidon.framework.annotation.Resource;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
@@ -70,6 +71,11 @@ public class BeansManager {
     @Resource(name = "precompiler")
     private Precompiler newSqlClass(){
         return new Precompiler();
+    }
+
+    @Resource(name = "classPool")
+    private ClassPool getClassPool(){
+        return ClassPool.getDefault();
     }
 
     // get bean

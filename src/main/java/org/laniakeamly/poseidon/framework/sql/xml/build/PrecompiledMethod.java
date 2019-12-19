@@ -5,8 +5,10 @@ import lombok.Setter;
 import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 动态方法，需要在调用时被加载的JVM中，以提供获取动态sql
@@ -26,17 +28,35 @@ public class PrecompiledMethod {
     @Setter
     private Method iMethod;
 
+    @Setter
+    private Object execute;
+
     private StringBuilder method = new StringBuilder();
 
     public PrecompiledMethod(String name) {
         this.name = name;
-        method.append(StringUtils.format("public String {} (Map map,List<Object> "+ ProvideConstant.SQL_PARAMS_SET+")", name));
+        method.append(StringUtils.format("public java.lang.String {} (java.util.Map map,java.util.List "+ ProvideConstant.SQL_PARAMS_SET+")", name));
         method.append("{");
         method.append("StringBuilder sql = new StringBuilder();");
     }
 
     public void append(String str) {
         method.append(str);
+    }
+
+    /**
+     * 执行方法
+     * @param map
+     * @param params
+     * @return
+     */
+    public String invoke(Map<String,Object> map,List params){
+        try {
+            return (String) iMethod.invoke(execute,map,params);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -75,7 +95,7 @@ public class PrecompiledMethod {
 
     @Override
     public String toString() {
-        method.append("}");
+        method.append("sql.toString();}");
         return method.toString();
     }
 }

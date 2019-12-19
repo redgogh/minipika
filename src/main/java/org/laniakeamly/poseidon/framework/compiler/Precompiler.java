@@ -1,11 +1,8 @@
 package org.laniakeamly.poseidon.framework.compiler;
 
-import javassist.CannotCompileException;
-import javassist.ClassPool;
-import javassist.CtClass;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import javassist.*;
+import org.laniakeamly.poseidon.framework.beans.BeansManager;
+import org.laniakeamly.poseidon.framework.loader.PoseidonClassLoader;
 import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledMethod;
@@ -21,7 +18,7 @@ import java.util.regex.Pattern;
  */
 public class Precompiler {
 
-    private ClassPool pool = ClassPool.getDefault();
+    private ClassPool pool = BeansManager.getBean("classPool");
 
     /**
      * 加载一个类对象,只加载类信息不加载任何方法
@@ -46,8 +43,26 @@ public class Precompiler {
      * @param parameters
      */
     public void compilerMethod(PrecompiledClass pc, String mapperName, Map<String, Object> parameters) {
-        PrecompiledMethod pm = pc.getPrecompiledMethod(mapperName);
-        processStringMethod(pm.toString(), parameters);
+        try {
+            PrecompiledMethod pm = pc.getPrecompiledMethod(mapperName);
+            String methodString = processStringMethod(pm.toString(), parameters);
+            System.out.println(methodString);
+            CtClass ctClass = pool.get(pc.getFullName());
+            ctClass.defrost();
+            // todo BUG: [source error] no return statement
+            CtMethod ctMethod = CtNewMethod.make(methodString,ctClass);
+            ctClass.addMethod(ctMethod);
+
+            PoseidonClassLoader classLoader = PoseidonClassLoader.getClassLoader(); // 类加载器
+            Class<?> target = classLoader.findClassByBytes(pc.getFullName(),ctClass.toBytecode());
+            Object object = target.newInstance();
+            object = classLoader.getObject(target,object);
+
+            pm.setExecute(object);
+            pm.setIMethod(object.getClass().getDeclaredMethod(pm.getName(),Map.class,List.class));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -57,7 +72,7 @@ public class Precompiler {
      * @param str           方法字符串
      * @param parameters    参数
      */
-    private void processStringMethod(String str, Map<String, Object> parameters) {
+    private String processStringMethod(String str, Map<String, Object> parameters) {
         List<String> names = new ArrayList<>();
         Pattern pattern = Pattern.compile("#(.*?)#");
         Matcher matcher = pattern.matcher(str);
@@ -123,8 +138,7 @@ public class Precompiler {
             builder.replace(position.semicolonPos, position.semicolonPos + 1, ";".concat(addParamCode));
             builder.replace(position.startPos, position.endPos + 1, "\"".concat(replaced).concat("\""));
         }
-        System.out.println(builder);
-
+        return builder.toString();
     }
 
     private class Position {
