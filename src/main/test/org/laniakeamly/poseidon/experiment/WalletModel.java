@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.model.experiment;
+package org.laniakeamly.poseidon.experiment;
 
 import org.laniakeamly.poseidon.framework.annotation.Column;
 import org.laniakeamly.poseidon.framework.annotation.Comment;

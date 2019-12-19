@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.model.timer;
+package org.laniakeamly.poseidon.timer;
 
 import org.laniakeamly.poseidon.framework.timer.Timer;
 import org.laniakeamly.poseidon.framework.timer.TimerManager;

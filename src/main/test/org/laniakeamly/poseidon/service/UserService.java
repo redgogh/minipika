@@ -1,12 +1,7 @@
-package org.laniakeamly.poseidon.model.service;
+package org.laniakeamly.poseidon.service;
 
-import org.laniakeamly.poseidon.framework.annotation.NotNull;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
-import org.laniakeamly.poseidon.framework.sql.SQLBuilder;
-import org.laniakeamly.poseidon.framework.sql.SQLConstruct;
-
-import java.util.Map;
 
 /**
  * @author 2BKeyboard
@@ -41,15 +36,7 @@ public class UserService {
 
          */
 
-        @NotNull
         String username = "keyboard";
-
-        SQLBuilder builder = new SQLBuilder("findUserByName", new SQLConstruct() {
-            @Override
-            public void param(Map<String, Object> params) {
-                params.put("username",username);
-            }
-        });
 
     }
 

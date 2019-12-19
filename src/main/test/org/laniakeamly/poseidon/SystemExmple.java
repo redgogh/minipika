@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.model;
+package org.laniakeamly.poseidon;
 
 import java.net.MalformedURLException;
 

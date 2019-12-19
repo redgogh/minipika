@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.sql.xml;
 
 import org.junit.Test;
-import org.laniakeamly.poseidon.framework.sql.xml.build.DynamicClass;
+import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
 import org.laniakeamly.poseidon.framework.sql.xml.build.ParserBuilderNode;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class LoaderMapper {
 
     @Test
     public void simulation() throws Exception {
-        List<DynamicClass> dynamicClasses = parserBuilderNode.readBuilderNode();
+        List<PrecompiledClass> dynamicClasses = parserBuilderNode.readBuilderNode();
         System.out.println();
     }
 

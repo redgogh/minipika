@@ -4,12 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Create by 2BKeyboard on 2019/12/18 19:26
  */
-public class DynamicClass {
+public class PrecompiledClass {
 
     @Getter
     @Setter
@@ -19,17 +21,21 @@ public class DynamicClass {
     @Setter
     private String fullName;
 
-    List<DynamicMethod> methods = new ArrayList<>(6);
+    Map<String,PrecompiledMethod> methods = new HashMap(6);
 
-    public DynamicClass(){}
+    public PrecompiledClass(){}
 
-    public DynamicClass(String name) {
+    public PrecompiledClass(String name) {
         this.name = name;
         this.fullName = "org.laniakeamly.poseidon.$builder.".concat(name);
     }
 
-    public void addDynamicMethod(DynamicMethod method) {
-        methods.add(method);
+    public PrecompiledMethod getPrecompiledMethod(String name) {
+        return methods.get(name);
+    }
+
+    public void addPrecompiledMethod(PrecompiledMethod method) {
+        methods.put(method.getName(),method);
     }
 
 }

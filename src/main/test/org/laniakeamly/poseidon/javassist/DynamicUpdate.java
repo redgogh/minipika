@@ -1,7 +1,6 @@
 package org.laniakeamly.poseidon.javassist;
 
 import javassist.*;
-import org.laniakeamly.poseidon.framework.sql.xml.build.DynamicMethod;
 
 import java.lang.reflect.Method;
 

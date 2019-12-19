@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.model;
+package org.laniakeamly.poseidon;
 
 import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
 import net.sf.jsqlparser.JSQLParserException;

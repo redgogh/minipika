@@ -1,5 +1,6 @@
 package org.laniakeamly.poseidon.framework.sql.xml.build;
 
+import lombok.Getter;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.util.List;
@@ -9,11 +10,15 @@ import java.util.List;
  * Create by 2BKeyboard on 2019/12/17 17:56
  */
 @SuppressWarnings("SpellCheckingInspection")
-public class DynamicMethod {
+public class PrecompiledMethod {
+
+    @Getter
+    private String name;
 
     private StringBuilder method = new StringBuilder();
 
-    public DynamicMethod(String name) {
+    public PrecompiledMethod(String name) {
+        this.name = name;
         method.append(StringUtils.format("public String {} (Map map)", name));
         method.append("{");
         method.append("StringBuilder sql = new StringBuilder();");

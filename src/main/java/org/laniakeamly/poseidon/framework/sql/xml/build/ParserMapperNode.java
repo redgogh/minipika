@@ -30,15 +30,15 @@ public class ParserMapperNode {
      */
     private String builderName;
 
-    public DynamicMethod parse(XMLMapperNode mapperNode, XMLBuilderNode builderNode) {
+    public PrecompiledMethod parse(XMLMapperNode mapperNode, XMLBuilderNode builderNode) {
         mapperName = mapperNode.getName();
         builderName = builderNode.getName();
-        DynamicMethod dynamic = new DynamicMethod(mapperNode.getName());
+        PrecompiledMethod dynamic = new PrecompiledMethod(mapperNode.getName());
         parseNode(mapperNode.getNodes(), dynamic, null,false);
         return dynamic;
     }
 
-    public void parseNode(List<XMLNode> xmlNodes, DynamicMethod dynamic,IEValue ieValue,boolean choose) {
+    public void parseNode(List<XMLNode> xmlNodes, PrecompiledMethod dynamic, IEValue ieValue, boolean choose) {
         for (XMLNode node : xmlNodes) {
 
             //

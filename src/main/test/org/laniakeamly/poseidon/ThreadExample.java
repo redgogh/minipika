@@ -1,12 +1,12 @@
-package org.laniakeamly.poseidon.model;
+package org.laniakeamly.poseidon;
 
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
-import org.laniakeamly.poseidon.model.experiment.ProductModel;
-import org.laniakeamly.poseidon.model.experiment.UserModel;
+import org.laniakeamly.poseidon.experiment.ProductModel;
+import org.laniakeamly.poseidon.experiment.UserModel;
 
 import java.sql.ResultSet;
 import java.util.Date;

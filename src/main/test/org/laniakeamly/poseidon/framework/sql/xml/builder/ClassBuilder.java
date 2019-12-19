@@ -24,7 +24,6 @@ public class ClassBuilder extends StringNewline implements CodeBuilderFactory{
     private int next = 0;
 
     private List<MethodBuilder> methods;
-    private List<NewlineBuilder> varibale;
 
     public ClassBuilder(String name,String fullClassName){
         this.name = name;

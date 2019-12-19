@@ -1,12 +1,12 @@
-package org.laniakeamly.poseidon.model;
+package org.laniakeamly.poseidon;
 
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
 import org.laniakeamly.poseidon.framework.tools.TimeUtils;
-import org.laniakeamly.poseidon.model.experiment.ProductModel;
-import org.laniakeamly.poseidon.model.experiment.UserModel;
+import org.laniakeamly.poseidon.experiment.ProductModel;
+import org.laniakeamly.poseidon.experiment.UserModel;
 
 import java.util.Date;
 
@@ -16,7 +16,7 @@ import java.util.Date;
  * @date 2019/11/4 14:22
  * @since 1.8
  */
-public class QueryExample {
+public class Query {
 
     static JdbcSupport jdbc     = BeansManager.getBean("jdbc");
     static PoseidonCache cache  = BeansManager.getBean("cache");
