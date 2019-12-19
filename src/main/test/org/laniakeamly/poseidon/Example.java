@@ -23,18 +23,33 @@ public class Example {
         list.add("c");
         list.add("d");
 
-        map.put("list",list);
+        map.put("list", list);
 
-        for(String s : (List<java.lang.String>) map.get("list")){
+        for (String s : (List<java.lang.String>) map.get("list")) {
             System.out.println(s);
         }
 
     }
 
     @Test
-    public void getListGeneric(){
+    public void getListGeneric() {
         List<String> list = new LinkedList<>();
         System.out.println(list.isEmpty());
     }
+
+    public java.lang.String findUserByName(java.util.Map map, java.util.List params) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("select * from user where 1 = 1");
+        if ((java.lang.String) map.get("username") != null) {
+            sql.append("usernameand user_a = ?");
+            params.add(map.get("username"));
+        } else {
+            sql.append("and user_b = ?");
+            params.add(map.get("username"));
+        }
+        sql.append("limit 1,0");
+        return sql.toString();
+    }
+
 
 }

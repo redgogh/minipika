@@ -6,6 +6,8 @@ import org.laniakeamly.poseidon.framework.container.Container;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledMethod;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,6 +32,8 @@ public class SqlMapper {
             precompiler.loaderClass(pc);
         }
         precompiler.compilerMethod(pc, mapperName, parameters);
+        List args = new LinkedList();
+        pc.getPrecompiledMethod("findUserByName").invoke(parameters,args);
         return null;
     }
 

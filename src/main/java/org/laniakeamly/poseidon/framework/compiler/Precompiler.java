@@ -49,15 +49,12 @@ public class Precompiler {
             System.out.println(methodString);
             CtClass ctClass = pool.get(pc.getFullName());
             ctClass.defrost();
-            // todo BUG: [source error] no return statement
             CtMethod ctMethod = CtNewMethod.make(methodString,ctClass);
             ctClass.addMethod(ctMethod);
-
             PoseidonClassLoader classLoader = PoseidonClassLoader.getClassLoader(); // 类加载器
             Class<?> target = classLoader.findClassByBytes(pc.getFullName(),ctClass.toBytecode());
             Object object = target.newInstance();
             object = classLoader.getObject(target,object);
-
             pm.setExecute(object);
             pm.setIMethod(object.getClass().getDeclaredMethod(pm.getName(),Map.class,List.class));
         }catch (Exception e){
