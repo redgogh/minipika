@@ -10,11 +10,11 @@
         1 = 1
 
         <choose>
-            <if test="$req != username">
-                and user_a = {{usera}}
+            <if test="$req != null">
+                and user_a = {{username}}
             </if>
             <else>
-                and user_b = {{userb}}
+                and user_b = {{username}}
             </else>
         </choose>
 

@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  * 源码来自：https://www.cnblogs.com/andysd/p/10081443.html
  * Create by 2BKeyboard on 2019/12/15 16:08
  */
-public class PoseidonCompiler {
+public class StringCompiler {
 
     //类全名
     private String fullClassName;
@@ -35,7 +35,7 @@ public class PoseidonCompiler {
     private long runTakeTime;
 
 
-    public PoseidonCompiler(String sourceCode,String fullName) {
+    public StringCompiler(String sourceCode, String fullName) {
         this.sourceCode = sourceCode;
         this.fullClassName = fullName;
     }

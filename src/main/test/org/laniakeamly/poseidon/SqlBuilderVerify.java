@@ -23,7 +23,7 @@ public class SqlBuilderVerify {
         SqlMapper sqlMapper = sqlBuilder.buildMapper("findUserByName", new SqlParameter() {
             @Override
             public void set(Map<String, Object> params) {
-                params.put("name",name);
+                params.put("username",name);
             }
         });
     }

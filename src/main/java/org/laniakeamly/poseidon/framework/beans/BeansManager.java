@@ -5,9 +5,9 @@ import org.laniakeamly.poseidon.framework.annotation.Resource;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
 import org.laniakeamly.poseidon.framework.cache.CacheRefreshTimer;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
+import org.laniakeamly.poseidon.framework.compiler.Precompiler;
 import org.laniakeamly.poseidon.framework.container.Container;
 import org.laniakeamly.poseidon.framework.container.Precompiled;
-import org.laniakeamly.poseidon.framework.container.SqlClass;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCacheImpl;
@@ -67,9 +67,9 @@ public class BeansManager {
         return new Precompiled();
     }
 
-    @Resource(name = "sqlClass")
-    private Container newSqlClass(){
-        return new SqlClass();
+    @Resource(name = "precompiler")
+    private Precompiler newSqlClass(){
+        return new Precompiler();
     }
 
     // get bean

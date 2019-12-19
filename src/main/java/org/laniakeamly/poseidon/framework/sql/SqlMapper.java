@@ -1,8 +1,8 @@
 package org.laniakeamly.poseidon.framework.sql;
 
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
+import org.laniakeamly.poseidon.framework.compiler.Precompiler;
 import org.laniakeamly.poseidon.framework.container.Container;
-import org.laniakeamly.poseidon.framework.container.SqlClass;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledMethod;
 
@@ -13,8 +13,8 @@ import java.util.Map;
  */
 public class SqlMapper {
 
-    private static SqlClass sqlClass = BeansManager.getBean("sqlClass");
     private static Container precompiled = BeansManager.getBean("precompiled");
+    private static Precompiler precompiler = BeansManager.getBean("precompiler");
 
     /**
      * 构建一个sqlMapper
@@ -23,13 +23,13 @@ public class SqlMapper {
      * @param parameters    参数
      * @return
      */
-    static SqlMapper builderMapper(String builderName, String mapperName, Map<String,Object> parameters){
+    static SqlMapper builderMapper(String builderName, String mapperName, Map<String, Object> parameters) {
         PrecompiledClass pc = precompiled.getValue(builderName);
-        PrecompiledMethod pm = pc.getPrecompiledMethod(mapperName);
         // 判断类是否已经加载到对象
-        if(!pc.isLoad()){
-            sqlClass.loaderClass(pc);
+        if (!pc.isLoad()) {
+            precompiler.loaderClass(pc);
         }
+        precompiler.compilerMethod(pc, mapperName, parameters);
         return null;
     }
 
