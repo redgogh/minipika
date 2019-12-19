@@ -5,7 +5,9 @@ import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
 import org.laniakeamly.poseidon.framework.sql.xml.parser.ReaderBuilderXML;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 解析节点
@@ -15,19 +17,24 @@ public class ParserBuilderNode {
 
     private ParserMapperNode parseMapper = new ParserMapperNode();
 
-    public List<PrecompiledClass> readBuilderNode() throws Exception {
-        ReaderBuilderXML readerBuilderXML = new ReaderBuilderXML();
-        List<XMLBuilderNode> xmlBuilderNode = readerBuilderXML.parseXML();
-        List<PrecompiledClass> classes = new ArrayList<>();
-        for (XMLBuilderNode builderNode : xmlBuilderNode) {
-            PrecompiledClass dc = new PrecompiledClass(builderNode.getName());
-            for (XMLMapperNode mapperNode : builderNode.getMappers()){
-                PrecompiledMethod pm = parseMapper.parse(mapperNode,builderNode);
-                dc.addPrecompiledMethod(pm);
+    public Map<String,PrecompiledClass> readBuilderNode() {
+        try {
+            ReaderBuilderXML readerBuilderXML = new ReaderBuilderXML();
+            List<XMLBuilderNode> xmlBuilderNode = readerBuilderXML.parseXML();
+            Map<String,PrecompiledClass> classes = new HashMap<>();
+            for (XMLBuilderNode builderNode : xmlBuilderNode) {
+                PrecompiledClass dc = new PrecompiledClass(builderNode.getName());
+                for (XMLMapperNode mapperNode : builderNode.getMappers()) {
+                    PrecompiledMethod pm = parseMapper.parse(mapperNode, builderNode);
+                    dc.addPrecompiledMethod(pm);
+                }
+                classes.put(dc.getName(),dc);
             }
-            classes.add(dc);
+            return classes;
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        return classes;
+        return null;
     }
 
 }

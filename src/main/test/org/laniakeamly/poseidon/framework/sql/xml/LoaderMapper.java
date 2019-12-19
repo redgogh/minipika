@@ -17,7 +17,6 @@ public class LoaderMapper {
 
     @Test
     public void simulation() throws Exception {
-        List<PrecompiledClass> dynamicClasses = parserBuilderNode.readBuilderNode();
         System.out.println();
     }
 

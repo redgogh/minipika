@@ -5,6 +5,9 @@ import org.laniakeamly.poseidon.framework.annotation.Resource;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
 import org.laniakeamly.poseidon.framework.cache.CacheRefreshTimer;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
+import org.laniakeamly.poseidon.framework.container.Container;
+import org.laniakeamly.poseidon.framework.container.Precompiled;
+import org.laniakeamly.poseidon.framework.container.SqlClass;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCacheImpl;
@@ -12,7 +15,6 @@ import org.laniakeamly.poseidon.framework.exception.runtime.BeansManagerExceptio
 import org.laniakeamly.poseidon.framework.timer.Timer;
 import org.laniakeamly.poseidon.framework.timer.TimerManager;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
-import javassist.ClassPool;
 import org.laniakeamly.poseidon.framework.db.*;
 
 import java.lang.reflect.Field;
@@ -55,9 +57,19 @@ public class BeansManager {
         return new org.laniakeamly.poseidon.framework.pool.ConnectionPool();
     }
 
-    @Resource(name = "classPool")
-    private ClassPool getClassPool(){
-        return ClassPool.getDefault();
+    @Resource(name = "jdbcBuilder")
+    private JdbcBuilder newJdbcBuilder(){
+        return new JdbcBuilderImpl();
+    }
+
+    @Resource(name = "precompiled")
+    private Container newPrecompiledCOntainer(){
+        return new Precompiled();
+    }
+
+    @Resource(name = "sqlClass")
+    private Container newSqlClass(){
+        return new SqlClass();
     }
 
     // get bean

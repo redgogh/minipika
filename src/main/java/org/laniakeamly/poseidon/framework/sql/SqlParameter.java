@@ -11,6 +11,6 @@ public interface SqlParameter {
      * 传参
      * @param params
      */
-    void wdnmd(Map<String,Object> params);
+    void set(Map<String,Object> params);
 
 }

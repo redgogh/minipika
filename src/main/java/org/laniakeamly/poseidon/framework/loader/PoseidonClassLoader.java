@@ -10,11 +10,11 @@ import java.lang.reflect.InvocationTargetException;
 public class PoseidonClassLoader extends ClassLoader{
 
     private static class SingletonHolder {
-        public static final PoseidonClassLoader instnace = new PoseidonClassLoader();
+        public static final PoseidonClassLoader instance = new PoseidonClassLoader();
     }
 
     public static PoseidonClassLoader getClassLoader(){
-        return SingletonHolder.instnace;
+        return SingletonHolder.instance;
     }
 
     private PoseidonClassLoader(){}

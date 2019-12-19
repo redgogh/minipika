@@ -5,13 +5,13 @@ import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
 /**
  * Create by 2BKeyboard on 2019/12/19 11:30
  */
-public interface CodeContainer {
+public interface Container {
 
     /**
-     * 获取一个预编译的类
+     * 获取一个对象
      * @param name
      * @return
      */
-    PrecompiledClass getClass(String name);
+    <T> T getValue(String name);
 
 }

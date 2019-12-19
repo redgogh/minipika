@@ -2,6 +2,8 @@ package org.laniakeamly.poseidon.framework.sql.xml.build;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
+import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,21 +23,34 @@ public class PrecompiledClass {
     @Setter
     private String fullName;
 
-    Map<String,PrecompiledMethod> methods = new HashMap(6);
+    @Getter
+    @Setter
+    private boolean load = false;
 
-    public PrecompiledClass(){}
+    @Getter
+    @Setter
+    private Class<?> iClass;
+
+    Map<String, PrecompiledMethod> methods = new HashMap(6);
+
+    public PrecompiledClass() {
+    }
 
     public PrecompiledClass(String name) {
         this.name = name;
-        this.fullName = "org.laniakeamly.poseidon.$builder.".concat(name);
+        this.fullName = ProvideConstant.CLASS_FULL_NAME.concat(name);
     }
 
     public PrecompiledMethod getPrecompiledMethod(String name) {
-        return methods.get(name);
+        PrecompiledMethod pm = methods.get(name);
+        if (pm == null) {
+            throw new NullPointerException(StringUtils.format("'{}' mapper is not found please check your mapper xml in builder '{}'", name, this.name));
+        }
+        return pm;
     }
 
     public void addPrecompiledMethod(PrecompiledMethod method) {
-        methods.put(method.getName(),method);
+        methods.put(method.getName(), method);
     }
 
 }

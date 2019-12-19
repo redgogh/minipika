@@ -35,9 +35,9 @@ public class PoseidonCompiler {
     private long runTakeTime;
 
 
-    public PoseidonCompiler(String sourceCode) {
+    public PoseidonCompiler(String sourceCode,String fullName) {
         this.sourceCode = sourceCode;
-        this.fullClassName = getFullClassName(sourceCode);
+        this.fullClassName = fullName;
     }
 
     /**
@@ -114,28 +114,6 @@ public class PoseidonCompiler {
 
     public long getRunTakeTime() {
         return runTakeTime;
-    }
-
-    /**
-     * 获取类的全名称
-     *
-     * @param sourceCode 源码
-     * @return 类的全名称
-     */
-    public static String getFullClassName(String sourceCode) {
-        String className = "";
-        Pattern pattern = Pattern.compile("package\\s+\\S+\\s*;");
-        Matcher matcher = pattern.matcher(sourceCode);
-        if (matcher.find()) {
-            className = matcher.group().replaceFirst("package", "").replace(";", "").trim() + ".";
-        }
-
-        pattern = Pattern.compile("class\\s+\\S+\\s+\\{");
-        matcher = pattern.matcher(sourceCode);
-        if (matcher.find()) {
-            className += matcher.group().replaceFirst("class", "").replace("{", "").trim();
-        }
-        return className;
     }
 
     /**
