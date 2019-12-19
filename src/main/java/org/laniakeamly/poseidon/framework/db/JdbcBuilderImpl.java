@@ -11,8 +11,11 @@ public class JdbcBuilderImpl implements JdbcBuilder {
     @Valid
     private NativeJdbc nativeJdbc;
 
+    @Valid
+    private JdbcSupport jdbcSupport;
+
     @Override
     public <T> T queryForObject(SqlMapper mapper) {
-        return null;
+        return (T) jdbcSupport.queryForObject(mapper.getSql(),mapper.getResult(),mapper.getArgs());
     }
 }

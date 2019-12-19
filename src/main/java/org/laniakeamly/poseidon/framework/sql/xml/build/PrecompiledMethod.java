@@ -21,6 +21,9 @@ public class PrecompiledMethod {
     private String name;
 
     @Getter
+    private String result;
+
+    @Getter
     @Setter
     private boolean load = false;
 
@@ -33,8 +36,14 @@ public class PrecompiledMethod {
 
     private StringBuilder method = new StringBuilder();
 
-    public PrecompiledMethod(String name) {
+    /**
+     * 创建预编译方法
+     * @param name          mapper标签的name属性
+     * @param result    mapper标签的return属性
+     */
+    public PrecompiledMethod(String name,String result) {
         this.name = name;
+        this.result = result;
         method.append(StringUtils.format("public java.lang.String {} (java.util.Map map,java.util.List "+ ProvideConstant.SQL_PARAMS_SET+")", name));
         method.append("{");
         method.append("StringBuilder sql = new StringBuilder();");

@@ -42,11 +42,11 @@ public class Precompiler {
      * @param mapperName
      * @param parameters
      */
-    public void compilerMethod(PrecompiledClass pc, String mapperName, Map<String, Object> parameters) {
+    public PrecompiledMethod compilerMethod(PrecompiledClass pc, String mapperName, Map<String, Object> parameters) {
         try {
             PrecompiledMethod pm = pc.getPrecompiledMethod(mapperName);
+            if(pm.isLoad()) return pm; // 如果已经编译过了直接返回不再进行下面的操作
             String methodString = processStringMethod(pm.toString(), parameters);
-            System.out.println(methodString);
             CtClass ctClass = pool.get(pc.getFullName());
             ctClass.defrost();
             CtMethod ctMethod = CtNewMethod.make(methodString,ctClass);
@@ -57,9 +57,12 @@ public class Precompiler {
             object = classLoader.getObject(target,object);
             pm.setExecute(object);
             pm.setIMethod(object.getClass().getDeclaredMethod(pm.getName(),Map.class,List.class));
+            pm.setLoad(true);
+            return pm;
         }catch (Exception e){
             e.printStackTrace();
         }
+        return null;
     }
 
     /**

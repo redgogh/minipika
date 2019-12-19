@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.compiler.Precompiler;
+import org.laniakeamly.poseidon.framework.config.Config;
 import org.laniakeamly.poseidon.framework.container.Container;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledMethod;
@@ -21,16 +22,28 @@ public class SqlMapper {
     private String sql;
 
     @Getter
+    private Class<?> result;
+
+    @Getter
     private Object[] args;
 
-    private static Container precompiled = BeansManager.getBean("precompiled");
-    private static Precompiler precompiler = BeansManager.getBean("precompiler");
 
-    public SqlMapper(){}
+    private static final String location = Config.getInstance().getModelPackage();
 
-    public SqlMapper(String sql, Object[] args) {
-        this.sql = sql;
-        this.args = args;
+    private static final Container precompiled = BeansManager.getBean("precompiled");
+    private static final Precompiler precompiler = BeansManager.getBean("precompiler");
+
+    public SqlMapper() {
+    }
+
+    public SqlMapper(String sql, String result, Object[] args) {
+        try {
+            this.sql = sql;
+            this.args = args;
+            this.result = Class.forName(location.concat(".").concat(result));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -46,10 +59,10 @@ public class SqlMapper {
         if (!pc.isLoad()) {
             precompiler.loaderClass(pc);
         }
-        precompiler.compilerMethod(pc, mapperName, parameters);
+        PrecompiledMethod pm = precompiler.compilerMethod(pc, mapperName, parameters);
         List args = new LinkedList();
-        String sql = pc.getPrecompiledMethod("findUserByName").invoke(parameters,args);
-        return new SqlMapper(sql,args.toArray());
+        String sql = pc.getPrecompiledMethod(mapperName).invoke(parameters, args);
+        return new SqlMapper(sql, pm.getResult(), args.toArray());
     }
 
 }

@@ -35,8 +35,11 @@ public class ReaderMapperElement {
 
             XMLMapperNode xmlMapper = new XMLMapperNode();
 
+            // 获取mapper标签属性
+            String result = mapper.getAttributeValue("result");
             String mappername = mapper.getAttributeValue("name");
             xmlMapper.setName(mappername);
+            xmlMapper.setResult(result);
             if (StringUtils.isEmpty(mappername)) {
                 throw new ExpressionException("tag: mapper attribute name cannot null from builder '" + xmlparser.getCurrentBuilder() + "'");
             }

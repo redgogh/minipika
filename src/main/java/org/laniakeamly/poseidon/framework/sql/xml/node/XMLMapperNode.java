@@ -14,6 +14,7 @@ import java.util.List;
 public class XMLMapperNode {
 
     private String name;
+    private String result;
     private List<XMLNode> nodes = new LinkedList<>();
 
     public void addNode(XMLNode node){

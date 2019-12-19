@@ -1,50 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<builder name="UserMapper">
+<?xml version="1.0" encoding="UTF-8" ?>
+<builder name="userDao">
 
-    <mapper name="findUserByName">
-
-        select *
-        from
-        user
-        where
-        1 = 1
-
-        <choose>
-            <if test="$req != null">
-                and user_a = {{username}}
-            </if>
-            <else>
-                and user_b = {{username}}
-            </else>
-        </choose>
-
-        limit 1,0
-
-    </mapper>
-
-    <mapper name="insertUsers">
-        <!--
-
-            for(int i=0,len=users.size; i<len; i++){
-                sql.append("insert into user(name,sex) values ({{item.name}},{{item.sex}});");
-            }
-
-        -->
-        foreach =========================S
-        <foreach index="index" item="item" collections="users">
-            insert into user(name,sex) values ({{item.name}},{{item.sex}});
-
-            <choose>
-                <if test="$req != username">
-                    and user_a = {{usera}}
-                </if>
-                <else>
-                    and user_b = {{userb}}
-                </else>
-            </choose>
-
-        </foreach>
-        foreach =========================E
+    <mapper name="findUserByUUID" result="UserModel">
+        select * from kkb_user_model where uuid = {{uuid}}
     </mapper>
 
 </builder>

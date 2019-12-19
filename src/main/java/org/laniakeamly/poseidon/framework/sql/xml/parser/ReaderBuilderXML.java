@@ -68,8 +68,4 @@ public class ReaderBuilderXML {
 
     }
 
-    public static void main(String[] args) throws Exception {
-        new ReaderBuilderXML().parseXML();
-    }
-
 }

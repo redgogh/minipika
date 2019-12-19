@@ -33,7 +33,7 @@ public class ParserMapperNode {
     public PrecompiledMethod parse(XMLMapperNode mapperNode, XMLBuilderNode builderNode) {
         mapperName = mapperNode.getName();
         builderName = builderNode.getName();
-        PrecompiledMethod dynamic = new PrecompiledMethod(mapperNode.getName());
+        PrecompiledMethod dynamic = new PrecompiledMethod(mapperNode.getName(),mapperNode.getResult());
         parseNode(mapperNode.getNodes(), dynamic, null,false);
         return dynamic;
     }
