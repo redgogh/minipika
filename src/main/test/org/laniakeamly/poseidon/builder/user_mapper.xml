@@ -5,4 +5,12 @@
         select * from kkb_user_model where uuid = {{uuid}}
     </mapper>
 
+    <mapper name="findUsersByPnameAndPw" result="UserModel">
+        select * from kkb_user_model where
+        <if test="$req != null">
+            <cond>password = {{password}}</cond>
+            <cond>and product_name = {{pname}}</cond>
+        </if>
+    </mapper>
+
 </builder>

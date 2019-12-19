@@ -65,11 +65,14 @@ public class ParserMapperNode {
                 List<TokenValue> values = testProcess(node.getAttribute("test"));
                 for (XMLNode child : node.getChildren()) {
                     String test = buildTestContent(values, child);
-                    ieValue.addTest(test);
+                    if(ieValue != null) {
+                        ieValue.addTest(test);
+                    }
                     if(choose) {
                         ieValue.addIfContent(child.getContent());
                     }else{
                         IEValue _ieValue = new IEValue();
+                        _ieValue.addTest(test);
                         _ieValue.addIfContent(child.getContent());
                         dynamic.addif(_ieValue);
                     }

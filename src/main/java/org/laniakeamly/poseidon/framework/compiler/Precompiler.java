@@ -52,6 +52,7 @@ public class Precompiler {
             CtMethod ctMethod = CtNewMethod.make(methodString,ctClass);
             ctClass.addMethod(ctMethod);
             PoseidonClassLoader classLoader = PoseidonClassLoader.getClassLoader(); // 类加载器
+            // todo BUG: 类名重复定义
             Class<?> target = classLoader.findClassByBytes(pc.getFullName(),ctClass.toBytecode());
             Object object = target.newInstance();
             object = classLoader.getObject(target,object);

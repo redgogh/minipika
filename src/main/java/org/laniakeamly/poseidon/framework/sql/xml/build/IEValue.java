@@ -25,6 +25,7 @@ public class IEValue {
     public void addTest(String test){
         tests.add(test);
     }
+
     public void addIfContent(String content){
         ifContent.add(content);
     }
