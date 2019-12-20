@@ -18,31 +18,31 @@ public class JdbcBuilderImpl implements JdbcBuilder {
 
     @Override
     public <T> T queryForObject(SqlMapper sqlMapper) {
-        return (T) jdbcSupport.queryForObject(sqlMapper.getSql(),sqlMapper.getResult(),sqlMapper.getArgs());
+        return (T) jdbcSupport.queryForObject(sqlMapper.getSql(), sqlMapper.getResult(), sqlMapper.getArgs());
     }
 
     @Override
     public <T> List<T> queryForList(SqlMapper sqlMapper) {
-        return (List<T>) jdbcSupport.queryForList(sqlMapper.getSql(),sqlMapper.getResult(),sqlMapper.getArgs());
+        return (List<T>) jdbcSupport.queryForList(sqlMapper.getSql(), sqlMapper.getResult(), sqlMapper.getArgs());
     }
 
     @Override
     public String queryForJson(SqlMapper sqlMapper) {
-        return jdbcSupport.queryForJson(sqlMapper.getSql(),sqlMapper.getArgs());
+        return jdbcSupport.queryForJson(sqlMapper.getSql(), sqlMapper.getArgs());
     }
 
     @Override
     public NativePageHelper queryForPage(SqlMapper sqlMapper, NativePageHelper pageVo) {
-        return jdbcSupport.queryForPage(sqlMapper.getSql(),pageVo,sqlMapper.getArgs());
+        return jdbcSupport.queryForPage(sqlMapper.getSql(), pageVo, sqlMapper.getArgs());
     }
 
     @Override
     public int update(SqlMapper sqlMapper) {
-        return jdbcSupport.update(sqlMapper.getSql(),sqlMapper.getArgs());
+        return jdbcSupport.update(sqlMapper.getSql(), sqlMapper.getArgs());
     }
 
     @Override
     public int insert(SqlMapper sqlMapper) {
-        return jdbcSupport.insert(sqlMapper.getSql(),sqlMapper.getArgs());
+        return jdbcSupport.insert(sqlMapper.getSql(), sqlMapper.getArgs());
     }
 }

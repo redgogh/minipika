@@ -34,11 +34,11 @@ public class ParserCrudNode {
         mapperName = mapperNode.getName();
         builderName = builderNode.getName();
         PrecompiledMethod dynamic = new PrecompiledMethod(mapperNode.getName(), mapperNode.getResult(),mapperNode.getType());
-        parseNode(mapperNode.getNodes(), mapperNode.getType(), dynamic, null, false);
+        parseNode(mapperNode.getNodes(), mapperNode.getType(), dynamic, null, false,false);
         return dynamic;
     }
 
-    public void parseNode(List<XMLNode> xmlNodes, String type, PrecompiledMethod dynamic, IEValue ieValue, boolean choose) {
+    public void parseNode(List<XMLNode> xmlNodes, String type, PrecompiledMethod dynamic, IEValue ieValue, boolean choose,boolean foreach) {
         for (XMLNode node : xmlNodes) {
 
             //
@@ -53,7 +53,7 @@ public class ParserCrudNode {
             //
             if (ProvideConstant.CHOOSE.equals(node.getName())) {
                 IEValue _ieValue = new IEValue();
-                parseNode(node.getChildren(), type, dynamic, _ieValue, true);
+                parseNode(node.getChildren(), type, dynamic, _ieValue, true,false);
                 dynamic.addif(_ieValue);
                 continue;
             }
@@ -100,7 +100,7 @@ public class ParserCrudNode {
                 String index = node.getAttribute(ProvideConstant.INDEX);
                 String collections = node.getAttribute(ProvideConstant.COLLECTIONS);
                 dynamic.append(buildCycleBody(index, item, collections,type));
-                parseNode(node.getChildren(), type,dynamic, null, false);
+                parseNode(node.getChildren(), type,dynamic, null, false,true);
                 dynamic.append("}");
                 dynamic.append("}");
                 continue;
@@ -129,12 +129,6 @@ public class ParserCrudNode {
         builder.append(
                 StringUtils.format("#{}# {} = {}.get({});", collections, itemName, collections, index)
         );
-        if(ProvideConstant.INSERT.equals(type)) {
-            builder.append(
-                    StringUtils.format("{} {} = new {}();", ProvideConstant.PARAMETER_OBJECT_LOCATION,
-                            ProvideConstant.$PARAMETER, ProvideConstant.PARAMETER_OBJECT_LOCATION)
-            );
-        }
         return builder.toString();
     }
 

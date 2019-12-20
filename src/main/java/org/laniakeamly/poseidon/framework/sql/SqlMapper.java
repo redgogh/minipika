@@ -59,14 +59,12 @@ public class SqlMapper {
         PrecompiledClass pc = precompiled.getValue(builderName);
         // 判断类是否已经加载到对象
         if (!pc.isLoad()) {
-            // precompiler.loaderClass(pc);
+            precompiler.loaderClass(pc);
         }
         PrecompiledMethod pm = precompiler.compilerMethod(pc, mapperName, parameters);
-        System.out.println(pm.toString());
-        // List args = new LinkedList();
-        // String sql = pc.getPrecompiledMethod(mapperName).invoke(parameters, args);
-        // return new SqlMapper(sql, pm.getResult(), args.toArray());
-        return null;
+        List args = new LinkedList();
+        String sql = "";//pc.getPrecompiledMethod(mapperName).invoke(parameters, args);
+        return new SqlMapper(sql, pm.getResult(), args.toArray());
     }
 
 }

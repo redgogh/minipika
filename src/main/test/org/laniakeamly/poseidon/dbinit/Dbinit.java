@@ -52,14 +52,14 @@ public class Dbinit {
         SqlMapper sqlMapper2 = sqlBuilder.buildMapper("updateUserById", new SqlParameter() {
             @Override
             public void set(Map<String, Object> params) {
-                params.put("username","zs");
+                params.put("id",6181);
             }
         });
 
         SqlMapper sqlMapper3 = sqlBuilder.buildMapper("insertUserModel", new SqlParameter() {
             @Override
             public void set(Map<String, Object> params) {
-                params.put("username","zs");
+                params.put("users",users);
             }
         });
 
