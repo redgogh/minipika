@@ -14,7 +14,7 @@
         </choose>
     </select>
 
-    <update name="findUserByName">
+    <update name="updateUserById">
 
         UPDATE `test`.`user_model`
         SET `user_name` = 'geg|-',

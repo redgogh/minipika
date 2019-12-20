@@ -45,7 +45,7 @@ public class Precompiler {
     public PrecompiledMethod compilerMethod(PrecompiledClass pc, String mapperName, Map<String, Object> parameters) {
         try {
             PrecompiledMethod pm = pc.getPrecompiledMethod(mapperName);
-            if (pm.isLoad()) return pm; // 如果已经编译过了直接返回不再进行下面的操作
+            if (true) return pm; // 如果已经编译过了直接返回不再进行下面的操作
             String methodString = processStringMethod(pm.toString(), parameters);
             CtClass ctClass = pool.get(pc.getFullName());
             ctClass.defrost();
@@ -73,112 +73,7 @@ public class Precompiler {
      * @param parameters    参数
      */
     private String processStringMethod(String str, Map<String, Object> parameters) {
-        List<String> names = new ArrayList<>();
-        Pattern pattern = Pattern.compile("#(.*?)#");
-        Matcher matcher = pattern.matcher(str);
-        while (matcher.find()) {
-            names.add(matcher.group(1));
-        }
-        // 处理null
-        str = str.replaceAll("\\(#null#\\) map.get\\(\"null\"\\)", "null");
-        for (String name : names) {
-            if (!name.equals("null")) {
-                String className = null;
-                if (parameters.get(name) instanceof List) {
-                    if (!((List) parameters.get(name)).isEmpty()) {
-                        className = ((List) parameters.get(name)).get(0).getClass().getName();
-                    }
-                } else {
-                    className = parameters.get(name).getClass().getName();
-                }
-                str = str.replaceAll(("#" + name + "#"), className);
-            }
-        }
-        // 解析所有变量所在的地方
-        boolean isString = false;
-        char[] charArray = str.toCharArray();
-        StringBuilder builder = new StringBuilder();
-        List<Position> positions = new ArrayList<>();
-        int endPos = 0;
-        int startPos = 0;
-        for (int i = 0; i < charArray.length; i++) {
-            char c = charArray[i];
-
-            if (c == '"') {
-                if (!isString) {
-                    isString = true;
-                    startPos = i;
-                } else {
-                    endPos = i;
-                    isString = false;
-                }
-            } else {
-                if (isString) {
-                    builder.append(c);
-                }
-            }
-
-            if (c == ';') {
-
-                if (isString == false && builder.length() != 0) {
-                    positions.add(new Position(builder.toString(), startPos, endPos, i));
-                    StringUtils.clear(builder);
-                }
-            }
-        }
-        Collections.reverse(positions);
-        builder = new StringBuilder(str);
-        for (Position position : positions) {
-            List<String> params = new ArrayList<>();
-            pattern = Pattern.compile("\\{\\{(.*?)}}");
-            matcher = pattern.matcher(position.str);
-            int count = 0;
-            while (matcher.find()) {
-                params.add(matcher.group(1));
-                count++;
-            }
-            if (count <= 0) {
-                continue;
-            }
-            String addParamCode = position.addParams(params);
-            String replaced = position.str.replaceAll("\\{\\{(.*?)}}", "?");
-            builder.replace(position.semicolonPos, position.semicolonPos + 1, ";".concat(addParamCode));
-            builder.replace(position.startPos, position.endPos + 1, "\"".concat(replaced).concat("\""));
-        }
-        return builder.toString();
-    }
-
-    private class Position {
-        String str;
-        int startPos;
-        int endPos;
-        int semicolonPos;
-
-        public Position(String str, int startPos, int endPos, int semicolonPos) {
-            this.str = str;
-            this.startPos = startPos;
-            this.endPos = endPos;
-            this.semicolonPos = semicolonPos;
-        }
-
-        public String addParams(List<String> args) {
-            StringBuilder builder = new StringBuilder();
-            for (String arg : args) {
-                if (!arg.contains(".")) {
-                    builder.append(StringUtils.format(ProvideConstant.SQL_PARAMS_SET + ".add(map.get(\"{}\"));", arg));
-                } else {
-                    String[] str = arg.split("\\.");
-                    builder.append(StringUtils.format(ProvideConstant.SQL_PARAMS_SET + ".add(map.get(\"{}\"));", arg));
-                    // builder.append(StringUtils.format(ProvideConstant.$PARAMETER + ".add(org.laniakeamly.poseidon.framework.tools.ReflectUtils.getMemberValue(${},\"{}\"));", str[0],str[1]));
-                }
-            }
-            String value = builder.toString();
-            if(value.contains(ProvideConstant.$PARAMETER)){
-                value = value.concat(StringUtils.format("params.add({});",ProvideConstant.$PARAMETER));
-            }
-            return value;
-        }
-
+        return null;
     }
 
 }
