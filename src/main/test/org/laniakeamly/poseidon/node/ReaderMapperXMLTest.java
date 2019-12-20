@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.xmltonode;
+package org.laniakeamly.poseidon.node;
 
 import org.junit.Test;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;

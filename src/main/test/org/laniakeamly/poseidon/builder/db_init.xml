@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<mapper name="init">
+<mapper name="user_iakea">
 
     <select name="findUserByName" result="UserModel">
         select * from user_model
@@ -23,9 +23,6 @@
             <if test="id != null">
                 `id` = {{id}}
             </if>
-            <else>
-                `id` = 6180
-            </else>
         </choose>
 
     </update>
