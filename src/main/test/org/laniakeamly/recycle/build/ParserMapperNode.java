@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.framework.sql.xml.build;
+package org.laniakeamly.recycle.build;
 
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLCrudNode;

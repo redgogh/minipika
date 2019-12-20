@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.framework.sql.xml.build;
+package org.laniakeamly.recycle.build;
 
 import org.laniakeamly.poseidon.framework.exception.runtime.DynamicSQLException;
 import org.laniakeamly.poseidon.framework.sql.ProvideConstant;

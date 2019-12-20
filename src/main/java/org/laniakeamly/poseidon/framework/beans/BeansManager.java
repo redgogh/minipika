@@ -6,14 +6,11 @@ import org.laniakeamly.poseidon.framework.annotation.Resource;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
 import org.laniakeamly.poseidon.framework.cache.CacheRefreshTimer;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
-import org.laniakeamly.poseidon.framework.compiler.Precompiler;
 import org.laniakeamly.poseidon.framework.container.Container;
-import org.laniakeamly.poseidon.framework.container.Precompiled;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCacheImpl;
 import org.laniakeamly.poseidon.framework.exception.runtime.BeansManagerException;
-import org.laniakeamly.poseidon.framework.loader.PoseidonClassLoader;
 import org.laniakeamly.poseidon.framework.timer.Timer;
 import org.laniakeamly.poseidon.framework.timer.TimerManager;
 import org.laniakeamly.poseidon.framework.tools.ReflectUtils;
@@ -58,21 +55,6 @@ public class BeansManager {
     @Resource(name = "pool")
     private ConnectionPool newConnectionPool() {
         return new org.laniakeamly.poseidon.framework.pool.ConnectionPool();
-    }
-
-    @Resource(name = "jdbcBuilder")
-    private JdbcBuilder newJdbcBuilder(){
-        return new JdbcBuilderImpl();
-    }
-
-    @Resource(name = "precompiled")
-    private Container newPrecompiledCOntainer(){
-        return new Precompiled();
-    }
-
-    @Resource(name = "precompiler")
-    private Precompiler newSqlClass(){
-        return new Precompiler();
     }
 
     @Resource(name = "classPool")
