@@ -42,10 +42,10 @@ public class Dbinit {
         users.add(userModel1);
         users.add(userModel2);
 
-        SqlMapper sqlMapper = sqlBuilder.buildMapper("insertUserModel", new SqlParameter() {
+        SqlMapper sqlMapper = sqlBuilder.buildMapper("findUserByName", new SqlParameter() {
             @Override
             public void set(Map<String, Object> params) {
-                params.put("users",users);
+                params.put("id",12);
             }
         });
 

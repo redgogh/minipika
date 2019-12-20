@@ -13,6 +13,7 @@ import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCacheImpl;
 import org.laniakeamly.poseidon.framework.exception.runtime.BeansManagerException;
+import org.laniakeamly.poseidon.framework.loader.PoseidonClassLoader;
 import org.laniakeamly.poseidon.framework.timer.Timer;
 import org.laniakeamly.poseidon.framework.timer.TimerManager;
 import org.laniakeamly.poseidon.framework.tools.ReflectUtils;
@@ -75,8 +76,10 @@ public class BeansManager {
     }
 
     @Resource(name = "classPool")
-    private ClassPool getClassPool(){
-        return ClassPool.getDefault();
+    private ClassPool getClassPool() throws ClassNotFoundException {
+        ClassPool pool = ClassPool.getDefault();
+        // pool.importPackage("org.laniakeamly.poseidon.framework.loader.Parameter");
+        return pool;
     }
 
     // get bean

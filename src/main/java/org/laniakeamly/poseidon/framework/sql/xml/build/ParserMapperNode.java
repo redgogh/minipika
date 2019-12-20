@@ -21,10 +21,10 @@ public class ParserMapperNode {
             ReaderMapperXML readerBuilderXML = new ReaderMapperXML();
             List<XMLMapperNode> xmlBuilderNode = readerBuilderXML.parseXML();
             Map<String,PrecompiledClass> classes = new HashMap<>();
-            for (XMLMapperNode builderNode : xmlBuilderNode) {
-                PrecompiledClass dc = new PrecompiledClass(builderNode.getName());
-                for (XMLCrudNode mapperNode : builderNode.getCurds()) {
-                    PrecompiledMethod pm = parseMapper.parse(mapperNode, builderNode);
+            for (XMLMapperNode mapperNode : xmlBuilderNode) {
+                PrecompiledClass dc = new PrecompiledClass(mapperNode.getName());
+                for (XMLCrudNode xmlCrudNode : mapperNode.getCurds()) {
+                    PrecompiledMethod pm = parseMapper.parse(xmlCrudNode, mapperNode);
                     dc.addPrecompiledMethod(pm);
                 }
                 classes.put(dc.getName(),dc);
