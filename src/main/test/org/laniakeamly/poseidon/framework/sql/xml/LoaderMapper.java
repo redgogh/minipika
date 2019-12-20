@@ -1,10 +1,7 @@
 package org.laniakeamly.poseidon.framework.sql.xml;
 
 import org.junit.Test;
-import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
-import org.laniakeamly.poseidon.framework.sql.xml.build.ParserBuilderNode;
-
-import java.util.List;
+import org.laniakeamly.poseidon.framework.sql.xml.build.ParserMapperNode;
 
 /**
  * 加载mapper
@@ -13,7 +10,7 @@ import java.util.List;
  */
 public class LoaderMapper {
 
-    private ParserBuilderNode parserBuilderNode = new ParserBuilderNode();
+    private ParserMapperNode parserBuilderNode = new ParserMapperNode();
 
     @Test
     public void simulation() throws Exception {

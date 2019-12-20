@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="init">
 
+    <select name="findUserByName" result="UserModel">
+        select * from user_model
+        where 1=1
+        <choose>
+            <if test="username != null">
+                and user_name = {{username}}
+            </if>
+            <else>
+                and address = 'c28a7745-7508-48a0-820e-a5cd14748d24a'
+            </else>
+        </choose>
+    </select>
+
+    <update name="findUserByName">
+
+        UPDATE `test`.`user_model`
+        SET `user_name` = 'geg|-',
+        WHERE
+        <choose>
+            <if test="id != null">
+                `id` = {{id}}
+            </if>
+            <else>
+                `id` = 6180
+            </else>
+        </choose>
+
+    </update>
+
     <insert name="insertUserModel">
         INSERT INTO `user_model`(
             `user_name`,

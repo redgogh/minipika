@@ -1,6 +1,6 @@
 package org.laniakeamly.poseidon.framework.container;
 
-import org.laniakeamly.poseidon.framework.sql.xml.build.ParserBuilderNode;
+import org.laniakeamly.poseidon.framework.sql.xml.build.ParserMapperNode;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class Precompiled implements Container {
 
-    private ParserBuilderNode parserBuilderNode = new ParserBuilderNode();
+    private ParserMapperNode parserBuilderNode = new ParserMapperNode();
 
     private Map<String, PrecompiledClass> map;
 
