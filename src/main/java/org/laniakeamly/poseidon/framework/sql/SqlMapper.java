@@ -1,13 +1,13 @@
 package org.laniakeamly.poseidon.framework.sql;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.compiler.Precompiler;
 import org.laniakeamly.poseidon.framework.config.Config;
 import org.laniakeamly.poseidon.framework.container.Container;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledMethod;
+import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -40,7 +40,9 @@ public class SqlMapper {
         try {
             this.sql = sql;
             this.args = args;
-            this.result = Class.forName(location.concat(".").concat(result));
+            if (!StringUtils.isEmpty(result)) {
+                this.result = Class.forName(location.concat(".").concat(result));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

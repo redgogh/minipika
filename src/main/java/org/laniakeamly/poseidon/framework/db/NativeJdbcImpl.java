@@ -9,6 +9,7 @@ import org.laniakeamly.poseidon.framework.config.Config;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  * @author 404NotFoundx
@@ -16,6 +17,7 @@ import java.sql.ResultSet;
  * @date 2019/11/30 2:28
  * @since 1.8
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class NativeJdbcImpl implements NativeJdbc {
 
     protected final boolean isCache = Config.getInstance().getCache();
@@ -75,7 +77,7 @@ public class NativeJdbcImpl implements NativeJdbc {
                     ResultSet resultSet = setValues(statement, args).executeQuery();
                     result = BeansManager.newNativeResult().build(resultSet);
                     cache.save(sql, result, args);
-                    return cache.get(sql,args);
+                    return cache.get(sql, args);
                 }
                 return result;
             } else {
@@ -118,5 +120,26 @@ public class NativeJdbcImpl implements NativeJdbc {
         return 0;
     }
 
-
+    @Override
+    public int executeBatch(String sql, Object... args) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = pool.getConnection();
+            /*if (connection == null) {
+                synchronized (this) {
+                    wait();
+                }
+                executeUpdate(sql, args);
+            }*/
+            statement.executeBatch();
+        } catch (Exception e) {
+            rollback(connection, auto); // 回滚
+            e.printStackTrace();
+        } finally {
+            close(null, statement, null);
+            release(connection, pool);
+        }
+        return 0;
+    }
 }

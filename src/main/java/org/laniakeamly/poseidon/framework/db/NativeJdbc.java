@@ -2,10 +2,7 @@ package org.laniakeamly.poseidon.framework.db;
 
 import org.laniakeamly.poseidon.customize.ConnectionPool;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * NativeJdbc存在的意义是为了方便关闭流和归还连接。
@@ -45,6 +42,15 @@ public interface NativeJdbc {
      */
     int executeUpdate(String sql, Object... args);
 
+    /**
+     * 批量处理
+     * @param sql
+     * @param args
+     * @return
+     */
+    @SuppressWarnings("SpellCheckingInspection")
+    int executeBatch(String sql, Object... args);
+
     // 添加预编译sql的参数
     default PreparedStatement setValues(PreparedStatement statement, Object... args) throws SQLException {
         if (args != null) {
@@ -56,7 +62,7 @@ public interface NativeJdbc {
     }
 
     // 关闭流
-    default void close(Connection connection, PreparedStatement statement, ResultSet resultSet) {
+    default void close(Connection connection, Statement statement, ResultSet resultSet) {
         try {
             if (resultSet != null) resultSet.close();
             if (statement != null) statement.close();

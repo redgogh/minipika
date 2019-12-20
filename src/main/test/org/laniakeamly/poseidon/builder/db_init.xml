@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<builder name="init">
+
+    <mapper name="insertUserModel">
+        INSERT INTO `user_model`(
+            `user_name`,
+            `google_email`,
+            `password`,
+            `user_age`,
+            `address`,
+            `uuid`,
+            `product_name`,
+            `create_time`
+        )
+        VALUES (
+            {{user.address}},
+            'c28a7745-7508-48a0-820e-a5cd14748d24',
+            '123456',
+            18,
+            'c28a7745-7508-48a0-820e-a5cd14748d24',
+            'c28a7745-7508-48a0-820e-a5cd14748d24',
+            '敌敌畏',
+            '2019-12-03 09:39:19'
+        );
+        <foreach index="index" item="user" collections="users">
+            {{user.address}},{{user.username}}
+        </foreach>
+    </mapper>
+
+</builder>

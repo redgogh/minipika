@@ -3,9 +3,9 @@ package org.laniakeamly.poseidon.framework.sql.xml.build;
 import lombok.Getter;
 import lombok.Setter;
 import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
+import org.laniakeamly.poseidon.framework.tools.ReflectUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
@@ -41,10 +41,10 @@ public class PrecompiledMethod {
      * @param name          mapper标签的name属性
      * @param result    mapper标签的return属性
      */
-    public PrecompiledMethod(String name,String result) {
+    public PrecompiledMethod(String name, String result) {
         this.name = name;
         this.result = result;
-        method.append(StringUtils.format("public java.lang.String {} (java.util.Map map,java.util.List "+ ProvideConstant.SQL_PARAMS_SET+")", name));
+        method.append(StringUtils.format("public java.lang.String {} (java.util.Map map,java.util.List " + ProvideConstant.SQL_PARAMS_SET + ")", name));
         method.append("{");
         method.append("StringBuilder sql = new StringBuilder();");
     }
@@ -59,9 +59,10 @@ public class PrecompiledMethod {
      * @param params
      * @return
      */
-    public String invoke(Map<String,Object> map,List params){
+    public String invoke(Map<String, Object> map, List params) {
         try {
-            return (String) iMethod.invoke(execute,map,params);
+            // return (String) iMethod.invoke(execute,map,params);
+            return (String) ReflectUtils.invoke(iMethod, execute, map, params);
         } catch (Exception e) {
             e.printStackTrace();
         }

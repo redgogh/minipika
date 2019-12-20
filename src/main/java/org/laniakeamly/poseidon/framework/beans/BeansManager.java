@@ -15,6 +15,7 @@ import org.laniakeamly.poseidon.framework.cache.PoseidonCacheImpl;
 import org.laniakeamly.poseidon.framework.exception.runtime.BeansManagerException;
 import org.laniakeamly.poseidon.framework.timer.Timer;
 import org.laniakeamly.poseidon.framework.timer.TimerManager;
+import org.laniakeamly.poseidon.framework.tools.ReflectUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 import org.laniakeamly.poseidon.framework.db.*;
 
@@ -95,13 +96,13 @@ public class BeansManager {
                 if (method.isAnnotationPresent(Resource.class)) {
                     String aname = method.getDeclaredAnnotation(Resource.class).name();
                     if (name.equals(aname)) {
-                        put(name, method.invoke(instance));
+                        put(name, ReflectUtils.invoke(method,instance));
                         return beans.get(name);
                     }
                     String ReturnName = method.getReturnType().getName();
                     ReturnName = ReturnName.substring(ReturnName.lastIndexOf(".") + 1);
                     if (name.equals(ReturnName)) {
-                        put(name, method.invoke(instance));
+                        put(name, ReflectUtils.invoke(method,instance));
                         return beans.get(name);
                     }
 

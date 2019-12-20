@@ -1,6 +1,5 @@
-package org.laniakeamly.poseidon;
+package org.laniakeamly.poseidon.dbinit;
 
-import org.junit.Test;
 import org.laniakeamly.poseidon.experiment.UserModel;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.db.JdbcBuilder;

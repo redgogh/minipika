@@ -45,21 +45,21 @@ public class Precompiler {
     public PrecompiledMethod compilerMethod(PrecompiledClass pc, String mapperName, Map<String, Object> parameters) {
         try {
             PrecompiledMethod pm = pc.getPrecompiledMethod(mapperName);
-            if(pm.isLoad()) return pm; // 如果已经编译过了直接返回不再进行下面的操作
+            if (pm.isLoad()) return pm; // 如果已经编译过了直接返回不再进行下面的操作
             String methodString = processStringMethod(pm.toString(), parameters);
             CtClass ctClass = pool.get(pc.getFullName());
             ctClass.defrost();
-            CtMethod ctMethod = CtNewMethod.make(methodString,ctClass);
+            CtMethod ctMethod = CtNewMethod.make(methodString, ctClass);
             ctClass.addMethod(ctMethod);
             PoseidonClassLoader classLoader = new PoseidonClassLoader(); // 类加载器
-            Class<?> target = classLoader.findClassByBytes(pc.getFullName(),ctClass.toBytecode());
+            Class<?> target = classLoader.findClassByBytes(pc.getFullName(), ctClass.toBytecode());
             Object object = target.newInstance();
-            object = classLoader.getObject(target,object);
+            object = classLoader.getObject(target, object);
             pm.setExecute(object);
-            pm.setIMethod(object.getClass().getDeclaredMethod(pm.getName(),Map.class,List.class));
+            pm.setIMethod(object.getClass().getDeclaredMethod(pm.getName(), Map.class, List.class));
             pm.setLoad(true);
             return pm;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -83,8 +83,15 @@ public class Precompiler {
         str = str.replaceAll("\\(#null#\\) map.get\\(\"null\"\\)", "null");
         for (String name : names) {
             if (!name.equals("null")) {
-                String trueName = parameters.get(name).getClass().getName();
-                str = str.replaceAll(("#" + name + "#"), trueName);
+                String className = null;
+                if (parameters.get(name) instanceof List) {
+                    if (!((List) parameters.get(name)).isEmpty()) {
+                        className = ((List) parameters.get(name)).get(0).getClass().getName();
+                    }
+                } else {
+                    className = parameters.get(name).getClass().getName();
+                }
+                str = str.replaceAll(("#" + name + "#"), className);
             }
         }
         // 解析所有变量所在的地方
@@ -157,7 +164,13 @@ public class Precompiler {
         public String addParams(List<String> args) {
             StringBuilder builder = new StringBuilder();
             for (String arg : args) {
-                builder.append(StringUtils.format(ProvideConstant.SQL_PARAMS_SET + ".add(map.get(\"{}\"));", arg));
+                if (!arg.contains(".")) {
+                    builder.append(StringUtils.format(ProvideConstant.SQL_PARAMS_SET + ".add(map.get(\"{}\"));", arg));
+                } else {
+                    String[] str = arg.split("\\.");
+                    builder.append(StringUtils.format(ProvideConstant.SQL_PARAMS_SET +
+                            ".add(org.laniakeamly.poseidon.framework.tools.ReflectUtils.getMemberValue(${},\"{}\"));", str[0],str[1]));
+                }
             }
             return builder.toString();
         }

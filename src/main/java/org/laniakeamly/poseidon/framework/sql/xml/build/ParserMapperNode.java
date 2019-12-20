@@ -118,17 +118,16 @@ public class ParserMapperNode {
      */
     private String buildCycleBody(String index,String item,String collections){
         StringBuilder builder = new StringBuilder();
-        String listName        = "$".concat(item);
+        String itemName        = "$".concat(item);
         builder.append(
-                StringUtils.format("List {} = (List) map.get(\"{}\");",listName,collections,
-                        collections,collections)
+                StringUtils.format("java.util.List {} = (java.util.List) map.get(\"{}\");",collections,collections)
         );
-        builder.append(StringUtils.format("if(!{}.isEmpty()){",listName)); // 如果不等于空才进行遍历
+        builder.append(StringUtils.format("if(!{}.isEmpty()){",collections)); // 如果不等于空才进行遍历
         builder.append(StringUtils.format(
-                "for(int {}=0,len={}.size(); {}<len; {}++){",index,listName,index,index)
+                "for(int {}=0,len={}.size(); {}<len; {}++){",index,collections,index,index)
         );
         builder.append(
-                StringUtils.format("")
+                StringUtils.format("#{}# {} = {}.get({});",collections,itemName,collections,index)
         );
         return builder.toString();
     }
