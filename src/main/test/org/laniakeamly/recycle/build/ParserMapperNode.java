@@ -1,7 +1,7 @@
 package org.laniakeamly.recycle.build;
 
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
-import org.laniakeamly.poseidon.framework.sql.xml.node.XMLCrudNode;
+import org.laniakeamly.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
 import org.laniakeamly.poseidon.framework.sql.xml.parser.ReaderMapperXML;
 
 import java.util.HashMap;
@@ -23,8 +23,8 @@ public class ParserMapperNode {
             Map<String,PrecompiledClass> classes = new HashMap<>();
             for (XMLMapperNode mapperNode : xmlBuilderNode) {
                 PrecompiledClass dc = new PrecompiledClass(mapperNode.getName());
-                for (XMLCrudNode xmlCrudNode : mapperNode.getCurds()) {
-                    PrecompiledMethod pm = parseMapper.parse(xmlCrudNode, mapperNode);
+                for (XMLDynamicSqlNode xmlDynamicSqlNode : mapperNode.getDynamicsSqlSet()) {
+                    PrecompiledMethod pm = parseMapper.parse(xmlDynamicSqlNode, mapperNode);
                     dc.addPrecompiledMethod(pm);
                 }
                 classes.put(dc.getName(),dc);

@@ -7,7 +7,7 @@ import org.laniakeamly.poseidon.framework.exception.runtime.MapperXMLException;
 import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
-import org.laniakeamly.poseidon.framework.sql.xml.node.XMLCrudNode;
+import org.laniakeamly.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.util.LinkedList;
@@ -32,15 +32,15 @@ public class ReaderCrudElement {
 
         for (Element crud : cruds) {
 
-            XMLCrudNode xmlCrud = new XMLCrudNode();
+            XMLDynamicSqlNode dynamicSql = new XMLDynamicSqlNode();
 
             // 获取crud标签属性
             String type = crud.getName();
             String result = crud.getAttributeValue("result");
             String mappername = crud.getAttributeValue("name");
-            xmlCrud.setType(type);
-            xmlCrud.setResult(result);
-            xmlCrud.setName(mappername);
+            dynamicSql.setType(type);
+            dynamicSql.setResult(result);
+            dynamicSql.setName(mappername);
             if (StringUtils.isEmpty(mappername)) {
                 throw new ExpressionException("tag: mapper attribute name cannot null from builder '" + xmlparser.getCurrentBuilder() + "'");
             }
@@ -48,8 +48,8 @@ public class ReaderCrudElement {
             //
             // 解析mapper
             //
-            parserMapperContent(crud.getContent(), xmlCrud);
-            xmlMapperNode.addCRUD(xmlCrud);
+            parserMapperContent(crud.getContent(), dynamicSql);
+            xmlMapperNode.add(dynamicSql);
 
         }
 
@@ -60,11 +60,11 @@ public class ReaderCrudElement {
      * 解析mapper标签下的内容
      * @param contents
      */
-    public void parserMapperContent(List<Content> contents, XMLCrudNode xmlCrud) {
+    public void parserMapperContent(List<Content> contents, XMLDynamicSqlNode dynamicSql) {
         List<XMLNode> nodes = new LinkedList<>();
         parseContents(contents, nodes);
         for (XMLNode node : nodes) {
-            xmlCrud.addNode(node);
+            dynamicSql.addNode(node);
         }
     }
 

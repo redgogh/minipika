@@ -13,15 +13,15 @@ import java.util.LinkedList;
 public class XMLMapperNode {
 
     private String name;
-    private LinkedList<XMLCrudNode> curds
+    private LinkedList<XMLDynamicSqlNode> dynamicsSqlSet
             = new LinkedList<>();
 
     public XMLMapperNode(String name) {
         this.name = name;
     }
 
-    public void addCRUD(XMLCrudNode mapper){
-        curds.add(mapper);
+    public void add(XMLDynamicSqlNode mapper){
+        dynamicsSqlSet.add(mapper);
     }
 
 }

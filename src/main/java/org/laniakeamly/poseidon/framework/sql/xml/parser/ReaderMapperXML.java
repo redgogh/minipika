@@ -40,32 +40,35 @@ public class ReaderMapperXML {
      * XML to {@link XMLNode}
      * @throws Exception
      */
-    public List<XMLMapperNode> parseXML() throws Exception {
+    public List<XMLMapperNode> parseXML() {
+        try {
+            SAXBuilder saxBuilder = new SAXBuilder();
 
-        SAXBuilder saxBuilder = new SAXBuilder();
+            /*
+             * 开始解析mapper xml
+             */
+            for (File mapperXML : getBuilderXMLFiles()) {
 
-        /*
-         * 开始解析mapper xml
-         */
-        for (File mapperXML : getBuilderXMLFiles()) {
+                Document document = saxBuilder.build(mapperXML);
+                Element rootElement = document.getRootElement();
 
-            Document document = saxBuilder.build(mapperXML);
-            Element rootElement = document.getRootElement();
+                String builderName = rootElement.getAttributeValue("name");
 
-            String builderName = rootElement.getAttributeValue("name");
+                if (StringUtils.isEmpty(builderName))
+                    throw new BuilderXmlException("builder label attribute \"name\" cannot null");
 
-            if (StringUtils.isEmpty(builderName))
-                throw new BuilderXmlException("builder label attribute \"name\" cannot null");
+                xmlparser.setCurrentBuilder(builderName); // 设置当前BuilderName
 
-            xmlparser.setCurrentBuilder(builderName); // 设置当前BuilderName
+                List<Element> crudLabels = rootElement.getChildren();
+                mappers.add(readerCrud.reader(crudLabels, xmlparser));
 
-            List<Element> crudLabels = rootElement.getChildren();
-            mappers.add(readerCrud.reader(crudLabels, xmlparser));
+            }
 
+            return mappers;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        return mappers;
-
+        return null;
     }
 
 }

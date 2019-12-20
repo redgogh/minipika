@@ -4,7 +4,7 @@ import org.laniakeamly.poseidon.framework.exception.runtime.DynamicSQLException;
 import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
-import org.laniakeamly.poseidon.framework.sql.xml.node.XMLCrudNode;
+import org.laniakeamly.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
 import org.laniakeamly.poseidon.framework.sql.xml.token.Token;
 import org.laniakeamly.poseidon.framework.sql.xml.token.TokenValue;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
@@ -30,7 +30,7 @@ public class ParserCrudNode {
      */
     private String builderName;
 
-    public PrecompiledMethod parse(XMLCrudNode mapperNode, XMLMapperNode builderNode) {
+    public PrecompiledMethod parse(XMLDynamicSqlNode mapperNode, XMLMapperNode builderNode) {
         mapperName = mapperNode.getName();
         builderName = builderNode.getName();
         PrecompiledMethod dynamic = new PrecompiledMethod(mapperNode.getName(), mapperNode.getResult(),mapperNode.getType());
