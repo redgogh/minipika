@@ -9,15 +9,7 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class PoseidonClassLoader extends ClassLoader{
 
-    private static class SingletonHolder {
-        public static final PoseidonClassLoader instance = new PoseidonClassLoader();
-    }
-
-    public static PoseidonClassLoader getClassLoader(){
-        return SingletonHolder.instance;
-    }
-
-    private PoseidonClassLoader(){}
+    public PoseidonClassLoader(){}
 
     /**
      * 根据字节码来加载类
