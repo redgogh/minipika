@@ -168,7 +168,7 @@ public class Precompiler {
                     builder.append(StringUtils.format(ProvideConstant.SQL_PARAMS_SET + ".add(map.get(\"{}\"));", arg));
                 } else {
                     String[] str = arg.split("\\.");
-                    builder.append(StringUtils.format(ProvideConstant.SQL_PARAMS_SET +
+                    builder.append(StringUtils.format(ProvideConstant.$PARAMETER +
                             ".add(org.laniakeamly.poseidon.framework.tools.ReflectUtils.getMemberValue(${},\"{}\"));", str[0],str[1]));
                 }
             }

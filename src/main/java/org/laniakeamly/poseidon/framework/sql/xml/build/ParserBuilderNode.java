@@ -1,10 +1,9 @@
 package org.laniakeamly.poseidon.framework.sql.xml.build;
 
-import org.laniakeamly.poseidon.framework.sql.xml.node.XMLBuilderNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
-import org.laniakeamly.poseidon.framework.sql.xml.parser.ReaderBuilderXML;
+import org.laniakeamly.poseidon.framework.sql.xml.node.XMLCrudNode;
+import org.laniakeamly.poseidon.framework.sql.xml.parser.ReaderMapperXML;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,12 +18,12 @@ public class ParserBuilderNode {
 
     public Map<String,PrecompiledClass> readBuilderNode() {
         try {
-            ReaderBuilderXML readerBuilderXML = new ReaderBuilderXML();
-            List<XMLBuilderNode> xmlBuilderNode = readerBuilderXML.parseXML();
+            ReaderMapperXML readerBuilderXML = new ReaderMapperXML();
+            List<XMLMapperNode> xmlBuilderNode = readerBuilderXML.parseXML();
             Map<String,PrecompiledClass> classes = new HashMap<>();
-            for (XMLBuilderNode builderNode : xmlBuilderNode) {
+            for (XMLMapperNode builderNode : xmlBuilderNode) {
                 PrecompiledClass dc = new PrecompiledClass(builderNode.getName());
-                for (XMLMapperNode mapperNode : builderNode.getMappers()) {
+                for (XMLCrudNode mapperNode : builderNode.getCurds()) {
                     PrecompiledMethod pm = parseMapper.parse(mapperNode, builderNode);
                     dc.addPrecompiledMethod(pm);
                 }

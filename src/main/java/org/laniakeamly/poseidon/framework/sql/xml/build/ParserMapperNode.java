@@ -2,9 +2,9 @@ package org.laniakeamly.poseidon.framework.sql.xml.build;
 
 import org.laniakeamly.poseidon.framework.exception.runtime.DynamicSQLException;
 import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
-import org.laniakeamly.poseidon.framework.sql.xml.node.XMLBuilderNode;
-import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
+import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
+import org.laniakeamly.poseidon.framework.sql.xml.node.XMLCrudNode;
 import org.laniakeamly.poseidon.framework.sql.xml.token.Token;
 import org.laniakeamly.poseidon.framework.sql.xml.token.TokenValue;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
@@ -30,15 +30,15 @@ public class ParserMapperNode {
      */
     private String builderName;
 
-    public PrecompiledMethod parse(XMLMapperNode mapperNode, XMLBuilderNode builderNode) {
+    public PrecompiledMethod parse(XMLCrudNode mapperNode, XMLMapperNode builderNode) {
         mapperName = mapperNode.getName();
         builderName = builderNode.getName();
-        PrecompiledMethod dynamic = new PrecompiledMethod(mapperNode.getName(),mapperNode.getResult());
-        parseNode(mapperNode.getNodes(), dynamic, null,false);
+        PrecompiledMethod dynamic = new PrecompiledMethod(mapperNode.getName(), mapperNode.getResult(),mapperNode.getType());
+        parseNode(mapperNode.getNodes(), mapperNode.getType(), dynamic, null, false);
         return dynamic;
     }
 
-    public void parseNode(List<XMLNode> xmlNodes, PrecompiledMethod dynamic, IEValue ieValue, boolean choose) {
+    public void parseNode(List<XMLNode> xmlNodes, String type, PrecompiledMethod dynamic, IEValue ieValue, boolean choose) {
         for (XMLNode node : xmlNodes) {
 
             //
@@ -53,7 +53,7 @@ public class ParserMapperNode {
             //
             if (ProvideConstant.CHOOSE.equals(node.getName())) {
                 IEValue _ieValue = new IEValue();
-                parseNode(node.getChildren(), dynamic, _ieValue,true);
+                parseNode(node.getChildren(), type, dynamic, _ieValue, true);
                 dynamic.addif(_ieValue);
                 continue;
             }
@@ -65,12 +65,12 @@ public class ParserMapperNode {
                 List<TokenValue> values = testProcess(node.getAttribute("test"));
                 for (XMLNode child : node.getChildren()) {
                     String test = buildTestContent(values, child);
-                    if(ieValue != null) {
+                    if (ieValue != null) {
                         ieValue.addTest(test);
                     }
-                    if(choose) {
+                    if (choose) {
                         ieValue.addIfContent(child.getContent());
-                    }else{
+                    } else {
                         IEValue _ieValue = new IEValue();
                         _ieValue.addTest(test);
                         _ieValue.addIfContent(child.getContent());
@@ -84,7 +84,7 @@ public class ParserMapperNode {
             // else
             //
             if (ProvideConstant.ELSE.equals(node.getName())) {
-                if(choose){
+                if (choose) {
                     for (XMLNode child : node.getChildren()) {
                         ieValue.addElseContent(child.getContent());
                     }
@@ -99,8 +99,8 @@ public class ParserMapperNode {
                 String item = node.getAttribute(ProvideConstant.ITEM);
                 String index = node.getAttribute(ProvideConstant.INDEX);
                 String collections = node.getAttribute(ProvideConstant.COLLECTIONS);
-                dynamic.append(buildCycleBody(index,item,collections));
-                parseNode(node.getChildren(),dynamic,null,false);
+                dynamic.append(buildCycleBody(index, item, collections,type));
+                parseNode(node.getChildren(), type,dynamic, null, false);
                 dynamic.append("}");
                 dynamic.append("}");
                 continue;
@@ -116,19 +116,25 @@ public class ParserMapperNode {
      * @param collections       集合对象
      * @return 构建好的Java代码
      */
-    private String buildCycleBody(String index,String item,String collections){
+    private String buildCycleBody(String index, String item, String collections,String type) {
         StringBuilder builder = new StringBuilder();
-        String itemName        = "$".concat(item);
+        String itemName = "$".concat(item);
         builder.append(
-                StringUtils.format("java.util.List {} = (java.util.List) map.get(\"{}\");",collections,collections)
+                StringUtils.format("java.util.List {} = (java.util.List) map.get(\"{}\");", collections, collections)
         );
-        builder.append(StringUtils.format("if(!{}.isEmpty()){",collections)); // 如果不等于空才进行遍历
+        builder.append(StringUtils.format("if(!{}.isEmpty()){", collections)); // 如果不等于空才进行遍历
         builder.append(StringUtils.format(
-                "for(int {}=0,len={}.size(); {}<len; {}++){",index,collections,index,index)
+                "for(int {}=0,len={}.size(); {}<len; {}++){", index, collections, index, index)
         );
         builder.append(
-                StringUtils.format("#{}# {} = {}.get({});",collections,itemName,collections,index)
+                StringUtils.format("#{}# {} = {}.get({});", collections, itemName, collections, index)
         );
+        if(ProvideConstant.INSERT.equals(type)) {
+            builder.append(
+                    StringUtils.format("{} {} = new {}();", ProvideConstant.PARAMETER_OBJECT_LOCATION,
+                            ProvideConstant.$PARAMETER, ProvideConstant.PARAMETER_OBJECT_LOCATION)
+            );
+        }
         return builder.toString();
     }
 

@@ -4,21 +4,24 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
- * Create by 2BKeyboard on 2019/12/17 15:06
+ * Create by 2BKeyboard on 2019/12/17 14:57
  */
 @Getter
 @Setter
 public class XMLMapperNode {
 
     private String name;
-    private String result;
-    private List<XMLNode> nodes = new LinkedList<>();
+    private LinkedList<XMLCrudNode> curds
+            = new LinkedList<>();
 
-    public void addNode(XMLNode node){
-        nodes.add(node);
+    public XMLMapperNode(String name) {
+        this.name = name;
+    }
+
+    public void addCRUD(XMLCrudNode mapper){
+        curds.add(mapper);
     }
 
 }

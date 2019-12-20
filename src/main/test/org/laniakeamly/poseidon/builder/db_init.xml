@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<builder name="init">
+<mapper name="init">
 
-    <mapper name="insertUserModel">
+    <insert name="insertUserModel">
         INSERT INTO `user_model`(
             `user_name`,
             `google_email`,
@@ -25,6 +25,6 @@
         <foreach index="index" item="user" collections="users">
             {{user.address}},{{user.username}}
         </foreach>
-    </mapper>
+    </insert>
 
-</builder>
+</mapper>

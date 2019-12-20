@@ -6,10 +6,9 @@ import org.laniakeamly.poseidon.framework.exception.runtime.ExpressionException;
 import org.laniakeamly.poseidon.framework.exception.runtime.MapperXMLException;
 import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
-import org.laniakeamly.poseidon.framework.sql.xml.node.XMLBuilderNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
+import org.laniakeamly.poseidon.framework.sql.xml.node.XMLCrudNode;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
-import org.omg.CORBA.portable.UnknownException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,27 +18,29 @@ import java.util.List;
  * Create by 2BKeyboard on 2019/12/17 10:58
  */
 @SuppressWarnings("SpellCheckingInspection")
-public class ReaderMapperElement {
+public class ReaderCrudElement {
 
     /**
      * 解析Mapper中标签的方法
      */
     private MapperLabelParser xmlparser;
 
-    public XMLBuilderNode reader(List<Element> mappers, MapperLabelParser xmlparser) {
+    public XMLMapperNode reader(List<Element> cruds, MapperLabelParser xmlparser) {
 
         this.xmlparser = xmlparser;
-        XMLBuilderNode xmlBuilder = new XMLBuilderNode(xmlparser.getCurrentBuilder());
+        XMLMapperNode xmlMapperNode = new XMLMapperNode(xmlparser.getCurrentBuilder());
 
-        for (Element mapper : mappers) {
+        for (Element crud : cruds) {
 
-            XMLMapperNode xmlMapper = new XMLMapperNode();
+            XMLCrudNode xmlCrud = new XMLCrudNode();
 
-            // 获取mapper标签属性
-            String result = mapper.getAttributeValue("result");
-            String mappername = mapper.getAttributeValue("name");
-            xmlMapper.setName(mappername);
-            xmlMapper.setResult(result);
+            // 获取crud标签属性
+            String type = crud.getName();
+            String result = crud.getAttributeValue("result");
+            String mappername = crud.getAttributeValue("name");
+            xmlCrud.setType(type);
+            xmlCrud.setResult(result);
+            xmlCrud.setName(mappername);
             if (StringUtils.isEmpty(mappername)) {
                 throw new ExpressionException("tag: mapper attribute name cannot null from builder '" + xmlparser.getCurrentBuilder() + "'");
             }
@@ -47,23 +48,23 @@ public class ReaderMapperElement {
             //
             // 解析mapper
             //
-            parserMapperContent(mapper.getContent(), xmlMapper);
-            xmlBuilder.addMapper(xmlMapper);
+            parserMapperContent(crud.getContent(), xmlCrud);
+            xmlMapperNode.addCRUD(xmlCrud);
 
         }
 
-        return xmlBuilder;
+        return xmlMapperNode;
     }
 
     /**
      * 解析mapper标签下的内容
      * @param contents
      */
-    public void parserMapperContent(List<Content> contents, XMLMapperNode xmlMapper) {
+    public void parserMapperContent(List<Content> contents, XMLCrudNode xmlCrud) {
         List<XMLNode> nodes = new LinkedList<>();
         parseContents(contents, nodes);
         for (XMLNode node : nodes) {
-            xmlMapper.addNode(node);
+            xmlCrud.addNode(node);
         }
     }
 

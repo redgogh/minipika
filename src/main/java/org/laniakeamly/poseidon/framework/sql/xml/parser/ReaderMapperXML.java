@@ -5,7 +5,7 @@ import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
 import org.laniakeamly.poseidon.framework.exception.runtime.BuilderXmlException;
-import org.laniakeamly.poseidon.framework.sql.xml.node.XMLBuilderNode;
+import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
 import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
@@ -16,16 +16,16 @@ import java.util.List;
 /**
  * Create by 2BKeyboard on 2019/12/16 23:23
  */
-public class ReaderBuilderXML {
+public class ReaderMapperXML {
 
     /**
      * 解析xml中的标签
      */
     @SuppressWarnings("SpellCheckingInspection")
     private MapperLabelParser xmlparser = new MapperLabelParser();
-    private ReaderMapperElement readerMapper = new ReaderMapperElement();
+    private ReaderCrudElement readerCrud = new ReaderCrudElement();
 
-    private List<XMLBuilderNode> builders = new ArrayList();
+    private List<XMLMapperNode> mappers = new ArrayList();
 
     /**
      * 获取xml文件列表
@@ -40,7 +40,7 @@ public class ReaderBuilderXML {
      * XML to {@link XMLNode}
      * @throws Exception
      */
-    public List<XMLBuilderNode> parseXML() throws Exception {
+    public List<XMLMapperNode> parseXML() throws Exception {
 
         SAXBuilder saxBuilder = new SAXBuilder();
 
@@ -59,12 +59,12 @@ public class ReaderBuilderXML {
 
             xmlparser.setCurrentBuilder(builderName); // 设置当前BuilderName
 
-            List<Element> mappers = rootElement.getChildren();
-            builders.add(readerMapper.reader(mappers, xmlparser));
+            List<Element> crudLabels = rootElement.getChildren();
+            mappers.add(readerCrud.reader(crudLabels, xmlparser));
 
         }
 
-        return builders;
+        return mappers;
 
     }
 
