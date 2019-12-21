@@ -5,7 +5,10 @@
         select * from user_model
         where 1=1
         <if test="$req != null">
-            <oneness>and money = {{money}}</oneness>
+            <oneness>
+                and money = {this:{money}}
+                and money1 = {{money1}}
+            </oneness>
             <oneness>and status = {{status}}</oneness>
             <oneness>and datetime = {{datetime}}</oneness>
         </if>

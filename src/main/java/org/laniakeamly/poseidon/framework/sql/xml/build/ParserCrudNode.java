@@ -142,7 +142,7 @@ public class ParserCrudNode {
         int count = 0; // 如果count > 1,那么抛出异常，选择项只能存在一个
         while (matcher.find()) {
             if (count >= 1) {
-                throw new DynamicSQLException("tag: parameters select can only one");
+                throw new DynamicSQLException("tag: parameters '"+ProvideConstant.PARAMETER_SELECT+"' can only one");
             }
             result = matcher.group(1);
             count++;
