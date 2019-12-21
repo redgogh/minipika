@@ -1,6 +1,7 @@
 package org.laniakeamly.poseidon.framework.sql.xml.node;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -15,10 +16,13 @@ public class XMLNode {
 
     private String name;
     private String content;
+    @Setter
+    private XMLNode parent;
     private List<XMLNode> children;
-    private Map<String,String> attributes = new LinkedHashMap<>(2);
+    private Map<String, String> attributes = new LinkedHashMap<>(2);
 
-    public XMLNode(){}
+    public XMLNode() {
+    }
 
     public XMLNode(String name) {
         this.name = name;
@@ -29,18 +33,19 @@ public class XMLNode {
         this.content = content;
     }
 
-    public void addAttribute(String key,String value){
+    public void addAttribute(String key, String value) {
         attributes.put(key, value);
     }
 
-    public String getAttribute(String name){
+    public String getAttribute(String name) {
         return attributes.get(name);
     }
 
-    public void addChild(XMLNode node){
-       if(children == null){
-           children = new ArrayList<>();
-       }
+    public void addChild(XMLNode node) {
+        if (children == null) {
+            children = new ArrayList<>();
+        }
+        node.setParent(this);
         children.add(node);
     }
 

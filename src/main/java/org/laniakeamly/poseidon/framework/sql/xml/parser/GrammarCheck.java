@@ -2,6 +2,7 @@ package org.laniakeamly.poseidon.framework.sql.xml.parser;
 
 import org.jdom2.Element;
 import org.laniakeamly.poseidon.framework.exception.runtime.BuilderXmlException;
+import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class GrammarCheck {
         if (chooseChildren.size() <= 0)
             throw new BuilderXmlException("tag: the choose label must contain if label in mapper " + builderName + " mapper: " + mapperName);
         Element _if = chooseChildren.get(0);
-        if (StringUtils.isEmpty(_if.getAttribute("test").getValue()))
+        if (StringUtils.isEmpty(_if.getAttribute(ProvideConstant.IF_TEST).getValue()))
             throw new BuilderXmlException("tag: choose in if attribute test cannot null in mapper " + builderName + " mapper: " + mapperName);
     }
 

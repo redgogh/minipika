@@ -5,6 +5,7 @@ import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
+import org.laniakeamly.poseidon.framework.sql.xml.parser.GrammarCheck;
 import org.laniakeamly.poseidon.framework.sql.xml.token.Token;
 import org.laniakeamly.poseidon.framework.sql.xml.token.TokenValue;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
@@ -33,28 +34,34 @@ public class ParserCrudNode {
     public PrecompiledMethod parse(XMLDynamicSqlNode mapperNode, XMLMapperNode builderNode) {
         mapperName = mapperNode.getName();
         builderName = builderNode.getName();
-        PrecompiledMethod dynamic = new PrecompiledMethod(mapperNode.getName(), mapperNode.getResult(),mapperNode.getType());
-        parseNode(mapperNode.getNodes(), mapperNode.getType(), dynamic, null, false,false);
+        PrecompiledMethod dynamic = new PrecompiledMethod(mapperNode.getName(), mapperNode.getResult(), mapperNode.getType());
+        parseNode(mapperNode.getNodes(), mapperNode.getType(), dynamic);
+        System.out.println(dynamic.endAndToString());
         return dynamic;
     }
 
-    public void parseNode(List<XMLNode> xmlNodes, String type, PrecompiledMethod dynamic, IEValue ieValue, boolean choose,boolean foreach) {
+    public void parseNode(List<XMLNode> xmlNodes, String type, PrecompiledMethod dynamic) {
         for (XMLNode node : xmlNodes) {
 
             //
             // text
             //
             if (ProvideConstant.TEXT.equals(node.getName())) {
-                dynamic.appendSql(node.getContent());
+                if (node.getParent() != null) {
+                    if (node.getParent().getName().equals("if")) {
+                        addByIf(node, dynamic);
+                    }
+                } else {
+                    dynamic.appendSql(node.getContent());
+                }
+                continue;
             }
 
             //
             // choose
             //
             if (ProvideConstant.CHOOSE.equals(node.getName())) {
-                IEValue _ieValue = new IEValue();
-                parseNode(node.getChildren(), type, dynamic, _ieValue, true,false);
-                dynamic.addif(_ieValue);
+                parseNode(node.getChildren(), type, dynamic);
                 continue;
             }
 
@@ -62,21 +69,10 @@ public class ParserCrudNode {
             // if
             //
             if (ProvideConstant.IF.equals(node.getName())) {
-                List<TokenValue> values = testProcess(node.getAttribute("test"));
-                for (XMLNode child : node.getChildren()) {
-                    String test = buildTestContent(values, child);
-                    if (ieValue != null) {
-                        ieValue.addTest(test);
-                    }
-                    if (choose) {
-                        ieValue.addIfContent(child.getContent());
-                    } else {
-                        IEValue _ieValue = new IEValue();
-                        _ieValue.addTest(test);
-                        _ieValue.addIfContent(child.getContent());
-                        dynamic.addif(_ieValue);
-                    }
-                }
+                List<TokenValue> test = testProcess(node.getAttribute(ProvideConstant.IF_TEST));
+                String if_test = buildTest(test);
+                node.addAttribute(ProvideConstant.IF_TEST, if_test);
+                parseNode(node.getChildren(), type, dynamic);
                 continue;
             }
 
@@ -84,130 +80,86 @@ public class ParserCrudNode {
             // else
             //
             if (ProvideConstant.ELSE.equals(node.getName())) {
-                if (choose) {
-                    for (XMLNode child : node.getChildren()) {
-                        ieValue.addElseContent(child.getContent());
-                    }
-                }
+                dynamic.append("else");
+                dynamic.append("{");
+                parseNode(node.getChildren(), type, dynamic);
+                dynamic.append("}");
                 continue;
             }
 
             //
-            // foreach
+            // oneness
             //
-            if (ProvideConstant.FOREACH.equals(node.getName())) {
-                String item = node.getAttribute(ProvideConstant.ITEM);
-                String index = node.getAttribute(ProvideConstant.INDEX);
-                String collections = node.getAttribute(ProvideConstant.COLLECTIONS);
-                dynamic.append(buildCycleBody(index, item, collections,type));
-                parseNode(node.getChildren(), type,dynamic, null, false,true);
-                dynamic.append("}");
-                dynamic.append("}");
-                continue;
+            if (ProvideConstant.ONENESS.equals(node.getName())) {
+                addByIf(node, dynamic);
             }
 
         }
     }
 
-    /**
-     * 构建循环体
-     * @param index             index相当于我们平常for循环中的i
-     * @param item              相当于list获取到的值
-     * @param collections       集合对象
-     * @return 构建好的Java代码
-     */
-    private String buildCycleBody(String index, String item, String collections,String type) {
-        StringBuilder builder = new StringBuilder();
-        String itemName = "$".concat(item);
-        builder.append(
-                StringUtils.format("java.util.List {} = (java.util.List) map.get(\"{}\");", collections, collections)
-        );
-        builder.append(StringUtils.format("if(!{}.isEmpty()){", collections)); // 如果不等于空才进行遍历
-        builder.append(StringUtils.format(
-                "for(int {}=0,len={}.size(); {}<len; {}++){", index, collections, index, index)
-        );
-        builder.append(
-                StringUtils.format("#{}# {} = {}.get({});", collections, itemName, collections, index)
-        );
-        return builder.toString();
+    private void addByIf(XMLNode node, PrecompiledMethod dynamic) {
+        XMLNode parent = node.getParent();
+        String content = node.getContent();
+        String test = parent.getAttribute(ProvideConstant.IF_TEST);
+        dynamic.append("if");
+        dynamic.append("(");
+        dynamic.append(test.replaceAll("\\$req",getParamsSelect(content)));
+        dynamic.append(")");
+        dynamic.append("{");
+        dynamic.appendSql(content);
+        dynamic.append("}");
     }
 
     /**
-     * 从token中构建test
-     * @param values
-     * @param child
+     * 构建if语句
      * @return
      */
-    private String buildTestContent(List<TokenValue> values, XMLNode child) {
+    private String buildTest(List<TokenValue> test) {
         StringBuilder builder = new StringBuilder();
-        for (TokenValue tokenValue : values) {
-            String value = tokenValue.getValue();
-            if (tokenValue.getToken() == Token.IDEN || tokenValue.getToken() == Token.BASIC) {
-                if (ProvideConstant.REQ.equals(value)) {
-                    String paramName = getParam(child.getContent());
-                    builder.append(StringUtils.format("(#{}#) map.get(\"{}\") ", paramName, paramName));
-                    continue;
-                } else {
-                    builder.append(StringUtils.format("(#{}#) map.get(\"{}\") ", value, value));
-                    continue;
-                }
+        for (TokenValue token : test) {
+            if (token.getToken() == Token.IDEN) {
+                builder.append(
+                        StringUtils.format("(#{}#) {}.get(\"{}\")",
+                                token.getValue(), ProvideConstant.PARAMS_MAP, token.getValue())
+                );
+            } else {
+                builder.append(token.getValue());
             }
-            builder.append(tokenValue.getValue()).append(" ");
+
         }
         return builder.toString();
     }
 
     /**
-     * 从sql中获取参数
-     * 例如: username = {{username}} 那么获取到的参数就是username
-     * 如果一个条件中有多个参数的话，那么必须指定使用哪个参数替代{@code $req}
-     * 假设当前有这么一条sql：
-     *      <code>
-     *          username = {{name}} and user_age > {{userAge}}
-     *      </code>
-     *
-     * 由于$req是代表当前if下所有的条件都是一样的，可以用$req代替
-     * 所以有两个参数就必须得指定了,假设我要设置name替换$req那么就可以向以下这样写
-     *      <code>
-     *          username = {this:{name}} and user_age > {{userAge}}
-     *      </code>
-     *
-     *
-     * @param content
+     * 获取多个参数下被选择的标签
+     * @param text
      * @return
      */
-    private String getParam(String content) {
-        if (StringUtils.isEmpty(content)) {
-            throw new DynamicSQLException("tag: 'if' label test content if have '$req' at least one 'cond' label n builder: "
-                    + builderName + " mapper: " + mapperName);
-        }
-        int cont = 0;
-        String name = null;
-        Matcher matcher = Pattern.compile("\\{this:\\{(.*?)}}").matcher(content);
+    private String getParamsSelect(String text) {
+        String result = "";
+        Pattern pattern = Pattern.compile("\\{" + ProvideConstant.PARAMETER_SELECT + "\\{(.*?)}}");
+        Matcher matcher = pattern.matcher(text);
+        int count = 0; // 如果count > 1,那么抛出异常，选择项只能存在一个
         while (matcher.find()) {
-            name = matcher.group(1);
-            if (cont++ >= 2) break;
-        }
-        if (cont >= 2) {
-            throw new DynamicSQLException("tag: this can only have one. "
-                    + builderName + " mapper: " + mapperName);
-        } else {
-            matcher = Pattern.compile("\\{\\{(.*?)}}").matcher(content);
-            cont = 0;
-            while (matcher.find()) {
-                name = matcher.group(1);
-                if (cont++ > 2) break;
+            if (count >= 1) {
+                throw new DynamicSQLException("tag: parameters select can only one");
             }
-            if (cont >= 2) {
-                throw new DynamicSQLException("tag: multiple parameter need specify parameter in mapper: "
-                        + builderName + " mapper: " + mapperName);
+            result = matcher.group(1);
+            count++;
+        }
+        if(count == 1) return result;
+        count = 0; // reset
+        // 如果count为0那么查找{{parameter}}
+        Pattern pattern1 = Pattern.compile("\\{\\{(.*?)}}");
+        Matcher matcher1 = pattern1.matcher(text);
+        while (matcher1.find()) {
+            if (count >= 1) {
+                throw new DynamicSQLException("tag: multiple parameter need '" + ProvideConstant.PARAMETER_SELECT + "'");
             }
+            result = matcher1.group(1);
+            count++;
         }
-        if (StringUtils.isEmpty(name)) {
-            throw new DynamicSQLException("tag: test content if have '$req' at least one parameter in mapper: "
-                    + builderName + " mapper: " + mapperName);
-        }
-        return name;
+        return result;
     }
 
     /**

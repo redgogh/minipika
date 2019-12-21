@@ -52,19 +52,19 @@ public class ParserCrudNode {
             //
             // choose
             //
-            if(ProvideConstant.CHOOSE.equals(node.getName())){
-                parseNode(node.getChildren(),type,dynamic);
+            if (ProvideConstant.CHOOSE.equals(node.getName())) {
+                parseNode(node.getChildren(), type, dynamic);
             }
 
             //
             // if
             //
             if (ProvideConstant.IF.equals(node.getName())) {
-                List<TokenValue> test = testProcess(node.getAttribute("test"));
+                List<TokenValue> test = testProcess(node.getAttribute(ProvideConstant.IF_TEST));
                 String _if = buildIf(test);
                 dynamic.append(_if);
                 dynamic.append("{");
-                parseNode(node.getChildren(),type,dynamic);
+                parseNode(node.getChildren(), type, dynamic);
                 dynamic.append("}");
             }
 
@@ -74,8 +74,15 @@ public class ParserCrudNode {
             if (ProvideConstant.ELSE.equals(node.getName())) {
                 dynamic.append("else");
                 dynamic.append("{");
-                parseNode(node.getChildren(),type,dynamic);
+                parseNode(node.getChildren(), type, dynamic);
                 dynamic.append("}");
+            }
+
+            //
+            // oneness
+            //
+            if(ProvideConstant.ONENESS.equals(node.getName())){
+
             }
 
         }
@@ -92,9 +99,9 @@ public class ParserCrudNode {
             if (token.getToken() == Token.IDEN) {
                 builder.append(
                         StringUtils.format("(#{}#) {}.get(\"{}\")",
-                                token.getValue(),ProvideConstant.PARAMS_MAP, token.getValue())
+                                token.getValue(), ProvideConstant.PARAMS_MAP, token.getValue())
                 );
-            }else{
+            } else {
                 builder.append(token.getValue());
             }
 

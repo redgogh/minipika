@@ -52,8 +52,9 @@ public class PrecompiledMethod {
         method.append("StringBuilder sql = new StringBuilder();");
     }
 
-    public void append(String str) {
+    public PrecompiledMethod append(String str) {
         method.append(str);
+        return this;
     }
 
     /**
@@ -106,8 +107,7 @@ public class PrecompiledMethod {
 
     }
 
-    @Override
-    public String toString() {
+    public String endAndToString() {
         method.append("return sql.toString();}");
         return method.toString();
     }

@@ -45,7 +45,7 @@ public class MapperLabelParser implements MapperLabelParserService {
             String test = util.getIfLabelTestAttribute(element);
             if (StringUtils.isEmpty(test))
                 throw new ExpressionException("tag: if label attribute test content cannot null.");
-            ieNode.addAttribute("test", test);
+            ieNode.addAttribute(ProvideConstant.IF_TEST, test);
         }
         List<Content> conditions = element.getContent();
         for (Content condition : conditions) {

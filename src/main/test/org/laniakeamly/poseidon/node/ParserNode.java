@@ -1,8 +1,8 @@
 package org.laniakeamly.poseidon.node;
 
 import org.junit.Test;
-import org.laniakeamly.recycle.build.ParserMapperNode;
-import org.laniakeamly.recycle.build.PrecompiledClass;
+import org.laniakeamly.poseidon.framework.sql.xml.build.ParserMapperNode;
+import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
 
 import java.util.Map;
 
