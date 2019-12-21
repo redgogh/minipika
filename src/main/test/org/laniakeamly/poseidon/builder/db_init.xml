@@ -4,6 +4,11 @@
     <select name="findUserByName" result="UserModel">
         select * from user_model
         where 1=1
+        <if test="$req != null">
+            <oneness>and money = {{money}}</oneness>
+            <oneness>and status = {{status}}</oneness>
+            <oneness>and datetime = {{datetime}}</oneness>
+        </if>
         <choose>
             <if test="username != null">
                 and user_name = {{username}}

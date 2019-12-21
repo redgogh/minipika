@@ -19,10 +19,10 @@ public class GrammarCheck {
      */
     public void chooseCheck(List<Element> chooseChildren, String builderName, String mapperName) {
         if (chooseChildren.size() <= 0)
-            throw new BuilderXmlException("tag: the choose label must contain if label in builder " + builderName + " mapper: " + mapperName);
+            throw new BuilderXmlException("tag: the choose label must contain if label in mapper " + builderName + " mapper: " + mapperName);
         Element _if = chooseChildren.get(0);
         if (StringUtils.isEmpty(_if.getAttribute("test").getValue()))
-            throw new BuilderXmlException("tag: choose in if attribute test cannot null in builder " + builderName + " mapper: " + mapperName);
+            throw new BuilderXmlException("tag: choose in if attribute test cannot null in mapper " + builderName + " mapper: " + mapperName);
     }
 
 }

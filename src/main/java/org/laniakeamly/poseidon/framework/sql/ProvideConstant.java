@@ -7,6 +7,7 @@ public class ProvideConstant {
 
     public static final String IF                                       = "if";
     public static final String REQ                                      = "$req";
+    public static final Object NULL                                     = "null";
     public static final String TEXT                                     = "text";
     public static final String ELSE                                     = "else";
     public static final String ITEM                                     = "item";
@@ -15,9 +16,12 @@ public class ProvideConstant {
     public static final String INSERT                                   = "insert";
     public static final String UPDATE                                   = "update";
     public static final String DELETE                                   = "delete";
+    public static final String ONENESS                                  = "oneness";
     public static final String CHOOSE                                   = "choose";
     public static final String FOREACH                                  = "foreach";
     public static final String CONDITION                                = "cond";
+    public static final String PARAMS_MAP                               = "map";
+    public static final String PARAMS_LIST                              = "params";
     public static final String $PARAMETER                               = "$parameter";
     public static final String SQL_APPEND                               = "sql.append(\" {} \");";
     public static final String COLLECTIONS                              = "collections";

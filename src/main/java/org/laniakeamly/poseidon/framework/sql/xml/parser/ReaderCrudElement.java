@@ -119,7 +119,7 @@ public class ReaderCrudElement {
                     continue;
                 }
 
-                throw new MapperXMLException("unknown lbael '" + element.getName() + "' error location in builder: "
+                throw new MapperXMLException("unknown lbael '" + element.getName() + "' error location in mapper: "
                         + xmlparser.getCurrentBuilder() + " mapper " + xmlparser.getCurrentMapper());
             }
 

@@ -42,7 +42,7 @@ public class PrecompiledClass {
     public PrecompiledMethod getPrecompiledMethod(String name) {
         PrecompiledMethod pm = methods.get(name);
         if (pm == null) {
-            throw new NullPointerException(StringUtils.format("'{}' mapper is not found please check your mapper xml in builder '{}'", name, this.name));
+            throw new NullPointerException(StringUtils.format("'{}' mapper is not found please check your mapper xml in mapper '{}'", name, this.name));
         }
         return pm;
     }

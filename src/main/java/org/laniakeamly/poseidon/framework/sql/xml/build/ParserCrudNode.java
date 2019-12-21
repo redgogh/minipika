@@ -199,12 +199,12 @@ public class ParserCrudNode {
                 if (cont++ > 2) break;
             }
             if (cont >= 2) {
-                throw new DynamicSQLException("tag: multiple parameter need specify parameter in builder: "
+                throw new DynamicSQLException("tag: multiple parameter need specify parameter in mapper: "
                         + builderName + " mapper: " + mapperName);
             }
         }
         if (StringUtils.isEmpty(name)) {
-            throw new DynamicSQLException("tag: test content if have '$req' at least one parameter in builder: "
+            throw new DynamicSQLException("tag: test content if have '$req' at least one parameter in mapper: "
                     + builderName + " mapper: " + mapperName);
         }
         return name;

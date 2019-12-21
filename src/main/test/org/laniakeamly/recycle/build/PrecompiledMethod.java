@@ -106,9 +106,7 @@ public class PrecompiledMethod {
 
     }
 
-    @Override
     public String toString() {
-        method.append("return sql.toString();}");
         return method.toString();
     }
 }
