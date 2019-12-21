@@ -1,9 +1,5 @@
 //
-// 6001     :       创建
-//
-//
-//
-//
+// iakea中间语言
 //
 mapper user_iakea {
 
@@ -35,7 +31,8 @@ mapper user_iakea {
             List as params;
 
        M:
-            #append from sql.append();
+            #add        params.add():
+            #append     from sql.append();
 
        C:
             #append("INSERT INTO `user_model`(
@@ -60,7 +57,9 @@ mapper user_iakea {
                                  {{user.address}},
                      );");
 
-            for
+            foreach(index,user,users):
+                #add user.address;
+                #add user.username;
 
     }
 
