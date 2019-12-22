@@ -24,11 +24,13 @@ public class ProvideConstant {
     public static final String CONDITION                                = "cond";
     public static final String PARAMETER                                = "parameter";
     public static final String PARAMS_MAP                               = "map";
+    public static final String PARAMS_MAP_GET                           = PARAMS_MAP.concat(".get(\"{}\");");
     public static final String PARAMS_LIST                              = "params";
     public static final String $PARAMETER                               = "$parameter";
     public static final String SQL_APPEND                               = "sql.append(\" {} \");";
     public static final String COLLECTIONS                              = "collections";
     public static final String SQL_PARAMS_SET                           = "params";
+    public static final String PARAMS_LIST_ADD                          = PARAMS_LIST.concat(".add({});");
     public static final String CLASS_FULL_NAME                          = "org.laniakeamly.poseidon.$builder.";
     public static final String PARAMETER_SELECT                         = "this:";
     public static final String INSERT_FOREACH_TAG                       = "[infor]:";

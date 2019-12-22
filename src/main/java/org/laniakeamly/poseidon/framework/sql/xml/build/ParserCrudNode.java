@@ -83,6 +83,7 @@ public class ParserCrudNode {
                 if (ProvideConstant.IF.equals(node.getParent().getName())) {
                     addByIf(node, dynamic);
                 }
+                continue;
             }
 
             //
@@ -100,8 +101,8 @@ public class ParserCrudNode {
                 dynamic.append("for(");
                 dynamic.append(StringUtils.format("int {} = 0,", index));
                 dynamic.append(StringUtils.format("len = {}.size();", collections));
-                dynamic.append(StringUtils.format("{} < len;",index));
-                dynamic.append(StringUtils.format("{}++;",index));
+                dynamic.append(StringUtils.format("{} < len;", index));
+                dynamic.append(StringUtils.format("{}++;", index));
                 dynamic.append("){");
                 //
                 // 第一个转义是需要强转的对象
@@ -110,10 +111,40 @@ public class ParserCrudNode {
                 // 第四个转义是list
                 // 第五个转义为当前for循环索引
                 //
-                dynamic.append(StringUtils.format("#{}# {} = (#{}#) {}.get({});",item,item,item,collections,index));
+                dynamic.append(StringUtils.format("#{}# {} = (#{}#) {}.get({});", item, item, item, collections, index));
+                parseNode(node.getChildren(), type, dynamic);
                 dynamic.append("}");
+                continue;
             }
 
+            //
+            // foreach
+            //
+            if (ProvideConstant.PARAMETER.equals(node.getName())) {
+                for (String parameter : node.getContent().split(",")) {
+                    checkParameterFormat(parameter);
+                    dynamic.append(StringUtils.format(ProvideConstant.PARAMS_LIST_ADD,
+                            StringUtils.format(ProvideConstant.PARAMS_MAP_GET,parameter)));
+                }
+                continue;
+
+            }
+
+        }
+    }
+
+    /**
+     * 检查参数格式是否合法
+     * 参数检查前两个字符与后两个字符是否为{{}},如果不是则报错
+     * @param parameter 参数,例如：{{parameter}}
+     */
+    private void checkParameterFormat(String parameter) {
+        int length = parameter.length();
+        if (!"{".equals(parameter.substring(0, 1))
+                || !"{".equals(parameter.substring(1, 2))
+                || !"}".equals(parameter.substring(length - 1, length))
+                || !"}".equals(parameter.substring(length - 2, length - 1))) {
+            throw new ExpressionException("parameter '" + parameter + "' format error. correct format is '{{parameterName}}'");
         }
     }
 
