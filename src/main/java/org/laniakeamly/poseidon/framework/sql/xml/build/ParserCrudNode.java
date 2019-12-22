@@ -76,21 +76,10 @@ public class ParserCrudNode {
             }
 
             //
-            // else
-            //
-            if (ProvideConstant.ELSE.equals(node.getName())) {
-                dynamic.append("else");
-                dynamic.append("{");
-                parseNode(node.getChildren(), type, dynamic);
-                dynamic.append("}");
-                continue;
-            }
-
-            //
             // oneness
             //
             if (ProvideConstant.ONENESS.equals(node.getName())) {
-                if(ProvideConstant.IF.equals(node.getParent().getName())){
+                if (ProvideConstant.IF.equals(node.getParent().getName())) {
                     addByIf(node, dynamic);
                 }
             }
@@ -104,11 +93,30 @@ public class ParserCrudNode {
         String test = parent.getAttribute(ProvideConstant.IF_TEST);
         dynamic.append("if");
         dynamic.append("(");
-        dynamic.append(test.replaceAll("\\$req",getParamsSelect(content)));
+        dynamic.append(test.replaceAll("\\$req", getParamsSelect(content)));
         dynamic.append(")");
         dynamic.append("{");
         dynamic.appendSql(content);
         dynamic.append("}");
+
+        // 如果当前节点是oneness,就从父节点查找匹配的else
+        if (ProvideConstant.ONENESS.equals(node.getName())) {
+            List<XMLNode> nodes = node.getParent().getParent().getChildren();
+            if (nodes.size() == 2) {
+                XMLNode elseNode = nodes.get(1);
+                List<XMLNode> elseChildren = elseNode.getChildren();
+                String attributeIdValue = node.getAttribute(ProvideConstant.ONENESS_ATTRIBUTE_KEY);
+                for (XMLNode child : elseChildren) {
+                    if (attributeIdValue.equals(child.getAttribute(ProvideConstant.ONENESS_ATTRIBUTE_KEY))) {
+                        dynamic.append("else");
+                        dynamic.append("{");
+                        dynamic.appendSql(child.getContent());
+                        dynamic.append("}");
+                    }
+                }
+            }
+        }
+
     }
 
     /**
@@ -143,12 +151,12 @@ public class ParserCrudNode {
         int count = 0; // 如果count > 1,那么抛出异常，选择项只能存在一个
         while (matcher.find()) {
             if (count >= 1) {
-                throw new DynamicSQLException("tag: parameters '"+ProvideConstant.PARAMETER_SELECT+"' can only one");
+                throw new DynamicSQLException("tag: parameters '" + ProvideConstant.PARAMETER_SELECT + "' can only one");
             }
             result = matcher.group(1);
             count++;
         }
-        if(count == 1) return result;
+        if (count == 1) return result;
         count = 0; // reset
         // 如果count为0那么查找{{parameter}}
         Pattern pattern1 = Pattern.compile("\\{\\{(.*?)}}");
