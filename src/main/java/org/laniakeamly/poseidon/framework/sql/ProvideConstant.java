@@ -12,6 +12,7 @@ public class ProvideConstant {
     public static final String ELSE                                     = "else";
     public static final String ITEM                                     = "item";
     public static final String INDEX                                    = "index";
+    public static final String BATCH                                    = "batch";
     public static final String SELECT                                   = "select";
     public static final String INSERT                                   = "insert";
     public static final String UPDATE                                   = "update";
@@ -21,6 +22,7 @@ public class ProvideConstant {
     public static final String FOREACH                                  = "foreach";
     public static final String IF_TEST                                  = "test";
     public static final String CONDITION                                = "cond";
+    public static final String PARAMETER                                = "parameter";
     public static final String PARAMS_MAP                               = "map";
     public static final String PARAMS_LIST                              = "params";
     public static final String $PARAMETER                               = "$parameter";

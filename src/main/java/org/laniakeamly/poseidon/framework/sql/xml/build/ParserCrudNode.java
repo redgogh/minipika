@@ -9,7 +9,6 @@ import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
 import org.laniakeamly.poseidon.framework.sql.xml.token.Token;
 import org.laniakeamly.poseidon.framework.sql.xml.token.TokenValue;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
-import org.omg.CORBA.portable.UnknownException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -84,6 +83,35 @@ public class ParserCrudNode {
                 if (ProvideConstant.IF.equals(node.getParent().getName())) {
                     addByIf(node, dynamic);
                 }
+            }
+
+            //
+            // foreach
+            //
+            if (ProvideConstant.FOREACH.equals(node.getName())) {
+                String collections = node.getAttribute(ProvideConstant.COLLECTIONS);
+                if (StringUtils.isEmpty(collections)) {
+                    throw new ExpressionException("tag: foreach attribute collections cannot null. in mapper " + builderName + " " + mapperName);
+                }
+                String indexTemp = node.getAttribute(ProvideConstant.INDEX);
+                String index = StringUtils.isEmpty(indexTemp) ? "index" : indexTemp;
+                String itemTemp = node.getAttribute(ProvideConstant.ITEM);
+                String item = StringUtils.isEmpty(itemTemp) ? "item" : itemTemp;
+                dynamic.append("for(");
+                dynamic.append(StringUtils.format("int {} = 0,", index));
+                dynamic.append(StringUtils.format("len = {}.size();", collections));
+                dynamic.append(StringUtils.format("{} < len;",index));
+                dynamic.append(StringUtils.format("{}++;",index));
+                dynamic.append("){");
+                //
+                // 第一个转义是需要强转的对象
+                // 第二个转义是命名
+                // 第三个转义是需要强转的对象
+                // 第四个转义是list
+                // 第五个转义为当前for循环索引
+                //
+                dynamic.append(StringUtils.format("#{}# {} = (#{}#) {}.get({});",item,item,item,collections,index));
+                dynamic.append("}");
             }
 
         }

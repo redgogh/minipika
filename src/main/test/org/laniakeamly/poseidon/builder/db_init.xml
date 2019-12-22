@@ -24,7 +24,7 @@
             </if>
         </choose>
 
-    </update>
+    </update> -->
 
     <insert name="insertUserModel">
         INSERT INTO `user_model`(
@@ -45,12 +45,11 @@
             'c28a7745-7508-48a0-820e-a5cd14748d24',
             '敌敌畏',
             '2019-12-03 09:39:19',
-            {{user.username}},
-            {{user.address}},
+            ?,?
         );
         <foreach index="index" item="user" collections="users">
-             {{user.address}},{{user.username}}
+             <parameter>{{user.username}},{{user.address}}</parameter>
         </foreach>
-    </insert> -->
+    </insert>
 
 </mapper>

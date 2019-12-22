@@ -88,7 +88,7 @@ public class ReaderCrudElement {
             if (content.getCType() == Content.CType.Element) {
                 Element element = ((Element) content);
                 //
-                // if标签
+                // if
                 //
                 if (ProvideConstant.IF.equals(element.getName())) {
                     nodes.add(xmlparser.ifOrEels(element));
@@ -96,7 +96,7 @@ public class ReaderCrudElement {
                 }
 
                 //
-                // choose标签
+                // choose
                 //
                 if (ProvideConstant.CHOOSE.equals(element.getName())) {
                     nodes.add(xmlparser.choose(element));
@@ -104,7 +104,7 @@ public class ReaderCrudElement {
                 }
 
                 //
-                // foreach标签
+                // foreach
                 //
                 if (ProvideConstant.FOREACH.equals(element.getName())) {
                     XMLNode forNode = xmlparser.foreach(element);
@@ -116,6 +116,15 @@ public class ReaderCrudElement {
                         }
                     }
                     nodes.add(forNode);
+                    continue;
+                }
+
+                //
+                // parameter
+                //
+                if (ProvideConstant.PARAMETER.equals(element.getName())) {
+                    XMLNode parameter = new XMLNode(element.getName(),StringUtils.trim(element.getText()));
+                    nodes.add(parameter);
                     continue;
                 }
 
