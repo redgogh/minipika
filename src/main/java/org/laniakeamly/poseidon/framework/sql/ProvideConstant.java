@@ -29,7 +29,9 @@ public class ProvideConstant {
     public static final String SQL_PARAMS_SET                           = "params";
     public static final String CLASS_FULL_NAME                          = "org.laniakeamly.poseidon.$builder.";
     public static final String PARAMETER_SELECT                         = "this:";
-    public static final String PARAMETER_OBJECT_LOCATION                = "org.laniakeamly.poseidon.framework.loader.Parameter";
     public static final String INSERT_FOREACH_TAG                       = "[infor]:";
+    public static final String ONENESS_ATTRIBUTE_KEY                    = "id";
+    public static final String PARAMETER_OBJECT_LOCATION                = "org.laniakeamly.poseidon.framework.loader.Parameter";
+
 
 }

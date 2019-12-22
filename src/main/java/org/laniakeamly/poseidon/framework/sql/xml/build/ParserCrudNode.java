@@ -5,7 +5,6 @@ import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
-import org.laniakeamly.poseidon.framework.sql.xml.parser.GrammarCheck;
 import org.laniakeamly.poseidon.framework.sql.xml.token.Token;
 import org.laniakeamly.poseidon.framework.sql.xml.token.TokenValue;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
@@ -91,7 +90,9 @@ public class ParserCrudNode {
             // oneness
             //
             if (ProvideConstant.ONENESS.equals(node.getName())) {
-                addByIf(node, dynamic);
+                if(ProvideConstant.IF.equals(node.getParent().getName())){
+                    addByIf(node, dynamic);
+                }
             }
 
         }

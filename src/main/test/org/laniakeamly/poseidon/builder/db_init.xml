@@ -4,25 +4,19 @@
     <select name="findUserByName" result="UserModel">
         select * from user_model
         where 1=1
-        <if test="$req != null">
-            <oneness>
-                and money = {this:{money}}
-                and money1 = {{money1}}
-            </oneness>
-            <oneness>and status = {{status}}</oneness>
-            <oneness>and datetime = {{datetime}}</oneness>
-        </if>
         <choose>
-            <if test="username != null">
-                and user_name = {{username}}
+            <if test="$req != null">
+                <oneness>and user_name1 = {{username1}}</oneness>
+                <oneness>and user_name2 = {{username2}}</oneness>
             </if>
             <else>
-                and address = 'c28a7745-7508-48a0-820e-a5cd14748d24a'
+                <oneness>and user_name3 = {{username3}}</oneness>
+                <oneness>and user_name4 = {{username4}}</oneness>
             </else>
         </choose>
     </select>
 
-    <update name="updateUserById">
+    <!-- <update name="updateUserById">
 
         UPDATE `test`.`user_model`
         SET `user_name` = 'geg|-',
@@ -60,6 +54,6 @@
         <foreach index="index" item="user" collections="users">
              {{user.address}},{{user.username}}
         </foreach>
-    </insert>
+    </insert> -->
 
 </mapper>
