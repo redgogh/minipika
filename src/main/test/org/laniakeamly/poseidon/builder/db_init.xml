@@ -6,12 +6,9 @@
         where 1=1
         <choose>
             <if test="$req != null">
-                <oneness>and user_name1 = {{username1}}</oneness>
-                <oneness>and user_name2 = {{username2}}</oneness>
+                and user_name1 = {{username1}}
             </if>
             <else>
-                <oneness>and user_name3 = {{username3}}</oneness>
-                <oneness>and user_name4 = {{username4}}</oneness>
             </else>
         </choose>
     </select>

@@ -1,6 +1,7 @@
 package org.laniakeamly.poseidon.framework.sql.xml.build;
 
 import org.laniakeamly.poseidon.framework.exception.runtime.DynamicSQLException;
+import org.laniakeamly.poseidon.framework.exception.runtime.ExpressionException;
 import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
@@ -8,6 +9,7 @@ import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
 import org.laniakeamly.poseidon.framework.sql.xml.token.Token;
 import org.laniakeamly.poseidon.framework.sql.xml.token.TokenValue;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
+import org.omg.CORBA.portable.UnknownException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -87,6 +89,11 @@ public class ParserCrudNode {
         }
     }
 
+    /**
+     * 添加if
+     * @param node
+     * @param dynamic
+     */
     private void addByIf(XMLNode node, PrecompiledMethod dynamic) {
         XMLNode parent = node.getParent();
         String content = node.getContent();
@@ -108,15 +115,36 @@ public class ParserCrudNode {
                 String attributeIdValue = node.getAttribute(ProvideConstant.ONENESS_ATTRIBUTE_KEY);
                 for (XMLNode child : elseChildren) {
                     if (attributeIdValue.equals(child.getAttribute(ProvideConstant.ONENESS_ATTRIBUTE_KEY))) {
-                        dynamic.append("else");
-                        dynamic.append("{");
-                        dynamic.appendSql(child.getContent());
-                        dynamic.append("}");
+                        addByElse(child.getContent(), dynamic);
                     }
                 }
             }
+        } else if (ProvideConstant.TEXT.equals(node.getName())) {
+            // 如果是文本那么也去父节点查找看看有妹有else
+            XMLNode choose = node.getParent().getParent();
+            if (choose.getChildren().size() > 1) {
+                XMLNode elseNode = choose.getChildren().get(1);
+                List<XMLNode> elseChildren = elseNode.getChildren();
+                if (elseChildren != null && !elseChildren.isEmpty()) {
+                    addByElse(elseChildren.get(0).getContent(), dynamic);
+                }
+            }
+        } else {
+            throw new ExpressionException("unknown label '" + node.getName() + "' in mapper " + builderName + " " + mapperName);
         }
 
+    }
+
+    /**
+     * 添加else
+     * @param content
+     * @param dynamic
+     */
+    private void addByElse(String content, PrecompiledMethod dynamic) {
+        dynamic.append("else");
+        dynamic.append("{");
+        dynamic.appendSql(content);
+        dynamic.append("}");
     }
 
     /**
