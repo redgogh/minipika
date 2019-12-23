@@ -107,7 +107,7 @@ public class PrecompiledMethod {
 
     }
 
-    public String endAndToString() {
+    public String getMethodString() {
         method.append("return sql.toString();}");
         return method.toString();
     }

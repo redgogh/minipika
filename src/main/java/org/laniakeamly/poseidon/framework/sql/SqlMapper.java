@@ -11,6 +11,7 @@ import java.util.Map;
  */
 public class SqlMapper {
 
+    private Converter converter = new Converter();
     private PrecompileContainer container = PrecompileContainer.getContainer();
 
     /**
@@ -26,10 +27,9 @@ public class SqlMapper {
     }
 
     public SqlMapper build(String methodName, Parameter parameter) {
-        Map<String, Object> param = new HashMap<>();
-        parameter.loader(param);
-        Converter converter = new Converter();
-        converter.build();
+        Map<String, Object> parameterMap = new HashMap<>();
+        parameter.loader(parameterMap);
+        converter.conversion(classValue.getPrecompiledMethod(methodName),parameterMap);
         return this;
     }
 
