@@ -47,10 +47,9 @@ public class ParserCrudNode {
             // text
             //
             if (ProvideConstant.TEXT.equals(node.getName())) {
-                if (node.getParent() != null) {
-                    if (node.getParent().getName().equals("if")) {
-                        addByIf(node, dynamic);
-                    }
+                if (node.getParent() != null
+                        && node.getParent().getName().equals(ProvideConstant.IF)) {
+                    addByIf(node, dynamic);
                 } else {
                     dynamic.appendSql(node.getContent());
                 }
@@ -124,7 +123,12 @@ public class ParserCrudNode {
                 for (String parameter : node.getContent().split(",")) {
                     checkParameterFormat(parameter);
                     dynamic.append(StringUtils.format(ProvideConstant.PARAMS_LIST_ADD,
-                            StringUtils.format(ProvideConstant.PARAMS_MAP_GET,parameter)));
+                            StringUtils.format(ProvideConstant.PARAMS_MAP_GET, parameter)));
+                    //
+                    // 由于PARAMS_LIST_ADD和PARAMS_MAP_GET都有分号,所以需要删除一个
+                    //
+                    int len = dynamic.length();
+                    dynamic.remove(len - 3, len - 2);
                 }
                 continue;
 

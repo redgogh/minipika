@@ -44,7 +44,7 @@ public class PrecompiledMethod {
      * @param name          mapper标签的name属性
      * @param result    mapper标签的return属性
      */
-    public PrecompiledMethod(String name, String result,String type) {
+    public PrecompiledMethod(String name, String result, String type) {
         this.name = name;
         this.result = result;
         method.append(StringUtils.format("public java.lang.String {} (java.util.Map map,java.util.List " + ProvideConstant.SQL_PARAMS_SET + ")", name));
@@ -111,4 +111,14 @@ public class PrecompiledMethod {
         method.append("return sql.toString();}");
         return method.toString();
     }
+
+    public PrecompiledMethod remove(int startPos,int endPos) {
+        method.delete(startPos, endPos);
+        return this;
+    }
+
+    public int length() {
+        return method.length();
+    }
+
 }
