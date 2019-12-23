@@ -4,13 +4,22 @@
     <select name="findUserByName" result="UserModel">
         select * from user_model
         where 1=1
-        <choose>
-            <if test="$req != null">
-                and user_name1 = {{username1}}
-            </if>
-            <else>
-            </else>
-        </choose>
+        <if test="username1 != null">
+            and user_name1 = {{username1}}
+        </if>
+        <if test="username2 != null">
+            and user_name2 = {{username2}}
+        </if>
+        <if test="username3 != null">
+            and user_name3 = {{username3}}
+        </if>
+        <if test="username4 != null">
+            and user_name4 = {{username4}}
+        </if>
+        <if test="username5 != null">
+            and user_name5 = {{username5}}
+        </if>
+
     </select>
 
     <!-- <update name="updateUserById">
@@ -28,28 +37,28 @@
 
     <insert name="insertUserModel">
         INSERT INTO `user_model`(
-            `google_email`,
-            `password`,
-            `user_age`,
-            `uuid`,
-            `product_name`,
-            `create_time`,
-            `user_name`,
-            `address`
+        `google_email`,
+        `password`,
+        `user_age`,
+        `uuid`,
+        `product_name`,
+        `create_time`,
+        `user_name`,
+        `address`
         )
         VALUES (
-            'c28a7745-7508-48a0-820e-a5cd14748d24',
-            '123456',
-             18,
-            'c28a7745-7508-48a0-820e-a5cd14748d24',
-            'c28a7745-7508-48a0-820e-a5cd14748d24',
-            '敌敌畏',
-            '2019-12-03 09:39:19',
-            ?,?
+        'c28a7745-7508-48a0-820e-a5cd14748d24',
+        '123456',
+        18,
+        'c28a7745-7508-48a0-820e-a5cd14748d24',
+        'c28a7745-7508-48a0-820e-a5cd14748d24',
+        '敌敌畏',
+        '2019-12-03 09:39:19',
+        ?,?
         );
         <foreach index="index" item="user" collections="users">
             WDNMD
-             <!-- <parameter>{{user.username}},{{user.address}}</parameter> -->
+            <!-- <parameter>{{user.username}},{{user.address}}</parameter> -->
         </foreach>
     </insert>
 
