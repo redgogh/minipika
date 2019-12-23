@@ -36,7 +36,6 @@ public class ParserCrudNode {
         builderName = builderNode.getName();
         PrecompiledMethod dynamic = new PrecompiledMethod(mapperNode.getName(), mapperNode.getResult(), mapperNode.getType());
         parseNode(mapperNode.getNodes(), mapperNode.getType(), dynamic);
-        System.out.println(dynamic.getMethodString());
         return dynamic;
     }
 

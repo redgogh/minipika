@@ -4,22 +4,9 @@
     <select name="findUserByName" result="UserModel">
         select * from user_model
         where 1=1
-        <if test="username1 != null">
-            and user_name1 = {{username1}}
+        <if test="username != null">
+            and user_name = {{username}}
         </if>
-        <if test="username2 != null">
-            and user_name2 = {{username2}}
-        </if>
-        <if test="username3 != null">
-            and user_name3 = {{username3}}
-        </if>
-        <if test="username4 != null">
-            and user_name4 = {{username4}}
-        </if>
-        <if test="username5 != null">
-            and user_name5 = {{username5}}
-        </if>
-
     </select>
 
     <!-- <update name="updateUserById">

@@ -13,7 +13,7 @@ public class Converter {
     public void conversion(PrecompiledMethod methodValue, Map<String,Object> parameter){
 
         String method = methodValue.getMethodString();
-
+        System.out.println(method);
 
     }
 
