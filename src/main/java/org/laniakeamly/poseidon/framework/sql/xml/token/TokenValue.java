@@ -1,6 +1,7 @@
 package org.laniakeamly.poseidon.framework.sql.xml.token;
 
 import lombok.Data;
+import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 /**
@@ -27,6 +28,9 @@ public class TokenValue {
                     && value.substring(value.length() - 1).equals("\"")) {
                 return buildToken(Token.STRING, Token.BASIC, value);
             } else {
+                if(ProvideConstant.NULL.equals(value)){
+                    return buildToken(Token.NULL, key, value);
+                }
                 return buildToken(key, key, value);
             }
         }

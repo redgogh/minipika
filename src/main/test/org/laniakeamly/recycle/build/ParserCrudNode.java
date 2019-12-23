@@ -1,11 +1,10 @@
-package org.laniakeamly.poseidon.framework.sql.xml.build;
+package org.laniakeamly.recycle.build;
 
 import org.laniakeamly.poseidon.framework.exception.runtime.DynamicSQLException;
-import org.laniakeamly.poseidon.framework.exception.runtime.ExpressionException;
 import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
-import org.laniakeamly.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
+import org.laniakeamly.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
 import org.laniakeamly.poseidon.framework.sql.xml.token.Token;
 import org.laniakeamly.poseidon.framework.sql.xml.token.TokenValue;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
@@ -36,7 +35,6 @@ public class ParserCrudNode {
         builderName = builderNode.getName();
         PrecompiledMethod dynamic = new PrecompiledMethod(mapperNode.getName(), mapperNode.getResult(), mapperNode.getType());
         parseNode(mapperNode.getNodes(), mapperNode.getType(), dynamic);
-        System.out.println(dynamic.endAndToString());
         return dynamic;
     }
 
@@ -47,13 +45,7 @@ public class ParserCrudNode {
             // text
             //
             if (ProvideConstant.TEXT.equals(node.getName())) {
-                if (node.getParent() != null) {
-                    if (node.getParent().getName().equals("if")) {
-                        addByIf(node, dynamic);
-                    }
-                } else {
-                    dynamic.appendSql(node.getContent());
-                }
+                dynamic.appendSql(node.getContent());
                 continue;
             }
 
@@ -62,7 +54,6 @@ public class ParserCrudNode {
             //
             if (ProvideConstant.CHOOSE.equals(node.getName())) {
                 parseNode(node.getChildren(), type, dynamic);
-                continue;
             }
 
             //
@@ -70,148 +61,40 @@ public class ParserCrudNode {
             //
             if (ProvideConstant.IF.equals(node.getName())) {
                 List<TokenValue> test = testProcess(node.getAttribute(ProvideConstant.IF_TEST));
-                String if_test = buildTest(test);
-                node.addAttribute(ProvideConstant.IF_TEST, if_test);
+                String _if = buildIf(test);
+                dynamic.append(_if);
+                dynamic.append("{");
                 parseNode(node.getChildren(), type, dynamic);
-                continue;
+                dynamic.append("}");
+            }
+
+            //
+            // else
+            //
+            if (ProvideConstant.ELSE.equals(node.getName())) {
+                dynamic.append("else");
+                dynamic.append("{");
+                parseNode(node.getChildren(), type, dynamic);
+                dynamic.append("}");
             }
 
             //
             // oneness
             //
-            if (ProvideConstant.ONENESS.equals(node.getName())) {
-                if (ProvideConstant.IF.equals(node.getParent().getName())) {
-                    addByIf(node, dynamic);
-                }
-                continue;
-            }
-
-            //
-            // foreach
-            //
-            if (ProvideConstant.FOREACH.equals(node.getName())) {
-                String collections = node.getAttribute(ProvideConstant.COLLECTIONS);
-                if (StringUtils.isEmpty(collections)) {
-                    throw new ExpressionException("tag: foreach attribute collections cannot null. in mapper " + builderName + " " + mapperName);
-                }
-                String indexTemp = node.getAttribute(ProvideConstant.INDEX);
-                String index = StringUtils.isEmpty(indexTemp) ? "index" : indexTemp;
-                String itemTemp = node.getAttribute(ProvideConstant.ITEM);
-                String item = StringUtils.isEmpty(itemTemp) ? "item" : itemTemp;
-                dynamic.append("for(");
-                dynamic.append(StringUtils.format("int {} = 0,", index));
-                dynamic.append(StringUtils.format("len = {}.size();", collections));
-                dynamic.append(StringUtils.format("{} < len;", index));
-                dynamic.append(StringUtils.format("{}++;", index));
-                dynamic.append("){");
-                //
-                // 第一个转义是需要强转的对象
-                // 第二个转义是命名
-                // 第三个转义是需要强转的对象
-                // 第四个转义是list
-                // 第五个转义为当前for循环索引
-                //
-                dynamic.append(StringUtils.format("#{}# {} = (#{}#) {}.get({});", item, item, item, collections, index));
-                parseNode(node.getChildren(), type, dynamic);
-                dynamic.append("}");
-                continue;
-            }
-
-            //
-            // foreach
-            //
-            if (ProvideConstant.PARAMETER.equals(node.getName())) {
-                for (String parameter : node.getContent().split(",")) {
-                    checkParameterFormat(parameter);
-                    dynamic.append(StringUtils.format(ProvideConstant.PARAMS_LIST_ADD,
-                            StringUtils.format(ProvideConstant.PARAMS_MAP_GET,parameter)));
-                }
-                continue;
+            if(ProvideConstant.ONENESS.equals(node.getName())){
 
             }
 
         }
-    }
-
-    /**
-     * 检查参数格式是否合法
-     * 参数检查前两个字符与后两个字符是否为{{}},如果不是则报错
-     * @param parameter 参数,例如：{{parameter}}
-     */
-    private void checkParameterFormat(String parameter) {
-        int length = parameter.length();
-        if (!"{".equals(parameter.substring(0, 1))
-                || !"{".equals(parameter.substring(1, 2))
-                || !"}".equals(parameter.substring(length - 1, length))
-                || !"}".equals(parameter.substring(length - 2, length - 1))) {
-            throw new ExpressionException("parameter '" + parameter + "' format error. correct format is '{{parameterName}}'");
-        }
-    }
-
-    /**
-     * 添加if
-     * @param node
-     * @param dynamic
-     */
-    private void addByIf(XMLNode node, PrecompiledMethod dynamic) {
-        XMLNode parent = node.getParent();
-        String content = node.getContent();
-        String test = parent.getAttribute(ProvideConstant.IF_TEST);
-        dynamic.append("if");
-        dynamic.append("(");
-        dynamic.append(test.replaceAll("\\$req", getParamsSelect(content)));
-        dynamic.append(")");
-        dynamic.append("{");
-        dynamic.appendSql(content);
-        dynamic.append("}");
-
-        // 如果当前节点是oneness,就从父节点查找匹配的else
-        if (ProvideConstant.ONENESS.equals(node.getName())) {
-            List<XMLNode> nodes = node.getParent().getParent().getChildren();
-            if (nodes.size() == 2) {
-                XMLNode elseNode = nodes.get(1);
-                List<XMLNode> elseChildren = elseNode.getChildren();
-                String attributeIdValue = node.getAttribute(ProvideConstant.ONENESS_ATTRIBUTE_KEY);
-                for (XMLNode child : elseChildren) {
-                    if (attributeIdValue.equals(child.getAttribute(ProvideConstant.ONENESS_ATTRIBUTE_KEY))) {
-                        addByElse(child.getContent(), dynamic);
-                    }
-                }
-            }
-        } else if (ProvideConstant.TEXT.equals(node.getName())) {
-            // 如果是文本那么也去父节点查找看看有妹有else
-            XMLNode choose = node.getParent().getParent();
-            if (choose.getChildren().size() > 1) {
-                XMLNode elseNode = choose.getChildren().get(1);
-                List<XMLNode> elseChildren = elseNode.getChildren();
-                if (elseChildren != null && !elseChildren.isEmpty()) {
-                    addByElse(elseChildren.get(0).getContent(), dynamic);
-                }
-            }
-        } else {
-            throw new ExpressionException("unknown label '" + node.getName() + "' in mapper " + builderName + " " + mapperName);
-        }
-
-    }
-
-    /**
-     * 添加else
-     * @param content
-     * @param dynamic
-     */
-    private void addByElse(String content, PrecompiledMethod dynamic) {
-        dynamic.append("else");
-        dynamic.append("{");
-        dynamic.appendSql(content);
-        dynamic.append("}");
     }
 
     /**
      * 构建if语句
      * @return
      */
-    private String buildTest(List<TokenValue> test) {
+    private String buildIf(List<TokenValue> test) {
         StringBuilder builder = new StringBuilder();
+        builder.append("if(");
         for (TokenValue token : test) {
             if (token.getToken() == Token.IDEN) {
                 builder.append(
@@ -223,39 +106,8 @@ public class ParserCrudNode {
             }
 
         }
+        builder.append(")");
         return builder.toString();
-    }
-
-    /**
-     * 获取多个参数下被选择的标签
-     * @param text
-     * @return
-     */
-    private String getParamsSelect(String text) {
-        String result = "";
-        Pattern pattern = Pattern.compile("\\{" + ProvideConstant.PARAMETER_SELECT + "\\{(.*?)}}");
-        Matcher matcher = pattern.matcher(text);
-        int count = 0; // 如果count > 1,那么抛出异常，选择项只能存在一个
-        while (matcher.find()) {
-            if (count >= 1) {
-                throw new DynamicSQLException("tag: parameters '" + ProvideConstant.PARAMETER_SELECT + "' can only one");
-            }
-            result = matcher.group(1);
-            count++;
-        }
-        if (count == 1) return result;
-        count = 0; // reset
-        // 如果count为0那么查找{{parameter}}
-        Pattern pattern1 = Pattern.compile("\\{\\{(.*?)}}");
-        Matcher matcher1 = pattern1.matcher(text);
-        while (matcher1.find()) {
-            if (count >= 1) {
-                throw new DynamicSQLException("tag: multiple parameter need '" + ProvideConstant.PARAMETER_SELECT + "'");
-            }
-            result = matcher1.group(1);
-            count++;
-        }
-        return result;
     }
 
     /**

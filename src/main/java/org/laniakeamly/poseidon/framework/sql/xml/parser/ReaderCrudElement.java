@@ -7,7 +7,7 @@ import org.laniakeamly.poseidon.framework.exception.runtime.MapperXMLException;
 import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
-import org.laniakeamly.poseidon.framework.sql.xml.node.XMLCrudNode;
+import org.laniakeamly.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.util.LinkedList;
@@ -32,15 +32,15 @@ public class ReaderCrudElement {
 
         for (Element crud : cruds) {
 
-            XMLCrudNode xmlCrud = new XMLCrudNode();
+            XMLDynamicSqlNode dynamicSql = new XMLDynamicSqlNode();
 
             // 获取crud标签属性
             String type = crud.getName();
             String result = crud.getAttributeValue("result");
             String mappername = crud.getAttributeValue("name");
-            xmlCrud.setType(type);
-            xmlCrud.setResult(result);
-            xmlCrud.setName(mappername);
+            dynamicSql.setType(type);
+            dynamicSql.setResult(result);
+            dynamicSql.setName(mappername);
             if (StringUtils.isEmpty(mappername)) {
                 throw new ExpressionException("tag: mapper attribute name cannot null from builder '" + xmlparser.getCurrentBuilder() + "'");
             }
@@ -48,8 +48,8 @@ public class ReaderCrudElement {
             //
             // 解析mapper
             //
-            parserMapperContent(crud.getContent(), xmlCrud);
-            xmlMapperNode.addCRUD(xmlCrud);
+            parserMapperContent(crud.getContent(), dynamicSql);
+            xmlMapperNode.add(dynamicSql);
 
         }
 
@@ -60,11 +60,11 @@ public class ReaderCrudElement {
      * 解析mapper标签下的内容
      * @param contents
      */
-    public void parserMapperContent(List<Content> contents, XMLCrudNode xmlCrud) {
+    public void parserMapperContent(List<Content> contents, XMLDynamicSqlNode dynamicSql) {
         List<XMLNode> nodes = new LinkedList<>();
         parseContents(contents, nodes);
         for (XMLNode node : nodes) {
-            xmlCrud.addNode(node);
+            dynamicSql.addNode(node);
         }
     }
 
@@ -88,7 +88,7 @@ public class ReaderCrudElement {
             if (content.getCType() == Content.CType.Element) {
                 Element element = ((Element) content);
                 //
-                // if标签
+                // if
                 //
                 if (ProvideConstant.IF.equals(element.getName())) {
                     nodes.add(xmlparser.ifOrEels(element));
@@ -96,7 +96,7 @@ public class ReaderCrudElement {
                 }
 
                 //
-                // choose标签
+                // choose
                 //
                 if (ProvideConstant.CHOOSE.equals(element.getName())) {
                     nodes.add(xmlparser.choose(element));
@@ -104,7 +104,7 @@ public class ReaderCrudElement {
                 }
 
                 //
-                // foreach标签
+                // foreach
                 //
                 if (ProvideConstant.FOREACH.equals(element.getName())) {
                     XMLNode forNode = xmlparser.foreach(element);
@@ -119,7 +119,16 @@ public class ReaderCrudElement {
                     continue;
                 }
 
-                throw new MapperXMLException("unknown lbael '" + element.getName() + "' error location in builder: "
+                //
+                // parameter
+                //
+                if (ProvideConstant.PARAMETER.equals(element.getName())) {
+                    XMLNode parameter = new XMLNode(element.getName(),StringUtils.trim(element.getText()));
+                    nodes.add(parameter);
+                    continue;
+                }
+
+                throw new MapperXMLException("unknown lbael '" + element.getName() + "' error location in mapper: "
                         + xmlparser.getCurrentBuilder() + " mapper " + xmlparser.getCurrentMapper());
             }
 

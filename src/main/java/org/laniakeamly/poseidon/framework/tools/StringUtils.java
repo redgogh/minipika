@@ -112,8 +112,7 @@ public class StringUtils {
     }
 
     /**
-     * 格式化
-     *
+     * String格式化,大约比String.format()快17倍
      * @param input
      * @param args
      * @return

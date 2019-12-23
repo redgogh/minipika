@@ -130,7 +130,7 @@ public class ReaderBuilderOld {
                                 //
                                 if (ProvideConstant.IF.equals(chooseChild.getName())) {
                                     // 获取if标签中的内容
-                                    test = chooseChild.getAttributeValue("test");
+                                    test = chooseChild.getAttributeValue(ProvideConstant.IF_TEST);
                                     _ifContent = new NewlineBuilder(trim(chooseChild.getText()));
                                     // 判断是否存在<line>节点
                                     parseLineLabel(chooseChild, _ifContent);
@@ -155,7 +155,7 @@ public class ReaderBuilderOld {
                         //
                         if (ProvideConstant.IF.equals(elementName)) {
                             // 获取if标签中的内容
-                            String test = element.getAttributeValue("test");
+                            String test = element.getAttributeValue(ProvideConstant.IF_TEST);
                             NewlineBuilder _ifContent = new NewlineBuilder(trim(element.getText()));
                             // 判断是否存在<line>节点
                             parseLineLabel(element, _ifContent);
@@ -531,7 +531,7 @@ public class ReaderBuilderOld {
         Element _if = chooseChildren.get(0);
         if (chooseChildren.size() > 0 && !ProvideConstant.IF.equals(_if.getName()))
             throw new BuilderXmlException("tag: choose at least include a if label " + nameValue);
-        if (StringUtils.isEmpty(_if.getAttribute("test").getValue()))
+        if (StringUtils.isEmpty(_if.getAttribute(ProvideConstant.IF_TEST).getValue()))
             throw new BuilderXmlException("tag: choose in if attribute test cannot null in " + nameValue);
     }
 

@@ -45,9 +45,10 @@ public class MapperLabelParser implements MapperLabelParserService {
             String test = util.getIfLabelTestAttribute(element);
             if (StringUtils.isEmpty(test))
                 throw new ExpressionException("tag: if label attribute test content cannot null.");
-            ieNode.addAttribute("test", test);
+            ieNode.addAttribute(ProvideConstant.IF_TEST, test);
         }
         List<Content> conditions = element.getContent();
+        int onenessCount = 0;
         for (Content condition : conditions) {
             // 文本
             if (condition.getCType() == Content.CType.Text) {
@@ -59,8 +60,11 @@ public class MapperLabelParser implements MapperLabelParserService {
             }
             // 标签
             if (condition.getCType() == Content.CType.Element) {
-                Element cond = ((Element) condition);
-                ieNode.addChild(new XMLNode(cond.getName(), util.trim(cond.getValue())));
+                Element onenessElement = ((Element) condition);
+                XMLNode oneness = new XMLNode(onenessElement.getName(), util.trim(onenessElement.getValue()));
+                oneness.addAttribute(ProvideConstant.ONENESS_ATTRIBUTE_KEY,String.valueOf(onenessCount));
+                onenessCount++;
+                ieNode.addChild(oneness);
             }
         }
         return ieNode;

@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.sql.xml;
 
 import org.junit.Test;
-import org.laniakeamly.poseidon.framework.sql.xml.build.ParserMapperNode;
+import org.laniakeamly.recycle.build.ParserMapperNode;
 
 /**
  * 加载mapper

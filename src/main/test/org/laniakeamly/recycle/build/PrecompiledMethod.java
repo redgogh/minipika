@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.framework.sql.xml.build;
+package org.laniakeamly.recycle.build;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -52,9 +52,8 @@ public class PrecompiledMethod {
         method.append("StringBuilder sql = new StringBuilder();");
     }
 
-    public PrecompiledMethod append(String str) {
+    public void append(String str) {
         method.append(str);
-        return this;
     }
 
     /**
@@ -107,8 +106,7 @@ public class PrecompiledMethod {
 
     }
 
-    public String endAndToString() {
-        method.append("return sql.toString();}");
+    public String toString() {
         return method.toString();
     }
 }

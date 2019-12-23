@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<mapper name="init">
+<mapper name="user_iakea">
 
     <select name="findUserByName" result="UserModel">
         select * from user_model
         where 1=1
         <choose>
-            <if test="username != null">
-                and user_name = {{username}}
+            <if test="$req != null">
+                and user_name1 = {{username1}}
             </if>
             <else>
-                and address = 'c28a7745-7508-48a0-820e-a5cd14748d24a'
             </else>
         </choose>
     </select>
 
-    <update name="updateUserById">
+    <!-- <update name="updateUserById">
 
         UPDATE `test`.`user_model`
         SET `user_name` = 'geg|-',
@@ -23,12 +22,9 @@
             <if test="id != null">
                 `id` = {{id}}
             </if>
-            <else>
-                `id` = 6180
-            </else>
         </choose>
 
-    </update>
+    </update> -->
 
     <insert name="insertUserModel">
         INSERT INTO `user_model`(
@@ -49,11 +45,10 @@
             'c28a7745-7508-48a0-820e-a5cd14748d24',
             '敌敌畏',
             '2019-12-03 09:39:19',
-            {{user.username}},
-            {{user.address}},
+            ?,?
         );
         <foreach index="index" item="user" collections="users">
-             {{user.address}},{{user.username}}
+             <parameter>{{user.username}},{{user.address}}</parameter>
         </foreach>
     </insert>
 
