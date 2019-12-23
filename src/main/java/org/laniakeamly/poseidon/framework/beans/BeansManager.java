@@ -6,7 +6,6 @@ import org.laniakeamly.poseidon.framework.annotation.Resource;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
 import org.laniakeamly.poseidon.framework.cache.CacheRefreshTimer;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
-import org.laniakeamly.poseidon.framework.container.Container;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCacheImpl;

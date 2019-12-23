@@ -6,10 +6,8 @@ package org.laniakeamly.poseidon.framework.container;
 public interface Container {
 
     /**
-     * 获取一个对象
-     * @param name
-     * @return
+     * 回收对象
      */
-    <T> T getValue(String name);
+    void recycle();
 
 }
