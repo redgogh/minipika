@@ -57,7 +57,7 @@ public class ReaderMapperXML {
                 if (StringUtils.isEmpty(builderName))
                     throw new BuilderXmlException("builder label attribute \"name\" cannot null");
 
-                xmlparser.setCurrentBuilder(builderName); // 设置当前BuilderName
+                xmlparser.setCurrentBuilder(builderName); // 设置当前Mapper name
 
                 List<Element> crudLabels = rootElement.getChildren();
                 mappers.add(readerCrud.reader(crudLabels, xmlparser));
