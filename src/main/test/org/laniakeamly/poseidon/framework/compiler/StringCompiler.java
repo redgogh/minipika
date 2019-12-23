@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 /**
  * Create by 2BKeyboard on 2019/12/15 13:45
  */
-public class Compiler {
+public class StringCompiler {
 
     //类全名
     private String fullClassName;
@@ -34,7 +34,7 @@ public class Compiler {
     private long runTakeTime;
 
 
-    public Compiler(String sourceCode) {
+    public StringCompiler(String sourceCode) {
         this.sourceCode = sourceCode;
         this.fullClassName = getFullClassName(sourceCode);
     }

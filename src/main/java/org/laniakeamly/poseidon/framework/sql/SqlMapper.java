@@ -1,5 +1,8 @@
 package org.laniakeamly.poseidon.framework.sql;
 
+import org.laniakeamly.poseidon.framework.container.PrecompileContainer;
+import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,21 +11,25 @@ import java.util.Map;
  */
 public class SqlMapper {
 
+    private PrecompileContainer container = PrecompileContainer.getContainer();
+
     /**
-     * mapper name
+     * class
      */
-    private String name;
+    private PrecompiledClass classValue;
 
     public SqlMapper() {
     }
 
-    public SqlMapper(String naem) {
-        this.name = name;
+    public SqlMapper(String name) {
+        this.classValue = container.getValue(name);
     }
 
-    public SqlMapper build(String name, Parameter parameter) {
+    public SqlMapper build(String methodName, Parameter parameter) {
         Map<String, Object> param = new HashMap<>();
         parameter.loader(param);
+        Converter converter = new Converter();
+        converter.build();
         return this;
     }
 
