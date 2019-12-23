@@ -15,6 +15,7 @@ public class ParserNode {
     public void test(){
         ParserMapperNode parserMapperNode = new ParserMapperNode();
         Map<String, PrecompiledClass> stringPrecompiledClassMap = parserMapperNode.readBuilderNode();
+        System.out.println();
     }
 
 }

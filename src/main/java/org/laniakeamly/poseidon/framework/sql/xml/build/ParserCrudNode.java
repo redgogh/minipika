@@ -185,7 +185,7 @@ public class ParserCrudNode {
         } else if (ProvideConstant.TEXT.equals(node.getName())) {
             // 如果是文本那么也去父节点查找看看有妹有else
             XMLNode choose = node.getParent().getParent();
-            if (choose.getChildren().size() > 1) {
+            if (choose != null && choose.getChildren().size() > 1) {
                 XMLNode elseNode = choose.getChildren().get(1);
                 List<XMLNode> elseChildren = elseNode.getChildren();
                 if (elseChildren != null && !elseChildren.isEmpty()) {
