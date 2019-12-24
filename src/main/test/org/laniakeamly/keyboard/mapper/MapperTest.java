@@ -16,7 +16,7 @@ public class MapperTest {
     @Test
     public void builderSqlMapepr(){
 
-        mapper.build("findUserByName", new Parameter() {
+        mapper.build("insertUserModel", new Parameter() {
             @Override
             public void loader(Map<String, Object> map) {
 

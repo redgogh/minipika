@@ -44,8 +44,7 @@
         ?,?
         );
         <foreach index="index" item="user" collections="users">
-            WDNMD
-            <!-- <parameter>{{user.username}},{{user.address}}</parameter> -->
+            <parameter>{{user.username}},{{user.address}}</parameter>
         </foreach>
     </insert>
 

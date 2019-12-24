@@ -102,7 +102,9 @@ public class ReaderBuilderOld {
                     if (content.getCType() == Content.CType.Text) {
                         String value = content.getValue().trim();
                         if (!StringUtils.isEmpty(value)) {
-                            methodBuilder.insert("sql.append(\" ".concat(StringUtils.trim(value)).concat(" \");"));
+                            String sqlValue = StringUtils.trim(value);
+                            String addSQL = StringUtils.format(ProvideConstant.SQL_APPEND,sqlValue);
+                            methodBuilder.insert(addSQL);
                         }
                         continue;
                     }

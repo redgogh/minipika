@@ -13,6 +13,9 @@ public class Converter {
     public void conversion(PrecompiledMethod methodValue, Map<String,Object> parameter){
 
         String method = methodValue.getMethodString();
+        for (Map.Entry<String, Object> entry : parameter.entrySet()) {
+
+        }
         System.out.println(method);
 
     }

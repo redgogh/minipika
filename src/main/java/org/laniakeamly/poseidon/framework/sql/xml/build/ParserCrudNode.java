@@ -121,13 +121,15 @@ public class ParserCrudNode {
             if (ProvideConstant.PARAMETER.equals(node.getName())) {
                 for (String parameter : node.getContent().split(",")) {
                     checkParameterFormat(parameter);
-                    dynamic.append(StringUtils.format(ProvideConstant.PARAMS_LIST_ADD,
-                            StringUtils.format(ProvideConstant.PARAMS_MAP_GET, parameter)));
-                    //
-                    // 由于PARAMS_LIST_ADD和PARAMS_MAP_GET都有分号,所以需要删除一个
-                    //
-                    int len = dynamic.length();
-                    dynamic.remove(len - 3, len - 2);
+                    parameter = parameter.replaceAll("\\{","");
+                    parameter = parameter.replaceAll("\\}","");
+                    if(!parameter.contains(".")) {
+                        dynamic.append(StringUtils.format(ProvideConstant.PARAMS_LIST_ADD, parameter));
+                    }else{
+                        String[] values=parameter.split("\\.");
+                        dynamic.append(StringUtils.format(ProvideConstant.PARAMS_LIST_ADD,
+                                StringUtils.format(ProvideConstant.GET_MEMBER_VALUE,values[0],"\""+values[1]+"\"")));
+                    }
                 }
                 continue;
 
