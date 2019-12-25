@@ -14,7 +14,8 @@ public class Converter {
 
         String method = methodValue.getMethodString();
         for (Map.Entry<String, Object> entry : parameter.entrySet()) {
-
+            method = method.replaceAll("#".concat(entry.getKey()).concat("#"),
+                    entry.getValue().getClass().getName());
         }
         System.out.println(method);
 
