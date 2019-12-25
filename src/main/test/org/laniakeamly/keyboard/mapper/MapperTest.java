@@ -4,6 +4,8 @@ import org.junit.Test;
 import org.laniakeamly.poseidon.framework.sql.Parameter;
 import org.laniakeamly.poseidon.framework.sql.SqlMapper;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,11 +18,15 @@ public class MapperTest {
     @Test
     public void builderSqlMapepr(){
 
+        List<String> list = new ArrayList<>();
+        list.add("aaa");
+
         mapper.build("insertUserModel", new Parameter() {
             @Override
             public void loader(Map<String, Object> map) {
 
                 map.put("username","张三");
+                map.put("user",list);
 
             }
         });

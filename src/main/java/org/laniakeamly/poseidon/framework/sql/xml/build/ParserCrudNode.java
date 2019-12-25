@@ -50,7 +50,7 @@ public class ParserCrudNode {
                         && node.getParent().getName().equals(ProvideConstant.IF)) {
                     addByIf(node, dynamic);
                 } else {
-                    dynamic.appendSql(node.getContent());
+                    dynamic.append(ProvideConstant.sqlAppendProcess(node.getContent()));
                 }
                 continue;
             }
@@ -126,9 +126,8 @@ public class ParserCrudNode {
                     if(!parameter.contains(".")) {
                         dynamic.append(StringUtils.format(ProvideConstant.PARAMS_LIST_ADD, parameter));
                     }else{
-                        String[] values=parameter.split("\\.");
                         dynamic.append(StringUtils.format(ProvideConstant.PARAMS_LIST_ADD,
-                                StringUtils.format(ProvideConstant.GET_MEMBER_VALUE,values[0],"\""+values[1]+"\"")));
+                                ProvideConstant.getMemberValue(parameter)));
                     }
                 }
                 continue;
@@ -167,7 +166,7 @@ public class ParserCrudNode {
         dynamic.append(test.replaceAll("\\$req", getParamsSelect(content)));
         dynamic.append(")");
         dynamic.append("{");
-        dynamic.appendSql(content);
+        dynamic.append(ProvideConstant.sqlAppendProcess(content));
         dynamic.append("}");
 
         // 如果当前节点是oneness,就从父节点查找匹配的else
@@ -207,7 +206,7 @@ public class ParserCrudNode {
     private void addByElse(String content, PrecompiledMethod dynamic) {
         dynamic.append("else");
         dynamic.append("{");
-        dynamic.appendSql(content);
+        dynamic.append(ProvideConstant.sqlAppendProcess(content));
         dynamic.append("}");
     }
 

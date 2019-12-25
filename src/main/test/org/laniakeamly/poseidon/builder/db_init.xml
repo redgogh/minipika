@@ -7,6 +7,9 @@
         <if test="username != null">
             and user_name = {{username}}
         </if>
+        <foreach index="index" item="user" collections="users">
+            limit {{user.username}},{{user.address}}
+        </foreach>
     </select>
 
     <!-- <update name="updateUserById">
@@ -41,7 +44,7 @@
         'c28a7745-7508-48a0-820e-a5cd14748d24',
         '敌敌畏',
         '2019-12-03 09:39:19',
-        ?,?
+        ?,?,{{username}}
         );
         <foreach index="index" item="user" collections="users">
             <parameter>{{user.username}},{{user.address}}</parameter>

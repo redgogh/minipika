@@ -74,14 +74,6 @@ public class PrecompiledMethod {
     }
 
     /**
-     * 添加sql
-     * @param sql
-     */
-    public void appendSql(String sql) {
-        method.append(StringUtils.format(ProvideConstant.SQL_APPEND, sql));
-    }
-
-    /**
      * 添加if条件表达式
      * @param ieValue
      */
@@ -93,13 +85,13 @@ public class PrecompiledMethod {
         for (int i = 0, len = contents.size(); i < len; i++) {
             method.append(StringUtils.format("if({})", tests.get(i)));
             method.append("{");
-            method.append(StringUtils.format(ProvideConstant.SQL_APPEND, contents.get(i)));
+            method.append(ProvideConstant.sqlAppendProcess(contents.get(i)));
             method.append("}");
             if (i < elseContentsSize) {
                 String elseContent = elseContents.get(i);
                 if (elseContent != null) {
                     method.append("else{");
-                    method.append(StringUtils.format(ProvideConstant.SQL_APPEND, elseContent));
+                    method.append(ProvideConstant.sqlAppendProcess(elseContent));
                     method.append("}");
                 }
             }

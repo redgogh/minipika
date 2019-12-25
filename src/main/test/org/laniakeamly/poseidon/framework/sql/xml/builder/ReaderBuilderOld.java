@@ -103,7 +103,7 @@ public class ReaderBuilderOld {
                         String value = content.getValue().trim();
                         if (!StringUtils.isEmpty(value)) {
                             String sqlValue = StringUtils.trim(value);
-                            String addSQL = StringUtils.format(ProvideConstant.SQL_APPEND,sqlValue);
+                            String addSQL = ProvideConstant.sqlAppendProcess(sqlValue);
                             methodBuilder.insert(addSQL);
                         }
                         continue;

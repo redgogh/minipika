@@ -45,7 +45,7 @@ public class ParserCrudNode {
             // text
             //
             if (ProvideConstant.TEXT.equals(node.getName())) {
-                dynamic.appendSql(node.getContent());
+                dynamic.append(ProvideConstant.sqlAppendProcess(node.getContent()));
                 continue;
             }
 
