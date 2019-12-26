@@ -2,6 +2,7 @@ package org.laniakeamly.poseidon.framework.sql.xml.build;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.laniakeamly.poseidon.framework.config.Config;
 import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
 import org.laniakeamly.poseidon.framework.tools.ReflectUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
@@ -21,7 +22,7 @@ public class PrecompiledMethod {
     private String name;
 
     @Getter
-    private String result;
+    private Class<?> result;
 
     @Getter
     private String type;
@@ -41,15 +42,22 @@ public class PrecompiledMethod {
 
     /**
      * 创建预编译方法
-     * @param name          mapper标签的name属性
-     * @param result    mapper标签的return属性
+     *
+     * @param name   mapper标签的name属性
+     * @param result mapper标签的return属性
      */
     public PrecompiledMethod(String name, String result, String type) {
-        this.name = name;
-        this.result = result;
-        method.append(StringUtils.format("public java.lang.String {} (java.util.Map map,java.util.List " + ProvideConstant.SQL_PARAMS_SET + ")", name));
-        method.append("{");
-        method.append("java.lang.StringBuilder sql = new java.lang.StringBuilder();");
+        try {
+            this.name = name;
+            if(!StringUtils.isEmpty(result)) {
+                this.result = Class.forName(Config.getInstance().getModelPackage() + "." + result);
+            }
+            method.append(StringUtils.format("public java.lang.String {} (java.util.Map map,java.util.List " + ProvideConstant.SQL_PARAMS_SET + ")", name));
+            method.append("{");
+            method.append("java.lang.StringBuilder sql = new java.lang.StringBuilder();");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public PrecompiledMethod append(String str) {
@@ -59,6 +67,7 @@ public class PrecompiledMethod {
 
     /**
      * 执行方法
+     *
      * @param map
      * @param params
      * @return
@@ -75,6 +84,7 @@ public class PrecompiledMethod {
 
     /**
      * 添加if条件表达式
+     *
      * @param ieValue
      */
     public void addif(IEValue ieValue) {
@@ -104,7 +114,7 @@ public class PrecompiledMethod {
         return method.toString();
     }
 
-    public PrecompiledMethod remove(int startPos,int endPos) {
+    public PrecompiledMethod remove(int startPos, int endPos) {
         method.delete(startPos, endPos);
         return this;
     }

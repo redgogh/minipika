@@ -1,6 +1,8 @@
 package org.laniakeamly.poseidon.framework.sql;
 
+import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.container.PrecompileContainer;
+import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledMethod;
 
@@ -17,6 +19,8 @@ public class SqlMapper {
     private Converter converter = new Converter();
     private PrecompileContainer container = PrecompileContainer.getContainer();
 
+    private JdbcSupport jdbcSupport = BeansManager.getBean("jdbc");
+
     /**
      * class
      */
@@ -29,7 +33,8 @@ public class SqlMapper {
         this.classValue = container.getValue(name);
     }
 
-    public SqlMapper build(String methodName, Parameter parameter) {
+    public SqlExecute build(String methodName, Parameter parameter) {
+        SqlExecute execute = null;
         try {
             Map<String, Object> parameterMap = new HashMap<>();
             parameter.loader(parameterMap);
@@ -39,11 +44,11 @@ public class SqlMapper {
             }
             List param = new ArrayList();
             String sql = precompiledMethod.invoke(parameterMap,param);
-            System.out.println(sql);
+            execute = new SqlExecute(sql,param.toArray(),precompiledMethod.getResult(),jdbcSupport);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return this;
+        return execute;
     }
 
 }

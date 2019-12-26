@@ -2,7 +2,9 @@ package org.laniakeamly.keyboard.mapper;
 
 import org.junit.Test;
 import org.laniakeamly.poseidon.experiment.UserModel;
+import org.laniakeamly.poseidon.framework.annotation.Valid;
 import org.laniakeamly.poseidon.framework.sql.Parameter;
+import org.laniakeamly.poseidon.framework.sql.SqlExecute;
 import org.laniakeamly.poseidon.framework.sql.SqlMapper;
 
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ public class MapperTest {
     SqlMapper mapper = new SqlMapper("userIakea");
 
     @Test
-    public void builderSqlMapepr(){
+    public void builderSqlMapper(){
 
         UserModel userModel = new UserModel();
         List<UserModel> list = new ArrayList<>();
@@ -25,7 +27,7 @@ public class MapperTest {
         userModel.setAddress("addxxxx");
         list.add(userModel);
 
-        mapper.build("insertUserModel", new Parameter() {
+        SqlExecute execute = mapper.build("insertUserModel", new Parameter() {
             @Override
             public void loader(Map<String, Object> map) {
 
@@ -34,6 +36,8 @@ public class MapperTest {
 
             }
         });
+
+        execute.insert();
 
     }
 
