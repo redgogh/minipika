@@ -63,9 +63,10 @@ public class ProvideConstant {
             } else {
                 group = getMemberValue(group);
                 value.append(StringUtils.format(PARAMS_LIST_ADD, group));
-                int len = value.length();
-                value.delete(len - 3, len - 2);
             }
+        }
+        if(value.subSequence(value.length()-3,value.length()-2).equals(";")){
+            value.delete(value.length()-3,value.length()-2);
         }
         return value.toString().replaceAll("\\{\\{(.*?)}}","?");
     }
@@ -75,6 +76,10 @@ public class ProvideConstant {
         String last = value.substring(lastIndex);
         String before = value.substring(0, lastIndex - 1);
         return StringUtils.format(GET_MEMBER_VALUE, before, "\"" + last + "\"");
+    }
+
+    public static final String getMapValue(String name){
+        return StringUtils.format(PARAMS_MAP_GET,name);
     }
 
     public static void main(String[] args) {

@@ -49,7 +49,7 @@ public class PrecompiledMethod {
         this.result = result;
         method.append(StringUtils.format("public java.lang.String {} (java.util.Map map,java.util.List " + ProvideConstant.SQL_PARAMS_SET + ")", name));
         method.append("{");
-        method.append("StringBuilder sql = new StringBuilder();");
+        method.append("java.lang.StringBuilder sql = new java.lang.StringBuilder();");
     }
 
     public PrecompiledMethod append(String str) {

@@ -1,6 +1,7 @@
 package org.laniakeamly.keyboard.mapper;
 
 import org.junit.Test;
+import org.laniakeamly.poseidon.experiment.UserModel;
 import org.laniakeamly.poseidon.framework.sql.Parameter;
 import org.laniakeamly.poseidon.framework.sql.SqlMapper;
 
@@ -13,20 +14,23 @@ import java.util.Map;
  */
 public class MapperTest {
 
-    SqlMapper mapper = new SqlMapper("user_iakea");
+    SqlMapper mapper = new SqlMapper("userIakea");
 
     @Test
     public void builderSqlMapepr(){
 
-        List<String> list = new ArrayList<>();
-        list.add("aaa");
+        UserModel userModel = new UserModel();
+        List<UserModel> list = new ArrayList<>();
+        userModel.setUserName("namexxx");
+        userModel.setAddress("addxxxx");
+        list.add(userModel);
 
         mapper.build("insertUserModel", new Parameter() {
             @Override
             public void loader(Map<String, Object> map) {
 
                 map.put("username","张三");
-                map.put("user",list);
+                map.put("users",list);
 
             }
         });

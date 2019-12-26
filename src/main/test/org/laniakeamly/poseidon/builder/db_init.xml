@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<mapper name="user_iakea">
+<mapper name="userIakea">
 
     <select name="findUserByName" result="UserModel">
         select * from user_model
@@ -47,7 +47,7 @@
         ?,?,{{username}}
         );
         <foreach index="index" item="user" collections="users">
-            <parameter>{{user.username}},{{user.address}}</parameter>
+            <parameter>{{user.userName}},{{user.address}}</parameter>
         </foreach>
     </insert>
 

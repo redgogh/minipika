@@ -96,11 +96,12 @@ public class ParserCrudNode {
                 String index = StringUtils.isEmpty(indexTemp) ? "index" : indexTemp;
                 String itemTemp = node.getAttribute(ProvideConstant.ITEM);
                 String item = StringUtils.isEmpty(itemTemp) ? "item" : itemTemp;
+                dynamic.append("java.util.List " + collections + " = (java.util.List) " + ProvideConstant.getMapValue(collections));
                 dynamic.append("for(");
                 dynamic.append(StringUtils.format("int {} = 0,", index));
                 dynamic.append(StringUtils.format("len = {}.size();", collections));
                 dynamic.append(StringUtils.format("{} < len;", index));
-                dynamic.append(StringUtils.format("{}++;", index));
+                dynamic.append(StringUtils.format("{}++", index));
                 dynamic.append("){");
                 //
                 // 第一个转义是需要强转的对象
@@ -109,7 +110,7 @@ public class ParserCrudNode {
                 // 第四个转义是list
                 // 第五个转义为当前for循环索引
                 //
-                dynamic.append(StringUtils.format("#{}# {} = (#{}#) {}.get({});", item, item, item, collections, index));
+                dynamic.append(StringUtils.format("java.lang.Object {} = {}.get({});", item, collections, index));
                 parseNode(node.getChildren(), type, dynamic);
                 dynamic.append("}");
                 continue;
