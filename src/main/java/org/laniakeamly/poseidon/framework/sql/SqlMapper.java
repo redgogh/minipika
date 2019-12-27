@@ -39,6 +39,7 @@ public class SqlMapper {
             Map<String, Object> parameterMap = new HashMap<>();
             parameter.loader(parameterMap);
             PrecompiledMethod precompiledMethod = classValue.getPrecompiledMethod(methodName);
+            // 如果没有Method方法就创建一个
             if(precompiledMethod.getIMethod() == null) {
                 converter.conversion(precompiledMethod, parameterMap, classValue.getFullName());
             }

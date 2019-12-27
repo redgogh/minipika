@@ -1,4 +1,4 @@
-package org.laniakeamly.keyboard.node;
+package org.laniakeamly.keyboard;
 
 import org.junit.Test;
 import org.laniakeamly.poseidon.framework.sql.xml.build.ParserMapperNode;

@@ -1,4 +1,4 @@
-package org.laniakeamly.keyboard.mapper;
+package org.laniakeamly.keyboard;
 
 import org.junit.Test;
 import org.laniakeamly.poseidon.experiment.ProductModel;
@@ -39,7 +39,7 @@ public class MapperTest {
             }
         });
 
-        execute.executeBatch();
+        execute.update();
 
     }
 

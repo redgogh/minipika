@@ -124,12 +124,12 @@ public class ParserCrudNode {
                 List<String> parameters = new ArrayList<>();
                 for (String parameter : node.getContent().split(",")) {
                     checkParameterFormat(parameter);
-                    parameter = parameter.replaceAll("\\{","");
-                    parameter = parameter.replaceAll("\\}","");
+                    parameter = parameter.replaceAll("\\{", "");
+                    parameter = parameter.replaceAll("\\}", "");
                     String value = "";
-                    if(!parameter.contains(".")) {
+                    if (!parameter.contains(".")) {
                         value = parameter;
-                    }else{
+                    } else {
                         value = ProvideConstant.getMemberValue(parameter);
                     }
                     parameters.add(value);
@@ -144,6 +144,7 @@ public class ParserCrudNode {
     /**
      * 检查参数格式是否合法
      * 参数检查前两个字符与后两个字符是否为{{}},如果不是则报错
+     *
      * @param parameter 参数,例如：{{parameter}}
      */
     private void checkParameterFormat(String parameter) {
@@ -158,6 +159,7 @@ public class ParserCrudNode {
 
     /**
      * 添加if
+     *
      * @param node
      * @param dynamic
      */
@@ -175,14 +177,17 @@ public class ParserCrudNode {
 
         // 如果当前节点是oneness,就从父节点查找匹配的else
         if (ProvideConstant.ONENESS.equals(node.getName())) {
-            List<XMLNode> nodes = node.getParent().getParent().getChildren();
-            if (nodes.size() == 2) {
-                XMLNode elseNode = nodes.get(1);
-                List<XMLNode> elseChildren = elseNode.getChildren();
-                String attributeIdValue = node.getAttribute(ProvideConstant.ONENESS_ATTRIBUTE_KEY);
-                for (XMLNode child : elseChildren) {
-                    if (attributeIdValue.equals(child.getAttribute(ProvideConstant.ONENESS_ATTRIBUTE_KEY))) {
-                        addByElse(child.getContent(), dynamic);
+            XMLNode chooseParent = node.getParent().getParent();
+            if (chooseParent != null) {
+                List<XMLNode> nodes = chooseParent.getChildren();
+                if (nodes.size() == 2) {
+                    XMLNode elseNode = nodes.get(1);
+                    List<XMLNode> elseChildren = elseNode.getChildren();
+                    String attributeIdValue = node.getAttribute(ProvideConstant.ONENESS_ATTRIBUTE_KEY);
+                    for (XMLNode child : elseChildren) {
+                        if (attributeIdValue.equals(child.getAttribute(ProvideConstant.ONENESS_ATTRIBUTE_KEY))) {
+                            addByElse(child.getContent(), dynamic);
+                        }
                     }
                 }
             }
@@ -204,6 +209,7 @@ public class ParserCrudNode {
 
     /**
      * 添加else
+     *
      * @param content
      * @param dynamic
      */
@@ -216,6 +222,7 @@ public class ParserCrudNode {
 
     /**
      * 构建if语句
+     *
      * @return
      */
     private String buildTest(List<TokenValue> test) {
@@ -236,6 +243,7 @@ public class ParserCrudNode {
 
     /**
      * 获取多个参数下被选择的标签
+     *
      * @param text
      * @return
      */
@@ -268,6 +276,7 @@ public class ParserCrudNode {
 
     /**
      * 将test中的内容解析成Token
+     *
      * @param test
      * @return
      */

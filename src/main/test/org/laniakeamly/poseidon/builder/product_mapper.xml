@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper name="productService">
+
+    <!--
+        测试条件查询（不为空则不添加到条件）
+    -->
+    <select name="findProduct" result="ProductModel">
+        select * from product_model where id = {{id}}
+        <if test="$req != null">
+            <oneness>and product_name = {{productName}}</oneness>
+            <oneness>and uuid = {{uuid}}</oneness>
+        </if>
+    </select>
+
+    <!--
+        测试普通查询
+        result参数代表要返回的对象,这个对象不用加全路径。
+        但是要求对象必须在poseidon.model.package配置的包下
+    -->
+    <select name="findProductByUUID" result="ProductModel">
+        select * from product_model where uuid = {{uuid}}
+    </select>
+
+    <!--
+        测试批量插入
+
+        如果是批量插入就需要使用到foreach循环
+        SQL在循环外部，循环内部放参数且SQL参数用问号代替
+
+        foreach有两个属性item、collections
+
+        item            代表当前循环获取到的对象
+        collections     代表一个集合对象
+
+        parameter标签代表在这个标签的所有参数有会被保存到数组中,结果就像List<Object[]>
+
+        然后调用SqlExecute执行对应的方法
+    -->
+    <insert name="addProducts">
+        INSERT INTO `product_model`(`product_name`, `uuid`) VALUES (?,?);
+        <foreach item="product" collections="products">
+            <parameter>{{product.productName}},{{product.uuid}}</parameter>
+        </foreach>
+    </insert>
+
+</mapper>
