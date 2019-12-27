@@ -10,6 +10,7 @@ import org.laniakeamly.poseidon.framework.sql.xml.token.Token;
 import org.laniakeamly.poseidon.framework.sql.xml.token.TokenValue;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -117,22 +118,24 @@ public class ParserCrudNode {
             }
 
             //
-            // foreach
+            // parameter
             //
             if (ProvideConstant.PARAMETER.equals(node.getName())) {
+                List<String> parameters = new ArrayList<>();
                 for (String parameter : node.getContent().split(",")) {
                     checkParameterFormat(parameter);
                     parameter = parameter.replaceAll("\\{","");
                     parameter = parameter.replaceAll("\\}","");
+                    String value = "";
                     if(!parameter.contains(".")) {
-                        dynamic.append(StringUtils.format(ProvideConstant.PARAMS_LIST_ADD, parameter));
+                        value = parameter;
                     }else{
-                        dynamic.append(StringUtils.format(ProvideConstant.PARAMS_LIST_ADD,
-                                ProvideConstant.getMemberValue(parameter)));
+                        value = ProvideConstant.getMemberValue(parameter);
                     }
+                    parameters.add(value);
                 }
+                dynamic.append(ProvideConstant.addArrayParameter(parameters));
                 continue;
-
             }
 
         }

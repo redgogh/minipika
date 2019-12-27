@@ -6,10 +6,9 @@ import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
 import org.laniakeamly.poseidon.framework.config.Config;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.lang.reflect.Array;
+import java.sql.*;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -123,15 +122,21 @@ public class NativeJdbcImpl implements NativeJdbc {
 
     @Override
     public int[] executeBatch(String sql, List<Object[]> args) {
+        return this.executeBatch(sql,args.toArray());
+    }
+
+    @Override
+    public int[] executeBatch(String sql, Object... args) {
         Connection connection = null;
         PreparedStatement statement = null;
-        try {
+        try{
             connection = pool.getConnection();
             statement = connection.prepareStatement(sql);
-            for (Object[] arg : args) {
-                int i = 1;
-                for (Object o : arg) {
-                    statement.setObject(i, o);
+            for (Object arg : args) {
+                Object[] value = (Object[]) arg;
+                int i=1;
+                for (Object o : value) {
+                    statement.setObject(i,o);
                     i++;
                 }
                 statement.addBatch();
@@ -144,6 +149,7 @@ public class NativeJdbcImpl implements NativeJdbc {
             close(null, statement, null);
             release(connection, pool);
         }
-        return new int[]{};
+        return new int[0];
     }
+
 }

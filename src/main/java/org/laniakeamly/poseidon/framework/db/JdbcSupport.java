@@ -129,6 +129,8 @@ public interface JdbcSupport {
      */
     int[] executeBatch(String sql,List<Object[]> args);
 
+    int[] executeBatch(String sql,Object[] args);
+
     /**
      * 查询某张表所有字段
      * @param tableName

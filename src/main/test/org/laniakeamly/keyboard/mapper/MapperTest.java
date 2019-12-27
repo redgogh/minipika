@@ -1,11 +1,14 @@
 package org.laniakeamly.keyboard.mapper;
 
 import org.junit.Test;
+import org.laniakeamly.poseidon.experiment.ProductModel;
 import org.laniakeamly.poseidon.experiment.UserModel;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
 import org.laniakeamly.poseidon.framework.sql.Parameter;
 import org.laniakeamly.poseidon.framework.sql.SqlExecute;
 import org.laniakeamly.poseidon.framework.sql.SqlMapper;
+import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
+import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,28 +19,27 @@ import java.util.Map;
  */
 public class MapperTest {
 
-    SqlMapper mapper = new SqlMapper("userIakea");
+    SqlMapper mapper = new SqlMapper("test");
 
     @Test
     public void builderSqlMapper(){
 
-        UserModel userModel = new UserModel();
-        List<UserModel> list = new ArrayList<>();
-        userModel.setUserName("namexxx");
-        userModel.setAddress("addxxxx");
-        list.add(userModel);
+        List<ProductModel> list = new ArrayList<>();
+        for(int i=0; i<5; i++) {
+            ProductModel product = new ProductModel();
+            product.setUuid(PoseidonUtils.uuid()+i);
+            product.setProductName(PoseidonUtils.uuid()+i);
+            list.add(product);
+        }
 
-        SqlExecute execute = mapper.build("insertUserModel", new Parameter() {
+        SqlExecute execute = mapper.build("addProduct", new Parameter() {
             @Override
             public void loader(Map<String, Object> map) {
-
-                map.put("username","张三");
-                map.put("users",list);
-
+                map.put("products",list);
             }
         });
 
-        execute.insert();
+        execute.executeBatch();
 
     }
 

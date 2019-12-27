@@ -49,6 +49,8 @@ public interface NativeJdbc {
      * @param args
      * @return
      */
+    int[] executeBatch(String sql, Object... args);
+
     int[] executeBatch(String sql, List<Object[]> args);
 
     // 添加预编译sql的参数

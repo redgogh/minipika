@@ -15,13 +15,16 @@ public class SqlExecute {
     private Class<?> result;
     private JdbcSupport jdbc;
 
-    public SqlExecute(){}
+    public SqlExecute(){
+
+    }
 
     public SqlExecute(String sql, Object[] args, Class<?> result,JdbcSupport jdbc) {
         this.sql = sql;
         this.jdbc = jdbc;
         this.args = args;
         this.result = result;
+        System.out.println();
     }
 
     public <T> List<T> queryForList(){
@@ -41,7 +44,7 @@ public class SqlExecute {
     }
 
     public int[] executeBatch(){
-        return jdbc.executeBatch(this.sql,null);
+        return jdbc.executeBatch(sql,args);
     }
 
 }

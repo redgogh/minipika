@@ -2,6 +2,7 @@ package org.laniakeamly.poseidon.framework.sql;
 
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -71,6 +72,11 @@ public class ProvideConstant {
         return value.toString().replaceAll("\\{\\{(.*?)}}","?");
     }
 
+    /**
+     * 获取成员值
+     * @param value
+     * @return
+     */
     public static final String getMemberValue(String value) {
         int lastIndex = value.lastIndexOf(".") + 1;
         String last = value.substring(lastIndex);
@@ -78,8 +84,24 @@ public class ProvideConstant {
         return StringUtils.format(GET_MEMBER_VALUE, before, "\"" + last + "\"");
     }
 
+    /**
+     * 获取Map Value
+     * @param name
+     * @return
+     */
     public static final String getMapValue(String name){
         return StringUtils.format(PARAMS_MAP_GET,name);
+    }
+
+    public static final String addArrayParameter(List<String> args){
+        StringBuilder createArray = new StringBuilder("new Object[]{");
+        for (String arg : args) {
+            createArray.append(arg).append(",");
+        }
+        int len = createArray.length();
+        createArray.delete(len-1,len);
+        createArray.append("}");
+        return StringUtils.format(ProvideConstant.PARAMS_LIST_ADD,createArray.toString());
     }
 
     public static void main(String[] args) {
