@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
 
 /**
  * @author 404NotFoundx
@@ -84,7 +85,7 @@ public class NativeJdbcImpl implements NativeJdbc {
                 ResultSet resultSet = setValues(statement, args).executeQuery();
                 return BeansManager.newNativeResult().build(resultSet);
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         } finally {
             close(null, statement, null);
@@ -110,7 +111,7 @@ public class NativeJdbcImpl implements NativeJdbc {
             if (auto) connection.commit(); // 提交
             if (isCache) cache.refresh(sql); // 刷新缓存
             return result;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             rollback(connection, auto); // 回滚
             e.printStackTrace();
         } finally {
@@ -121,25 +122,28 @@ public class NativeJdbcImpl implements NativeJdbc {
     }
 
     @Override
-    public int executeBatch(String sql, Object... args) {
+    public int[] executeBatch(String sql, List<Object[]> args) {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
             connection = pool.getConnection();
-            /*if (connection == null) {
-                synchronized (this) {
-                    wait();
+            statement = connection.prepareStatement(sql);
+            for (Object[] arg : args) {
+                int i = 1;
+                for (Object o : arg) {
+                    statement.setObject(i, o);
+                    i++;
                 }
-                executeUpdate(sql, args);
-            }*/
-            statement.executeBatch();
-        } catch (Exception e) {
+                statement.addBatch();
+            }
+            return statement.executeBatch();
+        } catch (Throwable e) {
             rollback(connection, auto); // 回滚
             e.printStackTrace();
         } finally {
             close(null, statement, null);
             release(connection, pool);
         }
-        return 0;
+        return new int[]{};
     }
 }

@@ -40,4 +40,8 @@ public class SqlExecute {
         return jdbc.insert(sql,args);
     }
 
+    public int[] executeBatch(){
+        return jdbc.executeBatch(this.sql,null);
+    }
+
 }

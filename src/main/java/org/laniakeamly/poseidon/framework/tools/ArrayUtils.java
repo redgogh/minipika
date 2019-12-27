@@ -8,6 +8,23 @@ import java.util.Arrays;
  */
 public class ArrayUtils {
 
+    /**
+     * 是否为数组
+     * @param o
+     * @return
+     */
+    public static boolean isArray(Object o){
+        if(o == null) return false;
+        return o.getClass().isArray();
+    }
+
+    /**
+     * 数组插入
+     * @param pos
+     * @param data
+     * @param dest
+     * @return
+     */
     public static int[] insert(int pos,int data,int[] dest){
         pos = pos +1;
         dest = Arrays.copyOf(dest,dest.length+1);
