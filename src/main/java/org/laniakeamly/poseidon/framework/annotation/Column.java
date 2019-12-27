@@ -3,7 +3,10 @@ package org.laniakeamly.poseidon.framework.annotation;
 import java.lang.annotation.*;
 
 /**
- * 字段属性
+ * Model类的字段属性注解
+ *
+ * Model class the column property annotation.
+ *
  * @author 2BKeyboard
  * @version 1.0.0
  * @date 2019/11/12 10:33

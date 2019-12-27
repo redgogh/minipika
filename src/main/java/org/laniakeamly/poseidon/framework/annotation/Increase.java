@@ -4,6 +4,9 @@ import java.lang.annotation.*;
 
 /**
  * 自增长
+ *
+ * Auto increase
+ *
  * @author 2BKeyboard
  * @version 1.0.0
  * @date 2019/11/12 10:18

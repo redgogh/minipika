@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * IOC
+ * ioc容器对象
  * Create by 2BKeyboard on 2019/11/28 17:25
  */
 public class BeansManager {

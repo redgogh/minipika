@@ -4,6 +4,9 @@ import java.lang.annotation.*;
 
 /**
  * 字段注释
+ *
+ * column comment.
+ *
  * Create by 2BKeyboard on 2019/11/12 10:35
  */
 @Target(ElementType.FIELD)

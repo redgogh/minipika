@@ -5,6 +5,11 @@ import java.sql.DriverManager;
 import java.util.Enumeration;
 
 /**
+ *
+ * 由于JDBC在并发下有创建异常的情况，所以写了个加载类.
+ *
+ * Jdbc driver loader.
+ *
  * @author 2BKeyboard
  * @version 1.0.0
  * @date 2019/11/21 10:33

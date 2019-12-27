@@ -1,6 +1,10 @@
 package org.laniakeamly.poseidon.framework.annotation;
 
 /**
+ * MYSQL支持的引擎列表
+ *
+ * Mysql support engine list.
+ *
  * @author 2BKeyboard
  * @version 1.0.0
  * @date 2019/11/20 14:53

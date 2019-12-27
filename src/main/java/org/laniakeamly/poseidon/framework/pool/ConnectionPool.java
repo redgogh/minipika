@@ -14,6 +14,8 @@ import java.util.Set;
 /**
  * 连接池
  *
+ * Default connection pool.
+ *
  * @author 2BKeyboard
  * @version 1.0.0
  * @date 2019/11/11 16:31

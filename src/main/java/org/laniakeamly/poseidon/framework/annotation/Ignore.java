@@ -4,6 +4,9 @@ import java.lang.annotation.*;
 
 /**
  * 忽略某个字段，被忽略字段不会对数据库进行影响
+ *
+ * Ignore column, be ignored column will not impact on the database.
+ *
  * @author 2BKeyboard
  * @version 1.0.0
  * @date 2019/11/13 15:49

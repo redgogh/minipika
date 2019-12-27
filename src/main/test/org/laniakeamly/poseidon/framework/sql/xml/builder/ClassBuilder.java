@@ -1,7 +1,6 @@
 package org.laniakeamly.poseidon.framework.sql.xml.builder;
 
 import org.laniakeamly.poseidon.framework.tools.NewlineBuilder;
-import org.laniakeamly.poseidon.framework.tools.StringNewline;
 import lombok.Getter;
 import lombok.Setter;
 

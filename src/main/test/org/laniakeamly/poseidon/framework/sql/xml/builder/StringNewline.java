@@ -1,4 +1,7 @@
-package org.laniakeamly.poseidon.framework.tools;
+package org.laniakeamly.poseidon.framework.sql.xml.builder;
+
+import org.laniakeamly.poseidon.framework.tools.ArrayUtils;
+import org.laniakeamly.poseidon.framework.tools.LineBuilder;
 
 import java.io.Serializable;
 

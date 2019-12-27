@@ -3,7 +3,10 @@ package org.laniakeamly.poseidon.framework.annotation;
 import java.lang.annotation.*;
 
 /**
- * 主键注解,此注解需要放在Model类上
+ * 主键注解
+ *
+ * PrimaryKey
+ *
  * @author 2BKeyboard
  * @version 1.0.0
  * @date 2019/11/4 15:06
