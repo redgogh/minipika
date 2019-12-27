@@ -1,6 +1,6 @@
 package org.laniakeamly.poseidon.framework.db;
 
-import org.laniakeamly.poseidon.customize.ConnectionPool;
+import org.laniakeamly.poseidon.extension.ConnectionPool;
 
 import java.sql.*;
 import java.util.List;

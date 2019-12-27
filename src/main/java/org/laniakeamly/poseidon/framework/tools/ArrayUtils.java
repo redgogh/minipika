@@ -13,8 +13,8 @@ public class ArrayUtils {
      * @param o
      * @return
      */
-    public static boolean isArray(Object o){
-        if(o == null) return false;
+    public static boolean isArray(Object o) {
+        if (o == null) return false;
         return o.getClass().isArray();
     }
 
@@ -25,15 +25,15 @@ public class ArrayUtils {
      * @param dest
      * @return
      */
-    public static int[] insert(int pos,int data,int[] dest){
-        pos = pos +1;
-        dest = Arrays.copyOf(dest,dest.length+1);
-        int[] begin = Arrays.copyOfRange(dest,0,pos);
-        begin = Arrays.copyOf(begin,begin.length+1);
-        int[] end =Arrays.copyOfRange(dest,pos,dest.length-1);
+    public static int[] insert(int pos, int data, int[] dest) {
+        pos = pos + 1;
+        dest = Arrays.copyOf(dest, dest.length + 1);
+        int[] begin = Arrays.copyOfRange(dest, 0, pos);
+        begin = Arrays.copyOf(begin, begin.length + 1);
+        int[] end = Arrays.copyOfRange(dest, pos, dest.length - 1);
         begin[(pos)] = data;
-        System.arraycopy(begin,0,dest,0,begin.length);
-        System.arraycopy(end,0,dest,pos+1,end.length);
+        System.arraycopy(begin, 0, dest, 0, begin.length);
+        System.arraycopy(end, 0, dest, pos + 1, end.length);
         return dest;
     }
 

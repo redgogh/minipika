@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.beans;
 
 import javassist.ClassPool;
-import org.laniakeamly.poseidon.customize.ConnectionPool;
+import org.laniakeamly.poseidon.extension.ConnectionPool;
 import org.laniakeamly.poseidon.framework.annotation.Resource;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
 import org.laniakeamly.poseidon.framework.cache.CacheRefreshTimer;

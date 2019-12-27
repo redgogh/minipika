@@ -19,7 +19,7 @@ import java.util.Set;
  * @date 2019/11/11 16:31
  * @since 1.8
  */
-public class ConnectionPool implements org.laniakeamly.poseidon.customize.ConnectionPool {
+public class ConnectionPool implements org.laniakeamly.poseidon.extension.ConnectionPool {
 
     /**
      * 驱动对象
