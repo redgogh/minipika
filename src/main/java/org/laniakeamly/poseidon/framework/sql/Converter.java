@@ -17,33 +17,38 @@ public class Converter {
 
     private ClassPool pool = BeansManager.getBean("classPool");
 
-    public void conversion(PrecompiledMethod methodValue, Map<String,Object> parameter,String fullClassName) throws Exception {
-        String methodString = process(methodValue.getMethodString(),parameter);
-        CtClass ctClass = pool.makeClass(fullClassName);
+    public void conversion(PrecompiledMethod methodValue, Map<String, Object> parameter, String fullClassName) throws Exception {
+        String methodString = process(methodValue.getMethodString(), parameter);
+        CtClass ctClass;
+        try {
+            ctClass = pool.get(fullClassName);
+        } catch (Exception e) {
+            ctClass = pool.makeClass(fullClassName);
+        }
         ctClass.defrost();
         CtMethod ctMethod = CtNewMethod.make(methodString, ctClass);
         ctClass.addMethod(ctMethod);
         PoseidonClassLoader classLoader = new PoseidonClassLoader(); // 类加载器
         Class<?> target = classLoader.findClassByBytes(fullClassName, ctClass.toBytecode());
         Object object = target.newInstance();
-        Method iMethod = object.getClass().getDeclaredMethod(methodValue.getName(),Map.class,List.class);
+        Method iMethod = object.getClass().getDeclaredMethod(methodValue.getName(), Map.class, List.class);
         methodValue.setExecute(object);
         methodValue.setIMethod(iMethod);
     }
 
-    private String process(String strValue,Map<String,Object> parameter){
+    private String process(String strValue, Map<String, Object> parameter) {
         String method = strValue;
         for (Map.Entry<String, Object> entry : parameter.entrySet()) {
             String key = entry.getKey();
             Object value = entry.getValue();
-            if(value instanceof List){
+            if (value instanceof List) {
                 List listValue = (List) value;
-                if(!listValue.isEmpty()){
+                if (!listValue.isEmpty()) {
                     value = listValue.get(0).getClass().getName();
                 }
             }
             String valueName = "java.lang.Object";
-            if(value != null){
+            if (value != null) {
                 value.getClass().getName();
             }
             method = method.replaceAll("#".concat(key).concat("#"), valueName);
