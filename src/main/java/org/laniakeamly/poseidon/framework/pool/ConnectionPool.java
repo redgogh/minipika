@@ -91,12 +91,9 @@ public class ConnectionPool implements org.laniakeamly.poseidon.extension.Connec
                 while (iter.hasNext()) {
                     Connection connection = iter.next();
                     conns.remove(connection);
-                    // System.out.println(Thread.currentThread().getName() + "：取出一个链接，连接池中剩余链接有" + conns.size() + "个");
                     return connection;
                 }
-                // System.err.println(Thread.currentThread().getName() + "：当前连接池中没有链接了，等待中....");
                 await();
-                // System.err.println(Thread.currentThread().getName() + "被唤醒");
                 Connection connection = getConnection();
                 return connection;
             } else {
@@ -122,7 +119,6 @@ public class ConnectionPool implements org.laniakeamly.poseidon.extension.Connec
      */
     public Connection createConnection() {
         if (count >= MAX_SIZE) return null;
-        // System.out.println("已创建的链接有：" + count);
         try {
             if (driver == null) {
                 DriverLoader driverLoader = new DriverLoader();

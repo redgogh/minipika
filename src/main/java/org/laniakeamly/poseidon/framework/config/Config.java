@@ -1,5 +1,7 @@
 package org.laniakeamly.poseidon.framework.config;
 
+import lombok.Getter;
+import org.laniakeamly.poseidon.extension.ConnectionPool;
 import org.laniakeamly.poseidon.framework.exception.runtime.ReadException;
 import org.laniakeamly.poseidon.framework.tools.Calculator;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
@@ -52,6 +54,9 @@ public final class Config {
 
     // 数据库名
     private String dbname;
+
+    @Getter
+    private ExtensionRegister extensionRegister = new ExtensionRegister();
 
     private static Config instance;
 
@@ -187,4 +192,14 @@ public final class Config {
     public String getMapperBasePackage() {
         return mapperPackage;
     }
+
+    /**
+     * 使用自定义扩展类
+     * @param v
+     * @param <V>
+     */
+    public <V> void register(V v){
+        extensionRegister.register(v);
+    }
+
 }
