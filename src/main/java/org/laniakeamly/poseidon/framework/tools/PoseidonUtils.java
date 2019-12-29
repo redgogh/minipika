@@ -23,7 +23,7 @@ import java.util.*;
  * @date 2019/11/12 0:10
  * @since 1.8
  */
-public class PoseidonUtils {
+public final class PoseidonUtils {
 
     /**
      * 驼峰转下划线

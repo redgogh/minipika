@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Create by 2BKeyboard on 2019/12/7 0:54
  */
-public class TimeUtils {
+public final class TimeUtils {
 
     /**
      * 一秒

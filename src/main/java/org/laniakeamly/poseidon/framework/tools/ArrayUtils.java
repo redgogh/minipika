@@ -6,7 +6,7 @@ import java.util.Arrays;
  * 数组工具类
  * Create by 2BKeyboard on 2019/12/13 18:36
  */
-public class ArrayUtils {
+public final class ArrayUtils {
 
     /**
      * 是否为数组

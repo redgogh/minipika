@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  * @date 2019/8/23 23:52
  * @since 1.8
  */
-public class StringUtils {
+public final class StringUtils {
 
     /**
      * 字符串是否为空
