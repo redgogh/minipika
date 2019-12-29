@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class ProductService {
 
-    private SqlMapper mapper = new SqlMapper("productService");
+    private SqlMapper mapper = SqlMapper.getMapper("productService");
 
     public ProductModel findProductByUUID(String uuid) {
         return mapper.build("findProductByUUID", new Parameter() {
