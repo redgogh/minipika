@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class MapperTest {
 
-    SqlMapper mapper = new SqlMapper("test");
+    SqlMapper mapper = SqlMapper.getMapper("test");
 
     @Test
     public void builderSqlMapper(){

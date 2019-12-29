@@ -24,7 +24,6 @@ public class SqlExecute {
         this.jdbc = jdbc;
         this.args = args;
         this.result = result;
-        System.out.println();
     }
 
     public <T> List<T> queryForList(){

@@ -25,7 +25,7 @@ public class Main {
         }
         int[] ints = service.addProducts(list);
 
-        System.out.println();
+        System.err.println("END");
 
     }
 
