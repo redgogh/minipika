@@ -14,4 +14,11 @@ import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
  */
 public interface DynamicSQL extends Container {
 
+    /**
+     * 获取预编译对象
+     * @param name
+     * @return
+     */
+    PrecompiledClass getValue(String name);
+
 }
