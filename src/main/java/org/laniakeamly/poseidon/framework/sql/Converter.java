@@ -19,11 +19,15 @@ public class Converter {
 
     public void conversion(PrecompiledMethod methodValue, Map<String, Object> parameter, String fullClassName) throws Exception {
         String methodString = process(methodValue.getMethodString(), parameter);
-        CtClass ctClass;
+        CtClass ctClass = null;
         try {
             ctClass = pool.get(fullClassName);
         } catch (Exception e) {
-            ctClass = pool.makeClass(fullClassName);
+            if(e instanceof NotFoundException) {
+                ctClass = pool.makeClass(fullClassName);
+            }else{
+                e.printStackTrace();
+            }
         }
         ctClass.defrost();
         CtMethod ctMethod = CtNewMethod.make(methodString, ctClass);
