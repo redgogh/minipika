@@ -1,14 +1,11 @@
 package org.laniakeamly.keyboard;
 
 import org.junit.Test;
-import org.laniakeamly.poseidon.experiment.ProductModel;
-import org.laniakeamly.poseidon.experiment.UserModel;
-import org.laniakeamly.poseidon.framework.annotation.Valid;
+import org.laniakeamly.poseidon.experiment.ProductModel1;
 import org.laniakeamly.poseidon.framework.sql.Parameter;
 import org.laniakeamly.poseidon.framework.sql.SqlExecute;
 import org.laniakeamly.poseidon.framework.sql.SqlMapper;
 import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
-import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +21,9 @@ public class MapperTest {
     @Test
     public void builderSqlMapper(){
 
-        List<ProductModel> list = new ArrayList<>();
+        List<ProductModel1> list = new ArrayList<>();
         for(int i=0; i<5; i++) {
-            ProductModel product = new ProductModel();
+            ProductModel1 product = new ProductModel1();
             product.setUuid(PoseidonUtils.uuid()+i);
             product.setProductName(PoseidonUtils.uuid()+i);
             list.add(product);

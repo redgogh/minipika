@@ -1,6 +1,6 @@
 package org.laniakeamly.dev;
 
-import org.laniakeamly.poseidon.experiment.ProductModel;
+import org.laniakeamly.poseidon.experiment.ProductModel1;
 
 import java.util.List;
 
@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface ProductMapper {
 
-    List<ProductModel> findProductByUUID(String uuid);
+    List<ProductModel1> findProductByUUID(String uuid);
 
 }

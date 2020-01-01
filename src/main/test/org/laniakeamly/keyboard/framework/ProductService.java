@@ -1,6 +1,6 @@
 package org.laniakeamly.keyboard.framework;
 
-import org.laniakeamly.poseidon.experiment.ProductModel;
+import org.laniakeamly.poseidon.experiment.ProductModel1;
 import org.laniakeamly.poseidon.framework.sql.Parameter;
 import org.laniakeamly.poseidon.framework.sql.SqlMapper;
 
@@ -11,7 +11,7 @@ public class ProductService {
 
     private SqlMapper mapper = SqlMapper.getMapper("productService");
 
-    public ProductModel findProductByUUID(String uuid) {
+    public ProductModel1 findProductByUUID(String uuid) {
         return mapper.build("findProductByUUID", new Parameter() {
             @Override
             public void loader(Map<String, Object> map) {
@@ -20,7 +20,7 @@ public class ProductService {
         }).queryForObject();
     }
 
-    public ProductModel findProduct(int id,String productName,String uuid) {
+    public ProductModel1 findProduct(int id, String productName, String uuid) {
         return mapper.build("findProduct", new Parameter() {
             @Override
             public void loader(Map<String, Object> map) {
@@ -31,7 +31,7 @@ public class ProductService {
         }).queryForObject();
     }
 
-    public int[] addProducts(List<ProductModel> products){
+    public int[] addProducts(List<ProductModel1> products){
         return mapper.build("addProducts", new Parameter() {
             @Override
             public void loader(Map<String, Object> map) {

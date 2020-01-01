@@ -5,7 +5,7 @@ import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
 import org.laniakeamly.poseidon.framework.tools.TimeUtils;
-import org.laniakeamly.poseidon.experiment.ProductModel;
+import org.laniakeamly.poseidon.experiment.ProductModel1;
 import org.laniakeamly.poseidon.experiment.UserModel;
 
 import java.util.Date;
@@ -76,7 +76,7 @@ public class Query {
             userModel.setUuid(uuid);
             userModel.setCreateTime(new Date());
 
-            ProductModel productModel = new ProductModel();
+            ProductModel1 productModel = new ProductModel1();
             productModel.setProductName("产品[".concat(String.valueOf(new Date().getTime())).concat("]"));
             productModel.setUuid(uuid);
 
@@ -86,7 +86,7 @@ public class Query {
             jdbc.queryForJson(sql, 1002001);
             jdbc.queryForJson(sql, 1002001);
 
-            ProductModel queryModel = jdbc.queryForObject("select * from kkb_product_model where id = ?", ProductModel.class, 6);
+            ProductModel1 queryModel = jdbc.queryForObject("select * from kkb_product_model where id = ?", ProductModel1.class, 6);
             jdbc.update(queryModel);
 
             jdbc.queryForJson(sql, 1002001);
