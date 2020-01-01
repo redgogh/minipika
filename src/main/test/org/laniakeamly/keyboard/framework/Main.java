@@ -1,6 +1,6 @@
 package org.laniakeamly.keyboard.framework;
 
-import org.laniakeamly.poseidon.experiment.ProductModel1;
+import org.laniakeamly.poseidon.experiment.ProductModel;
 import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
 
 import java.util.ArrayList;
@@ -12,12 +12,12 @@ public class Main {
 
         ProductService service = new ProductService();
 
-        ProductModel1 findProduct = service.findProduct(742,null,null);
-        ProductModel1 byUUID = service.findProductByUUID("09a6a570-284b-4f15-b062-ef0fec073ba70");
+        ProductModel findProduct = service.findProduct(742,null,null);
+        ProductModel byUUID = service.findProductByUUID("09a6a570-284b-4f15-b062-ef0fec073ba70");
 
-        List<ProductModel1> list = new ArrayList<>();
+        List<ProductModel> list = new ArrayList<>();
         for(int i=0; i<5; i++) {
-            ProductModel1 product = new ProductModel1();
+            ProductModel product = new ProductModel();
             product.setUuid(PoseidonUtils.uuid()+i);
             product.setProductName(PoseidonUtils.uuid()+i);
             list.add(product);

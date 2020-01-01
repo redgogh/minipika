@@ -1,7 +1,7 @@
 package org.laniakeamly.keyboard;
 
 import org.junit.Test;
-import org.laniakeamly.poseidon.experiment.ProductModel1;
+import org.laniakeamly.poseidon.experiment.ProductModel;
 import org.laniakeamly.poseidon.framework.sql.Parameter;
 import org.laniakeamly.poseidon.framework.sql.SqlExecute;
 import org.laniakeamly.poseidon.framework.sql.SqlMapper;
@@ -21,9 +21,9 @@ public class MapperTest {
     @Test
     public void builderSqlMapper(){
 
-        List<ProductModel1> list = new ArrayList<>();
+        List<ProductModel> list = new ArrayList<>();
         for(int i=0; i<5; i++) {
-            ProductModel1 product = new ProductModel1();
+            ProductModel product = new ProductModel();
             product.setUuid(PoseidonUtils.uuid()+i);
             product.setProductName(PoseidonUtils.uuid()+i);
             list.add(product);

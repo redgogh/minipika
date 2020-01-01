@@ -5,7 +5,7 @@ import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
-import org.laniakeamly.poseidon.experiment.ProductModel1;
+import org.laniakeamly.poseidon.experiment.ProductModel;
 import org.laniakeamly.poseidon.experiment.UserModel;
 
 import java.sql.ResultSet;
@@ -59,7 +59,7 @@ public class ThreadExample {
         for (int i = 0; i < 10; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 20; j++) {
-                    ProductModel1 model = new ProductModel1();
+                    ProductModel model = new ProductModel();
                     String uuid = UUID.randomUUID().toString();
                     model.setProductName("产品[".concat(String.valueOf(new Date().getTime())).concat("]"));
                     model.setUuid(uuid);
