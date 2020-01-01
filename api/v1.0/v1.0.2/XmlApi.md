@@ -6,47 +6,49 @@
 
 ```properties
 # mapper xml文件所在的位置
-poseidon.model.mapper = org.laniakeamly.poseidon.builder
+poseidon.model.mapper = org.laniakeamly.poseidon.mapper
 ```
 
 # mapper xml
 
 mapper xml目前提供了以下标签：
 
-- builder
 - mapper
+- select
+- insert
+- update
 - choose
 - if
 - else
 - foreach
-- cond
+- oneness
 
-# builder
+# mapper
 
-builder标签是根节点，最顶级的标签：
+mapper标签是根节点，最顶级的标签：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
-<builder name="userDao">
+<mapper name="userDao">
     <!-- mapper标签 -->
-</builder>
+</mapper>
 ```
 
-builder标签有个**name**属性，这个属性代表了整个xml。它是唯一的，在全局不可重复。相当于类名一样(实际上就是类名)
+mapper标签有个**name**属性，这个属性代表了整个xml。它是唯一的，在全局不可重复。相当于类名一样(实际上就是类名)
 
 builder标签下包含了mapper标签。
 
 ---
 
-## mapper
+## select
 
-看完builder标签后再来看看mapper标签，这个标签代表一个SQL。
+看完mapper标签后再来看看select标签，这个标签代表一个查询SQL。
 
 有两个属性值：
 
 - name
     
-    name代表当前mapper的名称，和Java中的方法名一个性质。在builder文件中是唯一的不可重复。
+    name代表当前mapper的名称，和Java中的方法名一个性质。在mapper文件中是唯一的不可重复。
 
 - result
 
@@ -56,7 +58,7 @@ builder标签下包含了mapper标签。
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
-<builder name="userDao">
+<mapper name="userDao">
 
     <!--
         mapper标签下的内容。
@@ -69,7 +71,7 @@ builder标签下包含了mapper标签。
         select * from kkb_user_model where uuid = {{uuid}}
     </mapper>
 
-</builder>
+</mapper>
 ```
 
 表示参数的语法是使用两个花括号中间传入参数名 **{{uuid}}**
@@ -136,13 +138,13 @@ select *
 from user
 where 1=1
 <if test="$req != null">
-    <cond>and username = {{username}}</cond>
-    <cond>and password = {{password}}</cond>
-    <cond>and userAge = {{userAge}}</cond>
-    <cond>and userFriendId = {{userFriendId}}</cond>
+    <oneness>and username = {{username}}</oneness>
+    <oneness>and password = {{password}}</oneness>
+    <oneness>and userAge = {{userAge}}</oneness>
+    <oneness>and userFriendId = {{userFriendId}}</oneness>
 </if>
 ```
-这样就实现了和上面Java代码一毛一样的功能。是不是很简单。"$req"代表的是所有cond标签中的参数，如果有添加$req那么就代表给这些cond标签添加了一个逻辑判断。
+这样就实现了和上面Java代码一毛一样的功能。是不是很简单。"$req"代表的是所有oneness标签中的参数，如果有添加$req那么就代表给这些oneness标签添加了一个逻辑判断。
 
 大家这边肯定就有一个问题了，那我else怎么写？莫慌，else需要在choose标签中编写。
 ```xml
@@ -151,21 +153,21 @@ from user
 where 1=1
 <choose>
     <if test="$req != null">
-        <cond>and username = {{username}}</cond>
-        <cond>and password = {{password}}</cond>
-        <cond>and userAge = {{userAge}}</cond>
-        <cond>and userFriendId = {{userFriendId}}</cond>
+        <oneness>and username = {{username}}</oneness>
+        <oneness>and password = {{password}}</oneness>
+        <oneness>and userAge = {{userAge}}</oneness>
+        <oneness>and userFriendId = {{userFriendId}}</oneness>
     </if>
     <else>
-        <cond>and username = 'zs'</cond>
-        <cond>and password = 'ls'</cond>
-        <cond>and userAge = '18'</cond>
-        <cond>and userFriendId = '001'</cond>
+        <oneness>and username = 'zs'</oneness>
+        <oneness>and password = 'ls'</oneness>
+        <oneness>and userAge = '18'</oneness>
+        <oneness>and userFriendId = '001'</oneness>
     <else>
 </choose>
 ```
 
-这个else中的cond是根据顺序的判断的，也就是说if第一个cond的else在else标签下也必须是第一个cond标签。
+这个else中的oneness是根据顺序的判断的，也就是说if第一个oneness的else在else标签下也必须是第一个oneness标签。
 
 ---
 
@@ -210,3 +212,14 @@ foreach标签有三个属性
 - collections
 
     代表需要循环的List
+
+# 批量插入
+
+```xml
+<insert name="addProducts">
+    INSERT INTO `product_model`(`product_name`, `uuid`) VALUES (?,?);
+    <foreach item="product" collections="products">
+        <parameter>{{product.productName}},{{product.uuid}}</parameter>
+    </foreach>
+</insert>
+```
