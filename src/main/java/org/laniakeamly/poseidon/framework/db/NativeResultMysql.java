@@ -165,7 +165,10 @@ public class NativeResultMysql implements NativeResult {
      * @param model
      * @throws Exception
      */
-    private void setValue(Field field, String v, Object model) throws Exception {
+    private void
+
+
+    setValue(Field field, String v, Object model) throws Exception {
         if (field.getType().equals(String.class)) {
             field.set(model, v);
             return;
