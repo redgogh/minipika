@@ -29,6 +29,7 @@ public final class Calculator {
         return SUM;
     }
 
+
     // 测试
     public static void main(String[] args) {
         Calculator calculator = new Calculator();

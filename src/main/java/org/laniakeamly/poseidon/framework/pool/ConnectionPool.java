@@ -26,28 +26,28 @@ public class ConnectionPool implements org.laniakeamly.poseidon.extension.Connec
     /**
      * 驱动对象
      */
-    private static Driver driver;
+    private Driver driver;
 
     /**
      * 连接池最小空间
      */
-    private static int MIN_SIZE;
+    private int MIN_SIZE;
 
     /**
      * 最大空间
      */
-    private static int MAX_SIZE;
+    private int MAX_SIZE;
 
     /**
      * 链接创建总数
      */
-    private static int count = 0;
+    private int count = 0;
 
-    private static String jdbcUrl;
+    private String jdbcUrl;
 
-    private static Set<Connection> conns = new LinkedHashSet<>();
+    private Set<Connection> conns = new LinkedHashSet<>();
 
-    private static final Boolean transaction = Config.getInstance().getTransaction();
+    private final Boolean transaction = Config.getInstance().getTransaction();
 
     // 创建连接
     private static Properties info = new Properties();
@@ -120,11 +120,11 @@ public class ConnectionPool implements org.laniakeamly.poseidon.extension.Connec
     public Connection createConnection() {
         if (count >= MAX_SIZE) return null;
         try {
-            if (driver == null) {
+            if (this.driver == null) {
                 DriverLoader driverLoader = new DriverLoader();
-                driver = driverLoader.getDriver();
+                this.driver = driverLoader.getDriver();
             }
-            final Connection connection = driver.connect(jdbcUrl, info);
+            final Connection connection = this.driver.connect(jdbcUrl, info);
             if (transaction == true) connection.setAutoCommit(false);
             count++;
             return connection;

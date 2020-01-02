@@ -38,9 +38,4 @@ public final class TimeUtils {
     public static final long WEEK = DAY * 7;
     public static final String WEEK_STR = "week";
 
-    public static void main(String[] args) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
-        sdf.format(new Date());
-    }
-
 }
