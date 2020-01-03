@@ -16,8 +16,14 @@ public interface DynamicSQL extends Container {
 
     /**
      * 获取预编译对象
-     * @param name
-     * @return
+     *
+     * get precompile object.
+     *
+     * @param name 根据name获取容器中的值
+     *             get container value by name.
+     *
+     * @return      预编译对象
+     *              precompile class.
      */
     PrecompiledClass getValue(String name);
 
