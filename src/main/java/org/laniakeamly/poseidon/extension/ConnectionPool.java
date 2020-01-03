@@ -3,9 +3,14 @@ package org.laniakeamly.poseidon.extension;
 import java.sql.Connection;
 
 /**
- * JDBC连接池，如果没有配置使用自带的连接池。
+ * 这个接口被实现后可以替换默认的连接池。 {@link org.laniakeamly.poseidon.framework.pool.ConnectionPool}
  *
- * JDBC Connection Pool if not config use default connection pool.
+ * 如果你不想使用默认自带的连接池，可以选择使用其他连接池实现该接口。
+ *
+ * this interface can implement.
+ * implemented and config can replace default connection pool {@link org.laniakeamly.poseidon.framework.pool.ConnectionPool}
+ *
+ * if you don't want use default connection pool.
  *
  * Create by 2BKeyboard on 2019/12/9 17:19
  */
