@@ -26,28 +26,28 @@ public class ConnectionPool implements org.laniakeamly.poseidon.extension.Connec
     /**
      * 驱动对象
      */
-    private Driver driver;
+    private static Driver driver;
 
     /**
      * 连接池最小空间
      */
-    private int MIN_SIZE;
+    private static int MIN_SIZE;
 
     /**
      * 最大空间
      */
-    private int MAX_SIZE;
+    private static int MAX_SIZE;
 
     /**
      * 链接创建总数
      */
-    private int count = 0;
+    private static int count = 0;
 
-    private String jdbcUrl;
+    private static String jdbcUrl;
 
-    private Set<Connection> conns = new LinkedHashSet<>();
+    private static Set<Connection> conns = new LinkedHashSet<>();
 
-    private final Boolean transaction = Config.getInstance().getTransaction();
+    private static final Boolean transaction = Config.getInstance().getTransaction();
 
     // 创建连接
     private static Properties info = new Properties();

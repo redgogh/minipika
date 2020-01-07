@@ -6,8 +6,6 @@ import org.laniakeamly.poseidon.framework.annotation.Resource;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
 import org.laniakeamly.poseidon.framework.cache.CacheRefreshTimer;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
-import org.laniakeamly.poseidon.framework.config.Config;
-import org.laniakeamly.poseidon.framework.config.ExtensionRegister;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCacheImpl;
@@ -30,7 +28,6 @@ import java.util.Map;
 public class BeansManager {
 
     private static Map<String, Object> beans = new HashMap<>();
-    private ExtensionRegister extension = Config.getInstance().getExtensionRegister();
 
     @Resource
     private NativeJdbc newNativeJdbc() {
@@ -56,7 +53,7 @@ public class BeansManager {
 
     @Resource(name = "pool")
     private ConnectionPool newConnectionPool() {
-        return extension.getConnectionPool();
+        return new org.laniakeamly.poseidon.framework.pool.ConnectionPool();
     }
 
     @Resource(name = "classPool")

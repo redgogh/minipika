@@ -55,9 +55,6 @@ public final class Config {
     // 数据库名
     private String dbname;
 
-    @Getter
-    private ExtensionRegister extensionRegister = new ExtensionRegister();
-
     private static Config instance;
 
     public static Config getInstance() {
@@ -191,15 +188,6 @@ public final class Config {
 
     public String getMapperBasePackage() {
         return mapperPackage;
-    }
-
-    /**
-     * 使用自定义扩展类
-     * @param v
-     * @param <V>
-     */
-    public <V> void register(V v){
-        extensionRegister.register(v);
     }
 
 }
