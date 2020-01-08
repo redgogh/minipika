@@ -14,7 +14,7 @@ public class Main {
         ProductService service = new ProductService();
 
         ProductModel findProduct = service.findProduct(742,null,null);
-        ProductModel byUUID = service.findProductByUUID("09a6a570-284b-4f15-b062-ef0fec073ba70");
+        ProductModel byUUID = service.findProductByUUID("1f5ede35-052c-4e67-aea3-0e57f0e00a01");
 
         List<ProductModel> list = new ArrayList<>();
         for(int i=0; i<5; i++) {

@@ -5,7 +5,7 @@
         测试条件查询（不为空则不添加到条件）
     -->
     <select name="findProduct" result="ProductModel">
-        select * from product_model where id = {{id}}
+        select * from kkb_product_model where id = {{id}}
         <if test="$req != null">
             <oneness>and product_name = {{productName}}</oneness>
             <oneness>and uuid = {{uuid}}</oneness>
@@ -18,7 +18,7 @@
         但是要求对象必须在poseidon.model.package配置的包下
     -->
     <select name="findProductByUUID" result="ProductModel">
-        select * from product_model where uuid = {{uuid}}
+        select * from kkb_product_model where uuid = {{uuid}}
     </select>
 
     <!--
@@ -37,7 +37,7 @@
         然后调用SqlExecute执行对应的方法
     -->
     <insert name="addProducts">
-        INSERT INTO `product_model`(`product_name`, `uuid`) VALUES (?,?);
+        INSERT INTO `kkb_product_model`(`product_name`, `uuid`) VALUES (?,?);
         <foreach item="product" collections="products">
             <parameter>{{product.productName}},{{product.uuid}}</parameter>
         </foreach>

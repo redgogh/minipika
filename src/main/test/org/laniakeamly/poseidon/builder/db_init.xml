@@ -2,7 +2,7 @@
 <mapper name="userIakea">
 
     <select name="findUserByName" result="UserModel">
-        select * from user_model
+        select * from kkb_user_model
         where 1=1
         <if test="username != null">
             and user_name = {{username}}
