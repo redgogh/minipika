@@ -31,3 +31,5 @@ poseidon.model.mapper[2] = org.laniakeamly.poseidon.builder
 poseidon.model.mapper[3] = org.laniakeamly.poseidon.builder
 
 ```
+
+## 字段检测，动态修改字段

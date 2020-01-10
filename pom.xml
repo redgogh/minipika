@@ -5,6 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!--
+         mvn clean install -P release -Dgpg.passphrase=kkb123
          mvn clean install deploy -P release -Dgpg.passphrase=kkb123
     -->
     <parent>
@@ -15,7 +16,7 @@
 
     <groupId>io.github.laniakeamly</groupId>
     <artifactId>poseidon</artifactId>
-    <version>1.0.3.RELEASE</version>
+    <version>1.0.4.RELEASE</version>
     <packaging>jar</packaging>
 
     <licenses>

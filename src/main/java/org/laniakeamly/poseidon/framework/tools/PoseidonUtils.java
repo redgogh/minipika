@@ -89,7 +89,11 @@ public final class PoseidonUtils {
                 //如果是一个文件目录就递归再往下读取
                 getModels(basePackage + "." + file.getName(), models);
             } else {
-                models.add(Class.forName(basePackage + "." + file.getName().replace(".class", "")));
+                String classes = basePackage + "." + file.getName();
+                if ("class".equals(classes.substring(classes.lastIndexOf(".") + 1))) {
+                    classes = classes.replace(".class", "");
+                    models.add(Class.forName(classes));
+                }
             }
         }
     }
@@ -144,12 +148,14 @@ public final class PoseidonUtils {
                 String prefix = Config.getInstance().getTablePrefix();
                 Model anno = target.getDeclaredAnnotation(Model.class);
                 String value = anno.value();
-                if (!StringUtils.isEmpty(prefix) && !value.substring(0, prefix.length()).equals(prefix)) {
-                    InvocationHandler invocationHandler = Proxy.getInvocationHandler(anno);
-                    Field values = invocationHandler.getClass().getDeclaredField("memberValues");
-                    values.setAccessible(true);
-                    Map memberValues = (Map) values.get(invocationHandler);
-                    memberValues.put("value", Config.getInstance().getTablePrefix() + "_" + value);
+                if (!StringUtils.isEmpty(prefix)) {
+                    if(value.length() <= prefix.length() || !value.substring(0, prefix.length()).equals(prefix)){
+                        InvocationHandler invocationHandler = Proxy.getInvocationHandler(anno);
+                        Field values = invocationHandler.getClass().getDeclaredField("memberValues");
+                        values.setAccessible(true);
+                        Map memberValues = (Map) values.get(invocationHandler);
+                        memberValues.put("value", Config.getInstance().getTablePrefix() + "_" + value);
+                    }
                 }
                 return anno;
             } else {
