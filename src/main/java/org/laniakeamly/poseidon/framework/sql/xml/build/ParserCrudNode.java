@@ -33,8 +33,8 @@ public class ParserCrudNode {
     private String builderName;
 
     public PrecompiledMethod parse(XMLDynamicSqlNode mapperNode, XMLMapperNode builderNode) {
-        mapperName = mapperNode.getName();
-        builderName = builderNode.getName();
+        this.mapperName = mapperNode.getName();
+        this.builderName = builderNode.getName();
         PrecompiledMethod dynamic = new PrecompiledMethod(mapperNode.getName(), mapperNode.getResult(), mapperNode.getType());
         parseNode(mapperNode.getNodes(), mapperNode.getType(), dynamic);
         return dynamic;
@@ -266,7 +266,8 @@ public class ParserCrudNode {
         Matcher matcher1 = pattern1.matcher(text);
         while (matcher1.find()) {
             if (count >= 1) {
-                throw new DynamicSQLException("tag: multiple parameter need '" + ProvideConstant.PARAMETER_SELECT + "'");
+                throw new DynamicSQLException("tag: multiple parameter need '" + ProvideConstant.PARAMETER_SELECT
+                        + "' in mapper:"+builderName+" : "+mapperName);
             }
             result = matcher1.group(1);
             count++;

@@ -54,7 +54,7 @@ public class ProvideConstant {
      */
     public static final String sqlAppendProcess(String... formats) {
         StringBuilder value = new StringBuilder(StringUtils.format(ProvideConstant.SQL_APPEND, formats));
-        Pattern pattern = Pattern.compile(".*\\{\\{(.*?)}}.*");
+        Pattern pattern = Pattern.compile("\\{\\{(.*?)}}");
         Matcher matcher = pattern.matcher(value);
         while (matcher.find()) {
             String group = matcher.group(1);
