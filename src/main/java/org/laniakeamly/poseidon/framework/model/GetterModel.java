@@ -84,7 +84,6 @@ public class GetterModel {
      * @throws PoseidonException
      */
     public void field(Class<?> target, Metadata metadata, StringBuilder script, Map<String, String> columns) throws PoseidonException {
-        String primaryKey = "";
         Field[] fields = target.getDeclaredFields();
         for (Field field : fields) {
             String columnName = PoseidonUtils.humpToUnderline(field.getName());
@@ -109,9 +108,8 @@ public class GetterModel {
             if (field.isAnnotationPresent(PrimaryKey.class)) {
                 PrimaryKey key = field.getDeclaredAnnotation(PrimaryKey.class);
                 if (key.increase()) {
-                    tableColumn.append("auto_increment");
+                    tableColumn.append("auto_increment primary key");
                 }
-                primaryKey = "\tPRIMARY KEY (`" + columnName + "`),\n";
                 metadata.setPrimaryKey(columnName);
             }
             // 注释
@@ -122,7 +120,6 @@ public class GetterModel {
             script.append("\t").append(tableColumn).append(",\n");
             columns.put(columnName, tableColumn.toString());
         }
-        script.append(primaryKey);
     }
 
     /**

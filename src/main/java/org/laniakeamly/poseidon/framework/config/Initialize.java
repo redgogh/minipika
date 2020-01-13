@@ -27,6 +27,7 @@ public class Initialize {
 
     // 添加字段
     private String ADD_COLUMN_SCRIPT = "ALTER TABLE `{}` ADD {} after `{}`;";
+    private String ADD_COLUMN_SCRIPT_PKNULL = "ALTER TABLE `{}` ADD {};";
 
     private JdbcSupport jdbc = BeansManager.getBean("jdbc");
 
@@ -89,12 +90,17 @@ public class Initialize {
                     Map.Entry<String, String> entry = (Map.Entry<String, String>) iter.next();
                     String key = entry.getKey();
                     if (!inDbColumns.contains(key)) {
-                        String executeScript = StringUtils.format(ADD_COLUMN_SCRIPT, metadata.getTableName(), entry.getValue(), previousKey);
+                        String executeScript;
+                        if (!StringUtils.isEmpty(previousKey)) {
+                            executeScript = StringUtils.format(ADD_COLUMN_SCRIPT, metadata.getTableName(), entry.getValue(), previousKey);
+                        } else {
+                            executeScript = StringUtils.format(ADD_COLUMN_SCRIPT_PKNULL, metadata.getTableName(), entry.getValue());
+                        }
                         jdbc.execute(executeScript);
                     }
                     previousKey = key;
                 }
-                
+
             } else {
                 throw new PoseidonException("No @Model");
             }
