@@ -5,8 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!--
-         mvn clean install -P release -Dgpg.passphrase=kkb123
-         mvn clean install deploy -P release -Dgpg.passphrase=kkb123
+         mvn clean install deploy -P release -Dgpg.passphrase=******
     -->
     <parent>
         <groupId>org.sonatype.oss</groupId>
