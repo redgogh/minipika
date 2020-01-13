@@ -60,6 +60,7 @@ public class ProvideConstant {
             String group = matcher.group(1);
             if (!group.contains(".")) {
                 group = StringUtils.format(PARAMS_MAP_GET, group);
+                group = group.substring(0,group.length()-1);
                 value.append(StringUtils.format(PARAMS_LIST_ADD, group));
             } else {
                 group = getMemberValue(group);
