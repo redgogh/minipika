@@ -1,8 +1,10 @@
 package org.laniakeamly.poseidon.framework.tools;
 
+import org.laniakeamly.poseidon.framework.annotation.Ignore;
 import org.laniakeamly.poseidon.framework.annotation.Model;
 import org.laniakeamly.poseidon.framework.config.Config;
 import org.laniakeamly.poseidon.framework.exception.PoseidonException;
+import org.laniakeamly.poseidon.framework.exception.runtime.ModelException;
 import org.laniakeamly.poseidon.framework.model.SecurityManager;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
@@ -12,6 +14,7 @@ import net.sf.jsqlparser.util.TablesNamesFinder;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
 import java.net.URL;
 import java.security.MessageDigest;
@@ -149,7 +152,7 @@ public final class PoseidonUtils {
                 Model anno = target.getDeclaredAnnotation(Model.class);
                 String value = anno.value();
                 if (!StringUtils.isEmpty(prefix)) {
-                    if(value.length() <= prefix.length() || !value.substring(0, prefix.length()).equals(prefix)){
+                    if (value.length() <= prefix.length() || !value.substring(0, prefix.length()).equals(prefix)) {
                         InvocationHandler invocationHandler = Proxy.getInvocationHandler(anno);
                         Field values = invocationHandler.getClass().getDeclaredField("memberValues");
                         values.setAccessible(true);
@@ -193,6 +196,11 @@ public final class PoseidonUtils {
         return "";
     }
 
+    /**
+     * 获取sql中的表名
+     * @param sql
+     * @return
+     */
     public static List<String> getSQLTables(String sql) {
         TablesNamesFinder finder = new TablesNamesFinder();
         Statement statement = null;
@@ -209,9 +217,36 @@ public final class PoseidonUtils {
         return tables;
     }
 
-    public static void main(String[] args) {
-        // System.out.println(UnderlineToHump("user_name_and_password"));
-        getModels();
+    /**
+     * 获取Model中的成员，不包含Ignore注解和static修饰的
+     * @param o     从{@code o}中获取成员值
+     * @return
+     */
+    public static List<Field> getModelField(Object o) {
+        List<Field> values = new ArrayList<>();
+        try {
+            Class<?> target = o.getClass();
+            for (Field field : target.getDeclaredFields()) {
+                field.setAccessible(true);
+                if (!field.isAnnotationPresent(Ignore.class)
+                        && !Modifier.isStatic(field.getModifiers())
+                        && !Modifier.isFinal(field.getModifiers())) {
+                    values.add(field);
+                }
+            }
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return values;
+    }
+
+    public static List<Field> getModelField(Class<?> target) {
+        try {
+            return getModelField(target.newInstance());
+        } catch (Throwable e) {
+            // 一般newInstance异常都是没有声明无参构造器造成的。
+            throw new ModelException("model newInstance error: please check your model does it exist No-argument constructor.");
+        }
     }
 
 }

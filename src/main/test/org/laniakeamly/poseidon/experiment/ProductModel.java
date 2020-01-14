@@ -27,4 +27,7 @@ public class ProductModel {
     @Column("varchar(255) not null")
     private String uuid;
 
+    static String aa = "";
+    final String bb = "";
+
 }

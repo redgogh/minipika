@@ -84,8 +84,7 @@ public class GetterModel {
      * @throws PoseidonException
      */
     public void field(Class<?> target, Metadata metadata, StringBuilder script, Map<String, String> columns) throws PoseidonException {
-        Field[] fields = target.getDeclaredFields();
-        for (Field field : fields) {
+        for (Field field : PoseidonUtils.getModelField(target)) {
             String columnName = PoseidonUtils.humpToUnderline(field.getName());
             StringBuilder tableColumn = new StringBuilder(columnName); // 字段
             tableColumn.insert(0, "`").append("`");

@@ -92,8 +92,8 @@ public class JdbcSupportImpl implements JdbcSupport {
             }
             into.append("(");
             values.append("(");
-            for (Field field : target.getDeclaredFields()) {
-                field.setAccessible(true);
+            List<Field> fields = PoseidonUtils.getModelField(obj);
+            for (Field field : fields) {
                 Object v = field.get(obj);
                 if (v != null) {
                     into.append("`").append(PoseidonUtils.humpToUnderline(field.getName())).append("`,");
@@ -169,8 +169,8 @@ public class JdbcSupportImpl implements JdbcSupport {
             StringBuffer buffer = new StringBuffer("update ");
             String table = PoseidonUtils.getModelAnnotation(target).value();
             buffer.append("`").append(table).append("` set ");
-            for (Field field : target.getDeclaredFields()) {
-                field.setAccessible(true);
+            List<Field> fields = PoseidonUtils.getModelField(obj);
+            for (Field field : fields) {
                 Object v = field.get(obj);
                 if (!bool) {
                     if (v != null) {
