@@ -1,3 +1,3 @@
 # 更新日志
 
-- 修复**JdbcSupport**中调用insert时**Ignore**注解无效问题
+- 修复insert和update初始化等方法无视ignore注解
