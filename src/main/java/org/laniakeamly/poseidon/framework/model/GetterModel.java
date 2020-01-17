@@ -44,7 +44,7 @@ public class GetterModel {
         script.append(") ENGINE = ".concat(String.valueOf(engine)).concat("\n"));
         script.append("\tDEFAULT CHARACTER SET = utf8\n");
         script.append("\tCOLLATE = utf8_general_ci\n");
-        script.append("\tAUTO_INCREMENT = 1;");
+        script.append("\tAUTO_INCREMENT = ").append(modelData.get("increment")).append(";");
         metadata.setCreateTableSql(script.toString());
         metadata.setColumns(columns);
         return metadata;
@@ -72,6 +72,7 @@ public class GetterModel {
             metadata.setEngine(engine);
             map.put("table", tableName);
             map.put("engine", String.valueOf(engine));
+            map.put("increment", String.valueOf(model.increment()));
         }
         return map;
     }

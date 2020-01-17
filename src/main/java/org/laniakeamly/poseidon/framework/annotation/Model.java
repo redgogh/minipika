@@ -31,4 +31,10 @@ public @interface Model {
      */
     Engine engine() default Engine.INNODB;
 
+    /**
+     * 自增长从多少开始
+     * @return
+     */
+    int increment() default 1;
+
 }
