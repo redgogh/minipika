@@ -17,7 +17,14 @@
 
 # 安装
 
-由于当前项目并没有发布到Maven的中央仓库上，所以暂时还不能从中央仓库上面导入它，所以我们需要进行手动的打包安装。当然Maven提供了这些功能，安装非常简单。
+MAVEN直接引入
+```xml
+<dependency>
+    <groupId>io.github.laniakeamly</groupId>
+    <artifactId>poseidon</artifactId>
+    <version>1.0.6.RELEASE</version>
+</dependency>
+```
 
 **第一步先将项目check到本地**
 
@@ -39,9 +46,9 @@ mvn install
 
 ```xml
 <dependency>
-    <groupId>com.keyboard</groupId>
+    <groupId>io.github.laniakeamly</groupId>
     <artifactId>poseidon</artifactId>
-    <version>1.0.2.KEY</version>
+    <version>XXX.RELEASE</version>
 </dependency>
 ```
 
