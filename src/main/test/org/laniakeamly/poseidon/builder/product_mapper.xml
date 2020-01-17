@@ -6,9 +6,6 @@
     -->
     <select name="findProduct" result="ProductModel">
         select * from kkb_product_model where id = {{id}}
-        and product_name1 = {{productName}}
-        and product_name2 = {{productName}}
-        and product_name3 = {{productName}}
         <if test="$req != null">
             <oneness>and product_name = {{productName}}</oneness>
             <oneness>and uuid = {{uuid}}</oneness>
