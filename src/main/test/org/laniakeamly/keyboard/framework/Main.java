@@ -13,17 +13,7 @@ public class Main {
 
         ProductService service = new ProductService();
 
-        ProductModel findProduct = service.findProduct(742,null,null);
-        ProductModel byUUID = service.findProductByUUID("1f5ede35-052c-4e67-aea3-0e57f0e00a01");
-
-        List<ProductModel> list = new ArrayList<>();
-        for(int i=0; i<5; i++) {
-            ProductModel product = new ProductModel();
-            product.setUuid(PoseidonUtils.uuid()+i);
-            product.setProductName(PoseidonUtils.uuid()+i);
-            list.add(product);
-        }
-        int[] ints = service.addProducts(list);
+        System.out.println(service.findProductname(1));
 
         System.err.println("END");
 

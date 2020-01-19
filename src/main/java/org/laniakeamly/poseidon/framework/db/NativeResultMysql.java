@@ -2,13 +2,16 @@ package org.laniakeamly.poseidon.framework.db;
 
 import com.alibaba.fastjson.JSONObject;
 import org.laniakeamly.poseidon.framework.annotation.Ignore;
+import org.laniakeamly.poseidon.framework.tools.Maps;
 import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
+import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -59,12 +62,15 @@ public class NativeResultMysql implements NativeResult {
 
     @Override
     public <T> T conversionJavaBean(Class<T> target) {
+        if (resultSet.isEmpty()) return null;
         Map<String, String> resultMap;
         List<String> names = new ArrayList<>();
         T model = null;
         try {
-            if (resultSet.isEmpty()) return null;
             resultMap = resultSet.get(0);
+            if(resultMap.isEmpty())return null;
+            Object v1 = base(target, String.valueOf(Maps.getFirstValue(resultMap)));
+            if (v1 != null) return (T) v1;
             model = target.newInstance();
             for (Field field : target.getDeclaredFields()) names.add(field.getName());
             for (Map.Entry<String, String> v : resultMap.entrySet()) {
@@ -83,11 +89,35 @@ public class NativeResultMysql implements NativeResult {
 
     @Override
     public <T> List<T> conversionJavaList(Class<T> target) {
-        if (target.equals(String.class)) return conversionJavaStrings();
+        try {
+            if (target.equals(String.class)) return conversionJavaStringList();
+            if (target.equals(Integer.class)) return conversionJavaIntegerList();
+            if (target.equals(BigDecimal.class)) return conversionJavaBigDecimalList();
+            if (target.equals(Long.class)) return conversionJavaLongList();
+            if (target.equals(Double.class)) return conversionJavaDoubleList();
+            if (target.equals(Short.class)) return conversionJavaShortList();
+            if (target.equals(Float.class)) return conversionJavaFloatList();
+            if (target.equals(Boolean.class)) return conversionJavaBooleanList();
+            if (target.equals(Byte.class)) return conversionJavaByteList();
+            if (target.equals(BigInteger.class)) return conversionJavaBigIntegerList();
+            if (target.equals(Date.class)) return conversionJavaDateList();
+            return conversionModelList(target);
+        }catch (Throwable e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 转换成Model List
+     * @param target
+     * @param <T>
+     * @return
+     */
+    private <T> List<T> conversionModelList(Class<T> target){
         List<T> models = new ArrayList<>();
         List<String> names = new ArrayList<>();
         try {
-            if (resultSet.isEmpty()) return null;
             for (Field field : target.getDeclaredFields()) names.add(field.getName());
             for (Map<String, String> resultMap : resultSet) {
                 T model = target.newInstance();
@@ -112,8 +142,7 @@ public class NativeResultMysql implements NativeResult {
      *
      * @return1
      */
-    private <T> List<T> conversionJavaStrings() {
-        if (resultSet.isEmpty()) return null;
+    private <T> List<T> conversionJavaStringList() {
         List<String> strings = new ArrayList<>();
         for (Map<String, String> resultMap : resultSet) {
             for (Map.Entry<String, String> v : resultMap.entrySet()) {
@@ -121,6 +150,156 @@ public class NativeResultMysql implements NativeResult {
             }
         }
         return (List<T>) strings;
+    }
+
+    /**
+     * 将查询结果转换为Integer集合
+     *
+     * @return1
+     */
+    private <T> List<T> conversionJavaIntegerList() {
+        List<Integer> list = new ArrayList<>();
+        for (Map<String, String> resultMap : resultSet) {
+            for (Map.Entry<String, String> v : resultMap.entrySet()) {
+                list.add(Integer.valueOf(v.getValue()));
+            }
+        }
+        return (List<T>) list;
+    }
+
+    /**
+     * 将查询结果转换为Long集合
+     *
+     * @return1
+     */
+    private <T> List<T> conversionJavaLongList() {
+        List<Long> list = new ArrayList<>();
+        for (Map<String, String> resultMap : resultSet) {
+            for (Map.Entry<String, String> v : resultMap.entrySet()) {
+                list.add(Long.valueOf(v.getValue()));
+            }
+        }
+        return (List<T>) list;
+    }
+
+    /**
+     * 将查询结果转换为Short集合
+     *
+     * @return1
+     */
+    private <T> List<T> conversionJavaShortList() {
+        List<Short> list = new ArrayList<>();
+        for (Map<String, String> resultMap : resultSet) {
+            for (Map.Entry<String, String> v : resultMap.entrySet()) {
+                list.add(Short.valueOf(v.getValue()));
+            }
+        }
+        return (List<T>) list;
+    }
+
+    /**
+     * 将查询结果转换为Boolean集合
+     *
+     * @return1
+     */
+    private <T> List<T> conversionJavaBooleanList() {
+        List<Boolean> list = new ArrayList<>();
+        for (Map<String, String> resultMap : resultSet) {
+            for (Map.Entry<String, String> v : resultMap.entrySet()) {
+                list.add(Boolean.valueOf(v.getValue()));
+            }
+        }
+        return (List<T>) list;
+    }
+
+    /**
+     * 将查询结果转换为Double集合
+     *
+     * @return1
+     */
+    private <T> List<T> conversionJavaDoubleList() {
+        List<Double> list = new ArrayList<>();
+        for (Map<String, String> resultMap : resultSet) {
+            for (Map.Entry<String, String> v : resultMap.entrySet()) {
+                list.add(Double.valueOf(v.getValue()));
+            }
+        }
+        return (List<T>) list;
+    }
+
+    /**
+     * 将查询结果转换为Float集合
+     *
+     * @return1
+     */
+    private <T> List<T> conversionJavaFloatList() {
+        List<Float> list = new ArrayList<>();
+        for (Map<String, String> resultMap : resultSet) {
+            for (Map.Entry<String, String> v : resultMap.entrySet()) {
+                list.add(Float.valueOf(v.getValue()));
+            }
+        }
+        return (List<T>) list;
+    }
+
+    /**
+     * 将查询结果转换为Float集合
+     *
+     * @return1
+     */
+    private <T> List<T> conversionJavaByteList() {
+        List<Byte> list = new ArrayList<>();
+        for (Map<String, String> resultMap : resultSet) {
+            for (Map.Entry<String, String> v : resultMap.entrySet()) {
+                list.add(Byte.valueOf(v.getValue()));
+            }
+        }
+        return (List<T>) list;
+    }
+
+    /**
+     * 将查询结果转换为BigDecimal集合
+     *
+     * @return1
+     */
+    private <T> List<T> conversionJavaBigDecimalList() {
+        List<BigDecimal> list = new ArrayList<>();
+        for (Map<String, String> resultMap : resultSet) {
+            for (Map.Entry<String, String> v : resultMap.entrySet()) {
+                list.add(new BigDecimal(v.getValue()));
+            }
+        }
+        return (List<T>) list;
+    }
+
+    /**
+     * 将查询结果转换为BigInteger集合
+     *
+     * @return1
+     */
+    private <T> List<T> conversionJavaBigIntegerList() {
+        List<BigInteger> list = new ArrayList<>();
+        for (Map<String, String> resultMap : resultSet) {
+            for (Map.Entry<String, String> v : resultMap.entrySet()) {
+                list.add(new BigInteger(v.getValue()));
+            }
+        }
+        return (List<T>) list;
+    }
+
+    /**
+     * 将查询结果转换为BigInteger集合
+     *
+     * @return1
+     */
+    private <T> List<T> conversionJavaDateList() throws ParseException {
+        List<Date> list = new ArrayList<>();
+        for (Map<String, String> resultMap : resultSet) {
+            for (Map.Entry<String, String> v : resultMap.entrySet()) {
+                list.add(formatter.parse(v.getValue()));
+            }
+        }
+        return (List<T>) list;
     }
 
     @Override
@@ -143,7 +322,7 @@ public class NativeResultMysql implements NativeResult {
 
     @Override
     public String next() {
-        if(hasNext == null) return null;
+        if (hasNext == null) return null;
         String v = hasNext.get(this.nextOffset);
         this.nextOffset++;
         return v;
@@ -165,10 +344,7 @@ public class NativeResultMysql implements NativeResult {
      * @param model
      * @throws Exception
      */
-    private void
-
-
-    setValue(Field field, String v, Object model) throws Exception {
+    private void setValue(Field field, String v, Object model) throws Exception {
         if (field.getType().equals(String.class)) {
             field.set(model, v);
             return;
@@ -213,6 +389,49 @@ public class NativeResultMysql implements NativeResult {
             field.set(model, new BigInteger(v));
             return;
         }
+    }
+
+    /**
+     * 判断是不是基本数据类型或其他数据类型
+     * @param target
+     * @return
+     */
+    public Object base(Class<?> target, String value) throws ParseException {
+        if (StringUtils.isEmpty(value)) return null;
+        if (target.equals(String.class)) {
+            return value;
+        }
+        if (target.equals(Date.class)) {
+            return formatter.parse(value);
+        }
+        if (target.equals(Byte.class)) {
+            return Byte.valueOf(value);
+        }
+        if (target.equals(Long.class)) {
+            return Long.valueOf(value);
+        }
+        if (target.equals(Short.class)) {
+            return Short.valueOf(value);
+        }
+        if (target.equals(Float.class)) {
+            return Float.valueOf(value);
+        }
+        if (target.equals(Double.class)) {
+            return Double.valueOf(value);
+        }
+        if (target.equals(Boolean.class)) {
+            return Boolean.valueOf(value);
+        }
+        if (target.equals(Integer.class)) {
+            return Integer.valueOf(value);
+        }
+        if (target.equals(BigDecimal.class)) {
+            return new BigDecimal(value);
+        }
+        if (target.equals(BigInteger.class)) {
+            return new BigInteger(value);
+        }
+        return null;
     }
 
 }

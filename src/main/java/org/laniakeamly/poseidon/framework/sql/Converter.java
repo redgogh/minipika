@@ -40,6 +40,12 @@ public class Converter {
         methodValue.setIMethod(iMethod);
     }
 
+    /**
+     * 处理java代码中的List
+     * @param strValue
+     * @param parameter
+     * @return
+     */
     private String process(String strValue, Map<String, Object> parameter) {
         String method = strValue;
         for (Map.Entry<String, Object> entry : parameter.entrySet()) {
@@ -53,7 +59,7 @@ public class Converter {
             }
             String valueName = "java.lang.Object";
             if (value != null) {
-                value.getClass().getName();
+                valueName = value.getClass().getName();
             }
             method = method.replaceAll("#".concat(key).concat("#"), valueName);
         }

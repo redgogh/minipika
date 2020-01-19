@@ -10,6 +10,8 @@ import org.laniakeamly.poseidon.framework.tools.StringUtils;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 动态方法，需要在调用时被加载的JVM中，以提供获取动态sql
@@ -49,8 +51,24 @@ public class PrecompiledMethod {
     public PrecompiledMethod(String name, String result, String type) {
         try {
             this.name = name;
-            if(!StringUtils.isEmpty(result)) {
-                this.result = Class.forName(Config.getInstance().getModelPackage() + "." + result);
+            if (!StringUtils.isEmpty(result)) {
+                if (result.contains("(")) {
+                    String prefix = result.substring(0, result.indexOf("("));
+                    // 判断是不是java.lang包下的内容
+                    Pattern pattern = Pattern.compile(prefix + "\\((.*?)\\)");
+                    Matcher matcher = pattern.matcher(result);
+                    while (matcher.find()) {
+                        String langClass = matcher.group(1);
+                        if (!StringUtils.isEmpty(langClass)) {
+                            this.result = Class.forName("java." + prefix + "." + langClass);
+                        }
+                        break;
+                    }
+                }
+                // 如果不是默认model包下的内容
+                if (result == null) {
+                    this.result = Class.forName(Config.getInstance().getModelPackage() + "." + result);
+                }
             }
             method.append(StringUtils.format("public java.lang.String {} (java.util.Map map,java.util.List " + ProvideConstant.SQL_PARAMS_SET + ")", name));
             method.append("{");

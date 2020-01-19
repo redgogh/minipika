@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="productService">
 
+    <select name="findProductName" result="math(BigDecimal)">
+        select product_name from kkb_product_model where id = {{id}}
+    </select>
+
     <!--
         测试条件查询（不为空则不添加到条件）
     -->

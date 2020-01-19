@@ -40,4 +40,14 @@ public class ProductService {
         }).executeBatch();
     }
 
+    public String findProductname(int id) {
+        return mapper.build("findProductName", new Parameter() {
+            @Override
+            public void loader(Map<String, Object> map) {
+                map.put("id",id);
+            }
+        }).queryForObject().toString();
+    }
+
+
 }
