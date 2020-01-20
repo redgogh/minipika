@@ -23,17 +23,22 @@ public class JdbcSupportImpl implements JdbcSupport {
 
     @Override
     public <T> T queryForObject(String sql, Class<T> obj, Object... args) {
-        return nativeJdbc.executeQuery(sql, args).conversionJavaBean(obj);
+        NativeResult result = nativeJdbc.executeQuery(sql, args);
+        if(result == null) return null;
+        return result.conversionJavaBean(obj);
     }
 
     @Override
     public <T> List<T> queryForList(String sql, Class<T> obj, Object... args) {
-        return nativeJdbc.executeQuery(sql, args).conversionJavaList(obj);
+        NativeResult result = nativeJdbc.executeQuery(sql, args);
+        if(result == null) return null;
+        return result.conversionJavaList(obj);
     }
 
     @Override
     public String queryForJson(String sql, Object... args) {
         NativeResult result = nativeJdbc.executeQuery(sql, args);
+        if(result == null) return null;
         return result.toJSONString();
     }
 
