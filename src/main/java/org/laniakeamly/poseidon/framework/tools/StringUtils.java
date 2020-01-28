@@ -30,6 +30,10 @@ public final class StringUtils {
         return s.length() == 0 || "".equals(s) || " ".equals("");
     }
 
+    public static boolean isNull(String input){
+        return "null".equals(input);
+    }
+
     /**
      * 获取最后一个字符
      *

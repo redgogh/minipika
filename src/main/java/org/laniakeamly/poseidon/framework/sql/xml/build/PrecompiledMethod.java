@@ -66,7 +66,7 @@ public class PrecompiledMethod {
                     }
                 }
                 // 如果不是默认model包下的内容
-                if (result == null) {
+                else if (!StringUtils.isEmpty(result)) {
                     this.result = Class.forName(Config.getInstance().getModelPackage() + "." + result);
                 }
             }

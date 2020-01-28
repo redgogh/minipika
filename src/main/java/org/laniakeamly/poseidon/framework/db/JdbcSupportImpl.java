@@ -24,22 +24,19 @@ public class JdbcSupportImpl implements JdbcSupport {
     @Override
     public <T> T queryForObject(String sql, Class<T> obj, Object... args) {
         NativeResult result = nativeJdbc.executeQuery(sql, args);
-        if(result == null) return null;
-        return result.conversionJavaBean(obj);
+        return result == null ? null : result.conversionJavaBean(obj);
     }
 
     @Override
     public <T> List<T> queryForList(String sql, Class<T> obj, Object... args) {
         NativeResult result = nativeJdbc.executeQuery(sql, args);
-        if(result == null) return null;
-        return result.conversionJavaList(obj);
+        return result == null ? null : result.conversionJavaList(obj);
     }
 
     @Override
     public String queryForJson(String sql, Object... args) {
         NativeResult result = nativeJdbc.executeQuery(sql, args);
-        if(result == null) return null;
-        return result.toJSONString();
+        return result == null ? null : result.toJSONString();
     }
 
     @Override
@@ -142,7 +139,7 @@ public class JdbcSupportImpl implements JdbcSupport {
         NativeResult result = nativeJdbc.executeQuery(value.toString(), args);
         result.hasNext();
         String next = result.next();
-        return Integer.valueOf(next==null? "0" : next);
+        return Integer.valueOf(next == null ? "0" : next);
     }
 
     @Override
@@ -152,12 +149,12 @@ public class JdbcSupportImpl implements JdbcSupport {
 
     @Override
     public int[] executeBatch(String sql, List<Object[]> args) {
-        return nativeJdbc.executeBatch(sql,args);
+        return nativeJdbc.executeBatch(sql, args);
     }
 
     @Override
     public int[] executeBatch(String sql, Object[] args) {
-        return nativeJdbc.executeBatch(sql,args);
+        return nativeJdbc.executeBatch(sql, args);
     }
 
     @Override

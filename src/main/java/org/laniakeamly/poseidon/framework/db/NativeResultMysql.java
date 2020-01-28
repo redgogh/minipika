@@ -68,7 +68,7 @@ public class NativeResultMysql implements NativeResult {
         T model = null;
         try {
             resultMap = resultSet.get(0);
-            if(resultMap.isEmpty())return null;
+            if (resultMap.isEmpty()) return null;
             Object v1 = base(target, String.valueOf(Maps.getFirstValue(resultMap)));
             if (v1 != null) return (T) v1;
             model = target.newInstance();
@@ -102,7 +102,7 @@ public class NativeResultMysql implements NativeResult {
             if (target.equals(BigInteger.class)) return conversionJavaBigIntegerList();
             if (target.equals(Date.class)) return conversionJavaDateList();
             return conversionModelList(target);
-        }catch (Throwable e){
+        } catch (Throwable e) {
             e.printStackTrace();
         }
         return null;
@@ -114,7 +114,7 @@ public class NativeResultMysql implements NativeResult {
      * @param <T>
      * @return
      */
-    private <T> List<T> conversionModelList(Class<T> target){
+    private <T> List<T> conversionModelList(Class<T> target) {
         List<T> models = new ArrayList<>();
         List<String> names = new ArrayList<>();
         try {
@@ -401,6 +401,7 @@ public class NativeResultMysql implements NativeResult {
         if (target.equals(String.class)) {
             return value;
         }
+        if (StringUtils.isNull(value)) return null;
         if (target.equals(Date.class)) {
             return formatter.parse(value);
         }
