@@ -70,6 +70,7 @@ public class NativeResultMysql implements NativeResult {
             resultMap = resultSet.get(0);
             if (resultMap.isEmpty()) return null;
             Object v1 = base(target, String.valueOf(Maps.getFirstValue(resultMap)));
+            if(v1 instanceof Exception) return null;
             if (v1 != null) return (T) v1;
             model = target.newInstance();
             for (Field field : target.getDeclaredFields()) names.add(field.getName());
@@ -398,39 +399,32 @@ public class NativeResultMysql implements NativeResult {
      */
     public Object base(Class<?> target, String value) throws ParseException {
         if (StringUtils.isEmpty(value)) return null;
-        if (target.equals(String.class)) {
-            return value;
-        }
-        if (StringUtils.isNull(value)) return null;
-        if (target.equals(Date.class)) {
-            return formatter.parse(value);
-        }
-        if (target.equals(Byte.class)) {
-            return Byte.valueOf(value);
-        }
-        if (target.equals(Long.class)) {
-            return Long.valueOf(value);
-        }
-        if (target.equals(Short.class)) {
-            return Short.valueOf(value);
-        }
-        if (target.equals(Float.class)) {
-            return Float.valueOf(value);
-        }
-        if (target.equals(Double.class)) {
-            return Double.valueOf(value);
-        }
-        if (target.equals(Boolean.class)) {
-            return Boolean.valueOf(value);
-        }
-        if (target.equals(Integer.class)) {
-            return Integer.valueOf(value);
-        }
-        if (target.equals(BigDecimal.class)) {
-            return new BigDecimal(value);
-        }
-        if (target.equals(BigInteger.class)) {
-            return new BigInteger(value);
+        try {
+            if (target.equals(String.class)) {
+                return value;
+            } else if (target.equals(Date.class)) {
+                return formatter.parse(value);
+            } else if (target.equals(Byte.class)) {
+                return Byte.valueOf(value);
+            } else if (target.equals(Long.class)) {
+                return Long.valueOf(value);
+            } else if (target.equals(Short.class)) {
+                return Short.valueOf(value);
+            } else if (target.equals(Float.class)) {
+                return Float.valueOf(value);
+            } else if (target.equals(Double.class)) {
+                return Double.valueOf(value);
+            } else if (target.equals(Boolean.class)) {
+                return Boolean.valueOf(value);
+            } else if (target.equals(Integer.class)) {
+                return Integer.valueOf(value);
+            } else if (target.equals(BigDecimal.class)) {
+                return new BigDecimal(value);
+            } else if (target.equals(BigInteger.class)) {
+                return new BigInteger(value);
+            }
+        }catch (Exception e){
+            return e;
         }
         return null;
     }
