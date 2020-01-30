@@ -9,11 +9,11 @@
 
 > PoseidonFramework是一个非常简单且立马可以上手的ORM框架。它提供了表和对象之前的映射，以及封装了常用的增删改查等操作，并且非常轻。除此之外PoseidonFramework还提供了不一样的缓存等功能。
 
-[API文档-使用手册](https://github.com/PageNotFoundx/poseidon/blob/master/api/v1.0/v1.0.2/README.md)
+[API文档-使用手册](https://github.com/Laniakeamly/poseidon/blob/master/api/README.md)
 
-**v1.0.2更新内容(持续更新中)**
+**v1.0.9更新内容(持续更新中)**
 
-- 新增XML模板文件
+- 在XML中可以多条SQL一起执行，并防止SQL注入。
 
 # 安装
 
@@ -22,7 +22,7 @@ MAVEN直接引入
 <dependency>
     <groupId>io.github.laniakeamly</groupId>
     <artifactId>poseidon</artifactId>
-    <version>1.0.6.RELEASE</version>
+    <version>1.0.9.RELEASE</version>
 </dependency>
 ```
 
