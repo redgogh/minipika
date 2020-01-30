@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.framework.sql;
+package org.laniakeamly.poseidon.framework.sql.xml;
 
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 

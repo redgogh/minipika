@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.sql.xml.token;
 
 import lombok.Data;
-import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
+import org.laniakeamly.poseidon.framework.sql.xml.ProvideConstant;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 /**

@@ -2,7 +2,7 @@ package org.laniakeamly.recycle.build;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
+import org.laniakeamly.poseidon.framework.sql.xml.ProvideConstant;
 import org.laniakeamly.poseidon.framework.tools.ReflectUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 

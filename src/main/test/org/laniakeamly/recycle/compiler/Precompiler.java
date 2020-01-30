@@ -3,7 +3,7 @@ package org.laniakeamly.recycle.compiler;
 import javassist.*;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.loader.PoseidonClassLoader;
-import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
+import org.laniakeamly.poseidon.framework.sql.xml.ProvideConstant;
 import org.laniakeamly.recycle.build.PrecompiledClass;
 import org.laniakeamly.recycle.build.PrecompiledMethod;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;

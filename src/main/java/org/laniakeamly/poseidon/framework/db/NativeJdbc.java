@@ -44,13 +44,19 @@ public interface NativeJdbc {
     int executeUpdate(String sql, Object... args);
 
     /**
-     * 批量处理
+     * 批量处理，传入Object[]参数
      * @param sql
      * @param args
      * @return
      */
     int[] executeBatch(String sql, Object... args);
 
+    /**
+     * 批量处理，传入List参数
+     * @param sql
+     * @param args
+     * @return
+     */
     int[] executeBatch(String sql, List<Object[]> args);
 
     // 添加预编译sql的参数

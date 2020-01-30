@@ -2,7 +2,7 @@ package org.laniakeamly.poseidon.framework.sql.xml.build;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
+import org.laniakeamly.poseidon.framework.sql.xml.ProvideConstant;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.util.HashMap;

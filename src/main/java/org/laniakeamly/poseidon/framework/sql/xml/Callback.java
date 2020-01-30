@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.framework.sql;
+package org.laniakeamly.poseidon.framework.sql.xml;
 
 /**
  * 回调

@@ -1,7 +1,6 @@
-package org.laniakeamly.poseidon.framework.sql;
+package org.laniakeamly.poseidon.framework.sql.xml;
 
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
-import org.laniakeamly.poseidon.framework.container.Container;
 import org.laniakeamly.poseidon.framework.container.PrecompileContainer;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;

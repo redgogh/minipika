@@ -10,6 +10,7 @@ import java.sql.*;
 import java.util.List;
 
 /**
+ * 底层JDBC处理
  * @author 404NotFoundx
  * @version 1.0.0
  * @date 2019/11/30 2:28
@@ -120,21 +121,21 @@ public class NativeJdbcImpl implements NativeJdbc {
 
     @Override
     public int[] executeBatch(String sql, List<Object[]> args) {
-        return this.executeBatch(sql,args.toArray());
+        return this.executeBatch(sql, args.toArray());
     }
 
     @Override
     public int[] executeBatch(String sql, Object... args) {
         Connection connection = null;
         PreparedStatement statement = null;
-        try{
+        try {
             connection = pool.getConnection();
             statement = connection.prepareStatement(sql);
             for (Object arg : args) {
                 Object[] value = (Object[]) arg;
-                int i=1;
+                int i = 1;
                 for (Object o : value) {
-                    statement.setObject(i,o);
+                    statement.setObject(i, o);
                     i++;
                 }
                 statement.addBatch();

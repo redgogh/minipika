@@ -1,7 +1,6 @@
 package org.laniakeamly.recycle.build;
 
-import org.laniakeamly.poseidon.framework.exception.runtime.DynamicSQLException;
-import org.laniakeamly.poseidon.framework.sql.ProvideConstant;
+import org.laniakeamly.poseidon.framework.sql.xml.ProvideConstant;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
@@ -11,8 +10,6 @@ import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 将CrudNode转换成Java代码

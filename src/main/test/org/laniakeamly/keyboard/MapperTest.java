@@ -2,9 +2,9 @@ package org.laniakeamly.keyboard;
 
 import org.junit.Test;
 import org.laniakeamly.poseidon.experiment.ProductModel;
-import org.laniakeamly.poseidon.framework.sql.Parameter;
-import org.laniakeamly.poseidon.framework.sql.SqlExecute;
-import org.laniakeamly.poseidon.framework.sql.SqlMapper;
+import org.laniakeamly.poseidon.framework.sql.xml.Parameter;
+import org.laniakeamly.poseidon.framework.sql.xml.SqlExecute;
+import org.laniakeamly.poseidon.framework.sql.xml.SqlMapper;
 import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
 
 import java.util.ArrayList;
