@@ -33,18 +33,23 @@ public class PoseidonCacheImpl implements PoseidonCache{
 
     public void save(String sql, NativeResult result, Object... args) {
         writeLock.lock();
-        String key = getKey(sql, args);
-        CacheKey cacheKey = keyMap.get(key);
-        if (cacheKey == null) {
-            cacheKey = new CacheKey();
-            cacheKey.setKey(key);
-            cacheKey.setTables(PoseidonUtils.getSQLTables(sql));
-            keyMap.put(key, cacheKey);
-            container.put(key, result);
-        } else {
-            container.put(key, result);
+        try {
+            String key = getKey(sql, args);
+            CacheKey cacheKey = keyMap.get(key);
+            if (cacheKey == null) {
+                cacheKey = new CacheKey();
+                cacheKey.setKey(key);
+                cacheKey.setTables(PoseidonUtils.getSQLTables(sql));
+                keyMap.put(key, cacheKey);
+                container.put(key, result);
+            } else {
+                container.put(key, result);
+            }
+        }catch (Throwable e){
+            e.printStackTrace();
+        }finally {
+            writeLock.unlock();
         }
-        writeLock.unlock();
     }
 
 
