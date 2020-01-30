@@ -59,6 +59,14 @@ public interface NativeJdbc {
      */
     int[] executeBatch(String sql, List<Object[]> args);
 
+    /**
+     * 执行多条sql语句
+     * @param sqls
+     * @param args
+     * @return
+     */
+    int[] executeBatch(String[] sqls,List<Object[]> args);
+
     // 添加预编译sql的参数
     default PreparedStatement setValues(PreparedStatement statement, Object... args) throws SQLException {
         if (args != null) {

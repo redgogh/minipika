@@ -197,27 +197,6 @@ public final class PoseidonUtils {
     }
 
     /**
-     * 获取sql中的表名
-     * @param sql
-     * @return
-     */
-    public static List<String> getSQLTables(String sql) {
-        TablesNamesFinder finder = new TablesNamesFinder();
-        Statement statement = null;
-        try {
-            statement = CCJSqlParserUtil.parse(sql);
-        } catch (JSQLParserException e) {
-            return new ArrayList<>();
-            // e.printStackTrace();
-        }
-        List<String> tables = finder.getTableList(statement);
-        for (int i = 0, len = tables.size(); i < len; i++) {
-            tables.set(i, tables.get(i).replace("`", ""));
-        }
-        return tables;
-    }
-
-    /**
      * 获取Model中的成员，不包含Ignore注解和static修饰的
      * @param o     从{@code o}中获取成员值
      * @return

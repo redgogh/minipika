@@ -3,6 +3,8 @@ package org.laniakeamly.poseidon.framework.tools;
 import java.lang.Object;
 
 import java.lang.reflect.Array;
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -10,6 +12,12 @@ import java.util.Arrays;
  * Create by 2BKeyboard on 2019/12/13 18:36
  */
 public final class ArrayUtils {
+
+    /**
+     * 一些常用的变量
+     */
+    public enum Op {FIRST, LAST}
+
 
     /**
      * 对象是否为数组
@@ -200,7 +208,50 @@ public final class ArrayUtils {
         return destCopy;
     }
 
+    /**
+     * 根据下标删除数组元素
+     * @param array     需要删除的数组
+     * @param index     需要删除的下标
+     * @param <T>
+     * @return
+     */
+    public static <T> Object[] remove(T[] array, int index) {
+        try {
+            ArrayList list = new ArrayList(Arrays.asList(array));
+            String typeName = array.getClass().getTypeName();
+            typeName = typeName.substring(0, typeName.length() - 2); // 去除 '[]'
+            list.remove(index);
+            Class clazz = Class.forName(typeName);
+            Object arrayObject = Array.newInstance(clazz, array.length - 1);
+            return list.toArray((Object[]) arrayObject);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 根据OP枚举来删除
+     * @param array
+     * @param op
+     * @param <T>
+     * @return
+     */
+    public static <T> Object[] remove(T[] array, Op op) {
+        if (op == Op.FIRST) {
+            return remove(array, 0);
+        } else if (op == Op.LAST) {
+            return remove(array, array.length-1);
+        }
+        throw new InvalidParameterException("invalid parameter for op: " + op);
+    }
+
     public static void main(String[] args) {
+        String[] sql = new String[3];
+        sql[0] = "select";
+        sql[1] = "update";
+        sql[2] = " ";
+        sql = (String[]) remove(sql, 2);
         System.out.println();
     }
 

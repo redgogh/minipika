@@ -2,6 +2,7 @@ package org.laniakeamly.poseidon.framework.cache;
 
 import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
+import org.laniakeamly.poseidon.framework.tools.SQLUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +40,7 @@ public class PoseidonCacheImpl implements PoseidonCache{
             if (cacheKey == null) {
                 cacheKey = new CacheKey();
                 cacheKey.setKey(key);
-                cacheKey.setTables(PoseidonUtils.getSQLTables(sql));
+                cacheKey.setTables(SQLUtils.getSQLTables(sql));
                 keyMap.put(key, cacheKey);
                 container.put(key, result);
             } else {
@@ -54,7 +55,7 @@ public class PoseidonCacheImpl implements PoseidonCache{
 
 
     public void refresh(String sql) {
-        List<String> tables = PoseidonUtils.getSQLTables(sql);
+        List<String> tables = SQLUtils.getSQLTables(sql);
         if (!tables.isEmpty()) {
             List<String> keys = new ArrayList<>();
             for (Map.Entry<String, CacheKey> cacheKey : keyMap.entrySet()) {

@@ -122,14 +122,28 @@ public interface JdbcSupport {
     boolean execute(String sql, Object... args);
 
     /**
-     * 执行批量
+     * 执行执行，传入List
      * @param sql
      * @param args
      * @return
      */
     int[] executeBatch(String sql,List<Object[]> args);
 
+    /**
+     * 批量执行，传入Object数组
+     * @param sql
+     * @param args
+     * @return
+     */
     int[] executeBatch(String sql,Object[] args);
+
+    /**
+     * 多条sql语句批量执行
+     * @param sql
+     * @param args
+     * @return
+     */
+    int[] executeBatch(String[] sql,List<Object[]> args);
 
     /**
      * 查询某张表所有字段

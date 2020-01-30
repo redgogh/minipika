@@ -125,7 +125,7 @@ public class ConnectionPool implements org.laniakeamly.poseidon.extension.Connec
                 this.driver = driverLoader.getDriver();
             }
             final Connection connection = this.driver.connect(jdbcUrl, info);
-            if (transaction == true) connection.setAutoCommit(false);
+            if (transaction) connection.setAutoCommit(false);
             count++;
             return connection;
         } catch (Exception e) {

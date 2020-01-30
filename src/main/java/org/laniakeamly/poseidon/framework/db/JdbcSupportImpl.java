@@ -158,6 +158,11 @@ public class JdbcSupportImpl implements JdbcSupport {
     }
 
     @Override
+    public int[] executeBatch(String[] sql, List<Object[]> args) {
+        return nativeJdbc.executeBatch(sql,args);
+    }
+
+    @Override
     public List<String> getColumns(String tableName) {
         String sql = "select COLUMN_NAME from information_schema.COLUMNS where table_name = ? and table_schema = ?;";
         return nativeJdbc.executeQuery(sql, tableName, Config.getInstance().getDbname()).conversionJavaList(String.class);
