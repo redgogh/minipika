@@ -15,7 +15,7 @@
 
     <groupId>io.github.laniakeamly</groupId>
     <artifactId>poseidon</artifactId>
-    <version>1.1.0.RELEASE</version>
+    <version>1.1.0.A380</version>
     <packaging>jar</packaging>
 
     <licenses>
