@@ -30,9 +30,4 @@ public class PrecompileContainer implements DynamicSQL {
         return precompiledClassMap.get(name);
     }
 
-    @Override
-    public void recycle() {
-        pc = null;
-        precompiledClassMap = null;
-    }
 }

@@ -11,6 +11,7 @@ import org.laniakeamly.poseidon.framework.db.NativeResult;
  * Copyright: Create by 2BKeyboard on 2019/12/9 23:10
  *
  * @author TianSheng
+ * @version 1.0.0
  * @since 1.8
  */
 public interface PoseidonCache {

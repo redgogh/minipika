@@ -16,12 +16,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 初始化
  *
- * @author 2BKeyboard
+ * 初始化时解析Model
+ * 其中包括Model中是否存在新增字段，删除字段。
+ *
+ * init parse model.
+ * if model have new column or delete column.
+ *
+ * Copyright: Create by 2BKeyboard on 2019/11/19 18:05
+ *
+ * @author TianSheng
  * @version 1.0.0
- * @date 2019/11/19 18:05
  * @since 1.8
+ *
  */
 public class Initialize {
 

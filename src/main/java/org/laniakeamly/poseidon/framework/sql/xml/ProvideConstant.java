@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 /**
  * Copyright: Create by 2BKeyboard on 2019/12/17 18:29
  */
+@SuppressWarnings({"unchecked"})
 public class ProvideConstant {
 
     public static final String IF = "if";

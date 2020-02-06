@@ -33,6 +33,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * Copyright: Create by 2BKeyboard on 2019/12/4 20:25
  *
  * @author TianSheng
+ * @version 1.0.0
  * @since 1.8
  *
  */

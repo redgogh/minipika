@@ -3,8 +3,15 @@ package org.laniakeamly.poseidon.framework.config;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 /**
- * 加载自定义配置文件
+ * 手动加载配置文件
+ *
+ * manual loader config file.
+ *
  * Copyright: Create by 2BKeyboard on 2019/12/3 22:06
+ *
+ * @author TianSheng
+ * @version 1.0.0
+ * @since 1.8
  */
 public class ManualConfig {
 

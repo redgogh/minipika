@@ -1,6 +1,5 @@
 package org.laniakeamly.poseidon.extension;
 
-import org.laniakeamly.poseidon.framework.container.Container;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
 
 /**
@@ -12,7 +11,7 @@ import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
  *
  * Copyright: Create by 2BKeyboard on 2019/12/28 2:57
  */
-public interface DynamicSQL extends Container {
+public interface DynamicSQL {
 
     /**
      * 获取预编译对象

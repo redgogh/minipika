@@ -12,7 +12,16 @@ import java.io.InputStream;
 import java.util.*;
 
 /**
+ * 配置类
+ *
+ * Config object.
+ *
  * Copyright: Create by 2BKeyboard on 2019/11/4 14:10
+ *
+ * @author TianSheng
+ * @version 1.0.0
+ * @since 1.8
+ *
  */
 public final class Config {
 
