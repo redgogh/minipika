@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.laniakeamly.poseidon.extension.ConnectionPool;
 import org.laniakeamly.poseidon.framework.exception.runtime.ReadException;
 import org.laniakeamly.poseidon.framework.tools.Calculator;
+import org.laniakeamly.poseidon.framework.tools.PofUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 import org.laniakeamly.poseidon.framework.tools.TimeUtils;
 
@@ -107,6 +108,7 @@ public final class Config {
             // 获取字段约束配置文件路径
             String regularJson = getValue("poseidon.regular.json");
 
+
             System.setProperty("jdbc.drivers", driver);
             String temp = url;
             for (int i = 0; i < 3; i++) {
@@ -121,7 +123,7 @@ public final class Config {
 
     private String getValue(String v) {
         if (config == null) {
-            InputStream in = Config.class.getClassLoader().getResourceAsStream(configPath);
+            InputStream in = PofUtils.getIOUtils().getResourceAsStream(configPath);
             configLoad(in);
         }
         return config.getProperty(v);

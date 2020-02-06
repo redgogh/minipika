@@ -9,7 +9,7 @@ import org.laniakeamly.poseidon.framework.model.SecurityManager;
 import org.laniakeamly.poseidon.framework.model.Metadata;
 import org.laniakeamly.poseidon.framework.model.GetterModel;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
-import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
+import org.laniakeamly.poseidon.framework.tools.PofUtils;
 
 import java.util.Iterator;
 import java.util.List;
@@ -48,7 +48,7 @@ public class Initialize {
      */
     public void loadModel() {
         GetterModel getterModel = new GetterModel();
-        getterModel.parse(PoseidonUtils.getModels());
+        getterModel.parse(PofUtils.getModels());
         Map<String, Metadata> messages = Metadata.getAttribute();
         Iterator iter = messages.entrySet().iterator();
         while (iter.hasNext()) {
@@ -81,10 +81,10 @@ public class Initialize {
      * @throws PoseidonException
      */
     public void loadColumn() throws PoseidonException {
-        List<Class<?>> models = PoseidonUtils.getModels();
+        List<Class<?>> models = PofUtils.getModels();
         for (Class<?> target : models) {
             if (SecurityManager.existModel(target)) {
-                Model model = PoseidonUtils.getModelAnnotation(target);
+                Model model = PofUtils.getModelAnnotation(target);
                 String table = model.value();
 
                 List<String> inDbColumns = jdbc.getColumns(table);

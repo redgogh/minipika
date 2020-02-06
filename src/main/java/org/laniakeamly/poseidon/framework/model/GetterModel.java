@@ -3,7 +3,7 @@ package org.laniakeamly.poseidon.framework.model;
 
 import org.laniakeamly.poseidon.framework.exception.PoseidonException;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
-import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
+import org.laniakeamly.poseidon.framework.tools.PofUtils;
 import org.laniakeamly.poseidon.framework.limit.*;
 
 import java.lang.reflect.Field;
@@ -62,7 +62,7 @@ public class GetterModel {
         String tableName = "";
         Map<String, String> map = new HashMap<>();
         if (SecurityManager.existModel(target)) {
-            Model model = PoseidonUtils.getModelAnnotation(target);
+            Model model = PofUtils.getModelAnnotation(target);
             tableName = model.value();
             Engine engine = model.engine();
             if (StringUtils.isEmpty(tableName)) {
@@ -85,8 +85,8 @@ public class GetterModel {
      * @throws PoseidonException
      */
     public void field(Class<?> target, Metadata metadata, StringBuilder script, Map<String, String> columns) throws PoseidonException {
-        for (Field field : PoseidonUtils.getModelField(target)) {
-            String columnName = PoseidonUtils.humpToUnderline(field.getName());
+        for (Field field : PofUtils.getModelField(target)) {
+            String columnName = PofUtils.humpToUnderline(field.getName());
             StringBuilder tableColumn = new StringBuilder(columnName); // 字段
             tableColumn.insert(0, "`").append("`");
             // 判断该字段是否被忽略

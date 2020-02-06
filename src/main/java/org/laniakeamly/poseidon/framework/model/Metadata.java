@@ -2,7 +2,7 @@ package org.laniakeamly.poseidon.framework.model;
 
 import org.laniakeamly.poseidon.framework.limit.Engine;
 import org.laniakeamly.poseidon.framework.limit.Model;
-import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
+import org.laniakeamly.poseidon.framework.tools.PofUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -101,7 +101,7 @@ public class Metadata {
 
     public static void putModel(Class<?> target){
         if(SecurityManager.existModel(target)){
-            Model model = PoseidonUtils.getModelAnnotation(target);
+            Model model = PofUtils.getModelAnnotation(target);
             modelClass.put(model.value(),target);
         }
     }

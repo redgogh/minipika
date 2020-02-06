@@ -5,7 +5,7 @@ import org.laniakeamly.poseidon.experiment.ProductModel;
 import org.laniakeamly.poseidon.framework.sql.xml.Parameter;
 import org.laniakeamly.poseidon.framework.sql.xml.SqlExecute;
 import org.laniakeamly.poseidon.framework.sql.xml.SqlMapper;
-import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
+import org.laniakeamly.poseidon.framework.tools.PofUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class MapperTest {
 
-    SqlMapper mapper = SqlMapper.getMapper("test");
+    SqlMapper mapper = SqlMapper.getMapper("productService");
 
     @Test
     public void builderSqlMapper(){
@@ -24,19 +24,19 @@ public class MapperTest {
         List<ProductModel> list = new ArrayList<>();
         for(int i=0; i<5; i++) {
             ProductModel product = new ProductModel();
-            product.setUuid(PoseidonUtils.uuid()+i);
-            product.setProductName(PoseidonUtils.uuid()+i);
+            product.setUuid(PofUtils.uuid()+i);
+            product.setProductName(PofUtils.uuid()+i);
             list.add(product);
         }
 
-        SqlExecute execute = mapper.build("addProduct", new Parameter() {
+        SqlExecute execute = mapper.build("addProducts", new Parameter() {
             @Override
             public void loader(Map<String, Object> map) {
                 map.put("products",list);
             }
         });
 
-        execute.update();
+        execute.executeBatch();
 
     }
 

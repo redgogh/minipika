@@ -6,7 +6,7 @@ import org.jdom2.input.SAXBuilder;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
 import org.laniakeamly.poseidon.framework.exception.runtime.BuilderXmlException;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
-import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
+import org.laniakeamly.poseidon.framework.tools.PofUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.io.File;
@@ -32,7 +32,7 @@ public class ReaderMapperXML {
      * @return
      */
     private List<File> getBuilderXMLFiles() {
-        return PoseidonUtils.getMapperXMLs();
+        return PofUtils.getMapperXMLs();
     }
 
     /**

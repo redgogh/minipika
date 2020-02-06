@@ -130,8 +130,10 @@ public class NativeJdbcImpl implements NativeJdbc {
     @Override
     public int[] executeBatch(String sql, Object... args) {
         // 判断sql中是否包含多条sql，根据';'来判断
-        if (sql.contains(";")) {
+        out:if (sql.contains(";")) {
             String[] sqls = (String[]) ArrayUtils.remove(sql.split(";"), ArrayUtils.Op.LAST);
+            // 如果sql包含';'，但是数组中只有一条sql的话就跳出if
+            if(sqls.length == 1) break out;
             List<Object[]> objList = new ArrayList<>();
             int argsIndex = 0;
             for (String isql : sqls) {

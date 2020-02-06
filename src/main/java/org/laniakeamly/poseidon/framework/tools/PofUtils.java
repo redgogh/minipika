@@ -8,6 +8,7 @@ import org.laniakeamly.poseidon.framework.exception.runtime.ModelException;
 import org.laniakeamly.poseidon.framework.model.SecurityManager;
 
 import java.io.File;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Modifier;
@@ -17,12 +18,35 @@ import java.security.MessageDigest;
 import java.util.*;
 
 /**
+ * Poseidon ORM Framework简写POF
  * @author TianSheng
  * @version 1.0.0
  * @date 2019/11/12 0:10
  * @since 1.8
  */
-public final class PoseidonUtils {
+public final class PofUtils {
+
+    static final IOUtils IO_UTILS = new IOUtils();
+
+    /**
+     * Pof工具包下的IO工具包
+     */
+    public static class IOUtils{
+
+        /**
+         * 获取Resource文件夹下的文件
+         * @param name
+         * @return
+         */
+        public InputStream getResourceAsStream(String name){
+            return PofUtils.class.getClassLoader().getResourceAsStream(name);
+        }
+
+    }
+
+    public static IOUtils getIOUtils(){
+        return IO_UTILS;
+    }
 
     /**
      * 驼峰转下划线
@@ -78,7 +102,7 @@ public final class PoseidonUtils {
 
     private static void getModels(String basePackage, List<Class<?>> models) throws ClassNotFoundException {
         //扫描编译好的所有类路径
-        URL url = PoseidonUtils.class.getResource("/" + basePackage.replaceAll("\\.", "/"));
+        URL url = PofUtils.class.getResource("/" + basePackage.replaceAll("\\.", "/"));
         if (url == null) return;
         //将url转换为文件类型
         File dir = new File(url.getFile());
@@ -110,7 +134,7 @@ public final class PoseidonUtils {
 
     private static void getXMLs(String basePackage, List<File> files) {
         //扫描编译好的所有类路径
-        URL url = PoseidonUtils.class.getResource("/" + basePackage.replaceAll("\\.", "/"));
+        URL url = PofUtils.class.getResource("/" + basePackage.replaceAll("\\.", "/"));
         if (url == null) return;
         //将url转换为文件类型
         File dir = new File(url.getFile());
@@ -215,6 +239,11 @@ public final class PoseidonUtils {
         return values;
     }
 
+    /**
+     * 获取Model类中所有成员
+     * @param target
+     * @return
+     */
     public static List<Field> getModelField(Class<?> target) {
         try {
             return getModelField(target.newInstance());
@@ -222,6 +251,15 @@ public final class PoseidonUtils {
             // 一般newInstance异常都是没有声明无参构造器造成的。
             throw new ModelException("model newInstance error: please check your model does it exist No-argument constructor.");
         }
+    }
+
+    /**
+     * 获取resource目录下的文件
+     * @param name
+     * @return
+     */
+    public static InputStream getResourceAsStrame(String name){
+        return PofUtils.class.getClassLoader().getResourceAsStream(name);
     }
 
 }
