@@ -16,7 +16,8 @@ public class RegularUtils {
 
     private Map<String, Pattern> patternMap;
 
-    private static RegularUtils ru = null;
+    private static RegularUtils INSTANCE = null;
+    private static RegularUtils INSTANCE_SAVE = null;
 
     public RegularUtils(){}
 
@@ -25,10 +26,17 @@ public class RegularUtils {
     }
 
     public static RegularUtils getInstance(){
-        if(ru == null){
-            ru = new RegularUtils(true);
+        if(INSTANCE == null){
+            INSTANCE = new RegularUtils(false);
         }
-        return ru;
+        return INSTANCE;
+    }
+
+    public static RegularUtils getInstanceSave(){
+        if(INSTANCE_SAVE == null){
+            INSTANCE_SAVE = new RegularUtils(true);
+        }
+        return INSTANCE_SAVE;
     }
 
     /**
@@ -47,6 +55,11 @@ public class RegularUtils {
             }
         }
         return pattern.matcher(value).matches();
+    }
+
+    public Pattern getPattern(String regex){
+        if(patternMap == null) return null;
+        return patternMap.get(regex);
     }
 
 }

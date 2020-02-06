@@ -6,6 +6,7 @@ import org.laniakeamly.poseidon.framework.tools.*;
 
 import java.io.InputStream;
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * 配置类
@@ -199,5 +200,17 @@ public final class Config {
         return mapperPackage;
     }
 
+    /**
+     * 获取正则表达式内容
+     * @param name
+     * @return
+     */
+    public String getRegular(String name){
+        return (String) this.regularJson.get(name);
+    }
+
+    public Pattern getPatternForRegularJson(String name){
+        return RegularUtils.getInstanceSave().getPattern(getRegular(name));
+    }
 
 }
