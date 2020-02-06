@@ -4,7 +4,7 @@ import lombok.Data;
 import org.laniakeamly.poseidon.framework.limit.*;
 
 /**
- * @author 2BKeyboard
+ * @author TianSheng
  * @version 1.0.0
  * @date 2019/11/22 16:41
  * @since 1.8

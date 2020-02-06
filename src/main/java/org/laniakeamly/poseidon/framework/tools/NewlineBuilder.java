@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.tools;
 
 /**
- * Copyright: Create by 2BKeyboard on 2019/12/13 15:59
+ * Copyright: Create by TianSheng on 2019/12/13 15:59
  */
 public final class NewlineBuilder extends StringNewline {
 

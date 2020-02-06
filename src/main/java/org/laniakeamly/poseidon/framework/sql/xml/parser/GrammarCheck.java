@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * 语法错误检测
- * Copyright: Create by 2BKeyboard on 2019/12/16 21:35
+ * Copyright: Create by TianSheng on 2019/12/16 21:35
  */
 public class GrammarCheck {
 

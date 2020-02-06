@@ -7,7 +7,7 @@ import java.lang.annotation.*;
  *
  * bean container inject annotation.
  *
- * Copyright: Create by 2BKeyboard on 2019/12/9 17:31
+ * Copyright: Create by TianSheng on 2019/12/9 17:31
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

@@ -7,7 +7,7 @@ import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
 /**
  * 解析XML
  * 为了整理所以写了这么一个接口
- * Copyright: Create by 2BKeyboard on 2019/12/17 0:31
+ * Copyright: Create by TianSheng on 2019/12/17 0:31
  */
 interface MapperLabelParserService {
 

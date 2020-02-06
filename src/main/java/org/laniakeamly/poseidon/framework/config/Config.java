@@ -1,5 +1,6 @@
 package org.laniakeamly.poseidon.framework.config;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import org.laniakeamly.poseidon.extension.ConnectionPool;
 import org.laniakeamly.poseidon.framework.exception.runtime.ReadException;
@@ -16,7 +17,7 @@ import java.util.*;
  *
  * Config object.
  *
- * Copyright: Create by 2BKeyboard on 2019/11/4 14:10
+ * Copyright: Create by TianSheng on 2019/11/4 14:10
  *
  * @author TianSheng
  * @version 1.0.0
@@ -64,6 +65,9 @@ public final class Config {
     // 数据库名
     private String dbname;
 
+    // regular.json文件
+    private JSONObject regular;
+
     private static Config instance;
 
     public static Config getInstance() {
@@ -99,6 +103,9 @@ public final class Config {
             this.transaction = getValue("poseidon.jdbc.transaction");
             this.maxSize = getValue("poseidon.connectionPool.maxSize");
             this.minSize = getValue("poseidon.connectionPool.minSize");
+
+            // 获取字段约束配置文件路径
+            String regularJson = getValue("poseidon.regular.json");
 
             System.setProperty("jdbc.drivers", driver);
             String temp = url;

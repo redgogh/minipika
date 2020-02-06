@@ -5,7 +5,7 @@ import org.laniakeamly.poseidon.framework.limit.Model;
 import org.laniakeamly.poseidon.framework.limit.PrimaryKey;
 
 /**
- * Copyright: Create by 2BKeyboard on 2020/1/17 14:01
+ * Copyright: Create by TianSheng on 2020/1/17 14:01
  */
 @Model(value = "user_info",increment = 4000)
 public class UserInfo {

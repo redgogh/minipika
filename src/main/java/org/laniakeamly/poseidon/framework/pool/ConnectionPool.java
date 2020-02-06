@@ -16,7 +16,7 @@ import java.util.Set;
  *
  * Default connection pool.
  *
- * @author 2BKeyboard
+ * @author TianSheng
  * @version 1.0.0
  * @date 2019/11/11 16:31
  * @since 1.8

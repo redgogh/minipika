@@ -2,7 +2,7 @@ package org.laniakeamly.poseidon.framework.timer;
 
 /**
  * 定时器
- * Copyright: Create by 2BKeyboard on 2019/12/6 21:27
+ * Copyright: Create by TianSheng on 2019/12/6 21:27
  */
 public interface Timer {
 

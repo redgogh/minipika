@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.sql.xml.builder;
 
 /**
- * Copyright: Create by 2BKeyboard on 2019/12/14 1:35
+ * Copyright: Create by TianSheng on 2019/12/14 1:35
  */
 public class JavaElement {
 

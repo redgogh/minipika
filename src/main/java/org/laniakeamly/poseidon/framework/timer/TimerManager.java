@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Copyright: Create by 2BKeyboard on 2019/12/6 21:28
+ * Copyright: Create by TianSheng on 2019/12/6 21:28
  */
 @SuppressWarnings("unchecked")
 public class TimerManager {

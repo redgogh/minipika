@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Copyright: Create by 2BKeyboard on 2019/12/6 22:42
+ * Copyright: Create by TianSheng on 2019/12/6 22:42
  */
 public class Execute extends Thread {
 

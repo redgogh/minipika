@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * 动态方法，需要在调用时被加载的JVM中，以提供获取动态sql
- * Copyright: Create by 2BKeyboard on 2019/12/17 17:56
+ * Copyright: Create by TianSheng on 2019/12/17 17:56
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class PrecompiledMethod {

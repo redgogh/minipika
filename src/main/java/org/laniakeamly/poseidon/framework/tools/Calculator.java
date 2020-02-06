@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * 计算String中的表达式
- * Copyright: Create by 2BKeyboard on 2019/12/7 2:50
+ * Copyright: Create by TianSheng on 2019/12/7 2:50
  */
 public final class Calculator {
 

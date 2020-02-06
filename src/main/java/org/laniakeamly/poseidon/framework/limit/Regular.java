@@ -6,7 +6,7 @@ import java.lang.annotation.*;
  *
  * config column regular.
  *
- * Copyright: Create by 2BKeyboard on 2020/2/6 13:33
+ * Copyright: Create by TianSheng on 2020/2/6 13:33
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

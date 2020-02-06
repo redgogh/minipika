@@ -5,7 +5,7 @@ import org.laniakeamly.poseidon.framework.sql.xml.ProvideConstant;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 /**
- * Copyright: Create by 2BKeyboard on 2019/12/16 11:05
+ * Copyright: Create by TianSheng on 2019/12/16 11:05
  */
 @Data
 public class TokenValue {

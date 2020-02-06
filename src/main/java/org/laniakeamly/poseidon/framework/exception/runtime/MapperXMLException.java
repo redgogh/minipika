@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.exception.runtime;
 
 /**
- * Copyright: Create by 2BKeyboard on 2019/12/18 14:56
+ * Copyright: Create by TianSheng on 2019/12/18 14:56
  */
 public class MapperXMLException extends RuntimeException {
 

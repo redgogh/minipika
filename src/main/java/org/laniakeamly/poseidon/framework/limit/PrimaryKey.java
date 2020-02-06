@@ -7,7 +7,7 @@ import java.lang.annotation.*;
  *
  * PrimaryKey
  *
- * @author 2BKeyboard
+ * @author TianSheng
  * @version 1.0.0
  * @date 2019/11/4 15:06
  * @since 1.8

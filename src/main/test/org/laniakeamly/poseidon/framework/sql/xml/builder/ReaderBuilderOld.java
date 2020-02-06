@@ -37,7 +37,7 @@ import java.util.regex.Pattern;
  *      6. 将字节码执行方法装载到${@link BeansManager}中提供调用
  *      7. 其他处理
  *
- * Copyright: Create by 2BKeyboard on 2019/12/13 0:52
+ * Copyright: Create by TianSheng on 2019/12/13 0:52
  */
 @Deprecated
 public class ReaderBuilderOld {

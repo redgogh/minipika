@@ -5,7 +5,7 @@ package org.laniakeamly.poseidon.extension;
  *
  * Configuration logger framework if there is not use default.
  *
- * Copyright: Create by 2BKeyboard on 2019/12/9 17:20
+ * Copyright: Create by TianSheng on 2019/12/9 17:20
  */
 public interface Logger {
 

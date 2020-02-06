@@ -3,7 +3,7 @@ package org.laniakeamly.poseidon.framework.limit;
 import java.lang.annotation.*;
 
 /**
- * Copyright: Create by 2BKeyboard on 2019/12/10 10:43
+ * Copyright: Create by TianSheng on 2019/12/10 10:43
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

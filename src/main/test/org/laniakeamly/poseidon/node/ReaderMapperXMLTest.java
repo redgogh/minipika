@@ -7,7 +7,7 @@ import org.laniakeamly.poseidon.framework.sql.xml.parser.ReaderMapperXML;
 import java.util.List;
 
 /**
- * Copyright: Create by 2BKeyboard on 2019/12/20 20:49
+ * Copyright: Create by TianSheng on 2019/12/20 20:49
  */
 public class ReaderMapperXMLTest {
 

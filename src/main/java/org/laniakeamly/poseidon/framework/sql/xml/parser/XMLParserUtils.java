@@ -7,7 +7,7 @@ import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 /**
  * 解析工具类
- * Copyright: Create by 2BKeyboard on 2019/12/17 0:26
+ * Copyright: Create by TianSheng on 2019/12/17 0:26
  */
 public class XMLParserUtils {
 

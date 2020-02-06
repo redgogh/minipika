@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.exception.runtime;
 
 /**
- * Copyright: Create by 2BKeyboard on 2019/12/3 23:30
+ * Copyright: Create by TianSheng on 2019/12/3 23:30
  */
 public class
 ReadException extends RuntimeException {

@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * 读取Mapper并解析
- * Copyright: Create by 2BKeyboard on 2019/12/17 10:58
+ * Copyright: Create by TianSheng on 2019/12/17 10:58
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class ReaderCrudElement {

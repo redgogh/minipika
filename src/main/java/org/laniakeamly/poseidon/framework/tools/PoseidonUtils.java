@@ -17,7 +17,7 @@ import java.security.MessageDigest;
 import java.util.*;
 
 /**
- * @author 2BKeyboard
+ * @author TianSheng
  * @version 1.0.0
  * @date 2019/11/12 0:10
  * @since 1.8

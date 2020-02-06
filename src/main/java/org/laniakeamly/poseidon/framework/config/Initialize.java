@@ -23,7 +23,7 @@ import java.util.Map;
  * init parse model.
  * if model have new column or delete column.
  *
- * Copyright: Create by 2BKeyboard on 2019/11/19 18:05
+ * Copyright: Create by TianSheng on 2019/11/19 18:05
  *
  * @author TianSheng
  * @version 1.0.0

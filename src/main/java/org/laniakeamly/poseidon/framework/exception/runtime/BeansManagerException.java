@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.exception.runtime;
 
 /**
- * Copyright: Create by 2BKeyboard on 2019/12/10 10:56
+ * Copyright: Create by TianSheng on 2019/12/10 10:56
  */
 public class BeansManagerException extends RuntimeException {
 

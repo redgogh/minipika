@@ -17,7 +17,7 @@ import org.laniakeamly.poseidon.framework.timer.Timer;
  * if some cache just use once then this cache is taking up memory.
  * so we need timing refresh all cache freed runtime memory.
  *
- * Copyright: Create by 2BKeyboard on 2019/12/7 0:47
+ * Copyright: Create by TianSheng on 2019/12/7 0:47
  *
  * @author TianSheng
  * @version 1.0.0

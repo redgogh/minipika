@@ -6,7 +6,7 @@ import org.laniakeamly.poseidon.framework.tools.TimeUtils;
 import java.util.ArrayList;
 
 /**
- * Copyright: Create by 2BKeyboard on 2019/12/9 11:19
+ * Copyright: Create by TianSheng on 2019/12/9 11:19
  */
 public class Timer2 implements Timer {
 

@@ -30,7 +30,7 @@ import java.util.List;
  * parser out tables will compare with tables in {@link CacheKey}.
  * if tables in {@link CacheKey} contain parser out tables then refresh specify cache.
  *
- * Copyright: Create by 2BKeyboard on 2019/12/6 16:24
+ * Copyright: Create by TianSheng on 2019/12/6 16:24
  *
  * @author TianSheng
  * @version 1.0.0

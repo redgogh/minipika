@@ -7,7 +7,7 @@ import java.lang.annotation.*;
  *
  * Model class the column property annotation.
  *
- * @author 2BKeyboard
+ * @author TianSheng
  * @version 1.0.0
  * @date 2019/11/12 10:33
  * @since 1.8

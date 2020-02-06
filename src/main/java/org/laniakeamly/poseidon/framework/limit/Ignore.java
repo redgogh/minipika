@@ -7,7 +7,7 @@ import java.lang.annotation.*;
  *
  * Ignore column, be ignored column will not impact on the database.
  *
- * @author 2BKeyboard
+ * @author TianSheng
  * @version 1.0.0
  * @date 2019/11/13 15:49
  * @since 1.8
