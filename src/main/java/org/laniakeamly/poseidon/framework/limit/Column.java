@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.framework.annotation;
+package org.laniakeamly.poseidon.framework.limit;
 
 import java.lang.annotation.*;
 

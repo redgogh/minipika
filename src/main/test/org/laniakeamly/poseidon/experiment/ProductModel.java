@@ -1,10 +1,7 @@
 package org.laniakeamly.poseidon.experiment;
 
 import lombok.Data;
-import org.laniakeamly.poseidon.framework.annotation.Column;
-import org.laniakeamly.poseidon.framework.annotation.Comment;
-import org.laniakeamly.poseidon.framework.annotation.Model;
-import org.laniakeamly.poseidon.framework.annotation.PrimaryKey;
+import org.laniakeamly.poseidon.framework.limit.*;
 
 /**
  * @author 2BKeyboard

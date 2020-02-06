@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.model;
 
-import org.laniakeamly.poseidon.framework.annotation.Engine;
-import org.laniakeamly.poseidon.framework.annotation.Model;
+import org.laniakeamly.poseidon.framework.limit.Engine;
+import org.laniakeamly.poseidon.framework.limit.Model;
 import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
 
 import java.util.HashMap;

@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.config;
 
 import com.alibaba.fastjson.JSONObject;
-import org.laniakeamly.poseidon.framework.annotation.Model;
+import org.laniakeamly.poseidon.framework.limit.Model;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.exception.PoseidonException;

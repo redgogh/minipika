@@ -1,15 +1,11 @@
 package org.laniakeamly.poseidon.framework.tools;
 
-import org.laniakeamly.poseidon.framework.annotation.Ignore;
-import org.laniakeamly.poseidon.framework.annotation.Model;
+import org.laniakeamly.poseidon.framework.limit.Ignore;
+import org.laniakeamly.poseidon.framework.limit.Model;
 import org.laniakeamly.poseidon.framework.config.Config;
 import org.laniakeamly.poseidon.framework.exception.PoseidonException;
 import org.laniakeamly.poseidon.framework.exception.runtime.ModelException;
 import org.laniakeamly.poseidon.framework.model.SecurityManager;
-import net.sf.jsqlparser.JSQLParserException;
-import net.sf.jsqlparser.parser.CCJSqlParserUtil;
-import net.sf.jsqlparser.statement.Statement;
-import net.sf.jsqlparser.util.TablesNamesFinder;
 
 import java.io.File;
 import java.lang.reflect.Field;

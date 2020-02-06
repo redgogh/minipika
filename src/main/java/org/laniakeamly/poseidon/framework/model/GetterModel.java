@@ -4,7 +4,7 @@ package org.laniakeamly.poseidon.framework.model;
 import org.laniakeamly.poseidon.framework.exception.PoseidonException;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 import org.laniakeamly.poseidon.framework.tools.PoseidonUtils;
-import org.laniakeamly.poseidon.framework.annotation.*;
+import org.laniakeamly.poseidon.framework.limit.*;
 
 import java.lang.reflect.Field;
 import java.util.*;

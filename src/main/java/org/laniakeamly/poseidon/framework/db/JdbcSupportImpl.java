@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.db;
 
-import org.laniakeamly.poseidon.framework.annotation.Model;
-import org.laniakeamly.poseidon.framework.annotation.Valid;
+import org.laniakeamly.poseidon.framework.limit.Model;
+import org.laniakeamly.poseidon.framework.limit.Valid;
 import org.laniakeamly.poseidon.framework.config.Config;
 import org.laniakeamly.poseidon.framework.model.SecurityManager;
 import org.laniakeamly.poseidon.framework.model.Metadata;

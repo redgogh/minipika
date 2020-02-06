@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.db;
 
 import org.laniakeamly.poseidon.extension.ConnectionPool;
-import org.laniakeamly.poseidon.framework.annotation.Valid;
+import org.laniakeamly.poseidon.framework.limit.Valid;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
 import org.laniakeamly.poseidon.framework.config.Config;

@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.framework.annotation;
+package org.laniakeamly.poseidon.framework.limit;
 
 /**
  * MYSQL支持的引擎列表

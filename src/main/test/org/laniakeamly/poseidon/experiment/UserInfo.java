@@ -1,8 +1,8 @@
 package org.laniakeamly.poseidon.experiment;
 
-import org.laniakeamly.poseidon.framework.annotation.Column;
-import org.laniakeamly.poseidon.framework.annotation.Model;
-import org.laniakeamly.poseidon.framework.annotation.PrimaryKey;
+import org.laniakeamly.poseidon.framework.limit.Column;
+import org.laniakeamly.poseidon.framework.limit.Model;
+import org.laniakeamly.poseidon.framework.limit.PrimaryKey;
 
 /**
  * Create by 2BKeyboard on 2020/1/17 14:01
