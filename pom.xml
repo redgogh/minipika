@@ -53,6 +53,7 @@
     </distributionManagement>
 
     <properties>
+        <java.version>1.8</java.version>
         <jdom.version>2.0.6</jdom.version>
         <kotlin.version>1.3.61</kotlin.version>
         <lombok.version>1.18.10</lombok.version>
@@ -164,6 +165,24 @@
     </build>
 
     <profiles>
+
+        <profile>
+            <id>default-tools</id>
+            <activation>
+                <jdk>[,1.8]</jdk>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.sun</groupId>
+                    <artifactId>tools</artifactId>
+                    <version>${java.version}</version>
+                    <scope>system</scope>
+                    <optional>true</optional>
+                    <systemPath>${java.home}/../lib/tools.jar</systemPath>
+                </dependency>
+            </dependencies>
+        </profile>
+
         <profile>
             <id>disable-javadoc-doclint</id>
             <activation>

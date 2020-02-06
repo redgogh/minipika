@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.pool;
 
 import org.laniakeamly.poseidon.framework.config.Config;
-import org.laniakeamly.poseidon.framework.config.Initialize;
+import org.laniakeamly.poseidon.framework.model.LoaderModel;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -71,7 +71,7 @@ public class ConnectionPool implements org.laniakeamly.poseidon.extension.Connec
                     conns.add(createConnection());
                 }
                 // 当连接创建开始初始化
-                Initialize init = new Initialize();
+                LoaderModel init = new LoaderModel();
                 init.run();
             } catch (Exception e) {
                 e.printStackTrace();
