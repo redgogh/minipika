@@ -7,8 +7,7 @@ import org.laniakeamly.poseidon.framework.exception.PoseidonException;
 import org.laniakeamly.poseidon.framework.exception.runtime.ModelException;
 import org.laniakeamly.poseidon.framework.model.SecurityManager;
 
-import java.io.File;
-import java.io.InputStream;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Modifier;
@@ -16,6 +15,7 @@ import java.lang.reflect.Proxy;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * Poseidon ORM Framework简写POF
@@ -24,29 +24,7 @@ import java.util.*;
  * @date 2019/11/12 0:10
  * @since 1.8
  */
-public final class PofUtils {
-
-    static final IOUtils IO_UTILS = new IOUtils();
-
-    /**
-     * Pof工具包下的IO工具包
-     */
-    public static class IOUtils{
-
-        /**
-         * 获取Resource文件夹下的文件
-         * @param name
-         * @return
-         */
-        public InputStream getResourceAsStream(String name){
-            return PofUtils.class.getClassLoader().getResourceAsStream(name);
-        }
-
-    }
-
-    public static IOUtils getIOUtils(){
-        return IO_UTILS;
-    }
+public final class POFUtils {
 
     /**
      * 驼峰转下划线
@@ -102,7 +80,7 @@ public final class PofUtils {
 
     private static void getModels(String basePackage, List<Class<?>> models) throws ClassNotFoundException {
         //扫描编译好的所有类路径
-        URL url = PofUtils.class.getResource("/" + basePackage.replaceAll("\\.", "/"));
+        URL url = POFUtils.class.getResource("/" + basePackage.replaceAll("\\.", "/"));
         if (url == null) return;
         //将url转换为文件类型
         File dir = new File(url.getFile());
@@ -134,7 +112,7 @@ public final class PofUtils {
 
     private static void getXMLs(String basePackage, List<File> files) {
         //扫描编译好的所有类路径
-        URL url = PofUtils.class.getResource("/" + basePackage.replaceAll("\\.", "/"));
+        URL url = POFUtils.class.getResource("/" + basePackage.replaceAll("\\.", "/"));
         if (url == null) return;
         //将url转换为文件类型
         File dir = new File(url.getFile());
@@ -259,7 +237,7 @@ public final class PofUtils {
      * @return
      */
     public static InputStream getResourceAsStrame(String name){
-        return PofUtils.class.getClassLoader().getResourceAsStream(name);
+        return POFUtils.class.getClassLoader().getResourceAsStream(name);
     }
 
 }

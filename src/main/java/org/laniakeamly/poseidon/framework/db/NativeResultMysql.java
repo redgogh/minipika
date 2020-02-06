@@ -3,7 +3,7 @@ package org.laniakeamly.poseidon.framework.db;
 import com.alibaba.fastjson.JSONObject;
 import org.laniakeamly.poseidon.framework.limit.Ignore;
 import org.laniakeamly.poseidon.framework.tools.Maps;
-import org.laniakeamly.poseidon.framework.tools.PofUtils;
+import org.laniakeamly.poseidon.framework.tools.POFUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.lang.reflect.Field;
@@ -75,7 +75,7 @@ public class NativeResultMysql implements NativeResult {
             model = target.newInstance();
             for (Field field : target.getDeclaredFields()) names.add(field.getName());
             for (Map.Entry<String, String> v : resultMap.entrySet()) {
-                String hump = PofUtils.UnderlineToHump(v.getKey());
+                String hump = POFUtils.UnderlineToHump(v.getKey());
                 if (!names.contains(hump)) continue;                                 // 判断Model中是否含有hump字段
                 Field field = target.getDeclaredField(hump);
                 if (field.isAnnotationPresent(Ignore.class)) continue;               // 判断字段是否存在Ignore注解
@@ -123,7 +123,7 @@ public class NativeResultMysql implements NativeResult {
             for (Map<String, String> resultMap : resultSet) {
                 T model = target.newInstance();
                 for (Map.Entry<String, String> v : resultMap.entrySet()) {
-                    String hump = PofUtils.UnderlineToHump(v.getKey());
+                    String hump = POFUtils.UnderlineToHump(v.getKey());
                     if (!names.contains(hump)) continue;                                 // 判断Model中是否含有hump字段
                     Field field = target.getDeclaredField(hump);
                     if (field.isAnnotationPresent(Ignore.class)) continue;               // 判断字段是否存在Ignore注解

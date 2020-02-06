@@ -3,7 +3,7 @@ package org.laniakeamly.poseidon;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
-import org.laniakeamly.poseidon.framework.tools.PofUtils;
+import org.laniakeamly.poseidon.framework.tools.POFUtils;
 import org.laniakeamly.poseidon.framework.tools.TimeUtils;
 import org.laniakeamly.poseidon.experiment.ProductModel;
 import org.laniakeamly.poseidon.experiment.UserModel;
@@ -68,7 +68,7 @@ public class Query {
             System.out.println("[执行查询]");
             String sql = "select * from kkb_user_model as u left join kkb_product_model as p on u.uuid = p.uuid where u.id = ?";
 
-            String uuid = PofUtils.uuid();
+            String uuid = POFUtils.uuid();
             UserModel userModel = new UserModel();
             userModel.setUserName(uuid);
             userModel.setGoogleEmail(uuid);

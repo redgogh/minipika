@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.cache;
 
 import org.laniakeamly.poseidon.framework.db.NativeResult;
-import org.laniakeamly.poseidon.framework.tools.PofUtils;
+import org.laniakeamly.poseidon.framework.tools.POFUtils;
 import org.laniakeamly.poseidon.framework.tools.SQLUtils;
 
 import java.util.ArrayList;
@@ -108,7 +108,7 @@ public class PoseidonCacheImpl implements PoseidonCache{
         for (Object arg : args) {
             values.add(arg.toString());
         }
-        return PofUtils.encryptToMd5(values.toString());
+        return POFUtils.encryptToMd5(values.toString());
     }
 
 }

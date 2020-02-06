@@ -7,7 +7,7 @@ import org.laniakeamly.poseidon.framework.sql.xml.ProvideConstant;
 import org.laniakeamly.poseidon.framework.sql.xml.token.Token;
 import org.laniakeamly.poseidon.framework.sql.xml.token.TokenValue;
 import org.laniakeamly.poseidon.framework.tools.NewlineBuilder;
-import org.laniakeamly.poseidon.framework.tools.PofUtils;
+import org.laniakeamly.poseidon.framework.tools.POFUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 import org.jdom2.Content;
 import org.jdom2.Document;
@@ -59,7 +59,7 @@ public class ReaderBuilderOld {
      * @return
      */
     private List<File> getBuilderXMLFiles() {
-        return PofUtils.getMapperXMLs();
+        return POFUtils.getMapperXMLs();
     }
 
     public void parseXML() throws Exception {

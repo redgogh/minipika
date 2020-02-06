@@ -6,7 +6,7 @@ import org.laniakeamly.poseidon.framework.config.Config;
 import org.laniakeamly.poseidon.framework.model.SecurityManager;
 import org.laniakeamly.poseidon.framework.model.Metadata;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
-import org.laniakeamly.poseidon.framework.tools.PofUtils;
+import org.laniakeamly.poseidon.framework.tools.POFUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -89,16 +89,16 @@ public class JdbcSupportImpl implements JdbcSupport {
             StringBuffer values = new StringBuffer(" values ");
             Class<?> target = obj.getClass();
             if (SecurityManager.existModel(target)) {
-                Model model = PofUtils.getModelAnnotation(target);
+                Model model = POFUtils.getModelAnnotation(target);
                 into.append("`").append(model.value()).append("`");
             }
             into.append("(");
             values.append("(");
-            List<Field> fields = PofUtils.getModelField(obj);
+            List<Field> fields = POFUtils.getModelField(obj);
             for (Field field : fields) {
                 Object v = field.get(obj);
                 if (v != null) {
-                    into.append("`").append(PofUtils.humpToUnderline(field.getName())).append("`,");
+                    into.append("`").append(POFUtils.humpToUnderline(field.getName())).append("`,");
                     values.append("?,");
                     param.add(v);
                 }
@@ -123,7 +123,7 @@ public class JdbcSupportImpl implements JdbcSupport {
     @Override
     public int count(Class<?> target) {
         if (SecurityManager.existModel(target)) {
-            String table = PofUtils.getModelAnnotation(target).value();
+            String table = POFUtils.getModelAnnotation(target).value();
             return count("select count(*) from ".concat(table));
         }
         return 0;
@@ -174,18 +174,18 @@ public class JdbcSupportImpl implements JdbcSupport {
             Class<?> target = obj.getClass();
             List<Object> params = new ArrayList<>();
             StringBuffer buffer = new StringBuffer("update ");
-            String table = PofUtils.getModelAnnotation(target).value();
+            String table = POFUtils.getModelAnnotation(target).value();
             buffer.append("`").append(table).append("` set ");
-            List<Field> fields = PofUtils.getModelField(obj);
+            List<Field> fields = POFUtils.getModelField(obj);
             for (Field field : fields) {
                 Object v = field.get(obj);
                 if (!bool) {
                     if (v != null) {
-                        buffer.append("`").append(PofUtils.humpToUnderline(field.getName())).append("` = ?, ");
+                        buffer.append("`").append(POFUtils.humpToUnderline(field.getName())).append("` = ?, ");
                         params.add(v);
                     }
                 } else {
-                    buffer.append("`").append(PofUtils.humpToUnderline(field.getName())).append("` = ?, ");
+                    buffer.append("`").append(POFUtils.humpToUnderline(field.getName())).append("` = ?, ");
                     params.add(v);
                 }
             }

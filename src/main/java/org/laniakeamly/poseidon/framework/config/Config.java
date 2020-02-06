@@ -1,15 +1,9 @@
 package org.laniakeamly.poseidon.framework.config;
 
 import com.alibaba.fastjson.JSONObject;
-import lombok.Getter;
-import org.laniakeamly.poseidon.extension.ConnectionPool;
 import org.laniakeamly.poseidon.framework.exception.runtime.ReadException;
-import org.laniakeamly.poseidon.framework.tools.Calculator;
-import org.laniakeamly.poseidon.framework.tools.PofUtils;
-import org.laniakeamly.poseidon.framework.tools.StringUtils;
-import org.laniakeamly.poseidon.framework.tools.TimeUtils;
+import org.laniakeamly.poseidon.framework.tools.*;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
@@ -67,7 +61,7 @@ public final class Config {
     private String dbname;
 
     // regular.json文件
-    private JSONObject regular;
+    private JSONObject regularJson;
 
     private static Config instance;
 
@@ -106,7 +100,9 @@ public final class Config {
             this.minSize = getValue("poseidon.connectionPool.minSize");
 
             // 获取字段约束配置文件路径
-            String regularJson = getValue("poseidon.regular.json");
+            String regularJsonName = getValue("poseidon.regular.json");
+            if(StringUtils.isEmpty(regularJsonName)) regularJsonName = "regular.json";
+            this.regularJson = PIOUtils.getResourceAsJson(regularJsonName);
 
 
             System.setProperty("jdbc.drivers", driver);
@@ -123,22 +119,17 @@ public final class Config {
 
     private String getValue(String v) {
         if (config == null) {
-            InputStream in = PofUtils.getIOUtils().getResourceAsStream(configPath);
-            configLoad(in);
+            configLoad();
         }
         return config.getProperty(v);
     }
 
 
-    private void configLoad(InputStream input) {
-        if (input == null)
+    private void configLoad() {
+        InputStream in = PIOUtils.getResourceAsStream(configPath);
+        if (in == null)
             throw new ReadException("cannot get config because config file path not exist \"" + configPath + "\"");
-        config = new Properties();
-        try {
-            config.load(input);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        config = PIOUtils.getResourceAsProperties(in);
     }
 
     public String getDbname() {
@@ -207,5 +198,6 @@ public final class Config {
     public String getMapperBasePackage() {
         return mapperPackage;
     }
+
 
 }
