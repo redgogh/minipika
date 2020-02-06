@@ -2,7 +2,7 @@ package org.laniakeamly.poseidon.framework.exception.runtime;
 
 /**
  * Model异常
- * Create by 2BKeyboard on 2020/1/15 1:57
+ * Copyright: Create by 2BKeyboard on 2020/1/15 1:57
  */
 public class ModelException extends RuntimeException {
 

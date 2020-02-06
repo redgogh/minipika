@@ -9,7 +9,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 /**
- * Create by 2BKeyboard on 2019/12/9 10:35
+ * Copyright: Create by 2BKeyboard on 2019/12/9 10:35
  */
 @Data
 @Model("wallet")

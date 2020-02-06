@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Create by 2BKeyboard on 2020/1/30 14:40
+ * Copyright: Create by 2BKeyboard on 2020/1/30 14:40
  */
 public class SQLUtils {
 

@@ -12,7 +12,7 @@ import java.sql.Connection;
  *
  * if you don't want use default connection pool.
  *
- * Create by 2BKeyboard on 2019/12/9 17:19
+ * Copyright: Create by 2BKeyboard on 2019/12/9 17:19
  */
 public interface ConnectionPool {
 

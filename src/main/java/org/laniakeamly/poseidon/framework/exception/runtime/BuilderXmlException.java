@@ -2,7 +2,7 @@ package org.laniakeamly.poseidon.framework.exception.runtime;
 
 /**
  * mapper xml文件异常
- * Create by 2BKeyboard on 2019/12/12 18:46
+ * Copyright: Create by 2BKeyboard on 2019/12/12 18:46
  */
 public class BuilderXmlException extends RuntimeException {
 

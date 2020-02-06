@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.util.*;
 
 /**
- * Create by 2BKeyboard on 2019/11/4 14:10
+ * Copyright: Create by 2BKeyboard on 2019/11/4 14:10
  */
 public final class Config {
 

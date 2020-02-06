@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 /**
  * 预编译处理
- * Create by 2BKeyboard on 2019/12/19 11:18
+ * Copyright: Create by 2BKeyboard on 2019/12/19 11:18
  */
 public class Precompiler {
 

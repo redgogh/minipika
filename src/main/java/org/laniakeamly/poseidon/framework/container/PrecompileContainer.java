@@ -7,7 +7,7 @@ import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
 import java.util.Map;
 
 /**
- * Create by 2BKeyboard on 2019/12/23 10:59
+ * Copyright: Create by 2BKeyboard on 2019/12/23 10:59
  */
 public class PrecompileContainer implements DynamicSQL {
 

@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Jdbc 支持
- * Create by 2BKeyboard on 2019/11/12 10:35
+ * Copyright: Create by 2BKeyboard on 2019/11/12 10:35
  */
 public class JdbcSupportImpl implements JdbcSupport {
 

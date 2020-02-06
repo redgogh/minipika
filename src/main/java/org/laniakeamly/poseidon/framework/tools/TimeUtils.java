@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Create by 2BKeyboard on 2019/12/7 0:54
+ * Copyright: Create by 2BKeyboard on 2019/12/7 0:54
  */
 public final class TimeUtils {
 

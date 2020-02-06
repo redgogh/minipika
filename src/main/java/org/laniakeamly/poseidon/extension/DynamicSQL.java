@@ -10,7 +10,7 @@ import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
  * dynamic sql if not config use default.
  * rule not limited but need dynamic sql conversion java code.
  *
- * Create by 2BKeyboard on 2019/12/28 2:57
+ * Copyright: Create by 2BKeyboard on 2019/12/28 2:57
  */
 public interface DynamicSQL extends Container {
 

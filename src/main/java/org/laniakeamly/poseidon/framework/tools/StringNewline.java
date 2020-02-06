@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 为了方便能够以行读取数据设计的String类
  *
- * Create by 2BKeyboard on 2019/12/11 23:16
+ * Copyright: Create by 2BKeyboard on 2019/12/11 23:16
  */
 abstract class StringNewline
         implements LineBuilder, Serializable {

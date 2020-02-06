@@ -4,7 +4,7 @@ import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 /**
  * 加载自定义配置文件
- * Create by 2BKeyboard on 2019/12/3 22:06
+ * Copyright: Create by 2BKeyboard on 2019/12/3 22:06
  */
 public class ManualConfig {
 

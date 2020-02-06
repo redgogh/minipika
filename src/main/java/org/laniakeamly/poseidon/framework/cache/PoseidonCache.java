@@ -3,7 +3,15 @@ package org.laniakeamly.poseidon.framework.cache;
 import org.laniakeamly.poseidon.framework.db.NativeResult;
 
 /**
- * Create by 2BKeyboard on 2019/12/9 23:10
+ *
+ * 缓存接口.
+ *
+ * Cache interface.
+ *
+ * Copyright: Create by 2BKeyboard on 2019/12/9 23:10
+ *
+ * @author TianSheng
+ * @since 1.8
  */
 public interface PoseidonCache {
 

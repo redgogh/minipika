@@ -2,7 +2,7 @@ package org.laniakeamly.poseidon.framework.db;
 
 /**
  * 分页插件
- * Create by 2BKeyboard on 2019/12/3 11:18
+ * Copyright: Create by 2BKeyboard on 2019/12/3 11:18
  */
 public class PageHelper extends NativePageHelper {
 

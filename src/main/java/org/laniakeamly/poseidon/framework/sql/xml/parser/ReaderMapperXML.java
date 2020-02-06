@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Create by 2BKeyboard on 2019/12/16 23:23
+ * Copyright: Create by 2BKeyboard on 2019/12/16 23:23
  */
 public class ReaderMapperXML {
 

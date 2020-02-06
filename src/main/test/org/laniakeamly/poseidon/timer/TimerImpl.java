@@ -3,7 +3,7 @@ package org.laniakeamly.poseidon.timer;
 import org.laniakeamly.poseidon.framework.timer.Timer;
 
 /**
- * Create by 2BKeyboard on 2019/12/6 21:53
+ * Copyright: Create by 2BKeyboard on 2019/12/6 21:53
  */
 public class TimerImpl implements Timer {
 

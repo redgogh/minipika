@@ -6,7 +6,7 @@ import org.laniakeamly.recycle.build.ParserMapperNode;
 /**
  * 加载mapper
  * 解析、生成等方法都在这个调用并返回
- * Create by 2BKeyboard on 2019/12/17 18:14
+ * Copyright: Create by 2BKeyboard on 2019/12/17 18:14
  */
 public class LoaderMapper {
 

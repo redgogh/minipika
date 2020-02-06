@@ -5,7 +5,7 @@ import net.sf.jsqlparser.JSQLParserException;
 import org.laniakeamly.poseidon.framework.tools.SQLUtils;
 
 /**
- * Create by 2BKeyboard on 2019/12/6 16:02
+ * Copyright: Create by 2BKeyboard on 2019/12/6 16:02
  */
 public class SQLParserExample {
 

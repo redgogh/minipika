@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 
 /**
  * 将CrudNode转换成Java代码
- * Create by 2BKeyboard on 2019/12/17 17:51
+ * Copyright: Create by 2BKeyboard on 2019/12/17 17:51
  */
 public class ParserCrudNode {
 

@@ -4,7 +4,7 @@ import org.laniakeamly.poseidon.framework.timer.Timer;
 import org.laniakeamly.poseidon.framework.tools.TimeUtils;
 
 /**
- * Create by 2BKeyboard on 2019/12/9 11:18
+ * Copyright: Create by 2BKeyboard on 2019/12/9 11:18
  */
 public class Timer1 implements Timer {
 

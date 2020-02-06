@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * if else value
- * Create by 2BKeyboard on 2019/12/18 3:33
+ * Copyright: Create by 2BKeyboard on 2019/12/18 3:33
  */
 public class IEValue {
 

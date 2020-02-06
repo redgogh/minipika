@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * xml mapper下的标签解析
- * Create by 2BKeyboard on 2019/12/17 0:17
+ * Copyright: Create by 2BKeyboard on 2019/12/17 0:17
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class MapperLabelParser implements MapperLabelParserService {

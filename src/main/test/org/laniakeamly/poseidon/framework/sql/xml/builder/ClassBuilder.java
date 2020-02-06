@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Create by 2BKeyboard on 2019/12/13 15:14
+ * Copyright: Create by 2BKeyboard on 2019/12/13 15:14
  */
 public class ClassBuilder extends StringNewline implements CodeBuilderFactory{
 

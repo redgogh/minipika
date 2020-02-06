@@ -5,7 +5,7 @@ import org.laniakeamly.poseidon.framework.limit.Model;
 import org.laniakeamly.poseidon.framework.limit.PrimaryKey;
 
 /**
- * Create by 2BKeyboard on 2020/1/11 2:57
+ * Copyright: Create by 2BKeyboard on 2020/1/11 2:57
  */
 @Model("te")
 public class Test {

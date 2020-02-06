@@ -23,7 +23,12 @@ import java.util.Map;
 
 /**
  * ioc容器对象
- * Create by 2BKeyboard on 2019/11/28 17:25
+ * 这个容器只适用于Poseidon
+ *
+ * ioc container object.
+ * this container just be applicable for poseidon.
+ *
+ * Copyright: Create by 2BKeyboard on 2019/11/28 17:25
  */
 public class BeansManager {
 

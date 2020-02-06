@@ -14,7 +14,27 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
- * Create by 2BKeyboard on 2019/12/4 20:25
+ *
+ * 默认缓存实现类
+ * 这个实现类使用Map存储数据，同时也是适用Map存储Key
+ *
+ * 为什么要用Map去存储{@link CacheKey}？
+ *      因为在更新的时候我们需要获取key中的表，然后对对应的缓存进行刷新。
+ *
+ * English:
+ *
+ * Cache implements class.
+ * this implements class use {@link Map} save data and use {@link Map} save key.
+ *
+ * why need {@link Map} save {@link CacheKey}?
+ *      because in update we need get tables in {@link CacheKey} then
+ *      refresh specify cache.
+ *
+ * Copyright: Create by 2BKeyboard on 2019/12/4 20:25
+ *
+ * @author TianSheng
+ * @since 1.8
+ *
  */
 public class PoseidonCacheImpl implements PoseidonCache{
 

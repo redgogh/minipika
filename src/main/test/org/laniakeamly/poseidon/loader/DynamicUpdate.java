@@ -9,7 +9,7 @@ import org.laniakeamly.poseidon.framework.loader.PoseidonClassLoader;
 import java.lang.reflect.Method;
 
 /**
- * Create by 2BKeyboard on 2019/12/19 10:24
+ * Copyright: Create by 2BKeyboard on 2019/12/19 10:24
  */
 public class DynamicUpdate {
 

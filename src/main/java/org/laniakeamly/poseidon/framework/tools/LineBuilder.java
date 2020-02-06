@@ -5,7 +5,7 @@ package org.laniakeamly.poseidon.framework.tools;
  * 已经有一个实现类了{@link StringNewline}
  * 不过这个实现类已经准备移除了,bug有点多,当前存在的意义就是只有参考
  *
- * Create by 2BKeyboard on 2019/12/17 11:48
+ * Copyright: Create by 2BKeyboard on 2019/12/17 11:48
  */
 public interface LineBuilder {
 

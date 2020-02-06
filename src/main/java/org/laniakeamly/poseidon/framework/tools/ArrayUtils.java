@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 /**
  * 数组工具类
- * Create by 2BKeyboard on 2019/12/13 18:36
+ * Copyright: Create by 2BKeyboard on 2019/12/13 18:36
  */
 public final class ArrayUtils {
 
