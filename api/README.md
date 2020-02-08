@@ -4,13 +4,13 @@
 
 # 配置文件搭建
 
-PoseidonFramework会自动扫描**resources**目录下的**poseidon.properties**,如果没有这个文件那么会报一个**ReadException**
+Poseidon Framework会自动扫描**resources**目录下的**poseidon.properties**,如果没有这个文件那么会报一个**ReadException**
 
-如果配置文件的文件名是自定义的，那么需要调用一个手动加载配置的方法**ManualConfig.load()**，示例如下:
+如果配置文件的文件名是自定义的，那么需要调用一个手动加载配置的方法**ConfigLoader.loadConfig()**，示例如下:
 
 ```java
 // 假设配置文件的名字叫做"newposeidon.properties"
-ManualConfig.load("newposeidon.properties");
+ConfigLoader.loadConfig("newposeidon.properties");
 ```
 
 这个需要在最开始就调用，比如springboot的启动类在启动前调用，或者tomcat的init等，需要在使用前调用。
@@ -21,7 +21,7 @@ ManualConfig.load("newposeidon.properties");
 #####################################
 ### 数据库属性
 #####################################
-poseidon.jdbc.url = jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+poseidon.jdbc.url = jdbc:mysql://127.0.0.1:3306/remotely?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
 poseidon.jdbc.driver = com.mysql.cj.jdbc.Driver
 poseidon.jdbc.username = root
 poseidon.jdbc.password = root
@@ -32,25 +32,34 @@ poseidon.jdbc.password = root
 poseidon.jdbc.transaction = true
 
 #####################################
-### 是否开启缓存，默认为false
+### 是否开启缓存
 #####################################
-poseidon.jdbc.cache = false
+poseidon.jdbc.cache = true
+
+#####################################
+### 缓存过期时间，以秒为单位，支持加减乘除表达式
+### 提供了时间变量可配合表达式使用
+### second（秒）、minute（分）、
+### hour（时）、day（天）、week（周）
+#####################################
+poseidon.jdbc.refresh = hour * 1
 
 #####################################
 ### 连接池大小
-### 默认最小连接为2个连接
-### 默认最大连接为6个连接
 #####################################
 poseidon.connectionPool.minSize = 2
 poseidon.connectionPool.maxSize = 90
 
-#####################################
-### 表名前缀，可为空
-#####################################
-poseidon.model.prefix = kkb
+# 前缀
+poseidon.model.prefix = heitui
+# model所在的包
+poseidon.model.package = com.raniaia.modules.provide.model
+# builder xml模板文件所在的路径
+poseidon.model.mapper = com.raniaia.modules.provide.model.mapper
 
-# 模型所在的包
-poseidon.model.package = com.poseidon.model.experiment
+# 配置regular.json文件路径
+poseidon.regular.json = regular.json
+
 
 ```
 
@@ -58,35 +67,29 @@ poseidon.model.package = com.poseidon.model.experiment
 
 # 模型映射
 
-> Poseidon提供了Table和Model之间的映射，创建表和新增字段的时候只需要在Model中新增即可。由TractoFramework来创建表，以及更新字段，不需要开发人员建立完表之后又去建立Model（索引需要手动建立）。
+> Poseidon提供了Table和Model之间的映射，创建表和新增字段的时候只需要在Model中新增即可。由框架来自动创建表，以及更新字段，不需要开发人员建立完表之后又去建立Model（索引需要手动建立）。
 
 **提供的注解**
 
 - @Model
-
-    **@Model**注解的范围在**TYPE**内，将注解放在类上即代表这是一个模型类。Model注解有两个参数分别为：**value**和**engine**，engine默认值为**InnoDB**
+> @Model注解的范围在**TYPE**内，将注解放在类上即代表这是一个模型类。@Model注解有三个参数分别为：**value**、**engine**、**increment**，它们分别代表名、引擎、自增长从多少开始。
 
 - @Ignore
-
-    **@Ignore**注解范围在**FIELD**内，将注解放在在字段上代表该字段不和数据库进行交互动作。
+> **@Ignore**注解范围在**FIELD**内，将注解放在在字段上代表该字段不和数据库进行交互动作。
 
 - @Column
-
-    **@Column**注解范围在**FIELD**内，代表字段的一些属性。参数为 **String value();** 假设我当前有个**private String name**字段，然后注解上传入参数 **@Column("varchar(255) not null")**。其实这就相当于省下了字段名。
+> **@Column**注解范围在**FIELD**内，代表字段的一些属性。参数为 **String value();** 假设我当前有个**private String name**字段，然后注解上传入参数 **@Column("varchar(255) not null")**。其实这就相当于省下了字段名。
 
 - @Increase
-
-    **@Increase**注解范围在**FIELD**内，代表被注解的字段会进行自增。
+> **@Increase**注解范围在**FIELD**内，代表被注解的字段会进行自增。
 
 - @Comment
-
-    **@Comment**字段注释
+> **@Comment**字段注释
 
 - @PrimaryKey
+> **@PrimaryKey**主键
 
-    **@PrimaryKey**主键
-
-具体Model的实现可以参考一下本项目下的[UserModel](https://github.com/PageNotFoundx/poseidon/blob/master/src/main/java/com/poseidon/model/experiment/UserModel.java)。
+具体Model的实现可以参考一下本项目下的 [ExampleModel](https://github.com/Laniakeamly/poseidon/blob/master/src/main/test/org/poseidon/experiment/ExampleModel.java)。
 
 当Model配置好了之后在启动时会自动创建表和字段。
 
@@ -96,27 +99,14 @@ poseidon.model.package = com.poseidon.model.experiment
 
 ### **获取JdbcSupport**
 
-如果你是**service**类的话推荐使用方式是继承**JdbcSupport**，示例：
+获取JdbcSupport需要通过框架提供的[BeansManager#getBean](https://github.com/Laniakeamly/poseidon/blob/master/src/main/java/org/laniakeamly/poseidon/framework/beans/BeansManager.java)对象来获取。
+
+示例：
 
 ```java
-public class UserServiceImpl 
-extends JdbcSupport implements UserService{
-    // 这里调用JdbcSupport中提供的API
-}
-```
-
-如果是测试类的话我推荐使用 **getTemplate()** 的方式来进行Jdbc操作，示例：
-
-```java
-public class Main{
-
-    // 获取JdbcSupport对象
-    static JdbcSupport jdbc = JdbcSupport.getTemplate();
-
-    public static void main(String[] args){
-      // 省略操作...
-    }
-    
+public class UserServiceImpl implements UserService{
+    // 获取JdbcSupport实例
+    JdbcSupport jdbc = BeansManager.getBean("jdbc");
 }
 ```
 
@@ -249,10 +239,125 @@ update其实非常简单，提供了一下三种方法：
 
 **insert**
 
-insert大致也一样，我这就不细讲了。
+至于insert的话都是一样，我这就不细讲了。
 
 ---
 
-# 结尾
+## 使用XML模板
 
-    至于其他的大家看看JdbcSupportService接口就明白了。
+> XML模板是Poseidon框架提供的一个动态SQL的功能，他能帮你简化代码以及管理。
+
+先看一个简单的动态SQL模板例子吧。
+
+例子：
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper name="findProductPric">
+    <select name="findProductName" result="math(BigDecimal)">
+        select product_amount from kkb_product_model where id = {{id}}
+    </select>
+</mapper>
+```
+这里面就可以看出来和MyBatis中的一些不同。比如我们的Result。这边的Result采用的不是全类名，我将他简化成了包名加类名。如果你要返回String结果那么使用lang(String)即可。
+
+如果result对象是Model呢？
+那就更简单了，比如我要return一个ProductModel。那么我们直接这样写即可：
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper name="findProductPric">
+    <select name="findProduct" result="ProductModel">
+        select * from kkb_product_model where id = {{id}}
+    </select>
+</mapper>
+```
+不需要加上全类名，因为在配置文件中我已经知道了你Model类放在哪个位置了。框架会自动帮你添加上。
+
+### if操作 
+
+> 要说动态SQL重要的是什么呢？那就是if这些操作。那么我们看下在这个框架if操作是如何实现的吧!
+
+假设我们这边要根据需求进行动态查询。
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper name="findProduct">
+    <select name="findProduct" result="ProductModel">
+        select * from kkb_product_model where 1=1
+        <if test="id != null">
+            and id = {{id}}
+        </if>
+        <if test="name != null">
+            and name = {{name}}
+        </if>
+        <if test="status != null">
+            and status = {{status}}
+        </if>
+    </select>
+</mapper>
+```
+这样就可以进行动态查询了，当然这种方式太繁琐了。我并不推荐大家用这种方法。poseidon还提供了一种更简单的方法。
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper name="findProduct">
+    <select name="findProduct" result="ProductModel">
+        select * from kkb_product_model where 1=1
+        <if test="$req != null">
+            <cond>and id = {{id}}</cond>
+            <cond>and name = {{name}}</cond>
+            <cond>and status = {{status}}</cond>
+        </if>
+    </select>
+</mapper>
+```
+如果需要使用else的话需要用choose标签
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper name="findProduct">
+    <select name="findProduct" result="ProductModel">
+        select * from kkb_product_model where 1=1
+        <choose>
+            <if test="$req != null">
+                <cond>and id = {{id}}</cond>
+                <cond>and name = {{name}}</cond>
+                <cond>and status = {{status}}</cond>
+            </if>
+            <else>
+                <cond>and id1 = {{id1}}</cond>
+                <cond>and name1 = {{name1}}</cond>
+                <cond>and status1 = {{status1}}</cond>
+            </else>
+        </choose>
+    </select>
+</mapper>
+```
+这个else中的cond是根据顺序的判断的，也就是说if第一个cond的else在else标签下也必须是第一个cond标签。
+
+### 批量插入
+```xml
+<insert name="insertUserModel">
+    INSERT INTO `user_model`(
+    `google_email`,
+    `password`,
+    `user_age`,
+    `uuid`,
+    `product_name`,
+    `create_time`,
+    `user_name`,
+    `address`
+    )
+    VALUES (
+    'c28a7745-7508-48a0-820e-a5cd14748d24',
+    '123456',
+    18,
+    'c28a7745-7508-48a0-820e-a5cd14748d24',
+    'c28a7745-7508-48a0-820e-a5cd14748d24',
+    '敌敌畏',
+    '2019-12-03 09:39:19',
+    ?,?,{{username}}
+    );
+    <foreach index="index" item="user" collections="users">
+        <parameter>{{user.userName}},{{user.address}}</parameter>
+    </foreach>
+</insert>
+```
+这里使用foreach即可，需要注意的是参数需要加上问号，然后在foreach内部使用parameter标签将参数放到parameter标签中用逗号隔开即可。
