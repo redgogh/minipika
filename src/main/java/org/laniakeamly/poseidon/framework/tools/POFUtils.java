@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.tools;
 
-import org.laniakeamly.poseidon.framework.limit.Ignore;
-import org.laniakeamly.poseidon.framework.limit.Model;
+import org.laniakeamly.poseidon.framework.annotation.Ignore;
+import org.laniakeamly.poseidon.framework.annotation.Model;
 import org.laniakeamly.poseidon.framework.config.Config;
 import org.laniakeamly.poseidon.framework.exception.PoseidonException;
 import org.laniakeamly.poseidon.framework.exception.runtime.ModelException;
@@ -15,7 +15,6 @@ import java.lang.reflect.Proxy;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.util.*;
-import java.util.regex.Pattern;
 
 /**
  * Poseidon ORM Framework简写POF
@@ -229,15 +228,6 @@ public final class POFUtils {
             // 一般newInstance异常都是没有声明无参构造器造成的。
             throw new ModelException("model newInstance error: please check your model does it exist No-argument constructor.");
         }
-    }
-
-    /**
-     * 获取resource目录下的文件
-     * @param name
-     * @return
-     */
-    public static InputStream getResourceAsStrame(String name){
-        return POFUtils.class.getClassLoader().getResourceAsStream(name);
     }
 
 }

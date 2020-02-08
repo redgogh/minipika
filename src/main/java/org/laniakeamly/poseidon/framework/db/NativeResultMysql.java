@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.db;
 
 import com.alibaba.fastjson.JSONObject;
-import org.laniakeamly.poseidon.framework.limit.Ignore;
+import org.laniakeamly.poseidon.framework.annotation.Ignore;
 import org.laniakeamly.poseidon.framework.tools.Maps;
 import org.laniakeamly.poseidon.framework.tools.POFUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;

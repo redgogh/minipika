@@ -1,26 +1,24 @@
 package org.poseidon.experiment;
 
+import lombok.Data;
 import org.laniakeamly.poseidon.framework.annotation.Column;
-import org.laniakeamly.poseidon.framework.annotation.Comment;
 import org.laniakeamly.poseidon.framework.annotation.Model;
 import org.laniakeamly.poseidon.framework.annotation.PrimaryKey;
-import lombok.Data;
-
-import java.math.BigDecimal;
+import org.laniakeamly.poseidon.framework.annotation.Regular;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/9 10:35
+ * Copyright: Create by TianSheng on 2020/1/11 2:57
  */
+@Model("test_model")
 @Data
-@Model("wallet")
-public class WalletModel {
+public class TestModel {
 
     @PrimaryKey
     @Column("int(11) not null")
     private Long id;
 
-    @Column("decimal(10,3) not null")
-    @Comment("金额")
-    private BigDecimal amount;
+    @Regular("email")
+    @Column("varchar(255) not null")
+    private String email;
 
 }

@@ -1,8 +1,9 @@
 package org.laniakeamly.poseidon.framework.db;
 
-import org.laniakeamly.poseidon.framework.limit.Model;
-import org.laniakeamly.poseidon.framework.limit.Valid;
+import org.laniakeamly.poseidon.framework.annotation.Model;
+import org.laniakeamly.poseidon.framework.annotation.Valid;
 import org.laniakeamly.poseidon.framework.config.Config;
+import org.laniakeamly.poseidon.framework.model.AbstractModel;
 import org.laniakeamly.poseidon.framework.model.SecurityManager;
 import org.laniakeamly.poseidon.framework.model.Metadata;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
@@ -83,6 +84,7 @@ public class JdbcSupportImpl implements JdbcSupport {
 
     @Override
     public int insert(Object obj) {
+        if (!AbstractModel.getCanSave(obj)) return 0;
         List<Object> param = new ArrayList<>();
         try {
             StringBuffer into = new StringBuffer("insert into ");
@@ -159,7 +161,7 @@ public class JdbcSupportImpl implements JdbcSupport {
 
     @Override
     public int[] executeBatch(String[] sql, List<Object[]> args) {
-        return nativeJdbc.executeBatch(sql,args);
+        return nativeJdbc.executeBatch(sql, args);
     }
 
     @Override
@@ -171,6 +173,7 @@ public class JdbcSupportImpl implements JdbcSupport {
     // 是否更新为NULL的字段是否更新为NULL的字段
     private int update(Object obj, boolean bool) {
         try {
+            if (!AbstractModel.getCanSave(obj)) return 0;
             Class<?> target = obj.getClass();
             List<Object> params = new ArrayList<>();
             StringBuffer buffer = new StringBuffer("update ");

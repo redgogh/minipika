@@ -70,9 +70,6 @@ public class ConnectionPool implements org.laniakeamly.poseidon.extension.Connec
                 for (int i = 0; i < MIN_SIZE; i++) {
                     conns.add(createConnection());
                 }
-                // 当连接创建开始初始化
-                LoaderModel init = new LoaderModel();
-                init.run();
             } catch (Exception e) {
                 e.printStackTrace();
             }

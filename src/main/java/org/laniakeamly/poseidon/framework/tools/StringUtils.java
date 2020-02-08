@@ -30,7 +30,7 @@ public final class StringUtils {
         return s.length() == 0 || "".equals(s) || " ".equals("");
     }
 
-    public static boolean isNull(String input){
+    public static boolean isNull(String input) {
         return "null".equals(input);
     }
 
@@ -59,7 +59,7 @@ public final class StringUtils {
      * @param v
      * @return
      */
-    public static boolean isNumber(String v){
+    public static boolean isNumber(String v) {
         Pattern pattern = Pattern.compile("[0-9]*");
         return pattern.matcher(v).matches();
     }
@@ -69,16 +69,16 @@ public final class StringUtils {
      * @param v
      * @return
      */
-    public static String getFirstCharacter(String v){
-        return v.substring(0,1);
+    public static String getFirstCharacter(String v) {
+        return v.substring(0, 1);
     }
 
     /**
      * 清空StringBuilder
      * @param builder
      */
-    public static void clear(StringBuilder builder){
-        builder.delete(0,builder.length());
+    public static void clear(StringBuilder builder) {
+        builder.delete(0, builder.length());
     }
 
     /**
@@ -86,7 +86,7 @@ public final class StringUtils {
      *
      * @param v         源字符串
      * @param find      需要查找的字符串
-     * @return          数组 0=开始位置 1=结束位置
+     * @return 数组 0=开始位置 1=结束位置
      */
     public static int[] getStartAndEndIndex(String v, String find) {
         int start = -1; // 开始下标
@@ -137,9 +137,9 @@ public final class StringUtils {
                 System.arraycopy(chars, offset + 2, temp, 0, temp.length);
                 // reset
                 chars = temp;
-                subscript ++;
-                i        = 0;
-                offset   = 0;
+                subscript++;
+                i = 0;
+                offset = 0;
             } else {
                 previous = current;
             }
@@ -152,17 +152,45 @@ public final class StringUtils {
      * @param text
      * @return
      */
-    public static String trim(String text){
+    public static String trim(String text) {
         StringBuilder content = new StringBuilder();
         StringTokenizer tokenizer = new StringTokenizer(text);
-        while(tokenizer.hasMoreTokens()){
+        while (tokenizer.hasMoreTokens()) {
             String str = tokenizer.nextToken();
             content.append(str);
-            if(tokenizer.hasMoreTokens()){
+            if (tokenizer.hasMoreTokens()) {
                 content.append(" ");
             }
         }
         return content.toString();
+    }
+
+    /**
+     * 对某个字母转换成大写
+     * @param index
+     * @return
+     */
+    public static String UpperCase(String input, int index) {
+        StringBuilder builder = new StringBuilder(input);
+        String value = new String(new char[]{input.charAt(index-1)}).toUpperCase();
+        builder.replace(0, 1,value);
+        return builder.toString();
+    }
+
+    /**
+     * 对某个字母转换成小写
+     * @param index
+     * @return
+     */
+    public static String LowerCase(String input, int index) {
+        StringBuilder builder = new StringBuilder(input);
+        String value = new String(new char[]{input.charAt(index-1)}).toLowerCase();
+        builder.replace(0, 1,value);
+        return builder.toString();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(UpperCase("productName", 1));
     }
 
 }

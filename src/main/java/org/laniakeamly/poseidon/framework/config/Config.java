@@ -2,6 +2,7 @@ package org.laniakeamly.poseidon.framework.config;
 
 import com.alibaba.fastjson.JSONObject;
 import org.laniakeamly.poseidon.framework.exception.runtime.ReadException;
+import org.laniakeamly.poseidon.framework.model.LoaderModel;
 import org.laniakeamly.poseidon.framework.tools.*;
 
 import java.io.InputStream;
@@ -79,6 +80,9 @@ public final class Config {
         }
         initConfig();
         instance = this;
+        // 当配置文件第一次加载时初始化
+        LoaderModel init = new LoaderModel();
+        init.run();
     }
 
     /**
@@ -102,7 +106,7 @@ public final class Config {
 
             // 获取字段约束配置文件路径
             String regularJsonName = getValue("poseidon.regular.json");
-            if(StringUtils.isEmpty(regularJsonName)) regularJsonName = "regular.json";
+            if (StringUtils.isEmpty(regularJsonName)) regularJsonName = "regular.json";
             this.regularJson = PIOUtils.getResourceAsJson(regularJsonName);
 
 
@@ -205,11 +209,11 @@ public final class Config {
      * @param name
      * @return
      */
-    public String getRegular(String name){
+    public String getRegular(String name) {
         return (String) this.regularJson.get(name);
     }
 
-    public Pattern getPatternForRegularJson(String name){
+    public Pattern getPatternForRegularJson(String name) {
         return RegularUtils.getInstanceSave().getPattern(getRegular(name));
     }
 

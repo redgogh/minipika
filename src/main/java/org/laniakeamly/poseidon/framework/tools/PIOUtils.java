@@ -23,7 +23,7 @@ public class PIOUtils {
      * @return
      */
     public static InputStream getResourceAsStream(String name){
-        return POFUtils.class.getClassLoader().getResourceAsStream(name);
+        return PIOUtils.class.getClassLoader().getResourceAsStream(name);
     }
 
     /**

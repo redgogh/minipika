@@ -15,7 +15,7 @@
 
     <groupId>io.github.laniakeamly</groupId>
     <artifactId>poseidon</artifactId>
-    <version>1.1.0.A380</version>
+    <version>1.1.1.BETA</version>
     <packaging>jar</packaging>
 
     <licenses>
@@ -67,60 +67,40 @@
     </properties>
 
     <dependencies>
-        <!-- mysql 连接驱动 -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.connector.version}</version>
         </dependency>
-        <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
         </dependency>
-        <!-- fastjson -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
-        <!-- sql解析 -->
         <dependency>
             <groupId>com.github.jsqlparser</groupId>
             <artifactId>jsqlparser</artifactId>
             <version>3.1</version>
         </dependency>
-        <!-- xml解析 -->
         <dependency>
             <groupId>org.jdom</groupId>
             <artifactId>jdom2</artifactId>
             <version>${jdom.version}</version>
         </dependency>
-        <!-- 字节码操作工具 -->
         <dependency>
             <groupId>javassist</groupId>
             <artifactId>javassist</artifactId>
             <version>${javassist.version}</version>
         </dependency>
-        <!-- junit测试 -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13-rc-2</version>
-            <!--<scope>test</scope>-->
-        </dependency>
-        <!-- kotlin支持 -->
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test</artifactId>
-            <version>${kotlin.version}</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -221,13 +201,21 @@
                             <goals>deploy</goals>
                         </configuration>
                     </plugin>
+
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-compiler-plugin</artifactId>
-                        <version>3.0</version>
+                        <version>3.7.0</version>
                         <configuration>
                             <source>1.8</source>
                             <target>1.8</target>
+                            <encoding>UTF-8</encoding>
+                            <compilerArgument>-proc:none</compilerArgument>
+                            <!--<annotationProcessors>
+                                <annotationProcessor>
+                                    org.laniakeamly.poseidon.framework.processor.RegularProcessor
+                                </annotationProcessor>
+                            </annotationProcessors>-->
                         </configuration>
                     </plugin>
                     <plugin>

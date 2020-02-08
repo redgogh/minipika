@@ -1,7 +1,7 @@
 package org.poseidon.experiment;
 
 import lombok.Data;
-import org.laniakeamly.poseidon.framework.limit.*;
+import org.laniakeamly.poseidon.framework.annotation.*;
 
 /**
  * @author TianSheng
@@ -17,10 +17,12 @@ public class ProductModel {
     @PrimaryKey
     private Long id;
 
+    @Regular("regular-dev-test")
     @Column("varchar(255) not null")
     @Comment("产品名称")
     private String productName;
 
+    @Regular("regular-dev-test")
     @Column("varchar(255) not null")
     private String uuid;
 

@@ -4,7 +4,7 @@ package org.laniakeamly.poseidon.framework.model;
 import org.laniakeamly.poseidon.framework.exception.PoseidonException;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 import org.laniakeamly.poseidon.framework.tools.POFUtils;
-import org.laniakeamly.poseidon.framework.limit.*;
+import org.laniakeamly.poseidon.framework.annotation.*;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -130,6 +130,8 @@ public class ParserModel {
     public void parse(List<Class<?>> list) {
         try {
             for (Class<?> target : list) {
+                if(!target.isAnnotationPresent(Model.class))
+                    continue;
                 Metadata metadata = enhance(target);
                 Metadata.putAttribute(metadata.getTableName(), metadata);
             }

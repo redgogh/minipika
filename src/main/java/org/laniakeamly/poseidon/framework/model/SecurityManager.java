@@ -1,6 +1,6 @@
 package org.laniakeamly.poseidon.framework.model;
 
-import org.laniakeamly.poseidon.framework.limit.Model;
+import org.laniakeamly.poseidon.framework.annotation.Model;
 
 /**
  * 检查一些类是否遵守标准

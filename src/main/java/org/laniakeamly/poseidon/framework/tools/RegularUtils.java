@@ -1,5 +1,6 @@
 package org.laniakeamly.poseidon.framework.tools;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -19,22 +20,26 @@ public class RegularUtils {
     private static RegularUtils INSTANCE = null;
     private static RegularUtils INSTANCE_SAVE = null;
 
-    public RegularUtils(){}
-
-    public RegularUtils(boolean IS_INSTANCE){
-        this.IS_INSTANCE = IS_INSTANCE;
+    public RegularUtils() {
     }
 
-    public static RegularUtils getInstance(){
-        if(INSTANCE == null){
-            INSTANCE = new RegularUtils(false);
+    public RegularUtils(boolean IS_INSTANCE) {
+        this.IS_INSTANCE = IS_INSTANCE;
+        if(!IS_INSTANCE){
+            patternMap = new HashMap<>();
+        }
+    }
+
+    public static RegularUtils getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new RegularUtils(true);
         }
         return INSTANCE;
     }
 
-    public static RegularUtils getInstanceSave(){
-        if(INSTANCE_SAVE == null){
-            INSTANCE_SAVE = new RegularUtils(true);
+    public static RegularUtils getInstanceSave() {
+        if (INSTANCE_SAVE == null) {
+            INSTANCE_SAVE = new RegularUtils(false);
         }
         return INSTANCE_SAVE;
     }
@@ -46,8 +51,9 @@ public class RegularUtils {
      * @return
      */
     public boolean matches(String value, String regex) {
+        if (StringUtils.isEmpty(regex)) return false;
         Pattern pattern = null;
-        if (IS_INSTANCE) {
+        if (!IS_INSTANCE) {
             pattern = patternMap.get(regex);
             if (pattern == null) {
                 pattern = Pattern.compile(regex);
@@ -57,8 +63,8 @@ public class RegularUtils {
         return pattern.matcher(value).matches();
     }
 
-    public Pattern getPattern(String regex){
-        if(patternMap == null) return null;
+    public Pattern getPattern(String regex) {
+        if (patternMap == null) return null;
         return patternMap.get(regex);
     }
 

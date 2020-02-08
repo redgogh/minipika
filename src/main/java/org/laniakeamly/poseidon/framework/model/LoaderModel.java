@@ -1,9 +1,8 @@
 package org.laniakeamly.poseidon.framework.model;
 
 import com.alibaba.fastjson.JSONObject;
-import javassist.ClassPool;
 import org.laniakeamly.poseidon.framework.config.Config;
-import org.laniakeamly.poseidon.framework.limit.Model;
+import org.laniakeamly.poseidon.framework.annotation.Model;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.exception.PoseidonException;
@@ -41,18 +40,23 @@ public class LoaderModel {
      * start
      * @throws PoseidonException
      */
-    public void run() throws PoseidonException {
-        ClassPool classPool = new ClassPool(true);
-        loadModel();
-        loadColumn();
+    public void run() {
+        try {
+            RegularProcessor processor = new RegularProcessor(Config.getInstance().getModelPackage());
+            processor.modifySetter();
+            loadModel();
+            loadColumn();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * 解析model
      */
     public void loadModel() {
-        ParserModel getterModel = new ParserModel();
-        getterModel.parse(POFUtils.getModels());
+        ParserModel parserModel = new ParserModel();
+        parserModel.parse(POFUtils.getModels());
         Map<String, Metadata> messages = Metadata.getAttribute();
         Iterator iter = messages.entrySet().iterator();
         while (iter.hasNext()) {
@@ -112,7 +116,7 @@ public class LoaderModel {
                 }
 
             } else {
-                throw new PoseidonException("No @Model");
+                throw new PoseidonException(target.getName() + " no @Model");
             }
         }
     }
