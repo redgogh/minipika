@@ -47,6 +47,9 @@ public final class Config {
     // model包路径
     private String modelPackage;
 
+    // mapper模板文件存放位置
+    private String mapperPackage;
+
     // 是否开启事物
     private String transaction;
 
@@ -55,9 +58,6 @@ public final class Config {
 
     // 缓存过期时间
     private String refresh;
-
-    // pte模板文件存放位置
-    private String mapperPackage;
 
     // 数据库名
     private String dbname;
@@ -122,11 +122,24 @@ public final class Config {
         }
     }
 
-    private String getValue(String v) {
+    private String getValue(String key) {
         if (config == null) {
             configLoad();
         }
-        return config.getProperty(v);
+        return config.getProperty(key);
+    }
+
+    private String[] getValueArray(String key){
+        int index = 0;
+        List<String> list = new ArrayList<>();
+        while(true){
+            String value = getValue(key.concat("[").concat(String.valueOf(index)).concat("]"));
+            if(StringUtils.isEmpty(value)){
+                break;
+            }
+            list.add(value);
+        }
+        return (String[]) list.toArray();
     }
 
 

@@ -36,10 +36,10 @@ public class PoseidonClassPool extends ClassPool {
      */
     public CtClass[] getCtClassArray(String packageName) {
         List<String> classpathList = new ArrayList<>();
-        getFile(packageName,classpathList);
+        getFile(packageName, classpathList);
         CtClass[] ctClasses = new CtClass[classpathList.size()];
-        for (int i=0,len=classpathList.size(); i<len; i++) {
-            ctClasses[i] = createCtClass(classpathList.get(i),true);
+        for (int i = 0, len = classpathList.size(); i < len; i++) {
+            ctClasses[i] = createCtClass(classpathList.get(i), true);
         }
         return ctClasses;
     }

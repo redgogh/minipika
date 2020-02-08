@@ -70,7 +70,7 @@ public final class POFUtils {
         List<Class<?>> models = new LinkedList<>();
         String basePackage = Config.getInstance().getModelPackage();
         try {
-            getModels(basePackage, models);
+                getModels(basePackage, models);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

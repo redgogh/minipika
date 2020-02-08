@@ -13,11 +13,11 @@ import org.laniakeamly.poseidon.framework.tools.StringUtils;
  * @version 1.0.0
  * @since 1.8
  */
-public class ManualConfig {
+public class ConfigLoader {
 
-    private ManualConfig(){}
+    private ConfigLoader(){}
 
-    public static void load(String configPath){
+    public static void loadConfig(String configPath){
         if(StringUtils.isEmpty(configPath))
             throw new NullPointerException("config path cannot null");
         new Config(configPath);
