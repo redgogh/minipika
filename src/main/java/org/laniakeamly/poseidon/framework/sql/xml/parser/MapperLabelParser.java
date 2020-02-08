@@ -49,7 +49,7 @@ public class MapperLabelParser implements MapperLabelParserService {
             ieNode.addAttribute(ProvideConstant.IF_TEST, test);
         }
         List<Content> conditions = element.getContent();
-        int onenessCount = 0;
+        int condCount = 0;
         for (Content condition : conditions) {
             // 文本
             if (condition.getCType() == Content.CType.Text) {
@@ -61,11 +61,11 @@ public class MapperLabelParser implements MapperLabelParserService {
             }
             // 标签
             if (condition.getCType() == Content.CType.Element) {
-                Element onenessElement = ((Element) condition);
-                XMLNode oneness = new XMLNode(onenessElement.getName(), util.trim(onenessElement.getValue()));
-                oneness.addAttribute(ProvideConstant.ONENESS_ATTRIBUTE_KEY,String.valueOf(onenessCount));
-                onenessCount++;
-                ieNode.addChild(oneness);
+                Element condElement = ((Element) condition);
+                XMLNode cond = new XMLNode(condElement.getName(), util.trim(condElement.getValue()));
+                cond.addAttribute(ProvideConstant.COND_ATTRIBUTE_KEY,String.valueOf(condCount));
+                condCount++;
+                ieNode.addChild(cond);
             }
         }
         return ieNode;

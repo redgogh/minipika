@@ -76,9 +76,9 @@ public class ParserCrudNode {
             }
 
             //
-            // oneness
+            // cond
             //
-            if(ProvideConstant.ONENESS.equals(node.getName())){
+            if(ProvideConstant.COND.equals(node.getName())){
 
             }
 

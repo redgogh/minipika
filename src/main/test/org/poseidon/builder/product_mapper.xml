@@ -11,8 +11,8 @@
     <select name="findProduct" result="ProductModel">
         select * from kkb_product_model where id = {{id}}
         <if test="$req != null">
-            <oneness>and product_name = {{productName}}</oneness>
-            <oneness>and uuid = {{uuid}}</oneness>
+            <cond>and product_name = {{productName}}</cond>
+            <cond>and uuid = {{uuid}}</cond>
         </if>
     </select>
 

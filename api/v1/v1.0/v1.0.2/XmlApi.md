@@ -21,7 +21,7 @@ mapper xml目前提供了以下标签：
 - if
 - else
 - foreach
-- oneness
+- cond
 
 # mapper
 
@@ -136,13 +136,13 @@ select *
 from user
 where 1=1
 <if test="$req != null">
-    <oneness>and username = {{username}}</oneness>
-    <oneness>and password = {{password}}</oneness>
-    <oneness>and userAge = {{userAge}}</oneness>
-    <oneness>and userFriendId = {{userFriendId}}</oneness>
+    <cond>and username = {{username}}</cond>
+    <cond>and password = {{password}}</cond>
+    <cond>and userAge = {{userAge}}</cond>
+    <cond>and userFriendId = {{userFriendId}}</cond>
 </if>
 ```
-这样就实现了和上面Java代码一毛一样的功能。是不是很简单。"$req"代表的是所有oneness标签中的参数，如果有添加$req那么就代表给这些oneness标签添加了一个逻辑判断。
+这样就实现了和上面Java代码一毛一样的功能。是不是很简单。"$req"代表的是所有cond标签中的参数，如果有添加$req那么就代表给这些cond标签添加了一个逻辑判断。
 
 大家这边肯定就有一个问题了，那我else怎么写？莫慌，else需要在choose标签中编写。
 ```xml
@@ -151,21 +151,21 @@ from user
 where 1=1
 <choose>
     <if test="$req != null">
-        <oneness>and username = {{username}}</oneness>
-        <oneness>and password = {{password}}</oneness>
-        <oneness>and userAge = {{userAge}}</oneness>
-        <oneness>and userFriendId = {{userFriendId}}</oneness>
+        <cond>and username = {{username}}</cond>
+        <cond>and password = {{password}}</cond>
+        <cond>and userAge = {{userAge}}</cond>
+        <cond>and userFriendId = {{userFriendId}}</cond>
     </if>
     <else>
-        <oneness>and username = 'zs'</oneness>
-        <oneness>and password = 'ls'</oneness>
-        <oneness>and userAge = '18'</oneness>
-        <oneness>and userFriendId = '001'</oneness>
+        <cond>and username = 'zs'</cond>
+        <cond>and password = 'ls'</cond>
+        <cond>and userAge = '18'</cond>
+        <cond>and userFriendId = '001'</cond>
     <else>
 </choose>
 ```
 
-这个else中的oneness是根据顺序的判断的，也就是说if第一个oneness的else在else标签下也必须是第一个oneness标签。
+这个else中的cond是根据顺序的判断的，也就是说if第一个cond的else在else标签下也必须是第一个cond标签。
 
 ---
 

@@ -76,9 +76,9 @@ public class ParserCrudNode {
             }
 
             //
-            // oneness
+            // cond
             //
-            if (ProvideConstant.ONENESS.equals(node.getName())) {
+            if (ProvideConstant.COND.equals(node.getName())) {
                 if (ProvideConstant.IF.equals(node.getParent().getName())) {
                     addByIf(node, dynamic);
                 }
@@ -175,17 +175,17 @@ public class ParserCrudNode {
         dynamic.append(ProvideConstant.sqlAppendProcess(content));
         dynamic.append("}");
 
-        // 如果当前节点是oneness,就从父节点查找匹配的else
-        if (ProvideConstant.ONENESS.equals(node.getName())) {
+        // 如果当前节点是cond,就从父节点查找匹配的else
+        if (ProvideConstant.COND.equals(node.getName())) {
             XMLNode chooseParent = node.getParent().getParent();
             if (chooseParent != null) {
                 List<XMLNode> nodes = chooseParent.getChildren();
                 if (nodes.size() == 2) {
                     XMLNode elseNode = nodes.get(1);
                     List<XMLNode> elseChildren = elseNode.getChildren();
-                    String attributeIdValue = node.getAttribute(ProvideConstant.ONENESS_ATTRIBUTE_KEY);
+                    String attributeIdValue = node.getAttribute(ProvideConstant.COND_ATTRIBUTE_KEY);
                     for (XMLNode child : elseChildren) {
-                        if (attributeIdValue.equals(child.getAttribute(ProvideConstant.ONENESS_ATTRIBUTE_KEY))) {
+                        if (attributeIdValue.equals(child.getAttribute(ProvideConstant.COND_ATTRIBUTE_KEY))) {
                             addByElse(child.getContent(), dynamic);
                         }
                     }
