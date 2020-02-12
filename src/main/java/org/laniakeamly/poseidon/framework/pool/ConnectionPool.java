@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.pool;
 
-import org.laniakeamly.poseidon.framework.config.Config;
-import org.laniakeamly.poseidon.framework.model.LoaderModel;
+import org.laniakeamly.poseidon.framework.config.GlobalConfig;
+import org.laniakeamly.poseidon.framework.config.PropertiesConfig;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -47,7 +47,7 @@ public class ConnectionPool implements org.laniakeamly.poseidon.extension.Connec
 
     private static Set<Connection> conns = new LinkedHashSet<>();
 
-    private static final Boolean transaction = Config.getInstance().getTransaction();
+    private static final Boolean transaction = GlobalConfig.getConfig().getTransaction();
 
     // 创建连接
     private static Properties info = new Properties();
@@ -59,13 +59,13 @@ public class ConnectionPool implements org.laniakeamly.poseidon.extension.Connec
             try {
                 isInit = true;
                 // 设置最小值和最大值
-                MIN_SIZE = Config.getInstance().getMinSize();
-                MAX_SIZE = Config.getInstance().getMaxSize();
+                MIN_SIZE = GlobalConfig.getConfig().getMinSize();
+                MAX_SIZE = GlobalConfig.getConfig().getMaxSize();
                 // 设置属性
-                info.setProperty("user", Config.getInstance().getUsername());
-                info.setProperty("password", Config.getInstance().getPassword());
+                info.setProperty("user", GlobalConfig.getConfig().getUsername());
+                info.setProperty("password", GlobalConfig.getConfig().getPassword());
                 // URL
-                jdbcUrl = Config.getInstance().getUrl();
+                jdbcUrl = GlobalConfig.getConfig().getUrl();
                 // 初始化连接对象
                 for (int i = 0; i < MIN_SIZE; i++) {
                     conns.add(createConnection());

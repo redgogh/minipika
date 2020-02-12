@@ -2,7 +2,8 @@ package org.laniakeamly.poseidon.framework.tools;
 
 import org.laniakeamly.poseidon.framework.annotation.Ignore;
 import org.laniakeamly.poseidon.framework.annotation.Model;
-import org.laniakeamly.poseidon.framework.config.Config;
+import org.laniakeamly.poseidon.framework.config.GlobalConfig;
+import org.laniakeamly.poseidon.framework.config.PropertiesConfig;
 import org.laniakeamly.poseidon.framework.exception.PoseidonException;
 import org.laniakeamly.poseidon.framework.exception.runtime.ModelException;
 import org.laniakeamly.poseidon.framework.model.SecurityManager;
@@ -68,9 +69,11 @@ public final class POFUtils {
      */
     public static List<Class<?>> getModels() {
         List<Class<?>> models = new LinkedList<>();
-        String basePackage = Config.getInstance().getModelPackage();
+        String[] basePackages = GlobalConfig.getConfig().getModelPackage();
         try {
+            for (String basePackage : basePackages) {
                 getModels(basePackage, models);
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -104,7 +107,7 @@ public final class POFUtils {
      */
     public static List<File> getMapperXMLs() {
         List<File> mappers = new LinkedList<>();
-        String basePackage = Config.getInstance().getMapperBasePackage();
+        String basePackage = GlobalConfig.getConfig().getMapperBasePackage();
         getXMLs(basePackage, mappers);
         return mappers;
     }
@@ -145,7 +148,7 @@ public final class POFUtils {
     public static Model getModelAnnotation(Class<?> target) {
         try {
             if (SecurityManager.existModel(target)) {
-                String prefix = Config.getInstance().getTablePrefix();
+                String prefix = GlobalConfig.getConfig().getTablePrefix();
                 Model anno = target.getDeclaredAnnotation(Model.class);
                 String value = anno.value();
                 if (!StringUtils.isEmpty(prefix)) {
@@ -154,7 +157,7 @@ public final class POFUtils {
                         Field values = invocationHandler.getClass().getDeclaredField("memberValues");
                         values.setAccessible(true);
                         Map memberValues = (Map) values.get(invocationHandler);
-                        memberValues.put("value", Config.getInstance().getTablePrefix() + "_" + value);
+                        memberValues.put("value", GlobalConfig.getConfig().getTablePrefix() + "_" + value);
                     }
                 }
                 return anno;

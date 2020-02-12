@@ -20,7 +20,7 @@ import java.lang.reflect.Field;
  */
 public class LoaderModel {
 
-    private String path = "org.poseidon.experiment";
+    private String[] path = {"org.poseidon.experiment"};
 
     @Test
     public void modifyMethod() throws Exception {

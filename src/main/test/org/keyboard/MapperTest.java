@@ -40,4 +40,12 @@ public class MapperTest {
 
     }
 
+    @Test
+    public void query(){
+        SqlExecute execute = mapper.build("findProductByUUID", map -> {
+            map.put("uuid","c05f178c-5194-4641-904d-6be41912d41d1");
+        });
+        execute.queryForObject();
+    }
+
 }

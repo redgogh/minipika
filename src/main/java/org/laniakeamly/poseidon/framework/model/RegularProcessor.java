@@ -49,7 +49,7 @@ public class RegularProcessor {
             "){super.canSave=false;}" +
             "}";
 
-    public RegularProcessor(String packages) throws Exception {
+    public RegularProcessor(String[] packages) throws Exception {
         properties = getRegularProperties(packages);
     }
 
@@ -69,7 +69,7 @@ public class RegularProcessor {
                     String methodName = "set".concat(StringUtils.UpperCase(entryKey, 1));
                     CtMethod ctMethod = clazz.getDeclaredMethod(methodName);
                     ctMethod.setBody(StringUtils.format(methodJavaCode, entry.getValue().value(), entryKey));
-                    ctMethod.insertAfter(StringUtils.format("{} = $1;",entryKey));
+                    ctMethod.insertAfter(StringUtils.format("{} = $1;", entryKey));
                 }
                 // 重新编译并加载新的Model类
                 String classpath = clazz.getName();
@@ -112,37 +112,40 @@ public class RegularProcessor {
      * 获取扫描到的Regular属性
      * @throws ClassNotFoundException
      */
-    private List<RegularProperties> getRegularProperties(String packages) throws Exception {
-        CtClass[] ctClasses = ((PoseidonClassPool) classPool).getCtClassArray(packages);
+    private List<RegularProperties> getRegularProperties(String[] packages) throws Exception {
         List<RegularProperties> regularPropertiesList = new ArrayList<>();
-        for (CtClass aClass : ctClasses) {
-            if(aClass.getAnnotation(Model.class)!=null) {
-                String filedir = loader.getResource(".").toString().substring(6);
-                CtClass superClass = classPool.get(superClasspath);
-                // 给Model类添加一个父类
-                aClass.setSuperclass(superClass);
-                aClass.writeFile(filedir);
-            }
-            RegularProperties properties = null;
-            Map<String, Regular> hashMap = null;
-            CtField[] fields = aClass.getDeclaredFields();
-            for (CtField field : fields) {
-                Object[] annotations = field.getAnnotations();
-                for (Object annotation : annotations) {
-                    if (annotation instanceof Regular) {
-                        Regular regular = (Regular) annotation;
-                        if (hashMap == null) hashMap = new HashMap<>();
-                        hashMap.put(field.getName(), regular);
+        for (String aPackage : packages) {
+            CtClass[] ctClasses = ((PoseidonClassPool) classPool).getCtClassArray(aPackage);
+            for (CtClass aClass : ctClasses) {
+                if (aClass.getAnnotation(Model.class) != null) {
+                    String filedir = loader.getResource(".").toString().substring(6);
+                    CtClass superClass = classPool.get(superClasspath);
+                    // 给Model类添加一个父类
+                    aClass.setSuperclass(superClass);
+                    aClass.writeFile(filedir);
+                }
+                RegularProperties properties = null;
+                Map<String, Regular> hashMap = null;
+                CtField[] fields = aClass.getDeclaredFields();
+                for (CtField field : fields) {
+                    Object[] annotations = field.getAnnotations();
+                    for (Object annotation : annotations) {
+                        if (annotation instanceof Regular) {
+                            Regular regular = (Regular) annotation;
+                            if (hashMap == null) hashMap = new HashMap<>();
+                            hashMap.put(field.getName(), regular);
+                        }
                     }
                 }
-            }
-            if (hashMap != null) {
-                String classname = aClass.getPackageName().concat(aClass.getName());
-                properties = new RegularProperties(classname, aClass);
-                properties.setFields(hashMap);
-                regularPropertiesList.add(properties);
+                if (hashMap != null) {
+                    String classname = aClass.getPackageName().concat(aClass.getName());
+                    properties = new RegularProperties(classname, aClass);
+                    properties.setFields(hashMap);
+                    regularPropertiesList.add(properties);
+                }
             }
         }
+
         return regularPropertiesList.isEmpty() ? null : regularPropertiesList;
     }
 

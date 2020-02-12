@@ -2,7 +2,9 @@ package org.laniakeamly.poseidon.framework.sql.xml.build;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.laniakeamly.poseidon.framework.config.Config;
+import org.laniakeamly.poseidon.framework.config.GlobalConfig;
+import org.laniakeamly.poseidon.framework.config.PropertiesConfig;
+import org.laniakeamly.poseidon.framework.model.Metadata;
 import org.laniakeamly.poseidon.framework.sql.xml.ProvideConstant;
 import org.laniakeamly.poseidon.framework.tools.ReflectUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
@@ -67,7 +69,7 @@ public class PrecompiledMethod {
                 }
                 // 如果不是默认model包下的内容
                 else if (!StringUtils.isEmpty(result)) {
-                    this.result = Class.forName(Config.getInstance().getModelPackage() + "." + result);
+                    this.result = Class.forName(Metadata.getModelClass(result).getName());
                 }
             }
             method.append(StringUtils.format("public java.lang.String {} (java.util.Map map,java.util.List " + ProvideConstant.SQL_PARAMS_SET + ")", name));

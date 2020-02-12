@@ -2,7 +2,8 @@ package org.laniakeamly.poseidon.framework.db;
 
 import org.laniakeamly.poseidon.framework.annotation.Model;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
-import org.laniakeamly.poseidon.framework.config.Config;
+import org.laniakeamly.poseidon.framework.config.GlobalConfig;
+import org.laniakeamly.poseidon.framework.config.PropertiesConfig;
 import org.laniakeamly.poseidon.framework.model.AbstractModel;
 import org.laniakeamly.poseidon.framework.model.SecurityManager;
 import org.laniakeamly.poseidon.framework.model.Metadata;
@@ -167,7 +168,7 @@ public class JdbcSupportImpl implements JdbcSupport {
     @Override
     public List<String> getColumns(String tableName) {
         String sql = "select COLUMN_NAME from information_schema.COLUMNS where table_name = ? and table_schema = ?;";
-        return nativeJdbc.executeQuery(sql, tableName, Config.getInstance().getDbname()).conversionJavaList(String.class);
+        return nativeJdbc.executeQuery(sql, tableName, GlobalConfig.getConfig().getDbname()).conversionJavaList(String.class);
     }
 
     // 是否更新为NULL的字段是否更新为NULL的字段

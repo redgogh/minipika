@@ -1,7 +1,8 @@
 package org.laniakeamly.poseidon.framework.model;
 
 import com.alibaba.fastjson.JSONObject;
-import org.laniakeamly.poseidon.framework.config.Config;
+import org.laniakeamly.poseidon.framework.config.GlobalConfig;
+import org.laniakeamly.poseidon.framework.config.PropertiesConfig;
 import org.laniakeamly.poseidon.framework.annotation.Model;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
@@ -42,7 +43,7 @@ public class LoaderModel {
      */
     public void run() {
         try {
-            RegularProcessor processor = new RegularProcessor(Config.getInstance().getModelPackage());
+            RegularProcessor processor = new RegularProcessor(GlobalConfig.getConfig().getModelPackage());
             processor.modifySetter();
             loadModel();
             loadColumn();
@@ -70,7 +71,7 @@ public class LoaderModel {
             jdbc.execute(metadata.getCreateTableSql());
 
             // 判断储存引擎是被修改
-            SHOW_TABLE_STATUS = StringUtils.format(SHOW_TABLE_STATUS, Config.getInstance().getDbname(), tableName);
+            SHOW_TABLE_STATUS = StringUtils.format(SHOW_TABLE_STATUS, GlobalConfig.getConfig().getDbname(), tableName);
             String jsonString = jdbc.queryForJson(SHOW_TABLE_STATUS);
             JSONObject jsonObject = JSONObject.parseObject(jsonString);
 

@@ -20,7 +20,7 @@ public class Metadata {
     /**
      * 模型的类对象
      */
-    private static final Map<String,Class<?>> modelClass = new HashMap<>();
+    private static final Map<String, Class<?>> modelClass = new HashMap<>();
 
     /**
      * 主键字段
@@ -45,10 +45,15 @@ public class Metadata {
     /**
      * 字段
      */
-    private Map<String,String> columns;
+    private Map<String, String> columns;
 
-    public static void putAttribute(String key, Metadata value){
-        messages.put(key,value);
+    /**
+     * 所有Model对象的存放路径
+     */
+    private Map<String, String> modelClassPath;
+
+    public static void putAttribute(String key, Metadata value) {
+        messages.put(key, value);
     }
 
     public static Map<String, Metadata> getAttribute() {
@@ -99,14 +104,14 @@ public class Metadata {
         this.engine = engine;
     }
 
-    public static void putModel(Class<?> target){
-        if(SecurityManager.existModel(target)){
-            Model model = POFUtils.getModelAnnotation(target);
-            modelClass.put(model.value(),target);
+    public static void putModel(Class<?> target) {
+        if (SecurityManager.existModel(target)) {
+            // Model model = POFUtils.getModelAnnotation(target);
+            modelClass.put(target.getSimpleName(), target);
         }
     }
 
-    public static Class<?> getModelClass(String tableName){
+    public static Class<?> getModelClass(String tableName) {
         return modelClass.get(tableName);
     }
 

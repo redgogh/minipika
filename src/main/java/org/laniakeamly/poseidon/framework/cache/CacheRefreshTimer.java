@@ -1,6 +1,7 @@
 package org.laniakeamly.poseidon.framework.cache;
 
-import org.laniakeamly.poseidon.framework.config.Config;
+import org.laniakeamly.poseidon.framework.config.GlobalConfig;
+import org.laniakeamly.poseidon.framework.config.PropertiesConfig;
 import org.laniakeamly.poseidon.framework.timer.Timer;
 
 /**
@@ -39,6 +40,6 @@ public class CacheRefreshTimer implements Timer {
 
     @Override
     public long time() {
-        return Config.getInstance().getRefresh();
+        return GlobalConfig.getConfig().getRefresh();
     }
 }

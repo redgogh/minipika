@@ -4,7 +4,7 @@ import org.laniakeamly.poseidon.extension.ConnectionPool;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
-import org.laniakeamly.poseidon.framework.config.Config;
+import org.laniakeamly.poseidon.framework.config.GlobalConfig;
 import org.laniakeamly.poseidon.framework.tools.ArrayUtils;
 import org.laniakeamly.poseidon.framework.tools.SQLUtils;
 
@@ -22,8 +22,8 @@ import java.util.List;
 @SuppressWarnings("SpellCheckingInspection")
 public class NativeJdbcImpl implements NativeJdbc {
 
-    protected final boolean isCache = Config.getInstance().getCache();
-    protected final boolean transaction = Config.getInstance().getTransaction();
+    protected final boolean isCache = GlobalConfig.getConfig().getCache();
+    protected final boolean transaction = GlobalConfig.getConfig().getTransaction();
 
     @Valid
     private ConnectionPool pool;
