@@ -20,7 +20,7 @@ public class ConfigLoader {
     public static void loadConfig(String configPath){
         if(StringUtils.isEmpty(configPath))
             throw new NullPointerException("config path cannot null");
-        new GlobalConfig(configPath);
+        GlobalConfig.loaderConfig(configPath);
     }
 
 }

@@ -11,9 +11,10 @@
 
 [API文档-使用手册](https://github.com/Laniakeamly/poseidon/blob/master/api/README.md)
 
-**v1.0.9更新内容(持续更新中)**
+**v1.1.1更新内容(持续更新中)**
 
-- 在XML中可以多条SQL一起执行，并防止SQL注入。
+- 新增Jap配置文件类型
+- 更新model或者是mapper可以添加多个
 
 # 安装
 
@@ -22,7 +23,7 @@ MAVEN直接引入
 <dependency>
     <groupId>io.github.laniakeamly</groupId>
     <artifactId>poseidon</artifactId>
-    <version>1.0.9.RELEASE</version>
+    <version>1.1.1.RELEASE</version>
 </dependency>
 ```
 

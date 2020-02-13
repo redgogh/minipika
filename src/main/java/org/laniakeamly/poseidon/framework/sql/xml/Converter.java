@@ -17,6 +17,7 @@ public class Converter {
 
     private ClassPool pool = BeansManager.getBean("classPool");
 
+    @SuppressWarnings("deprecation")
     public void conversion(PrecompiledMethod methodValue, Map<String, Object> parameter, String fullClassName) throws Exception {
         String methodString = process(methodValue.getMethodString(), parameter);
         CtClass ctClass = null;
@@ -29,6 +30,7 @@ public class Converter {
                 e.printStackTrace();
             }
         }
+        assert ctClass != null;
         ctClass.defrost();
         CtMethod ctMethod = CtNewMethod.make(methodString, ctClass);
         ctClass.addMethod(ctMethod);

@@ -12,38 +12,47 @@ import org.laniakeamly.poseidon.framework.model.LoaderModel;
  */
 public final class GlobalConfig {
 
-    static {
-        // 当配置文件第一次加载时初始化
-        LoaderModel init = new LoaderModel();
-        init.run();
-    }
-
     private static AbstractConfig config;
+
+    private static boolean run = false;
+
+    public static void loaderConfig(String path) {
+        if (config == null) {
+            config = new GlobalConfig(path).newConfig();
+            // 初始化加载配置
+            getConfig();
+        }
+    }
 
     public static AbstractConfig getConfig() {
         if (config == null) {
             config = new GlobalConfig().newConfig();
         }
+        if (!run) {
+            run = true;
+            LoaderModel init = new LoaderModel();
+            init.run();
+        }
         return config;
     }
 
-    private String configpath;
+    private String configPath;
 
-    public GlobalConfig() {
+    private GlobalConfig() {
         this("poseidon.jap");
     }
 
-    public GlobalConfig(String configpath) {
-        this.configpath = configpath;
+    private GlobalConfig(String configpath) {
+        this.configPath = configpath;
     }
 
     private AbstractConfig newConfig() {
         Object config = null;
-        String suffix = configpath.substring(configpath.lastIndexOf(".") + 1);
+        String suffix = configPath.substring(configPath.lastIndexOf(".") + 1);
         if ("jap".equals(suffix)) {
-            config = new JapConfig(configpath);
+            config = new JapConfig(configPath);
         } else if ("properties".equals(suffix)) {
-            config = new PropertiesConfig(configpath);
+            config = new PropertiesConfig(configPath);
         } else {
             throw new ConfigException("unknown config file suffix '" + suffix + "'");
         }

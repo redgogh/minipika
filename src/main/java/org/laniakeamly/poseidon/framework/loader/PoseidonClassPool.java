@@ -2,6 +2,7 @@ package org.laniakeamly.poseidon.framework.loader;
 
 import javassist.ClassPool;
 import javassist.CtClass;
+import javassist.LoaderClassPath;
 
 import java.io.File;
 import java.net.URL;
@@ -27,14 +28,8 @@ public class PoseidonClassPool extends ClassPool {
         super(parent);
     }
 
-    /**
-     * This is the method to get the class under the specified package.
-     * The obtained class will be converted into a CtClass array.
-     *
-     * @param packageName   get the contents of this package.
-     * @return
-     */
     public CtClass[] getCtClassArray(String packageName) {
+        // appendClassPath(new LoaderClassPath(this.getClass().getClassLoader()));
         List<String> classpathList = new ArrayList<>();
         getFile(packageName, classpathList);
         CtClass[] ctClasses = new CtClass[classpathList.size()];
@@ -44,12 +39,6 @@ public class PoseidonClassPool extends ClassPool {
         return ctClasses;
     }
 
-    /**
-     * get class path in specify package.
-     * this method is recursive method.
-     * @param basePackage   scanner this path.
-     * @param fileList      List<String>
-     */
     private void getFile(String basePackage, List<String> fileList) {
         URL url = getClass().getResource("/" + basePackage.replaceAll("\\.", "/"));
         if (url == null) return;

@@ -15,7 +15,7 @@
 
     <groupId>io.github.laniakeamly</groupId>
     <artifactId>poseidon</artifactId>
-    <version>1.1.1.RELEASE</version>
+    <version>1.1.2.RELEASE</version>
     <packaging>jar</packaging>
 
     <licenses>
@@ -108,18 +108,6 @@
             <artifactId>junit</artifactId>
             <version>4.13-rc-2</version>
             <!--<scope>test</scope>-->
-        </dependency>
-        <!-- kotlin支持 -->
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test</artifactId>
-            <version>${kotlin.version}</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
