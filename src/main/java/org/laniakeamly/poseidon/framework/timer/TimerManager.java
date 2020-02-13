@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Copyright: Create by TianSheng on 2019/12/6 21:28
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings("deprecation")
 public class TimerManager {
 
     private List<Execute> timerExecutes = new LinkedList<>();

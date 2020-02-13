@@ -2,7 +2,6 @@ package org.laniakeamly.poseidon.framework.config;
 
 import org.laniakeamly.poseidon.framework.exception.runtime.ConfigException;
 import org.laniakeamly.poseidon.framework.model.LoaderModel;
-import sun.security.krb5.Config;
 
 /**
  * 统一配置调用

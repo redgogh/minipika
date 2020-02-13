@@ -11,6 +11,7 @@ import java.util.Map;
 /**
  * Copyright: Create by TianSheng on 2019/12/18 19:26
  */
+@SuppressWarnings("unchecked")
 public class PrecompiledClass {
 
     @Getter
