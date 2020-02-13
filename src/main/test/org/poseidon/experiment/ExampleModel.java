@@ -1,5 +1,6 @@
 package org.poseidon.experiment;
 
+import lombok.Data;
 import org.laniakeamly.poseidon.framework.annotation.*;
 
 /**
@@ -21,6 +22,7 @@ import org.laniakeamly.poseidon.framework.annotation.*;
  * @version 1.0.0
  * @since 1.8
  */
+@Data
 @Model("example_model")
 public class ExampleModel {
 

@@ -34,7 +34,7 @@ class AbstractConfig implements PoseidonConfig {
     // model包路径
     protected String[] modelPackage;
     // mapper模板文件存放位置
-    protected String mapperPackage;
+    protected String[] mapperPackage;
     // 是否开启事物
     protected String transaction;
     // 是否开启缓存
@@ -93,7 +93,10 @@ class AbstractConfig implements PoseidonConfig {
         modelPackage = new String[modelArray.size()];
         modelArray.toArray(modelPackage);
 
-        this.mapperPackage = getValue("model.mapper");
+        JSONArray mapperArray = JSONArray.parseArray(getValue("model.mapper"));
+        mapperPackage = new String[modelArray.size()];
+        mapperArray.toArray(mapperPackage);
+
         // 获取字段约束配置文件路径
         String regularJsonName = getValue("regular");
         if (StringUtils.isEmpty(regularJsonName)) regularJsonName = "regular.json";
@@ -191,7 +194,7 @@ class AbstractConfig implements PoseidonConfig {
 
     }
 
-    public String getMapperBasePackage() {
+    public String[] getMapperBasePackage() {
         return mapperPackage;
     }
 

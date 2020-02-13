@@ -45,7 +45,7 @@ public class RegularProcessor {
             "if(" +
             "!org.laniakeamly.poseidon.framework.tools." +
             "RegularUtils.getInstanceSave().matches($1," +
-            "org.laniakeamly.poseidon.framework.config.Config.getInstance().getRegular(\"{}\"))" +
+            "org.laniakeamly.poseidon.framework.config.GlobalConfig.getConfig().getRegular(\"{}\"))" +
             "){super.canSave=false;}" +
             "}";
 

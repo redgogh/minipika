@@ -107,8 +107,10 @@ public final class POFUtils {
      */
     public static List<File> getMapperXMLs() {
         List<File> mappers = new LinkedList<>();
-        String basePackage = GlobalConfig.getConfig().getMapperBasePackage();
-        getXMLs(basePackage, mappers);
+        String basePackages[] = GlobalConfig.getConfig().getMapperBasePackage();
+        for (String basePackage : basePackages) {
+            getXMLs(basePackage, mappers);
+        }
         return mappers;
     }
 

@@ -1,5 +1,6 @@
 package org.keyboard;
 
+import com.alibaba.fastjson.JSON;
 import org.poseidon.experiment.ProductModel;
 import org.junit.Test;
 import org.laniakeamly.poseidon.framework.sql.xml.Parameter;
@@ -45,7 +46,7 @@ public class MapperTest {
         SqlExecute execute = mapper.build("findProductByUUID", map -> {
             map.put("uuid","c05f178c-5194-4641-904d-6be41912d41d1");
         });
-        execute.queryForObject();
+        System.out.println(JSON.toJSONString(execute.queryForObject()));
     }
 
 }
