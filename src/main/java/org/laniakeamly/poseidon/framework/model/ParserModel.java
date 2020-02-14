@@ -2,6 +2,7 @@ package org.laniakeamly.poseidon.framework.model;
 
 
 import org.laniakeamly.poseidon.framework.exception.PoseidonException;
+import org.laniakeamly.poseidon.framework.tools.ModelUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 import org.laniakeamly.poseidon.framework.tools.POFUtils;
 import org.laniakeamly.poseidon.framework.annotation.*;
@@ -62,7 +63,7 @@ public class ParserModel {
         String tableName = "";
         Map<String, String> map = new HashMap<>();
         if (SecurityManager.existModel(target)) {
-            Model model = POFUtils.getModelAnnotation(target);
+            Model model = ModelUtils.getModelAnnotation(target);
             tableName = model.value();
             Engine engine = model.engine();
             if (StringUtils.isEmpty(tableName)) {
@@ -85,8 +86,8 @@ public class ParserModel {
      * @throws PoseidonException
      */
     public void field(Class<?> target, Metadata metadata, StringBuilder script, Map<String, String> columns) throws PoseidonException {
-        for (Field field : POFUtils.getModelField(target)) {
-            String columnName = POFUtils.humpToUnderline(field.getName());
+        for (Field field : ModelUtils.getModelField(target)) {
+            String columnName = ModelUtils.humpToUnderline(field.getName());
             StringBuilder tableColumn = new StringBuilder(columnName); // 字段
             tableColumn.insert(0, "`").append("`");
             // 判断该字段是否被忽略

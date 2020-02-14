@@ -36,8 +36,7 @@ poseidon: {
     // 配置regular.json文件路径
     regular = regular.json
 
-}
-
-poseidon1:{
+    // 默认数据文件
+    default.model = default_model.json
 
 }

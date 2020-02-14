@@ -2,7 +2,7 @@ package org.laniakeamly.poseidon.framework.sql.xml.build;
 
 import org.laniakeamly.poseidon.framework.exception.runtime.DynamicSQLException;
 import org.laniakeamly.poseidon.framework.exception.runtime.ExpressionException;
-import org.laniakeamly.poseidon.framework.sql.xml.ProvideConstant;
+import org.laniakeamly.poseidon.framework.ProvideConstant;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;

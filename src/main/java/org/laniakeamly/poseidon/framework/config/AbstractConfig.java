@@ -45,6 +45,8 @@ class AbstractConfig implements PoseidonConfig {
     protected String dbname;
     // regular.json文件
     protected JSONObject regularJson;
+    // default_model.json文件
+    protected JSONObject defaultModel;
 
     private Object configObject;
 
@@ -101,6 +103,11 @@ class AbstractConfig implements PoseidonConfig {
         String regularJsonName = getValue("regular");
         if (StringUtils.isEmpty(regularJsonName)) regularJsonName = "regular.json";
         this.regularJson = PIOUtils.getResourceAsJson(regularJsonName);
+
+        // 获取默认数据配置文件路径
+        String defaultModelName = getValue("default.model");
+        if (StringUtils.isEmpty(defaultModelName)) defaultModelName = "default_model.json";
+        this.defaultModel = PIOUtils.getResourceAsJson(defaultModelName);
 
         loadDriver(driver);
 
@@ -205,6 +212,10 @@ class AbstractConfig implements PoseidonConfig {
      */
     public String getRegular(String name) {
         return (String) this.regularJson.get(name);
+    }
+
+    public JSONObject getDefaultModel(){
+        return this.defaultModel;
     }
 
 }

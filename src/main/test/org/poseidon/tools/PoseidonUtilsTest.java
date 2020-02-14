@@ -1,5 +1,6 @@
 package org.poseidon.tools;
 
+import org.laniakeamly.poseidon.framework.tools.ModelUtils;
 import org.poseidon.experiment.ProductModel;
 import org.junit.Test;
 import org.laniakeamly.poseidon.framework.tools.POFUtils;
@@ -12,7 +13,7 @@ public class PoseidonUtilsTest {
     @Test
     public void getModelFieldTest(){
         ProductModel productModel = new ProductModel();
-        POFUtils.getModelField(productModel);
+        ModelUtils.getModelField(productModel);
     }
 
 }

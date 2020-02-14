@@ -2,10 +2,8 @@ package org.laniakeamly.poseidon.framework.sql.xml.build;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.laniakeamly.poseidon.framework.config.GlobalConfig;
-import org.laniakeamly.poseidon.framework.config.PropertiesConfig;
 import org.laniakeamly.poseidon.framework.model.Metadata;
-import org.laniakeamly.poseidon.framework.sql.xml.ProvideConstant;
+import org.laniakeamly.poseidon.framework.ProvideConstant;
 import org.laniakeamly.poseidon.framework.tools.ReflectUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 

@@ -1,6 +1,6 @@
 package org.recycle.build;
 
-import org.laniakeamly.poseidon.framework.sql.xml.ProvideConstant;
+import org.laniakeamly.poseidon.framework.ProvideConstant;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLNode;
 import org.laniakeamly.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;

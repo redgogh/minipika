@@ -1,6 +1,7 @@
 package org.laniakeamly.poseidon.framework.db;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 增删改查操作
@@ -30,6 +31,16 @@ public interface JdbcSupport {
      * @return 封装好的结果集
      */
     <T> List<T> queryForList(String sql, Class<T> obj, Object... args);
+
+    /**
+     * 查询多个结果
+     * @param sql sql语句
+     * @param obj 需要返回的对象
+     * @param args 参数列表
+     * @param <T>
+     * @return Set集合
+     */
+    <T> Set<T> queryForSet(String sql,Class<T> obj,Object... args);
 
     /**
      * 查询并返回JSON字符串
@@ -98,6 +109,13 @@ public interface JdbcSupport {
      * @return 更新条数
      */
     int insert(Object model);
+
+    /**
+     * 批量插入
+     * @param models
+     * @return
+     */
+    int[] insert(List<Object> models);
 
     /**
      * 统计单张表的所有数据

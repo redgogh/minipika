@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.framework.sql.xml;
+package org.laniakeamly.poseidon.framework;
 
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
@@ -11,6 +11,9 @@ import java.util.regex.Pattern;
  */
 @SuppressWarnings({"unchecked"})
 public class ProvideConstant {
+
+    // 动态SQL标签
+    // ---------------------------------------------------------------------
 
     public static final String IF = "if";
     public static final String REQ = "$req";
@@ -42,10 +45,22 @@ public class ProvideConstant {
     public static final String COND_ATTRIBUTE_KEY = "id";
     public static final String PARAMETER_OBJECT_LOCATION = "org.laniakeamly.poseidon.framework.loader.Parameter";
 
+    // SQL语句
+    // ---------------------------------------------------------------------
+
+    public static final String UPDATE_ENGINE = "ALTER TABLE {} ENGINE = '{}'";
+    public static final String ADD_COLUMN_SCRIPT_PKNULL = "ALTER TABLE `{}` ADD {};";
+    public static final String ADD_COLUMN_SCRIPT = "ALTER TABLE `{}` ADD {} after `{}`;";
+    public static final String SHOW_TABLE_STATUS = "show table status from {} where name = '{}'";
+    public static final String QUERY_TABLES = "select table_name from information_schema.tables where table_schema=?";
+
+    // 动态SQL内部代码
     // ---------------------------------------------------------------------
 
     private static final String SQL_APPEND = "sql.append(\" {} \");";
     private static final String GET_MEMBER_VALUE = "org.laniakeamly.poseidon.framework.tools.ReflectUtils.getMemberValue({},{})";
+
+    // ---------------------------------------------------------------------
 
     /**
      * 添加sql前的处理方法

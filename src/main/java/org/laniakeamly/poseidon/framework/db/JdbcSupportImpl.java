@@ -7,12 +7,16 @@ import org.laniakeamly.poseidon.framework.config.PropertiesConfig;
 import org.laniakeamly.poseidon.framework.model.AbstractModel;
 import org.laniakeamly.poseidon.framework.model.SecurityManager;
 import org.laniakeamly.poseidon.framework.model.Metadata;
+import org.laniakeamly.poseidon.framework.tools.JdbcUtils;
+import org.laniakeamly.poseidon.framework.tools.ModelUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 import org.laniakeamly.poseidon.framework.tools.POFUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Jdbc 支持
@@ -33,6 +37,11 @@ public class JdbcSupportImpl implements JdbcSupport {
     public <T> List<T> queryForList(String sql, Class<T> obj, Object... args) {
         NativeResult result = nativeJdbc.executeQuery(sql, args);
         return result == null ? null : result.conversionJavaList(obj);
+    }
+
+    @Override
+    public <T> Set<T> queryForSet(String sql, Class<T> obj, Object... args) {
+        return new HashSet<>(queryForList(sql, obj, args));
     }
 
     @Override
@@ -86,36 +95,16 @@ public class JdbcSupportImpl implements JdbcSupport {
     @Override
     public int insert(Object obj) {
         if (!AbstractModel.getCanSave(obj)) return 0;
-        List<Object> param = new ArrayList<>();
-        try {
-            StringBuffer into = new StringBuffer("insert into ");
-            StringBuffer values = new StringBuffer(" values ");
-            Class<?> target = obj.getClass();
-            if (SecurityManager.existModel(target)) {
-                Model model = POFUtils.getModelAnnotation(target);
-                into.append("`").append(model.value()).append("`");
-            }
-            into.append("(");
-            values.append("(");
-            List<Field> fields = POFUtils.getModelField(obj);
-            for (Field field : fields) {
-                Object v = field.get(obj);
-                if (v != null) {
-                    into.append("`").append(POFUtils.humpToUnderline(field.getName())).append("`,");
-                    values.append("?,");
-                    param.add(v);
-                }
-            }
-            into.deleteCharAt((into.length() - 1));
-            into.append(")");
-            values.deleteCharAt((values.length() - 1));
-            values.append(")");
-            into.append(values);
-            return nativeJdbc.executeUpdate(into.toString(), param.toArray());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
+        List<Object> params = new ArrayList<>();
+        String sql = JdbcUtils.generateInsertSQL(obj, params);
+        return nativeJdbc.executeUpdate(sql, params.toArray());
+    }
+
+    @Override
+    public int[] insert(List<Object> models) {
+        List<Object[]> params = new ArrayList<>();
+        String sql = JdbcUtils.generateInsertBatchSQL(models, params);
+        return executeBatch(sql, params);
     }
 
     @Override
@@ -126,7 +115,7 @@ public class JdbcSupportImpl implements JdbcSupport {
     @Override
     public int count(Class<?> target) {
         if (SecurityManager.existModel(target)) {
-            String table = POFUtils.getModelAnnotation(target).value();
+            String table = ModelUtils.getModelAnnotation(target).value();
             return count("select count(*) from ".concat(table));
         }
         return 0;
@@ -178,18 +167,18 @@ public class JdbcSupportImpl implements JdbcSupport {
             Class<?> target = obj.getClass();
             List<Object> params = new ArrayList<>();
             StringBuffer buffer = new StringBuffer("update ");
-            String table = POFUtils.getModelAnnotation(target).value();
+            String table = ModelUtils.getModelAnnotation(target).value();
             buffer.append("`").append(table).append("` set ");
-            List<Field> fields = POFUtils.getModelField(obj);
+            List<Field> fields = ModelUtils.getModelField(obj);
             for (Field field : fields) {
                 Object v = field.get(obj);
                 if (!bool) {
                     if (v != null) {
-                        buffer.append("`").append(POFUtils.humpToUnderline(field.getName())).append("` = ?, ");
+                        buffer.append("`").append(ModelUtils.humpToUnderline(field.getName())).append("` = ?, ");
                         params.add(v);
                     }
                 } else {
-                    buffer.append("`").append(POFUtils.humpToUnderline(field.getName())).append("` = ?, ");
+                    buffer.append("`").append(ModelUtils.humpToUnderline(field.getName())).append("` = ?, ");
                     params.add(v);
                 }
             }

@@ -5,7 +5,7 @@ import org.recycle.build.PrecompiledClass;
 import org.recycle.build.PrecompiledMethod;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.loader.PoseidonClassLoader;
-import org.laniakeamly.poseidon.framework.sql.xml.ProvideConstant;
+import org.laniakeamly.poseidon.framework.ProvideConstant;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.util.*;

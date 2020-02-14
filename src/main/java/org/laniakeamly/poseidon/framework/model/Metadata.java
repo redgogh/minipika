@@ -2,6 +2,7 @@ package org.laniakeamly.poseidon.framework.model;
 
 import org.laniakeamly.poseidon.framework.annotation.Engine;
 import org.laniakeamly.poseidon.framework.annotation.Model;
+import org.laniakeamly.poseidon.framework.tools.ModelUtils;
 import org.laniakeamly.poseidon.framework.tools.POFUtils;
 
 import java.util.HashMap;
@@ -21,6 +22,11 @@ public class Metadata {
      * 模型的类对象
      */
     private static final Map<String, Class<?>> modelClass = new HashMap<>();
+
+    /**
+     * 表名对应类名
+     */
+    private static final Map<String, String> modelNameAndTableName = new HashMap<>();
 
     /**
      * 主键字段
@@ -106,13 +112,19 @@ public class Metadata {
 
     public static void putModel(Class<?> target) {
         if (SecurityManager.existModel(target)) {
-            // Model model = POFUtils.getModelAnnotation(target);
-            modelClass.put(target.getSimpleName(), target);
+            String simpleName = target.getSimpleName();
+            Model model = ModelUtils.getModelAnnotation(target);
+            modelClass.put(simpleName, target);
+            modelNameAndTableName.put(model.value(),simpleName);
         }
     }
 
     public static Class<?> getModelClass(String tableName) {
         return modelClass.get(tableName);
+    }
+
+    public static String getModelSimpleNameByTable(String table) {
+        return modelNameAndTableName.get(table);
     }
 
 }

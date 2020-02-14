@@ -1,18 +1,21 @@
 package org.laniakeamly.poseidon.framework.model;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import jdk.nashorn.internal.runtime.ParserException;
+import org.laniakeamly.poseidon.framework.ProvideConstant;
 import org.laniakeamly.poseidon.framework.config.GlobalConfig;
 import org.laniakeamly.poseidon.framework.config.PropertiesConfig;
 import org.laniakeamly.poseidon.framework.annotation.Model;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.exception.PoseidonException;
+import org.laniakeamly.poseidon.framework.exception.runtime.ModelException;
+import org.laniakeamly.poseidon.framework.tools.ModelUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 import org.laniakeamly.poseidon.framework.tools.POFUtils;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  *
@@ -32,9 +35,6 @@ import java.util.Map;
 public class LoaderModel {
 
     // 添加字段
-    private String ADD_COLUMN_SCRIPT = "ALTER TABLE `{}` ADD {} after `{}`;";
-    private String ADD_COLUMN_SCRIPT_PKNULL = "ALTER TABLE `{}` ADD {};";
-
     private JdbcSupport jdbc = BeansManager.getBean("jdbc");
 
     /**
@@ -43,7 +43,8 @@ public class LoaderModel {
      */
     public void run() {
         try {
-            RegularProcessor processor = new RegularProcessor(GlobalConfig.getConfig().getModelPackage());
+            RegularProcessor processor =
+                    new RegularProcessor(GlobalConfig.getConfig().getModelPackage());
             processor.modifySetter();
             loadModel();
             loadColumn();
@@ -56,19 +57,45 @@ public class LoaderModel {
      * 解析model
      */
     public void loadModel() {
+
+        Set<String> tables = jdbc.queryForSet(ProvideConstant.QUERY_TABLES, String.class,
+                GlobalConfig.getConfig().getDbname());
+
         ParserModel parserModel = new ParserModel();
-        parserModel.parse(POFUtils.getModels());
+        parserModel.parse(ModelUtils.getModels());
         Map<String, Metadata> messages = Metadata.getAttribute();
         Iterator iter = messages.entrySet().iterator();
         while (iter.hasNext()) {
 
-            String SHOW_TABLE_STATUS = "show table status from {} where name = '{}'";
-            String UPDATE_ENGINE = "ALTER TABLE {} ENGINE = '{}'";
+            String UPDATE_ENGINE = ProvideConstant.UPDATE_ENGINE;
+            String SHOW_TABLE_STATUS = ProvideConstant.SHOW_TABLE_STATUS;
 
             Map.Entry<String, Metadata> entry = (Map.Entry<String, Metadata>) iter.next();
             Metadata metadata = entry.getValue();
             String tableName = metadata.getTableName();
-            jdbc.execute(metadata.getCreateTableSql());
+            // 如果数据库中不存在这张表就创建
+            if (!tables.contains(tableName)) {
+                String modelSimpleName = Metadata.getModelSimpleNameByTable(tableName);
+                if (StringUtils.isEmpty(modelSimpleName)) {
+                    throw new ParserException("table name not found in '" + tableName + "'");
+                }
+                // 查询是否存在默认数据
+                JSONObject defaultJson = GlobalConfig.getConfig().getDefaultModel();
+                JSONArray defaultArray = (JSONArray) defaultJson.get(modelSimpleName);
+                List modelDataList = new ArrayList();
+                if (defaultArray != null && !defaultArray.isEmpty()) {
+                    Iterator iterator = defaultArray.iterator();
+                    while (iterator.hasNext()){
+                        modelDataList.add(((JSONObject) iterator.next())
+                                .toJavaObject(Metadata.getModelClass(modelSimpleName)));
+                    }
+                }
+                jdbc.execute(metadata.getCreateTableSql());
+                // 如果默认数据不为空则添加
+                if(!modelDataList.isEmpty()){
+                    jdbc.insert(modelDataList);
+                }
+            }
 
             // 判断储存引擎是被修改
             SHOW_TABLE_STATUS = StringUtils.format(SHOW_TABLE_STATUS, GlobalConfig.getConfig().getDbname(), tableName);
@@ -89,10 +116,10 @@ public class LoaderModel {
      * @throws PoseidonException
      */
     public void loadColumn() throws PoseidonException {
-        List<Class<?>> models = POFUtils.getModels();
+        List<Class<?>> models = ModelUtils.getModels();
         for (Class<?> target : models) {
             if (SecurityManager.existModel(target)) {
-                Model model = POFUtils.getModelAnnotation(target);
+                Model model = ModelUtils.getModelAnnotation(target);
                 String table = model.value();
 
                 List<String> inDbColumns = jdbc.getColumns(table);
@@ -107,9 +134,9 @@ public class LoaderModel {
                     if (!inDbColumns.contains(key)) {
                         String executeScript;
                         if (!StringUtils.isEmpty(previousKey)) {
-                            executeScript = StringUtils.format(ADD_COLUMN_SCRIPT, metadata.getTableName(), entry.getValue(), previousKey);
+                            executeScript = StringUtils.format(ProvideConstant.ADD_COLUMN_SCRIPT, metadata.getTableName(), entry.getValue(), previousKey);
                         } else {
-                            executeScript = StringUtils.format(ADD_COLUMN_SCRIPT_PKNULL, metadata.getTableName(), entry.getValue());
+                            executeScript = StringUtils.format(ProvideConstant.ADD_COLUMN_SCRIPT_PKNULL, metadata.getTableName(), entry.getValue());
                         }
                         jdbc.execute(executeScript);
                     }
