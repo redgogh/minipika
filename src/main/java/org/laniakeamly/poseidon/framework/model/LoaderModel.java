@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import jdk.nashorn.internal.runtime.ParserException;
 import org.laniakeamly.poseidon.framework.ProvideConstant;
+import org.laniakeamly.poseidon.framework.annotation.Column;
 import org.laniakeamly.poseidon.framework.config.GlobalConfig;
 import org.laniakeamly.poseidon.framework.config.PropertiesConfig;
 import org.laniakeamly.poseidon.framework.annotation.Model;
@@ -11,6 +12,7 @@ import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.exception.PoseidonException;
 import org.laniakeamly.poseidon.framework.exception.runtime.ModelException;
+import org.laniakeamly.poseidon.framework.model.database.ColumnModel;
 import org.laniakeamly.poseidon.framework.tools.ModelUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 import org.laniakeamly.poseidon.framework.tools.POFUtils;
@@ -85,17 +87,20 @@ public class LoaderModel {
                 List modelDataList = new ArrayList();
                 if (defaultArray != null && !defaultArray.isEmpty()) {
                     Iterator iterator = defaultArray.iterator();
-                    while (iterator.hasNext()){
+                    while (iterator.hasNext()) {
                         modelDataList.add(((JSONObject) iterator.next())
                                 .toJavaObject(Metadata.getModelClass(modelSimpleName)));
                     }
                 }
                 jdbc.execute(metadata.getCreateTableSql());
                 // 如果默认数据不为空则添加
-                if(!modelDataList.isEmpty()){
+                if (!modelDataList.isEmpty()) {
                     jdbc.insert(modelDataList);
                 }
             }
+            // 保存字段属性
+            String queryColumnsSql = StringUtils.format(ProvideConstant.QUERY_COLUMNS, tableName);
+            Metadata.putDbColumn(tableName, jdbc.queryForList(queryColumnsSql, ColumnModel.class));
 
             // 判断储存引擎是被修改
             SHOW_TABLE_STATUS = StringUtils.format(SHOW_TABLE_STATUS, GlobalConfig.getConfig().getDbname(), tableName);
@@ -131,6 +136,7 @@ public class LoaderModel {
                 while (iter.hasNext()) {
                     Map.Entry<String, String> entry = (Map.Entry<String, String>) iter.next();
                     String key = entry.getKey();
+                    // 判断数据库中是否存在这个字段
                     if (!inDbColumns.contains(key)) {
                         String executeScript;
                         if (!StringUtils.isEmpty(previousKey)) {
@@ -139,6 +145,8 @@ public class LoaderModel {
                             executeScript = StringUtils.format(ProvideConstant.ADD_COLUMN_SCRIPT_PKNULL, metadata.getTableName(), entry.getValue());
                         }
                         jdbc.execute(executeScript);
+                    } else { // 如果存在则判断字段是否被修改
+                        System.out.println();
                     }
                     previousKey = key;
                 }

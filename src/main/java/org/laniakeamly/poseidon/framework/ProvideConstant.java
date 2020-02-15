@@ -48,6 +48,7 @@ public class ProvideConstant {
     // SQL语句
     // ---------------------------------------------------------------------
 
+    public static final String QUERY_COLUMNS = "show full columns from {}";
     public static final String UPDATE_ENGINE = "ALTER TABLE {} ENGINE = '{}'";
     public static final String ADD_COLUMN_SCRIPT_PKNULL = "ALTER TABLE `{}` ADD {};";
     public static final String ADD_COLUMN_SCRIPT = "ALTER TABLE `{}` ADD {} after `{}`;";

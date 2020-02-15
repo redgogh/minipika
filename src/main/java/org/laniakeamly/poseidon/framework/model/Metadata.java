@@ -2,10 +2,12 @@ package org.laniakeamly.poseidon.framework.model;
 
 import org.laniakeamly.poseidon.framework.annotation.Engine;
 import org.laniakeamly.poseidon.framework.annotation.Model;
+import org.laniakeamly.poseidon.framework.model.database.ColumnModel;
 import org.laniakeamly.poseidon.framework.tools.ModelUtils;
 import org.laniakeamly.poseidon.framework.tools.POFUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +29,11 @@ public class Metadata {
      * 表名对应类名
      */
     private static final Map<String, String> modelNameAndTableName = new HashMap<>();
+
+    /**
+     * 每张表对应的字段属性
+     */
+    private static final Map<String, List<ColumnModel>> db_columns = new HashMap<>();
 
     /**
      * 主键字段
@@ -125,6 +132,14 @@ public class Metadata {
 
     public static String getModelSimpleNameByTable(String table) {
         return modelNameAndTableName.get(table);
+    }
+
+    public static void putDbColumn(String tableName,List<ColumnModel> columnModels){
+        db_columns.put(tableName,columnModels);
+    }
+
+    public static List<ColumnModel> getDbColumn(String tableName){
+        return db_columns.get(tableName);
     }
 
 }

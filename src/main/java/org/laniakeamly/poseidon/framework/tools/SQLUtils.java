@@ -4,6 +4,7 @@ import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.util.TablesNamesFinder;
+import org.laniakeamly.poseidon.framework.model.database.ColumnModel;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -60,6 +61,11 @@ public class SQLUtils {
             }
         }
         return builder.toString();
+    }
+
+    public static ColumnModel parserColumn(){
+
+        return null;
     }
 
     public static void main(String[] args) {
