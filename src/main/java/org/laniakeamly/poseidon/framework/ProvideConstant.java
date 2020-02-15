@@ -1,8 +1,12 @@
 package org.laniakeamly.poseidon.framework;
 
+import com.alibaba.fastjson.JSONObject;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -61,7 +65,26 @@ public class ProvideConstant {
     private static final String SQL_APPEND = "sql.append(\" {} \");";
     private static final String GET_MEMBER_VALUE = "org.laniakeamly.poseidon.framework.tools.ReflectUtils.getMemberValue({},{})";
 
+    // default_model.json中的特殊变量
     // ---------------------------------------------------------------------
+
+    private static final String CURRENT_TIME = "$currentTime";
+
+    // ---------------------------------------------------------------------
+
+    /**
+     * 更新default_model JSONObject中的特殊变量
+     * @param jsonObject
+     */
+    public static final synchronized void updateSpecialVariable(JSONObject jsonObject){
+        for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue().toString();
+            if(value.contains(CURRENT_TIME)){
+                jsonObject.put(key,new Date());
+            }
+        }
+    }
 
     /**
      * 添加sql前的处理方法

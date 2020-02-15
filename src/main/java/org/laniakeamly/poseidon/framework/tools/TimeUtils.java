@@ -1,7 +1,6 @@
 package org.laniakeamly.poseidon.framework.tools;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Copyright: Create by TianSheng on 2019/12/7 0:54
@@ -37,5 +36,9 @@ public final class TimeUtils {
      */
     public static final long WEEK = DAY * 7;
     public static final String WEEK_STR = "week";
+
+    public static final String TYPE_YYYY_MM_DD_HHSSMM = "yyyy-MM-dd HH:ss:mm";
+
+    private SimpleDateFormat sdf = new SimpleDateFormat(TYPE_YYYY_MM_DD_HHSSMM);
 
 }

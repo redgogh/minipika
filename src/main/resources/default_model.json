@@ -1,14 +1,14 @@
 {
 
   "ExampleModel": [
-    {"username": "keyboard0", "email": "10086@vip.com"},
-    {"username": "keyboard1", "email": "10086@vip.com"},
-    {"username": "keyboard2", "email": "10086@vip.com"},
-    {"username": "keyboard3", "email": "10086@vip.com"}
+    {"createTime":"$currentTime","username": "keyboard0", "email": "10086@vip.com"},
+    {"createTime":"$currentTime","username": "keyboard3", "email": "10086@vip.com"}
   ],
 
   "ProductModel": [
-
+    {
+      "createTime": "$currentTime"
+    }
   ]
 
 }

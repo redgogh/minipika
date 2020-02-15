@@ -88,8 +88,10 @@ public class LoaderModel {
                 if (defaultArray != null && !defaultArray.isEmpty()) {
                     Iterator iterator = defaultArray.iterator();
                     while (iterator.hasNext()) {
-                        modelDataList.add(((JSONObject) iterator.next())
-                                .toJavaObject(Metadata.getModelClass(modelSimpleName)));
+                        JSONObject iterJsonObject = (JSONObject) iterator.next();
+                        // 判断数据中是否有特殊变量，如:$currentTime
+                        ProvideConstant.updateSpecialVariable(iterJsonObject);
+                        modelDataList.add(iterJsonObject.toJavaObject(Metadata.getModelClass(modelSimpleName)));
                     }
                 }
                 jdbc.execute(metadata.getCreateTableSql());

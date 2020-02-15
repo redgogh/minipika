@@ -4,6 +4,8 @@ import lombok.Data;
 import org.keyboard.Example;
 import org.laniakeamly.poseidon.framework.annotation.*;
 
+import java.util.Date;
+
 /**
  * {@link Model}中有三个属性
  *
@@ -36,6 +38,10 @@ public class ExampleModel {
     @Column("int(11) not null")
     @Comment("id")
     private int id;
+
+    @Column("datetime not null")
+    @Comment("用户名")
+    private Date createTime;
 
     @Column("varchar(50) not null")
     @Comment("用户名")
