@@ -147,8 +147,8 @@ public class LoaderModel {
                             executeScript = StringUtils.format(ProvideConstant.ADD_COLUMN_SCRIPT_PKNULL, metadata.getTableName(), entry.getValue());
                         }
                         jdbc.execute(executeScript);
-                    } else { // 如果存在则判断字段是否被修改
-                        System.out.println();
+                    } else {
+                        // TODO 如果存在该字段则判断字段属性是否被修改
                     }
                     previousKey = key;
                 }

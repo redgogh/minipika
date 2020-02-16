@@ -100,7 +100,7 @@ class AbstractConfig implements PoseidonConfig {
         mapperArray.toArray(mapperPackage);
 
         // 获取字段约束配置文件路径
-        String regularJsonName = getValue("regular");
+        String regularJsonName = getValue("model.regular");
         if (StringUtils.isEmpty(regularJsonName)) regularJsonName = "regular.json";
         this.regularJson = PIOUtils.getResourceAsJson(regularJsonName);
 

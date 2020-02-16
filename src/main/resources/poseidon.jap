@@ -34,7 +34,7 @@ poseidon: {
     model.mapper = ["org.poseidon.builder"]
 
     // 配置regular.json文件路径
-    regular = regular.json
+    model.regular = regular.json
 
     // 默认数据文件
     default.model = default_model.json
