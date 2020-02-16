@@ -1,6 +1,7 @@
 package org.laniakeamly.poseidon.framework;
 
 import com.alibaba.fastjson.JSONObject;
+import org.laniakeamly.poseidon.framework.config.GlobalConfig;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public class ProvideConstant {
     // default_model.json中的特殊变量
     // ---------------------------------------------------------------------
 
-    private static final String CURRENT_TIME = "$currentTime";
+    private static final String CURRENT_TIME = "#currentTime#";
 
     // ---------------------------------------------------------------------
 
@@ -76,12 +77,19 @@ public class ProvideConstant {
      * 更新default_model JSONObject中的特殊变量
      * @param jsonObject
      */
-    public static final synchronized void updateSpecialVariable(JSONObject jsonObject){
+    public static final synchronized void updateSpecialVariable(JSONObject jsonObject) {
+        JSONObject parent = GlobalConfig.getConfig().getDefaultModel();
         for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue().toString();
-            if(value.contains(CURRENT_TIME)){
-                jsonObject.put(key,new Date());
+            // 如果key中的表达式存在#currentTime#
+            if (CURRENT_TIME.equals(value)) {
+                jsonObject.put(key, new Date());
+                // 如果存在this则应该是引用字段
+            } else if ("this".equals(value.substring(0, 4))) {
+                String dataId = value.split("\\.")[1];
+                String dataJsonString = parent.get(dataId).toString();
+                jsonObject.put(key, dataJsonString);
             }
         }
     }
@@ -99,17 +107,17 @@ public class ProvideConstant {
             String group = matcher.group(1);
             if (!group.contains(".")) {
                 group = StringUtils.format(PARAMS_MAP_GET, group);
-                group = group.substring(0,group.length()-1);
+                group = group.substring(0, group.length() - 1);
                 value.append(StringUtils.format(PARAMS_LIST_ADD, group));
             } else {
                 group = getMemberValue(group);
                 value.append(StringUtils.format(PARAMS_LIST_ADD, group));
             }
         }
-        if(value.subSequence(value.length()-3,value.length()-2).equals(";")){
-            value.delete(value.length()-3,value.length()-2);
+        if (value.subSequence(value.length() - 3, value.length() - 2).equals(";")) {
+            value.delete(value.length() - 3, value.length() - 2);
         }
-        return value.toString().replaceAll("\\{\\{(.*?)}}","?");
+        return value.toString().replaceAll("\\{\\{(.*?)}}", "?");
     }
 
     /**
@@ -129,19 +137,19 @@ public class ProvideConstant {
      * @param name
      * @return
      */
-    public static final String getMapValue(String name){
-        return StringUtils.format(PARAMS_MAP_GET,name);
+    public static final String getMapValue(String name) {
+        return StringUtils.format(PARAMS_MAP_GET, name);
     }
 
-    public static final String addArrayParameter(List<String> args){
+    public static final String addArrayParameter(List<String> args) {
         StringBuilder createArray = new StringBuilder("new Object[]{");
         for (String arg : args) {
             createArray.append(arg).append(",");
         }
         int len = createArray.length();
-        createArray.delete(len-1,len);
+        createArray.delete(len - 1, len);
         createArray.append("}");
-        return StringUtils.format(ProvideConstant.PARAMS_LIST_ADD,createArray.toString());
+        return StringUtils.format(ProvideConstant.PARAMS_LIST_ADD, createArray.toString());
     }
 
     public static void main(String[] args) {

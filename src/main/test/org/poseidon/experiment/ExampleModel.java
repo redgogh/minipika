@@ -52,7 +52,7 @@ public class ExampleModel {
      * email这个值是在resource目录下的regular.json中配置的
      */
     @Regular("email")
-    @Column("varchar(50) not null")
+    @Column("varchar(2000) not null")
     @Comment("用户邮箱")
     private String email;
 
