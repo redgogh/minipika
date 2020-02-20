@@ -30,7 +30,6 @@ public class Converter {
                 e.printStackTrace();
             }
         }
-        assert ctClass != null;
         ctClass.defrost();
         CtMethod ctMethod = CtNewMethod.make(methodString, ctClass);
         ctClass.addMethod(ctMethod);
