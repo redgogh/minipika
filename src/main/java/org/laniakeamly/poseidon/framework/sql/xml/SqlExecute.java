@@ -46,4 +46,7 @@ public class SqlExecute {
         return jdbc.executeBatch(sql,args);
     }
 
+    public boolean execute() {
+        return jdbc.execute(sql,args);
+    }
 }

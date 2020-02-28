@@ -1,16 +1,13 @@
 package org.laniakeamly.poseidon.framework.db;
 
-import org.laniakeamly.poseidon.framework.annotation.Model;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
 import org.laniakeamly.poseidon.framework.config.GlobalConfig;
-import org.laniakeamly.poseidon.framework.config.PropertiesConfig;
 import org.laniakeamly.poseidon.framework.model.AbstractModel;
 import org.laniakeamly.poseidon.framework.model.SecurityManager;
 import org.laniakeamly.poseidon.framework.model.Metadata;
 import org.laniakeamly.poseidon.framework.tools.JdbcUtils;
 import org.laniakeamly.poseidon.framework.tools.ModelUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
-import org.laniakeamly.poseidon.framework.tools.POFUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

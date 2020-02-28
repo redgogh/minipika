@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.tools;
 
-import org.laniakeamly.poseidon.framework.annotation.Ignore;
-import org.laniakeamly.poseidon.framework.annotation.Model;
+import org.laniakeamly.poseidon.framework.annotation.model.Ignore;
+import org.laniakeamly.poseidon.framework.annotation.model.Model;
 import org.laniakeamly.poseidon.framework.config.GlobalConfig;
 import org.laniakeamly.poseidon.framework.exception.PoseidonException;
 import org.laniakeamly.poseidon.framework.exception.runtime.ModelException;

@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import jdk.nashorn.internal.runtime.ParserException;
 import org.laniakeamly.poseidon.framework.ProvideConstant;
 import org.laniakeamly.poseidon.framework.config.GlobalConfig;
-import org.laniakeamly.poseidon.framework.annotation.Model;
+import org.laniakeamly.poseidon.framework.annotation.model.Model;
 import org.laniakeamly.poseidon.framework.beans.PoseidonBeansManager;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.exception.PoseidonException;

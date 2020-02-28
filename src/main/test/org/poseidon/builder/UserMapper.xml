@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper name="UserMapper">
+
+    <select name="findProductName" result="math(BigDecimal)">
+        select product_name from kkb_product_model where id = {{id}}
+    </select>
+
+</mapper>

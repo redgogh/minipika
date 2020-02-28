@@ -1,11 +1,10 @@
 package org.laniakeamly.poseidon.framework.model;
 
 
+import org.laniakeamly.poseidon.framework.annotation.model.*;
 import org.laniakeamly.poseidon.framework.exception.PoseidonException;
 import org.laniakeamly.poseidon.framework.tools.ModelUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
-import org.laniakeamly.poseidon.framework.tools.POFUtils;
-import org.laniakeamly.poseidon.framework.annotation.*;
 
 import java.lang.reflect.Field;
 import java.util.*;

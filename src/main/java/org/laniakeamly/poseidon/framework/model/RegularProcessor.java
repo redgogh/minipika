@@ -3,8 +3,8 @@ package org.laniakeamly.poseidon.framework.model;
 import javassist.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.laniakeamly.poseidon.framework.annotation.Model;
-import org.laniakeamly.poseidon.framework.annotation.Regular;
+import org.laniakeamly.poseidon.framework.annotation.model.Model;
+import org.laniakeamly.poseidon.framework.annotation.model.Regular;
 import org.laniakeamly.poseidon.framework.loader.PoseidonClassPool;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 

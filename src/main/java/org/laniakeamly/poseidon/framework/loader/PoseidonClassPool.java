@@ -1,13 +1,22 @@
 package org.laniakeamly.poseidon.framework.loader;
 
+import com.sun.org.apache.bcel.internal.classfile.LocalVariable;
 import javassist.ClassPool;
 import javassist.CtClass;
+import javassist.CtMethod;
 import javassist.LoaderClassPath;
+import javassist.bytecode.CodeAttribute;
+import javassist.bytecode.LocalVariableAttribute;
+import javassist.bytecode.MethodInfo;
 
 import java.io.File;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Copyright by TianSheng on 2020/2/8 13:12
@@ -28,6 +37,11 @@ public class PoseidonClassPool extends ClassPool {
         super(parent);
     }
 
+    /**
+     * 将某个包下的Class转换成CtClass
+     * @param packageName
+     * @return
+     */
     public CtClass[] getCtClassArray(String packageName) {
         // appendClassPath(new LoaderClassPath(this.getClass().getClassLoader()));
         List<String> classpathList = new ArrayList<>();
@@ -54,6 +68,33 @@ public class PoseidonClassPool extends ClassPool {
                 }
             }
         }
+    }
+
+    /**
+     * 获取方法参数名
+     * @return
+     */
+    public Map<String, Object> getMethodParametersName(Class<?> clazz, String method) {
+        Map<String, Object> names = new HashMap<>();
+        try {
+            CtClass ctClass = get(clazz.getName());
+            CtMethod ctMethod = ctClass.getDeclaredMethod(method);
+            MethodInfo info = ctMethod.getMethodInfo();
+            CodeAttribute codeAttribute = info.getCodeAttribute();
+            String[] paramsNames = new String[ctMethod.getParameterTypes().length];
+            LocalVariableAttribute attribute =
+                    (LocalVariableAttribute) codeAttribute.getAttribute(LocalVariableAttribute.tag);
+            if (attribute != null) {
+                int pos = Modifier.isStatic(ctMethod.getModifiers()) ? 0 : 1;
+                for (int i = 0; i < paramsNames.length; i++){
+                    paramsNames[i] = attribute.variableName(i + pos);
+                }
+            }
+            System.out.println();
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return names;
     }
 
 }

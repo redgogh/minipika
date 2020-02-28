@@ -1,9 +1,9 @@
 package org.poseidon.experiment;
 
-import org.laniakeamly.poseidon.framework.annotation.Column;
-import org.laniakeamly.poseidon.framework.annotation.Comment;
-import org.laniakeamly.poseidon.framework.annotation.Model;
-import org.laniakeamly.poseidon.framework.annotation.PrimaryKey;
+import org.laniakeamly.poseidon.framework.annotation.model.Column;
+import org.laniakeamly.poseidon.framework.annotation.model.Comment;
+import org.laniakeamly.poseidon.framework.annotation.model.Model;
+import org.laniakeamly.poseidon.framework.annotation.model.PrimaryKey;
 import lombok.Data;
 
 import java.math.BigDecimal;

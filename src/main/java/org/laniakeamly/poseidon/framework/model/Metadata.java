@@ -1,10 +1,9 @@
 package org.laniakeamly.poseidon.framework.model;
 
-import org.laniakeamly.poseidon.framework.annotation.Engine;
-import org.laniakeamly.poseidon.framework.annotation.Model;
+import org.laniakeamly.poseidon.framework.annotation.model.Engine;
+import org.laniakeamly.poseidon.framework.annotation.model.Model;
 import org.laniakeamly.poseidon.framework.model.database.ColumnModel;
 import org.laniakeamly.poseidon.framework.tools.ModelUtils;
-import org.laniakeamly.poseidon.framework.tools.POFUtils;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,5 +1,11 @@
 package org.laniakeamly.poseidon.framework.mapper;
 
+import org.laniakeamly.poseidon.framework.annotation.mapper.*;
+import org.laniakeamly.poseidon.framework.beans.PoseidonBeansManager;
+import org.laniakeamly.poseidon.framework.sql.xml.SqlExecute;
+import org.laniakeamly.poseidon.framework.sql.xml.SqlMapper;
+
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -33,17 +39,49 @@ public class MapperInvocation implements InvocationHandler {
                 new MapperInvocation());
     }
 
+    /**
+     * 给接口增加实现类
+     * @param method
+     * @param args
+     * @return
+     */
     private Object invocation(Method method,Object[] args){
-        return method.getName();
+        // 获取Mapper名称
+        String beanName = method.getDeclaringClass().getSimpleName();
+        // 判断容器中是否存在这个SqlMapper对象
+        SqlMapper mapper = PoseidonBeansManager.getBean(beanName);
+        if(mapper == null){
+            mapper = SqlMapper.getMapper(beanName);
+        }
+        // 获取sql执行器
+        SqlExecute execute = mapper.build(method.getName(), map -> {
+            map.put("id","1");
+        });
+        // 获取方法上的注解
+        Annotation[] declaredAnnotations = method.getDeclaredAnnotations();
+        for (Annotation declaredAnnotation : declaredAnnotations) {
+            // 判断这个方法是不是执行的查询
+            if(declaredAnnotation instanceof Query){
+                Query query = (Query) declaredAnnotation;
+                if(query.mode() == QueryMode.LIST) return execute.queryForList();
+                if(query.mode() == QueryMode.OBJECT) return execute.queryForObject();
+            }
+            // 判断这个方法是不是执行的更新
+            else if(declaredAnnotation instanceof Update){
+                return execute.update();
+            }
+            // 判断这个方法是不是执行的插入
+            else if(declaredAnnotation instanceof Insert){
+                return execute.insert();
+            }
+            // 判断是不是执行的批量
+            else if(declaredAnnotation instanceof Execute){
+                Execute exe = (Execute) declaredAnnotation;
+                if(exe.mode() == ExeMode.BATCH) return execute.executeBatch();
+                if(exe.mode() == ExeMode.DEFAULT) return execute.execute();
+            }
+        }
+        return null;
     }
 
-    public static void main(String[] args) {
-        UserMapper mapper = (UserMapper) MapperInvocation.invoker(UserMapper.class);
-        System.out.println(mapper.gerUserName());
-    }
-
-}
-
-interface UserMapper{
-    String gerUserName();
 }

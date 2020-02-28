@@ -2,7 +2,7 @@ package org.poseidon.experiment;
 
 
 import lombok.Data;
-import org.laniakeamly.poseidon.framework.annotation.*;
+import org.laniakeamly.poseidon.framework.annotation.model.*;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.framework.annotation;
+package org.laniakeamly.poseidon.framework.annotation.model;
 
 import java.lang.annotation.*;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;

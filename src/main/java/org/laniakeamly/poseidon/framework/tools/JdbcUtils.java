@@ -1,6 +1,6 @@
 package org.laniakeamly.poseidon.framework.tools;
 
-import org.laniakeamly.poseidon.framework.annotation.Model;
+import org.laniakeamly.poseidon.framework.annotation.model.Model;
 import org.laniakeamly.poseidon.framework.model.SecurityManager;
 
 import java.lang.reflect.Field;

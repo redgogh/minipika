@@ -1,6 +1,7 @@
 package org.recycle.compiler;
 
 import javassist.*;
+import org.laniakeamly.poseidon.framework.loader.PoseidonClassPool;
 import org.recycle.build.PrecompiledClass;
 import org.recycle.build.PrecompiledMethod;
 import org.laniakeamly.poseidon.framework.beans.PoseidonBeansManager;
@@ -18,7 +19,7 @@ import java.util.regex.Pattern;
  */
 public class Precompiler {
 
-    private ClassPool pool = PoseidonBeansManager.getBean("classPool");
+    private PoseidonClassPool pool = PoseidonBeansManager.getBean("classPool");
 
     /**
      * 加载一个类对象,只加载类信息不加载任何方法
