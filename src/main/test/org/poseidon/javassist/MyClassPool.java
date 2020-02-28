@@ -1,9 +1,16 @@
 package org.poseidon.javassist;
 
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.CtMethod;
+import javassist.bytecode.CodeAttribute;
+import javassist.bytecode.LocalVariableAttribute;
+import javassist.bytecode.MethodInfo;
 import org.junit.Test;
 import org.laniakeamly.poseidon.framework.beans.PoseidonBeansManager;
 import org.laniakeamly.poseidon.framework.loader.PoseidonClassPool;
 
+import java.lang.reflect.Modifier;
 import java.util.Map;
 
 /**
@@ -15,11 +22,13 @@ import java.util.Map;
 public class MyClassPool {
 
     @Test
-    public void test0(){
-        PoseidonClassPool pool = PoseidonBeansManager.getBean("classPool ");
-        Map<String, Object> getMethodParametersName =
-                pool.getMethodParametersName(PoseidonClassPool.class, "getMethodParametersName");
-        System.out.println();
+    public void test0() {
+        PoseidonClassPool pool = PoseidonBeansManager.getBean("classPool");
+        String[] names =
+                pool.getMethodParams("org.poseidon.javassist.TestDemo","demo");
+        for (String name : names) {
+            System.out.println(name);
+        }
     }
 
 }

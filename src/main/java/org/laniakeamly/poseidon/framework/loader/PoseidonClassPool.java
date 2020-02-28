@@ -74,27 +74,26 @@ public class PoseidonClassPool extends ClassPool {
      * 获取方法参数名
      * @return
      */
-    public Map<String, Object> getMethodParametersName(Class<?> clazz, String method) {
-        Map<String, Object> names = new HashMap<>();
+    public static String[] getMethodParams(String classname, String methodname) {
         try {
-            CtClass ctClass = get(clazz.getName());
-            CtMethod ctMethod = ctClass.getDeclaredMethod(method);
-            MethodInfo info = ctMethod.getMethodInfo();
-            CodeAttribute codeAttribute = info.getCodeAttribute();
-            String[] paramsNames = new String[ctMethod.getParameterTypes().length];
-            LocalVariableAttribute attribute =
-                    (LocalVariableAttribute) codeAttribute.getAttribute(LocalVariableAttribute.tag);
-            if (attribute != null) {
-                int pos = Modifier.isStatic(ctMethod.getModifiers()) ? 0 : 1;
-                for (int i = 0; i < paramsNames.length; i++){
-                    paramsNames[i] = attribute.variableName(i + pos);
+            ClassPool pool = ClassPool.getDefault();
+            CtClass cc = pool.get(classname);
+            CtMethod cm = cc.getDeclaredMethod(methodname);
+            MethodInfo methodInfo = cm.getMethodInfo();
+            CodeAttribute codeAttribute = methodInfo.getCodeAttribute();
+            String[] paramNames = new String[cm.getParameterTypes().length];
+            LocalVariableAttribute attr = (LocalVariableAttribute) codeAttribute.getAttribute(LocalVariableAttribute.tag);
+            if (attr != null) {
+                int pos = Modifier.isStatic(cm.getModifiers()) ? 0 : 1;
+                for (int i = 0; i < paramNames.length; i++) {
+                    paramNames[i] = attr.variableName(i + pos);
                 }
+                return paramNames;
             }
-            System.out.println();
-        } catch (Throwable e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("getMethodVariableName fail " + e);
         }
-        return names;
+        return null;
     }
 
 }
