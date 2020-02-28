@@ -1,7 +1,7 @@
 package org.keyboard;
 
 import org.junit.Test;
-import org.laniakeamly.poseidon.framework.beans.BeansManager;
+import org.laniakeamly.poseidon.framework.beans.PoseidonBeansManager;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.poseidon.experiment.UserInfo;
 
@@ -13,7 +13,7 @@ import org.poseidon.experiment.UserInfo;
  */
 public class SaveUserModel {
 
-    private JdbcSupport jdbcSupport = BeansManager.getBean("jdbc");
+    private JdbcSupport jdbcSupport = PoseidonBeansManager.getBean("jdbc");
 
     @Test
     public void test(){

@@ -2,7 +2,7 @@ package org.laniakeamly.poseidon.framework.db;
 
 import org.laniakeamly.poseidon.extension.ConnectionPool;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
-import org.laniakeamly.poseidon.framework.beans.BeansManager;
+import org.laniakeamly.poseidon.framework.beans.PoseidonBeansManager;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
 import org.laniakeamly.poseidon.framework.config.GlobalConfig;
 import org.laniakeamly.poseidon.framework.tools.ArrayUtils;
@@ -77,14 +77,14 @@ public class NativeJdbcImpl implements NativeJdbc {
                 result = cache.get(sql, args);
                 if (result == null) {
                     ResultSet resultSet = setValues(statement, args).executeQuery();
-                    result = BeansManager.newNativeResult().build(resultSet);
+                    result = PoseidonBeansManager.newNativeResult().build(resultSet);
                     cache.save(sql, result, args);
                     return cache.get(sql, args);
                 }
                 return result;
             } else {
                 ResultSet resultSet = setValues(statement, args).executeQuery();
-                return BeansManager.newNativeResult().build(resultSet);
+                return PoseidonBeansManager.newNativeResult().build(resultSet);
             }
         } catch (Throwable e) {
             e.printStackTrace();

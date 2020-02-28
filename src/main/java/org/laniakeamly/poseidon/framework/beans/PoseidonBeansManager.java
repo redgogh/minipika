@@ -35,7 +35,7 @@ import java.util.Map;
  * @since 1.8
  *
  */
-public class BeansManager {
+public class PoseidonBeansManager {
 
     private static Map<String, Object> beans = new HashMap<>();
 
@@ -74,16 +74,22 @@ public class BeansManager {
     }
 
     // get bean
+    @SuppressWarnings("unchecked")
     public static <T> T getBean(String name) {
-        T instance = (T) factory(name);
-        return instance;
+        return (T) factory(name);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T putBean(String name,Object beanObject){
+        put(name, beanObject);
+        return (T) getBean(name);
     }
 
     private static Object factory(String name) {
         try {
             Object bean = beans.get(name);
             if (bean != null) return bean;
-            Class<?> target = BeansManager.class;
+            Class<?> target = PoseidonBeansManager.class;
             Object instance = target.newInstance();
             Method[] methods = target.getDeclaredMethods();
             for (Method method : methods) {
@@ -102,7 +108,8 @@ public class BeansManager {
 
                 }
             }
-            throw new BeansManagerException("bean name \"" + name + "\" is not found");
+            // TODO 将报错信息替换成LOGO打印
+            // throw new BeansManagerException("bean name \"" + name + "\" is not found");
         } catch (Exception e) {
             e.printStackTrace();
         }

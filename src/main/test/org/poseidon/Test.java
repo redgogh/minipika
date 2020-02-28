@@ -1,7 +1,7 @@
 package org.poseidon;
 
 import org.poseidon.experiment.UserModel;
-import org.laniakeamly.poseidon.framework.beans.BeansManager;
+import org.laniakeamly.poseidon.framework.beans.PoseidonBeansManager;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 
 import java.lang.reflect.Array;
@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class Test {
 
-    private JdbcSupport jdbcSupport = BeansManager.getBean("jdbc");
+    private JdbcSupport jdbcSupport = PoseidonBeansManager.getBean("jdbc");
 
     @org.junit.Test
     public void insertUserModel() {
