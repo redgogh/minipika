@@ -133,7 +133,7 @@ public class JapLoader {
                         builder.append(v);
                         continue;
                     } else {
-                        throw new ConfigException("pconf syntax '" + v + "' in " + rowLen + ":" + columnLen, logger);
+                        throw new ConfigException("jap syntax '" + v + "' in " + rowLen + ":" + columnLen, logger);
                     }
                 }
                 // 结束符
