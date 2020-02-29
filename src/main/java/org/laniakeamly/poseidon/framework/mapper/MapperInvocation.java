@@ -2,6 +2,7 @@ package org.laniakeamly.poseidon.framework.mapper;
 
 import org.laniakeamly.poseidon.framework.annotation.mapper.*;
 import org.laniakeamly.poseidon.framework.beans.PoseidonBeansManager;
+import org.laniakeamly.poseidon.framework.loader.PoseidonClassPool;
 import org.laniakeamly.poseidon.framework.sql.xml.SqlExecute;
 import org.laniakeamly.poseidon.framework.sql.xml.SqlMapper;
 
@@ -46,13 +47,16 @@ public class MapperInvocation implements InvocationHandler {
      * @return
      */
     private Object invocation(Method method,Object[] args){
+        PoseidonClassPool pool = PoseidonBeansManager.getBean("classPool");
         // 获取Mapper名称
-        String beanName = method.getDeclaringClass().getSimpleName();
+        String beanName = method.getDeclaringClass().getName();
+        String beanSimpleName = method.getDeclaringClass().getSimpleName();
         // 判断容器中是否存在这个SqlMapper对象
-        SqlMapper mapper = PoseidonBeansManager.getBean(beanName);
+        SqlMapper mapper = PoseidonBeansManager.getBean(beanSimpleName);
         if(mapper == null){
-            mapper = SqlMapper.getMapper(beanName);
+            mapper = SqlMapper.getMapper(beanSimpleName);
         }
+        String[] argsName = pool.getParamName(beanName,method.getName());
         // 获取sql执行器
         SqlExecute execute = mapper.build(method.getName(), map -> {
             map.put("id","1");

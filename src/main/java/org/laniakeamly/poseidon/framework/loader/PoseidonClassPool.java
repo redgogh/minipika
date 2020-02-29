@@ -1,10 +1,8 @@
 package org.laniakeamly.poseidon.framework.loader;
 
 import com.sun.org.apache.bcel.internal.classfile.LocalVariable;
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.CtMethod;
-import javassist.LoaderClassPath;
+import javassist.*;
+import javassist.bytecode.ByteArray;
 import javassist.bytecode.CodeAttribute;
 import javassist.bytecode.LocalVariableAttribute;
 import javassist.bytecode.MethodInfo;
@@ -71,10 +69,10 @@ public class PoseidonClassPool extends ClassPool {
     }
 
     /**
-     * 获取方法参数名
+     * 获取对象方法参数名
      * @return
      */
-    public static String[] getMethodParams(String classname, String methodname) {
+    public String[] getParamName(String classname, String methodname) {
         try {
             ClassPool pool = ClassPool.getDefault();
             CtClass cc = pool.get(classname);
@@ -95,5 +93,6 @@ public class PoseidonClassPool extends ClassPool {
         }
         return null;
     }
+
 
 }

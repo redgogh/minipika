@@ -25,7 +25,7 @@ public class MyClassPool {
     public void test0() {
         PoseidonClassPool pool = PoseidonBeansManager.getBean("classPool");
         String[] names =
-                pool.getMethodParams("org.poseidon.javassist.TestDemo","demo");
+                pool.getParamName("org.poseidon.javassist.TestDemo","demo");
         for (String name : names) {
             System.out.println(name);
         }

@@ -17,13 +17,13 @@ public class InvocationTest {
     @Test
     public void mapperInvocationTest0(){
         UserMapper mapper = (UserMapper) MapperInvocation.invoker(UserMapper.class);
-        System.out.println(mapper.findProductName());
+        System.out.println(mapper.findProductName(1));
     }
 
     interface UserMapper{
 
         @Query
-        BigDecimal findProductName();
+        BigDecimal findProductName(Integer id);
 
     }
 
