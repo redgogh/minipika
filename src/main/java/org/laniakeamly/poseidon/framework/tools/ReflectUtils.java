@@ -3,6 +3,9 @@ package org.laniakeamly.poseidon.framework.tools;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 反射工具类
@@ -34,7 +37,7 @@ public class ReflectUtils {
      * @param memberName
      * @return
      */
-    public static Object getMemberValue(Object obj,String memberName){
+    public static Object getMemberValue(Object obj, String memberName) {
         try {
             Class<?> target = obj.getClass();
             Field field = target.getDeclaredField(memberName);
@@ -44,6 +47,58 @@ public class ReflectUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 获取方法参数，根据class路径来获取{@link String}
+     * @param classpath
+     * @param methodName
+     * @param parameterTypes
+     * @return
+     */
+    public static String[] displayParametersMetadata(String classpath,
+                                                     String methodName,
+                                                     Class<?>... parameterTypes) {
+        try {
+            Class<?> clazz = Class.forName(classpath);
+            return displayParametersMetadata(clazz, methodName, parameterTypes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取方法参数名称，根据{@link Class}对象获取
+     * @param clazz
+     * @param methodName
+     * @param parameterTypes
+     * @return 方法参数名称数组，按照顺序获取。
+     */
+    @SuppressWarnings("unchecked")
+    public static String[] displayParametersMetadata(Class<?> clazz,
+                                                     String methodName,
+                                                     Class<?>... parameterTypes) throws NoSuchMethodException {
+        if (clazz == null) return null;
+        Method method = null;
+        if (parameterTypes.length > 0) {
+            method = clazz.getMethod(methodName, parameterTypes);
+        } else {
+            Method[] methodArray = clazz.getMethods();
+            for (Method method1 : methodArray) {
+                if (methodName.equals(method1.getName())) {
+                    method = method1;
+                    break;
+                }
+            }
+        }
+        List<String> nameList = new LinkedList();
+        for (final Parameter parameter : method.getParameters()) {
+            nameList.add(parameter.getName());
+        }
+        String[] nameArray = new String[nameList.size()];
+        nameList.toArray(nameArray);
+        return nameArray;
     }
 
 }

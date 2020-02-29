@@ -23,12 +23,6 @@ public class MyClassPool {
 
     @Test
     public void test0() {
-        PoseidonClassPool pool = PoseidonBeansManager.getBean("classPool");
-        String[] names =
-                pool.getParamName("org.poseidon.javassist.TestDemo","demo");
-        for (String name : names) {
-            System.out.println(name);
-        }
     }
 
 }

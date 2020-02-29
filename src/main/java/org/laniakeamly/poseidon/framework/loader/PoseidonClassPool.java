@@ -68,31 +68,4 @@ public class PoseidonClassPool extends ClassPool {
         }
     }
 
-    /**
-     * 获取对象方法参数名
-     * @return
-     */
-    public String[] getParamName(String classname, String methodname) {
-        try {
-            ClassPool pool = ClassPool.getDefault();
-            CtClass cc = pool.get(classname);
-            CtMethod cm = cc.getDeclaredMethod(methodname);
-            MethodInfo methodInfo = cm.getMethodInfo();
-            CodeAttribute codeAttribute = methodInfo.getCodeAttribute();
-            String[] paramNames = new String[cm.getParameterTypes().length];
-            LocalVariableAttribute attr = (LocalVariableAttribute) codeAttribute.getAttribute(LocalVariableAttribute.tag);
-            if (attr != null) {
-                int pos = Modifier.isStatic(cm.getModifiers()) ? 0 : 1;
-                for (int i = 0; i < paramNames.length; i++) {
-                    paramNames[i] = attr.variableName(i + pos);
-                }
-                return paramNames;
-            }
-        } catch (Exception e) {
-            System.out.println("getMethodVariableName fail " + e);
-        }
-        return null;
-    }
-
-
 }
