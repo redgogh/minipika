@@ -11,6 +11,7 @@ import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCacheImpl;
 import org.laniakeamly.poseidon.framework.exception.runtime.BeansManagerException;
 import org.laniakeamly.poseidon.framework.loader.PoseidonClassPool;
+import org.laniakeamly.poseidon.framework.mapper.MapperInvocation;
 import org.laniakeamly.poseidon.framework.timer.Timer;
 import org.laniakeamly.poseidon.framework.timer.TimerManager;
 import org.laniakeamly.poseidon.framework.tools.ReflectUtils;
@@ -36,9 +37,11 @@ import java.util.Map;
  * @since 1.8
  *
  */
+@SuppressWarnings({"unchecked"})
 public class PoseidonBeansManager {
 
     private static Map<String, Object> beans = new HashMap<>();
+    private static Map<String, Object> mapperBeans = new HashMap<>();
 
     @Resource
     private NativeJdbc newNativeJdbc() {
@@ -75,12 +78,22 @@ public class PoseidonBeansManager {
     }
 
     // get bean
-    @SuppressWarnings("unchecked")
     public static <T> T getBean(String name) {
         return (T) factory(name);
     }
 
-    @SuppressWarnings("unchecked")
+    // 获取mapper映射对象
+    public static <T> T getBeanMapper(Class<T> clazz){
+        String simpleName = clazz.getSimpleName();
+        Object sqlMapper = mapperBeans.get(simpleName);
+        if(sqlMapper == null) {
+            Object invoker = MapperInvocation.invoker(clazz);
+            mapperBeans.put(simpleName,invoker);
+            sqlMapper = mapperBeans.get(simpleName);
+        }
+        return (T) sqlMapper;
+    }
+
     public static <T> T putBean(String name,Object beanObject){
         put(name, beanObject);
         return (T) getBean(name);

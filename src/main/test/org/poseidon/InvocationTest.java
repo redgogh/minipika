@@ -2,6 +2,8 @@ package org.poseidon;
 
 import org.junit.Test;
 import org.laniakeamly.poseidon.framework.annotation.mapper.Query;
+import org.laniakeamly.poseidon.framework.annotation.model.Mapper;
+import org.laniakeamly.poseidon.framework.beans.PoseidonBeansManager;
 import org.laniakeamly.poseidon.framework.mapper.MapperInvocation;
 
 import java.math.BigDecimal;
@@ -16,7 +18,8 @@ public class InvocationTest {
 
     @Test
     public void mapperInvocationTest0(){
-        UserMapper mapper = (UserMapper) MapperInvocation.invoker(UserMapper.class);
+        UserMapper mapper = PoseidonBeansManager.getBeanMapper(UserMapper.class);
+        // UserMapper mapper = (UserMapper) MapperInvocation.invoker(UserMapper.class);
         System.out.println(mapper.findProductName(1));
     }
 

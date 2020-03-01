@@ -2,7 +2,6 @@ package org.laniakeamly.poseidon.framework.mapper;
 
 import org.laniakeamly.poseidon.framework.annotation.mapper.*;
 import org.laniakeamly.poseidon.framework.beans.PoseidonBeansManager;
-import org.laniakeamly.poseidon.framework.loader.PoseidonClassPool;
 import org.laniakeamly.poseidon.framework.sql.xml.SqlExecute;
 import org.laniakeamly.poseidon.framework.sql.xml.SqlMapper;
 import org.laniakeamly.poseidon.framework.tools.ReflectUtils;
@@ -56,6 +55,10 @@ public class MapperInvocation implements InvocationHandler {
         if(mapper == null){
             mapper = SqlMapper.getMapper(beanSimpleName);
         }
+        //
+        // TODO 这段代码有优化空间，SqlExecute可以缓存到BeansManager中。
+        // TODO 方便直接获取，而不是每次都去获取Class对象再读取方法参数名进行操作。
+        //
         String[] parametersMetadata = ReflectUtils.displayParametersMetadata(beanName,method.getName());
         // 获取sql执行器
         SqlExecute execute = mapper.build(method.getName(), map -> {
