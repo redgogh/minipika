@@ -3,9 +3,10 @@ package org.laniakeamly.poseidon.framework.annotation.model;
 import java.lang.annotation.*;
 
 /**
- * 字段注释
+ * This annotation only to have {@link Model} the class effective.
  *
- * column comment.
+ * {@code Comment} annotation is column comment, you can write column
+ * comment in {@link Comment#value()}.
  *
  * Copyright: Create by TianSheng on 2019/11/12 10:35
  */

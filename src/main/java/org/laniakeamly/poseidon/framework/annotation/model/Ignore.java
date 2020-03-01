@@ -5,6 +5,8 @@ import java.lang.annotation.*;
 /**
  * 忽略某个字段，被忽略字段不会对数据库进行影响
  *
+ * This annotation only to have {@link Model} the class effective.
+ *
  * Ignore column, be ignored column will not impact on the database.
  *
  * @author TianSheng

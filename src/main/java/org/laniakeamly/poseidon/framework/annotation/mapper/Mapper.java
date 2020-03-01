@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.framework.annotation.model;
+package org.laniakeamly.poseidon.framework.annotation.mapper;
 
 /**
  * 被注解的接口代表是一个Mapper实现类

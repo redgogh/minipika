@@ -5,7 +5,9 @@ import java.lang.annotation.*;
 /**
  * 自增长
  *
- * Auto increase
+ * This annotation only to have {@link Model} the class effective.
+ *
+ * Auto increase.
  *
  * @author TianSheng
  * @version 1.0.0
