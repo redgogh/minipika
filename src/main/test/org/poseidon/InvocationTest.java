@@ -2,9 +2,7 @@ package org.poseidon;
 
 import org.junit.Test;
 import org.laniakeamly.poseidon.framework.annotation.mapper.Query;
-import org.laniakeamly.poseidon.framework.annotation.model.Mapper;
 import org.laniakeamly.poseidon.framework.beans.PoseidonBeansManager;
-import org.laniakeamly.poseidon.framework.mapper.MapperInvocation;
 
 import java.math.BigDecimal;
 

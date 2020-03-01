@@ -8,7 +8,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * 数组工具类
+ *
+ * 静态数组工具类
+ *
+ * Static utility methods to {@code Array} instance.
+ *
  * Copyright: Create by TianSheng on 2019/12/13 18:36
  */
 public final class ArrayUtils {

@@ -6,7 +6,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * 计算String中的表达式
+ *
+ * 计算{@code String}中的表达式
+ *
+ * Calculator utility methods to {@link String} instance.
+ *
  * Copyright: Create by TianSheng on 2019/12/7 2:50
  */
 public final class Calculator {
