@@ -10,6 +10,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.List;
 
 /**
  * Mapper接口代理类
@@ -72,6 +73,13 @@ public class MapperInvocation implements InvocationHandler {
             // 判断这个方法是不是执行的查询
             if(declaredAnnotation instanceof Query){
                 Query query = (Query) declaredAnnotation;
+                if(query.mode() == QueryMode.DEFAULT) {
+                    if(List.class.equals(method.getReturnType())) {
+                        return execute.queryForList();
+                    }else{
+                        return execute.queryForObject();
+                    }
+                }
                 if(query.mode() == QueryMode.LIST) return execute.queryForList();
                 if(query.mode() == QueryMode.OBJECT) return execute.queryForObject();
             }

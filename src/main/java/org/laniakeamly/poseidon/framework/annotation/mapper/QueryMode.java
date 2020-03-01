@@ -8,6 +8,6 @@ package org.laniakeamly.poseidon.framework.annotation.mapper;
  */
 public enum  QueryMode {
 
-    OBJECT,LIST
+    DEFAULT,OBJECT,LIST
 
 }
