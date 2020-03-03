@@ -13,13 +13,15 @@ import java.util.Date;
  *      {@link Model#increment()}   设置自增长从多少开始
  *
  *
- *
  * {@link Model} have three a property
  *      {@link Model#value()}       table name
  *      {@link Model#engine()}      database engine , database engine can use{@link Engine} enum class.
  *      {@link Model#increment()}   increment from how much start.
  *
- * Copyright by TianSheng on 2020/2/9 0:16
+ * <h5>Copyright by TianSheng on 2020/2/9 0:16</h5>
+ * License:
+ * <a herf="https://github.com/Laniakeamly/poseidon/blob/master/LICENSE">Apache License 2.0</a>
+ *
  * @author TianSheng
  * @version 1.0.0
  * @since 1.8

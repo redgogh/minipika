@@ -2,7 +2,6 @@ package org.laniakeamly.poseidon.framework.pool;
 
 import org.laniakeamly.poseidon.framework.config.GlobalConfig;
 import org.laniakeamly.poseidon.framework.config.PropertiesConfig;
-import org.laniakeamly.poseidon.framework.monitor.MonitorObject;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -22,39 +21,39 @@ import java.util.Set;
  * @date 2019/11/11 16:31
  * @since 1.8
  */
-public class ConnectionPool extends MonitorObject
+public class ConnectionPool
         implements org.laniakeamly.poseidon.extension.ConnectionPool {
 
     /**
      * 驱动对象
      */
-    private static Driver driver;
+    private Driver driver;
 
     /**
      * 连接池最小空间
      */
-    private static int MIN_SIZE;
+    private int MIN_SIZE;
 
     /**
      * 最大空间
      */
-    private static int MAX_SIZE;
+    private int MAX_SIZE;
 
     /**
      * 链接创建总数
      */
-    private static int count = 0;
+    private int count = 0;
 
-    private static String jdbcUrl;
+    private String jdbcUrl;
 
-    private static Set<Connection> conns = new LinkedHashSet<>();
+    private Set<Connection> conns = new LinkedHashSet<>();
 
-    private static final Boolean transaction = GlobalConfig.getConfig().getTransaction();
+    private final Boolean transaction = GlobalConfig.getConfig().getTransaction();
 
     // 创建连接
-    private static Properties info = new Properties();
+    private Properties info = new Properties();
 
-    private static boolean isInit = false;
+    private boolean isInit = false;
 
     public ConnectionPool(){
         if(!isInit) {

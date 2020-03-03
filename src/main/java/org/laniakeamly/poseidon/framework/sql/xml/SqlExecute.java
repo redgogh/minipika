@@ -8,6 +8,7 @@ import java.util.List;
  * sql执行器
  * Copyright: Create by TianSheng on 2019/12/26 17:48
  */
+@SuppressWarnings({"unchecked"})
 public class SqlExecute {
 
     private String sql;

@@ -12,6 +12,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * <p/>
+ * License: <a href="https://github.com/Laniakeamly/poseidon/blob/master/LICENSE">Apache License 2.0</a>
+ * <p/>
  * Copyright: Create by TianSheng on 2019/12/17 18:29
  */
 @SuppressWarnings({"unchecked"})
