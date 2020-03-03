@@ -5,7 +5,7 @@ import org.laniakeamly.poseidon.framework.annotation.Valid;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
 import org.laniakeamly.poseidon.framework.config.GlobalConfig;
-import org.laniakeamly.poseidon.framework.tools.ArrayUtils;
+import org.laniakeamly.poseidon.framework.tools.Arrays;
 import org.laniakeamly.poseidon.framework.tools.SQLUtils;
 
 import java.sql.*;
@@ -131,7 +131,7 @@ public class NativeJdbcImpl implements NativeJdbc {
     public int[] executeBatch(String sql, Object... args) {
         // 判断sql中是否包含多条sql，根据';'来判断
         out:if (sql.contains(";")) {
-            String[] sqls = (String[]) ArrayUtils.remove(sql.split(";"), ArrayUtils.Op.LAST);
+            String[] sqls = (String[]) Arrays.remove(sql.split(";"), Arrays.Op.LAST);
             // 如果sql包含';'，但是数组中只有一条sql的话就跳出if
             if(sqls.length == 1) break out;
             List<Object[]> objList = new ArrayList<>();

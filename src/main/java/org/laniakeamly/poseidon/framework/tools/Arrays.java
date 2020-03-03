@@ -5,7 +5,6 @@ import java.lang.Object;
 import java.lang.reflect.Array;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  *
@@ -15,7 +14,7 @@ import java.util.Arrays;
  *
  * Copyright: Create by TianSheng on 2019/12/13 18:36
  */
-public final class ArrayUtils {
+public final class Arrays {
 
     /**
      * 一些常用的变量
@@ -222,7 +221,7 @@ public final class ArrayUtils {
     @SuppressWarnings({"unchecked"})
     public static <T> Object[] remove(T[] array, int index) {
         try {
-            ArrayList list = new ArrayList(Arrays.asList(array));
+            ArrayList<T> list = new ArrayList<>(java.util.Arrays.asList(array));
             String typeName = array.getClass().getTypeName();
             typeName = typeName.substring(0, typeName.length() - 2); // 去除 '[]'
             list.remove(index);
@@ -247,18 +246,64 @@ public final class ArrayUtils {
         if (op == Op.FIRST) {
             return remove(array, 0);
         } else if (op == Op.LAST) {
-            return remove(array, array.length-1);
+            return remove(array, array.length - 1);
         }
         throw new InvalidParameterException("invalid parameter for op: " + op);
     }
 
+    /**
+     * append data for array.
+     *
+     * @param array 需要追加的数组 | the array
+     * @param value 需要追加的数据 | append value
+     * @return false代表数组已经满了不能追加 | false express array full
+     */
+    public static <T> boolean append(T[] array, T value) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == null) {
+                array[i] = value;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 根据下表添加
+     * append data for array by index.
+     *
+     * @param array 需要追加的数组 | the array
+     * @param value 需要追加的数据 | append value
+     * @param index 在哪个位置追加数据 | append data by index
+     * @return false代表数组已经满了不能追加 | false express array full
+     */
+    public static <T> boolean append(T[] array, T value, int index) {
+        if (array.length < index)
+            return false;
+        array[index] = value;
+        return false;
+    }
+
+    /**
+     * 数组扩容
+     * Array expansion.
+     *
+     * @param array
+     * @param size
+     * @param type
+     * @return
+     */
+    public static Object[] expansion(Object[] array,int size,Class<?> type){
+        Object[] dest = (Object[]) Array.newInstance(type,(array.length + size));
+        System.arraycopy(array,0,dest,0,array.length);
+        return dest;
+    }
+
     public static void main(String[] args) {
         String[] sql = new String[3];
-        sql[0] = "select";
-        sql[1] = "update";
-        sql[2] = " ";
-        sql = (String[]) remove(sql, 2);
-        System.out.println();
+        System.out.println(sql.length);
+        sql = (String[]) expansion(sql,5,String.class);
+        System.out.println(sql.length);
     }
 
 }

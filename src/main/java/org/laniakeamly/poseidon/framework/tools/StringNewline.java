@@ -211,7 +211,7 @@ abstract class StringNewline
         for (int i = 0; i < strValue.length; i++) {
             if (strValue[i] == '\n') {
                 int value = this.line[line] + pos + i + 1;
-                this.line = ArrayUtils.insert(this.line,insertLine,value);
+                this.line = Arrays.insert(this.line,insertLine,value);
                 insertLine++;
                 linePointer++;
             }

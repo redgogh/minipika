@@ -1,6 +1,6 @@
 package org.poseidon.framework.sql.xml.builder;
 
-import org.laniakeamly.poseidon.framework.tools.ArrayUtils;
+import org.laniakeamly.poseidon.framework.tools.Arrays;
 import org.laniakeamly.poseidon.framework.tools.LineBuilder;
 
 import java.io.Serializable;
@@ -214,7 +214,7 @@ abstract class StringNewline
         for (int i = 0; i < strValue.length; i++) {
             if (strValue[i] == '\n') {
                 int value = this.line[line] + pos + i + 1;
-                this.line = ArrayUtils.insert(this.line,insertLine,value);
+                this.line = Arrays.insert(this.line,insertLine,value);
                 insertLine++;
                 linePointer++;
             }

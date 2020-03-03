@@ -12,6 +12,8 @@ import java.util.Map;
  */
 public class Maps {
 
+    private Maps(){}
+
     /**
      * Creates <i>mutable</i>, empty {@code HashMap} instance.
      *
