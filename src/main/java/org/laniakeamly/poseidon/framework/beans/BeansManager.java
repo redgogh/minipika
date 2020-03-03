@@ -9,7 +9,6 @@ import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCacheImpl;
-import org.laniakeamly.poseidon.framework.exception.runtime.BeansManagerException;
 import org.laniakeamly.poseidon.framework.loader.PoseidonClassPool;
 import org.laniakeamly.poseidon.framework.mapper.MapperInvocation;
 import org.laniakeamly.poseidon.framework.timer.Timer;
@@ -38,7 +37,7 @@ import java.util.Map;
  *
  */
 @SuppressWarnings({"unchecked"})
-public class PoseidonBeansManager {
+public class BeansManager {
 
     private static Map<String, Object> beans = new HashMap<>();
     private static Map<String, Object> mapperBeans = new HashMap<>();
@@ -103,7 +102,7 @@ public class PoseidonBeansManager {
         try {
             Object bean = beans.get(name);
             if (bean != null) return bean;
-            Class<?> target = PoseidonBeansManager.class;
+            Class<?> target = BeansManager.class;
             Object instance = target.newInstance();
             Method[] methods = target.getDeclaredMethods();
             for (Method method : methods) {

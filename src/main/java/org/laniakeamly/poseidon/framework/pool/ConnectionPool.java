@@ -2,6 +2,7 @@ package org.laniakeamly.poseidon.framework.pool;
 
 import org.laniakeamly.poseidon.framework.config.GlobalConfig;
 import org.laniakeamly.poseidon.framework.config.PropertiesConfig;
+import org.laniakeamly.poseidon.framework.monitor.MonitorObject;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -21,7 +22,8 @@ import java.util.Set;
  * @date 2019/11/11 16:31
  * @since 1.8
  */
-public class ConnectionPool implements org.laniakeamly.poseidon.extension.ConnectionPool {
+public class ConnectionPool extends MonitorObject
+        implements org.laniakeamly.poseidon.extension.ConnectionPool {
 
     /**
      * 驱动对象

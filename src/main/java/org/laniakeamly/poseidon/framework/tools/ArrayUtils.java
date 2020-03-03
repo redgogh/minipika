@@ -219,6 +219,7 @@ public final class ArrayUtils {
      * @param <T>
      * @return
      */
+    @SuppressWarnings({"unchecked"})
     public static <T> Object[] remove(T[] array, int index) {
         try {
             ArrayList list = new ArrayList(Arrays.asList(array));
@@ -236,6 +237,7 @@ public final class ArrayUtils {
 
     /**
      * 根据OP枚举来删除
+     *
      * @param array
      * @param op
      * @param <T>
