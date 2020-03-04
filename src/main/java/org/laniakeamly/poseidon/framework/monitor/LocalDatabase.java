@@ -1,10 +1,16 @@
 package org.laniakeamly.poseidon.framework.monitor;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import lombok.Setter;
+import org.laniakeamly.poseidon.framework.annotation.LocalModel;
 import org.laniakeamly.poseidon.framework.tools.Arrays;
+import org.laniakeamly.poseidon.framework.tools.Lists;
 import org.laniakeamly.poseidon.framework.tools.Maps;
+import org.laniakeamly.poseidon.framework.tools.ReflectUtils;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,12 +39,12 @@ import java.util.Map;
  * @version 1.0.0
  * @since 1.8
  */
+@SuppressWarnings({"unchecked"})
 public class LocalDatabase
         implements Database {
 
     /**
-     * 这是个二维数组的hash桶。
-     * 第一个数组索引代表hash值，第二个则是存放的数据
+     * 哈希桶 | hash bucket
      */
     EntryNode[] table;
 
@@ -58,7 +64,7 @@ public class LocalDatabase
     @Getter
     @Setter
     class Entry {
-        Node root;
+        List<Node> data;
         Node model; // 字段模型
         Entry next;
         Entry last;
@@ -85,10 +91,21 @@ public class LocalDatabase
             }
         }
 
+        /**
+         * {@code Entry} equals method.
+         *
+         * @param entry {@link Entry}
+         * @return {@link Boolean}
+         */
         boolean equals(Entry entry) {
             return this == entry || this.tableName.equals(entry.tableName);
         }
 
+        /**
+         * Append a new {@code Entry} instance.
+         *
+         * @param entry the Entry.
+         */
         void append(Entry entry) {
             if (next == null) {
                 next = entry;
@@ -97,6 +114,35 @@ public class LocalDatabase
             }
             last.next = entry;
             last = last.next;
+        }
+
+        /**
+         * Insert a piece for data.
+         *
+         * @param map data object.
+         */
+        void insert(Map<String, Object> map) {
+            Node node = Node.copyof(model);
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                Integer index = columnIndex.get(entry.getKey());
+                if (index == null) continue;
+                Node temp = node;
+                for (int i = 0; i < index; i++) {
+                    temp = node.next;
+                }
+                temp.setValue(entry.getValue());
+            }
+            if (data == null) {
+                data = Lists.newLinkedList();
+                data.add(node);
+            } else {
+                data.add(node);
+            }
+            System.out.println();
+        }
+
+        List<Node> getEntryData() {
+            return data;
         }
 
     }
@@ -122,7 +168,7 @@ public class LocalDatabase
 
     @Getter
     @Setter
-    class Node {
+    static class Node {
         Node next;
         String key;
         Object value;
@@ -133,6 +179,16 @@ public class LocalDatabase
         Node(String key) {
             this.key = key;
         }
+
+        /**
+         * 深拷贝
+         * @param n 被拷贝的对象
+         * @return
+         */
+        static Node copyof(Node n) {
+            return JSONObject.parseObject(JSON.toJSONString(n)).toJavaObject(Node.class);
+        }
+
     }
 
     public LocalDatabase() {
@@ -168,6 +224,11 @@ public class LocalDatabase
         }
     }
 
+    /**
+     * get value for {@link Entry}.
+     * @param key the key
+     * @return {@code Entry} object.
+     */
     public Entry getVal(String key) {
         Entry entry = table[hash(key)].data;
         if (key.equals(entry.tableName)) {
@@ -180,6 +241,12 @@ public class LocalDatabase
             }
         }
         return null;
+    }
+
+    public int hash(String key) {
+        int h;
+        int hashCode = ((key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16)) % table.length;
+        return hashCode < 0 ? hashCode * -1 : hashCode;
     }
 
     /**
@@ -209,8 +276,25 @@ public class LocalDatabase
      * implements for {@link Database#queryForList}
      */
     @Override
-    public String queryForList(String table) {
-        int h = hash(table);
+    public List<?> queryForList(Class<? extends AbstractLocalModel> c) {
+        try {
+            LocalModel model = c.getDeclaredAnnotation(LocalModel.class);
+            Entry entry = getVal(model.value());
+            List<Node> nodes = entry.getEntryData();
+            List<AbstractLocalModel> result = Lists.newLinkedList();
+            for (Node node : nodes) {
+                Node n = node;
+                AbstractLocalModel abstractLocalModel = c.newInstance();
+                ReflectUtils.setMemberValue(abstractLocalModel,n.key,n.value);
+                while ((n = n.next) != null) {
+                    ReflectUtils.setMemberValue(abstractLocalModel,n.key,n.value);
+                }
+                result.add(abstractLocalModel);
+            }
+            return result;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -218,14 +302,11 @@ public class LocalDatabase
      * implements for {@link Database#insert}
      */
     @Override
-    public void insert(String table, Map<String, Object> value) {
-
-    }
-
-    public int hash(String key) {
-        int h;
-        int hashCode = ((key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16)) % table.length;
-        return hashCode < 0 ? hashCode * -1 : hashCode;
+    public void insert(Object o) {
+        String table = o.getClass().getDeclaredAnnotation(LocalModel.class).value();
+        Map<String, Object> map = JSONObject.parseObject(JSON.toJSONString(o));
+        Entry entry = getVal(table);
+        entry.insert(map);
     }
 
 }

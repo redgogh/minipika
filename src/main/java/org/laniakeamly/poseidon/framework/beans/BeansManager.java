@@ -11,6 +11,8 @@ import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCacheImpl;
 import org.laniakeamly.poseidon.framework.loader.PoseidonClassPool;
 import org.laniakeamly.poseidon.framework.mapper.MapperInvocation;
+import org.laniakeamly.poseidon.framework.monitor.Database;
+import org.laniakeamly.poseidon.framework.monitor.LocalDatabase;
 import org.laniakeamly.poseidon.framework.timer.Timer;
 import org.laniakeamly.poseidon.framework.timer.TimerManager;
 import org.laniakeamly.poseidon.framework.tools.ReflectUtils;
@@ -76,24 +78,29 @@ public class BeansManager {
         return pool;
     }
 
+    @Resource(name = "database")
+    private Database getLocalDatabase() {
+        return new LocalDatabase();
+    }
+
     // get bean
     public static <T> T getBean(String name) {
         return (T) factory(name);
     }
 
     // 获取mapper映射对象
-    public static <T> T getBeanMapper(Class<T> clazz){
+    public static <T> T getBeanMapper(Class<T> clazz) {
         String simpleName = clazz.getSimpleName();
         Object sqlMapper = mapperBeans.get(simpleName);
-        if(sqlMapper == null) {
+        if (sqlMapper == null) {
             Object invoker = MapperInvocation.invoker(clazz);
-            mapperBeans.put(simpleName,invoker);
+            mapperBeans.put(simpleName, invoker);
             sqlMapper = mapperBeans.get(simpleName);
         }
         return (T) sqlMapper;
     }
 
-    public static <T> T putBean(String name,Object beanObject){
+    public static <T> T putBean(String name, Object beanObject) {
         put(name, beanObject);
         return (T) getBean(name);
     }
@@ -109,13 +116,13 @@ public class BeansManager {
                 if (method.isAnnotationPresent(Resource.class)) {
                     String aname = method.getDeclaredAnnotation(Resource.class).name();
                     if (name.equals(aname)) {
-                        put(name, ReflectUtils.invoke(method,instance));
+                        put(name, ReflectUtils.invoke(method, instance));
                         return beans.get(name);
                     }
                     String ReturnName = method.getReturnType().getName();
                     ReturnName = ReturnName.substring(ReturnName.lastIndexOf(".") + 1);
                     if (name.equals(ReturnName)) {
-                        put(name, ReflectUtils.invoke(method,instance));
+                        put(name, ReflectUtils.invoke(method, instance));
                         return beans.get(name);
                     }
 

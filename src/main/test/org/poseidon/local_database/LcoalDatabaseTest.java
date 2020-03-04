@@ -1,4 +1,4 @@
-package org.poseidon;
+package org.poseidon.local_database;
 
 import org.laniakeamly.poseidon.framework.monitor.LocalDatabase;
 

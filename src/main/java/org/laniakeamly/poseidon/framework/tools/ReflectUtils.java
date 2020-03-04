@@ -1,9 +1,11 @@
 package org.laniakeamly.poseidon.framework.tools;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,24 +28,6 @@ public class ReflectUtils {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * 获取成员变量的值
-     * @param obj
-     * @param memberName
-     * @return
-     */
-    public static Object getMemberValue(Object obj, String memberName) {
-        try {
-            Class<?> target = obj.getClass();
-            Field field = target.getDeclaredField(memberName);
-            field.setAccessible(true);
-            return field.get(obj);
-        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -99,6 +83,56 @@ public class ReflectUtils {
         String[] nameArray = new String[nameList.size()];
         nameList.toArray(nameArray);
         return nameArray;
+    }
+
+    /**
+     * 获取成员名
+     * @param o the object
+     * @return String[]
+     */
+    public static String[] getMemberName(Object o) {
+        String[] name;
+        Class<?> clazz = o.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        name = new String[fields.length];
+        for (int i = 0; i < fields.length; i++)
+            name[i] = fields[i].getName();
+        return name;
+    }
+
+    /**
+     * 获取成员变量的值
+     * @param obj
+     * @param memberName
+     * @return
+     */
+    public static Object getMemberValue(Object obj, String memberName) {
+        try {
+            Class<?> target = obj.getClass();
+            Field field = target.getDeclaredField(memberName);
+            field.setAccessible(true);
+            return field.get(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 设置成员变量的值
+     * @param obj
+     * @param memberName
+     * @return
+     */
+    public static void setMemberValue(Object obj, String memberName,Object value) {
+        try {
+            Class<?> target = obj.getClass();
+            Field field = target.getDeclaredField(memberName);
+            field.setAccessible(true);
+            field.set(obj,value);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

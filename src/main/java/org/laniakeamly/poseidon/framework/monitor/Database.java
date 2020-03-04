@@ -1,5 +1,6 @@
 package org.laniakeamly.poseidon.framework.monitor;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,17 +27,15 @@ public interface Database {
      * 查询一张表的所有数据
      * query all data for table.
      *
-     * @param table 表名 | table name
      * @return json
      */
-    String queryForList(String table);
+    List<?> queryForList(Class<? extends AbstractLocalModel> o);
 
     /**
      * 添加一条新的数据
      * insert a new data.
-     * @param table 表名 | table name
-     * @param value 需要插入的数据 | the data
+     * @param o 需要插入的数据 | the data
      */
-    void insert(String table, Map<String,Object> value);
+    void insert(Object o);
 
 }
