@@ -57,8 +57,6 @@ import org.laniakeamly.poseidon.framework.tools.Maps;
  */
 public class Monitor {
 
-    private LocalDatabase database = new LocalDatabase();
-
     /**
      * 为对象创建一个监控页面, 默认数据为对象的所有成员信息
      *
@@ -67,7 +65,7 @@ public class Monitor {
      *
      * @param name 页面名称 | page name
      */
-    protected void createMonitorPage(String name){
+    protected void createMonitorPage(String name) {
     }
 
     /**
@@ -79,8 +77,7 @@ public class Monitor {
      * @param name 页面名称 | page name
      * @param columns 自定义列名 | customize column name
      */
-    protected void createMonitorPage(String name,String... columns){
-
+    protected void createMonitorPage(String name, String... columns) {
     }
 
 }
