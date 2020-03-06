@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import org.laniakeamly.poseidon.framework.config.GlobalConfig;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +79,7 @@ public class ProvideConstant {
      * 更新default_model JSONObject中的特殊变量
      * @param jsonObject
      */
-    public static final synchronized void updateSpecialVariable(JSONObject jsonObject) {
+    public static synchronized void updateSpecialVariable(JSONObject jsonObject) {
         JSONObject parent = GlobalConfig.getConfig().getDefaultModel();
         for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
             String key = entry.getKey();

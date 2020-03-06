@@ -21,7 +21,6 @@ public final class Arrays {
      */
     public enum Op {FIRST, LAST}
 
-
     /**
      * 对象是否为数组
      * whether the object is array type.
