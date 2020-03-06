@@ -18,19 +18,16 @@ public interface ConnectionPool {
 
     /**
      * 创建链接
-     * @return
      */
     Connection createConnection();
 
     /**
      * 获取连接
-     * @return
      */
     Connection getConnection();
 
     /**
      * 归还连接
-     * @param connection
      */
     void release(Connection connection);
 
