@@ -1,6 +1,7 @@
 package org.laniakeamly.poseidon.framework.beans;
 
 import javassist.ClassPool;
+import net.sf.jsqlparser.schema.Database;
 import org.laniakeamly.poseidon.extension.ConnectionPool;
 import org.laniakeamly.poseidon.framework.annotation.Resource;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
@@ -11,8 +12,6 @@ import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCacheImpl;
 import org.laniakeamly.poseidon.framework.loader.PoseidonClassPool;
 import org.laniakeamly.poseidon.framework.mapper.MapperInvocation;
-import org.laniakeamly.poseidon.server.database.Database;
-import org.laniakeamly.poseidon.server.database.LocalDatabase;
 import org.laniakeamly.poseidon.framework.timer.Timer;
 import org.laniakeamly.poseidon.framework.timer.TimerManager;
 import org.laniakeamly.poseidon.framework.tools.ReflectUtils;
@@ -76,11 +75,6 @@ public class BeansManager {
         PoseidonClassPool pool = new PoseidonClassPool(true);
         // pool.importPackage("org.laniakeamly.poseidon.framework.loader.Parameter");
         return pool;
-    }
-
-    @Resource(name = "database")
-    private Database getLocalDatabase() {
-        return new LocalDatabase();
     }
 
     // get bean

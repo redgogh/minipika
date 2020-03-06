@@ -151,6 +151,9 @@ public final class Calculator {
             Calculator calculator = new Calculator();
             Long value = calculator.express(exp1);
             this.exps = new StringBuilder(this.exps).replace(offset[0] - 1, offset[1] + 1, value.toString()).toString();
+            //
+            // 递归处理，知道表达式中没有括号为止
+            //
             brackets(this.exps);
         }
     }
@@ -178,27 +181,9 @@ public final class Calculator {
             for (int i = iPos - 1; i > 0; i--) {
                 char value = chars[i];
                 switch (value) {
-                    case '+': {
-                        i = i + 1;
-                        temp = exps.substring(i, iPos);
-                        offset[0] = i;
-                        i = 0;
-                        break;
-                    }
-                    case '-': {
-                        i = i + 1;
-                        temp = exps.substring(i, iPos);
-                        offset[0] = i;
-                        i = 0;
-                        break;
-                    }
-                    case '*': {
-                        i = i + 1;
-                        temp = exps.substring(i, iPos);
-                        offset[0] = i;
-                        i = 0;
-                        break;
-                    }
+                    case '+':
+                    case '-':
+                    case '*':
                     case '/': {
                         i = i + 1;
                         temp = exps.substring(i, iPos);
@@ -226,27 +211,9 @@ public final class Calculator {
             for (int i = iPos; i < chars.length; i++) {
                 char value = chars[i];
                 switch (value) {
-                    case '+': {
-                        iPos = iPos - 1;
-                        temp = exps.substring(iPos, i);
-                        offset[1] = i;
-                        i = chars.length + 1;
-                        break;
-                    }
-                    case '-': {
-                        iPos = iPos - 1;
-                        temp = exps.substring(iPos, i);
-                        offset[1] = i;
-                        i = chars.length + 1;
-                        break;
-                    }
-                    case '*': {
-                        iPos = iPos - 1;
-                        temp = exps.substring(iPos, i);
-                        offset[1] = i;
-                        i = chars.length + 1;
-                        break;
-                    }
+                    case '+':
+                    case '-':
+                    case '*':
                     case '/': {
                         iPos = iPos - 1;
                         temp = exps.substring(iPos, i);
