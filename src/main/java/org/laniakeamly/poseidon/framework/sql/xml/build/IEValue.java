@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * if else value
+ * IEValue: if else value
  * Copyright: Create by TianSheng on 2019/12/18 3:33
  */
 public class IEValue {

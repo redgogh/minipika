@@ -47,7 +47,7 @@ public final class GlobalConfig {
     }
 
     private AbstractConfig newConfig() {
-        Object config = null;
+        Object config;
         String suffix = configPath.substring(configPath.lastIndexOf(".") + 1);
         if ("jap".equals(suffix)) {
             config = new JapConfig(configPath);
