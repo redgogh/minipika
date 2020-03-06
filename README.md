@@ -23,7 +23,7 @@ MAVEN直接引入
 <dependency>
     <groupId>io.github.laniakeamly</groupId>
     <artifactId>poseidon</artifactId>
-    <version>1.1.1.RELEASE</version>
+    <version>1.1.3.RELEASE</version>
 </dependency>
 ```
 
