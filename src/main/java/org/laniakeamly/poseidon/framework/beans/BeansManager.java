@@ -11,8 +11,8 @@ import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCacheImpl;
 import org.laniakeamly.poseidon.framework.loader.PoseidonClassPool;
 import org.laniakeamly.poseidon.framework.mapper.MapperInvocation;
-import org.laniakeamly.poseidon.framework.local.database.Database;
-import org.laniakeamly.poseidon.framework.local.database.LocalDatabase;
+import org.laniakeamly.poseidon.server.database.Database;
+import org.laniakeamly.poseidon.server.database.LocalDatabase;
 import org.laniakeamly.poseidon.framework.timer.Timer;
 import org.laniakeamly.poseidon.framework.timer.TimerManager;
 import org.laniakeamly.poseidon.framework.tools.ReflectUtils;
@@ -59,7 +59,7 @@ public class BeansManager {
     }
 
     @Resource(name = "cache")
-    private PoseidonCache newPoeseidonCache() {
+    private PoseidonCache newPoseidonCache() {
         PoseidonCache cache = new PoseidonCacheImpl();
         Timer timer = new CacheRefreshTimer(cache);
         TimerManager.getManager().submit(timer);

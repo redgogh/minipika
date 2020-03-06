@@ -27,8 +27,8 @@ import java.util.List;
  * or {@link NativeJdbc#executeBatch(String, Object...)} method and use cache.
  *
  * in update will parser tables in sql.
- * parser out tables will compare with tables in {@link CacheKey}.
- * if tables in {@link CacheKey} contain parser out tables then refresh specify cache.
+ * parser out tables will compare with tables in {@code CacheKey}.
+ * if tables in {@code CacheKey} contain parser out tables then refresh specify cache.
  *
  * Copyright: Create by TianSheng on 2019/12/6 16:24
  *
