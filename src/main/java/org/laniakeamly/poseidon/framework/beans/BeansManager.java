@@ -7,6 +7,7 @@ import org.laniakeamly.poseidon.framework.annotation.Resource;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
 import org.laniakeamly.poseidon.framework.cache.CacheRefreshTimer;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
+import org.laniakeamly.poseidon.framework.config.GlobalConfig;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCacheImpl;
@@ -109,6 +110,10 @@ public class BeansManager {
             for (Method method : methods) {
                 if (method.isAnnotationPresent(Resource.class)) {
                     String aname = method.getDeclaredAnnotation(Resource.class).name();
+                    // 如果没开启缓存则不将缓存实例化
+                    if("cache".equals(aname) && !GlobalConfig.getConfig().getCache()){
+                        continue;
+                    }
                     if (name.equals(aname)) {
                         put(name, ReflectUtils.invoke(method, instance));
                         return beans.get(name);

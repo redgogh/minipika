@@ -1,6 +1,5 @@
 package org.laniakeamly.poseidon.framework.container;
 
-import org.laniakeamly.poseidon.extension.DynamicSQL;
 import org.laniakeamly.poseidon.framework.sql.xml.build.ParserMapperNode;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
 
@@ -9,7 +8,7 @@ import java.util.Map;
 /**
  * Copyright: Create by TianSheng on 2019/12/23 10:59
  */
-public class PrecompileContainer implements DynamicSQL {
+public class PrecompileContainer {
 
     private static PrecompileContainer pc;
     private static Map<String, PrecompiledClass> precompiledClassMap;

@@ -23,8 +23,8 @@ import java.util.UUID;
  */
 public class ThreadExample {
 
-    public static int closeCount = 0;
-    public static int createCount = 0;
+   volatile static int closeCount = 0;
+   volatile static int createCount = 0;
 
     public static final JdbcSupport jdbc = BeansManager.getBean("jdbc");
 
@@ -76,7 +76,7 @@ public class ThreadExample {
         for (int i = 0; i < 1000; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 200; j++) {
-                    if(j%2==0) {
+                    if (j % 2 == 0) {
                         cache.save("select", new NativeResult() {
                             @Override
                             public NativeResult build(ResultSet rset) {
@@ -113,16 +113,16 @@ public class ThreadExample {
 
                             }
                         }, "a");
-                    }else{
+                    } else {
                         cache.refreshAll();
                     }
                 }
                 closeCount++;
-                System.err.println("线程退出:["+closeCount+"]");
+                System.err.println("线程退出:[" + closeCount + "]");
                 System.out.println();
             }).start();
             createCount++;
-            System.err.println("线程创建["+createCount+"]");
+            System.err.println("线程创建[" + createCount + "]");
         }
     }
 

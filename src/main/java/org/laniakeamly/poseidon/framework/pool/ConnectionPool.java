@@ -53,12 +53,12 @@ public class ConnectionPool
     // 创建连接
     private Properties info = new Properties();
 
-    private boolean isInit = false;
+    private boolean init = false;
 
-    public ConnectionPool(){
-        if(!isInit) {
-            try {
-                isInit = true;
+    public ConnectionPool() {
+        try {
+            if (!init) {
+                init = true;
                 // 设置最小值和最大值
                 MIN_SIZE = GlobalConfig.getConfig().getMinSize();
                 MAX_SIZE = GlobalConfig.getConfig().getMaxSize();
@@ -71,9 +71,9 @@ public class ConnectionPool
                 for (int i = 0; i < MIN_SIZE; i++) {
                     conns.add(createConnection());
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

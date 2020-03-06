@@ -2,7 +2,6 @@ package org.laniakeamly.poseidon.framework.monitor;
 
 import org.laniakeamly.poseidon.extension.ConnectionPool;
 import org.laniakeamly.poseidon.framework.sql.xml.SqlExecute;
-import org.laniakeamly.poseidon.framework.tools.Maps;
 
 /**
  *

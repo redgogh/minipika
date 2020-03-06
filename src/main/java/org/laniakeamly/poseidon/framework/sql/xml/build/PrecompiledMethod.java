@@ -47,6 +47,7 @@ public class PrecompiledMethod {
      *
      * @param name   mapper标签的name属性
      * @param result mapper标签的return属性
+     * @param type   mapper标签类型
      */
     public PrecompiledMethod(String name, String result, String type) {
         try {

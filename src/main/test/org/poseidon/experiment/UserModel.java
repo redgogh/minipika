@@ -44,7 +44,7 @@ public class UserModel {
     private String uuid;
 
     // google_email
-    @Regular("email")
+    // @Regular("email")
     @Column("varchar(255) not null default 'NoEmail'")
     @Comment("Google邮箱")
     private String googleEmail;
