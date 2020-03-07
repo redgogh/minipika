@@ -1,5 +1,7 @@
 package org.laniakeamly.poseidon.framework.tools;
 
+import lombok.SneakyThrows;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -133,6 +135,11 @@ public class ReflectUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @SneakyThrows
+    public static <T> T newInstance(Class<T> c){
+        return c.newInstance();
     }
 
 }

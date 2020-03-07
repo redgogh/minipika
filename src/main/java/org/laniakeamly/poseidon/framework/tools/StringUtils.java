@@ -121,7 +121,8 @@ public final class StringUtils {
      * @param args
      * @return
      */
-    public static String format(String input, Object... args) {
+    public static String format(String input,Object... args) {
+        int argsLen = 0;
         int offset = 0;
         int subscript = 0;
         char[] chars = input.toCharArray();
@@ -130,6 +131,9 @@ public final class StringUtils {
         for (int i = 0; i < chars.length; i++) {
             char current = chars[i];
             if (previous == '{' && current == '}') {
+                if(argsLen >= args.length){
+                    return builder.toString().concat(new String(chars).substring((i+1)));
+                }
                 char[] temp = new char[(i - offset) - 1];
                 System.arraycopy(chars, offset, temp, 0, (offset = i - 1));
                 builder.append(temp).append(args[subscript]);
@@ -140,6 +144,7 @@ public final class StringUtils {
                 subscript++;
                 i = 0;
                 offset = 0;
+                argsLen++;
             } else {
                 previous = current;
             }
@@ -172,8 +177,8 @@ public final class StringUtils {
      */
     public static String UpperCase(String input, int index) {
         StringBuilder builder = new StringBuilder(input);
-        String value = new String(new char[]{input.charAt(index-1)}).toUpperCase();
-        builder.replace(0, 1,value);
+        String value = new String(new char[]{input.charAt(index - 1)}).toUpperCase();
+        builder.replace(0, 1, value);
         return builder.toString();
     }
 
@@ -184,8 +189,8 @@ public final class StringUtils {
      */
     public static String LowerCase(String input, int index) {
         StringBuilder builder = new StringBuilder(input);
-        String value = new String(new char[]{input.charAt(index-1)}).toLowerCase();
-        builder.replace(0, 1,value);
+        String value = new String(new char[]{input.charAt(index - 1)}).toLowerCase();
+        builder.replace(0, 1, value);
         return builder.toString();
     }
 

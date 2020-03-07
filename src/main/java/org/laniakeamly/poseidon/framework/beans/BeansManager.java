@@ -1,8 +1,8 @@
 package org.laniakeamly.poseidon.framework.beans;
 
 import javassist.ClassPool;
-import net.sf.jsqlparser.schema.Database;
 import org.laniakeamly.poseidon.extension.ConnectionPool;
+import org.laniakeamly.poseidon.extension.Logger;
 import org.laniakeamly.poseidon.framework.annotation.Resource;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
 import org.laniakeamly.poseidon.framework.cache.CacheRefreshTimer;
@@ -12,6 +12,7 @@ import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCacheImpl;
 import org.laniakeamly.poseidon.framework.loader.PoseidonClassPool;
+import org.laniakeamly.poseidon.framework.logger.PoseidonLogger;
 import org.laniakeamly.poseidon.framework.mapper.MapperInvocation;
 import org.laniakeamly.poseidon.framework.timer.Timer;
 import org.laniakeamly.poseidon.framework.timer.TimerManager;
@@ -21,8 +22,8 @@ import org.laniakeamly.poseidon.framework.db.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * ioc容器对象
@@ -41,8 +42,14 @@ import java.util.Map;
 @SuppressWarnings({"unchecked"})
 public class BeansManager {
 
-    private static Map<String, Object> beans = new HashMap<>();
-    private static Map<String, Object> mapperBeans = new HashMap<>();
+    volatile static Map<String, Object> beans = new ConcurrentHashMap<>();
+    volatile static Map<String, Object> mapperBeans = new ConcurrentHashMap<>();
+
+    static {
+        beans.put("logger", getLogger());
+    }
+
+    static Logger logger = getBean("logger");
 
     @Resource
     private NativeJdbc newNativeJdbc() {
@@ -78,9 +85,18 @@ public class BeansManager {
         return pool;
     }
 
+    /**
+     * Logger bean比较特殊，由于本类也要使用它，所以在最开始的时候就放入{@link #beans}中
+     * This bean was placed in the map at the beginning.
+     */
+    private static Logger getLogger() {
+        return new PoseidonLogger();
+    }
+
     // get bean
     public static <T> T getBean(String name) {
-        return (T) factory(name);
+        // if (!init) init();
+        return (T) factory(name); // (T) beans.get(name);
     }
 
     // 获取mapper映射对象
@@ -100,6 +116,29 @@ public class BeansManager {
         return (T) getBean(name);
     }
 
+    /**
+     * Load have {@code Resource} annotation the method in current class.
+     */
+    /*private static void init() {
+        BeansManager instance = ReflectUtils.newInstance(BeansManager.class);
+        Class<?> target = BeansManager.class;
+        Method[] methods = target.getDeclaredMethods();
+        for (Method method : methods) {
+            if (method.isAnnotationPresent(Resource.class)) {
+                String name = method.getDeclaredAnnotation(Resource.class).name();
+                if(!StringUtils.isEmpty(name)) {
+                    // 如果没开启缓存则不将缓存实例化
+                    if ("cache".equals(name) && !GlobalConfig.getConfig().getCache()) {
+                        continue;
+                    }
+                    put(name, ReflectUtils.invoke(method, instance));
+                    continue;
+                }
+                String ReturnName = method.getReturnType().getSimpleName();
+                put(ReturnName, ReflectUtils.invoke(method, instance));
+            }
+        }
+    }*/
     private static Object factory(String name) {
         try {
             Object bean = beans.get(name);
@@ -111,15 +150,14 @@ public class BeansManager {
                 if (method.isAnnotationPresent(Resource.class)) {
                     String aname = method.getDeclaredAnnotation(Resource.class).name();
                     // 如果没开启缓存则不将缓存实例化
-                    if("cache".equals(aname) && !GlobalConfig.getConfig().getCache()){
+                    if ("cache".equals(aname) && !GlobalConfig.getConfig().getCache()) {
                         continue;
                     }
                     if (name.equals(aname)) {
                         put(name, ReflectUtils.invoke(method, instance));
                         return beans.get(name);
                     }
-                    String ReturnName = method.getReturnType().getName();
-                    ReturnName = ReturnName.substring(ReturnName.lastIndexOf(".") + 1);
+                    String ReturnName = method.getReturnType().getSimpleName();
                     if (name.equals(ReturnName)) {
                         put(name, ReflectUtils.invoke(method, instance));
                         return beans.get(name);
@@ -127,16 +165,15 @@ public class BeansManager {
 
                 }
             }
-            // TODO 将报错信息替换成LOGO打印
-            // throw new BeansManagerException("bean name \"" + name + "\" is not found");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("bean name \"" + name + "\" is not found");
         }
         return null;
     }
 
     private static void put(String name, Object value) {
         beans.put(name, inject(value));
+        logger.info("add bean[" + name + "]: " + value.getClass().getName());
     }
 
     /**

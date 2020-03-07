@@ -1,7 +1,7 @@
 package org.poseidon.timer;
 
 import org.laniakeamly.poseidon.framework.timer.Timer;
-import org.laniakeamly.poseidon.framework.tools.TimeUtils;
+import org.laniakeamly.poseidon.framework.tools.DateUtils;
 
 import java.util.ArrayList;
 
@@ -24,6 +24,6 @@ public class Timer2 implements Timer {
 
     @Override
     public long time() {
-        return TimeUtils.SECOND * 2;
+        return DateUtils.SECOND * 2;
     }
 }

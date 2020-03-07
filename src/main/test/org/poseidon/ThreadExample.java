@@ -35,9 +35,9 @@ public class ThreadExample {
     }
 
     public static void userModelInsert() {
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1; i++) {
             new Thread(() -> {
-                for (int j = 0; j < 100; j++) {
+                for (int j = 0; j < 2; j++) {
                     UserModel model = new UserModel();
                     String uuid = UUID.randomUUID().toString();
                     model.setUserName(uuid);

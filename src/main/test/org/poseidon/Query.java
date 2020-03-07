@@ -6,7 +6,7 @@ import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.tools.POFUtils;
-import org.laniakeamly.poseidon.framework.tools.TimeUtils;
+import org.laniakeamly.poseidon.framework.tools.DateUtils;
 
 import java.util.Date;
 
@@ -91,7 +91,7 @@ public class Query {
 
             jdbc.queryForJson(sql, 1002001);
 
-            Thread.sleep(TimeUtils.MINUTE);
+            Thread.sleep(DateUtils.MINUTE);
             // long endTime = System.currentTimeMillis();
             // System.out.println("查询【" + models.size() + "】条数据，耗时：" + (endTime - startTime));
         }

@@ -7,7 +7,7 @@ import org.laniakeamly.poseidon.framework.jap.JapLoader;
 import org.laniakeamly.poseidon.framework.tools.Calculator;
 import org.laniakeamly.poseidon.framework.tools.PIOUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
-import org.laniakeamly.poseidon.framework.tools.TimeUtils;
+import org.laniakeamly.poseidon.framework.tools.DateUtils;
 
 import java.util.Map;
 import java.util.Properties;
@@ -180,23 +180,23 @@ class AbstractConfig implements PoseidonConfig {
 
     public long getRefresh() {
         if (StringUtils.isEmpty(refresh)) {
-            return TimeUtils.HOUR * 6;
+            return DateUtils.HOUR * 6;
         }
         Calculator calculator = new Calculator();
-        if (refresh.contains(TimeUtils.SECOND_STR) ||
-                refresh.contains(TimeUtils.MINUTE_STR)
-                || refresh.contains(TimeUtils.HOUR_STR)
-                || refresh.contains(TimeUtils.DAY_STR)
-                || refresh.contains(TimeUtils.WEEK_STR)) {
+        if (refresh.contains(DateUtils.SECOND_STR) ||
+                refresh.contains(DateUtils.MINUTE_STR)
+                || refresh.contains(DateUtils.HOUR_STR)
+                || refresh.contains(DateUtils.DAY_STR)
+                || refresh.contains(DateUtils.WEEK_STR)) {
             refresh = refresh.toLowerCase();
-            refresh = refresh.replaceAll(TimeUtils.SECOND_STR, String.valueOf(TimeUtils.SECOND));
-            refresh = refresh.replaceAll(TimeUtils.MINUTE_STR, String.valueOf(TimeUtils.MINUTE));
-            refresh = refresh.replaceAll(TimeUtils.HOUR_STR, String.valueOf(TimeUtils.HOUR));
-            refresh = refresh.replaceAll(TimeUtils.DAY_STR, String.valueOf(TimeUtils.DAY));
-            refresh = refresh.replaceAll(TimeUtils.WEEK_STR, String.valueOf(TimeUtils.WEEK));
+            refresh = refresh.replaceAll(DateUtils.SECOND_STR, String.valueOf(DateUtils.SECOND));
+            refresh = refresh.replaceAll(DateUtils.MINUTE_STR, String.valueOf(DateUtils.MINUTE));
+            refresh = refresh.replaceAll(DateUtils.HOUR_STR, String.valueOf(DateUtils.HOUR));
+            refresh = refresh.replaceAll(DateUtils.DAY_STR, String.valueOf(DateUtils.DAY));
+            refresh = refresh.replaceAll(DateUtils.WEEK_STR, String.valueOf(DateUtils.WEEK));
             return calculator.express(refresh);
         } else {
-            return calculator.express(refresh) * TimeUtils.SECOND;
+            return calculator.express(refresh) * DateUtils.SECOND;
         }
 
     }

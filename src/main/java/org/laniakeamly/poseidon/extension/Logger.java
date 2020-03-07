@@ -9,12 +9,12 @@ package org.laniakeamly.poseidon.extension;
  */
 public interface Logger {
 
-    void info(String v);
+    void info(String msg);
 
-    void warn(String v);
+    void warn(String msg);
 
-    void debug(String v);
+    void debug(String msg);
 
-    void error(String v);
+    void error(String msg);
 
 }
