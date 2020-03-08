@@ -1,6 +1,7 @@
 package org.laniakeamly.poseidon.framework.db;
 
 import org.laniakeamly.poseidon.extension.ConnectionPool;
+import org.laniakeamly.poseidon.extension.Logger;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
@@ -31,9 +32,12 @@ public class NativeJdbcImpl implements NativeJdbc {
     @Valid
     private PoseidonCache cache;
 
+    @Valid(name = "logger")
+    private Logger logger;
 
     @Override
     public boolean execute(String sql, Object... args) {
+        logger.debug("execute: " + sql);
         Connection connection = null;
         PreparedStatement statement = null;
         try {
@@ -60,6 +64,7 @@ public class NativeJdbcImpl implements NativeJdbc {
 
     @Override
     public NativeResult executeQuery(String sql, Object... args) {
+        logger.debug("query: " + sql);
         NativeResult result = null;
         Connection connection = null;
         PreparedStatement statement = null;
@@ -97,6 +102,7 @@ public class NativeJdbcImpl implements NativeJdbc {
 
     @Override
     public int executeUpdate(String sql, Object... args) {
+        logger.debug("update: " + sql);
         Connection connection = null;
         PreparedStatement statement = null;
         try {
@@ -130,10 +136,11 @@ public class NativeJdbcImpl implements NativeJdbc {
     @Override
     public int[] executeBatch(String sql, Object... args) {
         // 判断sql中是否包含多条sql，根据';'来判断
-        out:if (sql.contains(";")) {
+        out:
+        if (sql.contains(";")) {
             String[] sqls = (String[]) Arrays.remove(sql.split(";"), Arrays.Op.LAST);
             // 如果sql包含';'，但是数组中只有一条sql的话就跳出if
-            if(sqls.length == 1) break out;
+            if (sqls.length == 1) break out;
             List<Object[]> objList = new ArrayList<>();
             int argsIndex = 0;
             for (String isql : sqls) {
