@@ -74,7 +74,6 @@ public class PoseidonCacheImpl implements PoseidonCache{
         }
     }
 
-
     public void refresh(String sql) {
         List<String> tables = SQLUtils.getSQLTables(sql);
         if (!tables.isEmpty()) {
