@@ -1,16 +1,12 @@
 package org.laniakeamly.poseidon.framework.mapper;
 
-import org.laniakeamly.poseidon.framework.annotation.mapper.*;
-import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.beans.PoseidonApplication;
 import org.laniakeamly.poseidon.framework.sql.TemplateLabel;
 import org.laniakeamly.poseidon.framework.sql.xml.SqlExecute;
 import org.laniakeamly.poseidon.framework.sql.xml.SqlMapper;
 import org.laniakeamly.poseidon.framework.tools.Arrays;
 import org.laniakeamly.poseidon.framework.tools.ReflectUtils;
-import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;

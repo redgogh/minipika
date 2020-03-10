@@ -1,12 +1,9 @@
 package org.poseidon.mapper;
 
 import org.junit.Test;
-import org.laniakeamly.poseidon.framework.annotation.mapper.Query;
-import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.beans.PoseidonApplication;
 import org.poseidon.experiment.UserInfo;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
