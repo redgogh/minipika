@@ -28,22 +28,8 @@ import java.util.List;
 public @interface Query {
 
     /**
-     * 默认查询{@code Object},
-     * 代表返回对象为{@code Object}而不是{@code List}或者其他
-     *
-     * if you mode paramter value is {@link QueryMode#DEFAULT}, then query
-     * result is you mapper method statement the result.
-     *
-     * if you mode parameter value is {@link QueryMode#OBJECT}, then query
-     * result is {@link Object}.
-     *
-     * if you mode parameter value is {@link QueryMode#LIST}, then query
-     * result is {@link List}
-     *
-     * of course you can choose not to set mode parameter, query result is you
-     * method statement the result.
-     *
+     * The mapper interface execute sql.
      */
-    QueryMode mode() default QueryMode.DEFAULT;
+    String value() default "";
 
 }
