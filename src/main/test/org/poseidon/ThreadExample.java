@@ -1,5 +1,6 @@
 package org.poseidon;
 
+import org.laniakeamly.poseidon.framework.beans.PoseidonApplication;
 import org.poseidon.experiment.ProductModel;
 import org.poseidon.experiment.UserModel;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
@@ -26,7 +27,7 @@ public class ThreadExample {
    volatile static int closeCount = 0;
    volatile static int createCount = 0;
 
-    public static final JdbcSupport jdbc = BeansManager.getBean("jdbc");
+    public static final JdbcSupport jdbc = PoseidonApplication.getBean("jdbc");
 
     public static void main(String[] args) {
         userModelInsert();
@@ -72,7 +73,7 @@ public class ThreadExample {
     }
 
     public static void cacheReadAndWrite() {
-        final PoseidonCache cache = BeansManager.getBean("cache");
+        final PoseidonCache cache = PoseidonApplication.getBean("cache");
         for (int i = 0; i < 1000; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 200; j++) {

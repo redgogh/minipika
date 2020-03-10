@@ -1,6 +1,7 @@
 package org.laniakeamly.poseidon.framework.sql.xml;
 
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
+import org.laniakeamly.poseidon.framework.beans.PoseidonApplication;
 import org.laniakeamly.poseidon.framework.container.PrecompileContainer;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledClass;
@@ -19,7 +20,7 @@ public class SqlMapper {
     private Converter converter = new Converter();
     private PrecompileContainer container = PrecompileContainer.getContainer();
 
-    private JdbcSupport jdbcSupport = BeansManager.getBean("jdbc");
+    private JdbcSupport jdbcSupport = PoseidonApplication.getBean("jdbc");
 
     /**
      * class
@@ -53,7 +54,7 @@ public class SqlMapper {
     }
 
     public static SqlMapper getMapper(String name) {
-        SqlMapper mapperBean = BeansManager.getBean(name);
+        SqlMapper mapperBean = PoseidonApplication.getBean(name);
         if (mapperBean != null) {
             return mapperBean;
         }

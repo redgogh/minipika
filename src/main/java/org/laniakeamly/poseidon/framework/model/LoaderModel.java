@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import jdk.nashorn.internal.runtime.ParserException;
 import org.laniakeamly.poseidon.framework.ProvideConstant;
+import org.laniakeamly.poseidon.framework.beans.PoseidonApplication;
 import org.laniakeamly.poseidon.framework.config.GlobalConfig;
 import org.laniakeamly.poseidon.framework.annotation.model.Model;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
@@ -33,7 +34,7 @@ import java.util.*;
 public class LoaderModel {
 
     // 添加字段
-    private JdbcSupport jdbc = BeansManager.getBean("jdbc");
+    private JdbcSupport jdbc = PoseidonApplication.getBean("jdbc");
 
     /**
      * start
@@ -41,8 +42,8 @@ public class LoaderModel {
      */
     public void run() {
         try {
-            RegularProcessor processor =
-                    new RegularProcessor(GlobalConfig.getConfig().getModelPackage());
+            ModelPreProcess processor =
+                    new ModelPreProcess(GlobalConfig.getConfig().getModelPackage());
             processor.modifySetter();
             loadModel();
             loadColumn();

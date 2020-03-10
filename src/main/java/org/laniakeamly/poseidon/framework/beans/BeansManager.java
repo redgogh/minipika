@@ -94,13 +94,13 @@ public class BeansManager {
     }
 
     // get bean
-    public static <T> T getBean(String name) {
+    static <T> T getBean(String name) {
         // if (!init) init();
         return (T) factory(name); // (T) beans.get(name);
     }
 
     // 获取mapper映射对象
-    public static <T> T getBeanMapper(Class<T> clazz) {
+    static <T> T getMapper(Class<T> clazz) {
         String simpleName = clazz.getSimpleName();
         Object sqlMapper = mapperBeans.get(simpleName);
         if (sqlMapper == null) {

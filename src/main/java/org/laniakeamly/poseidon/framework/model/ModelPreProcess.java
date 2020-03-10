@@ -34,7 +34,7 @@ import java.util.Map;
  * @version 1.0.0
  * @since 1.8
  */
-public class RegularProcessor {
+public class ModelPreProcess {
 
     private List<RegularProperties> properties;
     private ClassLoader loader = getClass().getClassLoader();
@@ -49,7 +49,7 @@ public class RegularProcessor {
             "){super.canSave=false;}" +
             "}";
 
-    public RegularProcessor(String[] packages) throws Exception {
+    public ModelPreProcess(String[] packages) throws Exception {
         properties = getRegularProperties(packages);
     }
 

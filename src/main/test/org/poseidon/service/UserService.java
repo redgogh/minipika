@@ -1,6 +1,7 @@
 package org.poseidon.service;
 
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
+import org.laniakeamly.poseidon.framework.beans.PoseidonApplication;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 
 /**
@@ -11,7 +12,7 @@ import org.laniakeamly.poseidon.framework.db.JdbcSupport;
  */
 public class UserService {
 
-    private JdbcSupport jdbc = BeansManager.getBean("jdbc");
+    private JdbcSupport jdbc = PoseidonApplication.getBean("jdbc");
 
     public static void main(String[] args) {
 

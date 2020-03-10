@@ -106,7 +106,7 @@ poseidon.regular.json = regular.json
 ```java
 public class UserServiceImpl implements UserService{
     // 获取JdbcSupport实例
-    JdbcSupport jdbc = BeansManager.getBean("jdbc");
+    JdbcSupport jdbc = PoseidonApplication.getBean("jdbc");
 }
 ```
 

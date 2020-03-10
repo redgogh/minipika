@@ -1,15 +1,9 @@
 package org.poseidon.model;
 
-import javassist.*;
 import org.junit.Test;
 import org.laniakeamly.poseidon.framework.model.AbstractModel;
-import org.laniakeamly.poseidon.framework.model.RegularProcessor;
-import org.laniakeamly.poseidon.framework.tools.POFUtils;
-import org.laniakeamly.poseidon.framework.tools.StringUtils;
-import org.poseidon.experiment.ProductModel;
+import org.laniakeamly.poseidon.framework.model.ModelPreProcess;
 import org.poseidon.experiment.TestModel;
-
-import java.lang.reflect.Field;
 
 /**
  * Create by TianSheng on 2020/2/7 1:56
@@ -25,7 +19,7 @@ public class LoaderModel {
     @Test
     public void modifyMethod() throws Exception {
 
-        RegularProcessor processor = new RegularProcessor(path);
+        ModelPreProcess processor = new ModelPreProcess(path);
         processor.modifySetter();
 
         TestModel t = new TestModel();

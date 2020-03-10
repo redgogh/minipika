@@ -2,6 +2,7 @@ package org.laniakeamly.poseidon.framework.sql.xml;
 
 import javassist.*;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
+import org.laniakeamly.poseidon.framework.beans.PoseidonApplication;
 import org.laniakeamly.poseidon.framework.loader.PoseidonClassLoader;
 import org.laniakeamly.poseidon.framework.loader.PoseidonClassPool;
 import org.laniakeamly.poseidon.framework.sql.xml.build.PrecompiledMethod;
@@ -16,7 +17,7 @@ import java.util.Map;
  */
 public class Converter {
 
-    private PoseidonClassPool pool = BeansManager.getBean("classPool");
+    private PoseidonClassPool pool = PoseidonApplication.getBean("classPool");
 
     @SuppressWarnings("deprecation")
     public void conversion(PrecompiledMethod methodValue, Map<String, Object> parameter, String fullClassName) throws Exception {

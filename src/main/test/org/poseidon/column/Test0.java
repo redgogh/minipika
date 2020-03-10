@@ -2,6 +2,7 @@ package org.poseidon.column;
 
 import org.junit.Test;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
+import org.laniakeamly.poseidon.framework.beans.PoseidonApplication;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.model.database.ColumnModel;
 
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public class Test0 {
 
-    JdbcSupport jdbc = BeansManager.getBean("jdbc");
+    JdbcSupport jdbc = PoseidonApplication.getBean("jdbc");
 
     @Test
     public void getColumn() {
