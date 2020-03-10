@@ -30,7 +30,8 @@ public final class Arrays {
      */
     public static boolean isArray(Object o) {
         if (o == null) return false;
-        return o.getClass().isArray();
+        Class c = o.getClass();
+        return c.isArray() || ((Class) o).getName().contains("[");
     }
 
     /**

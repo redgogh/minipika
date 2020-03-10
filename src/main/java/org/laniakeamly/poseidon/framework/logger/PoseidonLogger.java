@@ -53,7 +53,7 @@ public class PoseidonLogger implements Logger {
     }
 
     private String getTemplate(String type,String info){
-        StackTraceElement e = Thread.currentThread().getStackTrace()[1];
+        StackTraceElement e = Thread.currentThread().getStackTrace()[3];
         return StringUtils.format(template,
                 DateUtils.getInstance().formatNow(),
                 e.getClassName(),

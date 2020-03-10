@@ -24,4 +24,11 @@ public class UserInfo {
     @Column("varchar(255) not null")
     private String email;
 
+    public UserInfo() {
+    }
+
+    public UserInfo(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.laniakeamly.poseidon.framework.model.Metadata;
 import org.laniakeamly.poseidon.framework.ProvideConstant;
+import org.laniakeamly.poseidon.framework.sql.TemplateLabel;
 import org.laniakeamly.poseidon.framework.tools.ReflectUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
@@ -27,7 +28,7 @@ public class PrecompiledMethod {
     private Class<?> result;
 
     @Getter
-    private String type;
+    private TemplateLabel type;
 
     @Getter
     @Setter
@@ -50,6 +51,11 @@ public class PrecompiledMethod {
      * @param type   mapper标签类型
      */
     public PrecompiledMethod(String name, String result, String type) {
+        if("select".equals(type)){
+            this.type = TemplateLabel.SELECT;
+        }else{
+            this.type = TemplateLabel.UPDATE;
+        }
         try {
             this.name = name;
             if (!StringUtils.isEmpty(result)) {

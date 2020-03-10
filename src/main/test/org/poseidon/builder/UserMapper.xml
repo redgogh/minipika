@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="UserMapper">
 
-    <select name="findProductName" result="math(BigDecimal)">
-        select product_name from kkb_product_model where id = {{id}}
+    <select name="findUsernameById" result="lang(String)">
+        select name from kkb_user_info where id = {{id}}
     </select>
+
+    <update name="updateUsernameById">
+        update kkb_user_info set name= {{name}} where id = {{id}}
+    </update>
+
+    <insert name="addUsers">
+        INSERT INTO `kkb_user_info`(`name`, `email`) VALUES (?,?);
+        <foreach index="i" item="user" collections="users">
+            <parameter>{{user.name}}, {{user.email}}</parameter>
+        </foreach>
+    </insert>
 
 </mapper>

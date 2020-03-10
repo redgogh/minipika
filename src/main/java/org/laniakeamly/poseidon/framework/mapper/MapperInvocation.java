@@ -3,8 +3,10 @@ package org.laniakeamly.poseidon.framework.mapper;
 import org.laniakeamly.poseidon.framework.annotation.mapper.*;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.beans.PoseidonApplication;
+import org.laniakeamly.poseidon.framework.sql.TemplateLabel;
 import org.laniakeamly.poseidon.framework.sql.xml.SqlExecute;
 import org.laniakeamly.poseidon.framework.sql.xml.SqlMapper;
+import org.laniakeamly.poseidon.framework.tools.Arrays;
 import org.laniakeamly.poseidon.framework.tools.ReflectUtils;
 import org.laniakeamly.poseidon.framework.tools.StringUtils;
 
@@ -69,8 +71,32 @@ public class MapperInvocation implements InvocationHandler {
                 map.put(parametersMetadata[i], args[i]);
             }
         });
+        Class<?> returnType = method.getReturnType();
+        if(execute.getLabel() == TemplateLabel.SELECT){
+            if (List.class.equals(returnType)) {
+                return execute.queryForList();
+            } else {
+                return execute.queryForObject();
+            }
+        }else{
+            if(!"void".equals(returnType.getName())) {
+                if (Arrays.isArray(returnType)) {
+                    return execute.executeBatch();
+                }else{
+                    return execute.update();
+                }
+            }else{
+                for(Class c : method.getParameterTypes()){
+                    if(List.class.equals(c)){
+                        return execute.executeBatch();
+                    }
+                }
+                return execute.update();
+            }
+        }
+
         // 获取方法上的注解
-        Annotation[] declaredAnnotations = method.getDeclaredAnnotations();
+        /*Annotation[] declaredAnnotations = method.getDeclaredAnnotations();
         for (Annotation declaredAnnotation : declaredAnnotations) {
             // 判断这个方法是不是执行的查询
             if (declaredAnnotation instanceof Query) {
@@ -97,8 +123,7 @@ public class MapperInvocation implements InvocationHandler {
                 if (exe.mode() == ExeMode.BATCH) return execute.executeBatch();
                 if (exe.mode() == ExeMode.DEFAULT) return execute.execute();
             }
-        }
-        return null;
+        }*/
     }
 
 }

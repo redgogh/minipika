@@ -1,6 +1,8 @@
 package org.laniakeamly.poseidon.framework.sql.xml;
 
+import lombok.Getter;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
+import org.laniakeamly.poseidon.framework.sql.TemplateLabel;
 
 import java.util.List;
 
@@ -16,14 +18,18 @@ public class SqlExecute {
     private Class<?> result;
     private JdbcSupport jdbc;
 
+    @Getter
+    private TemplateLabel label;
+
     public SqlExecute(){
 
     }
 
-    public SqlExecute(String sql, Object[] args, Class<?> result,JdbcSupport jdbc) {
+    public SqlExecute(String sql, Object[] args, Class<?> result,JdbcSupport jdbc,TemplateLabel label) {
         this.sql = sql;
         this.jdbc = jdbc;
         this.args = args;
+        this.label = label;
         this.result = result;
     }
 

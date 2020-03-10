@@ -46,7 +46,8 @@ public class SqlMapper {
             }
             List param = new ArrayList();
             String sql = precompiledMethod.invoke(parameterMap, param);
-            execute = new SqlExecute(sql, param.toArray(), precompiledMethod.getResult(), jdbcSupport);
+            execute = new SqlExecute(sql, param.toArray(), precompiledMethod.getResult(),
+                    jdbcSupport,precompiledMethod.getType());
         } catch (Exception e) {
             e.printStackTrace();
         }

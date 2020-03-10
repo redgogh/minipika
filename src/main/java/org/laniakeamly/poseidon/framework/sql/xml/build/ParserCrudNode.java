@@ -1,5 +1,7 @@
 package org.laniakeamly.poseidon.framework.sql.xml.build;
 
+import org.laniakeamly.poseidon.extension.Logger;
+import org.laniakeamly.poseidon.framework.beans.PoseidonApplication;
 import org.laniakeamly.poseidon.framework.exception.runtime.DynamicSQLException;
 import org.laniakeamly.poseidon.framework.exception.runtime.ExpressionException;
 import org.laniakeamly.poseidon.framework.ProvideConstant;
@@ -31,6 +33,8 @@ public class ParserCrudNode {
      * builder name用于异常追踪
      */
     private String builderName;
+
+    private Logger log = PoseidonApplication.getBean("logger");
 
     public PrecompiledMethod parse(XMLDynamicSqlNode mapperNode, XMLMapperNode builderNode) {
         this.mapperName = mapperNode.getName();
@@ -123,7 +127,7 @@ public class ParserCrudNode {
             if (ProvideConstant.PARAMETER.equals(node.getName())) {
                 List<String> parameters = new ArrayList<>();
                 for (String parameter : node.getContent().split(",")) {
-                    checkParameterFormat(parameter);
+                    checkParameterFormat(parameter.trim());
                     parameter = parameter.replaceAll("\\{", "");
                     parameter = parameter.replaceAll("\\}", "");
                     String value = "";
@@ -153,7 +157,7 @@ public class ParserCrudNode {
                 || !"{".equals(parameter.substring(1, 2))
                 || !"}".equals(parameter.substring(length - 1, length))
                 || !"}".equals(parameter.substring(length - 2, length - 1))) {
-            throw new ExpressionException("parameter '" + parameter + "' format error. correct format is '{{parameterName}}'");
+            log.error("parameter '" + parameter + "' format error. correct format is '{{parameterName}}'");
         }
     }
 
