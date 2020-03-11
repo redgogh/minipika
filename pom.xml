@@ -13,9 +13,9 @@
         <version>9</version>
     </parent>
 
-    <groupId>io.github.raniaia</groupId>
+    <groupId>io.github.laniakeamly</groupId>
     <artifactId>poseidon</artifactId>
-    <version>1.1.4.RELEASE</version>
+    <version>1.1.6.RELEASE</version>
     <packaging>jar</packaging>
 
     <licenses>
@@ -28,9 +28,9 @@
 
     <scm>
         <tag>master</tag>
-        <url>https://github.com/Laniakeamly/poseidon</url>
-        <connection>scm:git@github.com:Laniakeamly/poseidon.git</connection>
-        <developerConnection>scm:git@github.com:Laniakeamly/poseidon.git</developerConnection>
+        <url>https://github.com/raniaia/poseidon</url>
+        <connection>scm:git@github.com:raniaia/poseidon.git</connection>
+        <developerConnection>scm:git@github.com:raniaia/poseidon.git</developerConnection>
     </scm>
 
     <developers>
