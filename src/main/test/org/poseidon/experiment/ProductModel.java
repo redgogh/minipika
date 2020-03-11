@@ -1,10 +1,10 @@
 package org.poseidon.experiment;
 
 import lombok.Data;
-import org.laniakeamly.poseidon.framework.annotation.model.Column;
-import org.laniakeamly.poseidon.framework.annotation.model.Comment;
-import org.laniakeamly.poseidon.framework.annotation.model.Model;
-import org.laniakeamly.poseidon.framework.annotation.model.PrimaryKey;
+import org.raniaia.poseidon.framework.annotation.model.Column;
+import org.raniaia.poseidon.framework.annotation.model.Comment;
+import org.raniaia.poseidon.framework.annotation.model.Model;
+import org.raniaia.poseidon.framework.annotation.model.PrimaryKey;
 
 /**
  * @author TianSheng

@@ -1,8 +1,8 @@
 package org.poseidon.mapper;
 
 import org.junit.Test;
-import org.laniakeamly.poseidon.framework.annotation.mapper.Query;
-import org.laniakeamly.poseidon.framework.beans.ContextApplication;
+import org.raniaia.poseidon.framework.annotation.mapper.Query;
+import org.raniaia.poseidon.framework.beans.ContextApplication;
 import org.poseidon.experiment.UserInfo;
 
 import java.util.ArrayList;

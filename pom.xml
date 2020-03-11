@@ -13,7 +13,7 @@
         <version>9</version>
     </parent>
 
-    <groupId>io.github.laniakeamly</groupId>
+    <groupId>io.github.raniaia</groupId>
     <artifactId>poseidon</artifactId>
     <version>1.1.4.RELEASE</version>
     <packaging>jar</packaging>
@@ -36,7 +36,7 @@
     <developers>
         <developer>
             <name>2B键盘</name>
-            <email>laniakeamly@hotmail.com</email>
+            <email>raniaia@hotmail.com</email>
             <url>https://github.com/404NotFoundx</url>
         </developer>
     </developers>

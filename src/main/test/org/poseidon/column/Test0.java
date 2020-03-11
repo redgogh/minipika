@@ -1,9 +1,9 @@
 package org.poseidon.column;
 
 import org.junit.Test;
-import org.laniakeamly.poseidon.framework.beans.ContextApplication;
-import org.laniakeamly.poseidon.framework.db.JdbcSupport;
-import org.laniakeamly.poseidon.framework.model.database.ColumnModel;
+import org.raniaia.poseidon.framework.beans.ContextApplication;
+import org.raniaia.poseidon.framework.db.JdbcSupport;
+import org.raniaia.poseidon.framework.model.database.ColumnModel;
 
 import java.util.List;
 

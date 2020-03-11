@@ -1,7 +1,7 @@
 package org.poseidon.timer;
 
-import org.laniakeamly.poseidon.framework.timer.Timer;
-import org.laniakeamly.poseidon.framework.timer.TimerManager;
+import org.raniaia.poseidon.framework.timer.Timer;
+import org.raniaia.poseidon.framework.timer.TimerManager;
 
 /**
  * Copyright: Create by TianSheng on 2019/12/6 22:21

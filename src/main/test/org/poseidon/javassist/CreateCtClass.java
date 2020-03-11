@@ -1,10 +1,9 @@
 package org.poseidon.javassist;
 
 import javassist.CannotCompileException;
-import javassist.ClassPool;
 import javassist.CtClass;
 import org.junit.Test;
-import org.laniakeamly.poseidon.framework.loader.PoseidonClassPool;
+import org.raniaia.poseidon.framework.loader.PoseidonClassPool;
 
 /**
  * Copyright: Create by TianSheng on 2019/12/19 16:07

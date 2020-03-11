@@ -12,7 +12,7 @@ public class DynamicUpdate {
     public static void main(String[] args) throws Exception {
 
         ClassPool pool = ClassPool.getDefault();
-        CtClass ctClass = pool.get("org.laniakeamly.poseidon.javassist.DynamicUpdate");
+        CtClass ctClass = pool.get("org.raniaia.poseidon.javassist.DynamicUpdate");
         CtMethod newMethod = CtNewMethod.make("public static void fuck(){ System.out.println(\"hello world by dynamic create!\"); }", ctClass);
         ctClass.addMethod(newMethod);
 

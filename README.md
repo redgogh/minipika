@@ -21,7 +21,7 @@
 MAVEN直接引入
 ```xml
 <dependency>
-    <groupId>io.github.laniakeamly</groupId>
+    <groupId>io.github.raniaia</groupId>
     <artifactId>poseidon</artifactId>
     <version>1.1.3.RELEASE</version>
 </dependency>
@@ -47,7 +47,7 @@ mvn install
 
 ```xml
 <dependency>
-    <groupId>io.github.laniakeamly</groupId>
+    <groupId>io.github.raniaia</groupId>
     <artifactId>poseidon</artifactId>
     <version>XXX.RELEASE</version>
 </dependency>
@@ -55,4 +55,4 @@ mvn install
 
 **如果你对这个项目有兴趣，可以发我邮箱我们一起开发。**
 
-**作者邮箱: laniakeamly@hotmail.com**
+**作者邮箱: raniaia@hotmail.com**

@@ -6,7 +6,7 @@
 
 ```properties
 # mapper xml文件所在的位置
-poseidon.model.mapper = org.laniakeamly.poseidon.mapper
+poseidon.model.mapper = org.raniaia.poseidon.mapper
 ```
 
 # mapper xml

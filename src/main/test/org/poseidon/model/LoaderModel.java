@@ -1,8 +1,8 @@
 package org.poseidon.model;
 
 import org.junit.Test;
-import org.laniakeamly.poseidon.framework.model.AbstractModel;
-import org.laniakeamly.poseidon.framework.model.ModelPreProcess;
+import org.raniaia.poseidon.framework.model.AbstractModel;
+import org.raniaia.poseidon.framework.model.ModelPreProcess;
 import org.poseidon.experiment.TestModel;
 
 /**

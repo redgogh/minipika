@@ -1,8 +1,8 @@
 package org.poseidon;
 
-import org.laniakeamly.poseidon.framework.beans.ContextApplication;
+import org.raniaia.poseidon.framework.beans.ContextApplication;
 import org.poseidon.experiment.UserModel;
-import org.laniakeamly.poseidon.framework.db.JdbcSupport;
+import org.raniaia.poseidon.framework.db.JdbcSupport;
 
 import java.lang.reflect.Array;
 import java.util.*;

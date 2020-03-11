@@ -29,7 +29,7 @@ poseidon: {
 
     // 模型所在的包
     model.package = ["org.poseidon.experiment"]
-
+    
     // mapper动态sql文件所在的路径
     model.mapper = ["org.poseidon.builder"]
 

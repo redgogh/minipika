@@ -1,8 +1,8 @@
 package org.recycle.build;
 
-import org.laniakeamly.poseidon.framework.sql.xml.node.XMLMapperNode;
-import org.laniakeamly.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
-import org.laniakeamly.poseidon.framework.sql.xml.parser.ReaderMapperXML;
+import org.raniaia.poseidon.framework.sql.xml.node.XMLMapperNode;
+import org.raniaia.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
+import org.raniaia.poseidon.framework.sql.xml.parser.ReaderMapperXML;
 
 import java.util.HashMap;
 import java.util.List;

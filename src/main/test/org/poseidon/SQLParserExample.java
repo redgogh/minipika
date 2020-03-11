@@ -1,7 +1,7 @@
 package org.poseidon;
 
 import net.sf.jsqlparser.JSQLParserException;
-import org.laniakeamly.poseidon.framework.tools.SQLUtils;
+import org.raniaia.poseidon.framework.tools.SQLUtils;
 
 /**
  * Copyright: Create by TianSheng on 2019/12/6 16:02

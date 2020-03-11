@@ -1,7 +1,7 @@
 package org.poseidon.framework.sql.xml.builder;
 
-import org.laniakeamly.poseidon.framework.tools.Arrays;
-import org.laniakeamly.poseidon.framework.tools.LineBuilder;
+import org.raniaia.poseidon.framework.tools.Arrays;
+import org.raniaia.poseidon.framework.tools.LineBuilder;
 
 import java.io.Serializable;
 

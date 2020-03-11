@@ -99,7 +99,7 @@ poseidon.regular.json = regular.json
 
 ### **获取JdbcSupport**
 
-获取JdbcSupport需要通过框架提供的[BeansManager#getBean](https://github.com/Laniakeamly/poseidon/blob/master/src/main/java/org/laniakeamly/poseidon/framework/beans/BeansManager.java)对象来获取。
+获取JdbcSupport需要通过框架提供的[BeansManager#getBean](https://github.com/Laniakeamly/poseidon/blob/master/src/main/java/org/raniaia/poseidon/framework/beans/BeansManager.java)对象来获取。
 
 示例：
 

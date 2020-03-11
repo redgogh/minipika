@@ -1,12 +1,12 @@
 package org.poseidon;
 
-import org.laniakeamly.poseidon.framework.beans.ContextApplication;
+import org.raniaia.poseidon.framework.beans.ContextApplication;
 import org.poseidon.experiment.ProductModel;
 import org.poseidon.experiment.UserModel;
-import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
-import org.laniakeamly.poseidon.framework.db.JdbcSupport;
-import org.laniakeamly.poseidon.framework.tools.POFUtils;
-import org.laniakeamly.poseidon.framework.tools.DateUtils;
+import org.raniaia.poseidon.framework.cache.PoseidonCache;
+import org.raniaia.poseidon.framework.db.JdbcSupport;
+import org.raniaia.poseidon.framework.tools.POFUtils;
+import org.raniaia.poseidon.framework.tools.DateUtils;
 
 import java.util.Date;
 
