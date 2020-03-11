@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.db;
 
 import org.laniakeamly.poseidon.extension.ConnectionPool;
-import org.laniakeamly.poseidon.extension.Logger;
+import org.laniakeamly.poseidon.framework.log.Log;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
 import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
@@ -33,7 +33,7 @@ public class NativeJdbcImpl implements NativeJdbc {
     private PoseidonCache cache;
 
     @Valid(name = "logger")
-    private Logger logger;
+    private Log logger;
 
     @Override
     public boolean execute(String sql, Object... args) {

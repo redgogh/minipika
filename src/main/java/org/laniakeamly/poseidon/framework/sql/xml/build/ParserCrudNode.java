@@ -1,7 +1,7 @@
 package org.laniakeamly.poseidon.framework.sql.xml.build;
 
-import org.laniakeamly.poseidon.extension.Logger;
-import org.laniakeamly.poseidon.framework.beans.PoseidonApplication;
+import org.laniakeamly.poseidon.framework.log.Log;
+import org.laniakeamly.poseidon.framework.beans.ContextApplication;
 import org.laniakeamly.poseidon.framework.exception.runtime.DynamicSQLException;
 import org.laniakeamly.poseidon.framework.exception.runtime.ExpressionException;
 import org.laniakeamly.poseidon.framework.ProvideConstant;
@@ -34,7 +34,7 @@ public class ParserCrudNode {
      */
     private String builderName;
 
-    private Logger log = PoseidonApplication.getBean("logger");
+    private Log log = ContextApplication.getLog(ParserCrudNode.class);
 
     public PrecompiledMethod parse(XMLDynamicSqlNode mapperNode, XMLMapperNode builderNode) {
         this.mapperName = mapperNode.getName();

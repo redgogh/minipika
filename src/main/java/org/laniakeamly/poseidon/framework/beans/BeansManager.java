@@ -2,7 +2,8 @@ package org.laniakeamly.poseidon.framework.beans;
 
 import javassist.ClassPool;
 import org.laniakeamly.poseidon.extension.ConnectionPool;
-import org.laniakeamly.poseidon.extension.Logger;
+import org.laniakeamly.poseidon.framework.log.Log;
+import org.laniakeamly.poseidon.framework.log.LogAdapter;
 import org.laniakeamly.poseidon.framework.annotation.Resource;
 import org.laniakeamly.poseidon.framework.annotation.Valid;
 import org.laniakeamly.poseidon.framework.cache.CacheRefreshTimer;
@@ -12,7 +13,7 @@ import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.db.NativeResult;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCacheImpl;
 import org.laniakeamly.poseidon.framework.loader.PoseidonClassPool;
-import org.laniakeamly.poseidon.framework.logger.PoseidonLogger;
+import org.laniakeamly.poseidon.framework.log.slf4j.Slf4jAdapter;
 import org.laniakeamly.poseidon.framework.mapper.MapperInvocation;
 import org.laniakeamly.poseidon.framework.timer.Timer;
 import org.laniakeamly.poseidon.framework.timer.TimerManager;
@@ -46,18 +47,14 @@ public class BeansManager {
     volatile static Map<String, Object> mapperBeans = new ConcurrentHashMap<>();
 
     static {
-        beans.put("logger", getLogger());
+        beans.put("logAdapter", getLogAdapter());
     }
 
-    static Logger logger = getBean("logger");
+    static Log logger = ContextApplication.getLog(BeansManager.class);
 
     @Resource
     private NativeJdbc newNativeJdbc() {
         return new NativeJdbcImpl();
-    }
-
-    public static NativeResult newNativeResult() {
-        return new NativeResultMysql();
     }
 
     @Resource(name = "jdbc")
@@ -81,21 +78,26 @@ public class BeansManager {
     @Resource(name = "classPool")
     private ClassPool getClassPool() throws ClassNotFoundException {
         PoseidonClassPool pool = new PoseidonClassPool(true);
-        // pool.importPackage("org.laniakeamly.poseidon.framework.loader.Parameter");
         return pool;
     }
 
     /**
-     * Logger bean比较特殊，由于本类也要使用它，所以在最开始的时候就放入{@link #beans}中
+     * 创建一个结果集
+     */
+    public static NativeResult newNativeResult() {
+        return new NativeResultMysql();
+    }
+
+    /**
+     * Logger bean比较特殊，由于本类也要使用它，所以在最开始的时候就放入{@link #beans}中s
      * This bean was placed in the map at the beginning.
      */
-    private static Logger getLogger() {
-        return new PoseidonLogger();
+    private static LogAdapter getLogAdapter() {
+        return new Slf4jAdapter();
     }
 
     // get bean
     static <T> T getBean(String name) {
-        // if (!init) init();
         return (T) factory(name); // (T) beans.get(name);
     }
 
@@ -116,29 +118,6 @@ public class BeansManager {
         return (T) getBean(name);
     }
 
-    /**
-     * Load have {@code Resource} annotation the method in current class.
-     */
-    /*private static void init() {
-        BeansManager instance = ReflectUtils.newInstance(BeansManager.class);
-        Class<?> target = BeansManager.class;
-        Method[] methods = target.getDeclaredMethods();
-        for (Method method : methods) {
-            if (method.isAnnotationPresent(Resource.class)) {
-                String name = method.getDeclaredAnnotation(Resource.class).name();
-                if(!StringUtils.isEmpty(name)) {
-                    // 如果没开启缓存则不将缓存实例化
-                    if ("cache".equals(name) && !GlobalConfig.getConfig().getCache()) {
-                        continue;
-                    }
-                    put(name, ReflectUtils.invoke(method, instance));
-                    continue;
-                }
-                String ReturnName = method.getReturnType().getSimpleName();
-                put(ReturnName, ReflectUtils.invoke(method, instance));
-            }
-        }
-    }*/
     private static Object factory(String name) {
         try {
             Object bean = beans.get(name);
@@ -197,7 +176,12 @@ public class BeansManager {
                         Object inject = factory(typeName);
                         field.set(object, inject);
                     } else {
-                        Object inject = factory(name);
+                        Object inject;
+                        if ("logger".equals(name)) {
+                            inject = ((LogAdapter) beans.get("logAdapter")).getLog(target);
+                        } else {
+                            inject = factory(name);
+                        }
                         field.set(object, inject);
                     }
                 }

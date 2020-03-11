@@ -1,4 +1,4 @@
-package org.laniakeamly.poseidon.extension;
+package org.laniakeamly.poseidon.framework.log;
 
 /**
  * 使用自定义的日志框架，如果没有使用默认。
@@ -7,7 +7,7 @@ package org.laniakeamly.poseidon.extension;
  *
  * Copyright: Create by TianSheng on 2019/12/9 17:20
  */
-public interface Logger {
+public interface Log {
 
     void info(String msg);
 

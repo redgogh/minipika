@@ -1,5 +1,8 @@
 package org.laniakeamly.poseidon.framework.beans;
 
+import org.laniakeamly.poseidon.framework.log.Log;
+import org.laniakeamly.poseidon.framework.log.LogAdapter;
+
 /**
  *
  * Public beans manager object.
@@ -12,7 +15,7 @@ package org.laniakeamly.poseidon.framework.beans;
  * @version 1.0.0
  * @since 1.8
  */
-public class PoseidonApplication {
+public final class ContextApplication {
 
     /**
      * get bean
@@ -26,6 +29,27 @@ public class PoseidonApplication {
      */
     public static <T> T getMapper(Class<T> mapperClass){
         return BeansManager.getMapper(mapperClass);
+    }
+
+    /**
+     * LogAdapter
+     */
+    public static LogAdapter getLogAdapter(){
+        return BeansManager.getBean("logAdapter");
+    }
+
+    /**
+     * get log
+     */
+    public static Log getLog(String key){
+        return getLogAdapter().getLog(key);
+    }
+
+    /**
+     * get log
+     */
+    public static Log getLog(Class<?> key){
+        return getLogAdapter().getLog(key);
     }
 
 }

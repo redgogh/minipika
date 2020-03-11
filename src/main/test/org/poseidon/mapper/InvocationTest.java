@@ -2,8 +2,7 @@ package org.poseidon.mapper;
 
 import org.junit.Test;
 import org.laniakeamly.poseidon.framework.annotation.mapper.Query;
-import org.laniakeamly.poseidon.framework.annotation.mapper.Update;
-import org.laniakeamly.poseidon.framework.beans.PoseidonApplication;
+import org.laniakeamly.poseidon.framework.beans.ContextApplication;
 import org.poseidon.experiment.UserInfo;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class InvocationTest {
 
     @Test
     public void mapperInvocationTest0(){
-        UserMapper mapper = PoseidonApplication.getMapper(UserMapper.class);
+        UserMapper mapper = ContextApplication.getMapper(UserMapper.class);
         // UserMapper mapper = (UserMapper) MapperInvocation.invoker(UserMapper.class);
         // System.out.println(mapper.findUsernameById(4001));
         // System.out.println(mapper.updateUsernameById(4001,"testX"));

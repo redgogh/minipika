@@ -1,9 +1,8 @@
 package org.poseidon;
 
-import org.laniakeamly.poseidon.framework.beans.PoseidonApplication;
+import org.laniakeamly.poseidon.framework.beans.ContextApplication;
 import org.poseidon.experiment.ProductModel;
 import org.poseidon.experiment.UserModel;
-import org.laniakeamly.poseidon.framework.beans.BeansManager;
 import org.laniakeamly.poseidon.framework.cache.PoseidonCache;
 import org.laniakeamly.poseidon.framework.db.JdbcSupport;
 import org.laniakeamly.poseidon.framework.db.NativeResult;
@@ -27,7 +26,7 @@ public class ThreadExample {
    volatile static int closeCount = 0;
    volatile static int createCount = 0;
 
-    public static final JdbcSupport jdbc = PoseidonApplication.getBean("jdbc");
+    public static final JdbcSupport jdbc = ContextApplication.getBean("jdbc");
 
     public static void main(String[] args) {
         userModelInsert();
@@ -73,7 +72,7 @@ public class ThreadExample {
     }
 
     public static void cacheReadAndWrite() {
-        final PoseidonCache cache = PoseidonApplication.getBean("cache");
+        final PoseidonCache cache = ContextApplication.getBean("cache");
         for (int i = 0; i < 1000; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 200; j++) {
