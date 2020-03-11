@@ -24,9 +24,6 @@ public final class Arrays {
     /**
      * 对象是否为数组
      * whether the object is array type.
-     *
-     * @param o
-     * @return
      */
     public static boolean isArray(Object o) {
         if (o == null) return false;

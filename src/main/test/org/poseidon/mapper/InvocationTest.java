@@ -1,6 +1,8 @@
 package org.poseidon.mapper;
 
 import org.junit.Test;
+import org.laniakeamly.poseidon.framework.annotation.mapper.Query;
+import org.laniakeamly.poseidon.framework.annotation.mapper.Update;
 import org.laniakeamly.poseidon.framework.beans.PoseidonApplication;
 import org.poseidon.experiment.UserInfo;
 
@@ -37,6 +39,13 @@ public class InvocationTest {
 
         void addUsers(List<UserInfo> users);
 
+        @Query("select * from kkb_user_info where id = ?")
+        UserInfo findUserInfoById(Integer id);
+
+    }
+
+    @Test
+    public void test02(){
     }
 
 }

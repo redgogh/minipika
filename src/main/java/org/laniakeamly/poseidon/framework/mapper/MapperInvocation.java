@@ -56,10 +56,6 @@ public class MapperInvocation implements InvocationHandler {
         if (mapper == null) {
             mapper = SqlMapper.getMapper(beanSimpleName);
         }
-        //
-        // TODO 这段代码有优化空间，SqlExecute可以缓存到BeansManager中。
-        // TODO 方便直接获取，而不是每次都去获取Class对象再读取方法参数名进行操作。
-        //
         String[] parametersMetadata = ReflectUtils.displayParametersMetadata(beanName, method.getName());
         // 获取sql执行器
         SqlExecute execute = mapper.build(method.getName(), map -> {
@@ -67,6 +63,7 @@ public class MapperInvocation implements InvocationHandler {
                 map.put(parametersMetadata[i], args[i]);
             }
         });
+        // 判断执行什么方法
         Class<?> returnType = method.getReturnType();
         if(execute.getLabel() == TemplateLabel.SELECT){
             if (List.class.equals(returnType)) {
