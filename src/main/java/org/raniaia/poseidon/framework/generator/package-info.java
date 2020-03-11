@@ -14,4 +14,4 @@
  * @version 1.0.0
  * @since 1.8
  */
-package org.raniaia.poseidon.framework.vm;
+package org.raniaia.poseidon.framework.generator;
