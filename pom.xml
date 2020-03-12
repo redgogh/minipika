@@ -13,9 +13,9 @@
         <version>9</version>
     </parent>
 
-    <groupId>io.github.raniaia</groupId>
+    <groupId>io.github.laniakeamly</groupId>
     <artifactId>poseidon</artifactId>
-    <version>1.1.5.GEP</version>
+    <version>1.1.6.RELEASE</version>
     <packaging>jar</packaging>
 
     <licenses>
@@ -28,15 +28,15 @@
 
     <scm>
         <tag>master</tag>
-        <url>https://github.com/raniaia/poseidon</url>
-        <connection>scm:git@github.com:raniaia/poseidon.git</connection>
-        <developerConnection>scm:git@github.com:raniaia/poseidon.git</developerConnection>
+        <url>https://github.com/raniaia/avaliable</url>
+        <connection>scm:git@github.com:raniaia/avaliable.git</connection>
+        <developerConnection>scm:git@github.com:raniaia/avaliable.git</developerConnection>
     </scm>
 
     <developers>
         <developer>
             <name>2B键盘</name>
-            <email>raniaia@hotmail.com</email>
+            <email>laniakeamly@hotmail.com</email>
             <url>https://github.com/404NotFoundx</url>
         </developer>
     </developers>
