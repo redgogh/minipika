@@ -1,5 +1,7 @@
 package org.raniaia.poseidon.framework.db;
 
+import org.raniaia.poseidon.framework.model.database.ColumnModel;
+
 import java.util.List;
 import java.util.Set;
 
@@ -168,5 +170,10 @@ public interface JdbcSupport {
      * @param tableName
      */
     List<String> getColumns(String tableName);
+
+    /**
+     * 查询表中字段的元数据
+     */
+    List<ColumnModel> getColumnMetadata(String table);
 
 }

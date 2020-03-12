@@ -21,7 +21,7 @@ import java.util.Properties;
 public abstract
 class AbstractConfig implements PoseidonConfig {
 
-    // jdbc连接驱动
+    // url
     protected String url;
     // 数据库账号密码
     protected String username;
@@ -92,13 +92,15 @@ class AbstractConfig implements PoseidonConfig {
 
         // 模型文件存放目录
         JSONArray modelArray = JSONArray.parseArray(getValue("model.package"));
-        modelPackage = new String[modelArray.size()];
-        modelArray.toArray(modelPackage);
-
+        if(modelArray!=null) {
+            modelPackage = new String[modelArray.size()];
+            modelArray.toArray(modelPackage);
+        }
         JSONArray mapperArray = JSONArray.parseArray(getValue("model.mapper"));
-        mapperPackage = new String[modelArray.size()];
-        mapperArray.toArray(mapperPackage);
-
+        if(mapperArray!=null) {
+            mapperPackage = new String[modelArray.size()];
+            mapperArray.toArray(mapperPackage);
+        }
         // 获取字段约束配置文件路径
         String regularJsonName = getValue("model.regular");
         if (StringUtils.isEmpty(regularJsonName)) regularJsonName = "regular.json";

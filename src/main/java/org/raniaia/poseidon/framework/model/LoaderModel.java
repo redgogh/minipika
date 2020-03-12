@@ -97,8 +97,7 @@ public class LoaderModel {
                 }
             }
             // 保存字段属性
-            String queryColumnsSql = StringUtils.format(ProvideConstant.QUERY_COLUMNS, tableName);
-            Metadata.putDbColumn(tableName, jdbc.queryForList(queryColumnsSql, ColumnModel.class));
+            Metadata.putDbColumn(tableName, jdbc.getColumnMetadata(tableName));
 
             // 判断储存引擎是被修改
             SHOW_TABLE_STATUS = StringUtils.format(SHOW_TABLE_STATUS, GlobalConfig.getConfig().getDbname(), tableName);

@@ -1,10 +1,12 @@
 package org.raniaia.poseidon.framework.db;
 
+import org.raniaia.poseidon.framework.ProvideConstant;
 import org.raniaia.poseidon.framework.annotation.Valid;
 import org.raniaia.poseidon.framework.config.GlobalConfig;
 import org.raniaia.poseidon.framework.model.AbstractModel;
 import org.raniaia.poseidon.framework.model.SecurityManager;
 import org.raniaia.poseidon.framework.model.Metadata;
+import org.raniaia.poseidon.framework.model.database.ColumnModel;
 import org.raniaia.poseidon.framework.tools.JdbcUtils;
 import org.raniaia.poseidon.framework.tools.ModelUtils;
 import org.raniaia.poseidon.framework.tools.StringUtils;
@@ -155,6 +157,12 @@ public class JdbcSupportImpl implements JdbcSupport {
     public List<String> getColumns(String tableName) {
         String sql = "select COLUMN_NAME from information_schema.COLUMNS where table_name = ? and table_schema = ?;";
         return nativeJdbc.executeQuery(sql, tableName, GlobalConfig.getConfig().getDbname()).conversionJavaList(String.class);
+    }
+
+    @Override
+    public List<ColumnModel> getColumnMetadata(String table) {
+        String queryColumnsSql = StringUtils.format(ProvideConstant.QUERY_COLUMNS, table);
+        return queryForList(queryColumnsSql, ColumnModel.class);
     }
 
     // 是否更新为NULL的字段是否更新为NULL的字段
