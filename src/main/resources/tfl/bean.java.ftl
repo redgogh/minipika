@@ -1,16 +1,16 @@
-package ${PACKAGE_NAME}
+package ${package_name};
 
 <#list packages as package>
-    import ${package};
+import ${package};
 </#list>
 
-public class ${CLASS_NAME} {
+public class ${class_name} {
 
-<#list attrs as attr>
+<#list attributes as attr>
     private ${attr.type} ${attr.name};
 </#list>
 
-<#list attrs as attr>
+<#list attributes as attr>
     public void set${attr.name?cap_first}(${attr.type} ${attr.name}){
         this.${attr.name} = ${attr.name};
     }

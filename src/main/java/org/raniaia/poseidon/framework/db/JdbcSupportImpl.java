@@ -128,7 +128,7 @@ public class JdbcSupportImpl implements JdbcSupport {
         NativeResult result = nativeJdbc.executeQuery(value.toString(), args);
         result.hasNext();
         String next = result.next();
-        return Integer.valueOf(next == null ? "0" : next);
+        return Integer.parseInt(next == null ? "0" : next);
     }
 
     @Override
