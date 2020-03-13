@@ -119,6 +119,7 @@ public class LoaderModel {
      */
     public void loadColumn() throws PoseidonException {
         List<Class<?>> models = ModelUtils.getModels();
+        if (models == null) return;
         for (Class<?> target : models) {
             if (SecurityManager.existModel(target)) {
                 Model model = ModelUtils.getModelAnnotation(target);

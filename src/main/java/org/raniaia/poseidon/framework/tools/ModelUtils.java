@@ -148,6 +148,7 @@ public class ModelUtils {
     public static List<Class<?>> getModels() {
         List<Class<?>> models = new LinkedList<>();
         String[] basePackages = GlobalConfig.getConfig().getModelPackage();
+        if(basePackages==null) return null;
         try {
             for (String basePackage : basePackages) {
                 getModels(basePackage, models);

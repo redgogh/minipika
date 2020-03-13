@@ -129,8 +129,9 @@ public class ParserModel {
      */
     public void parse(List<Class<?>> list) {
         try {
+            if (list == null) return;
             for (Class<?> target : list) {
-                if(!target.isAnnotationPresent(Model.class))
+                if (!target.isAnnotationPresent(Model.class))
                     continue;
                 Metadata metadata = enhance(target);
                 Metadata.putAttribute(metadata.getTableName(), metadata);

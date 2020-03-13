@@ -113,6 +113,7 @@ public class ModelPreProcess {
      * @throws ClassNotFoundException
      */
     private List<RegularProperties> getRegularProperties(String[] packages) throws Exception {
+        if (packages == null) return null;
         List<RegularProperties> regularPropertiesList = new ArrayList<>();
         for (String aPackage : packages) {
             CtClass[] ctClasses = ((PoseidonClassPool) classPool).getCtClassArray(aPackage);
