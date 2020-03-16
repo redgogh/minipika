@@ -1,6 +1,9 @@
 package org.raniaia.poseidon.framework.config;
 
+import jdk.nashorn.internal.objects.Global;
 import org.raniaia.poseidon.framework.tools.StringUtils;
+
+import java.net.URL;
 
 /**
  * 手动加载配置文件
@@ -15,11 +18,17 @@ import org.raniaia.poseidon.framework.tools.StringUtils;
  */
 public class ConfigLoader {
 
-    private ConfigLoader(){}
+    private ConfigLoader() {
+    }
 
-    public static void loadConfig(String configPath){
-        if(StringUtils.isEmpty(configPath))
+    public static void loadConfig(String configPath) {
+        URL url = Thread.currentThread().getStackTrace()[2].getClass().getResource("");
+        if (StringUtils.isEmpty(configPath)) {
             throw new NullPointerException("config path cannot null");
+        }
+        if (url != null && "jar".equals(url.getProtocol())) {
+            GlobalConfig.setJar(true);
+        }
         GlobalConfig.loaderConfig(configPath);
     }
 

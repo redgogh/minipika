@@ -1,9 +1,14 @@
 package org.raniaia.poseidon.framework.jap;
 
+import org.raniaia.poseidon.framework.config.GlobalConfig;
 import org.raniaia.poseidon.framework.exception.runtime.ConfigException;
 import org.raniaia.poseidon.framework.tools.PIOUtils;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.*;
 
 /**
@@ -38,7 +43,16 @@ public class JapLoader {
     }
 
     public Map<String,Map<String,String>> load(String path) {
-        String configContent = PIOUtils.getResourceAsString(path);
+        String configContent = null;
+        if(!GlobalConfig.isJar()) {
+            configContent = PIOUtils.getResourceAsString(path);
+        }else{
+            try {
+                configContent = PIOUtils.getStringByInputStream(new FileInputStream(System.getProperty("user.dir").concat(path)));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         // 查找root节点有几个
         matchRoots(configContent.replaceAll("// [\\s\\S]*?\n", "")
                 .replaceAll("/--[\\s\\S]*?--/", ""));

@@ -1,5 +1,7 @@
 package org.raniaia.poseidon.framework.config;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.raniaia.poseidon.framework.exception.runtime.ConfigException;
 import org.raniaia.poseidon.framework.model.LoaderModel;
 
@@ -11,6 +13,8 @@ import org.raniaia.poseidon.framework.model.LoaderModel;
  * @since 1.8
  */
 public final class GlobalConfig {
+
+    private static boolean jar = false;
 
     private static AbstractConfig config;
 
@@ -59,4 +63,11 @@ public final class GlobalConfig {
         return (AbstractConfig) config;
     }
 
+    public static boolean isJar() {
+        return jar;
+    }
+
+    public static void setJar(boolean jar) {
+        GlobalConfig.jar = jar;
+    }
 }

@@ -92,24 +92,26 @@ class AbstractConfig implements PoseidonConfig {
 
         // 模型文件存放目录
         JSONArray modelArray = JSONArray.parseArray(getValue("model.package"));
-        if(modelArray!=null) {
+        if (modelArray != null) {
             modelPackage = new String[modelArray.size()];
             modelArray.toArray(modelPackage);
         }
         JSONArray mapperArray = JSONArray.parseArray(getValue("model.mapper"));
-        if(mapperArray!=null) {
+        if (mapperArray != null) {
             mapperPackage = new String[modelArray.size()];
             mapperArray.toArray(mapperPackage);
         }
         // 获取字段约束配置文件路径
         String regularJsonName = getValue("model.regular");
-        if (StringUtils.isEmpty(regularJsonName)) regularJsonName = "regular.json";
-        this.regularJson = PIOUtils.getResourceAsJson(regularJsonName);
+        if (!StringUtils.isEmpty(regularJsonName)) {
+            this.regularJson = PIOUtils.getResourceAsJson(regularJsonName);
+        }
 
         // 获取默认数据配置文件路径
         String defaultModelName = getValue("default.model");
-        if (StringUtils.isEmpty(defaultModelName)) defaultModelName = "default_model.json";
-        this.defaultModel = PIOUtils.getResourceAsJson(defaultModelName);
+        if (!StringUtils.isEmpty(defaultModelName)) {
+            this.defaultModel = PIOUtils.getResourceAsJson(defaultModelName);
+        }
 
         loadDriver(driver);
 
@@ -216,7 +218,7 @@ class AbstractConfig implements PoseidonConfig {
         return (String) this.regularJson.get(name);
     }
 
-    public JSONObject getDefaultModel(){
+    public JSONObject getDefaultModel() {
         return this.defaultModel;
     }
 

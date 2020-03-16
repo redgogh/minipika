@@ -15,7 +15,7 @@
 
     <groupId>io.github.laniakeamly</groupId>
     <artifactId>poseidon</artifactId>
-    <version>1.1.6.STAR</version>
+    <version>1.1.7.STAR</version>
     <packaging>jar</packaging>
 
     <licenses>
@@ -117,7 +117,7 @@
             <artifactId>slf4j-api</artifactId>
             <version>2.0.0-alpha1</version>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
             <version>1.1.7</version>
@@ -126,7 +126,7 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.1.7</version>
-        </dependency>-->
+        </dependency>
         <!-- freemarker -->
         <dependency>
             <groupId>org.freemarker</groupId>
