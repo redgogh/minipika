@@ -1,7 +1,6 @@
 package org.raniaia.poseidon.framework;
 
 import com.alibaba.fastjson.JSONObject;
-import org.raniaia.poseidon.framework.config.AbstractConfig;
 import org.raniaia.poseidon.framework.config.AbstractConfig.DriverType;
 import org.raniaia.poseidon.framework.config.GlobalConfig;
 import org.raniaia.poseidon.framework.tools.StringUtils;
@@ -122,11 +121,10 @@ public class ProvideConstant {
             if (!group.contains(".")) {
                 group = StringUtils.format(PARAMS_MAP_GET, group);
                 group = group.substring(0, group.length() - 1);
-                value.append(StringUtils.format(PARAMS_LIST_ADD, group));
             } else {
                 group = getMemberValue(group);
-                value.append(StringUtils.format(PARAMS_LIST_ADD, group));
             }
+            value.append(StringUtils.format(PARAMS_LIST_ADD, group));
         }
         if (value.subSequence(value.length() - 3, value.length() - 2).equals(";")) {
             value.delete(value.length() - 3, value.length() - 2);
