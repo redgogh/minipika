@@ -2,6 +2,7 @@ package org.raniaia.poseidon.framework.config;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import lombok.Getter;
 import org.raniaia.poseidon.framework.exception.runtime.ConfigException;
 import org.raniaia.poseidon.framework.jap.JapLoader;
 import org.raniaia.poseidon.framework.tools.Calculator;
@@ -21,11 +22,16 @@ import java.util.Properties;
 public abstract
 class AbstractConfig implements PoseidonConfig {
 
+    public enum DriverType{MYSQL,ORACLE}
+
     // url
     protected String url;
     // 数据库账号密码
     protected String username;
     protected String password;
+    // 驱动类型
+    @Getter
+    protected DriverType driverType;
     // 连接池配置
     protected String maxSize;
     protected String minSize;
@@ -138,6 +144,12 @@ class AbstractConfig implements PoseidonConfig {
     public void loadDriver(String classpath) {
         if (StringUtils.isEmpty(classpath)) {
             throw new ConfigException("jdbc driver cannot null.");
+        }
+        // 判断是oracle还是mysql
+        if (classpath.contains("mysql")) {
+            this.driverType = DriverType.MYSQL;
+        } else if (classpath.contains("oracle")) {
+            this.driverType = DriverType.ORACLE;
         }
         System.setProperty("jdbc.drivers", classpath);
     }
