@@ -4,7 +4,7 @@ import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.util.TablesNamesFinder;
-import org.raniaia.poseidon.framework.model.database.ColumnModel;
+import org.raniaia.poseidon.framework.modules.model.database.ColumnPo;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class SQLUtils {
         return builder.toString();
     }
 
-    public static ColumnModel parserColumn(){
+    public static ColumnPo parserColumn(){
 
         return null;
     }

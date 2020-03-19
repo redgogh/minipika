@@ -3,7 +3,7 @@ package org.poseidon.column;
 import org.junit.Test;
 import org.raniaia.poseidon.framework.beans.ContextApplication;
 import org.raniaia.poseidon.framework.db.JdbcSupport;
-import org.raniaia.poseidon.framework.model.database.ColumnModel;
+import org.raniaia.poseidon.framework.modules.model.database.ColumnPo;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class Test0 {
 
     @Test
     public void getColumn() {
-        List<ColumnModel> columnModels = jdbc.queryForList("show full columns from kkb_example_model", ColumnModel.class);
+        List<ColumnPo> columnModels = jdbc.queryForList("show full columns from kkb_example_model", ColumnPo.class);
         System.out.println(columnModels.toString());
     }
 

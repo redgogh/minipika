@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.framework.annotation.model;
+package org.raniaia.poseidon.framework.provide.model;
 
 /**
  * MYSQL支持的引擎列表

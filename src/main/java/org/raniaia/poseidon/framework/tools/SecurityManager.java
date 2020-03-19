@@ -1,6 +1,6 @@
-package org.raniaia.poseidon.framework.model;
+package org.raniaia.poseidon.framework.tools;
 
-import org.raniaia.poseidon.framework.annotation.model.Model;
+import org.raniaia.poseidon.framework.provide.model.Model;
 
 /**
  * 检查一些类是否遵守标准

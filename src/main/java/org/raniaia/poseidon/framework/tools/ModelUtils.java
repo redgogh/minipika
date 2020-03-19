@@ -1,11 +1,10 @@
 package org.raniaia.poseidon.framework.tools;
 
-import org.raniaia.poseidon.framework.annotation.model.Ignore;
-import org.raniaia.poseidon.framework.annotation.model.Model;
+import org.raniaia.poseidon.framework.provide.model.Ignore;
+import org.raniaia.poseidon.framework.provide.model.Model;
 import org.raniaia.poseidon.framework.config.GlobalConfig;
 import org.raniaia.poseidon.framework.exception.PoseidonException;
 import org.raniaia.poseidon.framework.exception.runtime.ModelException;
-import org.raniaia.poseidon.framework.model.SecurityManager;
 
 import java.io.File;
 import java.lang.reflect.Field;

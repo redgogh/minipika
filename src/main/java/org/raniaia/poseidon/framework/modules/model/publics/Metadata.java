@@ -1,8 +1,9 @@
-package org.raniaia.poseidon.framework.model;
+package org.raniaia.poseidon.framework.modules.model.publics;
 
-import org.raniaia.poseidon.framework.annotation.model.Engine;
-import org.raniaia.poseidon.framework.annotation.model.Model;
-import org.raniaia.poseidon.framework.model.database.ColumnModel;
+import org.raniaia.poseidon.framework.provide.model.Engine;
+import org.raniaia.poseidon.framework.provide.model.Model;
+import org.raniaia.poseidon.framework.tools.SecurityManager;
+import org.raniaia.poseidon.framework.modules.model.database.ColumnPo;
 import org.raniaia.poseidon.framework.tools.ModelUtils;
 
 import java.util.HashMap;
@@ -32,7 +33,7 @@ public class Metadata {
     /**
      * 每张表对应的字段属性
      */
-    private static final Map<String, List<ColumnModel>> db_columns = new HashMap<>();
+    private static final Map<String, List<ColumnPo>> db_columns = new HashMap<>();
 
     /**
      * 主键字段
@@ -133,11 +134,11 @@ public class Metadata {
         return modelNameAndTableName.get(table);
     }
 
-    public static void putDbColumn(String tableName,List<ColumnModel> columnModels){
+    public static void putDbColumn(String tableName,List<ColumnPo> columnModels){
         db_columns.put(tableName,columnModels);
     }
 
-    public static List<ColumnModel> getDbColumn(String tableName){
+    public static List<ColumnPo> getDbColumn(String tableName){
         return db_columns.get(tableName);
     }
 

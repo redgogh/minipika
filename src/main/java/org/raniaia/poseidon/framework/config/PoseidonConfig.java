@@ -6,7 +6,7 @@ package org.raniaia.poseidon.framework.config;
  * @version 1.0.0
  * @since 1.8
  */
-public interface PoseidonConfig {
+interface PoseidonConfig {
 
     /**
      * 加载驱动

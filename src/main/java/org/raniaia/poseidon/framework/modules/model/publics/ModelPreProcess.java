@@ -1,10 +1,10 @@
-package org.raniaia.poseidon.framework.model;
+package org.raniaia.poseidon.framework.modules.model.publics;
 
 import javassist.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.raniaia.poseidon.framework.annotation.model.Model;
-import org.raniaia.poseidon.framework.annotation.model.Regular;
+import org.raniaia.poseidon.framework.provide.model.Model;
+import org.raniaia.poseidon.framework.provide.model.Regular;
 import org.raniaia.poseidon.framework.loader.PoseidonClassPool;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
@@ -39,7 +39,7 @@ public class ModelPreProcess {
     private List<RegularProperties> properties;
     private ClassLoader loader = getClass().getClassLoader();
     private final ClassPool classPool = new PoseidonClassPool(true);
-    private final String superClasspath = "org.raniaia.poseidon.framework.model.AbstractModel";
+    private final String superClasspath = "org.raniaia.poseidon.framework.modules.model.publics.AbstractModel";
     private final String methodJavaCode = "" +
             "{" +
             "if(" +

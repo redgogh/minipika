@@ -1,6 +1,5 @@
 package org.raniaia.poseidon.framework.config;
 
-import jdk.nashorn.internal.objects.Global;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
 import java.net.URL;

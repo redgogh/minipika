@@ -2,7 +2,7 @@ package org.raniaia.poseidon.framework.db;
 
 import org.raniaia.poseidon.extension.ConnectionPool;
 import org.raniaia.poseidon.framework.log.Log;
-import org.raniaia.poseidon.framework.annotation.Valid;
+import org.raniaia.poseidon.framework.provide.Valid;
 import org.raniaia.poseidon.framework.beans.BeansManager;
 import org.raniaia.poseidon.framework.cache.PoseidonCache;
 import org.raniaia.poseidon.framework.config.GlobalConfig;

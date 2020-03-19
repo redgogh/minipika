@@ -1,9 +1,7 @@
 package org.raniaia.poseidon.framework.config;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.raniaia.poseidon.framework.exception.runtime.ConfigException;
-import org.raniaia.poseidon.framework.model.LoaderModel;
+import org.raniaia.poseidon.framework.modules.model.core.mysql.ModelLoaderImpl;
 
 /**
  * 统一配置调用
@@ -34,7 +32,7 @@ public final class GlobalConfig {
         }
         if (!run) {
             run = true;
-            LoaderModel init = new LoaderModel();
+            ModelLoaderImpl init = new ModelLoaderImpl();
             init.run();
         }
         return config;

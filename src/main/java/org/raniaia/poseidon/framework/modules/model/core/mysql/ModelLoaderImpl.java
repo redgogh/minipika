@@ -1,36 +1,51 @@
-package org.raniaia.poseidon.framework.model;
+package org.raniaia.poseidon.framework.modules.model.core.mysql;
+
+/*
+ * Copyright (C) 2020 Tiansheng All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Creates on 2020/3/20 0:09
+ */
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import jdk.nashorn.internal.runtime.ParserException;
 import org.raniaia.poseidon.framework.ProvideConstant;
+import org.raniaia.poseidon.framework.modules.ModuleManager;
+import org.raniaia.poseidon.framework.provide.model.Model;
 import org.raniaia.poseidon.framework.beans.ContextApplication;
 import org.raniaia.poseidon.framework.config.GlobalConfig;
-import org.raniaia.poseidon.framework.annotation.model.Model;
 import org.raniaia.poseidon.framework.db.JdbcSupport;
 import org.raniaia.poseidon.framework.exception.PoseidonException;
-import org.raniaia.poseidon.framework.model.database.ColumnModel;
+import org.raniaia.poseidon.framework.modules.BaseModuleAdapter;
+import org.raniaia.poseidon.framework.modules.model.ModelLoader;
+import org.raniaia.poseidon.framework.modules.model.publics.Metadata;
+import org.raniaia.poseidon.framework.modules.model.publics.ModelPreProcess;
 import org.raniaia.poseidon.framework.tools.ModelUtils;
+import org.raniaia.poseidon.framework.tools.SecurityManager;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
 import java.util.*;
 
 /**
+ * 初始化时解析Model, 其中包括Model中是否存在新增字段，删除字段。
  *
- * 初始化时解析Model
- * 其中包括Model中是否存在新增字段，删除字段。
- *
- * init parse model.
- * if model have new column or delete column.
- *
- * Copyright: Create by TianSheng on 2019/11/19 18:05
- *
- * @author TianSheng
- * @version 1.0.0
- * @since 1.8
- *
+ * @author tiansheng
  */
-public class LoaderModel {
+public class ModelLoaderImpl implements ModelLoader {
 
     // 添加字段
     private JdbcSupport jdbc = ContextApplication.getBean("jdbc");
@@ -39,6 +54,7 @@ public class LoaderModel {
      * start
      * @throws PoseidonException
      */
+    @Override
     public void run() {
         try {
             ModelPreProcess processor =
@@ -54,12 +70,12 @@ public class LoaderModel {
     /**
      * 解析model
      */
-    public void loadModel() {
+    private void loadModel() {
 
         Set<String> tables = jdbc.queryForSet(ProvideConstant.QUERY_TABLES, String.class,
                 GlobalConfig.getConfig().getDbname());
 
-        ParserModel parserModel = new ParserModel();
+        ModelParserImpl parserModel = new ModelParserImpl();
         parserModel.parse(ModelUtils.getModels());
         Map<String, Metadata> messages = Metadata.getAttribute();
         Iterator iter = messages.entrySet().iterator();
@@ -117,7 +133,7 @@ public class LoaderModel {
      *
      * @throws PoseidonException
      */
-    public void loadColumn() throws PoseidonException {
+    private void loadColumn() throws PoseidonException {
         List<Class<?>> models = ModelUtils.getModels();
         if (models == null) return;
         for (Class<?> target : models) {

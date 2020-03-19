@@ -1,12 +1,12 @@
 package org.raniaia.poseidon.framework.db;
 
 import org.raniaia.poseidon.framework.ProvideConstant;
-import org.raniaia.poseidon.framework.annotation.Valid;
+import org.raniaia.poseidon.framework.provide.Valid;
 import org.raniaia.poseidon.framework.config.GlobalConfig;
-import org.raniaia.poseidon.framework.model.AbstractModel;
-import org.raniaia.poseidon.framework.model.SecurityManager;
-import org.raniaia.poseidon.framework.model.Metadata;
-import org.raniaia.poseidon.framework.model.database.ColumnModel;
+import org.raniaia.poseidon.framework.modules.model.publics.AbstractModel;
+import org.raniaia.poseidon.framework.tools.SecurityManager;
+import org.raniaia.poseidon.framework.modules.model.publics.Metadata;
+import org.raniaia.poseidon.framework.modules.model.database.ColumnPo;
 import org.raniaia.poseidon.framework.tools.JdbcUtils;
 import org.raniaia.poseidon.framework.tools.ModelUtils;
 import org.raniaia.poseidon.framework.tools.StringUtils;
@@ -160,9 +160,9 @@ public class JdbcSupportImpl implements JdbcSupport {
     }
 
     @Override
-    public List<ColumnModel> getColumnMetadata(String table) {
+    public List<ColumnPo> getColumnMetadata(String table) {
         String queryColumnsSql = StringUtils.format(ProvideConstant.QUERY_COLUMNS, table);
-        return queryForList(queryColumnsSql, ColumnModel.class);
+        return queryForList(queryColumnsSql, ColumnPo.class);
     }
 
     // 是否更新为NULL的字段是否更新为NULL的字段

@@ -1,7 +1,7 @@
 package org.raniaia.poseidon.framework.db;
 
 import com.alibaba.fastjson.JSONObject;
-import org.raniaia.poseidon.framework.annotation.model.Ignore;
+import org.raniaia.poseidon.framework.provide.model.Ignore;
 import org.raniaia.poseidon.framework.tools.Maps;
 import org.raniaia.poseidon.framework.tools.ModelUtils;
 import org.raniaia.poseidon.framework.tools.StringUtils;

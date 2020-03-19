@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.framework.model;
+package org.raniaia.poseidon.framework.modules.model.publics;
 
 import lombok.Getter;
 import lombok.Setter;

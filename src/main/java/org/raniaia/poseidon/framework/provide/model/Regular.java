@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.framework.annotation.model;
+package org.raniaia.poseidon.framework.provide.model;
 
 import java.lang.annotation.*;
 import org.raniaia.poseidon.framework.db.JdbcSupport;

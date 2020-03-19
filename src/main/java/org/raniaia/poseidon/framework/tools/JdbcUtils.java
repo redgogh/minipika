@@ -1,7 +1,6 @@
 package org.raniaia.poseidon.framework.tools;
 
-import org.raniaia.poseidon.framework.annotation.model.Model;
-import org.raniaia.poseidon.framework.model.SecurityManager;
+import org.raniaia.poseidon.framework.provide.model.Model;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

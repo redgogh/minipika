@@ -2,7 +2,7 @@ package org.raniaia.poseidon.framework.sql.xml.build;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.raniaia.poseidon.framework.model.Metadata;
+import org.raniaia.poseidon.framework.modules.model.publics.Metadata;
 import org.raniaia.poseidon.framework.ProvideConstant;
 import org.raniaia.poseidon.framework.sql.TemplateLabel;
 import org.raniaia.poseidon.framework.tools.ReflectUtils;

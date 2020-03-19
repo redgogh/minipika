@@ -1,7 +1,7 @@
 package org.poseidon.mapper;
 
 import org.junit.Test;
-import org.raniaia.poseidon.framework.annotation.mapper.Query;
+import org.raniaia.poseidon.framework.provide.mapper.Query;
 import org.raniaia.poseidon.framework.beans.ContextApplication;
 import org.poseidon.experiment.UserInfo;
 

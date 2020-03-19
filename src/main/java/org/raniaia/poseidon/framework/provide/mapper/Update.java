@@ -1,10 +1,10 @@
-package org.raniaia.poseidon.framework.annotation.mapper;
+package org.raniaia.poseidon.framework.provide.mapper;
 
 import java.lang.annotation.*;
 
 /**
  *
- * Query annotation, annotated method no need write sql in sql mapper xml file.
+ * Update annotation, if have more sql will execute batch.
  *
  * <p/>
  * License: <a href="https://github.com/Laniakeamly/poseidon/blob/master/LICENSE">Apache License 2.0</a>
@@ -17,11 +17,11 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Query {
+public @interface Update {
 
     /**
-     * the sql script.
+     * The sql script.
      */
-    String value();
+    String[] value() default {};
 
 }
