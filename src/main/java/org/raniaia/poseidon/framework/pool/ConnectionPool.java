@@ -52,24 +52,19 @@ public class ConnectionPool
     // 创建连接
     private Properties info = new Properties();
 
-    private boolean init = false;
-
     public ConnectionPool() {
         try {
-            if (!init) {
-                init = true;
-                // 设置最小值和最大值
-                MIN_SIZE = GlobalConfig.getConfig().getMinSize();
-                MAX_SIZE = GlobalConfig.getConfig().getMaxSize();
-                // 设置属性
-                info.setProperty("user", GlobalConfig.getConfig().getUsername());
-                info.setProperty("password", GlobalConfig.getConfig().getPassword());
-                // URL
-                jdbcUrl = GlobalConfig.getConfig().getUrl();
-                // 初始化连接对象
-                for (int i = 0; i < MIN_SIZE; i++) {
-                    conns.add(createConnection());
-                }
+            // 设置最小值和最大值
+            MIN_SIZE = GlobalConfig.getConfig().getMinSize();
+            MAX_SIZE = GlobalConfig.getConfig().getMaxSize();
+            // 设置属性
+            info.setProperty("user", GlobalConfig.getConfig().getUsername());
+            info.setProperty("password", GlobalConfig.getConfig().getPassword());
+            // URL
+            jdbcUrl = GlobalConfig.getConfig().getUrl();
+            // 初始化连接对象
+            for (int i = 0; i < MIN_SIZE; i++) {
+                conns.add(createConnection());
             }
         } catch (Exception e) {
             e.printStackTrace();
