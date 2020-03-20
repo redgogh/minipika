@@ -7,9 +7,9 @@ import org.raniaia.poseidon.framework.tools.*;
  *
  * Config object.
  *
- * Copyright: Create by TianSheng on 2019/11/4 14:10
+ * Copyright: Create by tiansheng on 2019/11/4 14:10
  *
- * @author TianSheng
+ * @author tiansheng
  * @version 1.0.0
  * @since 1.8
  *

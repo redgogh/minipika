@@ -1,7 +1,7 @@
 package org.raniaia.poseidon.framework.exception;
 
 /**
- * @author TianSheng
+ * @author tiansheng
  * @version 1.0.0
  * @date 2019/11/12 11:44
  * @since 1.8

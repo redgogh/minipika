@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/15 13:45
+ * Copyright: Create by tiansheng on 2019/12/15 13:45
  */
 public class StringCompiler {
 

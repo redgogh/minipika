@@ -4,7 +4,7 @@ import net.sf.jsqlparser.JSQLParserException;
 import org.raniaia.poseidon.framework.tools.SQLUtils;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/6 16:02
+ * Copyright: Create by tiansheng on 2019/12/6 16:02
  */
 public class SQLParserExample {
 

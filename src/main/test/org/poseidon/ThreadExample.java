@@ -1,6 +1,6 @@
 package org.poseidon;
 
-import org.raniaia.poseidon.framework.beans.ContextApplication;
+import org.raniaia.poseidon.framework.context.PoseContextApplication;
 import org.poseidon.experiment.ProductModel;
 import org.poseidon.experiment.UserModel;
 import org.raniaia.poseidon.framework.cache.PoseidonCache;
@@ -16,7 +16,7 @@ import java.util.UUID;
 /**
  * 多线程调度测试
  *
- * @author TianSheng
+ * @author tiansheng
  * @version 1.0.0
  * @date 2019/11/15 14:15
  * @since 1.8
@@ -26,7 +26,7 @@ public class ThreadExample {
    volatile static int closeCount = 0;
    volatile static int createCount = 0;
 
-    public static final JdbcSupport jdbc = ContextApplication.getBean("jdbc");
+    public static final JdbcSupport jdbc = PoseContextApplication.getBean("jdbc");
 
     public static void main(String[] args) {
         userModelInsert();
@@ -72,7 +72,7 @@ public class ThreadExample {
     }
 
     public static void cacheReadAndWrite() {
-        final PoseidonCache cache = ContextApplication.getBean("cache");
+        final PoseidonCache cache = PoseContextApplication.getBean("cache");
         for (int i = 0; i < 1000; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 200; j++) {

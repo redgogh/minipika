@@ -8,7 +8,7 @@ import java.lang.annotation.*;
  * {@code Comment} annotation is column comment, you can write column
  * comment in {@link Comment#value()}.
  *
- * Copyright: Create by TianSheng on 2019/11/12 10:35
+ * Copyright: Create by tiansheng on 2019/11/12 10:35
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

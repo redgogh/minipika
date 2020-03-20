@@ -1,7 +1,7 @@
 package org.poseidon.framework.sql.xml.builder;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/13 15:47
+ * Copyright: Create by tiansheng on 2019/12/13 15:47
  */
 public interface CodeBuilderFactory {
 

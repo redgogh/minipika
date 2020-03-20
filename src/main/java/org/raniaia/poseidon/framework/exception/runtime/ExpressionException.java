@@ -1,7 +1,7 @@
 package org.raniaia.poseidon.framework.exception.runtime;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/7 1:10
+ * Copyright: Create by tiansheng on 2019/12/7 1:10
  */
 public class ExpressionException extends RuntimeException {
 

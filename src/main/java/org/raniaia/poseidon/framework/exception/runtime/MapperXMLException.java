@@ -1,7 +1,7 @@
 package org.raniaia.poseidon.framework.exception.runtime;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/18 14:56
+ * Copyright: Create by tiansheng on 2019/12/18 14:56
  */
 public class MapperXMLException extends RuntimeException {
 

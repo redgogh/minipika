@@ -9,7 +9,7 @@ import java.lang.annotation.*;
  *
  * Auto increase.
  *
- * @author TianSheng
+ * @author tiansheng
  * @version 1.0.0
  * @date 2019/11/12 10:18
  * @since 1.8

@@ -14,8 +14,8 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * Copyright by TianSheng on 2020/2/13 2:44
- * @author TianSheng
+ * Copyright by tiansheng on 2020/2/13 2:44
+ * @author tiansheng
  * @version 1.0.0
  * @since 1.8
  */

@@ -7,7 +7,7 @@ import org.raniaia.poseidon.framework.provide.model.Model;
 import org.raniaia.poseidon.framework.provide.model.PrimaryKey;
 
 /**
- * @author TianSheng
+ * @author tiansheng
  * @version 1.0.0
  * @date 2019/11/22 16:41
  * @since 1.8

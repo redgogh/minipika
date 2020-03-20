@@ -14,9 +14,9 @@ import java.lang.annotation.*;
  *
  * Model class the column property annotation.
  *
- * Copyright: Create by TianSheng on 2019/11/12 10:33
+ * Copyright: Create by tiansheng on 2019/11/12 10:33
  *
- * @author TianSheng
+ * @author tiansheng
  * @version 1.0.0
  * @date 2019/11/12 10:33
  * @since 1.8

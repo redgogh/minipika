@@ -1,12 +1,12 @@
 package org.recycle.compiler;
 
 import javassist.*;
-import org.raniaia.poseidon.framework.beans.ContextApplication;
+import org.raniaia.poseidon.framework.context.PoseContextApplication;
 import org.raniaia.poseidon.framework.loader.PoseidonClassPool;
 import org.recycle.build.PrecompiledClass;
 import org.recycle.build.PrecompiledMethod;
 import org.raniaia.poseidon.framework.loader.PoseidonClassLoader;
-import org.raniaia.poseidon.framework.ProvideConstant;
+import org.raniaia.poseidon.framework.provide.PoseidonProvideConstant;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
 import java.util.*;
@@ -15,11 +15,11 @@ import java.util.regex.Pattern;
 
 /**
  * 预编译处理
- * Copyright: Create by TianSheng on 2019/12/19 11:18
+ * Copyright: Create by tiansheng on 2019/12/19 11:18
  */
 public class Precompiler {
 
-    private PoseidonClassPool pool = ContextApplication.getBean("classPool");
+    private PoseidonClassPool pool = PoseContextApplication.getBean("classPool");
 
     /**
      * 加载一个类对象,只加载类信息不加载任何方法
@@ -168,10 +168,10 @@ public class Precompiler {
             StringBuilder builder = new StringBuilder();
             for (String arg : args) {
                 if (!arg.contains(".")) {
-                    builder.append(StringUtils.format(ProvideConstant.SQL_PARAMS_SET + ".add(map.get(\"{}\"));", arg));
+                    builder.append(StringUtils.format(PoseidonProvideConstant.SQL_PARAMS_SET + ".add(map.get(\"{}\"));", arg));
                 } else {
                     String[] str = arg.split("\\.");
-                    builder.append(StringUtils.format(ProvideConstant.SQL_PARAMS_SET +
+                    builder.append(StringUtils.format(PoseidonProvideConstant.SQL_PARAMS_SET +
                             ".add(org.raniaia.poseidon.framework.tools.ReflectUtils.getMemberValue(${},\"{}\"));", str[0],str[1]));
                 }
             }

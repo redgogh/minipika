@@ -1,17 +1,17 @@
 package org.poseidon.service;
 
-import org.raniaia.poseidon.framework.beans.ContextApplication;
+import org.raniaia.poseidon.framework.context.PoseContextApplication;
 import org.raniaia.poseidon.framework.db.JdbcSupport;
 
 /**
- * @author TianSheng
+ * @author tiansheng
  * @version 1.0.0
  * @date 2019/11/27 17:33
  * @since 1.8
  */
 public class UserService {
 
-    private JdbcSupport jdbc = ContextApplication.getBean("jdbc");
+    private JdbcSupport jdbc = PoseContextApplication.getBean("jdbc");
 
     public static void main(String[] args) {
 

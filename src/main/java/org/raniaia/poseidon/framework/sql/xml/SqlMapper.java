@@ -1,7 +1,7 @@
 package org.raniaia.poseidon.framework.sql.xml;
 
-import org.raniaia.poseidon.framework.beans.BeansManager;
-import org.raniaia.poseidon.framework.beans.ContextApplication;
+import org.raniaia.poseidon.framework.context.PoseBeansManager;
+import org.raniaia.poseidon.framework.context.PoseContextApplication;
 import org.raniaia.poseidon.framework.container.PrecompileContainer;
 import org.raniaia.poseidon.framework.db.JdbcSupport;
 import org.raniaia.poseidon.framework.sql.xml.build.PrecompiledClass;
@@ -13,14 +13,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/23 11:08
+ * Copyright: Create by tiansheng on 2019/12/23 11:08
  */
 public class SqlMapper {
 
     private Converter converter = new Converter();
     private PrecompileContainer container = PrecompileContainer.getContainer();
 
-    private JdbcSupport jdbcSupport = ContextApplication.getBean("jdbc");
+    private JdbcSupport jdbcSupport = PoseContextApplication.getBean("jdbc");
 
     /**
      * class
@@ -55,11 +55,11 @@ public class SqlMapper {
     }
 
     public static SqlMapper getMapper(String name) {
-        SqlMapper mapperBean = ContextApplication.getBean(name);
+        SqlMapper mapperBean = PoseContextApplication.getBean(name);
         if (mapperBean != null) {
             return mapperBean;
         }
-        return BeansManager.putBean(name, new SqlMapper(name));
+        return PoseBeansManager.putBean(name, new SqlMapper(name));
     }
 
 }

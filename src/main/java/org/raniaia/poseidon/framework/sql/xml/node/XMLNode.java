@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/17 14:57
+ * Copyright: Create by tiansheng on 2019/12/17 14:57
  */
 @Getter
 public class XMLNode {

@@ -2,14 +2,14 @@ package org.recycle.build;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.raniaia.poseidon.framework.ProvideConstant;
+import org.raniaia.poseidon.framework.provide.PoseidonProvideConstant;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/18 19:26
+ * Copyright: Create by tiansheng on 2019/12/18 19:26
  */
 public class PrecompiledClass {
 
@@ -36,7 +36,7 @@ public class PrecompiledClass {
 
     public PrecompiledClass(String name) {
         this.name = name;
-        this.fullName = ProvideConstant.CLASS_FULL_NAME.concat(name);
+        this.fullName = PoseidonProvideConstant.CLASS_FULL_NAME.concat(name);
     }
 
     public PrecompiledMethod getPrecompiledMethod(String name) {

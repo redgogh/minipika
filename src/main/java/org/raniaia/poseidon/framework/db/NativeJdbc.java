@@ -9,7 +9,7 @@ import java.util.List;
  * NativeJdbc存在的意义是为了方便关闭流和归还连接。
  * 将关闭操作统一控制在NativeJdbc中
  *
- * @author TianSheng
+ * @author tiansheng
  * @version 1.0.0
  * @date 2019/11/13 16:57
  * @since 1.8

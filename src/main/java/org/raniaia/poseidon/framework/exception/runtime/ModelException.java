@@ -2,7 +2,7 @@ package org.raniaia.poseidon.framework.exception.runtime;
 
 /**
  * Model异常
- * Copyright: Create by TianSheng on 2020/1/15 1:57
+ * Copyright: Create by tiansheng on 2020/1/15 1:57
  */
 public class ModelException extends RuntimeException {
 

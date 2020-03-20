@@ -14,8 +14,8 @@ import java.util.*;
  *
  * jap config loader.
  *
- * Copyright by TianSheng on 2020/2/12 23:56
- * @author TianSheng
+ * Copyright by tiansheng on 2020/2/12 23:56
+ * @author tiansheng
  * @version 1.0.0
  * @since 1.8
  */

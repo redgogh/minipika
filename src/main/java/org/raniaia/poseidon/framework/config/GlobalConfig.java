@@ -1,12 +1,13 @@
 package org.raniaia.poseidon.framework.config;
 
+import org.raniaia.poseidon.framework.context.PoseContextApplication;
 import org.raniaia.poseidon.framework.exception.runtime.ConfigException;
-import org.raniaia.poseidon.framework.modules.model.core.mysql.ModelLoaderImpl;
+import org.raniaia.poseidon.modules.model.ModelLoader;
 
 /**
  * 统一配置调用
- * Copyright by TianSheng on 2020/2/13 3:28
- * @author TianSheng
+ * Copyright by tiansheng on 2020/2/13 3:28
+ * @author tiansheng
  * @version 1.0.0
  * @since 1.8
  */
@@ -32,7 +33,7 @@ public final class GlobalConfig {
         }
         if (!run) {
             run = true;
-            ModelLoaderImpl init = new ModelLoaderImpl();
+            ModelLoader init = PoseContextApplication.getMODULE(ModelLoader.class);
             init.run();
         }
         return config;

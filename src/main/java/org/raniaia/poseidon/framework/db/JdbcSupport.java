@@ -1,13 +1,13 @@
 package org.raniaia.poseidon.framework.db;
 
-import org.raniaia.poseidon.framework.modules.model.database.ColumnPo;
+import org.raniaia.poseidon.modules.model.database.ColumnPo;
 
 import java.util.List;
 import java.util.Set;
 
 /**
  * 增删改查操作
- * @author TianSheng
+ * @author tiansheng
  * @version 1.0.0
  * @date 2019/11/11 23:40
  * @since 1.8

@@ -30,9 +30,9 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  *      because in update we need get tables in {@link CacheKey} then
  *      refresh specify cache.
  *
- * Copyright: Create by TianSheng on 2019/12/4 20:25
+ * Copyright: Create by tiansheng on 2019/12/4 20:25
  *
- * @author TianSheng
+ * @author tiansheng
  * @version 1.0.0
  * @since 1.8
  *

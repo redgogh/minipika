@@ -2,7 +2,7 @@ package org.raniaia.poseidon.framework.exception.runtime;
 
 /**
  * mapper xml文件异常
- * Copyright: Create by TianSheng on 2019/12/12 18:46
+ * Copyright: Create by tiansheng on 2019/12/12 18:46
  */
 public class BuilderXmlException extends RuntimeException {
 

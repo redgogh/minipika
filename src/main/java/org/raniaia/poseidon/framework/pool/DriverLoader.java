@@ -10,7 +10,7 @@ import java.util.Enumeration;
  *
  * Jdbc driver loader.
  *
- * @author TianSheng
+ * @author tiansheng
  * @version 1.0.0
  * @date 2019/11/21 10:33
  * @since 1.8

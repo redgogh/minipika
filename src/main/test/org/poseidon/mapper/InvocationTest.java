@@ -2,15 +2,15 @@ package org.poseidon.mapper;
 
 import org.junit.Test;
 import org.raniaia.poseidon.framework.provide.mapper.Query;
-import org.raniaia.poseidon.framework.beans.ContextApplication;
+import org.raniaia.poseidon.framework.context.PoseContextApplication;
 import org.poseidon.experiment.UserInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Copyright by TianSheng on 2020/2/29 1:43
- * @author TianSheng
+ * Copyright by tiansheng on 2020/2/29 1:43
+ * @author tiansheng
  * @version 1.0.0
  * @since 1.8
  */
@@ -18,7 +18,7 @@ public class InvocationTest {
 
     @Test
     public void mapperInvocationTest0(){
-        UserMapper mapper = ContextApplication.getMapper(UserMapper.class);
+        UserMapper mapper = PoseContextApplication.getMapper(UserMapper.class);
         // UserMapper mapper = (UserMapper) MapperInvocation.invoker(UserMapper.class);
         // System.out.println(mapper.findUsernameById(4001));
         // System.out.println(mapper.updateUsernameById(4001,"testX"));

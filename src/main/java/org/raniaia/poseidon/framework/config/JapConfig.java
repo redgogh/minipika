@@ -11,8 +11,8 @@ import java.util.Map;
  * jap config file full name is Json and properties.
  * this config file create by poseidon.
  *
- * Copyright by TianSheng on 2020/2/13 2:40
- * @author TianSheng
+ * Copyright by tiansheng on 2020/2/13 2:40
+ * @author tiansheng
  * @version 1.0.0
  * @since 1.8
  */

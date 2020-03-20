@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * Static utility methods to {@code Array} instance.
  *
- * Copyright: Create by TianSheng on 2019/12/13 18:36
+ * Copyright: Create by tiansheng on 2019/12/13 18:36
  */
 public final class Arrays {
 

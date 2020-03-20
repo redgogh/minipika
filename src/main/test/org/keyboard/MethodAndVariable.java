@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/25 23:57
+ * Copyright: Create by tiansheng on 2019/12/25 23:57
  */
 public class MethodAndVariable {
 

@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/13 23:57
+ * Copyright: Create by tiansheng on 2019/12/13 23:57
  */
 public class MethodBuilder extends StringNewline implements MethodBuilderFacotry {
 

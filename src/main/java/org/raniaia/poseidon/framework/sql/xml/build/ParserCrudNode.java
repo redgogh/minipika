@@ -1,10 +1,10 @@
 package org.raniaia.poseidon.framework.sql.xml.build;
 
-import org.raniaia.poseidon.framework.log.Log;
-import org.raniaia.poseidon.framework.beans.ContextApplication;
+import org.raniaia.poseidon.modules.log.Log;
+import org.raniaia.poseidon.framework.context.PoseContextApplication;
 import org.raniaia.poseidon.framework.exception.runtime.DynamicSQLException;
 import org.raniaia.poseidon.framework.exception.runtime.ExpressionException;
-import org.raniaia.poseidon.framework.ProvideConstant;
+import org.raniaia.poseidon.framework.provide.PoseidonProvideConstant;
 import org.raniaia.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
 import org.raniaia.poseidon.framework.sql.xml.node.XMLMapperNode;
 import org.raniaia.poseidon.framework.sql.xml.node.XMLNode;
@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 
 /**
  * 将CrudNode转换成Java代码
- * Copyright: Create by TianSheng on 2019/12/17 17:51
+ * Copyright: Create by tiansheng on 2019/12/17 17:51
  */
 public class ParserCrudNode {
 
@@ -34,7 +34,7 @@ public class ParserCrudNode {
      */
     private String builderName;
 
-    private Log log = ContextApplication.getLog(ParserCrudNode.class);
+    private Log log = PoseContextApplication.getLog(ParserCrudNode.class);
 
     public PrecompiledMethod parse(XMLDynamicSqlNode mapperNode, XMLMapperNode builderNode) {
         this.mapperName = mapperNode.getName();
@@ -50,12 +50,12 @@ public class ParserCrudNode {
             //
             // text
             //
-            if (ProvideConstant.TEXT.equals(node.getName())) {
+            if (PoseidonProvideConstant.TEXT.equals(node.getName())) {
                 if (node.getParent() != null
-                        && node.getParent().getName().equals(ProvideConstant.IF)) {
+                        && node.getParent().getName().equals(PoseidonProvideConstant.IF)) {
                     addByIf(node, dynamic);
                 } else {
-                    dynamic.append(ProvideConstant.sqlAppendProcess(node.getContent()));
+                    dynamic.append(PoseidonProvideConstant.sqlAppendProcess(node.getContent()));
                 }
                 continue;
             }
@@ -63,7 +63,7 @@ public class ParserCrudNode {
             //
             // choose
             //
-            if (ProvideConstant.CHOOSE.equals(node.getName())) {
+            if (PoseidonProvideConstant.CHOOSE.equals(node.getName())) {
                 parseNode(node.getChildren(), type, dynamic);
                 continue;
             }
@@ -71,10 +71,10 @@ public class ParserCrudNode {
             //
             // if
             //
-            if (ProvideConstant.IF.equals(node.getName())) {
-                List<TokenValue> test = testProcess(node.getAttribute(ProvideConstant.IF_TEST));
+            if (PoseidonProvideConstant.IF.equals(node.getName())) {
+                List<TokenValue> test = testProcess(node.getAttribute(PoseidonProvideConstant.IF_TEST));
                 String if_test = buildTest(test);
-                node.addAttribute(ProvideConstant.IF_TEST, if_test);
+                node.addAttribute(PoseidonProvideConstant.IF_TEST, if_test);
                 parseNode(node.getChildren(), type, dynamic);
                 continue;
             }
@@ -82,8 +82,8 @@ public class ParserCrudNode {
             //
             // cond
             //
-            if (ProvideConstant.COND.equals(node.getName())) {
-                if (ProvideConstant.IF.equals(node.getParent().getName())) {
+            if (PoseidonProvideConstant.COND.equals(node.getName())) {
+                if (PoseidonProvideConstant.IF.equals(node.getParent().getName())) {
                     addByIf(node, dynamic);
                 }
                 continue;
@@ -92,16 +92,16 @@ public class ParserCrudNode {
             //
             // foreach
             //
-            if (ProvideConstant.FOREACH.equals(node.getName())) {
-                String collections = node.getAttribute(ProvideConstant.COLLECTIONS);
+            if (PoseidonProvideConstant.FOREACH.equals(node.getName())) {
+                String collections = node.getAttribute(PoseidonProvideConstant.COLLECTIONS);
                 if (StringUtils.isEmpty(collections)) {
                     throw new ExpressionException("tag: foreach attribute collections cannot null. in mapper " + builderName + " " + mapperName);
                 }
-                String indexTemp = node.getAttribute(ProvideConstant.INDEX);
+                String indexTemp = node.getAttribute(PoseidonProvideConstant.INDEX);
                 String index = StringUtils.isEmpty(indexTemp) ? "index" : indexTemp;
-                String itemTemp = node.getAttribute(ProvideConstant.ITEM);
+                String itemTemp = node.getAttribute(PoseidonProvideConstant.ITEM);
                 String item = StringUtils.isEmpty(itemTemp) ? "item" : itemTemp;
-                dynamic.append("java.util.List " + collections + " = (java.util.List) " + ProvideConstant.getMapValue(collections));
+                dynamic.append("java.util.List " + collections + " = (java.util.List) " + PoseidonProvideConstant.getMapValue(collections));
                 dynamic.append("for(");
                 dynamic.append(StringUtils.format("int {} = 0,", index));
                 dynamic.append(StringUtils.format("len = {}.size();", collections));
@@ -124,7 +124,7 @@ public class ParserCrudNode {
             //
             // parameter
             //
-            if (ProvideConstant.PARAMETER.equals(node.getName())) {
+            if (PoseidonProvideConstant.PARAMETER.equals(node.getName())) {
                 List<String> parameters = new ArrayList<>();
                 for (String parameter : node.getContent().split(",")) {
                     checkParameterFormat(parameter.trim());
@@ -134,11 +134,11 @@ public class ParserCrudNode {
                     if (!parameter.contains(".")) {
                         value = parameter;
                     } else {
-                        value = ProvideConstant.getMemberValue(parameter);
+                        value = PoseidonProvideConstant.getMemberValue(parameter);
                     }
                     parameters.add(value);
                 }
-                dynamic.append(ProvideConstant.addArrayParameter(parameters));
+                dynamic.append(PoseidonProvideConstant.addArrayParameter(parameters));
                 continue;
             }
 
@@ -170,32 +170,32 @@ public class ParserCrudNode {
     private void addByIf(XMLNode node, PrecompiledMethod dynamic) {
         XMLNode parent = node.getParent();
         String content = node.getContent();
-        String test = parent.getAttribute(ProvideConstant.IF_TEST);
+        String test = parent.getAttribute(PoseidonProvideConstant.IF_TEST);
         dynamic.append("if");
         dynamic.append("(");
         dynamic.append(test.replaceAll("\\$req", getParamsSelect(content)));
         dynamic.append(")");
         dynamic.append("{");
-        dynamic.append(ProvideConstant.sqlAppendProcess(content));
+        dynamic.append(PoseidonProvideConstant.sqlAppendProcess(content));
         dynamic.append("}");
 
         // 如果当前节点是cond,就从父节点查找匹配的else
-        if (ProvideConstant.COND.equals(node.getName())) {
+        if (PoseidonProvideConstant.COND.equals(node.getName())) {
             XMLNode chooseParent = node.getParent().getParent();
             if (chooseParent != null) {
                 List<XMLNode> nodes = chooseParent.getChildren();
                 if (nodes.size() == 2) {
                     XMLNode elseNode = nodes.get(1);
                     List<XMLNode> elseChildren = elseNode.getChildren();
-                    String attributeIdValue = node.getAttribute(ProvideConstant.COND_ATTRIBUTE_KEY);
+                    String attributeIdValue = node.getAttribute(PoseidonProvideConstant.COND_ATTRIBUTE_KEY);
                     for (XMLNode child : elseChildren) {
-                        if (attributeIdValue.equals(child.getAttribute(ProvideConstant.COND_ATTRIBUTE_KEY))) {
+                        if (attributeIdValue.equals(child.getAttribute(PoseidonProvideConstant.COND_ATTRIBUTE_KEY))) {
                             addByElse(child.getContent(), dynamic);
                         }
                     }
                 }
             }
-        } else if (ProvideConstant.TEXT.equals(node.getName())) {
+        } else if (PoseidonProvideConstant.TEXT.equals(node.getName())) {
             // 如果是文本那么也去父节点查找看看有妹有else
             XMLNode choose = node.getParent().getParent();
             if (choose != null && choose.getChildren().size() > 1) {
@@ -220,7 +220,7 @@ public class ParserCrudNode {
     private void addByElse(String content, PrecompiledMethod dynamic) {
         dynamic.append("else");
         dynamic.append("{");
-        dynamic.append(ProvideConstant.sqlAppendProcess(content));
+        dynamic.append(PoseidonProvideConstant.sqlAppendProcess(content));
         dynamic.append("}");
     }
 
@@ -235,7 +235,7 @@ public class ParserCrudNode {
             if (token.getToken() == Token.IDEN) {
                 builder.append(
                         StringUtils.format("(#{}#) {}.get(\"{}\")",
-                                token.getValue(), ProvideConstant.PARAMS_MAP, token.getValue())
+                                token.getValue(), PoseidonProvideConstant.PARAMS_MAP, token.getValue())
                 );
             } else {
                 builder.append(token.getValue());
@@ -253,12 +253,12 @@ public class ParserCrudNode {
      */
     private String getParamsSelect(String text) {
         String result = "";
-        Pattern pattern = Pattern.compile("\\{" + ProvideConstant.PARAMETER_SELECT + "\\{(.*?)}}");
+        Pattern pattern = Pattern.compile("\\{" + PoseidonProvideConstant.PARAMETER_SELECT + "\\{(.*?)}}");
         Matcher matcher = pattern.matcher(text);
         int count = 0; // 如果count > 1,那么抛出异常，选择项只能存在一个
         while (matcher.find()) {
             if (count >= 1) {
-                throw new DynamicSQLException("tag: parameters '" + ProvideConstant.PARAMETER_SELECT + "' can only one");
+                throw new DynamicSQLException("tag: parameters '" + PoseidonProvideConstant.PARAMETER_SELECT + "' can only one");
             }
             result = matcher.group(1);
             count++;
@@ -270,7 +270,7 @@ public class ParserCrudNode {
         Matcher matcher1 = pattern1.matcher(text);
         while (matcher1.find()) {
             if (count >= 1) {
-                throw new DynamicSQLException("tag: multiple parameter need '" + ProvideConstant.PARAMETER_SELECT
+                throw new DynamicSQLException("tag: multiple parameter need '" + PoseidonProvideConstant.PARAMETER_SELECT
                         + "' in mapper:"+builderName+" : "+mapperName);
             }
             result = matcher1.group(1);

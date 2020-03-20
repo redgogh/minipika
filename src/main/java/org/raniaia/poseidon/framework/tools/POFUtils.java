@@ -9,7 +9,7 @@ import java.util.*;
 
 /**
  * Poseidon ORM Framework简写POF
- * @author TianSheng
+ * @author tiansheng
  * @version 1.0.0
  * @date 2019/11/12 0:10
  * @since 1.8

@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * Calculator utility methods to {@link String} instance.
  *
- * Copyright: Create by TianSheng on 2019/12/7 2:50
+ * Copyright: Create by tiansheng on 2019/12/7 2:50
  */
 public final class Calculator {
 

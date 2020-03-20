@@ -8,7 +8,7 @@ import java.util.Map;
  *
  * Static utility methods to {@link Map} instance.
  *
- * Copyright: Create by TianSheng on 2020/1/19 18:30
+ * Copyright: Create by tiansheng on 2020/1/19 18:30
  */
 public class Maps {
 

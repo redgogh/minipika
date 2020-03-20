@@ -1,21 +1,21 @@
 package org.poseidon.column;
 
 import org.junit.Test;
-import org.raniaia.poseidon.framework.beans.ContextApplication;
+import org.raniaia.poseidon.framework.context.PoseContextApplication;
 import org.raniaia.poseidon.framework.db.JdbcSupport;
-import org.raniaia.poseidon.framework.modules.model.database.ColumnPo;
+import org.raniaia.poseidon.modules.model.database.ColumnPo;
 
 import java.util.List;
 
 /**
- * Copyright by TianSheng on 2020/2/15 1:47
- * @author TianSheng
+ * Copyright by tiansheng on 2020/2/15 1:47
+ * @author tiansheng
  * @version 1.0.0
  * @since 1.8
  */
 public class Test0 {
 
-    JdbcSupport jdbc = ContextApplication.getBean("jdbc");
+    JdbcSupport jdbc = PoseContextApplication.getBean("jdbc");
 
     @Test
     public void getColumn() {

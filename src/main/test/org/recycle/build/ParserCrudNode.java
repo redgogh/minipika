@@ -1,6 +1,6 @@
 package org.recycle.build;
 
-import org.raniaia.poseidon.framework.ProvideConstant;
+import org.raniaia.poseidon.framework.provide.PoseidonProvideConstant;
 import org.raniaia.poseidon.framework.sql.xml.node.XMLMapperNode;
 import org.raniaia.poseidon.framework.sql.xml.node.XMLNode;
 import org.raniaia.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * 将CrudNode转换成Java代码
- * Copyright: Create by TianSheng on 2019/12/17 17:51
+ * Copyright: Create by tiansheng on 2019/12/17 17:51
  */
 public class ParserCrudNode {
 
@@ -41,23 +41,23 @@ public class ParserCrudNode {
             //
             // text
             //
-            if (ProvideConstant.TEXT.equals(node.getName())) {
-                dynamic.append(ProvideConstant.sqlAppendProcess(node.getContent()));
+            if (PoseidonProvideConstant.TEXT.equals(node.getName())) {
+                dynamic.append(PoseidonProvideConstant.sqlAppendProcess(node.getContent()));
                 continue;
             }
 
             //
             // choose
             //
-            if (ProvideConstant.CHOOSE.equals(node.getName())) {
+            if (PoseidonProvideConstant.CHOOSE.equals(node.getName())) {
                 parseNode(node.getChildren(), type, dynamic);
             }
 
             //
             // if
             //
-            if (ProvideConstant.IF.equals(node.getName())) {
-                List<TokenValue> test = testProcess(node.getAttribute(ProvideConstant.IF_TEST));
+            if (PoseidonProvideConstant.IF.equals(node.getName())) {
+                List<TokenValue> test = testProcess(node.getAttribute(PoseidonProvideConstant.IF_TEST));
                 String _if = buildIf(test);
                 dynamic.append(_if);
                 dynamic.append("{");
@@ -68,7 +68,7 @@ public class ParserCrudNode {
             //
             // else
             //
-            if (ProvideConstant.ELSE.equals(node.getName())) {
+            if (PoseidonProvideConstant.ELSE.equals(node.getName())) {
                 dynamic.append("else");
                 dynamic.append("{");
                 parseNode(node.getChildren(), type, dynamic);
@@ -78,7 +78,7 @@ public class ParserCrudNode {
             //
             // cond
             //
-            if(ProvideConstant.COND.equals(node.getName())){
+            if(PoseidonProvideConstant.COND.equals(node.getName())){
 
             }
 
@@ -96,7 +96,7 @@ public class ParserCrudNode {
             if (token.getToken() == Token.IDEN) {
                 builder.append(
                         StringUtils.format("(#{}#) {}.get(\"{}\")",
-                                token.getValue(), ProvideConstant.PARAMS_MAP, token.getValue())
+                                token.getValue(), PoseidonProvideConstant.PARAMS_MAP, token.getValue())
                 );
             } else {
                 builder.append(token.getValue());

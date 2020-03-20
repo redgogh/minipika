@@ -27,9 +27,9 @@ import org.raniaia.poseidon.framework.db.JdbcSupport;
  * Such as execute by sql then config will not take effect
  * just execute{@link JdbcSupport#insert(Object)} or {@link JdbcSupport#update(Object)} etc similar method.
  *
- * Copyright: Create by TianSheng on 2020/2/6 13:33
+ * Copyright: Create by tiansheng on 2020/2/6 13:33
  *
- * @author TianSheng
+ * @author tiansheng
  * @version 1.0.0
  * @since 1.8
  *

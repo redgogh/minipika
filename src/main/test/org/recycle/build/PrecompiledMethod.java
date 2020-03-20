@@ -2,7 +2,7 @@ package org.recycle.build;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.raniaia.poseidon.framework.ProvideConstant;
+import org.raniaia.poseidon.framework.provide.PoseidonProvideConstant;
 import org.raniaia.poseidon.framework.tools.ReflectUtils;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * 动态方法，需要在调用时被加载的JVM中，以提供获取动态sql
- * Copyright: Create by TianSheng on 2019/12/17 17:56
+ * Copyright: Create by tiansheng on 2019/12/17 17:56
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class PrecompiledMethod {
@@ -47,7 +47,7 @@ public class PrecompiledMethod {
     public PrecompiledMethod(String name, String result,String type) {
         this.name = name;
         this.result = result;
-        method.append(StringUtils.format("public java.lang.String {} (java.util.Map map,java.util.List " + ProvideConstant.SQL_PARAMS_SET + ")", name));
+        method.append(StringUtils.format("public java.lang.String {} (java.util.Map map,java.util.List " + PoseidonProvideConstant.SQL_PARAMS_SET + ")", name));
         method.append("{");
         method.append("StringBuilder sql = new StringBuilder();");
     }
@@ -84,13 +84,13 @@ public class PrecompiledMethod {
         for (int i = 0, len = contents.size(); i < len; i++) {
             method.append(StringUtils.format("if({})", tests.get(i)));
             method.append("{");
-            method.append(ProvideConstant.sqlAppendProcess(contents.get(i)));
+            method.append(PoseidonProvideConstant.sqlAppendProcess(contents.get(i)));
             method.append("}");
             if (i < elseContentsSize) {
                 String elseContent = elseContents.get(i);
                 if (elseContent != null) {
                     method.append("else{");
-                    method.append(ProvideConstant.sqlAppendProcess(elseContent));
+                    method.append(PoseidonProvideConstant.sqlAppendProcess(elseContent));
                     method.append("}");
                 }
             }

@@ -7,7 +7,7 @@ import org.raniaia.poseidon.framework.sql.xml.build.PrecompiledClass;
 import java.util.Map;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/21 15:08
+ * Copyright: Create by tiansheng on 2019/12/21 15:08
  */
 public class ParserNode {
 

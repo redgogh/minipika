@@ -6,7 +6,7 @@ import org.junit.Test;
 /**
  * 加载mapper
  * 解析、生成等方法都在这个调用并返回
- * Copyright: Create by TianSheng on 2019/12/17 18:14
+ * Copyright: Create by tiansheng on 2019/12/17 18:14
  */
 public class LoaderMapper {
 

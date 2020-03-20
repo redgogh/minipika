@@ -1,6 +1,6 @@
 package org.poseidon;
 
-import org.raniaia.poseidon.framework.beans.ContextApplication;
+import org.raniaia.poseidon.framework.context.PoseContextApplication;
 import org.poseidon.experiment.ProductModel;
 import org.poseidon.experiment.UserModel;
 import org.raniaia.poseidon.framework.cache.PoseidonCache;
@@ -11,15 +11,15 @@ import org.raniaia.poseidon.framework.tools.DateUtils;
 import java.util.Date;
 
 /**
- * @author TianSheng
+ * @author tiansheng
  * @version 1.0.0
  * @date 2019/11/4 14:22
  * @since 1.8
  */
 public class Query {
 
-    static JdbcSupport jdbc     = ContextApplication.getBean("jdbc");
-    static PoseidonCache cache  = ContextApplication.getBean("cache");
+    static JdbcSupport jdbc     = PoseContextApplication.getBean("jdbc");
+    static PoseidonCache cache  = PoseContextApplication.getBean("cache");
 
     public static void main(String[] args) throws Throwable {
 

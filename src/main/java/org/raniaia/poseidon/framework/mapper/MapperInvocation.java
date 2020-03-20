@@ -1,6 +1,6 @@
 package org.raniaia.poseidon.framework.mapper;
 
-import org.raniaia.poseidon.framework.beans.ContextApplication;
+import org.raniaia.poseidon.framework.context.PoseContextApplication;
 import org.raniaia.poseidon.framework.sql.TemplateLabel;
 import org.raniaia.poseidon.framework.sql.xml.SqlExecute;
 import org.raniaia.poseidon.framework.sql.xml.SqlMapper;
@@ -14,8 +14,8 @@ import java.util.List;
 
 /**
  * Mapper接口代理类
- * Copyright by TianSheng on 2020/2/28 14:32
- * @author TianSheng
+ * Copyright by tiansheng on 2020/2/28 14:32
+ * @author tiansheng
  * @version 1.0.0
  * @since 1.8
  */
@@ -52,7 +52,7 @@ public class MapperInvocation implements InvocationHandler {
         String beanName = method.getDeclaringClass().getName();
         String beanSimpleName = method.getDeclaringClass().getSimpleName();
         // 判断容器中是否存在这个SqlMapper对象
-        SqlMapper mapper = ContextApplication.getBean(beanSimpleName);
+        SqlMapper mapper = PoseContextApplication.getBean(beanSimpleName);
         if (mapper == null) {
             mapper = SqlMapper.getMapper(beanSimpleName);
         }

@@ -6,8 +6,8 @@ import org.raniaia.poseidon.framework.tools.PIOUtils;
 import java.util.Arrays;
 
 /**
- * Copyright by TianSheng on 2020/2/14 23:57
- * @author TianSheng
+ * Copyright by tiansheng on 2020/2/14 23:57
+ * @author tiansheng
  * @version 1.0.0
  * @since 1.8
  */

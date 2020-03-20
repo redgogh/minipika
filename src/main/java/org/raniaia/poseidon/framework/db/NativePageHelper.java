@@ -10,7 +10,7 @@ import java.util.List;
  * 分页插件基类
  * 由于扩展原因，所以NativePageHelper是抽象类
  * 子类可以去继承NativePageHelper,并实现自己的功能
- * Copyright: Create by TianSheng on 2019/12/2 21:01
+ * Copyright: Create by tiansheng on 2019/12/2 21:01
  */
 @Getter
 @Setter

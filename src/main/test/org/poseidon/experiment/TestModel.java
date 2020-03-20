@@ -7,7 +7,7 @@ import org.raniaia.poseidon.framework.provide.model.PrimaryKey;
 import org.raniaia.poseidon.framework.provide.model.Regular;
 
 /**
- * Copyright: Create by TianSheng on 2020/1/11 2:57
+ * Copyright: Create by tiansheng on 2020/1/11 2:57
  */
 @Model("test_model")
 @Data

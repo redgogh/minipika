@@ -1,6 +1,6 @@
 package org.poseidon;
 
-import org.raniaia.poseidon.framework.beans.ContextApplication;
+import org.raniaia.poseidon.framework.context.PoseContextApplication;
 import org.poseidon.experiment.UserModel;
 import org.raniaia.poseidon.framework.db.JdbcSupport;
 
@@ -8,11 +8,11 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/20 10:46
+ * Copyright: Create by tiansheng on 2019/12/20 10:46
  */
 public class Test {
 
-    private JdbcSupport jdbcSupport = ContextApplication.getBean("jdbc");
+    private JdbcSupport jdbcSupport = PoseContextApplication.getBean("jdbc");
 
     @org.junit.Test
     public void insertUserModel() {

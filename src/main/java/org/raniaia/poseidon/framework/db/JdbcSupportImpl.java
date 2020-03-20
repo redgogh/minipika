@@ -1,12 +1,12 @@
 package org.raniaia.poseidon.framework.db;
 
-import org.raniaia.poseidon.framework.ProvideConstant;
+import org.raniaia.poseidon.framework.provide.PoseidonProvideConstant;
 import org.raniaia.poseidon.framework.provide.Valid;
 import org.raniaia.poseidon.framework.config.GlobalConfig;
-import org.raniaia.poseidon.framework.modules.model.publics.AbstractModel;
+import org.raniaia.poseidon.modules.model.publics.AbstractModel;
 import org.raniaia.poseidon.framework.tools.SecurityManager;
-import org.raniaia.poseidon.framework.modules.model.publics.Metadata;
-import org.raniaia.poseidon.framework.modules.model.database.ColumnPo;
+import org.raniaia.poseidon.modules.model.publics.Metadata;
+import org.raniaia.poseidon.modules.model.database.ColumnPo;
 import org.raniaia.poseidon.framework.tools.JdbcUtils;
 import org.raniaia.poseidon.framework.tools.ModelUtils;
 import org.raniaia.poseidon.framework.tools.StringUtils;
@@ -19,7 +19,7 @@ import java.util.Set;
 
 /**
  * Jdbc 支持
- * Copyright: Create by TianSheng on 2019/11/12 10:35
+ * Copyright: Create by tiansheng on 2019/11/12 10:35
  */
 public class JdbcSupportImpl implements JdbcSupport {
 
@@ -161,7 +161,7 @@ public class JdbcSupportImpl implements JdbcSupport {
 
     @Override
     public List<ColumnPo> getColumnMetadata(String table) {
-        String queryColumnsSql = StringUtils.format(ProvideConstant.QUERY_COLUMNS, table);
+        String queryColumnsSql = StringUtils.format(PoseidonProvideConstant.QUERY_COLUMNS, table);
         return queryForList(queryColumnsSql, ColumnPo.class);
     }
 

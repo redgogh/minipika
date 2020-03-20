@@ -11,8 +11,8 @@ import java.lang.reflect.Parameter;
  *
  * 获取方法参数
  *
- * Copyright by TianSheng on 2020/2/29 23:48
- * @author TianSheng
+ * Copyright by tiansheng on 2020/2/29 23:48
+ * @author tiansheng
  * @version 1.0.0
  * @since 1.8
  */

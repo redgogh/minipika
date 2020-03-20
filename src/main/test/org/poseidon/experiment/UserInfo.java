@@ -7,7 +7,7 @@ import org.raniaia.poseidon.framework.provide.model.PrimaryKey;
 import org.raniaia.poseidon.framework.provide.model.Regular;
 
 /**
- * Copyright: Create by TianSheng on 2020/1/17 14:01
+ * Copyright: Create by tiansheng on 2020/1/17 14:01
  */
 @Data
 @Model(value = "user_info",increment = 4000)

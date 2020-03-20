@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.jdom2.Content;
 import org.jdom2.Element;
 import org.raniaia.poseidon.framework.exception.runtime.ExpressionException;
-import org.raniaia.poseidon.framework.ProvideConstant;
+import org.raniaia.poseidon.framework.provide.PoseidonProvideConstant;
 import org.raniaia.poseidon.framework.sql.xml.node.XMLNode;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * xml mapper下的标签解析
- * Copyright: Create by TianSheng on 2019/12/17 0:17
+ * Copyright: Create by tiansheng on 2019/12/17 0:17
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class MapperLabelParser implements MapperLabelParserService {
@@ -41,12 +41,12 @@ public class MapperLabelParser implements MapperLabelParserService {
     public XMLNode ifOrEels(Element element) {
         String ieName = element.getName();
         XMLNode ieNode = new XMLNode(ieName);
-        if (ProvideConstant.IF.equals(ieName)) {
+        if (PoseidonProvideConstant.IF.equals(ieName)) {
             String test = util.getIfLabelTestAttribute(element);
             if (StringUtils.isEmpty(test))
                 throw new ExpressionException("tag: if label attribute test content cannot null. in mapper "
                 +currentBuilder + " : "+currentMapper);
-            ieNode.addAttribute(ProvideConstant.IF_TEST, test);
+            ieNode.addAttribute(PoseidonProvideConstant.IF_TEST, test);
         }
         List<Content> conditions = element.getContent();
         int condCount = 0;
@@ -55,7 +55,7 @@ public class MapperLabelParser implements MapperLabelParserService {
             if (condition.getCType() == Content.CType.Text) {
                 String text = util.trim(condition.getValue());
                 if (!StringUtils.isEmpty(text)) {
-                    ieNode.addChild(new XMLNode(ProvideConstant.TEXT, text));
+                    ieNode.addChild(new XMLNode(PoseidonProvideConstant.TEXT, text));
                 }
                 continue;
             }
@@ -63,7 +63,7 @@ public class MapperLabelParser implements MapperLabelParserService {
             if (condition.getCType() == Content.CType.Element) {
                 Element condElement = ((Element) condition);
                 XMLNode cond = new XMLNode(condElement.getName(), util.trim(condElement.getValue()));
-                cond.addAttribute(ProvideConstant.COND_ATTRIBUTE_KEY,String.valueOf(condCount));
+                cond.addAttribute(PoseidonProvideConstant.COND_ATTRIBUTE_KEY,String.valueOf(condCount));
                 condCount++;
                 ieNode.addChild(cond);
             }
@@ -86,9 +86,9 @@ public class MapperLabelParser implements MapperLabelParserService {
     @Override
     public XMLNode foreach(Element element) {
         XMLNode eachNode = new XMLNode(element.getName());
-        eachNode.addAttribute(ProvideConstant.ITEM,element.getAttributeValue(ProvideConstant.ITEM));
-        eachNode.addAttribute(ProvideConstant.INDEX,element.getAttributeValue(ProvideConstant.INDEX));
-        eachNode.addAttribute(ProvideConstant.COLLECTIONS,element.getAttributeValue(ProvideConstant.COLLECTIONS));
+        eachNode.addAttribute(PoseidonProvideConstant.ITEM,element.getAttributeValue(PoseidonProvideConstant.ITEM));
+        eachNode.addAttribute(PoseidonProvideConstant.INDEX,element.getAttributeValue(PoseidonProvideConstant.INDEX));
+        eachNode.addAttribute(PoseidonProvideConstant.COLLECTIONS,element.getAttributeValue(PoseidonProvideConstant.COLLECTIONS));
         return eachNode;
     }
 }

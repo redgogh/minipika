@@ -3,7 +3,7 @@ package org.poseidon.framework.sql.xml.builder;
 
 import org.raniaia.poseidon.framework.exception.runtime.BuilderXmlException;
 import org.raniaia.poseidon.framework.exception.runtime.ExpressionException;
-import org.raniaia.poseidon.framework.ProvideConstant;
+import org.raniaia.poseidon.framework.provide.PoseidonProvideConstant;
 import org.raniaia.poseidon.framework.sql.xml.token.Token;
 import org.raniaia.poseidon.framework.sql.xml.token.TokenValue;
 import org.raniaia.poseidon.framework.tools.NewlineBuilder;
@@ -13,7 +13,7 @@ import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
-import org.raniaia.poseidon.framework.beans.BeansManager;
+import org.raniaia.poseidon.framework.context.PoseBeansManager;
 
 import java.io.File;
 import java.util.*;
@@ -34,10 +34,10 @@ import java.util.regex.Pattern;
  *      3. 将解析完成的代码组装成Java字节码
  *      4. 将Java字节码使用ClassLoader加载到JVM
  *      5. 从内存中获取生成的字节码文件
- *      6. 将字节码执行方法装载到${@link BeansManager}中提供调用
+ *      6. 将字节码执行方法装载到${@link PoseBeansManager}中提供调用
  *      7. 其他处理
  *
- * Copyright: Create by TianSheng on 2019/12/13 0:52
+ * Copyright: Create by tiansheng on 2019/12/13 0:52
  */
 @Deprecated
 public class ReaderBuilderOld {
@@ -103,7 +103,7 @@ public class ReaderBuilderOld {
                         String value = content.getValue().trim();
                         if (!StringUtils.isEmpty(value)) {
                             String sqlValue = StringUtils.trim(value);
-                            String addSQL = ProvideConstant.sqlAppendProcess(sqlValue);
+                            String addSQL = PoseidonProvideConstant.sqlAppendProcess(sqlValue);
                             methodBuilder.insert(addSQL);
                         }
                         continue;
@@ -117,7 +117,7 @@ public class ReaderBuilderOld {
                         //
                         // choose节点
                         //
-                        if (ProvideConstant.CHOOSE.equals(elementName)) {
+                        if (PoseidonProvideConstant.CHOOSE.equals(elementName)) {
                             List<Element> chooseChildren = element.getChildren();
                             chooseCheck(chooseChildren, nameValue);
 
@@ -130,9 +130,9 @@ public class ReaderBuilderOld {
                                 //
                                 // if process
                                 //
-                                if (ProvideConstant.IF.equals(chooseChild.getName())) {
+                                if (PoseidonProvideConstant.IF.equals(chooseChild.getName())) {
                                     // 获取if标签中的内容
-                                    test = chooseChild.getAttributeValue(ProvideConstant.IF_TEST);
+                                    test = chooseChild.getAttributeValue(PoseidonProvideConstant.IF_TEST);
                                     _ifContent = new NewlineBuilder(trim(chooseChild.getText()));
                                     // 判断是否存在<line>节点
                                     parseLineLabel(chooseChild, _ifContent);
@@ -142,7 +142,7 @@ public class ReaderBuilderOld {
                                 //
                                 // else process
                                 //
-                                if (ProvideConstant.ELSE.equals(chooseChild.getName())) {
+                                if (PoseidonProvideConstant.ELSE.equals(chooseChild.getName())) {
                                     _elseContent = new NewlineBuilder(trim(chooseChild.getText()));
                                     parseLineLabel(chooseChild, _elseContent);
                                 }
@@ -155,9 +155,9 @@ public class ReaderBuilderOld {
                         //
                         // if节点
                         //
-                        if (ProvideConstant.IF.equals(elementName)) {
+                        if (PoseidonProvideConstant.IF.equals(elementName)) {
                             // 获取if标签中的内容
-                            String test = element.getAttributeValue(ProvideConstant.IF_TEST);
+                            String test = element.getAttributeValue(PoseidonProvideConstant.IF_TEST);
                             NewlineBuilder _ifContent = new NewlineBuilder(trim(element.getText()));
                             // 判断是否存在<line>节点
                             parseLineLabel(element, _ifContent);
@@ -531,9 +531,9 @@ public class ReaderBuilderOld {
         if (chooseChildren.size() <= 0)
             throw new BuilderXmlException("tag: choose cannot if and else tag in " + nameValue);
         Element _if = chooseChildren.get(0);
-        if (chooseChildren.size() > 0 && !ProvideConstant.IF.equals(_if.getName()))
+        if (chooseChildren.size() > 0 && !PoseidonProvideConstant.IF.equals(_if.getName()))
             throw new BuilderXmlException("tag: choose at least include a if label " + nameValue);
-        if (StringUtils.isEmpty(_if.getAttribute(ProvideConstant.IF_TEST).getValue()))
+        if (StringUtils.isEmpty(_if.getAttribute(PoseidonProvideConstant.IF_TEST).getValue()))
             throw new BuilderXmlException("tag: choose in if attribute test cannot null in " + nameValue);
     }
 

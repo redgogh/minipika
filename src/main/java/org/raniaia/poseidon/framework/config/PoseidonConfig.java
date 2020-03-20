@@ -1,8 +1,8 @@
 package org.raniaia.poseidon.framework.config;
 
 /**
- * Copyright Create by TianSheng on 2020/2/13 2:43
- * @author TianSheng
+ * Copyright Create by tiansheng on 2020/2/13 2:43
+ * @author tiansheng
  * @version 1.0.0
  * @since 1.8
  */

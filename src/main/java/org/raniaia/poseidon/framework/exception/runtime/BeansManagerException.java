@@ -1,7 +1,7 @@
 package org.raniaia.poseidon.framework.exception.runtime;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/10 10:56
+ * Copyright: Create by tiansheng on 2019/12/10 10:56
  */
 public class BeansManagerException extends RuntimeException {
 

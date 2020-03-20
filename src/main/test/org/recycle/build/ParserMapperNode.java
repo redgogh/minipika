@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  * 解析节点
- * Copyright: Create by TianSheng on 2019/12/17 17:49
+ * Copyright: Create by tiansheng on 2019/12/17 17:49
  */
 public class ParserMapperNode {
 

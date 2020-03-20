@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/14 21:50
+ * Copyright: Create by tiansheng on 2019/12/14 21:50
  */
 public class LookGeneratorJavaCode {
 

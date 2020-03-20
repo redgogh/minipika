@@ -4,7 +4,7 @@ import org.raniaia.poseidon.framework.timer.Timer;
 import org.raniaia.poseidon.framework.tools.DateUtils;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/9 11:18
+ * Copyright: Create by tiansheng on 2019/12/9 11:18
  */
 public class Timer1 implements Timer {
 

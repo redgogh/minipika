@@ -1,7 +1,7 @@
 package org.raniaia.poseidon.framework.sql.xml.token;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/16 11:05
+ * Copyright: Create by tiansheng on 2019/12/16 11:05
  */
 @SuppressWarnings("SpellCheckingInspection")
 public enum Token {

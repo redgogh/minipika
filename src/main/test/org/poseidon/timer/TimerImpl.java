@@ -3,7 +3,7 @@ package org.poseidon.timer;
 import org.raniaia.poseidon.framework.timer.Timer;
 
 /**
- * Copyright: Create by TianSheng on 2019/12/6 21:53
+ * Copyright: Create by tiansheng on 2019/12/6 21:53
  */
 public class TimerImpl implements Timer {
 
