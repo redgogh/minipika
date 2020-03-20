@@ -175,7 +175,7 @@ public final class StringUtils {
      * @param index
      * @return
      */
-    public static String UpperCase(String input, int index) {
+    public static String upperCase(String input, int index) {
         StringBuilder builder = new StringBuilder(input);
         String value = new String(new char[]{input.charAt(index - 1)}).toUpperCase();
         builder.replace(0, 1, value);
@@ -187,7 +187,7 @@ public final class StringUtils {
      * @param index
      * @return
      */
-    public static String LowerCase(String input, int index) {
+    public static String lowerCase(String input, int index) {
         StringBuilder builder = new StringBuilder(input);
         String value = new String(new char[]{input.charAt(index - 1)}).toLowerCase();
         builder.replace(0, 1, value);
@@ -195,7 +195,7 @@ public final class StringUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(UpperCase("productName", 1));
+        System.out.println(upperCase("productName", 1));
     }
 
 }

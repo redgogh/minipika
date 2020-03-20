@@ -1,6 +1,5 @@
 package org.raniaia.poseidon.framework.sql.xml;
 
-import org.raniaia.poseidon.framework.context.PoseBeansManager;
 import org.raniaia.poseidon.framework.context.PoseContextApplication;
 import org.raniaia.poseidon.framework.container.PrecompileContainer;
 import org.raniaia.poseidon.framework.db.JdbcSupport;
@@ -59,7 +58,7 @@ public class SqlMapper {
         if (mapperBean != null) {
             return mapperBean;
         }
-        return PoseBeansManager.putBean(name, new SqlMapper(name));
+        return PoseContextApplication.getBeansManager().putBean(name, new SqlMapper(name));
     }
 
 }

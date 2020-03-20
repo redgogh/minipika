@@ -1,5 +1,3 @@
-package org.poseidon.modules;
-
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
  *
@@ -16,20 +14,15 @@ package org.poseidon.modules;
  * limitations under the License.
  */
 
-/*
- * Creates on 2020/3/20 14:31
- */
-
-import org.raniaia.poseidon.framework.context.PoseContextApplication;
-import org.raniaia.poseidon.components.model.ModelParser;
-
 /**
+ * Create on 2020/3/20 0:04.
+ *
+ * <b>模组所在的包，每个modules包下的子包都必须包含一个core包以及
+ * 提供一个暴露在外部的接口。</b>
+ *
+ * 暴露出去的接口可以理解为适配器，就是当有其他需求的时候，可以只需要通过跟换
+ * 接口的实现即可，不必去更新其他的代码减少不必要的麻烦、并且后期容易维护。
+ *
  * @author tiansheng
  */
-public class ModulesManagerTest {
-
-    public static void main(String[] args) {
-        ModelParser parser = PoseContextApplication.getMODULE(ModelParser.class);
-    }
-
-}
+package org.raniaia.poseidon.framework.context.component;

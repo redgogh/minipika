@@ -1,4 +1,4 @@
-package org.poseidon.modules;
+package org.raniaia.poseidon.components.log;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -17,19 +17,18 @@ package org.poseidon.modules;
  */
 
 /*
- * Creates on 2020/3/20 14:31
+ * Creates on 2019/12/17 18:29
  */
 
-import org.raniaia.poseidon.framework.context.PoseContextApplication;
-import org.raniaia.poseidon.components.model.ModelParser;
+import org.raniaia.poseidon.framework.context.component.BaseModuleAdapter;
 
 /**
  * @author tiansheng
  */
-public class ModulesManagerTest {
+public interface LogAdapter extends BaseModuleAdapter {
 
-    public static void main(String[] args) {
-        ModelParser parser = PoseContextApplication.getMODULE(ModelParser.class);
-    }
+    Log getLog(String key);
+
+    Log getLog(Class<?> key);
 
 }

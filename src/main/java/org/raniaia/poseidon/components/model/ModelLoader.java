@@ -1,4 +1,4 @@
-package org.poseidon.modules;
+package org.raniaia.poseidon.components.model;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -17,19 +17,22 @@ package org.poseidon.modules;
  */
 
 /*
- * Creates on 2020/3/20 14:31
+ * Create on 2019/12/17 18:29.
  */
 
-import org.raniaia.poseidon.framework.context.PoseContextApplication;
-import org.raniaia.poseidon.components.model.ModelParser;
+import org.raniaia.poseidon.framework.context.component.BaseModuleAdapter;
 
 /**
+ * Database table model loader, and model process.
+ *
  * @author tiansheng
  */
-public class ModulesManagerTest {
+public interface ModelLoader extends BaseModuleAdapter {
 
-    public static void main(String[] args) {
-        ModelParser parser = PoseContextApplication.getMODULE(ModelParser.class);
-    }
+    /**
+     * execute model scanner, and process model bytecode
+     * add supper class {@link org.raniaia.poseidon.components.model.publics.AbstractModel}.
+     */
+    void run();
 
 }

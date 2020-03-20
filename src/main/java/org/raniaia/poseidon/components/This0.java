@@ -1,4 +1,4 @@
-package org.poseidon.modules;
+package org.raniaia.poseidon.components;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -17,19 +17,12 @@ package org.poseidon.modules;
  */
 
 /*
- * Creates on 2020/3/20 14:31
+ * Creates on 2020/3/20 18:08
  */
 
-import org.raniaia.poseidon.framework.context.PoseContextApplication;
-import org.raniaia.poseidon.components.model.ModelParser;
+import java.lang.annotation.*;
 
-/**
- * @author tiansheng
- */
-public class ModulesManagerTest {
-
-    public static void main(String[] args) {
-        ModelParser parser = PoseContextApplication.getMODULE(ModelParser.class);
-    }
-
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface This0 {
 }

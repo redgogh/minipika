@@ -1,4 +1,4 @@
-package org.poseidon.modules;
+package org.raniaia.poseidon.components.log.slf4j;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -17,19 +17,25 @@ package org.poseidon.modules;
  */
 
 /*
- * Creates on 2020/3/20 14:31
+ * Creates on 2019/12/17 18:29
  */
 
-import org.raniaia.poseidon.framework.context.PoseContextApplication;
-import org.raniaia.poseidon.components.model.ModelParser;
+import org.raniaia.poseidon.components.log.LogAdapter;
+import org.raniaia.poseidon.components.log.Log;
 
 /**
  * @author tiansheng
  */
-public class ModulesManagerTest {
+public class Slf4jAdapter implements LogAdapter {
 
-    public static void main(String[] args) {
-        ModelParser parser = PoseContextApplication.getMODULE(ModelParser.class);
+    @Override
+    public Log getLog(String key) {
+        return new Slf4jLog(org.slf4j.LoggerFactory.getLogger(key));
+    }
+
+    @Override
+    public Log getLog(Class<?> key) {
+        return new Slf4jLog(org.slf4j.LoggerFactory.getLogger(key));
     }
 
 }

@@ -3,7 +3,7 @@ package org.poseidon.column;
 import org.junit.Test;
 import org.raniaia.poseidon.framework.context.PoseContextApplication;
 import org.raniaia.poseidon.framework.db.JdbcSupport;
-import org.raniaia.poseidon.modules.model.database.ColumnPo;
+import org.raniaia.poseidon.components.model.database.ColumnPo;
 
 import java.util.List;
 

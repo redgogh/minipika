@@ -1,6 +1,6 @@
 package org.raniaia.poseidon.framework.sql.xml.build;
 
-import org.raniaia.poseidon.modules.log.Log;
+import org.raniaia.poseidon.components.log.Log;
 import org.raniaia.poseidon.framework.context.PoseContextApplication;
 import org.raniaia.poseidon.framework.exception.runtime.DynamicSQLException;
 import org.raniaia.poseidon.framework.exception.runtime.ExpressionException;

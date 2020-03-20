@@ -1,4 +1,4 @@
-package org.poseidon.modules;
+package org.raniaia.poseidon.framework.context.component;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -17,19 +17,15 @@ package org.poseidon.modules;
  */
 
 /*
- * Creates on 2020/3/20 14:31
+ * Creates on 2020/3/20 0:30
  */
-
-import org.raniaia.poseidon.framework.context.PoseContextApplication;
-import org.raniaia.poseidon.components.model.ModelParser;
 
 /**
+ * Base module interface, each module have to extends {@code BaseModuleAdapter},
+ * because after extends can known you provide the interface is module exposed interface.
+ *
  * @author tiansheng
  */
-public class ModulesManagerTest {
-
-    public static void main(String[] args) {
-        ModelParser parser = PoseContextApplication.getMODULE(ModelParser.class);
-    }
+public interface BaseModuleAdapter {
 
 }

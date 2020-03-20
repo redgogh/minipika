@@ -13,7 +13,7 @@ import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
-import org.raniaia.poseidon.framework.context.PoseBeansManager;
+import org.raniaia.poseidon.framework.context.PoseBeansManager0;
 
 import java.io.File;
 import java.util.*;
@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
  *      3. 将解析完成的代码组装成Java字节码
  *      4. 将Java字节码使用ClassLoader加载到JVM
  *      5. 从内存中获取生成的字节码文件
- *      6. 将字节码执行方法装载到${@link PoseBeansManager}中提供调用
+ *      6. 将字节码执行方法装载到${@link PoseBeansManager0}中提供调用
  *      7. 其他处理
  *
  * Copyright: Create by tiansheng on 2019/12/13 0:52

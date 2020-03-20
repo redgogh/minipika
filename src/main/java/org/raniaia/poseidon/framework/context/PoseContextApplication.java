@@ -1,8 +1,8 @@
 package org.raniaia.poseidon.framework.context;
 
-import org.raniaia.poseidon.framework.context.module.BaseModuleAdapter;
-import org.raniaia.poseidon.modules.log.Log;
-import org.raniaia.poseidon.modules.log.LogAdapter;
+import org.raniaia.poseidon.framework.context.component.BaseModuleAdapter;
+import org.raniaia.poseidon.components.log.Log;
+import org.raniaia.poseidon.components.log.LogAdapter;
 
 /**
  *
@@ -18,18 +18,28 @@ import org.raniaia.poseidon.modules.log.LogAdapter;
  */
 public final class PoseContextApplication {
 
+    static class Lock {}
+    static final Lock lock = new Lock();
+    private static PoseBeansManager0 beansManager = PoseBeansManager0.getInstance();;
+
+    public static PoseBeansManager0 getBeansManager(){
+        return beansManager;
+    }
+
     /**
      * get bean
      */
     public static <T> T getBean(String name){
-        return PoseBeansManager.getBean(name);
+        synchronized (lock) {
+            return getBeansManager().getBean(name);
+        }
     }
 
     /**
      * get mapper
      */
     public static <T> T getMapper(Class<T> mapperClass){
-        return PoseBeansManager.getMapper(mapperClass);
+        return getBeansManager().getMapper(mapperClass);
     }
 
     /**
@@ -54,7 +64,7 @@ public final class PoseContextApplication {
      * get module export objects.
      */
     public static <T> T getMODULE(Class<? extends BaseModuleAdapter> clazz){
-        return ModulesManager.getMODULE0(clazz);
+        return ComponentManager.getMODULE0(clazz);
     }
 
 }

@@ -1,6 +1,6 @@
 package org.raniaia.poseidon.framework.db;
 
-import org.raniaia.poseidon.modules.model.database.ColumnPo;
+import org.raniaia.poseidon.components.model.database.ColumnPo;
 
 import java.util.List;
 import java.util.Set;

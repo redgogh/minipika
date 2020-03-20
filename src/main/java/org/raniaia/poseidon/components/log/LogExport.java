@@ -1,4 +1,4 @@
-package org.poseidon.modules;
+package org.raniaia.poseidon.components.log;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -17,19 +17,20 @@ package org.poseidon.modules;
  */
 
 /*
- * Creates on 2020/3/20 14:31
+ * Creates on 2020/3/20 20:17
  */
 
-import org.raniaia.poseidon.framework.context.PoseContextApplication;
-import org.raniaia.poseidon.components.model.ModelParser;
+import org.raniaia.poseidon.framework.context.component.ModuleRegister;
+import org.raniaia.poseidon.framework.provide.component.Export;
+import org.raniaia.poseidon.components.log.slf4j.Slf4jAdapter;
 
-/**
- * @author tiansheng
- */
-public class ModulesManagerTest {
+import java.util.Map;
 
-    public static void main(String[] args) {
-        ModelParser parser = PoseContextApplication.getMODULE(ModelParser.class);
+@Export
+public class LogExport implements ModuleRegister {
+
+    @Override
+    public void register(Map<Class<?>, Object> modules) {
+        modules.put(LogAdapter.class,new Slf4jAdapter());
     }
-
 }

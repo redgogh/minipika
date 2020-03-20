@@ -2,7 +2,7 @@ package org.raniaia.poseidon.framework.config;
 
 import org.raniaia.poseidon.framework.context.PoseContextApplication;
 import org.raniaia.poseidon.framework.exception.runtime.ConfigException;
-import org.raniaia.poseidon.modules.model.ModelLoader;
+import org.raniaia.poseidon.components.model.ModelLoader;
 
 /**
  * 统一配置调用
