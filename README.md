@@ -5,6 +5,7 @@
 ![build](https://gitee.com/generalmonster/resources/blob/master/poseidon/build.svg)
 ![download](https://gitee.com/generalmonster/resources/tree/master/poseidon/download.svg)
 ![version](https://gitee.com/generalmonster/resources/tree/master/poseidon/version.svg)
+![version](https://img.shields.io/badge/download-1K-brightgreen.svg)
 
 
 > PoseidonFramework是一个非常简单且立马可以上手的ORM框架。它提供了表和对象之前的映射，以及提供了最基本的增删改查和Mapper映射等操作，除此之外PoseidonFramework还内置了缓存。
