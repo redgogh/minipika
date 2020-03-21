@@ -19,7 +19,7 @@
 
 [maven仓库地址](https://mvnrepository.com/artifact/io.github.laniakeamly/poseidon)
 
-**本地安装*
+**本地安装**
 
 先**fork**到自己的仓库中去，然后**clone**
 
