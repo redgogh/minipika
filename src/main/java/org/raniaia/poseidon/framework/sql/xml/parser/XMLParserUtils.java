@@ -2,7 +2,7 @@ package org.raniaia.poseidon.framework.sql.xml.parser;
 
 import org.jdom2.Element;
 import org.raniaia.poseidon.framework.exception.runtime.ExpressionException;
-import org.raniaia.poseidon.framework.provide.PoseidonProvideConstant;
+import org.raniaia.poseidon.framework.provide.ProvideVar;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
 /**
@@ -17,7 +17,7 @@ public class XMLParserUtils {
      * @return
      */
     public String getIfLabelTestAttribute(Element element){
-        String test = element.getAttributeValue(PoseidonProvideConstant.IF_TEST);
+        String test = element.getAttributeValue(ProvideVar.IF_TEST);
         if(StringUtils.isEmpty(test))
             throw new ExpressionException("tag: if label attribute test content cannot null");
         return test;

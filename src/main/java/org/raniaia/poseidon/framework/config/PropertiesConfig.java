@@ -17,13 +17,13 @@ import org.raniaia.poseidon.framework.tools.*;
 public final class PropertiesConfig extends AbstractConfig {
 
     // 配置文件地址
-    private String configPath = "poseidon.properties";
+    private String configPath = "resources/poseidon.properties";
 
     private static PropertiesConfig instance;
 
     public static PropertiesConfig getInstance() {
         if (instance == null) {
-            instance = new PropertiesConfig("poseidon.properties");
+            instance = new PropertiesConfig("resources/poseidon.properties");
         }
         return instance;
     }

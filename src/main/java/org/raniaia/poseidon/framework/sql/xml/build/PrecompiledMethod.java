@@ -3,7 +3,7 @@ package org.raniaia.poseidon.framework.sql.xml.build;
 import lombok.Getter;
 import lombok.Setter;
 import org.raniaia.poseidon.components.model.publics.Metadata;
-import org.raniaia.poseidon.framework.provide.PoseidonProvideConstant;
+import org.raniaia.poseidon.framework.provide.ProvideVar;
 import org.raniaia.poseidon.framework.sql.TemplateLabel;
 import org.raniaia.poseidon.framework.tools.ReflectUtils;
 import org.raniaia.poseidon.framework.tools.StringUtils;
@@ -77,7 +77,7 @@ public class PrecompiledMethod {
                     this.result = Class.forName(Metadata.getModelClass(result).getName());
                 }
             }
-            method.append(StringUtils.format("public java.lang.String {} (java.util.Map map,java.util.List " + PoseidonProvideConstant.SQL_PARAMS_SET + ")", name));
+            method.append(StringUtils.format("public java.lang.String {} (java.util.Map map,java.util.List " + ProvideVar.SQL_PARAMS_SET + ")", name));
             method.append("{");
             method.append("java.lang.StringBuilder sql = new java.lang.StringBuilder();");
         } catch (ClassNotFoundException e) {
@@ -120,13 +120,13 @@ public class PrecompiledMethod {
         for (int i = 0, len = contents.size(); i < len; i++) {
             method.append(StringUtils.format("if({})", tests.get(i)));
             method.append("{");
-            method.append(PoseidonProvideConstant.sqlAppendProcess(contents.get(i)));
+            method.append(ProvideVar.sqlAppendProcess(contents.get(i)));
             method.append("}");
             if (i < elseContentsSize) {
                 String elseContent = elseContents.get(i);
                 if (elseContent != null) {
                     method.append("else{");
-                    method.append(PoseidonProvideConstant.sqlAppendProcess(elseContent));
+                    method.append(ProvideVar.sqlAppendProcess(elseContent));
                     method.append("}");
                 }
             }

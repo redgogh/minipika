@@ -22,7 +22,6 @@ package org.raniaia.poseidon.components.model;
 
 import org.raniaia.poseidon.framework.provide.model.*;
 import org.raniaia.poseidon.framework.exception.PoseidonException;
-import org.raniaia.poseidon.framework.context.component.BaseModuleAdapter;
 import org.raniaia.poseidon.components.model.publics.Metadata;
 import org.raniaia.poseidon.framework.tools.ModelUtils;
 import org.raniaia.poseidon.framework.tools.SecurityManager;
@@ -36,7 +35,7 @@ import java.util.Map;
  * Model parser, extends {@code BaseModuleAdapter}
  * @author tiansheng
  */
-public interface ModelParser extends BaseModuleAdapter {
+public interface ModelParser {
 
     /**
      * Provided to external use the model parser.

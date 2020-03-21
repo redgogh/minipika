@@ -4,7 +4,7 @@ import org.jdom2.Content;
 import org.jdom2.Element;
 import org.raniaia.poseidon.framework.exception.runtime.ExpressionException;
 import org.raniaia.poseidon.framework.exception.runtime.MapperXMLException;
-import org.raniaia.poseidon.framework.provide.PoseidonProvideConstant;
+import org.raniaia.poseidon.framework.provide.ProvideVar;
 import org.raniaia.poseidon.framework.sql.xml.node.XMLNode;
 import org.raniaia.poseidon.framework.sql.xml.node.XMLMapperNode;
 import org.raniaia.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
@@ -80,7 +80,7 @@ public class ReaderCrudElement {
             if (content.getCType() == Content.CType.Text) {
                 String text = StringUtils.trim(content.getValue());
                 if (!StringUtils.isEmpty(text)) {
-                    nodes.add(new XMLNode(PoseidonProvideConstant.TEXT, text));
+                    nodes.add(new XMLNode(ProvideVar.TEXT, text));
                 }
                 continue;
             }
@@ -90,7 +90,7 @@ public class ReaderCrudElement {
                 //
                 // if
                 //
-                if (PoseidonProvideConstant.IF.equals(element.getName())) {
+                if (ProvideVar.IF.equals(element.getName())) {
                     nodes.add(xmlparser.ifOrEels(element));
                     continue;
                 }
@@ -98,7 +98,7 @@ public class ReaderCrudElement {
                 //
                 // choose
                 //
-                if (PoseidonProvideConstant.CHOOSE.equals(element.getName())) {
+                if (ProvideVar.CHOOSE.equals(element.getName())) {
                     nodes.add(xmlparser.choose(element));
                     continue;
                 }
@@ -106,7 +106,7 @@ public class ReaderCrudElement {
                 //
                 // foreach
                 //
-                if (PoseidonProvideConstant.FOREACH.equals(element.getName())) {
+                if (ProvideVar.FOREACH.equals(element.getName())) {
                     XMLNode forNode = xmlparser.foreach(element);
                     if (element.getContent().size() > 0) {
                         List<XMLNode> forNodes = new LinkedList<>();
@@ -122,7 +122,7 @@ public class ReaderCrudElement {
                 //
                 // parameter
                 //
-                if (PoseidonProvideConstant.PARAMETER.equals(element.getName())) {
+                if (ProvideVar.PARAMETER.equals(element.getName())) {
                     XMLNode parameter = new XMLNode(element.getName(),StringUtils.trim(element.getText()));
                     nodes.add(parameter);
                     continue;

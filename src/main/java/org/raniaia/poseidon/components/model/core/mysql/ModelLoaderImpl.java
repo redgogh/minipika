@@ -23,11 +23,13 @@ package org.raniaia.poseidon.components.model.core.mysql;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import jdk.nashorn.internal.runtime.ParserException;
-import org.raniaia.poseidon.framework.provide.PoseidonProvideConstant;
+import org.raniaia.poseidon.Container;
+import org.raniaia.poseidon.framework.provide.ProvideVar;
+import org.raniaia.poseidon.framework.provide.Valid;
+import org.raniaia.poseidon.framework.provide.component.Component;
 import org.raniaia.poseidon.framework.provide.model.Model;
-import org.raniaia.poseidon.framework.context.PoseContextApplication;
 import org.raniaia.poseidon.framework.config.GlobalConfig;
-import org.raniaia.poseidon.framework.db.JdbcSupport;
+import org.raniaia.poseidon.components.db.JdbcSupport;
 import org.raniaia.poseidon.framework.exception.PoseidonException;
 import org.raniaia.poseidon.components.model.ModelLoader;
 import org.raniaia.poseidon.components.model.ModelParser;
@@ -45,9 +47,11 @@ import java.util.*;
  *
  * @author tiansheng
  */
+@Component
 public class ModelLoaderImpl implements ModelLoader {
 
-    private JdbcSupport jdbc = PoseContextApplication.getBean("jdbc");
+    @Valid
+    private JdbcSupport jdbc;
 
     @Override
     public void run() {
@@ -67,17 +71,17 @@ public class ModelLoaderImpl implements ModelLoader {
      */
     private void loadModel() {
 
-        Set<String> tables = jdbc.queryForSet(PoseidonProvideConstant.QUERY_TABLES, String.class,
+        Set<String> tables = jdbc.queryForSet(ProvideVar.QUERY_TABLES, String.class,
                 GlobalConfig.getConfig().getDbname());
 
-        ModelParser parserModel = PoseContextApplication.getMODULE(ModelParser.class);
+        ModelParser parserModel = Container.getContainer().newInstance(ModelParserImpl.class);
         parserModel.parse(ModelUtils.getModels());
         Map<String, Metadata> messages = Metadata.getAttribute();
         Iterator iter = messages.entrySet().iterator();
         while (iter.hasNext()) {
 
-            String UPDATE_ENGINE = PoseidonProvideConstant.UPDATE_ENGINE;
-            String SHOW_TABLE_STATUS = PoseidonProvideConstant.SHOW_TABLE_STATUS;
+            String UPDATE_ENGINE = ProvideVar.UPDATE_ENGINE;
+            String SHOW_TABLE_STATUS = ProvideVar.SHOW_TABLE_STATUS;
 
             Map.Entry<String, Metadata> entry = (Map.Entry<String, Metadata>) iter.next();
             Metadata metadata = entry.getValue();
@@ -97,7 +101,7 @@ public class ModelLoaderImpl implements ModelLoader {
                     while (iterator.hasNext()) {
                         JSONObject iterJsonObject = (JSONObject) iterator.next();
                         // 判断数据中是否有特殊变量，如:$currentTime
-                        PoseidonProvideConstant.updateSpecialVariable(iterJsonObject);
+                        ProvideVar.updateSpecialVariable(iterJsonObject);
                         modelDataList.add(iterJsonObject.toJavaObject(Metadata.getModelClass(modelSimpleName)));
                     }
                 }
@@ -149,9 +153,9 @@ public class ModelLoaderImpl implements ModelLoader {
                     if (!inDbColumns.contains(key)) {
                         String executeScript;
                         if (!StringUtils.isEmpty(previousKey)) {
-                            executeScript = StringUtils.format(PoseidonProvideConstant.ADD_COLUMN_SCRIPT, metadata.getTableName(), entry.getValue(), previousKey);
+                            executeScript = StringUtils.format(ProvideVar.ADD_COLUMN_SCRIPT, metadata.getTableName(), entry.getValue(), previousKey);
                         } else {
-                            executeScript = StringUtils.format(PoseidonProvideConstant.ADD_COLUMN_SCRIPT_PKNULL, metadata.getTableName(), entry.getValue());
+                            executeScript = StringUtils.format(ProvideVar.ADD_COLUMN_SCRIPT_PKNULL, metadata.getTableName(), entry.getValue());
                         }
                         jdbc.execute(executeScript);
                     } else {

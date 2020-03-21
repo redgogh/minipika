@@ -20,6 +20,7 @@ package org.raniaia.poseidon.components.model.core.mysql;
  * Creates on 2019/11/12 10:19
  */
 
+import org.raniaia.poseidon.framework.provide.component.Component;
 import org.raniaia.poseidon.framework.provide.model.*;
 import org.raniaia.poseidon.framework.exception.PoseidonException;
 import org.raniaia.poseidon.components.model.ModelParser;
@@ -37,6 +38,7 @@ import java.util.Map;
  *
  * @author tiansheng
  */
+@Component
 public class ModelParserImpl implements ModelParser {
 
     /**

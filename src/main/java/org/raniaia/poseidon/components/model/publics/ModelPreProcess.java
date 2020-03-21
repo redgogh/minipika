@@ -53,7 +53,7 @@ public class ModelPreProcess {
     private List<RegularProperties> properties;
     private ClassLoader loader = getClass().getClassLoader();
     private final ClassPool classPool = new PoseidonClassPool(true);
-    private final String superClasspath = "org.raniaia.poseidon.modules.model.publics.AbstractModel";
+    private final String superClasspath = "org.raniaia.poseidon.components.model.publics.AbstractModel";
     private final String methodJavaCode = "" +
             "{" +
             "if(" +

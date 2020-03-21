@@ -22,10 +22,12 @@ package org.raniaia.poseidon.components.log.slf4j;
 
 import org.raniaia.poseidon.components.log.LogAdapter;
 import org.raniaia.poseidon.components.log.Log;
+import org.raniaia.poseidon.framework.provide.component.Component;
 
 /**
  * @author tiansheng
  */
+@Component
 public class Slf4jAdapter implements LogAdapter {
 
     @Override

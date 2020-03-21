@@ -20,12 +20,10 @@ package org.raniaia.poseidon.components.log;
  * Creates on 2019/12/17 18:29
  */
 
-import org.raniaia.poseidon.framework.context.component.BaseModuleAdapter;
-
 /**
  * @author tiansheng
  */
-public interface LogAdapter extends BaseModuleAdapter {
+public interface LogAdapter {
 
     Log getLog(String key);
 

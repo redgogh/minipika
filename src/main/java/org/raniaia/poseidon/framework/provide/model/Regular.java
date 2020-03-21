@@ -1,7 +1,7 @@
 package org.raniaia.poseidon.framework.provide.model;
 
 import java.lang.annotation.*;
-import org.raniaia.poseidon.framework.db.JdbcSupport;
+import org.raniaia.poseidon.components.db.JdbcSupport;
 
 /**
  * 配置Model类字段约束

@@ -1,6 +1,7 @@
 package org.raniaia.poseidon.framework.config;
 
-import org.raniaia.poseidon.framework.context.PoseContextApplication;
+import org.raniaia.poseidon.Container;
+import org.raniaia.poseidon.components.model.core.mysql.ModelLoaderImpl;
 import org.raniaia.poseidon.framework.exception.runtime.ConfigException;
 import org.raniaia.poseidon.components.model.ModelLoader;
 
@@ -33,7 +34,7 @@ public final class GlobalConfig {
         }
         if (!run) {
             run = true;
-            ModelLoader init = PoseContextApplication.getMODULE(ModelLoader.class);
+            ModelLoader init = Container.getContainer().newInstance(ModelLoaderImpl.class);
             init.run();
         }
         return config;

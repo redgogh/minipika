@@ -1,7 +1,7 @@
 package org.raniaia.poseidon.framework.sql.xml;
 
 import lombok.Getter;
-import org.raniaia.poseidon.framework.db.JdbcSupport;
+import org.raniaia.poseidon.components.db.JdbcSupport;
 import org.raniaia.poseidon.framework.sql.TemplateLabel;
 
 import java.util.List;

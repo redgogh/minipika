@@ -36,7 +36,7 @@ public class JapLoader {
     private Map<String,Map<String,String>> config = new HashMap<>();
 
     public Map<String,Map<String,String>> load(){
-        return load("poseidon.jap");
+        return load("resources/poseidon.jap");
     }
 
     public Map<String,Map<String,String>> load(String path) {

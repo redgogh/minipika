@@ -22,7 +22,7 @@ package org.raniaia.poseidon.components.model.publics;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.raniaia.poseidon.framework.db.JdbcSupport;
+import org.raniaia.poseidon.components.db.JdbcSupport;
 
 import java.lang.reflect.Field;
 

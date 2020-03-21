@@ -2,7 +2,7 @@ package org.raniaia.poseidon.framework.sql.xml.build;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.raniaia.poseidon.framework.provide.PoseidonProvideConstant;
+import org.raniaia.poseidon.framework.provide.ProvideVar;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
 import java.util.HashMap;
@@ -37,7 +37,7 @@ public class PrecompiledClass {
 
     public PrecompiledClass(String name) {
         this.name = name;
-        this.fullName = PoseidonProvideConstant.CLASS_FULL_NAME.concat(name);
+        this.fullName = ProvideVar.CLASS_FULL_NAME.concat(name);
     }
 
     public PrecompiledMethod getPrecompiledMethod(String name) {

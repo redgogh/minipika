@@ -1,7 +1,7 @@
 package org.raniaia.poseidon.framework.sql.xml.token;
 
 import lombok.Data;
-import org.raniaia.poseidon.framework.provide.PoseidonProvideConstant;
+import org.raniaia.poseidon.framework.provide.ProvideVar;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
 /**
@@ -28,7 +28,7 @@ public class TokenValue {
                     && value.substring(value.length() - 1).equals("\"")) {
                 return buildToken(Token.STRING, Token.BASIC, value);
             } else {
-                if(PoseidonProvideConstant.NULL.equals(value)){
+                if(ProvideVar.NULL.equals(value)){
                     return buildToken(Token.NULL, key, value);
                 }
                 return buildToken(key, key, value);

@@ -20,14 +20,12 @@ package org.raniaia.poseidon.components.model;
  * Create on 2019/12/17 18:29.
  */
 
-import org.raniaia.poseidon.framework.context.component.BaseModuleAdapter;
-
 /**
  * Database table model loader, and model process.
  *
  * @author tiansheng
  */
-public interface ModelLoader extends BaseModuleAdapter {
+public interface ModelLoader {
 
     /**
      * execute model scanner, and process model bytecode

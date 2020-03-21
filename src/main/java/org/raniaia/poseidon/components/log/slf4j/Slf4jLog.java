@@ -1,6 +1,7 @@
 package org.raniaia.poseidon.components.log.slf4j;
 
 import org.raniaia.poseidon.components.log.Log;
+import org.raniaia.poseidon.framework.provide.component.Component;
 
 /**
  * <p/>
@@ -11,6 +12,7 @@ import org.raniaia.poseidon.components.log.Log;
  * @version 1.0.0
  * @since 1.8
  */
+@Component
 public class Slf4jLog implements Log {
 
     private org.slf4j.Logger logger;

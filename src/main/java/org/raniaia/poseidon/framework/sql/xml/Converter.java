@@ -1,9 +1,9 @@
 package org.raniaia.poseidon.framework.sql.xml;
 
 import javassist.*;
-import org.raniaia.poseidon.framework.context.PoseContextApplication;
 import org.raniaia.poseidon.framework.loader.PoseidonClassLoader;
 import org.raniaia.poseidon.framework.loader.PoseidonClassPool;
+import org.raniaia.poseidon.framework.provide.Valid;
 import org.raniaia.poseidon.framework.sql.xml.build.PrecompiledMethod;
 
 import java.lang.reflect.Method;
@@ -16,7 +16,8 @@ import java.util.Map;
  */
 public class Converter {
 
-    private PoseidonClassPool pool = PoseContextApplication.getBean("classPool");
+    @Valid
+    private PoseidonClassPool pool;
 
     @SuppressWarnings("deprecation")
     public void conversion(PrecompiledMethod methodValue, Map<String, Object> parameter, String fullClassName) throws Exception {
