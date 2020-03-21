@@ -23,10 +23,13 @@ package org.raniaia.poseidon.framework.provide.component;
 import java.lang.annotation.*;
 
 /**
- * @author tiansheng
+ * Class annotated with {@code Component} means a poseidon component.
+ * It is recommended that each component implement a interface
+ * @since 1.1.7.STAR
  */
 @Target({ElementType.TYPE,ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Component {
+
 }
