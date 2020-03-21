@@ -1,7 +1,7 @@
 package org.raniaia.poseidon.components.db;
 
-import org.raniaia.poseidon.Container;
-import org.raniaia.poseidon.extension.ConnectionPool;
+import org.raniaia.poseidon.BeanManager;
+import org.raniaia.poseidon.components.pool.ConnectionPool;
 import org.raniaia.poseidon.components.log.Log;
 import org.raniaia.poseidon.framework.provide.Valid;
 import org.raniaia.poseidon.components.cache.PoseidonCache;
@@ -84,14 +84,14 @@ public class NativeJdbcImpl implements NativeJdbc {
                 result = cache.get(sql, args);
                 if (result == null) {
                     ResultSet resultSet = setValues(statement, args).executeQuery();
-                    result = Container.newNativeResult().build(resultSet);
+                    result = BeanManager.newNativeResult().build(resultSet);
                     cache.save(sql, result, args);
                     return cache.get(sql, args);
                 }
                 return result;
             } else {
                 ResultSet resultSet = setValues(statement, args).executeQuery();
-                return Container.newNativeResult().build(resultSet);
+                return BeanManager.newNativeResult().build(resultSet);
             }
         } catch (Throwable e) {
             e.printStackTrace();

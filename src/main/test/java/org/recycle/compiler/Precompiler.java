@@ -1,8 +1,9 @@
 package org.recycle.compiler;
 
 import javassist.*;
-import org.raniaia.poseidon.Container;
-import org.raniaia.poseidon.framework.loader.PoseidonClassPool;
+
+import org.raniaia.poseidon.BeanManager;
+import org.raniaia.poseidon.components.pool.PoseidonClassPool;
 import org.raniaia.poseidon.framework.provide.ProvideVar;
 import org.recycle.build.PrecompiledClass;
 import org.recycle.build.PrecompiledMethod;
@@ -19,7 +20,7 @@ import java.util.regex.Pattern;
  */
 public class Precompiler {
 
-    private PoseidonClassPool pool = Container.getContainer().get("classPool");
+    private PoseidonClassPool pool = BeanManager.get("classPool");
 
     /**
      * 加载一个类对象,只加载类信息不加载任何方法

@@ -2,7 +2,7 @@ package org.raniaia.poseidon.framework.sql.xml;
 
 import javassist.*;
 import org.raniaia.poseidon.framework.loader.PoseidonClassLoader;
-import org.raniaia.poseidon.framework.loader.PoseidonClassPool;
+import org.raniaia.poseidon.components.pool.PoseidonClassPool;
 import org.raniaia.poseidon.framework.provide.Valid;
 import org.raniaia.poseidon.framework.sql.xml.build.PrecompiledMethod;
 
@@ -66,6 +66,7 @@ public class Converter {
             }
             method = method.replaceAll("#".concat(key).concat("#"), valueName);
         }
+        method = method.replaceAll("#.*?#","java.lang.Object");
         return method;
     }
 

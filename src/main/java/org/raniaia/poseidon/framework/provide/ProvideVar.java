@@ -20,51 +20,51 @@ import java.util.regex.Pattern;
 @SuppressWarnings({"unchecked"})
 public class ProvideVar {
 
-    public static final String LOG_COMPONENT = "Log";
-    public static final String LOG_ADAPTER_COMPONENT = "LogAdapter";
+    public static final String LOG_COMPONENT                            = "Log";
+    public static final String LOG_ADAPTER_COMPONENT                    = "LogAdapter";
 
     // 动态SQL标签
-    // ---------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------
 
-    public static final String IF = "if";
-    public static final String REQ = "$req";
-    public static final Object NULL = "null";
-    public static final String TEXT = "text";
-    public static final String ELSE = "else";
-    public static final String ITEM = "item";
-    public static final String INDEX = "index";
-    public static final String BATCH = "batch";
-    public static final String SELECT = "select";
-    public static final String INSERT = "insert";
-    public static final String UPDATE = "update";
-    public static final String DELETE = "delete";
-    public static final String COND = "cond";
-    public static final String CHOOSE = "choose";
-    public static final String FOREACH = "foreach";
-    public static final String IF_TEST = "test";
-    public static final String PARAMETER = "parameter";
-    public static final String PARAMS_MAP = "map";
-    public static final String PARAMS_MAP_GET = PARAMS_MAP.concat(".get(\"{}\");");
-    public static final String PARAMS_LIST = "params";
-    public static final String $PARAMETER = "$parameter";
-    public static final String COLLECTIONS = "collections";
-    public static final String SQL_PARAMS_SET = "params";
-    public static final String PARAMS_LIST_ADD = PARAMS_LIST.concat(".add({});");
-    public static final String CLASS_FULL_NAME = "org.raniaia.poseidon.$builder.";
-    public static final String PARAMETER_SELECT = "this:";
-    public static final String INSERT_FOREACH_TAG = "[infor]:";
-    public static final String COND_ATTRIBUTE_KEY = "id";
-    public static final String PARAMETER_OBJECT_LOCATION = "org.raniaia.poseidon.framework.loader.Parameter";
+    public static final String IF                                       = "if";
+    public static final String REQ                                      = "$req";
+    public static final Object NULL                                     = "null";
+    public static final String TEXT                                     = "text";
+    public static final String ELSE                                     = "else";
+    public static final String ITEM                                     = "item";
+    public static final String INDEX                                    = "index";
+    public static final String BATCH                                    = "batch";
+    public static final String SELECT                                   = "select";
+    public static final String INSERT                                   = "insert";
+    public static final String UPDATE                                   = "update";
+    public static final String DELETE                                   = "delete";
+    public static final String COND                                     = "cond";
+    public static final String CHOOSE                                   = "choose";
+    public static final String FOREACH                                  = "foreach";
+    public static final String IF_TEST                                  = "test";
+    public static final String PARAMETER                                = "parameter";
+    public static final String PARAMS_MAP                               = "map";
+    public static final String PARAMS_MAP_GET                           = PARAMS_MAP.concat(".get(\"{}\");");
+    public static final String PARAMS_LIST                              = "params";
+    public static final String $PARAMETER                               = "$parameter";
+    public static final String COLLECTIONS                              = "collections";
+    public static final String SQL_PARAMS_SET                           = "params";
+    public static final String PARAMS_LIST_ADD                          = PARAMS_LIST.concat(".add({});");
+    public static final String CLASS_FULL_NAME                          = "org.raniaia.poseidon.$builder.";
+    public static final String PARAMETER_SELECT                         = "this:";
+    public static final String INSERT_FOREACH_TAG                       = "[infor]:";
+    public static final String COND_ATTRIBUTE_KEY                       = "id";
+    public static final String PARAMETER_OBJECT_LOCATION                = "org.raniaia.poseidon.framework.loader.Parameter";
 
     // SQL语句
-    // ---------------------------------------------------------------------
+    // --------------------------------------------------------------------------------
 
-    public static final String QUERY_COLUMNS = "show full columns from {}";
-    public static final String UPDATE_ENGINE = "ALTER TABLE {} ENGINE = '{}'";
-    public static final String ADD_COLUMN_SCRIPT_PKNULL = "ALTER TABLE `{}` ADD {};";
-    public static final String ADD_COLUMN_SCRIPT = "ALTER TABLE `{}` ADD {} after `{}`;";
-    public static final String SHOW_TABLE_STATUS = "show table status from {} where name = '{}'";
-    public static final String QUERY_TABLES = "select table_name from information_schema.tables where table_schema=?";
+    public static final String QUERY_COLUMNS                            = "show full columns from {}";
+    public static final String UPDATE_ENGINE                            = "ALTER TABLE {} ENGINE = '{}'";
+    public static final String ADD_COLUMN_SCRIPT_PKNULL                 = "ALTER TABLE `{}` ADD {};";
+    public static final String ADD_COLUMN_SCRIPT                        = "ALTER TABLE `{}` ADD {} after `{}`;";
+    public static final String SHOW_TABLE_STATUS                        = "show table status from {} where name = '{}'";
+    public static final String QUERY_TABLES                             = "select table_name from information_schema.tables where table_schema=?";
 
     /**
      * 判断是oracle数据库还是mysql
@@ -79,13 +79,13 @@ public class ProvideVar {
     // 动态SQL内部代码
     // ---------------------------------------------------------------------
 
-    private static final String SQL_APPEND = "sql.append(\" {} \");";
-    private static final String GET_MEMBER_VALUE = "org.raniaia.poseidon.framework.tools.ReflectUtils.getMemberValue({},{})";
+    private static final String SQL_APPEND                              = "sql.append(\" {} \");";
+    private static final String GET_MEMBER_VALUE                        = "org.raniaia.poseidon.framework.tools.ReflectUtils.getMemberValue({},{})";
 
     // default_model.json中的特殊变量
     // ---------------------------------------------------------------------
 
-    private static final String CURRENT_TIME = "#currentTime#";
+    private static final String CURRENT_TIME                            = "#currentTime#";
 
     // ---------------------------------------------------------------------
 

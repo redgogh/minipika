@@ -1,8 +1,9 @@
 package org.poseidon;
 
-import org.raniaia.poseidon.Container;
+
 import org.poseidon.experiment.ProductModel;
 import org.poseidon.experiment.UserModel;
+import org.raniaia.poseidon.BeanManager;
 import org.raniaia.poseidon.components.cache.PoseidonCache;
 import org.raniaia.poseidon.components.db.JdbcSupport;
 import org.raniaia.poseidon.framework.tools.POFUtils;
@@ -18,8 +19,8 @@ import java.util.Date;
  */
 public class Query {
 
-    static JdbcSupport jdbc     = Container.getContainer().get("jdbc");
-    static PoseidonCache cache  = Container.getContainer().get("cache");
+    static JdbcSupport jdbc     = BeanManager.get("jdbc");
+    static PoseidonCache cache  = BeanManager.get("cache");
 
     public static void main(String[] args) throws Throwable {
 

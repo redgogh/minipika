@@ -1,8 +1,9 @@
 package org.poseidon.mapper;
 
 import org.junit.Test;
+import org.raniaia.poseidon.BeanManager;
 import org.raniaia.poseidon.framework.provide.mapper.Query;
-import org.raniaia.poseidon.Container;
+
 import org.poseidon.experiment.UserInfo;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class InvocationTest {
 
     @Test
     public void mapperInvocationTest0(){
-        UserMapper mapper = Container.getContainer().newInstance(UserMapper.class);
+        UserMapper mapper = BeanManager.newInstance(UserMapper.class);
         // UserMapper mapper = (UserMapper) MapperInvocation.invoker(UserMapper.class);
         // System.out.println(mapper.findUsernameById(4001));
         // System.out.println(mapper.updateUsernameById(4001,"testX"));

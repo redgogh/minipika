@@ -43,8 +43,8 @@ public class MapperTest {
 
     @Test
     public void query(){
-        SqlExecute execute = mapper.build("findProductByUUID", map -> {
-            map.put("uuid","c05f178c-5194-4641-904d-6be41912d41d1");
+        SqlExecute execute = mapper.build("findProduct", map -> {
+            map.put("uuid","1a043717-195c-4a58-8137-3e2ccce67eaa0");
         });
         System.out.println(JSON.toJSONString(execute.queryForObject()));
     }

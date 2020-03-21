@@ -1,6 +1,6 @@
 package org.raniaia.poseidon.framework.monitor;
 
-import org.raniaia.poseidon.extension.ConnectionPool;
+import org.raniaia.poseidon.components.pool.ConnectionPool;
 import org.raniaia.poseidon.framework.sql.xml.SqlExecute;
 
 /**

@@ -1,6 +1,7 @@
 package org.raniaia.poseidon.framework.config;
 
-import org.raniaia.poseidon.Container;
+
+import org.raniaia.poseidon.BeanManager;
 import org.raniaia.poseidon.components.model.core.mysql.ModelLoaderImpl;
 import org.raniaia.poseidon.framework.exception.runtime.ConfigException;
 import org.raniaia.poseidon.components.model.ModelLoader;
@@ -34,7 +35,7 @@ public final class GlobalConfig {
         }
         if (!run) {
             run = true;
-            ModelLoader init = Container.getContainer().newInstance(ModelLoaderImpl.class);
+            ModelLoader init = BeanManager.newInstance(ModelLoaderImpl.class);
             init.run();
         }
         return config;

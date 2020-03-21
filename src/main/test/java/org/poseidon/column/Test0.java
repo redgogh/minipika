@@ -1,7 +1,8 @@
 package org.poseidon.column;
 
 import org.junit.Test;
-import org.raniaia.poseidon.Container;
+
+import org.raniaia.poseidon.BeanManager;
 import org.raniaia.poseidon.components.db.JdbcSupport;
 import org.raniaia.poseidon.components.model.database.ColumnPo;
 
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public class Test0 {
 
-    JdbcSupport jdbc = Container.getContainer().get("jdbc");
+    JdbcSupport jdbc = BeanManager.get("jdbc");
 
     @Test
     public void getColumn() {

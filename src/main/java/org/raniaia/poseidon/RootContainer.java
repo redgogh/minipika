@@ -24,6 +24,7 @@ import org.raniaia.available.map.Maps;
 import org.raniaia.available.reflect.Annotations;
 import org.raniaia.available.reflect.Methods;
 import org.raniaia.poseidon.framework.provide.component.Component;
+import org.raniaia.poseidon.framework.tools.StringUtils;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -32,23 +33,23 @@ import java.util.Map;
 /**
  * @author tiansheng
  */
-public class RootContainer<K,V> {
+public class RootContainer<K, V> {
 
-    private Map<K, V>               roots                   = Maps.newHashMap();
+    private Map<K, V>               roots               = Maps.newHashMap();
 
-    private Map<String, Class<?>>   components              = Maps.newHashMap();
+    private Map<String, Class<?>>   components          = Maps.newHashMap();
 
     public void putComponents(Map<String, Class<?>> components) {
-        this.components.putAll( components );
+        this.components.putAll(components);
     }
 
     public void putComponents(List<Class<?>> components) {
         for (Class<?> component : components) {
-            this.components.put( component.getInterfaces()[0].getSimpleName(), component );
+            this.components.put(getComponentName(component), component);
         }
     }
 
-    protected <T> T getRoots0(K name){
+    protected <T> T getRoots0(K name) {
         return (T) roots.get(name);
     }
 
@@ -56,8 +57,17 @@ public class RootContainer<K,V> {
         return components.get(name);
     }
 
-    public void submitBean(K key, V bean){
+    public void submitBean(K key, V bean) {
         roots.put(key, bean);
+    }
+
+    protected String getComponentName(Class<?> component){
+        String name = component.getSimpleName();
+        Class<?>[] superArray = component.getInterfaces();
+        if (superArray != null && superArray.length > 0) {
+            name = superArray[0].getSimpleName();
+        }
+        return name;
     }
 
 }

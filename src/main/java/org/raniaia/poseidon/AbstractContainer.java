@@ -21,7 +21,7 @@ package org.raniaia.poseidon;
  */
 
 import org.raniaia.available.reflect.Annotations;
-import org.raniaia.available.reflect.Classes;
+import org.raniaia.available.reflect.ClassUtils;
 import org.raniaia.available.reflect.Fields;
 import org.raniaia.available.reflect.Methods;
 import org.raniaia.poseidon.components.log.LogAdapter;
@@ -36,6 +36,7 @@ import java.util.Map;
 /**
  * @author tiansheng
  */
+@SuppressWarnings("unchecked")
 public abstract class AbstractContainer extends RootContainer<String, Object> {
 
     protected AbstractContainer() {
@@ -47,30 +48,39 @@ public abstract class AbstractContainer extends RootContainer<String, Object> {
     }
 
     public <T> T newInstance(Class<?> clazz) {
-        Object instance = Classes.newInstance(clazz);
+        Object instance = ClassUtils.newInstance(clazz);
         return (T) inject(instance);
     }
 
-    protected <T> T get0(Class<?> clazz){
+    public <T> T newInstance(Class<?> clazz, Class<?>[] type, Object... args) {
+        Object instance = ClassUtils.newInstance(clazz, type, args);
+        return (T) inject(instance);
+    }
+
+    protected <T> T get0(Class<?> clazz) {
         return get0(clazz.getInterfaces()[0].getSimpleName());
     }
 
     protected <T> T get0(String name) {
         Object instance = getRoots0(name);
         if (instance == null) {
-            instance = Classes.newInstance(getComponents0(name));
+            Class<?> component = getComponents0(name);
+            if(component == null) return null;
+            instance = ClassUtils.newInstance(component);
             submitBean(name, inject(instance));
         }
         return (T) instance;
     }
 
-    public void loadComponents(Class<?> statement) {
-        Method[] methods = Methods.getDeclaredMethods(statement, true);
-        for (Method method : methods) {
-            Component component = Annotations.isAnnotation(method, Component.class);
-            if (component != null) {
-                Object object = Methods.invoke(method);
-                submitBean(object.getClass().getInterfaces()[0].getSimpleName(), object);
+    public void loadComponents(Class<?>... statements) {
+        for (Class<?> statement : statements) {
+            Method[] methods = Methods.getDeclaredMethods(statement, true);
+            for (Method method : methods) {
+                Component component = Annotations.isAnnotation(method, Component.class);
+                if (component != null) {
+                    Object object = Methods.invoke(method);
+                    submitBean(object.getClass().getInterfaces()[0].getSimpleName(), object);
+                }
             }
         }
     }
@@ -90,19 +100,19 @@ public abstract class AbstractContainer extends RootContainer<String, Object> {
                     // if component is Log component.
                     if (ProvideVar.LOG_COMPONENT.equals(componentName)) {
                         LogAdapter logAdapter = (LogAdapter)
-                                Classes.newInstance(getComponents0(ProvideVar.LOG_ADAPTER_COMPONENT));
+                                ClassUtils.newInstance(getComponents0(ProvideVar.LOG_ADAPTER_COMPONENT));
                         componentInstance = logAdapter.getLog(instance.getClass());
                     } else {
                         Class<?> componentClass = getComponents0(componentName);
                         if (componentClass == null) {
                             throw new NullPointerException("cannot found [" + componentName + "] component");
                         }
-                        componentInstance = Classes.newInstance(componentClass);
+                        componentInstance = ClassUtils.newInstance(componentClass);
                     }
                     inject(componentInstance);
                 }
                 Fields.set(instance, componentInstance, field);
-                submitBean(componentInstance.getClass().getInterfaces()[0].getSimpleName(),
+                submitBean(getComponentName(componentInstance.getClass()),
                         componentInstance);
             }
         }

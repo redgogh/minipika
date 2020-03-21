@@ -7,6 +7,7 @@ import java.util.Map;
 /**
  * Copyright: Create by tiansheng on 2019/12/16 23:57
  */
+@SuppressWarnings("unchecked")
 public class CompilerSQLMethod {
 
     public static void main(String... args){

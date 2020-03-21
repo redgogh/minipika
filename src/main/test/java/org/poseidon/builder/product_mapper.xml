@@ -9,7 +9,7 @@
         测试条件查询（不为空则不添加到条件）
     -->
     <select name="findProduct" result="ProductModel">
-        select * from kkb_product_model where id = {{id}}
+        select * from kkb_product_model where 1=1
         <if test="$req != null">
             <cond>and product_name = {{productName}}</cond>
             <cond>and uuid = {{uuid}}</cond>

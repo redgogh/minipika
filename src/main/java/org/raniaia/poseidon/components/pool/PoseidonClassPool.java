@@ -1,6 +1,7 @@
-package org.raniaia.poseidon.framework.loader;
+package org.raniaia.poseidon.components.pool;
 
 import javassist.*;
+import org.raniaia.poseidon.framework.provide.component.Component;
 
 import java.io.File;
 import java.net.URL;
@@ -13,9 +14,11 @@ import java.util.List;
  * @version 1.0.0
  * @since 1.8
  */
+@Component
 public class PoseidonClassPool extends ClassPool {
 
     public PoseidonClassPool() {
+        this(true);
     }
 
     public PoseidonClassPool(boolean useDefaultPath) {

@@ -23,7 +23,8 @@ package org.raniaia.poseidon.components.model.core.mysql;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import jdk.nashorn.internal.runtime.ParserException;
-import org.raniaia.poseidon.Container;
+import org.raniaia.poseidon.BeanManager;
+
 import org.raniaia.poseidon.framework.provide.ProvideVar;
 import org.raniaia.poseidon.framework.provide.Valid;
 import org.raniaia.poseidon.framework.provide.component.Component;
@@ -74,7 +75,7 @@ public class ModelLoaderImpl implements ModelLoader {
         Set<String> tables = jdbc.queryForSet(ProvideVar.QUERY_TABLES, String.class,
                 GlobalConfig.getConfig().getDbname());
 
-        ModelParser parserModel = Container.getContainer().newInstance(ModelParserImpl.class);
+        ModelParser parserModel = BeanManager.newInstance(ModelParserImpl.class);
         parserModel.parse(ModelUtils.getModels());
         Map<String, Metadata> messages = Metadata.getAttribute();
         Iterator iter = messages.entrySet().iterator();

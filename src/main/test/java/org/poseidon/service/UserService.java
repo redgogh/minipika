@@ -1,6 +1,7 @@
 package org.poseidon.service;
 
-import org.raniaia.poseidon.Container;
+
+import org.raniaia.poseidon.BeanManager;
 import org.raniaia.poseidon.components.db.JdbcSupport;
 
 /**
@@ -11,7 +12,7 @@ import org.raniaia.poseidon.components.db.JdbcSupport;
  */
 public class UserService {
 
-    private JdbcSupport jdbc = Container.getContainer().get("jdbc");
+    private JdbcSupport jdbc = BeanManager.get("jdbc");
 
     public static void main(String[] args) {
 

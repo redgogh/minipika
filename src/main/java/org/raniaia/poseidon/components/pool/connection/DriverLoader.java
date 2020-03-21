@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.components.pool;
+package org.raniaia.poseidon.components.pool.connection;
 
 import java.sql.Driver;
 import java.sql.DriverManager;

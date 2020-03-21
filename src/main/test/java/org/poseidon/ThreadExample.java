@@ -1,9 +1,9 @@
 package org.poseidon;
 
-import org.raniaia.poseidon.Container;
+
 import org.poseidon.experiment.ProductModel;
 import org.poseidon.experiment.UserModel;
-import org.raniaia.poseidon.PoseidonBoot;
+import org.raniaia.poseidon.BeanManager;
 import org.raniaia.poseidon.components.cache.PoseidonCache;
 import org.raniaia.poseidon.components.db.JdbcSupport;
 import org.raniaia.poseidon.components.db.NativeResult;
@@ -27,7 +27,7 @@ public class ThreadExample {
    volatile static int closeCount = 0;
    volatile static int createCount = 0;
 
-    public static final JdbcSupport jdbc = Container.getContainer().get(JdbcSupport.class);
+    public static final JdbcSupport jdbc = BeanManager.get(JdbcSupport.class);
 
     public static void main(String[] args) {
         userModelInsert();
@@ -36,9 +36,9 @@ public class ThreadExample {
     }
 
     public static void userModelInsert() {
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 10000; i++) {
             new Thread(() -> {
-                for (int j = 0; j < 2; j++) {
+                for (int j = 0; j < 100; j++) {
                     UserModel model = new UserModel();
                     String uuid = UUID.randomUUID().toString();
                     model.setUserName(uuid);
@@ -73,7 +73,7 @@ public class ThreadExample {
     }
 
     public static void cacheReadAndWrite() {
-        final PoseidonCache cache = Container.getContainer().get("cache");
+        final PoseidonCache cache = BeanManager.get("cache");
         for (int i = 0; i < 1000; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 200; j++) {

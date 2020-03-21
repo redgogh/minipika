@@ -3,7 +3,7 @@ package org.poseidon.javassist;
 import javassist.CannotCompileException;
 import javassist.CtClass;
 import org.junit.Test;
-import org.raniaia.poseidon.framework.loader.PoseidonClassPool;
+import org.raniaia.poseidon.components.pool.PoseidonClassPool;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/19 16:07

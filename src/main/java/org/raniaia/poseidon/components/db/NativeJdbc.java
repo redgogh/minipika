@@ -1,6 +1,6 @@
 package org.raniaia.poseidon.components.db;
 
-import org.raniaia.poseidon.extension.ConnectionPool;
+import org.raniaia.poseidon.components.pool.ConnectionPool;
 
 import java.sql.*;
 import java.util.List;

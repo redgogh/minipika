@@ -1,7 +1,8 @@
 package org.keyboard;
 
 import org.junit.Test;
-import org.raniaia.poseidon.Container;
+
+import org.raniaia.poseidon.BeanManager;
 import org.raniaia.poseidon.components.db.JdbcSupport;
 import org.poseidon.experiment.UserInfo;
 
@@ -13,7 +14,7 @@ import org.poseidon.experiment.UserInfo;
  */
 public class SaveUserModel {
 
-    private JdbcSupport jdbcSupport = Container.getContainer().get("jdbc");
+    private JdbcSupport jdbcSupport = BeanManager.get("jdbc");
 
     @Test
     public void test(){

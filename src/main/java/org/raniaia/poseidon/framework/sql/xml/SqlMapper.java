@@ -1,23 +1,20 @@
 package org.raniaia.poseidon.framework.sql.xml;
 
-import org.raniaia.poseidon.Container;
+import org.raniaia.poseidon.BeanManager;
 import org.raniaia.poseidon.framework.container.PrecompileContainer;
 import org.raniaia.poseidon.components.db.JdbcSupport;
 import org.raniaia.poseidon.framework.provide.Valid;
 import org.raniaia.poseidon.framework.sql.xml.build.PrecompiledClass;
 import org.raniaia.poseidon.framework.sql.xml.build.PrecompiledMethod;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/23 11:08
  */
 public class SqlMapper {
 
-    private Converter converter = new Converter();
+    private Converter converter = BeanManager.newInstance(Converter.class);
     private PrecompileContainer container = PrecompileContainer.getContainer();
 
     @Valid
@@ -28,10 +25,10 @@ public class SqlMapper {
      */
     private PrecompiledClass classValue;
 
-    private SqlMapper() {
+    public SqlMapper() {
     }
 
-    private SqlMapper(String name) {
+    public SqlMapper(String name) {
         this.classValue = container.getValue(name);
     }
 
@@ -48,7 +45,7 @@ public class SqlMapper {
             List param = new ArrayList();
             String sql = precompiledMethod.invoke(parameterMap, param);
             execute = new SqlExecute(sql, param.toArray(), precompiledMethod.getResult(),
-                    jdbcSupport,precompiledMethod.getType());
+                    jdbcSupport, precompiledMethod.getType());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,12 +53,13 @@ public class SqlMapper {
     }
 
     public static SqlMapper getMapper(String name) {
-        SqlMapper mapperBean = Container.getContainer().get(name);
+        SqlMapper mapperBean = BeanManager.get(name);
         if (mapperBean != null) {
             return mapperBean;
         }
-        Container.getContainer().submitBean(name, new SqlMapper(name));
-        return Container.getContainer().get(name);
+        BeanManager.submitBean(name, BeanManager.newInstance(SqlMapper.class,
+                new Class[]{String.class}, name));
+        return BeanManager.get(name);
     }
 
 }

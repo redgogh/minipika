@@ -25,7 +25,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.raniaia.poseidon.framework.provide.model.Model;
 import org.raniaia.poseidon.framework.provide.model.Regular;
-import org.raniaia.poseidon.framework.loader.PoseidonClassPool;
+import org.raniaia.poseidon.components.pool.PoseidonClassPool;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
 import java.util.ArrayList;

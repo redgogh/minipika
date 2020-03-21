@@ -20,21 +20,16 @@ package org.raniaia.poseidon;
  * Creates on 2020/3/21 1:14
  */
 
-import org.raniaia.poseidon.components.MyComponents;
-import org.raniaia.poseidon.components.db.NativeResult;
-import org.raniaia.poseidon.components.db.NativeResultMysql;
-import org.raniaia.poseidon.framework.provide.component.Component;
-
 /**
  * @author tiansheng
  */
-public class Container extends AbstractContainer {
+class Container extends AbstractContainer {
 
     private static Container container;
 
-    public static Container getContainer() {
+    public static Container getContainer(Class<?>[] components) {
         if (container == null) {
-            container = new Container(MyComponents.class);
+            container = new Container(components);
             ComponentScan componentScan = new ComponentScan();
             container.putComponents(componentScan.components());
         }
@@ -43,7 +38,7 @@ public class Container extends AbstractContainer {
 
     private Container(){}
 
-    private Container(Class<?> components) {
+    private Container(Class<?>[] components) {
         loadComponents(components);
     }
 
@@ -53,10 +48,6 @@ public class Container extends AbstractContainer {
 
     public <T> T get(Class<?> name) {
         return get0(name.getSimpleName());
-    }
-
-    public static NativeResult newNativeResult() {
-        return new NativeResultMysql();
     }
 
 }

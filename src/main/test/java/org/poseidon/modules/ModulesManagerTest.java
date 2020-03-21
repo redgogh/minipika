@@ -20,7 +20,8 @@ package org.poseidon.modules;
  * Creates on 2020/3/20 14:31
  */
 
-import org.raniaia.poseidon.Container;
+
+import org.raniaia.poseidon.BeanManager;
 import org.raniaia.poseidon.components.model.ModelParser;
 
 /**
@@ -29,7 +30,7 @@ import org.raniaia.poseidon.components.model.ModelParser;
 public class ModulesManagerTest {
 
     public static void main(String[] args) {
-        ModelParser parser = Container.getContainer().newInstance(ModelParser.class);
+        ModelParser parser = BeanManager.newInstance(ModelParser.class);
     }
 
 }
