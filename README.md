@@ -2,7 +2,7 @@
 
 ![maven install by idea](https://github.com/PageNotFoundx/poseidon/blob/master/resource/jababaifenbai.svg)
 ![maven install by idea](https://github.com/PageNotFoundx/poseidon/blob/master/resource/packageist.svg)
-![maven install by idea](https://github.com/PageNotFoundx/poseidon/blob/master/resource/build.svg)
+![maven install by idea](https://gitee.com/generalmonster/resources/blob/master/poseidon/build.svg)
 ![maven install by idea](https://github.com/PageNotFoundx/poseidon/blob/master/resource/download.svg)
 ![maven install by idea](https://github.com/PageNotFoundx/poseidon/blob/master/resource/version.svg)
 
