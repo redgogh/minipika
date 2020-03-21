@@ -4,7 +4,7 @@
 ![build](https://img.shields.io/badge/build-maven-blue)
 ![download](https://img.shields.io/badge/downloads-388K-green)
 ![packageist](https://img.shields.io/badge/package-v1.1.7.STAR-%233FB911)
-![jdk version](https://img.shields.io/badge/jdk%20version-v1.8-blue)
+![jdk](https://img.shields.io/badge/jdk%20version-v1.8-blue)
 
 
 > PoseidonFramework是一个非常简单且立马可以上手的ORM框架。它提供了表和对象之前的映射，以及提供了最基本的增删改查和Mapper映射等操作，除此之外PoseidonFramework还内置了缓存。
