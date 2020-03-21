@@ -17,7 +17,7 @@
 
 **MAVEN安装**
 
-![maven仓库地址](https://mvnrepository.com/artifact/io.github.laniakeamly/poseidon)
+[maven仓库地址](https://mvnrepository.com/artifact/io.github.laniakeamly/poseidon)
 
 **本地安装*
 
