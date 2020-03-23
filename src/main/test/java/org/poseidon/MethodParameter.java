@@ -1,10 +1,8 @@
 package org.poseidon;
 
-import sun.plugin2.util.ParameterNames;
 
 import java.io.PrintStream;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 
 /**
