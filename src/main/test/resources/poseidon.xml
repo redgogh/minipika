@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<poseidon>
+
+    <jdbc>
+        <url>username</url>
+        <driver>com.mysql.cj.jdbc.Driver</driver>
+        <username>root</username>
+        <password>root</password>
+        <transaction>true</transaction>
+        <cache refresh="5 + 6 +7">true</cache>
+    </jdbc>
+
+    <connection>
+        <min>2</min>
+        <max>90</max>
+    </connection>
+
+    <model>
+        <package>org.poseidon.experiment</package>
+        <mapper>org.poseidon.builder</mapper>
+        <regular>regular.json</regular>
+    </model>
+    <default>
+        <model>default_model.json</model>
+    </default>
+
+</poseidon>
