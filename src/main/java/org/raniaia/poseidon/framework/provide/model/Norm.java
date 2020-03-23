@@ -1,5 +1,25 @@
 package org.raniaia.poseidon.framework.provide.model;
 
+/*
+ * Copyright (C) 2020 tiansheng All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Creates on 2020/2/6 13:33
+ */
+
 import java.lang.annotation.*;
 import org.raniaia.poseidon.components.db.JdbcSupport;
 
@@ -15,7 +35,7 @@ import org.raniaia.poseidon.components.db.JdbcSupport;
  * 或者{@link JdbcSupport#insert(Object)}等类似方法才会生效。
  *
  *
- * config column regular.
+ * config column norm.
  * Constraints field only on request can be save.
  *
  * Such as i give email field add a email verify the regex
@@ -27,23 +47,15 @@ import org.raniaia.poseidon.components.db.JdbcSupport;
  * Such as execute by sql then config will not take effect
  * just execute{@link JdbcSupport#insert(Object)} or {@link JdbcSupport#update(Object)} etc similar method.
  *
- * Copyright: Create by tiansheng on 2020/2/6 13:33
- *
  * @author tiansheng
- * @version 1.0.0
- * @since 1.8
- *
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.CLASS)
 @Documented
-public @interface Regular {
+public @interface Norm {
 
     /**
-     * regular.json配置文件中的key
-     *
-     * regular.json file config content.
-     * @return regular config content.
+     * norm.json file config content.
      */
     String value();
 

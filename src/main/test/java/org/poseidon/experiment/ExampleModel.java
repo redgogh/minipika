@@ -31,11 +31,11 @@ import java.util.Date;
 public class ExampleModel {
 
     /**
-     * {@link PrimaryKey} 表示主键
+     * {@link PK} 表示主键
      *
-     * {@link PrimaryKey} Represents the primary key
+     * {@link PK} Represents the primary key
      */
-    @PrimaryKey
+    @PK
     @Column("int(11) not null")
     @Comment("id")
     private int id;
@@ -49,10 +49,10 @@ public class ExampleModel {
     private String username;
 
     /**
-     * {@link Regular}是配置字段的约束注释
-     * email这个值是在resource目录下的regular.json中配置的
+     * {@link Norm}是配置字段的约束注释
+     * email这个值是在resource目录下的norm.json中配置的
      */
-    @Regular("email")
+    @Norm("email")
     @Column("varchar(2000) not null")
     @Comment("用户邮箱")
     private String email;

@@ -17,7 +17,7 @@ import java.util.Date;
 @Model(value = "user_model")
 public class UserModel {
 
-    @PrimaryKey
+    @PK
     @Column("int(11) not null")
     private Long id;
 
@@ -44,7 +44,7 @@ public class UserModel {
     private String uuid;
 
     // google_email
-    // @Regular("email")
+    // @Norm("email")
     @Column("varchar(255) not null default 'NoEmail'")
     @Comment("Google邮箱")
     private String googleEmail;

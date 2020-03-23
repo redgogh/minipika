@@ -88,9 +88,9 @@ poseidon.model.package = com.poseidon.model.experiment
 
     @Comment字段注释
 
-- **@PrimaryKey**
+- **@Pk**
 
-    @PrimaryKey主键
+    @Pk主键
 
 具体Model的实现可以参考一下本项目下的[UserModel](https://github.com/PageNotFoundx/poseidon/blob/master/src/main/java/com/poseidon/model/experiment/UserModel.java)。
 

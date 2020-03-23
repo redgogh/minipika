@@ -18,7 +18,7 @@
     <model>
         <package>org.poseidon.experiment</package>
         <mapper>org.poseidon.builder</mapper>
-        <regular>regular.json</regular>
+        <norm>norm.json</norm>
     </model>
     <default>
         <model>default_model.json</model>

@@ -11,35 +11,35 @@ import java.util.regex.Pattern;
  * @version 1.0.0
  * @since 1.8
  */
-public class RegularUtils {
+public class NormUtils {
 
     private boolean IS_INSTANCE = false;
 
     private Map<String, Pattern> patternMap;
 
-    private static RegularUtils INSTANCE = null;
-    private static RegularUtils INSTANCE_SAVE = null;
+    private static NormUtils INSTANCE = null;
+    private static NormUtils INSTANCE_SAVE = null;
 
-    public RegularUtils() {
+    public NormUtils() {
     }
 
-    public RegularUtils(boolean IS_INSTANCE) {
+    public NormUtils(boolean IS_INSTANCE) {
         this.IS_INSTANCE = IS_INSTANCE;
         if(!IS_INSTANCE){
             patternMap = new HashMap<>();
         }
     }
 
-    public static RegularUtils getInstance() {
+    public static NormUtils getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new RegularUtils(true);
+            INSTANCE = new NormUtils(true);
         }
         return INSTANCE;
     }
 
-    public static RegularUtils getInstanceSave() {
+    public static NormUtils getInstanceSave() {
         if (INSTANCE_SAVE == null) {
-            INSTANCE_SAVE = new RegularUtils(false);
+            INSTANCE_SAVE = new NormUtils(false);
         }
         return INSTANCE_SAVE;
     }

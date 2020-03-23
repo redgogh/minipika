@@ -1,7 +1,6 @@
 package org.raniaia.poseidon.framework.provide;
 
 import com.alibaba.fastjson.JSONObject;
-import org.raniaia.poseidon.components.config.AbstractConfig.DriverType;
 import org.raniaia.poseidon.components.config.GlobalConfig;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
@@ -65,16 +64,6 @@ public class ProvideVar {
     public static final String ADD_COLUMN_SCRIPT                        = "ALTER TABLE `{}` ADD {} after `{}`;";
     public static final String SHOW_TABLE_STATUS                        = "show table status from {} where name = '{}'";
     public static final String QUERY_TABLES                             = "select table_name from information_schema.tables where table_schema=?";
-
-    /**
-     * 判断是oracle数据库还是mysql
-     */
-    static {
-        DriverType type = GlobalConfig.getConfig().getDriverType();
-        if(type == DriverType.ORACLE){
-
-        }
-    }
 
     // 动态SQL内部代码
     // ---------------------------------------------------------------------

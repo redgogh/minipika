@@ -24,7 +24,7 @@ import javassist.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.raniaia.poseidon.framework.provide.model.Model;
-import org.raniaia.poseidon.framework.provide.model.Regular;
+import org.raniaia.poseidon.framework.provide.model.Norm;
 import org.raniaia.poseidon.components.pool.PoseidonClassPool;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
@@ -35,22 +35,22 @@ import java.util.Map;
 
 /**
  *
- * Regular注解处理器
+ * Norm注解处理器
  *
- * 处理过程是先获取到注解然后再根据注解生成{@link RegularProperties}属性
- * 最后根据生成的{@link RegularProperties}对类的字节码做动态修改来达到最终效果。
+ * 处理过程是先获取到注解然后再根据注解生成{@link NormProperties}属性
+ * 最后根据生成的{@link NormProperties}对类的字节码做动态修改来达到最终效果。
  *
- * Regular annotation processor.
+ * Norm annotation processor.
  *
- * this processor first get {@link Regular} then create
- * {@link RegularProperties} properties.
+ * this processor first get {@link Norm} then create
+ * {@link NormProperties} properties.
  *
- * end according to {@link RegularProperties} modify class bytecode.
+ * end according to {@link NormProperties} modify class bytecode.
  * @author tiansheng
  */
 public class ModelPreProcess {
 
-    private List<RegularProperties> properties;
+    private List<NormProperties> properties;
     private ClassLoader loader = getClass().getClassLoader();
     private final ClassPool classPool = new PoseidonClassPool(true);
     private final String superClasspath = "org.raniaia.poseidon.components.model.publics.AbstractModel";
@@ -58,13 +58,13 @@ public class ModelPreProcess {
             "{" +
             "if(" +
             "!org.raniaia.poseidon.framework.tools." +
-            "RegularUtils.getInstanceSave().matches($1," +
-            "org.raniaia.poseidon.components.config.GlobalConfig.getConfig().getRegular(\"{}\"))" +
+            "NormUtils.getInstanceSave().matches($1," +
+            "org.raniaia.poseidon.components.config.GlobalConfig.getConfig().getNorm(\"{}\"))" +
             "){super.canSave=false;}" +
             "}";
 
     public ModelPreProcess(String[] packages) throws Exception {
-        properties = getRegularProperties(packages);
+        properties = getNormProperties(packages);
     }
 
     /**
@@ -73,12 +73,12 @@ public class ModelPreProcess {
     public void modifySetter() {
         if (properties == null) return;
         try {
-            for (RegularProperties property : properties) {
+            for (NormProperties property : properties) {
                 CtClass clazz = property.getCtClass();
                 clazz.defrost();
                 // 修改Setter方法
-                Map<String, Regular> fields = property.getFields();
-                for (Map.Entry<String, Regular> entry : fields.entrySet()) {
+                Map<String, Norm> fields = property.getFields();
+                for (Map.Entry<String, Norm> entry : fields.entrySet()) {
                     String entryKey = entry.getKey();
                     String methodName = "set".concat(StringUtils.upperCase(entryKey, 1));
                     CtMethod ctMethod = clazz.getDeclaredMethod(methodName);
@@ -98,7 +98,7 @@ public class ModelPreProcess {
 
     @Getter
     @Setter
-    class RegularProperties {
+    class NormProperties {
 
         /**
          * model class path.
@@ -108,14 +108,14 @@ public class ModelPreProcess {
         private CtClass ctClass;
 
         /**
-         * fields and {@link Regular} annotations
+         * fields and {@link Norm} annotations
          */
-        private Map<String, Regular> fields;
+        private Map<String, Norm> fields;
 
-        public RegularProperties() {
+        public NormProperties() {
         }
 
-        public RegularProperties(String classpath, CtClass ctClass) {
+        public NormProperties(String classpath, CtClass ctClass) {
             this.ctClass = ctClass;
             this.classpath = classpath;
         }
@@ -123,12 +123,12 @@ public class ModelPreProcess {
     }
 
     /**
-     * 获取扫描到的Regular属性
+     * 获取扫描到的Norm属性
      * @throws ClassNotFoundException
      */
-    private List<RegularProperties> getRegularProperties(String[] packages) throws Exception {
+    private List<NormProperties> getNormProperties(String[] packages) throws Exception {
         if (packages == null) return null;
-        List<RegularProperties> regularPropertiesList = new ArrayList<>();
+        List<NormProperties> normPropertiesList = new ArrayList<>();
         for (String aPackage : packages) {
             CtClass[] ctClasses = ((PoseidonClassPool) classPool).getCtClassArray(aPackage);
             for (CtClass aClass : ctClasses) {
@@ -139,29 +139,29 @@ public class ModelPreProcess {
                     aClass.setSuperclass(superClass);
                     aClass.writeFile(filedir);
                 }
-                RegularProperties properties = null;
-                Map<String, Regular> hashMap = null;
+                NormProperties properties = null;
+                Map<String, Norm> hashMap = null;
                 CtField[] fields = aClass.getDeclaredFields();
                 for (CtField field : fields) {
                     Object[] annotations = field.getAnnotations();
                     for (Object annotation : annotations) {
-                        if (annotation instanceof Regular) {
-                            Regular regular = (Regular) annotation;
+                        if (annotation instanceof Norm) {
+                            Norm norm = (Norm) annotation;
                             if (hashMap == null) hashMap = new HashMap<>();
-                            hashMap.put(field.getName(), regular);
+                            hashMap.put(field.getName(), norm);
                         }
                     }
                 }
                 if (hashMap != null) {
                     String classname = aClass.getPackageName().concat(aClass.getName());
-                    properties = new RegularProperties(classname, aClass);
+                    properties = new NormProperties(classname, aClass);
                     properties.setFields(hashMap);
-                    regularPropertiesList.add(properties);
+                    normPropertiesList.add(properties);
                 }
             }
         }
 
-        return regularPropertiesList.isEmpty() ? null : regularPropertiesList;
+        return normPropertiesList.isEmpty() ? null : normPropertiesList;
     }
 
 }

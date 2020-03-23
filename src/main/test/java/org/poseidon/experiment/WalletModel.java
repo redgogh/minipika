@@ -3,7 +3,7 @@ package org.poseidon.experiment;
 import org.raniaia.poseidon.framework.provide.model.Column;
 import org.raniaia.poseidon.framework.provide.model.Comment;
 import org.raniaia.poseidon.framework.provide.model.Model;
-import org.raniaia.poseidon.framework.provide.model.PrimaryKey;
+import org.raniaia.poseidon.framework.provide.model.PK;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Model("wallet")
 public class WalletModel {
 
-    @PrimaryKey
+    @PK
     @Column("int(11) not null")
     private Long id;
 

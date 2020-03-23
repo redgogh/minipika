@@ -96,12 +96,12 @@ public class ModelParserImpl implements ModelParser {
                 tableColumn.append("auto_increment");
             }
             // 主键
-            if (field.isAnnotationPresent(PrimaryKey.class)) {
-                PrimaryKey key = field.getDeclaredAnnotation(PrimaryKey.class);
+            if (field.isAnnotationPresent(PK.class)) {
+                PK key = field.getDeclaredAnnotation(PK.class);
                 if (key.increase()) {
                     tableColumn.append("auto_increment primary key");
                 }
-                metadata.setPrimaryKey(columnName);
+                metadata.setPk(columnName);
             }
             // 注释
             if (field.isAnnotationPresent(Comment.class)) {

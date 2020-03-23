@@ -3,8 +3,8 @@ package org.poseidon.experiment;
 import lombok.Data;
 import org.raniaia.poseidon.framework.provide.model.Column;
 import org.raniaia.poseidon.framework.provide.model.Model;
-import org.raniaia.poseidon.framework.provide.model.PrimaryKey;
-import org.raniaia.poseidon.framework.provide.model.Regular;
+import org.raniaia.poseidon.framework.provide.model.PK;
+import org.raniaia.poseidon.framework.provide.model.Norm;
 
 /**
  * Copyright: Create by tiansheng on 2020/1/17 14:01
@@ -13,14 +13,14 @@ import org.raniaia.poseidon.framework.provide.model.Regular;
 @Model(value = "user_info",increment = 4000)
 public class UserInfo {
 
-    @PrimaryKey
+    @PK
     @Column("int(11) not null")
     private int id;
 
     @Column("varchar(255) not null")
     private String name;
 
-    @Regular("email")
+    @Norm("email")
     @Column("varchar(255) not null")
     private String email;
 

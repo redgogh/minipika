@@ -56,7 +56,7 @@ public class Metadata {
     /**
      * 主键字段
      */
-    private String primaryKey;
+    private String pk;
 
     /**
      * 表名
@@ -107,12 +107,12 @@ public class Metadata {
         this.tableName = tableName;
     }
 
-    public String getPrimaryKey() {
-        return primaryKey;
+    public String getPk() {
+        return pk;
     }
 
-    public void setPrimaryKey(String primaryKey) {
-        this.primaryKey = primaryKey;
+    public void setPk(String pk) {
+        this.pk = pk;
     }
 
     public static Map<String, Class<?>> getModelClass() {

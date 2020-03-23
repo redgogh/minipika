@@ -57,8 +57,8 @@ poseidon.model.package = com.raniaia.modules.provide.model
 # builder xml模板文件所在的路径
 poseidon.model.mapper = com.raniaia.modules.provide.model.mapper
 
-# 配置regular.json文件路径
-poseidon.regular.json = regular.json
+# 配置norm.json文件路径
+poseidon.norm.json = norm.json
 
 
 ```
@@ -86,8 +86,8 @@ poseidon.regular.json = regular.json
 - @Comment
 > **@Comment**字段注释
 
-- @PrimaryKey
-> **@PrimaryKey**主键
+- @Pk
+> **@Pk**主键
 
 具体Model的实现可以参考一下本项目下的 [ExampleModel](https://github.com/Laniakeamly/poseidon/blob/master/src/main/test/org/poseidon/experiment/ExampleModel.java)。
 

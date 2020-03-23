@@ -4,7 +4,7 @@ import lombok.Data;
 import org.raniaia.poseidon.framework.provide.model.Column;
 import org.raniaia.poseidon.framework.provide.model.Comment;
 import org.raniaia.poseidon.framework.provide.model.Model;
-import org.raniaia.poseidon.framework.provide.model.PrimaryKey;
+import org.raniaia.poseidon.framework.provide.model.PK;
 
 /**
  * @author tiansheng
@@ -17,7 +17,7 @@ import org.raniaia.poseidon.framework.provide.model.PrimaryKey;
 public class ProductModel {
 
     @Column("int(11) not null")
-    @PrimaryKey
+    @PK
     private Long id;
 
     @Column("varchar(255) not null")

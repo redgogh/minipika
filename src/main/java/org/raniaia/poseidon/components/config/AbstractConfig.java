@@ -48,8 +48,8 @@ class AbstractConfig implements PoseidonConfig {
     protected String refresh;
     // 数据库名
     protected String dbname;
-    // regular.json文件
-    protected JSONObject regularJson;
+    // norm.json文件
+    protected JSONObject normJson;
     // default_model.json文件
     protected JSONObject defaultModel;
 
@@ -109,9 +109,9 @@ class AbstractConfig implements PoseidonConfig {
             mapperArray.toArray(mapperPackage);
         }
         // 获取字段约束配置文件路径
-        String regularJsonName = getValue("model.regular");
-        if (!StringUtils.isEmpty(regularJsonName)) {
-            this.regularJson = PIOUtils.getResourceAsJson(regularJsonName);
+        String normJsonName = getValue("model.norm");
+        if (!StringUtils.isEmpty(normJsonName)) {
+            this.normJson = PIOUtils.getResourceAsJson(normJsonName);
         }
 
         // 获取默认数据配置文件路径
@@ -214,8 +214,8 @@ class AbstractConfig implements PoseidonConfig {
      * @param name
      * @return
      */
-    public String getRegular(String name) {
-        return (String) this.regularJson.get(name);
+    public String getNorm(String name) {
+        return (String) this.normJson.get(name);
     }
 
     public JSONObject getDefaultModel() {

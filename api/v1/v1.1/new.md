@@ -26,7 +26,7 @@ private String email;
 我可以把这个字段配置正则表达式只允许为邮箱格式
 ```java
 @Column("varchar(255) not null")
-@Regular("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$")
+@Norm("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$")
 private String email;
 ```
 

@@ -191,11 +191,11 @@ public class JdbcSupportImpl implements JdbcSupport {
             int length = buffer.length();
             buffer.delete((length - 2), (length - 1));
             // 添加条件
-            String primaryKey = Metadata.getAttribute().get(table).getPrimaryKey();
-            Field field = target.getDeclaredField(primaryKey);
+            String pk = Metadata.getAttribute().get(table).getPk();
+            Field field = target.getDeclaredField(pk);
             field.setAccessible(true);
             Object v = field.get(obj);
-            buffer.append("where `".concat(primaryKey).concat("` = ?"));
+            buffer.append("where `".concat(pk).concat("` = ?"));
             params.add(v);
             return nativeJdbc.executeUpdate(buffer.toString(), params.toArray());
         } catch (Exception e) {
