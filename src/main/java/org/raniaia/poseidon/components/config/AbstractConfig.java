@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.framework.config;
+package org.raniaia.poseidon.components.config;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -15,14 +15,13 @@ import java.util.Properties;
 
 /**
  * Copyright by tiansheng on 2020/2/13 2:44
+ *
  * @author tiansheng
  * @version 1.0.0
  * @since 1.8
  */
 public abstract
 class AbstractConfig implements PoseidonConfig {
-
-    public enum DriverType{MYSQL,ORACLE}
 
     // url
     protected String url;
@@ -62,6 +61,7 @@ class AbstractConfig implements PoseidonConfig {
 
     /**
      * 通过Jap配置文件加载
+     *
      * @param config
      */
     public AbstractConfig(Map<String, String> config) {
@@ -70,10 +70,11 @@ class AbstractConfig implements PoseidonConfig {
 
     /**
      * 通过properties文件加载
+     *
      * @param config
      */
     public AbstractConfig(Properties config) {
-        this(((Object) config));
+        this((Object) config);
     }
 
     public AbstractConfig(Object config) {
@@ -119,7 +120,7 @@ class AbstractConfig implements PoseidonConfig {
             this.defaultModel = PIOUtils.getResourceAsJson(defaultModelName);
         }
 
-        loadDriver(driver);
+        this.driverType = loadDriver(driver);
 
         String temp = url;
         for (int i = 0; i < 3; i++) {
@@ -138,20 +139,6 @@ class AbstractConfig implements PoseidonConfig {
             return ((Properties) configObject).getProperty("poseidon.".concat(key));
         }
         throw new ConfigException("unknown config object.");
-    }
-
-    @Override
-    public void loadDriver(String classpath) {
-        if (StringUtils.isEmpty(classpath)) {
-            throw new ConfigException("jdbc driver cannot null.");
-        }
-        // 判断是oracle还是mysql
-        if (classpath.contains("mysql")) {
-            this.driverType = DriverType.MYSQL;
-        } else if (classpath.contains("oracle")) {
-            this.driverType = DriverType.ORACLE;
-        }
-        System.setProperty("jdbc.drivers", classpath);
     }
 
     public String getDbname() {
@@ -223,6 +210,7 @@ class AbstractConfig implements PoseidonConfig {
 
     /**
      * 获取正则表达式内容
+     *
      * @param name
      * @return
      */

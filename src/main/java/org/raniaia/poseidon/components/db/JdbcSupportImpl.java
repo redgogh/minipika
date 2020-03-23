@@ -2,7 +2,7 @@ package org.raniaia.poseidon.components.db;
 
 import org.raniaia.poseidon.framework.provide.ProvideVar;
 import org.raniaia.poseidon.framework.provide.Valid;
-import org.raniaia.poseidon.framework.config.GlobalConfig;
+import org.raniaia.poseidon.components.config.GlobalConfig;
 import org.raniaia.poseidon.components.model.publics.AbstractModel;
 import org.raniaia.poseidon.framework.provide.component.Component;
 import org.raniaia.poseidon.framework.tools.SecurityManager;

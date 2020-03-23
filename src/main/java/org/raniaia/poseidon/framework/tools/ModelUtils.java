@@ -2,7 +2,7 @@ package org.raniaia.poseidon.framework.tools;
 
 import org.raniaia.poseidon.framework.provide.model.Ignore;
 import org.raniaia.poseidon.framework.provide.model.Model;
-import org.raniaia.poseidon.framework.config.GlobalConfig;
+import org.raniaia.poseidon.components.config.GlobalConfig;
 import org.raniaia.poseidon.framework.exception.PoseidonException;
 import org.raniaia.poseidon.framework.exception.runtime.ModelException;
 

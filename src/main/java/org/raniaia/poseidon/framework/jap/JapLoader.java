@@ -1,6 +1,6 @@
 package org.raniaia.poseidon.framework.jap;
 
-import org.raniaia.poseidon.framework.config.GlobalConfig;
+import org.raniaia.poseidon.components.config.GlobalConfig;
 import org.raniaia.poseidon.framework.exception.runtime.ConfigException;
 import org.raniaia.poseidon.framework.tools.PIOUtils;
 import org.raniaia.poseidon.framework.tools.StringUtils;

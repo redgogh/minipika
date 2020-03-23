@@ -59,7 +59,7 @@ public class ModelPreProcess {
             "if(" +
             "!org.raniaia.poseidon.framework.tools." +
             "RegularUtils.getInstanceSave().matches($1," +
-            "org.raniaia.poseidon.framework.config.GlobalConfig.getConfig().getRegular(\"{}\"))" +
+            "org.raniaia.poseidon.components.config.GlobalConfig.getConfig().getRegular(\"{}\"))" +
             "){super.canSave=false;}" +
             "}";
 

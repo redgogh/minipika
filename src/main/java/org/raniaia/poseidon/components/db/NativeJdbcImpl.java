@@ -5,7 +5,7 @@ import org.raniaia.poseidon.components.pool.ConnectionPool;
 import org.raniaia.poseidon.components.log.Log;
 import org.raniaia.poseidon.framework.provide.Valid;
 import org.raniaia.poseidon.components.cache.PoseidonCache;
-import org.raniaia.poseidon.framework.config.GlobalConfig;
+import org.raniaia.poseidon.components.config.GlobalConfig;
 import org.raniaia.poseidon.framework.provide.component.Component;
 import org.raniaia.poseidon.framework.tools.Arrays;
 import org.raniaia.poseidon.framework.tools.SQLUtils;
@@ -25,9 +25,6 @@ import java.util.List;
 @SuppressWarnings("SpellCheckingInspection")
 public class NativeJdbcImpl implements NativeJdbc {
 
-    protected final boolean isCache = GlobalConfig.getConfig().getCache();
-    protected final boolean transaction = GlobalConfig.getConfig().getTransaction();
-
     @Valid
     private ConnectionPool pool;
 
@@ -36,6 +33,9 @@ public class NativeJdbcImpl implements NativeJdbc {
 
     @Valid(name = "logger")
     private Log logger;
+
+    protected final boolean isCache = GlobalConfig.getConfig().getCache();
+    protected final boolean transaction = GlobalConfig.getConfig().getTransaction();
 
     @Override
     public boolean execute(String sql, Object... args) {

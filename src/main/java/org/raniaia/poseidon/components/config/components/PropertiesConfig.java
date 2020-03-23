@@ -1,5 +1,7 @@
-package org.raniaia.poseidon.framework.config;
+package org.raniaia.poseidon.components.config.components;
 
+import org.raniaia.poseidon.components.config.AbstractConfig;
+import org.raniaia.poseidon.framework.provide.component.Component;
 import org.raniaia.poseidon.framework.tools.*;
 
 /**

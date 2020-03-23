@@ -1,6 +1,6 @@
 package org.raniaia.poseidon.components.cache;
 
-import org.raniaia.poseidon.framework.config.GlobalConfig;
+import org.raniaia.poseidon.components.config.GlobalConfig;
 import org.raniaia.poseidon.framework.timer.Timer;
 
 /**

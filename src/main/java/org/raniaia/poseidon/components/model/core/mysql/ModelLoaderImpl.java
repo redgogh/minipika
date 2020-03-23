@@ -29,7 +29,7 @@ import org.raniaia.poseidon.framework.provide.ProvideVar;
 import org.raniaia.poseidon.framework.provide.Valid;
 import org.raniaia.poseidon.framework.provide.component.Component;
 import org.raniaia.poseidon.framework.provide.model.Model;
-import org.raniaia.poseidon.framework.config.GlobalConfig;
+import org.raniaia.poseidon.components.config.GlobalConfig;
 import org.raniaia.poseidon.components.db.JdbcSupport;
 import org.raniaia.poseidon.framework.exception.PoseidonException;
 import org.raniaia.poseidon.components.model.ModelLoader;

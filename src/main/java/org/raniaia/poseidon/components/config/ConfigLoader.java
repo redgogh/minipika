@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.framework.config;
+package org.raniaia.poseidon.components.config;
 
 import org.raniaia.poseidon.framework.tools.StringUtils;
 

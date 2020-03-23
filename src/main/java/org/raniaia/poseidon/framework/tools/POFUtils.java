@@ -1,6 +1,6 @@
 package org.raniaia.poseidon.framework.tools;
 
-import org.raniaia.poseidon.framework.config.GlobalConfig;
+import org.raniaia.poseidon.components.config.GlobalConfig;
 
 import java.io.*;
 import java.net.URL;

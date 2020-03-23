@@ -1,8 +1,8 @@
 package org.raniaia.poseidon.framework.provide;
 
 import com.alibaba.fastjson.JSONObject;
-import org.raniaia.poseidon.framework.config.AbstractConfig.DriverType;
-import org.raniaia.poseidon.framework.config.GlobalConfig;
+import org.raniaia.poseidon.components.config.AbstractConfig.DriverType;
+import org.raniaia.poseidon.components.config.GlobalConfig;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
 import java.util.Date;

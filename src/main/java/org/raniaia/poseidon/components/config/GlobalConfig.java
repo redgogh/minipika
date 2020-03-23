@@ -1,10 +1,13 @@
-package org.raniaia.poseidon.framework.config;
+package org.raniaia.poseidon.components.config;
 
 
 import org.raniaia.poseidon.BeanManager;
+import org.raniaia.poseidon.components.config.components.JapConfig;
+import org.raniaia.poseidon.components.config.components.PropertiesConfig;
 import org.raniaia.poseidon.components.model.core.mysql.ModelLoaderImpl;
 import org.raniaia.poseidon.framework.exception.runtime.ConfigException;
 import org.raniaia.poseidon.components.model.ModelLoader;
+import org.raniaia.poseidon.framework.provide.component.Component;
 
 /**
  * 统一配置调用
@@ -13,6 +16,7 @@ import org.raniaia.poseidon.components.model.ModelLoader;
  * @version 1.0.0
  * @since 1.8
  */
+@Component
 public final class GlobalConfig {
 
     private static boolean jar = false;
