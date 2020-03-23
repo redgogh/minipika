@@ -1,8 +1,8 @@
-package org.raniaia.poseidon.framework.sql.xml;
+package org.raniaia.poseidon.framework.sql;
 
 import lombok.Getter;
 import org.raniaia.poseidon.components.db.JdbcSupport;
-import org.raniaia.poseidon.framework.sql.TemplateLabel;
+import org.raniaia.poseidon.framework.sql.QueryTag;
 
 import java.util.List;
 
@@ -19,13 +19,13 @@ public class SqlExecute {
     private JdbcSupport jdbc;
 
     @Getter
-    private TemplateLabel label;
+    private QueryTag label;
 
     public SqlExecute(){
 
     }
 
-    public SqlExecute(String sql, Object[] args, Class<?> result,JdbcSupport jdbc,TemplateLabel label) {
+    public SqlExecute(String sql, Object[] args, Class<?> result, JdbcSupport jdbc, QueryTag label) {
         this.sql = sql;
         this.jdbc = jdbc;
         this.args = args;

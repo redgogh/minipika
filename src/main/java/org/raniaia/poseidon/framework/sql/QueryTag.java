@@ -9,7 +9,7 @@ package org.raniaia.poseidon.framework.sql;
  * @version 1.0.0
  * @since 1.8
  */
-public enum TemplateLabel {
+public enum QueryTag {
 
     SELECT, UPDATE, INSERT, DELETE
 

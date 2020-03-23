@@ -21,7 +21,7 @@ package org.raniaia.poseidon.components.monitor;
  */
 
 import org.raniaia.poseidon.components.pool.ConnectionPool;
-import org.raniaia.poseidon.framework.sql.xml.SqlExecute;
+import org.raniaia.poseidon.framework.sql.SqlExecute;
 
 /**
  *

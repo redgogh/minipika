@@ -2,9 +2,9 @@ package org.raniaia.poseidon.framework.mapper;
 
 
 import org.raniaia.poseidon.BeanManager;
-import org.raniaia.poseidon.framework.sql.TemplateLabel;
-import org.raniaia.poseidon.framework.sql.xml.SqlExecute;
-import org.raniaia.poseidon.framework.sql.xml.SqlMapper;
+import org.raniaia.poseidon.framework.sql.QueryTag;
+import org.raniaia.poseidon.framework.sql.SqlExecute;
+import org.raniaia.poseidon.framework.sql.SqlMapper;
 import org.raniaia.poseidon.framework.tools.Arrays;
 import org.raniaia.poseidon.framework.tools.ReflectUtils;
 
@@ -66,7 +66,7 @@ public class MapperInvocation implements InvocationHandler {
         });
         // 判断执行什么方法
         Class<?> returnType = method.getReturnType();
-        if(execute.getLabel() == TemplateLabel.SELECT){
+        if(execute.getLabel() == QueryTag.SELECT){
             if (List.class.equals(returnType)) {
                 return execute.queryForList();
             } else {

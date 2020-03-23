@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.framework.sql.xml;
+package org.raniaia.poseidon.framework.sql;
 
 import org.raniaia.poseidon.BeanManager;
 import org.raniaia.poseidon.framework.container.PrecompileContainer;

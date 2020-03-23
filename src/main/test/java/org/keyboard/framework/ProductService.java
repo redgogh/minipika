@@ -1,8 +1,8 @@
 package org.keyboard.framework;
 
 import org.poseidon.experiment.ProductModel;
-import org.raniaia.poseidon.framework.sql.xml.Parameter;
-import org.raniaia.poseidon.framework.sql.xml.SqlMapper;
+import org.raniaia.poseidon.framework.sql.Parameter;
+import org.raniaia.poseidon.framework.sql.SqlMapper;
 
 import java.util.List;
 import java.util.Map;

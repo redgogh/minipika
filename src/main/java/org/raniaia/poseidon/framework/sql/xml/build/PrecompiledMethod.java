@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.raniaia.poseidon.components.model.publics.Metadata;
 import org.raniaia.poseidon.framework.provide.ProvideVar;
-import org.raniaia.poseidon.framework.sql.TemplateLabel;
+import org.raniaia.poseidon.framework.sql.QueryTag;
 import org.raniaia.poseidon.framework.tools.ReflectUtils;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
@@ -28,7 +28,7 @@ public class PrecompiledMethod {
     private Class<?> result;
 
     @Getter
-    private TemplateLabel type;
+    private QueryTag type;
 
     @Getter
     @Setter
@@ -52,9 +52,9 @@ public class PrecompiledMethod {
      */
     public PrecompiledMethod(String name, String result, String type) {
         if("select".equals(type)){
-            this.type = TemplateLabel.SELECT;
+            this.type = QueryTag.SELECT;
         }else{
-            this.type = TemplateLabel.UPDATE;
+            this.type = QueryTag.UPDATE;
         }
         try {
             this.name = name;

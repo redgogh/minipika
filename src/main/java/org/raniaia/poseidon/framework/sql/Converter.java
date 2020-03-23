@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.framework.sql.xml;
+package org.raniaia.poseidon.framework.sql;
 
 import javassist.*;
 import org.raniaia.poseidon.framework.loader.PoseidonClassLoader;
