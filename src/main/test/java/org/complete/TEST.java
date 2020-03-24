@@ -27,16 +27,21 @@ import org.raniaia.poseidon.BeansManager;
 import org.raniaia.poseidon.components.config.ConfigLoader;
 import org.raniaia.poseidon.components.db.JdbcSupport;
 import org.raniaia.poseidon.framework.provide.Valid;
-import org.raniaia.poseidon.framework.sql.SqlMapper;
 
 /**
  * @author tiansheng
  */
 public class TEST {
 
+    /**
+     * 注入JDBC操作类
+     */
     @Valid
     private JdbcSupport jdbc;
 
+    /**
+     * 实例化Mapper映射器对象， mapper xml文件对应地址在test/java/resources/compete目录下
+     */
     UserMapper mapper = BeansManager.newInstance(UserMapper.class);
 
     public static void main(String[] args) {
