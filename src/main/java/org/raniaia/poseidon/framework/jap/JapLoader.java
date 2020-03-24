@@ -1,5 +1,26 @@
 package org.raniaia.poseidon.framework.jap;
 
+/*
+ * Copyright (C) 2020 Tiansheng All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Creates on 2020/2/12.
+ */
+
+import org.raniaia.available.io.file.Files;
 import org.raniaia.poseidon.components.config.GlobalConfig;
 import org.raniaia.poseidon.framework.exception.runtime.ConfigException;
 import org.raniaia.poseidon.framework.tools.PIOUtils;
@@ -14,10 +35,7 @@ import java.util.*;
  *
  * jap config loader.
  *
- * Copyright by tiansheng on 2020/2/12 23:56
  * @author tiansheng
- * @version 1.0.0
- * @since 1.8
  */
 public class JapLoader {
 
@@ -42,7 +60,7 @@ public class JapLoader {
     public Map<String,Map<String,String>> load(String path) {
         String configContent = null;
         if(!GlobalConfig.isJar()) {
-            configContent = PIOUtils.getResourceAsString(path);
+            configContent = Files.read(path);
         }else{
             try {
                 configContent = PIOUtils.getStringByInputStream(new FileInputStream(System.getProperty("user.dir").concat(path)));

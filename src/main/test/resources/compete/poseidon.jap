@@ -31,13 +31,13 @@ poseidon: {
     model.package = ["org.complete.entity"]
 
     // mapper动态sql文件所在的路径
-    model.mapper = ["org.complete.mapper"]
+    model.mapper = ["classpath:/compete/mapper"]
 
     // 配置norm.json文件路径
-    model.norm = norm.json
+    model.norm = classpath:/compete/norm.json
 
     // 默认数据文件
-    default.model = default_model.json
+    // default.model = default_model.json
 
 }
 

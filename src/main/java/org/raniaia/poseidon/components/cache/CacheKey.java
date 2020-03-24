@@ -1,5 +1,25 @@
 package org.raniaia.poseidon.components.cache;
 
+/*
+ * Copyright (C) 2020 Tiansheng All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Creates on 2019/12/6.
+ */
+
 import lombok.Getter;
 import lombok.Setter;
 import org.raniaia.poseidon.components.db.NativeJdbc;
@@ -8,16 +28,12 @@ import java.util.List;
 
 /**
  *
- * Chinese:
- *
  * 缓存KEY对象
  * 这个对象中包含CacheKey的唯一值，就是key字段
  *
  * 然后对象中还包含tables，实现缓存自动刷新是通过tables进行刷新的。
  * 也就是说如果查询了user表，tables这个List对象中就会存放一个user字段。
  * 当缓存更新时就会去遍历哪个CacheKey中存在user表，把这些存在user表的缓存都刷新掉。
- *
- * English:
  *
  * cache key object.
  * this object contain CacheKey object the only value 'key'
@@ -30,11 +46,8 @@ import java.util.List;
  * parser out tables will compare with tables in {@code CacheKey}.
  * if tables in {@code CacheKey} contain parser out tables then refresh specify cache.
  *
- * Copyright: Create by tiansheng on 2019/12/6 16:24
- *
  * @author tiansheng
- * @version 1.0.0
- * @since 1.8
+ * @see PoseidonCacheImpl#refresh
  */
 public class CacheKey {
 

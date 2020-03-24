@@ -17,42 +17,68 @@ package org.raniaia.poseidon;
  */
 
 /*
- * Creates on 2020/3/21 16:47
+ * Creates on 2020/3/21.
  */
 
 import org.raniaia.poseidon.components.MyComponents;
 import org.raniaia.poseidon.components.db.NativeResult;
 import org.raniaia.poseidon.components.db.NativeResultMysql;
+import org.raniaia.poseidon.framework.sql.SqlMapper;
 
 /**
+ * Bean container management object, all beans will be created
+ * from this object.
+ *
  * @author tiansheng
  */
 @SuppressWarnings("unchecked")
-public class BeanManager {
+public class BeansManager {
 
     private static Container container = Container.getContainer(new Class[]{MyComponents.class});
 
+    /**
+     * Get bean by {@code Class}.
+     */
     public static <T> T get(Class name) {
         return container.get(name);
     }
 
+    /**
+     * Get bean by {@code String}.
+     */
     public static <T> T get(String name) {
         return container.get(name);
     }
 
+    /**
+     * Handle objects to container management.
+     */
     public static void submitBean(String name, Object value) {
         container.submitBean(name, value);
     }
 
-    public static <T> T newInstance(Class<?> clazz){
+    /**
+     * Creates a new object, during create will inject bean into the object.
+     * This {@code #newInstance} method will calling No-argument construct.
+     */
+    public static <T> T newInstance(Class<?> clazz) {
         return container.newInstance(clazz);
     }
 
-    public static <T> T newInstance(Class<?> clazz,Class<?>[] parametersType,
-                                    Object... args){
-        return container.newInstance(clazz, parametersType, args);
+    /**
+     * Creates a new object, during create will inject bean into the object.
+     * This {@code #newInstance} method will calling argument construct.
+     *
+     * @param args construct parameters.
+     * @see SqlMapper#getMapper
+     */
+    public static <T> T newInstance(Class<?> clazz, Object... args) {
+        return container.newInstance(clazz, args);
     }
 
+    /**
+     * Creates a new {@link NativeResult} instance.
+     */
     public static NativeResult newNativeResult() {
         return new NativeResultMysql();
     }

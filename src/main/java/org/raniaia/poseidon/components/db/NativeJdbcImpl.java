@@ -1,6 +1,26 @@
 package org.raniaia.poseidon.components.db;
 
-import org.raniaia.poseidon.BeanManager;
+/*
+ * Copyright (C) 2020 Tiansheng All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Creates on 2019/11/30.
+ */
+
+import org.raniaia.poseidon.BeansManager;
 import org.raniaia.poseidon.components.pool.ConnectionPool;
 import org.raniaia.poseidon.components.log.Log;
 import org.raniaia.poseidon.framework.provide.Valid;
@@ -16,10 +36,7 @@ import java.util.List;
 
 /**
  * 底层JDBC处理
- * @author 404NotFoundx
- * @version 1.0.0
- * @date 2019/11/30 2:28
- * @since 1.8
+ * @author tiansheng
  */
 @Component
 @SuppressWarnings("SpellCheckingInspection")
@@ -84,14 +101,14 @@ public class NativeJdbcImpl implements NativeJdbc {
                 result = cache.get(sql, args);
                 if (result == null) {
                     ResultSet resultSet = setValues(statement, args).executeQuery();
-                    result = BeanManager.newNativeResult().build(resultSet);
+                    result = BeansManager.newNativeResult().build(resultSet);
                     cache.save(sql, result, args);
                     return cache.get(sql, args);
                 }
                 return result;
             } else {
                 ResultSet resultSet = setValues(statement, args).executeQuery();
-                return BeanManager.newNativeResult().build(resultSet);
+                return BeansManager.newNativeResult().build(resultSet);
             }
         } catch (Throwable e) {
             e.printStackTrace();

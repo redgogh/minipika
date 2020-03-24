@@ -1,12 +1,32 @@
 package org.raniaia.poseidon.components.config;
 
+/*
+ * Copyright (C) 2020 Tiansheng All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Creates on 2020/2/13.
+ */
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
+import org.raniaia.available.io.file.Files;
 import org.raniaia.poseidon.framework.exception.runtime.ConfigException;
 import org.raniaia.poseidon.framework.jap.JapLoader;
 import org.raniaia.poseidon.framework.tools.Calculator;
-import org.raniaia.poseidon.framework.tools.PIOUtils;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 import org.raniaia.poseidon.framework.tools.DateUtils;
 
@@ -14,10 +34,7 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * Copyright by tiansheng on 2020/2/13 2:44
- *
  * @author tiansheng
- * @version 1.0.0
  * @since 1.8
  */
 public abstract
@@ -111,13 +128,13 @@ class AbstractConfig implements PoseidonConfig {
         // 获取字段约束配置文件路径
         String normJsonName = getValue("model.norm");
         if (!StringUtils.isEmpty(normJsonName)) {
-            this.normJson = PIOUtils.getResourceAsJson(normJsonName);
+            this.normJson = JSONObject.parseObject(Files.read(normJsonName));
         }
 
         // 获取默认数据配置文件路径
         String defaultModelName = getValue("default.model");
         if (!StringUtils.isEmpty(defaultModelName)) {
-            this.defaultModel = PIOUtils.getResourceAsJson(defaultModelName);
+            this.defaultModel = JSONObject.parseObject(Files.read(defaultModelName));
         }
 
         this.driverType = loadDriver(driver);

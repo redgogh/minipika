@@ -17,13 +17,13 @@ package org.raniaia.poseidon.components.model.core.mysql;
  */
 
 /*
- * Creates on 2020/3/20 0:09
+ * Creates on 2020/3/20.
  */
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import jdk.nashorn.internal.runtime.ParserException;
-import org.raniaia.poseidon.BeanManager;
+import org.raniaia.poseidon.BeansManager;
 
 import org.raniaia.poseidon.framework.provide.ProvideVar;
 import org.raniaia.poseidon.framework.provide.Valid;
@@ -75,7 +75,7 @@ public class ModelLoaderImpl implements ModelLoader {
         Set<String> tables = jdbc.queryForSet(ProvideVar.QUERY_TABLES, String.class,
                 GlobalConfig.getConfig().getDbname());
 
-        ModelParser parserModel = BeanManager.newInstance(ModelParserImpl.class);
+        ModelParser parserModel = BeansManager.newInstance(ModelParserImpl.class);
         parserModel.parse(ModelUtils.getModels());
         Map<String, Metadata> messages = Metadata.getAttribute();
         Iterator iter = messages.entrySet().iterator();
@@ -95,7 +95,10 @@ public class ModelLoaderImpl implements ModelLoader {
                 }
                 // 查询是否存在默认数据
                 JSONObject defaultJson = GlobalConfig.getConfig().getDefaultModel();
-                JSONArray defaultArray = (JSONArray) defaultJson.get(modelSimpleName);
+                JSONArray defaultArray = null;
+                if (defaultJson != null) {
+                    defaultArray = (JSONArray) defaultJson.get(modelSimpleName);
+                }
                 List modelDataList = new ArrayList();
                 if (defaultArray != null && !defaultArray.isEmpty()) {
                     Iterator iterator = defaultArray.iterator();

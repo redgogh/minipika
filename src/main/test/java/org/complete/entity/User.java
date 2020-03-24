@@ -17,9 +17,17 @@ package org.complete.entity;
  */
 
 /*
+ * Creates on TODO DATE
+ */
+
+/*
  * Creates on 2020/3/23 23:14
  */
 
+import lombok.Getter;
+import lombok.Setter;
+import org.raniaia.poseidon.framework.provide.model.Column;
+import org.raniaia.poseidon.framework.provide.model.Comment;
 import org.raniaia.poseidon.framework.provide.model.Model;
 import org.raniaia.poseidon.framework.provide.model.PK;
 
@@ -27,9 +35,32 @@ import org.raniaia.poseidon.framework.provide.model.PK;
  * @author tiansheng
  */
 @Model("user")
+@Getter
+@Setter
 public class User {
 
     @PK
+    @Column("int(11) not null")
     private Integer id;
 
+    @Column("varchar(255) not null")
+    @Comment("用户名")
+    private String username;
+
+    @Column("varchar(255) not null")
+    @Comment("用户密码")
+    private String password;
+
+    @Column("varchar(255) not null")
+    @Comment("电子邮箱")
+    private String email;
+
+    public User() {
+    }
+
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 }

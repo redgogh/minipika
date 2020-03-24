@@ -17,6 +17,10 @@ package org.complete.entity;
  */
 
 /*
+ * Creates on TODO DATE
+ */
+
+/*
  * Creates on 2020/3/23 23:16
  */
 
@@ -32,14 +36,11 @@ import org.raniaia.poseidon.framework.provide.model.PK;
 public class Order {
 
     @PK
+    @Column("int(11) not null")
     private Integer id;
 
     @Column("varchar(255) not null")
-    @Comment("用户名")
-    private String username;
-
-    @Column("varchar(255) not null")
-    @Comment("用户密码")
-    private String password;
+    @Comment("订单编号")
+    private Integer orderNumber;
 
 }

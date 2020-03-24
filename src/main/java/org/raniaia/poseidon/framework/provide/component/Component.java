@@ -17,7 +17,7 @@ package org.raniaia.poseidon.framework.provide.component;
  */
 
 /*
- * Creates on 2020/3/21 1:09
+ * Creates on 2020/3/21.
  */
 
 import java.lang.annotation.*;
@@ -25,6 +25,8 @@ import java.lang.annotation.*;
 /**
  * Class annotated with {@code Component} means a poseidon component.
  * It is recommended that each component implement a interface
+ *
+ * @author tiansheng
  * @since 1.1.7.STAR
  */
 @Target({ElementType.TYPE,ElementType.METHOD})

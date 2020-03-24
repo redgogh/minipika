@@ -17,7 +17,7 @@ package org.raniaia.poseidon.components;
  */
 
 /*
- * Creates on 2020/3/21 15:58
+ * Creates on 2020/3/21.
  */
 
 import org.raniaia.poseidon.components.log.LogAdapter;

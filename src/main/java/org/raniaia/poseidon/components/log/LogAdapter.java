@@ -17,7 +17,7 @@ package org.raniaia.poseidon.components.log;
  */
 
 /*
- * Creates on 2019/12/17 18:29
+ * Creates on 2019/12/17.
  */
 
 /**

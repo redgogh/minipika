@@ -1,6 +1,26 @@
 package org.raniaia.poseidon.framework.sql;
 
-import org.raniaia.poseidon.BeanManager;
+/*
+ * Copyright (C) 2020 Tiansheng All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Creates on 2019/12/23.
+ */
+
+import org.raniaia.poseidon.BeansManager;
 import org.raniaia.poseidon.framework.container.PrecompileContainer;
 import org.raniaia.poseidon.components.db.JdbcSupport;
 import org.raniaia.poseidon.framework.provide.Valid;
@@ -10,12 +30,12 @@ import org.raniaia.poseidon.framework.sql.xml.build.PrecompiledMethod;
 import java.util.*;
 
 /**
- * Copyright: Create by tiansheng on 2019/12/23 11:08
+ * @author tiansheng
  */
 public class SqlMapper {
 
-    private Converter converter = BeanManager.newInstance(Converter.class);
-    private PrecompileContainer container = PrecompileContainer.getContainer();
+    private Converter converter = BeansManager.newInstance(Converter.class);
+    private static PrecompileContainer container = PrecompileContainer.getContainer();
 
     @Valid
     private JdbcSupport jdbcSupport;
@@ -30,6 +50,13 @@ public class SqlMapper {
 
     public SqlMapper(String name) {
         this.classValue = container.getValue(name);
+    }
+
+    /**
+     * Is exist mapper.
+     */
+    public static boolean isMapper(String name){
+        return container.getValue(name) != null;
     }
 
     public SqlExecute build(String methodName, Parameter parameter) {
@@ -53,13 +80,12 @@ public class SqlMapper {
     }
 
     public static SqlMapper getMapper(String name) {
-        SqlMapper mapperBean = BeanManager.get(name);
+        SqlMapper mapperBean = BeansManager.get(name);
         if (mapperBean != null) {
             return mapperBean;
         }
-        BeanManager.submitBean(name, BeanManager.newInstance(SqlMapper.class,
-                new Class[]{String.class}, name));
-        return BeanManager.get(name);
+        BeansManager.submitBean(name, BeansManager.newInstance(SqlMapper.class, name));
+        return BeansManager.get(name);
     }
 
 }

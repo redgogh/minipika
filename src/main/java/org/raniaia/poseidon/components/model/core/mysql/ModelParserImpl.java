@@ -17,7 +17,7 @@ package org.raniaia.poseidon.components.model.core.mysql;
  */
 
 /*
- * Creates on 2019/11/12 10:19
+ * Creates on 2019/11/12.
  */
 
 import org.raniaia.poseidon.framework.provide.component.Component;
@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 解析Model中的注解，并生成创建表的SQL
+ * Parse annotation in model, and generator database table.
  *
  * @author tiansheng
  */

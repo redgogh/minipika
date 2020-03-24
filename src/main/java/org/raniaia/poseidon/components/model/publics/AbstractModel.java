@@ -17,7 +17,7 @@ package org.raniaia.poseidon.components.model.publics;
  */
 
 /*
- * Creates on 2020/2/8 16:19
+ * Creates on 2020/2/8.
  */
 
 import lombok.Getter;
