@@ -16,9 +16,7 @@ package org.poseidon;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */
+
 
 import org.jdom2.Document;
 import org.jdom2.Element;

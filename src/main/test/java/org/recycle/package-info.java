@@ -19,6 +19,3 @@ package org.recycle;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */

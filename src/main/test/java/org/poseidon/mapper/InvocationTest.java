@@ -16,9 +16,7 @@ package org.poseidon.mapper;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */
+
 
 import org.junit.Test;
 import org.raniaia.poseidon.BeansManager;

@@ -16,9 +16,7 @@ package org.poseidon.framework.sql.xml.builder;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */
+
 
 import org.raniaia.poseidon.framework.tools.NewlineBuilder;
 import org.raniaia.poseidon.framework.tools.StringUtils;

@@ -16,9 +16,7 @@ package org.keyboard.framework;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */
+
 
 public class Main {
 

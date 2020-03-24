@@ -16,9 +16,7 @@ package org.poseidon.column;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */
+
 
 import org.junit.Test;
 

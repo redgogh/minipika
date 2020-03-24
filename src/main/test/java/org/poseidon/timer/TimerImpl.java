@@ -16,9 +16,7 @@ package org.poseidon.timer;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */
+
 
 import org.raniaia.poseidon.framework.timer.Timer;
 

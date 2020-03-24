@@ -16,9 +16,7 @@ package org.poseidon.javassist;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */
+
 
 /**
  * Copyright by tiansheng on 2020/2/29 2:53

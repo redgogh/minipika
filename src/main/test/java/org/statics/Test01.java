@@ -16,9 +16,7 @@ package org.statics;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */
+
 
 import org.junit.Test;
 

@@ -16,9 +16,7 @@ package org.poseidon.javassist;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */
+
 
 import javassist.*;
 

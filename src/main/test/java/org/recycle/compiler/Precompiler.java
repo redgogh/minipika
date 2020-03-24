@@ -16,9 +16,7 @@ package org.recycle.compiler;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */
+
 
 import javassist.*;
 

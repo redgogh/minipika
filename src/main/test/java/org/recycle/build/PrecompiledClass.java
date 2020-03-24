@@ -16,9 +16,7 @@ package org.recycle.build;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */
+
 
 import lombok.Getter;
 import lombok.Setter;

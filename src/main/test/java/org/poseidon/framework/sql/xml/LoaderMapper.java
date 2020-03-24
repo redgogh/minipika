@@ -16,9 +16,7 @@ package org.poseidon.framework.sql.xml;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */
+
 
 import org.recycle.build.ParserMapperNode;
 import org.junit.Test;

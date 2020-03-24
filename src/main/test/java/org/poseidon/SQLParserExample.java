@@ -16,9 +16,7 @@ package org.poseidon;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */
+
 
 import net.sf.jsqlparser.JSQLParserException;
 import org.raniaia.poseidon.framework.tools.SQLUtils;

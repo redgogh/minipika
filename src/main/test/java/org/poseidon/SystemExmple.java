@@ -16,9 +16,7 @@ package org.poseidon;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */
+
 
 import java.net.MalformedURLException;
 

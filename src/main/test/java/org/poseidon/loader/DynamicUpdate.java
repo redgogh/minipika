@@ -16,9 +16,7 @@ package org.poseidon.loader;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */
+
 
 import javassist.ClassPool;
 import javassist.CtClass;

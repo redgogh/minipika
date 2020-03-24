@@ -20,6 +20,3 @@ package org.keyboard;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */

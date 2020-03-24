@@ -16,9 +16,7 @@ package org.poseidon.framework.compiler;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */
+
 
 import javax.tools.*;
 import java.io.*;

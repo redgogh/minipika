@@ -16,9 +16,7 @@ package org.poseidon.tools;
  * limitations under the License.
  */
 
-/*
- * Creates on TODO DATE
- */
+
 
 import org.raniaia.poseidon.framework.tools.ModelUtils;
 import org.poseidon.experiment.ProductModel;
