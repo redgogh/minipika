@@ -23,7 +23,7 @@ import org.poseidon.experiment.ProductModel;
 import org.poseidon.experiment.UserModel;
 import org.raniaia.poseidon.BeansManager;
 import org.raniaia.poseidon.components.cache.PoseidonCache;
-import org.raniaia.poseidon.components.db.JdbcSupport;
+import org.raniaia.poseidon.components.jdbc.JdbcSupport;
 import org.raniaia.poseidon.framework.tools.POFUtils;
 import org.raniaia.poseidon.framework.tools.DateUtils;
 

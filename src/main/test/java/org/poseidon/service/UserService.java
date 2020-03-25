@@ -20,7 +20,7 @@ package org.poseidon.service;
 
 
 import org.raniaia.poseidon.BeansManager;
-import org.raniaia.poseidon.components.db.JdbcSupport;
+import org.raniaia.poseidon.components.jdbc.JdbcSupport;
 
 /**
  * @author tiansheng

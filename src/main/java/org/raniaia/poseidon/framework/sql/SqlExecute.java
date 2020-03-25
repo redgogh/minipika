@@ -21,7 +21,7 @@ package org.raniaia.poseidon.framework.sql;
  */
 
 import lombok.Getter;
-import org.raniaia.poseidon.components.db.JdbcSupport;
+import org.raniaia.poseidon.components.jdbc.JdbcSupport;
 
 import java.util.List;
 

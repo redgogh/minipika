@@ -21,8 +21,8 @@ package org.raniaia.poseidon;
  */
 
 import org.raniaia.poseidon.components.MyComponents;
-import org.raniaia.poseidon.components.db.NativeResult;
-import org.raniaia.poseidon.components.db.NativeResultMysql;
+import org.raniaia.poseidon.components.jdbc.NativeResult;
+import org.raniaia.poseidon.components.jdbc.NativeResultMysql;
 import org.raniaia.poseidon.framework.sql.SqlMapper;
 
 /**

@@ -22,7 +22,7 @@ package org.raniaia.poseidon.framework.sql;
 
 import org.raniaia.poseidon.BeansManager;
 import org.raniaia.poseidon.framework.container.PrecompileContainer;
-import org.raniaia.poseidon.components.db.JdbcSupport;
+import org.raniaia.poseidon.components.jdbc.JdbcSupport;
 import org.raniaia.poseidon.framework.provide.Valid;
 import org.raniaia.poseidon.framework.sql.xml.build.PrecompiledClass;
 import org.raniaia.poseidon.framework.sql.xml.build.PrecompiledMethod;

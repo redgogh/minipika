@@ -20,7 +20,7 @@ package org.raniaia.poseidon.components.cache;
  * Creates on 2019/12/4.
  */
 
-import org.raniaia.poseidon.components.db.NativeResult;
+import org.raniaia.poseidon.components.jdbc.NativeResult;
 import org.raniaia.poseidon.framework.provide.component.Component;
 import org.raniaia.poseidon.framework.tools.POFUtils;
 import org.raniaia.poseidon.framework.tools.SQLUtils;

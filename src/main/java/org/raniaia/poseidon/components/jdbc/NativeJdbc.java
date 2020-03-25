@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.components.db;
+package org.raniaia.poseidon.components.jdbc;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.

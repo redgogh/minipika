@@ -21,7 +21,7 @@ package org.poseidon.column;
 import org.junit.Test;
 
 import org.raniaia.poseidon.BeansManager;
-import org.raniaia.poseidon.components.db.JdbcSupport;
+import org.raniaia.poseidon.components.jdbc.JdbcSupport;
 import org.raniaia.poseidon.components.model.database.ColumnPo;
 
 import java.util.List;

@@ -25,7 +25,7 @@ import org.complete.entity.User;
 import org.complete.mapper.UserMapper;
 import org.raniaia.poseidon.BeansManager;
 import org.raniaia.poseidon.components.config.ConfigLoader;
-import org.raniaia.poseidon.components.db.JdbcSupport;
+import org.raniaia.poseidon.components.jdbc.JdbcSupport;
 import org.raniaia.poseidon.framework.provide.Valid;
 
 /**

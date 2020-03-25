@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.components.db;
+package org.raniaia.poseidon.components.jdbc;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -17,12 +17,21 @@ package org.raniaia.poseidon.components.db;
  */
 
 /*
- * Creates on 2020/1/30.
+ * Creates on 2019/12/3.
  */
 
 /**
+ * 分页插件
  * @author tiansheng
  */
-public interface Transaction {
+public class PageHelper extends NativePageHelper {
+
+    public PageHelper(Class<?> generic) {
+        super(generic);
+    }
+
+    public PageHelper(int pageNum, int pageSize, Class<?> generic) {
+        super(pageNum, pageSize, generic);
+    }
 
 }

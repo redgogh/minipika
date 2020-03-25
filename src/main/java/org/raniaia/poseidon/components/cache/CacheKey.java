@@ -22,7 +22,7 @@ package org.raniaia.poseidon.components.cache;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.raniaia.poseidon.components.db.NativeJdbc;
+import org.raniaia.poseidon.components.jdbc.NativeJdbc;
 
 import java.util.List;
 
