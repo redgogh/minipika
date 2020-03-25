@@ -1,7 +1,7 @@
-package org.raniaia.poseidon.components.log.slf4j;
+package org.component;
 
 /*
- * Copyright (C) 2020 Tiansheng All rights reserved.
+ * Copyright (C) 2020 tiansheng All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,27 +17,23 @@ package org.raniaia.poseidon.components.log.slf4j;
  */
 
 /*
- * Creates on 2019/12/17.
+ * Creates on 2020/3/26.
  */
 
-import org.raniaia.poseidon.components.log.LogAdapter;
+import org.junit.Test;
 import org.raniaia.poseidon.components.log.Log;
-import org.raniaia.poseidon.framework.provide.component.Component;
+import org.raniaia.poseidon.components.log.LogFactory;
 
 /**
  * @author tiansheng
  */
-@Component
-public class Slf4jAdapter implements LogAdapter {
+public class LogTest {
 
-    @Override
-    public Log getLog(String key) {
-        return new Slf4jLog(org.slf4j.LoggerFactory.getLogger(key));
-    }
+    Log log = LogFactory.getLog(LogTest.class);
 
-    @Override
-    public Log getLog(Class<?> key) {
-        return new Slf4jLog(org.slf4j.LoggerFactory.getLogger(key));
+    @Test
+    public void logTest(){
+        log.error("log error test.");
     }
 
 }

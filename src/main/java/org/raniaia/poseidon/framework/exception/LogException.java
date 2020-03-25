@@ -1,7 +1,7 @@
-package org.raniaia.poseidon.framework.exception.runtime;
+package org.raniaia.poseidon.framework.exception;
 
 /*
- * Copyright (C) 2020 Tiansheng All rights reserved.
+ * Copyright (C) 2020 tiansheng All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,30 +17,30 @@ package org.raniaia.poseidon.framework.exception.runtime;
  */
 
 /*
- * Creates on 2019/12/18.
+ * Creates on 2020/3/25.
  */
 
 /**
  * @author tiansheng
  */
-public class DynamicSQLException extends RuntimeException {
+public class LogException extends PoseidonException {
 
-    public DynamicSQLException() {
+    public LogException() {
     }
 
-    public DynamicSQLException(String message) {
+    public LogException(String message) {
         super(message);
     }
 
-    public DynamicSQLException(String message, Throwable cause) {
+    public LogException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public DynamicSQLException(Throwable cause) {
+    public LogException(Throwable cause) {
         super(cause);
     }
 
-    public DynamicSQLException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public LogException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

@@ -58,4 +58,8 @@ public class Slf4jLog implements Log {
         logger.error(msg);
     }
 
+    @Override
+    public void error(String msg, Throwable e) {
+        logger.error(msg, e);
+    }
 }

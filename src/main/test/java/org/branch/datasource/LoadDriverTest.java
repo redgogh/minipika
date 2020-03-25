@@ -1,4 +1,4 @@
-package org.branch.jdbc;
+package org.branch.datasource;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.

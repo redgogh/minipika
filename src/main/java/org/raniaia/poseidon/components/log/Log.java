@@ -37,4 +37,6 @@ public interface Log {
 
     void error(String msg);
 
+    void error(String msg,Throwable e);
+
 }

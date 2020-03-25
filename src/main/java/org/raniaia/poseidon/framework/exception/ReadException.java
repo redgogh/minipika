@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.framework.exception.runtime;
+package org.raniaia.poseidon.framework.exception;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,11 +20,13 @@ package org.raniaia.poseidon.framework.exception.runtime;
  * Creates on 2019/12/3.
  */
 
+import org.raniaia.poseidon.framework.exception.PoseidonException;
+
 /**
  * @author tiansheng
  */
 public class
-ReadException extends RuntimeException {
+ReadException extends PoseidonException {
 
     public ReadException() {
     }

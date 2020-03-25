@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.framework.exception.runtime;
+package org.raniaia.poseidon.framework.exception;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -17,31 +17,36 @@ package org.raniaia.poseidon.framework.exception.runtime;
  */
 
 /*
- * Creates on 2020/1/15.
+ * Creates on 2020/2/13.
  */
+
+import org.raniaia.poseidon.framework.exception.PoseidonException;
 
 /**
- * Model异常
  * @author tiansheng
  */
-public class ModelException extends RuntimeException {
+public class ConfigException extends PoseidonException {
 
-    public ModelException() {
+    public ConfigException() {
     }
 
-    public ModelException(String message) {
+    public ConfigException(String message) {
         super(message);
     }
 
-    public ModelException(String message, Throwable cause) {
+    public ConfigException(String message, StringBuilder logger) {
+        super(message + "\n" + logger);
+    }
+
+    public ConfigException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public ModelException(Throwable cause) {
+    public ConfigException(Throwable cause) {
         super(cause);
     }
 
-    public ModelException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public ConfigException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

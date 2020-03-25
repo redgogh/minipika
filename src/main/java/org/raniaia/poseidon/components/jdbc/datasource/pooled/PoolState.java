@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.components.log;
+package org.raniaia.poseidon.components.jdbc.datasource.pooled;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,15 +17,29 @@ package org.raniaia.poseidon.components.log;
  */
 
 /*
- * Creates on 2020/3/26.
+ * Creates on 2020/3/25.
  */
+
+import org.raniaia.available.list.Lists;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author tiansheng
  */
-public interface LogAdapter {
+public class PoolState {
 
-    Log getLog(String key);
-    Log getLog(Class<?> key);
+    private PooledDataSource dataSource;
+
+    final List<PooledConnection> idleConnection = Lists.newArrayList();
+    final List<PooledConnection> activeConnections = Lists.newArrayList();
+
+    public PoolState() {
+    }
+
+    public PoolState(PooledDataSource dataSource){
+        this.dataSource = dataSource;
+    }
 
 }

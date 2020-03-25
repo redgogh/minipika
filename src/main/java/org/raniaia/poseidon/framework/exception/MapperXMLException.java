@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.framework.exception.runtime;
+package org.raniaia.poseidon.framework.exception;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,10 +20,12 @@ package org.raniaia.poseidon.framework.exception.runtime;
  * Creates on 2019/12/18.
  */
 
+import org.raniaia.poseidon.framework.exception.PoseidonException;
+
 /**
  * @author tiansheng
  */
-public class MapperXMLException extends RuntimeException {
+public class MapperXMLException extends PoseidonException {
 
     public MapperXMLException() {
     }

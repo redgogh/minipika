@@ -20,6 +20,10 @@ package org.raniaia.poseidon.components.jdbc.datasource.pooled;
  * Creates on 2020/3/25.
  */
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
+import org.raniaia.poseidon.components.jdbc.datasource.unpooled.IDataSource;
+import org.raniaia.poseidon.components.jdbc.datasource.unpooled.UnpooledDatasource;
+
 import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -34,6 +38,56 @@ import java.util.logging.Logger;
  * @author tiansheng
  */
 public class PooledDataSource implements DataSource {
+
+    private final PoolState state = new PoolState(this);
+
+    // Unpooled DataSource.
+    private final UnpooledDatasource datasource;
+
+    /**
+     * Maximum idle connections.
+     */
+    int poolMaximumIdleConnections = 0;
+
+    /**
+     * Minimum idle connections.
+     */
+    int poolMinimumIdleConnections = 0;
+
+    public PooledDataSource(){
+        this.datasource = new UnpooledDatasource();
+    }
+
+    public PooledDataSource(IDataSource iDataSource){
+        this.datasource = new UnpooledDatasource(iDataSource);
+    }
+
+    /**
+     * Pop connection.
+     */
+    // 弹出链接
+    private PooledConnection popConnection(String username, String password) throws SQLException {
+        return null;
+    }
+
+    /**
+     * Return connection.
+     */
+    // 归还链接
+    protected void pushConnection(PooledConnection conn) throws SQLException {
+        synchronized (state) {
+            state.activeConnections.remove(conn);
+            if(conn.isValid()){
+                if (state.idleConnection.size() < poolMaximumIdleConnections)
+                state.idleConnection.add(conn);
+                PooledConnection newConn = new PooledConnection(conn.getRealConnection(),this);
+                state.idleConnection.add(newConn);
+                state.notifyAll();
+            }else{
+
+            }
+        }
+    }
 
     @Override
     public Connection getConnection() throws SQLException {

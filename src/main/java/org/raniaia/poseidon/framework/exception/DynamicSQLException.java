@@ -17,30 +17,32 @@ package org.raniaia.poseidon.framework.exception;
  */
 
 /*
- * Creates on 2019/11/12.
+ * Creates on 2019/12/18.
  */
+
+import org.raniaia.poseidon.framework.exception.PoseidonException;
 
 /**
  * @author tiansheng
  */
-public class PoseidonException extends RuntimeException {
+public class DynamicSQLException extends PoseidonException {
 
-    public PoseidonException() {
+    public DynamicSQLException() {
     }
 
-    public PoseidonException(String message) {
+    public DynamicSQLException(String message) {
         super(message);
     }
 
-    public PoseidonException(String message, Throwable cause) {
+    public DynamicSQLException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public PoseidonException(Throwable cause) {
+    public DynamicSQLException(Throwable cause) {
         super(cause);
     }
 
-    public PoseidonException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public DynamicSQLException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

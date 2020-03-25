@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.components.log;
+package org.raniaia.poseidon.components.log.slf4j;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,12 +20,21 @@ package org.raniaia.poseidon.components.log;
  * Creates on 2020/3/26.
  */
 
+import org.raniaia.poseidon.components.log.Log;
+import org.raniaia.poseidon.components.log.LogAdapter;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author tiansheng
  */
-public interface LogAdapter {
+public class Slf4jLogAdapter implements LogAdapter {
 
-    Log getLog(String key);
-    Log getLog(Class<?> key);
+    public Log getLog(String key){
+        return new Slf4jLog(LoggerFactory.getLogger(key));
+    }
+
+    public Log getLog(Class<?> key){
+        return new Slf4jLog(LoggerFactory.getLogger(key));
+    }
 
 }

@@ -24,7 +24,7 @@ import org.raniaia.poseidon.framework.provide.model.Ignore;
 import org.raniaia.poseidon.framework.provide.model.Model;
 import org.raniaia.poseidon.components.config.GlobalConfig;
 import org.raniaia.poseidon.framework.exception.PoseidonException;
-import org.raniaia.poseidon.framework.exception.runtime.ModelException;
+import org.raniaia.poseidon.framework.exception.ModelException;
 
 import java.io.File;
 import java.lang.reflect.Field;
