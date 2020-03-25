@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.components.jdbc.datasource;
+package org.raniaia.poseidon.components.jdbc.datasource.distribute;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -21,8 +21,10 @@ package org.raniaia.poseidon.components.jdbc.datasource;
  */
 
 /**
- * Simple datasource.
+ * 支持分布式的数据源
+ * Distributed datasource.
+ *
  * @author tiansheng
  */
-public class NativeDatasource {
+public class DistributeDatasource {
 }
