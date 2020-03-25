@@ -20,22 +20,58 @@ package org.raniaia.poseidon.components.jdbc.datasource.unpooled;
  * Creates on 2020/3/25.
  */
 
+import org.raniaia.available.map.Maps;
+import org.raniaia.poseidon.framework.loader.NativeClassLoader;
+import org.raniaia.poseidon.framework.tools.StringUtils;
+
+import java.sql.Driver;
+import java.util.Map;
+import java.util.Properties;
+
 /**
  * @author tiansheng
  */
 public class IDataSource {
+
+    // 存放驱动实例
+    static Map<String, Driver> registerDrivers = Maps.newConcurrentHashMap();
 
     String url;
     String driver;
     String username;
     String password;
 
-    public IDataSource(){}
+    ClassLoader driverClassLoader;
+
+    // 是否设置为自动提交
+    Boolean autoCommit;
+
+    public IDataSource() {
+    }
 
     public IDataSource(String url, String driver, String username, String password) {
+        this(url, driver, username, password, false, new NativeClassLoader());
+    }
+
+    public IDataSource(String url, String driver, String username, String password,
+                       Boolean autoCommit, ClassLoader classLoader) {
         this.url = url;
         this.driver = driver;
         this.username = username;
         this.password = password;
+        this.autoCommit = autoCommit;
+        this.driverClassLoader = classLoader;
     }
+
+    static Properties buildDriverInfo(String username, String password) {
+        final Properties info = new Properties();
+        if (!StringUtils.isEmpty(username)) {
+            info.setProperty("user", username);
+        }
+        if (!StringUtils.isEmpty(password)) {
+            info.setProperty("password", password);
+        }
+        return info;
+    }
+
 }

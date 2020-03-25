@@ -20,30 +20,23 @@ package org.raniaia.poseidon.components.jdbc.datasource.unpooled;
  * Creates on 2020/3/25.
  */
 
-import org.raniaia.available.map.Maps;
 import org.raniaia.poseidon.framework.loader.NativeClassLoader;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.*;
-import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
 
 /**
- * 不支持连接池的数据源
  * Not support connection pool the datasource.
  *
  * @author tiansheng
  */
 public class UnpooledDatasource implements DataSource {
 
-    // 驱动属性
-    private Properties driverProperties;
-    private NativeClassLoader nativeClassLoader;
-
-    // 存放驱动实例
-    private static Map<String, Driver> registerDrivers = Maps.newConcurrentHashMap();
+    // 负责加载驱动的类加载器
+    private ClassLoader driverClassLoader;
 
     // 保存URL，DRIVER等属性的POJO
     private IDataSource iDataSource;
@@ -52,24 +45,51 @@ public class UnpooledDatasource implements DataSource {
     }
 
     public UnpooledDatasource(IDataSource iDataSource) {
-        this.iDataSource = iDataSource;
+        this(iDataSource,null);
     }
 
-    private Connection doGetConnection() {
-        return doGetConnection();
+    public UnpooledDatasource(IDataSource iDataSource,ClassLoader classLoader) {
+        this.iDataSource = iDataSource;
+        if(classLoader != null){
+            this.driverClassLoader = classLoader;
+        }else{
+            this.driverClassLoader = iDataSource.driverClassLoader;
+        }
+    }
+
+    private Connection doGetConnection() throws SQLException {
+        return doGetConnection(iDataSource.username,iDataSource.password);
+    }
+
+    private Connection doGetConnection(String username,String password) throws SQLException {
+        initializeDriver();
+        Driver driver = IDataSource.registerDrivers.get(iDataSource.driver);
+        Connection connection = driver.connect(iDataSource.url, IDataSource.buildDriverInfo(username,password));
+        configureConnection(connection);
+        return connection;
+    }
+
+    private void configureConnection(Connection conn) throws SQLException {
+        // 是否自动提交
+        if (iDataSource.autoCommit != null && iDataSource.autoCommit != conn.getAutoCommit()) {
+            conn.setAutoCommit(iDataSource.autoCommit);
+        }
     }
 
     /**
      * 初始化当前{@link IDataSource#driver}中的驱动
      */
     private synchronized void initializeDriver() throws SQLException {
-        if (!registerDrivers.containsKey(iDataSource.driver)) {
+        if (!IDataSource.registerDrivers.containsKey(iDataSource.driver)) {
             Class<?> driver = null;
             try {
-                Class.forName(iDataSource.driver, true, nativeClassLoader);
+                driver = Class.forName(iDataSource.driver, true, driverClassLoader);
                 Driver driverInstance = (Driver) driver.newInstance();
+                //
+                // 代理的作用是防止在多线程环境下实例化驱动导致死锁问题
+                //
                 DriverManager.registerDriver(new DriverProxy(driverInstance));
-                registerDrivers.put(iDataSource.driver, driverInstance);
+                IDataSource.registerDrivers.put(iDataSource.driver, driverInstance);
             } catch (Exception e) {
                 throw new SQLException("Error setting jdbc driver on UnpooledDataSource. Cause: " + e);
             }
@@ -78,12 +98,12 @@ public class UnpooledDatasource implements DataSource {
 
     @Override
     public Connection getConnection() throws SQLException {
-        return null;
+        return doGetConnection();
     }
 
     @Override
     public Connection getConnection(String username, String password) throws SQLException {
-        return null;
+        return doGetConnection(username, password);
     }
 
     @Override
@@ -98,32 +118,32 @@ public class UnpooledDatasource implements DataSource {
 
     @Override
     public PrintWriter getLogWriter() throws SQLException {
-        return null;
+        return DriverManager.getLogWriter();
     }
 
     @Override
     public void setLogWriter(PrintWriter out) throws SQLException {
-
+        DriverManager.setLogWriter(out);
     }
 
     @Override
     public void setLoginTimeout(int seconds) throws SQLException {
-
+        DriverManager.setLoginTimeout(seconds);
     }
 
     @Override
     public int getLoginTimeout() throws SQLException {
-        return 0;
+        return DriverManager.getLoginTimeout();
     }
 
     @Override
     public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-        return null;
+        return Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     }
 
-    /**
-     * 驱动代理类
-     */
+    //
+    // 驱动代理
+    //
     class DriverProxy implements Driver {
 
         final Driver d;
