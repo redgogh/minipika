@@ -24,7 +24,7 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 import org.raniaia.poseidon.framework.sql.xml.node.XMLNode;
-import org.raniaia.poseidon.framework.exception.runtime.BuilderXmlException;
+import org.raniaia.poseidon.framework.exception.BuilderXmlException;
 import org.raniaia.poseidon.framework.sql.xml.node.XMLMapperNode;
 import org.raniaia.poseidon.framework.tools.POFUtils;
 import org.raniaia.poseidon.framework.tools.StringUtils;

@@ -24,7 +24,6 @@ import org.raniaia.available.reflect.Annotations;
 import org.raniaia.available.reflect.ClassUtils;
 import org.raniaia.available.reflect.Fields;
 import org.raniaia.available.reflect.Methods;
-import org.raniaia.poseidon.components.log.LogAdapter;
 import org.raniaia.poseidon.framework.mapper.MapperInvocation;
 import org.raniaia.poseidon.framework.provide.ProvideVar;
 import org.raniaia.poseidon.framework.provide.Valid;
@@ -129,18 +128,11 @@ public abstract class AbstractContainer extends RootContainer<String, Object> {
                 String componentName = field.getType().getSimpleName();
                 Object componentInstance = getRoots0(componentName);
                 if (componentInstance == null) {
-                    // if component is Log component.
-                    if (ProvideVar.LOG_COMPONENT.equals(componentName)) {
-                        LogAdapter logAdapter = (LogAdapter)
-                                ClassUtils.newInstance(getComponents0(ProvideVar.LOG_ADAPTER_COMPONENT));
-                        componentInstance = logAdapter.getLog(instance.getClass());
-                    } else {
-                        Class<?> componentClass = getComponents0(componentName);
-                        if (componentClass == null) {
-                            throw new NullPointerException("cannot found [" + componentName + "] component");
-                        }
-                        componentInstance = ClassUtils.newInstance(componentClass);
+                    Class<?> componentClass = getComponents0(componentName);
+                    if (componentClass == null) {
+                        throw new NullPointerException("cannot found [" + componentName + "] component");
                     }
+                    componentInstance = ClassUtils.newInstance(componentClass);
                     inject(componentInstance);
                 }
                 Fields.set(instance, componentInstance, field);

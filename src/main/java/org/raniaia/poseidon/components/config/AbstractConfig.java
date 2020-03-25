@@ -24,7 +24,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import org.raniaia.available.io.file.Files;
-import org.raniaia.poseidon.framework.exception.runtime.ConfigException;
+import org.raniaia.poseidon.framework.exception.ConfigException;
 import org.raniaia.poseidon.framework.jap.JapLoader;
 import org.raniaia.poseidon.framework.tools.Calculator;
 import org.raniaia.poseidon.framework.tools.StringUtils;

@@ -20,9 +20,11 @@ package org.raniaia.poseidon.framework.sql.xml.build;
  * Creates on 2019/12/17.
  */
 
+import kotlin.DslMarker;
 import org.raniaia.poseidon.components.log.Log;
-import org.raniaia.poseidon.framework.exception.runtime.DynamicSQLException;
-import org.raniaia.poseidon.framework.exception.runtime.ExpressionException;
+import org.raniaia.poseidon.components.log.LogFactory;
+import org.raniaia.poseidon.framework.exception.DynamicSQLException;
+import org.raniaia.poseidon.framework.exception.ExpressionException;
 import org.raniaia.poseidon.framework.provide.ProvideVar;
 import org.raniaia.poseidon.framework.provide.Valid;
 import org.raniaia.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
@@ -54,8 +56,7 @@ public class ParserCrudNode {
      */
     private String builderName;
 
-    @Valid
-    private Log log;
+    private static final Log log = LogFactory.getLog(ParserCrudNode.class);
 
     public PrecompiledMethod parse(XMLDynamicSqlNode mapperNode, XMLMapperNode builderNode) {
         this.mapperName = mapperNode.getName();
@@ -178,7 +179,7 @@ public class ParserCrudNode {
                 || !"{".equals(parameter.substring(1, 2))
                 || !"}".equals(parameter.substring(length - 1, length))
                 || !"}".equals(parameter.substring(length - 2, length - 1))) {
-            log.error("parameter '" + parameter + "' format error. correct format is '{{parameterName}}'");
+            log.error("Error parameter '" + parameter + "' format error. correct format is '{{parameterName}}'");
         }
     }
 
@@ -292,7 +293,7 @@ public class ParserCrudNode {
         while (matcher1.find()) {
             if (count >= 1) {
                 throw new DynamicSQLException("tag: multiple parameter need '" + ProvideVar.PARAMETER_SELECT
-                        + "' in mapper:"+builderName+" : "+mapperName);
+                        + "' in mapper:" + builderName + " : " + mapperName);
             }
             result = matcher1.group(1);
             count++;

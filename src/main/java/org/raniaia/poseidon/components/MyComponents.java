@@ -17,21 +17,11 @@ package org.raniaia.poseidon.components;
  */
 
 /*
- * Creates on 2020/3/21.
+ * Creates on 2020/3/26.
  */
-
-import org.raniaia.poseidon.components.log.LogAdapter;
-import org.raniaia.poseidon.components.log.slf4j.Slf4jAdapter;
-import org.raniaia.poseidon.framework.provide.component.Component;
 
 /**
- * During initialization loading the components.
+ * @author tiansheng
  */
 public class MyComponents {
-
-    @Component
-    LogAdapter newLogAdapter(){
-        return new Slf4jAdapter();
-    }
-
 }

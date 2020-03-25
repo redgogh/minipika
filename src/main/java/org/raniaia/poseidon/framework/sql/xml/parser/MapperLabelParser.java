@@ -24,7 +24,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jdom2.Content;
 import org.jdom2.Element;
-import org.raniaia.poseidon.framework.exception.runtime.ExpressionException;
+import org.raniaia.poseidon.framework.exception.ExpressionException;
 import org.raniaia.poseidon.framework.provide.ProvideVar;
 import org.raniaia.poseidon.framework.sql.xml.node.XMLNode;
 import org.raniaia.poseidon.framework.tools.StringUtils;

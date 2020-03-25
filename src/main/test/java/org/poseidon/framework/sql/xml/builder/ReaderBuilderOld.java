@@ -19,8 +19,8 @@ package org.poseidon.framework.sql.xml.builder;
 
 
 
-import org.raniaia.poseidon.framework.exception.runtime.BuilderXmlException;
-import org.raniaia.poseidon.framework.exception.runtime.ExpressionException;
+import org.raniaia.poseidon.framework.exception.BuilderXmlException;
+import org.raniaia.poseidon.framework.exception.ExpressionException;
 import org.raniaia.poseidon.framework.provide.ProvideVar;
 import org.raniaia.poseidon.framework.sql.xml.token.Token;
 import org.raniaia.poseidon.framework.sql.xml.token.TokenValue;

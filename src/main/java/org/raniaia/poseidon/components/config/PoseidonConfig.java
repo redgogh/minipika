@@ -20,7 +20,7 @@ package org.raniaia.poseidon.components.config;
  * Creates on 2020/2/13.
  */
 
-import org.raniaia.poseidon.framework.exception.runtime.ConfigException;
+import org.raniaia.poseidon.framework.exception.ConfigException;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
 /**

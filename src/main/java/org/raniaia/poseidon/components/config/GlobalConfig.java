@@ -25,7 +25,7 @@ import org.raniaia.poseidon.BeansManager;
 import org.raniaia.poseidon.components.config.components.JapConfig;
 import org.raniaia.poseidon.components.config.components.PropertiesConfig;
 import org.raniaia.poseidon.components.model.core.mysql.ModelLoaderImpl;
-import org.raniaia.poseidon.framework.exception.runtime.ConfigException;
+import org.raniaia.poseidon.framework.exception.ConfigException;
 import org.raniaia.poseidon.components.model.ModelLoader;
 import org.raniaia.poseidon.framework.provide.component.Component;
 

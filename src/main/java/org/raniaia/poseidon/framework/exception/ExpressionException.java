@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.framework.exception.runtime;
+package org.raniaia.poseidon.framework.exception;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -17,31 +17,32 @@ package org.raniaia.poseidon.framework.exception.runtime;
  */
 
 /*
- * Creates on 2019/12/12.
+ * Creates on 2019/12/7.
  */
+
+import org.raniaia.poseidon.framework.exception.PoseidonException;
 
 /**
- * mapper xml文件异常
  * @author tiansheng
  */
-public class BuilderXmlException extends RuntimeException {
+public class ExpressionException extends PoseidonException {
 
-    public BuilderXmlException() {
+    public ExpressionException() {
     }
 
-    public BuilderXmlException(String message) {
+    public ExpressionException(String message) {
         super(message);
     }
 
-    public BuilderXmlException(String message, Throwable cause) {
+    public ExpressionException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public BuilderXmlException(Throwable cause) {
+    public ExpressionException(Throwable cause) {
         super(cause);
     }
 
-    public BuilderXmlException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public ExpressionException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }
