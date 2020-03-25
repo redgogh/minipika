@@ -22,7 +22,7 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
 import javassist.CtNewMethod;
-import org.raniaia.poseidon.framework.loader.PoseidonClassLoader;
+import org.raniaia.poseidon.framework.loader.NativeClassLoader;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/19 10:24
@@ -44,7 +44,7 @@ public class DynamicUpdate {
         ctClass.defrost();
         CtMethod newMethod = CtNewMethod.make(method, ctClass);
         ctClass.addMethod(newMethod);
-        PoseidonClassLoader classLoader = new PoseidonClassLoader();
+        NativeClassLoader classLoader = new NativeClassLoader();
         // todo exception：Exception in thread "main" java.lang.LinkageError: loader (instance of  org/raniaia/poseidon/framework/loader/PoseidonClassLoader): attempted  duplicate class definition for name: "org/raniaia/poseidon/javassist/DynamicUpdate"
         // todo 解决方案：https://blog.csdn.net/is_zhoufeng/article/details/26602689
         Class<?> target = classLoader.findClassByBytes(fullClassName,ctClass.toBytecode());

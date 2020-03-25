@@ -23,18 +23,14 @@ package org.raniaia.poseidon.framework.loader;
 import java.lang.reflect.Field;
 
 /**
- * 类加载器
  * @author tiansheng
  */
-public class PoseidonClassLoader extends ClassLoader{
+public class NativeClassLoader extends ClassLoader{
 
-    public PoseidonClassLoader(){}
+    public NativeClassLoader(){}
 
     /**
      * 根据字节码来加载类
-     * @param name
-     * @param classBytes
-     * @return
      */
     public Class<?> findClassByBytes(String name,byte[] classBytes){
         return defineClass(name,classBytes,0,classBytes.length);

@@ -21,7 +21,7 @@ package org.raniaia.poseidon.framework.sql;
  */
 
 import javassist.*;
-import org.raniaia.poseidon.framework.loader.PoseidonClassLoader;
+import org.raniaia.poseidon.framework.loader.NativeClassLoader;
 import org.raniaia.poseidon.components.pool.PoseidonClassPool;
 import org.raniaia.poseidon.framework.provide.Valid;
 import org.raniaia.poseidon.framework.sql.xml.build.PrecompiledMethod;
@@ -55,7 +55,7 @@ public class Converter {
         ctClass.defrost();
         CtMethod ctMethod = CtNewMethod.make(methodString, ctClass);
         ctClass.addMethod(ctMethod);
-        PoseidonClassLoader classLoader = new PoseidonClassLoader(); // 类加载器
+        NativeClassLoader classLoader = new NativeClassLoader(); // 类加载器
         Class<?> target = classLoader.findClassByBytes(fullClassName, ctClass.toBytecode());
         Object object = target.newInstance();
         Method iMethod = object.getClass().getDeclaredMethod(methodValue.getName(), Map.class, List.class);

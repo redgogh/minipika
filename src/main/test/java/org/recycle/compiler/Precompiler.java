@@ -25,7 +25,7 @@ import org.raniaia.poseidon.components.pool.PoseidonClassPool;
 import org.raniaia.poseidon.framework.provide.ProvideVar;
 import org.recycle.build.PrecompiledClass;
 import org.recycle.build.PrecompiledMethod;
-import org.raniaia.poseidon.framework.loader.PoseidonClassLoader;
+import org.raniaia.poseidon.framework.loader.NativeClassLoader;
 import org.raniaia.poseidon.framework.tools.StringUtils;
 
 import java.util.*;
@@ -73,7 +73,7 @@ public class Precompiler {
             ctClass.defrost();
             CtMethod ctMethod = CtNewMethod.make(methodString, ctClass);
             ctClass.addMethod(ctMethod);
-            PoseidonClassLoader classLoader = new PoseidonClassLoader(); // 类加载器
+            NativeClassLoader classLoader = new NativeClassLoader(); // 类加载器
             Class<?> target = classLoader.findClassByBytes(pc.getFullName(), ctClass.toBytecode());
             Object object = target.newInstance();
             object = classLoader.getObject(target, object);
