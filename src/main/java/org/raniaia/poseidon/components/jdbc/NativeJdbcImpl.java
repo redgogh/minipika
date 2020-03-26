@@ -21,6 +21,8 @@ package org.raniaia.poseidon.components.jdbc;
  */
 
 import org.raniaia.poseidon.BeansManager;
+import org.raniaia.poseidon.components.jdbc.datasource.pooled.PooledConnection;
+import org.raniaia.poseidon.components.log.LogFactory;
 import org.raniaia.poseidon.components.pool.ConnectionPool;
 import org.raniaia.poseidon.components.log.Log;
 import org.raniaia.poseidon.framework.provide.Valid;
@@ -30,12 +32,14 @@ import org.raniaia.poseidon.framework.provide.component.Component;
 import org.raniaia.poseidon.framework.tools.Arrays;
 import org.raniaia.poseidon.framework.tools.SQLUtils;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 底层JDBC处理
+ * Native jdbc operation.
+ *
  * @author tiansheng
  */
 @Component
@@ -43,30 +47,25 @@ import java.util.List;
 public class NativeJdbcImpl implements NativeJdbc {
 
     @Valid
-    private ConnectionPool pool;
+    private ConnectionPool dataSource;
 
     @Valid
     private PoseidonCache cache;
 
-    @Valid(name = "logger")
-    private Log logger;
+    private Log log                         =       LogFactory.getLog(NativeJdbcImpl.class);
 
-    protected final boolean isCache = GlobalConfig.getConfig().getCache();
-    protected final boolean transaction = GlobalConfig.getConfig().getTransaction();
+    protected final boolean isCache         =       GlobalConfig.getConfig().getCache();
+    protected final boolean transaction     =       GlobalConfig.getConfig().getTransaction();
 
     @Override
     public boolean execute(String sql, Object... args) {
-        logger.debug("execute: " + sql);
+        if(log.isDebugEnabled()) {
+            log.debug("execute: " + sql);
+        }
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = pool.getConnection();
-            /*if (connection == null) {
-                synchronized (this) {
-                    wait();
-                }
-                return execute(sql, args);
-            }*/
+            connection = dataSource.getConnection();
             statement = connection.prepareStatement(sql);
             Boolean bool = setValues(statement, args).execute();
             if (transaction) connection.commit(); // 提交
@@ -75,26 +74,21 @@ public class NativeJdbcImpl implements NativeJdbc {
             rollback(connection, transaction);
             e.printStackTrace();
         } finally {
-            close(null, statement, null);
-            release(connection, pool);
+            close(connection, statement, null);
         }
         return false;
     }
 
     @Override
     public NativeResult executeQuery(String sql, Object... args) {
-        logger.debug("query: " + sql);
+        if(log.isDebugEnabled()){
+            log.debug("query: " + sql);
+        }
         NativeResult result = null;
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = pool.getConnection();
-            /*if (connection == null) {
-                synchronized (this) {
-                    wait();
-                }
-                return executeQuery(sql, args);
-            }*/
+            connection = dataSource.getConnection();
             statement = connection.prepareStatement(sql);
             // 判断是否开启缓存
             if (isCache) {
@@ -113,25 +107,20 @@ public class NativeJdbcImpl implements NativeJdbc {
         } catch (Throwable e) {
             e.printStackTrace();
         } finally {
-            close(null, statement, null);
-            release(connection, pool);
+            close(connection, statement, null);
         }
         return null;
     }
 
     @Override
     public int executeUpdate(String sql, Object... args) {
-        logger.debug("update: " + sql);
+        if(log.isDebugEnabled()){
+            log.debug("update: " + sql);
+        }
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = pool.getConnection();
-            /*if (connection == null) {
-                synchronized (this) {
-                    wait();
-                }
-                executeUpdate(sql, args);
-            }*/
+            connection = dataSource.getConnection();
             statement = connection.prepareStatement(sql);
             int result = setValues(statement, args).executeUpdate();
             if (transaction) connection.commit(); // 提交
@@ -141,8 +130,7 @@ public class NativeJdbcImpl implements NativeJdbc {
             rollback(connection, transaction); // 回滚
             e.printStackTrace();
         } finally {
-            close(null, statement, null);
-            release(connection, pool);
+            close(connection, statement, null);
         }
         return 0;
     }
@@ -177,7 +165,7 @@ public class NativeJdbcImpl implements NativeJdbc {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = pool.getConnection();
+            connection = dataSource.getConnection();
             statement = connection.prepareStatement(sql);
             for (Object arg : args) {
                 Object[] value = (Object[]) arg;
@@ -196,8 +184,7 @@ public class NativeJdbcImpl implements NativeJdbc {
             rollback(connection, transaction); // 回滚
             e.printStackTrace();
         } finally {
-            close(null, statement, null);
-            release(connection, pool);
+            close(connection, statement, null);
         }
         return new int[0];
     }
@@ -207,7 +194,7 @@ public class NativeJdbcImpl implements NativeJdbc {
         Connection connection = null;
         Statement statement = null;
         try {
-            connection = pool.getConnection();
+            connection = dataSource.getConnection();
             statement = connection.createStatement();
             int index = -1;
             for (String sql : sqls) {
@@ -223,8 +210,7 @@ public class NativeJdbcImpl implements NativeJdbc {
             rollback(connection, transaction);
             e.printStackTrace();
         } finally {
-            close(null, statement, null);
-            release(connection, pool);
+            close(connection, statement, null);
         }
         return new int[0];
     }
