@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.components.jdbc;
+package org.raniaia.poseidon.components.jdbc.transaction;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,9 +20,22 @@ package org.raniaia.poseidon.components.jdbc;
  * Creates on 2020/1/30.
  */
 
+import org.raniaia.poseidon.framework.provide.SQL;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
 /**
  * @author tiansheng
  */
 public interface Transaction {
+
+    Connection getConnection() throws SQLException;
+
+    void commit() throws SQLException;
+
+    void rollback() throws SQLException;
+
+    void close() throws SQLException;
 
 }

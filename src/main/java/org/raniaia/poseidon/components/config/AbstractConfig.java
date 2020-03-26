@@ -24,7 +24,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import org.raniaia.available.io.file.Files;
-import org.raniaia.poseidon.components.jdbc.datasource.unpooled.IDataSource;
+import org.raniaia.poseidon.components.jdbc.datasource.IDataSource;
 import org.raniaia.poseidon.framework.exception.ConfigException;
 import org.raniaia.poseidon.framework.jap.JapLoader;
 import org.raniaia.poseidon.framework.tools.Calculator;
@@ -44,9 +44,6 @@ class AbstractConfig implements PoseidonConfig {
     @Getter
     protected IDataSource iDataSource;
 
-    // 驱动类型
-    @Getter
-    protected DriverType driverType;
     // 连接池配置
     protected String maxSize;
     protected String minSize;
@@ -57,7 +54,7 @@ class AbstractConfig implements PoseidonConfig {
     // mapper模板文件存放位置
     protected String[] mapperPackage;
     // 是否开启事物
-    protected String transaction;
+    protected String desiredAutoCommit;
     // 是否开启缓存
     protected String cache;
     // 缓存过期时间
@@ -107,13 +104,16 @@ class AbstractConfig implements PoseidonConfig {
         this.maxSize = getValue("connectionPool.maxSize");
         this.minSize = getValue("connectionPool.minSize");
         this.tablePrefix = getValue("model.prefix");
-        this.transaction = getValue("jdbc.transaction");
-
+        this.desiredAutoCommit = getValue("jdbc.desiredAutoCommit");
+        if (StringUtils.isEmpty(desiredAutoCommit)) {
+            this.desiredAutoCommit = "false";
+        }
         this.iDataSource = new IDataSource(
                 getValue("jdbc.url"),
                 getValue("jdbc.driver"),
                 getValue("jdbc.password"),
-                getValue("jdbc.username")
+                getValue("jdbc.username"),
+                Boolean.parseBoolean(this.desiredAutoCommit)
         );
 
         // 模型文件存放目录
@@ -144,7 +144,6 @@ class AbstractConfig implements PoseidonConfig {
             temp = temp.substring(temp.indexOf("/") + 1);
         }
         dbname = temp.substring(0, temp.indexOf("?"));
-        if (StringUtils.isEmpty(transaction)) transaction = "false";
 
     }
 
@@ -178,8 +177,8 @@ class AbstractConfig implements PoseidonConfig {
         return Integer.valueOf(StringUtils.isEmpty(minSize) ? "2" : minSize);
     }
 
-    public Boolean getTransaction() {
-        return Boolean.valueOf(transaction);
+    public Boolean getdesiredAutoCommit() {
+        return Boolean.valueOf(desiredAutoCommit);
     }
 
     public boolean getCache() {

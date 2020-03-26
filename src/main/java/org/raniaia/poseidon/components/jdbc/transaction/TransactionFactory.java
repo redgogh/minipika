@@ -1,7 +1,7 @@
-package org.raniaia.poseidon.components.jdbc;
+package org.raniaia.poseidon.components.jdbc.transaction;
 
 /*
- * Copyright (C) 2020 Tiansheng All rights reserved.
+ * Copyright (C) 2020 tiansheng All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,26 @@ package org.raniaia.poseidon.components.jdbc;
  */
 
 /*
- * Creates on 2020/1/30.
+ * Creates on 2020/3/26.
  */
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.util.Properties;
+
 /**
- * 事务管理器
- *
  * @author tiansheng
  */
-public class TransactionManager implements Transaction{
+public interface TransactionFactory {
+
+    void setProperties(Properties properties);
+
+    void setTransactionIsolationLevel(TransactionIsolationLevel level);
+
+    TransactionIsolationLevel getTransactionIsolationLevel();
+
+    Transaction newTransaction(Connection connection);
+
+    Transaction newTransaction(DataSource dataSource, boolean desiredAutoCommit);
 
 }

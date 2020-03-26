@@ -22,6 +22,10 @@ package org.raniaia.poseidon.components.jdbc;
 
 import org.raniaia.poseidon.BeansManager;
 import org.raniaia.poseidon.components.jdbc.datasource.pooled.PooledConnection;
+import org.raniaia.poseidon.components.jdbc.transaction.Transaction;
+import org.raniaia.poseidon.components.jdbc.transaction.TransactionFactory;
+import org.raniaia.poseidon.components.jdbc.transaction.TransactionIsolationLevel;
+import org.raniaia.poseidon.components.jdbc.transaction.jdbc.JdbcTransaction;
 import org.raniaia.poseidon.components.log.LogFactory;
 
 import org.raniaia.poseidon.components.log.Log;
@@ -46,16 +50,40 @@ import java.util.List;
 @SuppressWarnings("SpellCheckingInspection")
 public class NativeJdbcImpl implements NativeJdbc {
 
-    @Valid
-    private DataSource dataSource;
 
     @Valid
     private PoseidonCache cache;
 
-    private Log log                         =       LogFactory.getLog(NativeJdbcImpl.class);
+    @Valid
+    private DataSource dataSource;
 
-    protected final boolean isCache         =       GlobalConfig.getConfig().getCache();
-    protected final boolean transaction     =       GlobalConfig.getConfig().getTransaction();
+    protected TransactionFactory transactionFactory;
+
+    private Log log                                     =       LogFactory.getLog(NativeJdbcImpl.class);
+
+    protected final boolean isCache                     =       GlobalConfig.getConfig().getCache();
+    protected final boolean desiredAutoCommit           =       GlobalConfig.getConfig().getdesiredAutoCommit();
+
+    public NativeJdbcImpl(){}
+
+    public NativeJdbcImpl(TransactionFactory transactionFactory){
+        this.transactionFactory = transactionFactory;
+    }
+
+    @Override
+    public void setTransactionFactory(TransactionFactory transactionFactory) {
+        this.transactionFactory = transactionFactory;
+    }
+
+    @Override
+    public void setTransactionFactory(TransactionFactory transaction, TransactionIsolationLevel level) {
+
+    }
+
+    @Override
+    public void setTransactionIsolationLevel(TransactionIsolationLevel level) {
+
+    }
 
     @Override
     public boolean execute(String sql, Object... args) {
@@ -68,10 +96,10 @@ public class NativeJdbcImpl implements NativeJdbc {
             connection = dataSource.getConnection();
             statement = connection.prepareStatement(sql);
             Boolean bool = setValues(statement, args).execute();
-            if (transaction) connection.commit(); // 提交
+            if (desiredAutoCommit) connection.commit(); // 提交
             return bool;
         } catch (Exception e) {
-            rollback(connection, transaction);
+            rollback(connection, desiredAutoCommit);
             e.printStackTrace();
         } finally {
             close(connection, statement, null);
@@ -119,15 +147,16 @@ public class NativeJdbcImpl implements NativeJdbc {
         }
         Connection connection = null;
         PreparedStatement statement = null;
+
         try {
             connection = dataSource.getConnection();
             statement = connection.prepareStatement(sql);
             int result = setValues(statement, args).executeUpdate();
-            if (transaction) connection.commit(); // 提交
+            if (desiredAutoCommit) connection.commit(); // 提交
             if (isCache) cache.refresh(sql); // 刷新缓存
             return result;
         } catch (Throwable e) {
-            rollback(connection, transaction); // 回滚
+            rollback(connection, desiredAutoCommit); // 回滚
             e.printStackTrace();
         } finally {
             close(connection, statement, null);
@@ -177,11 +206,11 @@ public class NativeJdbcImpl implements NativeJdbc {
                 statement.addBatch();
             }
             int[] result = statement.executeBatch();
-            if (transaction) connection.commit();
+            if (desiredAutoCommit) connection.commit();
             if (isCache) cache.refresh(sql);
             return result;
         } catch (Throwable e) {
-            rollback(connection, transaction); // 回滚
+            rollback(connection, desiredAutoCommit); // 回滚
             e.printStackTrace();
         } finally {
             close(connection, statement, null);
@@ -201,13 +230,13 @@ public class NativeJdbcImpl implements NativeJdbc {
                 statement.addBatch(SQLUtils.buildPreSQL(sql, args.get(index = (index + 1))));
             }
             int[] result = statement.executeBatch();
-            if (transaction) connection.commit();
+            if (desiredAutoCommit) connection.commit();
             if (isCache) {
                 for (String sql : sqls) cache.refresh(sql);
             }
             return result;
         } catch (Throwable e) {
-            rollback(connection, transaction);
+            rollback(connection, desiredAutoCommit);
             e.printStackTrace();
         } finally {
             close(connection, statement, null);

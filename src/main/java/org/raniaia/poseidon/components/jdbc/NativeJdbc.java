@@ -22,6 +22,10 @@ package org.raniaia.poseidon.components.jdbc;
 
 
 
+import org.raniaia.poseidon.components.jdbc.transaction.Transaction;
+import org.raniaia.poseidon.components.jdbc.transaction.TransactionFactory;
+import org.raniaia.poseidon.components.jdbc.transaction.TransactionIsolationLevel;
+
 import java.sql.*;
 import java.util.List;
 
@@ -32,6 +36,21 @@ import java.util.List;
  * @author tiansheng
  */
 public interface NativeJdbc {
+
+    /*
+     * 设置指定事务工厂
+     */
+    void setTransactionFactory(TransactionFactory transaction);
+
+    /*
+     * 设置指定事务公场, 并设置事务的隔离级别
+     */
+    void setTransactionFactory(TransactionFactory transaction, TransactionIsolationLevel level);
+
+    /*
+     * 单独设置事务隔离级别，前提是必须在事务工厂不为NULL的情况下可设置
+     */
+    void setTransactionIsolationLevel(TransactionIsolationLevel level);
 
     /**
      * 执行任何sql语句
