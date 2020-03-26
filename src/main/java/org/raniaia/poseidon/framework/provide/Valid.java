@@ -34,6 +34,6 @@ import java.lang.annotation.*;
 @Documented
 public @interface Valid {
 
-    String name() default "";
+    String[] paramsId() default {};
 
 }

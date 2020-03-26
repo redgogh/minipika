@@ -121,9 +121,9 @@ public class JdbcTransaction implements Transaction {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Opening jdbc connection.");
         }
-        Connection conn = dataSource.getConnection();
+        this.connection = dataSource.getConnection();
         if (level != null) {
-            conn.setTransactionIsolation(level.getLevel());
+            connection.setTransactionIsolation(level.getLevel());
         }
         setDesiredAutoCommit(desiredAutoCommit);
     }

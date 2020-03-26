@@ -20,23 +20,91 @@ package org.raniaia.poseidon.components.jdbc.transaction;
  * Creates on 2020/3/26.
  */
 
+import org.raniaia.poseidon.components.jdbc.NativeJdbcImpl;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.util.Properties;
 
+/*
+ * 事务工厂
+ */
 /**
+ * Transaction factory.
+ *
  * @author tiansheng
  */
 public interface TransactionFactory {
 
+    /*
+     * 设置属性
+     */
+    /**
+     * Set transaction properties.
+     */
     void setProperties(Properties properties);
 
+    /*
+     * 设置事务的隔离级别
+     */
+    /**
+     * Set transaction isolation level.
+     */
     void setTransactionIsolationLevel(TransactionIsolationLevel level);
 
+    /*
+     * 获取事务的隔离级别
+     */
+    /**
+     * Get transaction isolation level.
+     */
     TransactionIsolationLevel getTransactionIsolationLevel();
 
+    /*
+     * 创建一个新的事务管理器, 通过{@link Connection}创建
+     */
+    /**
+     * Create a new transaction manager.
+     *
+     * @param connection by connection.
+     */
     Transaction newTransaction(Connection connection);
 
+    /*
+     * 创建一个新的事务管理器, 通过数据源和是否自动提交来设置
+     */
+    /**
+     * Create a new transaction manager.
+     *
+     * @param dataSource            The dataSource.
+     * @param desiredAutoCommit     The AutoCommit.
+     *
+     * @see NativeJdbcImpl#execute}
+     * @see NativeJdbcImpl#executeQuery}
+     * @see NativeJdbcImpl#executeUpdate}
+     * @see NativeJdbcImpl#executeBatch}
+     *
+     * @return new transaction manager.
+     */
     Transaction newTransaction(DataSource dataSource, boolean desiredAutoCommit);
+
+    /*
+     * 创建一个新的事务管理器, 通过数据源和是否自动提交来设置
+     */
+    /**
+     * Create a new transaction manager.
+     *
+     * @param dataSource            The dataSource.
+     * @param level                 The jdbc isolation level.
+     * @param desiredAutoCommit     The AutoCommit.
+     *
+     * @see NativeJdbcImpl#execute}
+     * @see NativeJdbcImpl#executeQuery}
+     * @see NativeJdbcImpl#executeUpdate}
+     * @see NativeJdbcImpl#executeBatch}
+     *
+     * @return new transaction manager.
+     */
+    Transaction newTransaction(DataSource dataSource,TransactionIsolationLevel level, boolean desiredAutoCommit);
 
 }

@@ -49,7 +49,7 @@ public class TEST {
         TEST test = BeansManager.newInstance(TEST.class);
         // 测试user对象insert
         test.userInsertByObject();
-        // 测试user mapper映射器
+        // 测试user mapper映射器c
         test.findUserById(1);
     }
 

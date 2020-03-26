@@ -20,8 +20,19 @@ package org.raniaia.poseidon.components;
  * Creates on 2020/3/26.
  */
 
+import org.raniaia.poseidon.components.config.GlobalConfig;
+import org.raniaia.poseidon.components.jdbc.datasource.unpooled.IDataSource;
+import org.raniaia.poseidon.framework.provide.component.Component;
+import org.raniaia.poseidon.framework.provide.component.ComponentType;
+
 /**
  * @author tiansheng
  */
 public class MyComponents {
+
+    @Component(type = ComponentType.PARAMETER, name = "defaultDataSource")
+    public IDataSource getIDataSource(){
+        return GlobalConfig.getConfig().getIDataSource();
+    }
+
 }

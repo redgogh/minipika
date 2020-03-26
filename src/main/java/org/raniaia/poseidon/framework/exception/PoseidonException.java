@@ -43,4 +43,9 @@ public class PoseidonException extends RuntimeException {
     public PoseidonException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
+
+    @Override
+    public void printStackTrace() {
+        super.printStackTrace();
+    }
 }

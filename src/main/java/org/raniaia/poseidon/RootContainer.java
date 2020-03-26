@@ -37,6 +37,7 @@ public class RootContainer<K, V> {
 
     private Map<K, V>               roots               = Maps.newHashMap();
 
+    private Map<String, Object>     parameters          = Maps.newHashMap();
     private Map<String, Class<?>>   components          = Maps.newHashMap();
 
     public void putComponents(Map<String, Class<?>> components) {
@@ -49,12 +50,21 @@ public class RootContainer<K, V> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected <T> T getRoots0(K name) {
         return (T) roots.get(name);
     }
 
     public Class<?> getComponents0(String name) {
         return components.get(name);
+    }
+
+    protected Object getParameter(String name){
+        return parameters.get(name);
+    }
+
+    protected void putParameter(String name,Object value){
+        parameters.put(name, value);
     }
 
     public void submitBean(K key, V bean) {
@@ -68,6 +78,16 @@ public class RootContainer<K, V> {
             name = superArray[0].getSimpleName();
         }
         return name;
+    }
+
+    protected String getSimpleName(Object o){
+        String name = o.getClass().getInterfaces()[0].getSimpleName();
+        return StringUtils.lowerCase(name,1);
+    }
+
+    protected String getSimpleName(Class<?> c){
+        String name = c.getInterfaces()[0].getSimpleName();
+        return StringUtils.lowerCase(name,1);
     }
 
 }

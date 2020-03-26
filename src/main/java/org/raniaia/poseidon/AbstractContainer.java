@@ -27,12 +27,12 @@ import org.raniaia.available.reflect.Methods;
 import org.raniaia.poseidon.components.config.GlobalConfig;
 import org.raniaia.poseidon.components.jdbc.datasource.unpooled.IDataSource;
 import org.raniaia.poseidon.framework.mapper.MapperInvocation;
-import org.raniaia.poseidon.framework.provide.ProvideVar;
 import org.raniaia.poseidon.framework.provide.Valid;
 import org.raniaia.poseidon.framework.provide.component.Component;
+import org.raniaia.poseidon.framework.provide.component.ComponentType;
 import org.raniaia.poseidon.framework.sql.SqlMapper;
+import org.raniaia.poseidon.framework.tools.StringUtils;
 
-import javax.sql.DataSource;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -87,7 +87,7 @@ public abstract class AbstractContainer extends RootContainer<String, Object> {
      * @see RootContainer#getRoots0
      */
     protected <T> T get0(Class<?> clazz) {
-        return get0(clazz.getInterfaces()[0].getSimpleName());
+        return get0(getSimpleName(clazz));
     }
 
     /**
@@ -113,7 +113,15 @@ public abstract class AbstractContainer extends RootContainer<String, Object> {
                 Component component = Annotations.isAnnotation(method, Component.class);
                 if (component != null) {
                     Object object = Methods.invoke(method);
-                    submitBean(object.getClass().getInterfaces()[0].getSimpleName(), object);
+                    if (component.type() == ComponentType.DEFAULT) {
+                        submitBean(getSimpleName(object), object);
+                    } else {
+                        String defaultName = component.name();
+                        if(StringUtils.isEmpty(defaultName)){
+                            defaultName = getSimpleName(object);
+                        }
+                        putParameter(defaultName, object);
+                    }
                 }
             }
         }
@@ -135,13 +143,12 @@ public abstract class AbstractContainer extends RootContainer<String, Object> {
                     if (componentClass == null) {
                         throw new NullPointerException("cannot found [" + componentName + "] component");
                     }
-                    if("DataSource".equals(componentName)){
-                        componentInstance = ClassUtils.newInstance(componentClass,new Class<?>[]{IDataSource.class},
+                    if ("DataSource".equals(componentName)) {
+                        componentInstance = ClassUtils.newInstance(componentClass, new Class<?>[]{IDataSource.class},
                                 GlobalConfig.getConfig().getIDataSource());
-                    }else{
+                    } else {
                         componentInstance = ClassUtils.newInstance(componentClass);
                     }
-
                     inject(componentInstance);
                 }
                 Fields.set(instance, componentInstance, field);
