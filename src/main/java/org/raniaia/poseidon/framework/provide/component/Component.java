@@ -34,4 +34,18 @@ import java.lang.annotation.*;
 @Documented
 public @interface Component {
 
+    /**
+     * component type.
+     *
+     * @see org.raniaia.poseidon.AbstractContainer#loadComponents
+     */
+    ComponentType type() default ComponentType.DEFAULT;
+
+    /**
+     * component name.
+     * 
+     * @see org.raniaia.poseidon.AbstractContainer#loadComponents
+     */
+    String name() default "";
+
 }

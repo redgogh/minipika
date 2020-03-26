@@ -20,24 +20,25 @@ package org.raniaia.poseidon.components.jdbc;
  * Creates on 2019/11/30.
  */
 
+import lombok.SneakyThrows;
 import org.raniaia.poseidon.BeansManager;
-import org.raniaia.poseidon.components.jdbc.datasource.pooled.PooledConnection;
+import org.raniaia.poseidon.components.cache.PoseidonCache;
+import org.raniaia.poseidon.components.config.GlobalConfig;
 import org.raniaia.poseidon.components.jdbc.transaction.Transaction;
 import org.raniaia.poseidon.components.jdbc.transaction.TransactionFactory;
 import org.raniaia.poseidon.components.jdbc.transaction.TransactionIsolationLevel;
-import org.raniaia.poseidon.components.jdbc.transaction.jdbc.JdbcTransaction;
-import org.raniaia.poseidon.components.log.LogFactory;
-
 import org.raniaia.poseidon.components.log.Log;
+import org.raniaia.poseidon.components.log.LogFactory;
 import org.raniaia.poseidon.framework.provide.Valid;
-import org.raniaia.poseidon.components.cache.PoseidonCache;
-import org.raniaia.poseidon.components.config.GlobalConfig;
 import org.raniaia.poseidon.framework.provide.component.Component;
 import org.raniaia.poseidon.framework.tools.Arrays;
 import org.raniaia.poseidon.framework.tools.SQLUtils;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,7 @@ public class NativeJdbcImpl implements NativeJdbc {
     @Valid
     private DataSource dataSource;
 
+    @Valid
     protected TransactionFactory transactionFactory;
 
     private Log log                                     =       LogFactory.getLog(NativeJdbcImpl.class);
@@ -77,37 +79,42 @@ public class NativeJdbcImpl implements NativeJdbc {
 
     @Override
     public void setTransactionFactory(TransactionFactory transaction, TransactionIsolationLevel level) {
-
+        this.transactionFactory = transactionFactory;
+        this.transactionFactory.setTransactionIsolationLevel(level);
     }
 
     @Override
     public void setTransactionIsolationLevel(TransactionIsolationLevel level) {
-
+        this.transactionFactory.setTransactionIsolationLevel(level);
     }
 
     @Override
+    @SneakyThrows
     public boolean execute(String sql, Object... args) {
         if(log.isDebugEnabled()) {
             log.debug("execute: " + sql);
         }
         Connection connection = null;
         PreparedStatement statement = null;
+        Transaction transaction = transactionFactory.newTransaction(dataSource,desiredAutoCommit);
         try {
-            connection = dataSource.getConnection();
+            connection = transaction.getConnection();
             statement = connection.prepareStatement(sql);
             Boolean bool = setValues(statement, args).execute();
-            if (desiredAutoCommit) connection.commit(); // 提交
+            transaction.commit(); // 提交
             return bool;
         } catch (Exception e) {
-            rollback(connection, desiredAutoCommit);
+            transaction.rollback();
             e.printStackTrace();
         } finally {
-            close(connection, statement, null);
+            close(statement);
+            transaction.close();
         }
         return false;
     }
 
     @Override
+    @SneakyThrows
     public NativeResult executeQuery(String sql, Object... args) {
         if(log.isDebugEnabled()){
             log.debug("query: " + sql);
@@ -115,8 +122,9 @@ public class NativeJdbcImpl implements NativeJdbc {
         NativeResult result = null;
         Connection connection = null;
         PreparedStatement statement = null;
+        Transaction transaction = transactionFactory.newTransaction(dataSource,desiredAutoCommit);
         try {
-            connection = dataSource.getConnection();
+            connection = transaction.getConnection();
             statement = connection.prepareStatement(sql);
             // 判断是否开启缓存
             if (isCache) {
@@ -135,31 +143,34 @@ public class NativeJdbcImpl implements NativeJdbc {
         } catch (Throwable e) {
             e.printStackTrace();
         } finally {
-            close(connection, statement, null);
+            close( statement);
+            transaction.close();
         }
         return null;
     }
 
     @Override
+    @SneakyThrows
     public int executeUpdate(String sql, Object... args) {
         if(log.isDebugEnabled()){
-            log.debug("update: " + sql);
+            log.debug("NativeJdbc: execute sql - " + sql);
         }
         Connection connection = null;
         PreparedStatement statement = null;
-
+        Transaction transaction = transactionFactory.newTransaction(dataSource,desiredAutoCommit);
         try {
-            connection = dataSource.getConnection();
+            connection = transaction.getConnection();
             statement = connection.prepareStatement(sql);
             int result = setValues(statement, args).executeUpdate();
-            if (desiredAutoCommit) connection.commit(); // 提交
+            transaction.commit(); // 提交
             if (isCache) cache.refresh(sql); // 刷新缓存
             return result;
         } catch (Throwable e) {
-            rollback(connection, desiredAutoCommit); // 回滚
+            transaction.rollback(); // 回滚
             e.printStackTrace();
         } finally {
-            close(connection, statement, null);
+            close(statement);
+            transaction.close();
         }
         return 0;
     }
@@ -170,6 +181,7 @@ public class NativeJdbcImpl implements NativeJdbc {
     }
 
     @Override
+    @SneakyThrows
     public int[] executeBatch(String sql, Object... args) {
         // 判断sql中是否包含多条sql，根据';'来判断
         out:
@@ -193,8 +205,9 @@ public class NativeJdbcImpl implements NativeJdbc {
         }
         Connection connection = null;
         PreparedStatement statement = null;
+        Transaction transaction = transactionFactory.newTransaction(dataSource,desiredAutoCommit);
         try {
-            connection = dataSource.getConnection();
+            connection = transaction.getConnection();
             statement = connection.prepareStatement(sql);
             for (Object arg : args) {
                 Object[] value = (Object[]) arg;
@@ -206,41 +219,44 @@ public class NativeJdbcImpl implements NativeJdbc {
                 statement.addBatch();
             }
             int[] result = statement.executeBatch();
-            if (desiredAutoCommit) connection.commit();
+            transaction.commit();
             if (isCache) cache.refresh(sql);
             return result;
         } catch (Throwable e) {
-            rollback(connection, desiredAutoCommit); // 回滚
+            transaction.rollback();
             e.printStackTrace();
         } finally {
-            close(connection, statement, null);
+            close(statement);
         }
         return new int[0];
     }
 
     @Override
+    @SneakyThrows
     public int[] executeBatch(String[] sqls, List<Object[]> args) {
-        Connection connection = null;
         Statement statement = null;
+        Connection connection = null;
+        Transaction transaction = transactionFactory.newTransaction(dataSource,desiredAutoCommit);
         try {
-            connection = dataSource.getConnection();
+            connection = transaction.getConnection();
             statement = connection.createStatement();
             int index = -1;
             for (String sql : sqls) {
                 statement.addBatch(SQLUtils.buildPreSQL(sql, args.get(index = (index + 1))));
             }
             int[] result = statement.executeBatch();
-            if (desiredAutoCommit) connection.commit();
+            transaction.commit();
             if (isCache) {
                 for (String sql : sqls) cache.refresh(sql);
             }
             return result;
         } catch (Throwable e) {
-            rollback(connection, desiredAutoCommit);
+            transaction.rollback();
             e.printStackTrace();
         } finally {
-            close(connection, statement, null);
+            close(statement);
         }
         return new int[0];
     }
+
 }

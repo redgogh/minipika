@@ -35,7 +35,7 @@ import java.util.Properties;
 @Component
 public class JdbcTransactionFactory implements TransactionFactory {
 
-    private TransactionIsolationLevel level = TransactionIsolationLevel.TRANSACTION_NONE;
+    private TransactionIsolationLevel level;
 
     @Override
     public void setProperties(Properties properties) {
@@ -62,4 +62,8 @@ public class JdbcTransactionFactory implements TransactionFactory {
         return new JdbcTransaction(dataSource, level, desiredAutoCommit);
     }
 
+    @Override
+    public Transaction newTransaction(DataSource dataSource, TransactionIsolationLevel level, boolean desiredAutoCommit) {
+        return new JdbcTransaction(dataSource, level, desiredAutoCommit);
+    }
 }

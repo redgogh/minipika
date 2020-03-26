@@ -21,7 +21,6 @@ package org.raniaia.poseidon.components.jdbc.datasource.unpooled;
  */
 
 import lombok.Getter;
-import org.raniaia.poseidon.components.jdbc.datasource.IDataSource;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;

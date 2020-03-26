@@ -21,7 +21,6 @@ package org.raniaia.poseidon.components.jdbc;
  */
 
 
-
 import org.raniaia.poseidon.components.jdbc.transaction.Transaction;
 import org.raniaia.poseidon.components.jdbc.transaction.TransactionFactory;
 import org.raniaia.poseidon.components.jdbc.transaction.TransactionIsolationLevel;
@@ -101,7 +100,7 @@ public interface NativeJdbc {
      * @param args
      * @return
      */
-    int[] executeBatch(String[] sqls,List<Object[]> args);
+    int[] executeBatch(String[] sqls, List<Object[]> args);
 
     // 添加预编译sql的参数
     default PreparedStatement setValues(PreparedStatement statement, Object... args) throws SQLException {
@@ -114,12 +113,14 @@ public interface NativeJdbc {
     }
 
     // 关闭流
-    default void close(Connection connection, Statement statement, ResultSet resultSet) {
+    default void close(AutoCloseable... closeables) {
         try {
-            if (resultSet != null) resultSet.close();
-            if (statement != null) statement.close();
-            if (connection != null) connection.close();
-        } catch (SQLException e) {
+            for (AutoCloseable closeable : closeables) {
+                if (closeable != null) {
+                    closeable.close();
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

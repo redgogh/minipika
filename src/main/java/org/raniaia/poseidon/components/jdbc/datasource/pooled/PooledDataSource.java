@@ -21,7 +21,7 @@ package org.raniaia.poseidon.components.jdbc.datasource.pooled;
  */
 
 import lombok.Getter;
-import org.raniaia.poseidon.components.jdbc.datasource.IDataSource;
+import org.raniaia.poseidon.components.jdbc.datasource.unpooled.IDataSource;
 import org.raniaia.poseidon.components.jdbc.datasource.unpooled.UnpooledDatasource;
 import org.raniaia.poseidon.components.log.Log;
 import org.raniaia.poseidon.components.log.LogFactory;

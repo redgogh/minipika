@@ -127,7 +127,7 @@ public class PooledConnection implements InvocationHandler {
     }
 
     @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    public Object invoke(Object proxy, Method method, Object[] args) throws Exception {
         String methodName = method.getName();
         if (CLOSE.equals(methodName)) {
             dataSource.pushConnection(this);
@@ -138,7 +138,7 @@ public class PooledConnection implements InvocationHandler {
                     checkConnection();
                 }
                 return method.invoke(realConnection, args);
-            } catch (Throwable e) {
+            } catch (Exception e) {
                 throw new PoseidonException(e);
             }
         }
