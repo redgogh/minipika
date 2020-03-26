@@ -29,6 +29,7 @@ import org.raniaia.poseidon.components.log.LogFactory;
 import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.logging.Logger;
@@ -53,7 +54,7 @@ public class PooledDataSource implements DataSource {
     /**
      * Maximum idle connections.
      */
-    int poolMaximumIdleConnections = 90;
+    int poolMaximumIdleConnections = 10;
 
     /**
      * Minimum idle connections.
@@ -194,17 +195,38 @@ public class PooledDataSource implements DataSource {
 
     @Override
     public Connection getConnection() throws SQLException {
-        return null;
+        //覆盖了DataSource.getConnection方法，每次都是pop一个Connection，即从池中取出一个来
+        return popConnection().getProxyConnection();
     }
 
     @Override
     public Connection getConnection(String username, String password) throws SQLException {
-        return null;
+        return popConnection(username, password).getProxyConnection();
+    }
+
+    @Override
+    public void setLoginTimeout(int loginTimeout) throws SQLException {
+        DriverManager.setLoginTimeout(loginTimeout);
+    }
+
+    @Override
+    public int getLoginTimeout() throws SQLException {
+        return DriverManager.getLoginTimeout();
+    }
+
+    @Override
+    public void setLogWriter(PrintWriter logWriter) throws SQLException {
+        DriverManager.setLogWriter(logWriter);
+    }
+
+    @Override
+    public PrintWriter getLogWriter() throws SQLException {
+        return DriverManager.getLogWriter();
     }
 
     @Override
     public <T> T unwrap(Class<T> iface) throws SQLException {
-        return null;
+        throw new SQLException(getClass().getName() + " is not a wrapper.");
     }
 
     @Override
@@ -213,27 +235,7 @@ public class PooledDataSource implements DataSource {
     }
 
     @Override
-    public PrintWriter getLogWriter() throws SQLException {
-        return null;
-    }
-
-    @Override
-    public void setLogWriter(PrintWriter out) throws SQLException {
-
-    }
-
-    @Override
-    public void setLoginTimeout(int seconds) throws SQLException {
-
-    }
-
-    @Override
-    public int getLoginTimeout() throws SQLException {
-        return 0;
-    }
-
-    @Override
     public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-        return null;
+        return Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     }
 }
