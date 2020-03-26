@@ -20,9 +20,11 @@ package org.raniaia.poseidon.components.jdbc.datasource.pooled;
  * Creates on 2020/3/25.
  */
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
+import lombok.Getter;
 import org.raniaia.poseidon.components.jdbc.datasource.unpooled.IDataSource;
 import org.raniaia.poseidon.components.jdbc.datasource.unpooled.UnpooledDatasource;
+import org.raniaia.poseidon.components.log.Log;
+import org.raniaia.poseidon.components.log.LogFactory;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
@@ -39,7 +41,11 @@ import java.util.logging.Logger;
  */
 public class PooledDataSource implements DataSource {
 
+
+    @Getter
     private final PoolState state = new PoolState(this);
+
+    private final static Log log = LogFactory.getLog(PooledConnection.class);
 
     // Unpooled DataSource.
     private final UnpooledDatasource datasource;
@@ -47,19 +53,39 @@ public class PooledDataSource implements DataSource {
     /**
      * Maximum idle connections.
      */
-    int poolMaximumIdleConnections = 0;
+    int poolMaximumIdleConnections = 90;
 
     /**
      * Minimum idle connections.
      */
-    int poolMinimumIdleConnections = 0;
+    int poolMinimumIdleConnections = 2;
 
-    public PooledDataSource(){
+    /**
+     * Connection maximum survive time. 3H
+     */
+    // 3小时
+    long maximumTimestamp = 10800L;
+
+    long poolTimeToWait = 20000L;
+
+    public PooledDataSource() {
         this.datasource = new UnpooledDatasource();
     }
 
-    public PooledDataSource(IDataSource iDataSource){
+    public PooledDataSource(IDataSource iDataSource) {
         this.datasource = new UnpooledDatasource(iDataSource);
+        try {
+            for (int i = 0; i < poolMinimumIdleConnections; i++) {
+                state.idleConnections.add(new PooledConnection(datasource.getConnection(), this));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public PooledConnection popConnection() throws SQLException {
+        return popConnection(datasource.getIDataSource().getUsername(),
+                datasource.getIDataSource().getPassword());
     }
 
     /**
@@ -67,7 +93,68 @@ public class PooledDataSource implements DataSource {
      */
     // 弹出链接
     private PooledConnection popConnection(String username, String password) throws SQLException {
-        return null;
+        PooledConnection conn = null;
+        long time = System.currentTimeMillis();
+        // endless loop, until a connection is found.
+        while (conn == null) {
+            synchronized (state) {
+                if (!state.idleConnections.isEmpty()) {
+                    conn = state.idleConnections.remove(0);
+                    if (log.isDebugEnabled()) {
+                        log.debug("Pop out connection " + conn.getRealHasCode() + " from pool.");
+                    }
+                } else {
+                    // if idle connections equals null.
+                    if (state.activeConnections.size() < poolMaximumIdleConnections) {
+                        conn = new PooledConnection(datasource.getConnection(username, password), this);
+                        if (log.isDebugEnabled()) {
+                            log.debug("Creates connection " + conn.getRealHasCode() + ".");
+                        }
+                    } else {
+                        //
+                        // if the connection is not enough.
+                        // then current thread join wait status.
+                        //
+                        // 如果链接已经不够使用了，那么当前线程就进入等待状态。
+                        //
+                        try {
+                            state.hadToWaitCount++;
+                            if (log.isDebugEnabled()) {
+                                log.debug("Waiting as long as " + poolTimeToWait + "milliseconds for connection.");
+                            }
+                            long wt = System.currentTimeMillis();
+                            state.wait(poolTimeToWait);
+                            state.accumulateWaitTime += (System.currentTimeMillis() - wt);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                }
+                // if connection not equals null.
+                if (conn != null) {
+                    if (conn.isValid()) {
+                        conn.setLastUsedTimestamp(System.currentTimeMillis());
+                        state.activeConnections.add(conn);
+                        state.requestCount++;
+                        state.requestAccumulateTime += (System.currentTimeMillis() - time);
+                    } else {
+                        if (log.isDebugEnabled()) {
+                            log.debug("A bad connection (" + conn.getRealHasCode() + ") close. return to another connection.");
+                        }
+                        state.badConnectionCount++;
+                        conn.forceClose(); // 强制关闭链接 | force close.
+                        conn = null;
+                    }
+                }
+            }
+        }
+        if (conn == null) {
+            if (log.isDebugEnabled()) {
+                log.debug("Unknown severe error condition. The connection pool returned a null connection.");
+            }
+            throw new SQLException("Unknown severe error condition. The connection pool returned a null connection.");
+        }
+        return conn;
     }
 
     /**
@@ -77,14 +164,30 @@ public class PooledDataSource implements DataSource {
     protected void pushConnection(PooledConnection conn) throws SQLException {
         synchronized (state) {
             state.activeConnections.remove(conn);
-            if(conn.isValid()){
-                if (state.idleConnection.size() < poolMaximumIdleConnections)
-                state.idleConnection.add(conn);
-                PooledConnection newConn = new PooledConnection(conn.getRealConnection(),this);
-                state.idleConnection.add(newConn);
-                state.notifyAll();
-            }else{
-
+            if (conn.isValid()) {
+                if (state.idleConnections.size() < poolMaximumIdleConnections) {
+                    state.idleConnections.add(conn);
+                    PooledConnection newConn = new PooledConnection(conn.getRealConnection(), this);
+                    newConn.setCreateTimestamp(System.currentTimeMillis());
+                    state.idleConnections.add(newConn);
+                    if(conn.checkoutTimestamp() > maximumTimestamp){
+                        conn.invalidate();
+                    }
+                    if (log.isDebugEnabled()) {
+                        log.debug("Returned connection " + newConn.getRealHasCode() + " to pool.");
+                    }
+                    state.notifyAll();
+                } else {
+                    conn.invalidate();
+                    if (log.isDebugEnabled()) {
+                        log.debug("Closed a connection " + conn.getRealHasCode() + ".");
+                    }
+                }
+            } else {
+                if (log.isDebugEnabled()) {
+                    log.debug("A bad connection (" + conn.getRealHasCode() + ") failure to join connection pool.");
+                }
+                state.badConnectionCount++;
             }
         }
     }
