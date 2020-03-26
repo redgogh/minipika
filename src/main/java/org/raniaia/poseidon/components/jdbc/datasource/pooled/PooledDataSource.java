@@ -25,6 +25,7 @@ import org.raniaia.poseidon.components.jdbc.datasource.unpooled.IDataSource;
 import org.raniaia.poseidon.components.jdbc.datasource.unpooled.UnpooledDatasource;
 import org.raniaia.poseidon.components.log.Log;
 import org.raniaia.poseidon.components.log.LogFactory;
+import org.raniaia.poseidon.framework.provide.component.Component;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
@@ -40,13 +41,13 @@ import java.util.logging.Logger;
  *
  * @author tiansheng
  */
+@Component
 public class PooledDataSource implements DataSource {
 
-
     @Getter
-    private final PoolState state = new PoolState(this);
+    private final PoolState         state       =       new PoolState(this);
 
-    private final static Log log = LogFactory.getLog(PooledConnection.class);
+    private final static Log        log         =       LogFactory.getLog(PooledConnection.class);
 
     // Unpooled DataSource.
     private final UnpooledDatasource datasource;

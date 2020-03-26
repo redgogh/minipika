@@ -20,7 +20,7 @@ package org.raniaia.poseidon.components.monitor;
  * Creates on 2019/12/17.
  */
 
-import org.raniaia.poseidon.components.pool.ConnectionPool;
+
 import org.raniaia.poseidon.framework.sql.SqlExecute;
 
 /**
