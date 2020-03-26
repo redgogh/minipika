@@ -20,8 +20,6 @@ package org.raniaia.poseidon.components.jdbc.datasource.unpooled;
  * Creates on 2020/3/25.
  */
 
-import org.raniaia.poseidon.framework.loader.NativeClassLoader;
-
 import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.*;

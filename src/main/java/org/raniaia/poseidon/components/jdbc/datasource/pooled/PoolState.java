@@ -20,9 +20,10 @@ package org.raniaia.poseidon.components.jdbc.datasource.pooled;
  * Creates on 2020/3/25.
  */
 
+import lombok.Getter;
+import lombok.Setter;
 import org.raniaia.available.list.Lists;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,13 +33,29 @@ public class PoolState {
 
     private PooledDataSource dataSource;
 
-    final List<PooledConnection> idleConnection = Lists.newArrayList();
+    final List<PooledConnection> idleConnections = Lists.newArrayList();
     final List<PooledConnection> activeConnections = Lists.newArrayList();
+
+    @Getter
+    @Setter
+    long requestCount                                   = 0L; // 请求总数
+    @Getter
+    @Setter
+    long requestAccumulateTime                          = 0L; // 请求总时间
+    @Getter
+    @Setter
+    long accumulateWaitTime                             = 0L; // 总等待时间
+    @Getter
+    @Setter
+    long badConnectionCount                             = 0L; // 坏的链接总数
+    @Getter
+    @Setter
+    long hadToWaitCount                                 = 0L; // 总等待数
 
     public PoolState() {
     }
 
-    public PoolState(PooledDataSource dataSource){
+    public PoolState(PooledDataSource dataSource) {
         this.dataSource = dataSource;
     }
 

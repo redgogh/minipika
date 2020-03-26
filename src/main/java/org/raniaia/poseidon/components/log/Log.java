@@ -29,6 +29,8 @@ package org.raniaia.poseidon.components.log;
  */
 public interface Log {
 
+    boolean isDebugEnabled();
+
     void info(String msg);
 
     void warn(String msg);

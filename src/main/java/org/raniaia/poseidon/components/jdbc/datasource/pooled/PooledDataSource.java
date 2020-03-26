@@ -20,9 +20,10 @@ package org.raniaia.poseidon.components.jdbc.datasource.pooled;
  * Creates on 2020/3/25.
  */
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.raniaia.poseidon.components.jdbc.datasource.unpooled.IDataSource;
 import org.raniaia.poseidon.components.jdbc.datasource.unpooled.UnpooledDatasource;
+import org.raniaia.poseidon.components.log.Log;
+import org.raniaia.poseidon.components.log.LogFactory;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
@@ -39,7 +40,10 @@ import java.util.logging.Logger;
  */
 public class PooledDataSource implements DataSource {
 
+
     private final PoolState state = new PoolState(this);
+
+    private final static Log log = LogFactory.getLog(PooledConnection.class);
 
     // Unpooled DataSource.
     private final UnpooledDatasource datasource;
@@ -47,18 +51,20 @@ public class PooledDataSource implements DataSource {
     /**
      * Maximum idle connections.
      */
-    int poolMaximumIdleConnections = 0;
+    int poolMaximumIdleConnections = 10;
 
     /**
      * Minimum idle connections.
      */
-    int poolMinimumIdleConnections = 0;
+    int poolMinimumIdleConnections = 2;
 
-    public PooledDataSource(){
+    long poolTimeToWait = 20000L;
+
+    public PooledDataSource() {
         this.datasource = new UnpooledDatasource();
     }
 
-    public PooledDataSource(IDataSource iDataSource){
+    public PooledDataSource(IDataSource iDataSource) {
         this.datasource = new UnpooledDatasource(iDataSource);
     }
 
@@ -67,7 +73,74 @@ public class PooledDataSource implements DataSource {
      */
     // 弹出链接
     private PooledConnection popConnection(String username, String password) throws SQLException {
-        return null;
+        PooledConnection conn = null;
+        long time = System.currentTimeMillis();
+        //
+        // If this variable value > 3, then give up get connection.
+        // And throw exception.
+        //
+        long localBadConnectionCount = 0L;
+        synchronized (state) {
+            // endless loop, until a connection is found.
+            while (conn == null) {
+                if (!state.idleConnections.isEmpty()) {
+                    conn = state.idleConnections.remove(0);
+                    if (log.isDebugEnabled()) {
+                        log.debug("Pop out connection " + conn.getRealHasCode() + " from pool.");
+                    }
+                } else {
+                    // if idle connections equals null.
+                    if (state.activeConnections.size() < poolMaximumIdleConnections) {
+                        conn = new PooledConnection(datasource.getConnection(), this);
+                        if (log.isDebugEnabled()) {
+                            log.debug("Creates connection " + conn.getRealHasCode() + ".");
+                        }
+                    } else {
+                        //
+                        // if the connection is not enough.
+                        // then current thread join wait status.
+                        //
+                        // 如果链接已经不够使用了，那么当前线程就进入等待状态。
+                        //
+                        try {
+                            state.hadToWaitCount++;
+                            if(log.isDebugEnabled()){
+                                log.debug("Waiting as long as " + poolTimeToWait + "milliseconds for connection.");
+                            }
+                            long wt = System.currentTimeMillis();
+                            state.wait(poolTimeToWait);
+                            state.accumulateWaitTime += (System.currentTimeMillis() - wt);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                }
+                // if connection not equals null.
+                if (conn != null) {
+                    if (conn.isValid()) {
+                        conn.setLastUsedTimestamp(System.currentTimeMillis());
+                        state.activeConnections.add(conn);
+                        state.requestCount++;
+                        state.requestAccumulateTime += (System.currentTimeMillis() - time);
+                    } else {
+                        if (log.isDebugEnabled()) {
+                            log.debug("A bad connection (" + conn.getRealHasCode() + ") close. return to another connection.");
+                        }
+                        state.badConnectionCount++;
+                        localBadConnectionCount++;
+                        conn.forceClose(); // 强制关闭链接 | force close.
+                        conn = null;
+                        if (localBadConnectionCount > (6)) {
+                            if (log.isDebugEnabled()) {
+                                log.debug("PooledDataSource: Could not get a good connection to the database.");
+                            }
+                            throw new SQLException("PooledDataSource: Could not get a good connection to the database.");
+                        }
+                    }
+                }
+            }
+            return null;
+        }
     }
 
     /**
@@ -77,13 +150,13 @@ public class PooledDataSource implements DataSource {
     protected void pushConnection(PooledConnection conn) throws SQLException {
         synchronized (state) {
             state.activeConnections.remove(conn);
-            if(conn.isValid()){
-                if (state.idleConnection.size() < poolMaximumIdleConnections)
-                state.idleConnection.add(conn);
-                PooledConnection newConn = new PooledConnection(conn.getRealConnection(),this);
-                state.idleConnection.add(newConn);
+            if (conn.isValid()) {
+                if (state.idleConnections.size() < poolMaximumIdleConnections)
+                    state.idleConnections.add(conn);
+                PooledConnection newConn = new PooledConnection(conn.getRealConnection(), this);
+                state.idleConnections.add(newConn);
                 state.notifyAll();
-            }else{
+            } else {
 
             }
         }

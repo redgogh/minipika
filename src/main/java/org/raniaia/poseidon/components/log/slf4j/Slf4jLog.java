@@ -39,6 +39,11 @@ public class Slf4jLog implements Log {
     }
 
     @Override
+    public boolean isDebugEnabled() {
+        return logger.isDebugEnabled();
+    }
+
+    @Override
     public void info(String msg) {
         logger.info(msg);
     }

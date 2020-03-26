@@ -21,6 +21,10 @@ package org.raniaia.poseidon.components.jdbc.datasource.pooled;
  */
 
 import lombok.Getter;
+import lombok.Setter;
+import org.raniaia.poseidon.components.log.Log;
+import org.raniaia.poseidon.components.log.LogFactory;
+import org.raniaia.poseidon.framework.exception.PoseidonException;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -38,14 +42,20 @@ public class PooledConnection implements InvocationHandler {
     private static String CLOSE = "close";
     private static Class<?>[] IFACE = new Class[]{Connection.class};
 
+    private final static Log log = LogFactory.getLog(PooledConnection.class);
 
-    private boolean                     valid;
+    private boolean                 valid;
     @Getter
-    private Connection                  realConnection;
+    private Connection              realConnection;
     @Getter
-    private PooledDataSource            dataSource;
+    private PooledDataSource        dataSource;
     @Getter
-    private Connection                  proxyConnection;
+    private Connection              proxyConnection;
+    @Getter
+    private long                    createTimestamp;
+    @Getter
+    @Setter
+    private long                    lastUsedTimestamp;
 
     public PooledConnection() {
     }
@@ -55,6 +65,8 @@ public class PooledConnection implements InvocationHandler {
         this.dataSource = dataSource;
         this.proxyConnection = (Connection)
                 Proxy.newProxyInstance(Connection.class.getClassLoader(), IFACE, this);
+        this.valid = true;
+        this.createTimestamp = System.currentTimeMillis();
     }
 
     /**
@@ -65,14 +77,56 @@ public class PooledConnection implements InvocationHandler {
         return valid && (realConnection != null) && realConnection.isClosed();
     }
 
+    /**
+     * Invalidates the connection.
+     */
+    public void invalidate(){
+        this.valid = false;
+    }
+
+    /**
+     * Check if connection is available.
+     */
+    private void checkConnection() throws SQLException {
+        if (!isValid()) {
+            throw new SQLException("Error accessing connection is invalid.");
+        }
+    }
+
+    /**
+     * Check connection is available.
+     */
+    public boolean ping(){
+        return false;
+    }
+
+    /**
+     * force close.
+     */
+    // 强制关闭链接
+    public void forceClose() throws SQLException {
+        realConnection.close();
+    }
+
+    public int getRealHasCode(){
+        return realConnection == null? -1 : realConnection.hashCode();
+    }
+
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         String methodName = method.getName();
         if (CLOSE.equals(methodName)) {
-            // todo 归还链接
+            dataSource.pushConnection(this);
             return null;
         } else {
-            return method.invoke(realConnection, args);
+            try {
+                if (!Object.class.equals(method.getDeclaringClass())) {
+                    checkConnection();
+                }
+                return method.invoke(realConnection, args);
+            } catch (Throwable e) {
+                throw new PoseidonException(e);
+            }
         }
     }
 
