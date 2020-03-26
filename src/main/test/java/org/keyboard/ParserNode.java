@@ -19,8 +19,8 @@ package org.keyboard;
 
 
 import org.junit.Test;
-import org.raniaia.poseidon.framework.sql.xml.build.ParserMapperNode;
-import org.raniaia.poseidon.framework.sql.xml.build.PrecompiledClass;
+import org.raniaia.approve.framework.sql.xml.build.ParserMapperNode;
+import org.raniaia.approve.framework.sql.xml.build.PrecompiledClass;
 
 import java.util.Map;
 

@@ -19,10 +19,7 @@ package org.poseidon.experiment;
 
 
 import lombok.Data;
-import org.raniaia.poseidon.framework.provide.model.Column;
-import org.raniaia.poseidon.framework.provide.model.Comment;
-import org.raniaia.poseidon.framework.provide.model.Model;
-import org.raniaia.poseidon.framework.provide.model.PK;
+import org.raniaia.approve.framework.provide.model.Model;
 
 /**
  * @author tiansheng

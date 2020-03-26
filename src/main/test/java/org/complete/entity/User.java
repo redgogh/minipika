@@ -24,10 +24,10 @@ package org.complete.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.raniaia.poseidon.framework.provide.model.Column;
-import org.raniaia.poseidon.framework.provide.model.Comment;
-import org.raniaia.poseidon.framework.provide.model.Model;
-import org.raniaia.poseidon.framework.provide.model.PK;
+import org.raniaia.approve.framework.provide.model.Column;
+import org.raniaia.approve.framework.provide.model.Comment;
+import org.raniaia.approve.framework.provide.model.Model;
+import org.raniaia.approve.framework.provide.model.PK;
 
 /**
  * @author tiansheng

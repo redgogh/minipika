@@ -20,8 +20,7 @@ package org.poseidon.framework.sql.xml.builder;
  * Creates on 2019/12/11 23:16
  */
 
-import org.raniaia.poseidon.framework.tools.Arrays;
-import org.raniaia.poseidon.framework.tools.LineBuilder;
+import org.raniaia.approve.framework.tools.Arrays;
 
 import java.io.Serializable;
 

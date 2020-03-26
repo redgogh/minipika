@@ -20,8 +20,8 @@ package org.poseidon;
 
 import org.poseidon.experiment.UserModel;
 
-import org.raniaia.poseidon.BeansManager;
-import org.raniaia.poseidon.components.jdbc.JdbcSupport;
+import org.raniaia.approve.BeansManager;
+import org.raniaia.approve.components.jdbc.JdbcSupport;
 
 import java.lang.reflect.Array;
 import java.util.*;

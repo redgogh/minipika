@@ -18,9 +18,9 @@ package org.recycle.build;
 
 
 
-import org.raniaia.poseidon.framework.sql.xml.node.XMLMapperNode;
-import org.raniaia.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
-import org.raniaia.poseidon.framework.sql.xml.parser.ReaderMapperXML;
+import org.raniaia.approve.framework.sql.xml.node.XMLMapperNode;
+import org.raniaia.approve.framework.sql.xml.node.XMLDynamicSqlNode;
+import org.raniaia.approve.framework.sql.xml.parser.ReaderMapperXML;
 
 import java.util.HashMap;
 import java.util.List;

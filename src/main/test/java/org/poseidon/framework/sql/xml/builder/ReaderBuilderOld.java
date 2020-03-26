@@ -19,14 +19,14 @@ package org.poseidon.framework.sql.xml.builder;
 
 
 
-import org.raniaia.poseidon.framework.exception.BuilderXmlException;
-import org.raniaia.poseidon.framework.exception.ExpressionException;
-import org.raniaia.poseidon.framework.provide.ProvideVar;
-import org.raniaia.poseidon.framework.sql.xml.token.Token;
-import org.raniaia.poseidon.framework.sql.xml.token.TokenValue;
-import org.raniaia.poseidon.framework.tools.NewlineBuilder;
-import org.raniaia.poseidon.framework.tools.POFUtils;
-import org.raniaia.poseidon.framework.tools.StringUtils;
+import org.raniaia.approve.framework.exception.BuilderXmlException;
+import org.raniaia.approve.framework.exception.ExpressionException;
+import org.raniaia.approve.framework.provide.ProvideVar;
+import org.raniaia.approve.framework.sql.xml.token.Token;
+import org.raniaia.approve.framework.sql.xml.token.TokenValue;
+import org.raniaia.approve.framework.tools.NewlineBuilder;
+import org.raniaia.approve.framework.tools.POFUtils;
+import org.raniaia.approve.framework.tools.StringUtils;
 import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;

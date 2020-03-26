@@ -20,13 +20,13 @@ package org.recycle.compiler;
 
 import javassist.*;
 
-import org.raniaia.poseidon.BeansManager;
-import org.raniaia.poseidon.components.pool.PoseidonClassPool;
-import org.raniaia.poseidon.framework.provide.ProvideVar;
+import org.raniaia.approve.BeansManager;
+import org.raniaia.approve.components.pool.PoseidonClassPool;
+import org.raniaia.approve.framework.provide.ProvideVar;
 import org.recycle.build.PrecompiledClass;
 import org.recycle.build.PrecompiledMethod;
-import org.raniaia.poseidon.framework.loader.NativeClassLoader;
-import org.raniaia.poseidon.framework.tools.StringUtils;
+import org.raniaia.approve.framework.loader.NativeClassLoader;
+import org.raniaia.approve.framework.tools.StringUtils;
 
 import java.util.*;
 import java.util.regex.Matcher;

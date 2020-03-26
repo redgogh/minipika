@@ -18,13 +18,13 @@ package org.recycle.build;
 
 
 
-import org.raniaia.poseidon.framework.provide.ProvideVar;
-import org.raniaia.poseidon.framework.sql.xml.node.XMLMapperNode;
-import org.raniaia.poseidon.framework.sql.xml.node.XMLNode;
-import org.raniaia.poseidon.framework.sql.xml.node.XMLDynamicSqlNode;
-import org.raniaia.poseidon.framework.sql.xml.token.Token;
-import org.raniaia.poseidon.framework.sql.xml.token.TokenValue;
-import org.raniaia.poseidon.framework.tools.StringUtils;
+import org.raniaia.approve.framework.provide.ProvideVar;
+import org.raniaia.approve.framework.sql.xml.node.XMLMapperNode;
+import org.raniaia.approve.framework.sql.xml.node.XMLNode;
+import org.raniaia.approve.framework.sql.xml.node.XMLDynamicSqlNode;
+import org.raniaia.approve.framework.sql.xml.token.Token;
+import org.raniaia.approve.framework.sql.xml.token.TokenValue;
+import org.raniaia.approve.framework.tools.StringUtils;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -22,7 +22,7 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
 import javassist.CtNewMethod;
-import org.raniaia.poseidon.framework.loader.NativeClassLoader;
+import org.raniaia.approve.framework.loader.NativeClassLoader;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/19 10:24

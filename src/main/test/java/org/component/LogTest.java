@@ -21,8 +21,8 @@ package org.component;
  */
 
 import org.junit.Test;
-import org.raniaia.poseidon.components.log.Log;
-import org.raniaia.poseidon.components.log.LogFactory;
+import org.raniaia.approve.components.log.Log;
+import org.raniaia.approve.components.log.LogFactory;
 
 /**
  * @author tiansheng

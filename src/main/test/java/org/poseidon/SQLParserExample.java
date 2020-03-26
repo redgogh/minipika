@@ -19,7 +19,7 @@ package org.poseidon;
 
 
 import net.sf.jsqlparser.JSQLParserException;
-import org.raniaia.poseidon.framework.tools.SQLUtils;
+import org.raniaia.approve.framework.tools.SQLUtils;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/6 16:02

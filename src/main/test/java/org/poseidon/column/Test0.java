@@ -20,9 +20,9 @@ package org.poseidon.column;
 
 import org.junit.Test;
 
-import org.raniaia.poseidon.BeansManager;
-import org.raniaia.poseidon.components.jdbc.JdbcSupport;
-import org.raniaia.poseidon.components.model.database.ColumnPo;
+import org.raniaia.approve.BeansManager;
+import org.raniaia.approve.components.jdbc.JdbcSupport;
+import org.raniaia.approve.components.model.database.ColumnPo;
 
 import java.util.List;
 

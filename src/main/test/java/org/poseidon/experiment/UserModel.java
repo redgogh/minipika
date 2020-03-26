@@ -20,7 +20,7 @@ package org.poseidon.experiment;
 
 
 import lombok.Data;
-import org.raniaia.poseidon.framework.provide.model.*;
+import org.raniaia.approve.framework.provide.model.*;
 
 import java.util.Date;
 

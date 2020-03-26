@@ -41,8 +41,8 @@ package org.poseidon.modules;
  */
 
 
-import org.raniaia.poseidon.BeansManager;
-import org.raniaia.poseidon.components.model.ModelParser;
+import org.raniaia.approve.BeansManager;
+import org.raniaia.approve.components.model.ModelParser;
 
 /**
  * @author tiansheng

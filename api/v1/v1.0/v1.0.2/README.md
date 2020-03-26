@@ -57,7 +57,7 @@ poseidon.connectionPool.maxSize = 90
 # 前缀
 poseidon.model.prefix = kkb
 # model所在的包
-poseidon.model.package = org.raniaia.poseidon.experiment
+poseidon.model.package = org.raniaia.approve.experiment
 # UPDATE ---> builder xml模板文件所在的路径
 poseidon.model.mapper = org.raniaia.poseidon.builder
 

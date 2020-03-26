@@ -18,10 +18,10 @@ package org.poseidon.experiment;
 
 
 
-import org.raniaia.poseidon.framework.provide.model.Column;
-import org.raniaia.poseidon.framework.provide.model.Comment;
-import org.raniaia.poseidon.framework.provide.model.Model;
-import org.raniaia.poseidon.framework.provide.model.PK;
+import org.raniaia.approve.framework.provide.model.Column;
+import org.raniaia.approve.framework.provide.model.Comment;
+import org.raniaia.approve.framework.provide.model.Model;
+import org.raniaia.approve.framework.provide.model.PK;
 import lombok.Data;
 
 import java.math.BigDecimal;

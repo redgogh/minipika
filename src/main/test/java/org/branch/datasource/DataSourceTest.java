@@ -21,10 +21,10 @@ package org.branch.datasource;
  */
 
 import org.junit.Test;
-import org.raniaia.poseidon.components.jdbc.datasource.pooled.PooledConnection;
-import org.raniaia.poseidon.components.jdbc.datasource.pooled.PooledDataSource;
-import org.raniaia.poseidon.components.jdbc.datasource.unpooled.IDataSource;
-import org.raniaia.poseidon.components.jdbc.datasource.unpooled.UnpooledDatasource;
+import org.raniaia.approve.components.jdbc.datasource.pooled.PooledConnection;
+import org.raniaia.approve.components.jdbc.datasource.pooled.PooledDataSource;
+import org.raniaia.approve.components.jdbc.datasource.unpooled.IDataSource;
+import org.raniaia.approve.components.jdbc.datasource.unpooled.UnpooledDatasource;
 
 import java.sql.Connection;
 import java.sql.SQLException;

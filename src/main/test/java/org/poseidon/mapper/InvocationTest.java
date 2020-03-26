@@ -19,8 +19,8 @@ package org.poseidon.mapper;
 
 
 import org.junit.Test;
-import org.raniaia.poseidon.BeansManager;
-import org.raniaia.poseidon.framework.provide.mapper.Query;
+import org.raniaia.approve.BeansManager;
+import org.raniaia.approve.framework.provide.mapper.Query;
 
 import org.poseidon.experiment.UserInfo;
 

@@ -21,11 +21,11 @@ package org.poseidon;
 
 import org.poseidon.experiment.ProductModel;
 import org.poseidon.experiment.UserModel;
-import org.raniaia.poseidon.BeansManager;
-import org.raniaia.poseidon.components.cache.PoseidonCache;
-import org.raniaia.poseidon.components.jdbc.JdbcSupport;
-import org.raniaia.poseidon.framework.tools.POFUtils;
-import org.raniaia.poseidon.framework.tools.DateUtils;
+import org.raniaia.approve.BeansManager;
+import org.raniaia.approve.components.cache.PoseidonCache;
+import org.raniaia.approve.components.jdbc.JdbcSupport;
+import org.raniaia.approve.framework.tools.POFUtils;
+import org.raniaia.approve.framework.tools.DateUtils;
 
 import java.util.Date;
 
