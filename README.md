@@ -31,4 +31,4 @@ mvn install
 
 **如果你对这个项目有兴趣，可以发我邮箱我们一起开发。**
 
-**作者邮箱: raniaia@hotmail.com**
+**作者邮箱: raniaia@foxmail.com**
