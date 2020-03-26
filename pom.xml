@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!--
-         mvn clean install deploy -P release -Dgpg.passphrase=******
+         mvn clean install deploy -P release
     -->
     <parent>
         <groupId>org.sonatype.oss</groupId>
@@ -13,9 +13,9 @@
         <version>9</version>
     </parent>
 
-    <groupId>io.github.laniakeamly</groupId>
+    <groupId>io.github.raniaia</groupId>
     <artifactId>poseidon</artifactId>
-    <version>1.1.7.STAR</version>
+    <version>1.1.8.STAR</version>
     <packaging>jar</packaging>
 
     <licenses>
@@ -29,8 +29,8 @@
     <scm>
         <tag>master</tag>
         <url>https://github.com/raniaia/avaliable</url>
-        <connection>scm:git@github.com:raniaia/avaliable.git</connection>
-        <developerConnection>scm:git@github.com:raniaia/avaliable.git</developerConnection>
+        <connection>scm:git@github.com:raniaia/poseidon.git</connection>
+        <developerConnection>scm:git@github.com:raniaia/poseidon.git</developerConnection>
     </scm>
 
     <developers>
