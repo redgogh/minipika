@@ -1,4 +1,4 @@
-package org.raniaia.poseidon.components.jdbc.datasource.unpooled;
+package org.raniaia.poseidon.components.jdbc.datasource;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -54,12 +54,18 @@ public class IDataSource {
     public IDataSource() {
     }
 
-    public IDataSource(String url, String driver, String username, String password) {
+    public IDataSource(String url, String driver, String username,
+                       String password) {
         this(url, driver, username, password, false, new NativeClassLoader());
     }
 
-    public IDataSource(String url, String driver, String username, String password,
-                       Boolean autoCommit, ClassLoader classLoader) {
+    public IDataSource(String url, String driver, String username,
+                       String password,boolean autoCommit) {
+        this(url, driver, username, password, autoCommit, new NativeClassLoader());
+    }
+
+    public IDataSource(String url, String driver, String username,
+                       String password, Boolean autoCommit, ClassLoader classLoader) {
         this.url = url;
         this.driver = driver;
         this.username = username;
