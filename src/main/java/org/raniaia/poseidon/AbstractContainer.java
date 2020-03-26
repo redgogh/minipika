@@ -24,12 +24,15 @@ import org.raniaia.available.reflect.Annotations;
 import org.raniaia.available.reflect.ClassUtils;
 import org.raniaia.available.reflect.Fields;
 import org.raniaia.available.reflect.Methods;
+import org.raniaia.poseidon.components.config.GlobalConfig;
+import org.raniaia.poseidon.components.jdbc.datasource.unpooled.IDataSource;
 import org.raniaia.poseidon.framework.mapper.MapperInvocation;
 import org.raniaia.poseidon.framework.provide.ProvideVar;
 import org.raniaia.poseidon.framework.provide.Valid;
 import org.raniaia.poseidon.framework.provide.component.Component;
 import org.raniaia.poseidon.framework.sql.SqlMapper;
 
+import javax.sql.DataSource;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -132,7 +135,13 @@ public abstract class AbstractContainer extends RootContainer<String, Object> {
                     if (componentClass == null) {
                         throw new NullPointerException("cannot found [" + componentName + "] component");
                     }
-                    componentInstance = ClassUtils.newInstance(componentClass);
+                    if("DataSource".equals(componentName)){
+                        componentInstance = ClassUtils.newInstance(componentClass,new Class<?>[]{IDataSource.class},
+                                GlobalConfig.getConfig().getIDataSource());
+                    }else{
+                        componentInstance = ClassUtils.newInstance(componentClass);
+                    }
+
                     inject(componentInstance);
                 }
                 Fields.set(instance, componentInstance, field);
