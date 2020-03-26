@@ -53,12 +53,18 @@ public class PooledDataSource implements DataSource {
     /**
      * Maximum idle connections.
      */
-    int poolMaximumIdleConnections = 10;
+    int poolMaximumIdleConnections = 90;
 
     /**
      * Minimum idle connections.
      */
     int poolMinimumIdleConnections = 2;
+
+    /**
+     * Connection maximum survive time. 3H
+     */
+    // 3小时
+    long maximumTimestamp = 10800L;
 
     long poolTimeToWait = 20000L;
 
@@ -89,11 +95,6 @@ public class PooledDataSource implements DataSource {
     private PooledConnection popConnection(String username, String password) throws SQLException {
         PooledConnection conn = null;
         long time = System.currentTimeMillis();
-        //
-        // If this variable value > 3, then give up get connection.
-        // And throw exception.
-        //
-        long localBadConnectionCount = 0L;
         // endless loop, until a connection is found.
         while (conn == null) {
             synchronized (state) {
@@ -141,15 +142,8 @@ public class PooledDataSource implements DataSource {
                             log.debug("A bad connection (" + conn.getRealHasCode() + ") close. return to another connection.");
                         }
                         state.badConnectionCount++;
-                        localBadConnectionCount++;
                         conn.forceClose(); // 强制关闭链接 | force close.
                         conn = null;
-                        if (localBadConnectionCount > (6)) {
-                            if (log.isDebugEnabled()) {
-                                log.debug("PooledDataSource: Could not get a good connection to the database.");
-                            }
-                            throw new SQLException("PooledDataSource: Could not get a good connection to the database.");
-                        }
                     }
                 }
             }
@@ -176,7 +170,9 @@ public class PooledDataSource implements DataSource {
                     PooledConnection newConn = new PooledConnection(conn.getRealConnection(), this);
                     newConn.setCreateTimestamp(System.currentTimeMillis());
                     state.idleConnections.add(newConn);
-                    conn.invalidate();
+                    if(conn.checkoutTimestamp() > maximumTimestamp){
+                        conn.invalidate();
+                    }
                     if (log.isDebugEnabled()) {
                         log.debug("Returned connection " + newConn.getRealHasCode() + " to pool.");
                     }

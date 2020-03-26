@@ -70,6 +70,10 @@ public class PooledConnection implements InvocationHandler {
         this.createTimestamp = System.currentTimeMillis();
     }
 
+    public long checkoutTimestamp(){
+        return (System.currentTimeMillis() - createTimestamp) / 1000;
+    }
+
     /**
      * Verify that the connection works.
      */

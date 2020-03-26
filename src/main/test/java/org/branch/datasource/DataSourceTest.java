@@ -35,7 +35,7 @@ import java.sql.SQLException;
  */
 public class DataSourceTest {
 
-    long count = 0L;
+    volatile long count = 0L;
 
     IDataSource iDataSource = new IDataSource(
             "jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT",
@@ -54,19 +54,17 @@ public class DataSourceTest {
     }
 
     @Test
-    public void pooled() throws SQLException {
+    public void pooled() throws SQLException, InterruptedException {
         PooledDataSource source = new PooledDataSource(iDataSource);
-        for(int i=0; i<20; i++){
+        for(int i=0; i<20000; i++){
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         for (int i = 0; i < 10; i++) {
-                            count++;
                             PooledConnection conn = source.popConnection();
-                            System.err.println("CONNECTION CLASS: " + conn);
                             conn.close();
-                            source.getState().toString();
+                            count++;
                         }
                     }catch (Exception e){
                         e.printStackTrace();
@@ -74,7 +72,7 @@ public class DataSourceTest {
                 }
             }).start();
         }
-        System.out.println(count);
+        System.out.println(source.getState().toString());
     }
 
 }
