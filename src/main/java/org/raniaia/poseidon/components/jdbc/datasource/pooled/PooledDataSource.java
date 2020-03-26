@@ -20,6 +20,7 @@ package org.raniaia.poseidon.components.jdbc.datasource.pooled;
  * Creates on 2020/3/25.
  */
 
+import lombok.Getter;
 import org.raniaia.poseidon.components.jdbc.datasource.unpooled.IDataSource;
 import org.raniaia.poseidon.components.jdbc.datasource.unpooled.UnpooledDatasource;
 import org.raniaia.poseidon.components.log.Log;
@@ -41,6 +42,7 @@ import java.util.logging.Logger;
 public class PooledDataSource implements DataSource {
 
 
+    @Getter
     private final PoolState state = new PoolState(this);
 
     private final static Log log = LogFactory.getLog(PooledConnection.class);
@@ -66,6 +68,18 @@ public class PooledDataSource implements DataSource {
 
     public PooledDataSource(IDataSource iDataSource) {
         this.datasource = new UnpooledDatasource(iDataSource);
+        try {
+            for (int i = 0; i < poolMinimumIdleConnections; i++) {
+                state.idleConnections.add(new PooledConnection(datasource.getConnection(), this));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public PooledConnection popConnection() throws SQLException {
+        return popConnection(datasource.getIDataSource().getUsername(),
+                datasource.getIDataSource().getPassword());
     }
 
     /**
@@ -80,9 +94,9 @@ public class PooledDataSource implements DataSource {
         // And throw exception.
         //
         long localBadConnectionCount = 0L;
-        synchronized (state) {
-            // endless loop, until a connection is found.
-            while (conn == null) {
+        // endless loop, until a connection is found.
+        while (conn == null) {
+            synchronized (state) {
                 if (!state.idleConnections.isEmpty()) {
                     conn = state.idleConnections.remove(0);
                     if (log.isDebugEnabled()) {
@@ -91,7 +105,7 @@ public class PooledDataSource implements DataSource {
                 } else {
                     // if idle connections equals null.
                     if (state.activeConnections.size() < poolMaximumIdleConnections) {
-                        conn = new PooledConnection(datasource.getConnection(), this);
+                        conn = new PooledConnection(datasource.getConnection(username, password), this);
                         if (log.isDebugEnabled()) {
                             log.debug("Creates connection " + conn.getRealHasCode() + ".");
                         }
@@ -104,7 +118,7 @@ public class PooledDataSource implements DataSource {
                         //
                         try {
                             state.hadToWaitCount++;
-                            if(log.isDebugEnabled()){
+                            if (log.isDebugEnabled()) {
                                 log.debug("Waiting as long as " + poolTimeToWait + "milliseconds for connection.");
                             }
                             long wt = System.currentTimeMillis();
@@ -139,8 +153,14 @@ public class PooledDataSource implements DataSource {
                     }
                 }
             }
-            return null;
         }
+        if (conn == null) {
+            if (log.isDebugEnabled()) {
+                log.debug("Unknown severe error condition. The connection pool returned a null connection.");
+            }
+            throw new SQLException("Unknown severe error condition. The connection pool returned a null connection.");
+        }
+        return conn;
     }
 
     /**
@@ -151,13 +171,27 @@ public class PooledDataSource implements DataSource {
         synchronized (state) {
             state.activeConnections.remove(conn);
             if (conn.isValid()) {
-                if (state.idleConnections.size() < poolMaximumIdleConnections)
+                if (state.idleConnections.size() < poolMaximumIdleConnections) {
                     state.idleConnections.add(conn);
-                PooledConnection newConn = new PooledConnection(conn.getRealConnection(), this);
-                state.idleConnections.add(newConn);
-                state.notifyAll();
+                    PooledConnection newConn = new PooledConnection(conn.getRealConnection(), this);
+                    newConn.setCreateTimestamp(System.currentTimeMillis());
+                    state.idleConnections.add(newConn);
+                    conn.invalidate();
+                    if (log.isDebugEnabled()) {
+                        log.debug("Returned connection " + newConn.getRealHasCode() + " to pool.");
+                    }
+                    state.notifyAll();
+                } else {
+                    conn.invalidate();
+                    if (log.isDebugEnabled()) {
+                        log.debug("Closed a connection " + conn.getRealHasCode() + ".");
+                    }
+                }
             } else {
-
+                if (log.isDebugEnabled()) {
+                    log.debug("A bad connection (" + conn.getRealHasCode() + ") failure to join connection pool.");
+                }
+                state.badConnectionCount++;
             }
         }
     }

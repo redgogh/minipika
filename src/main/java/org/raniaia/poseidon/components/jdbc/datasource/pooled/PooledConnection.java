@@ -52,6 +52,7 @@ public class PooledConnection implements InvocationHandler {
     @Getter
     private Connection              proxyConnection;
     @Getter
+    @Setter
     private long                    createTimestamp;
     @Getter
     @Setter
@@ -74,14 +75,15 @@ public class PooledConnection implements InvocationHandler {
      */
     // 验证链接是否可以正常使用
     public boolean isValid() throws SQLException {
-        return valid && (realConnection != null) && realConnection.isClosed();
+        return valid && (realConnection != null) && !realConnection.isClosed();
     }
 
     /**
      * Invalidates the connection.
      */
-    public void invalidate(){
-        this.valid = false;
+    public void invalidate() throws SQLException {
+        forceClose();
+        valid = false;
     }
 
     /**
@@ -98,6 +100,14 @@ public class PooledConnection implements InvocationHandler {
      */
     public boolean ping(){
         return false;
+    }
+
+    /**
+     * Close the proxy connection, this close is not a really closed.
+     * Is returning to connection pool.
+     */
+    public void close() throws SQLException {
+        proxyConnection.close();
     }
 
     /**

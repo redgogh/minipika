@@ -20,6 +20,7 @@ package org.raniaia.poseidon.components.jdbc.datasource.unpooled;
  * Creates on 2020/3/25.
  */
 
+import lombok.Getter;
 import org.raniaia.available.map.Maps;
 import org.raniaia.poseidon.framework.loader.NativeClassLoader;
 import org.raniaia.poseidon.framework.tools.StringUtils;
@@ -36,10 +37,14 @@ public class IDataSource {
     // 存放驱动实例
     static Map<String, Driver> registerDrivers = Maps.newConcurrentHashMap();
 
-    String url;
-    String driver;
-    String username;
-    String password;
+    @Getter
+    protected String url;
+    @Getter
+    protected String driver;
+    @Getter
+    protected String username;
+    @Getter
+    protected String password;
 
     ClassLoader driverClassLoader;
 

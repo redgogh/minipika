@@ -36,20 +36,10 @@ public class PoolState {
     final List<PooledConnection> idleConnections = Lists.newArrayList();
     final List<PooledConnection> activeConnections = Lists.newArrayList();
 
-    @Getter
-    @Setter
     long requestCount                                   = 0L; // 请求总数
-    @Getter
-    @Setter
     long requestAccumulateTime                          = 0L; // 请求总时间
-    @Getter
-    @Setter
     long accumulateWaitTime                             = 0L; // 总等待时间
-    @Getter
-    @Setter
     long badConnectionCount                             = 0L; // 坏的链接总数
-    @Getter
-    @Setter
     long hadToWaitCount                                 = 0L; // 总等待数
 
     public PoolState() {
@@ -59,4 +49,73 @@ public class PoolState {
         this.dataSource = dataSource;
     }
 
+    public synchronized PooledDataSource getDataSource() {
+        return dataSource;
+    }
+
+    public synchronized void setDataSource(PooledDataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    public synchronized List<PooledConnection> getIdleConnections() {
+        return idleConnections;
+    }
+
+    public synchronized List<PooledConnection> getActiveConnections() {
+        return activeConnections;
+    }
+
+    public synchronized long getRequestCount() {
+        return requestCount;
+    }
+
+    public synchronized void setRequestCount(long requestCount) {
+        this.requestCount = requestCount;
+    }
+
+    public synchronized long getRequestAccumulateTime() {
+        return requestAccumulateTime;
+    }
+
+    public synchronized void setRequestAccumulateTime(long requestAccumulateTime) {
+        this.requestAccumulateTime = requestAccumulateTime;
+    }
+
+    public synchronized long getAccumulateWaitTime() {
+        return accumulateWaitTime;
+    }
+
+    public synchronized void setAccumulateWaitTime(long accumulateWaitTime) {
+        this.accumulateWaitTime = accumulateWaitTime;
+    }
+
+    public synchronized long getBadConnectionCount() {
+        return badConnectionCount;
+    }
+
+    public synchronized void setBadConnectionCount(long badConnectionCount) {
+        this.badConnectionCount = badConnectionCount;
+    }
+
+    public synchronized long getHadToWaitCount() {
+        return hadToWaitCount;
+    }
+
+    public synchronized void setHadToWaitCount(long hadToWaitCount) {
+        this.hadToWaitCount = hadToWaitCount;
+    }
+
+    @Override
+    public synchronized String toString() {
+        return "PoolState{" +
+                "dataSource=" + dataSource +
+                ", idleConnections=" + idleConnections +
+                ", activeConnections=" + activeConnections +
+                ", requestCount=" + requestCount +
+                ", requestAccumulateTime=" + requestAccumulateTime +
+                ", accumulateWaitTime=" + accumulateWaitTime +
+                ", badConnectionCount=" + badConnectionCount +
+                ", hadToWaitCount=" + hadToWaitCount +
+                '}';
+    }
 }

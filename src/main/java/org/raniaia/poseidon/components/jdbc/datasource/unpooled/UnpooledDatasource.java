@@ -20,6 +20,8 @@ package org.raniaia.poseidon.components.jdbc.datasource.unpooled;
  * Creates on 2020/3/25.
  */
 
+import lombok.Getter;
+
 import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.*;
@@ -34,10 +36,11 @@ import java.util.logging.Logger;
 public class UnpooledDatasource implements DataSource {
 
     // 负责加载驱动的类加载器
-    private ClassLoader driverClassLoader;
+    protected ClassLoader driverClassLoader;
 
     // 保存URL，DRIVER等属性的POJO
-    private IDataSource iDataSource;
+    @Getter
+    protected IDataSource iDataSource;
 
     public UnpooledDatasource() {
     }
