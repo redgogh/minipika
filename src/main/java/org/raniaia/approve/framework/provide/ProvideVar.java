@@ -66,11 +66,11 @@ public class ProvideVar {
     public static final String COLLECTIONS                              = "collections";
     public static final String SQL_PARAMS_SET                           = "params";
     public static final String PARAMS_LIST_ADD                          = PARAMS_LIST.concat(".add({});");
-    public static final String CLASS_FULL_NAME                          = "org.raniaia.poseidon.$builder.";
+    public static final String CLASS_FULL_NAME                          = "org.raniaia.approve.$builder.";
     public static final String PARAMETER_SELECT                         = "this:";
     public static final String INSERT_FOREACH_TAG                       = "[infor]:";
     public static final String COND_ATTRIBUTE_KEY                       = "id";
-    public static final String PARAMETER_OBJECT_LOCATION                = "org.raniaia.poseidon.framework.loader.Parameter";
+    public static final String PARAMETER_OBJECT_LOCATION                = "org.raniaia.approve.framework.loader.Parameter";
 
     // SQL语句
     // --------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ public class ProvideVar {
     // ---------------------------------------------------------------------
 
     private static final String SQL_APPEND                              = "sql.append(\" {} \");";
-    private static final String GET_MEMBER_VALUE                        = "org.raniaia.poseidon.framework.tools.ReflectUtils.getMemberValue({},{})";
+    private static final String GET_MEMBER_VALUE                        = "org.raniaia.approve.framework.tools.ReflectUtils.getMemberValue({},{})";
 
     // default_model.json中的特殊变量
     // ---------------------------------------------------------------------

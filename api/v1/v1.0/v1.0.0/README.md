@@ -4,13 +4,13 @@
 
 # 配置文件搭建
 
-PoseidonFramework会自动扫描**resources**目录下的**poseidon.properties**,如果没有这个文件那么会报一个**ReadException**
+ApproveFramework会自动扫描**resources**目录下的**approve.properties**,如果没有这个文件那么会报一个**ReadException**
 
 如果配置文件的文件名是自定义的，那么需要调用一个手动加载配置的方法**ManualConfig.load()**，示例如下:
 
 ```java
-// 假设配置文件的名字叫做"newposeidon.properties"
-ManualConfig.load("newposeidon.properties");
+// 假设配置文件的名字叫做"newapprove.properties"
+ManualConfig.load("newapprove.properties");
 ```
 
 这个需要在最开始就调用，比如springboot的启动类在启动前调用，或者tomcat的init等，需要在使用前调用。
@@ -21,36 +21,36 @@ ManualConfig.load("newposeidon.properties");
 #####################################
 ### 数据库属性
 #####################################
-poseidon.jdbc.url = jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
-poseidon.jdbc.driver = com.mysql.cj.jdbc.Driver
-poseidon.jdbc.username = root
-poseidon.jdbc.password = root
+approve.jdbc.url = jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+approve.jdbc.driver = com.mysql.cj.jdbc.Driver
+approve.jdbc.username = root
+approve.jdbc.password = root
 
 #####################################
 ### 是否开启事物，默认为false
 #####################################
-poseidon.jdbc.transaction = true
+approve.jdbc.transaction = true
 
 #####################################
 ### 是否开启缓存，默认为false
 #####################################
-poseidon.jdbc.cache = false
+approve.jdbc.cache = false
 
 #####################################
 ### 连接池大小
 ### 默认最小连接为2个连接
 ### 默认最大连接为6个连接
 #####################################
-poseidon.connectionPool.minSize = 2
-poseidon.connectionPool.maxSize = 90
+approve.connectionPool.minSize = 2
+approve.connectionPool.maxSize = 90
 
 #####################################
 ### 表名前缀，可为空
 #####################################
-poseidon.model.prefix = kkb
+approve.model.prefix = kkb
 
 # 模型所在的包
-poseidon.model.package = com.poseidon.model.experiment
+approve.model.package = com.approve.model.experiment
 
 ```
 
@@ -58,7 +58,7 @@ poseidon.model.package = com.poseidon.model.experiment
 
 # 模型映射
 
-> Poseidon提供了Table和Model之间的映射，创建表和新增字段的时候只需要在Model中新增即可。由TractoFramework来创建表，以及更新字段，不需要开发人员建立完表之后又去建立Model（索引需要手动建立）。
+> Approve提供了Table和Model之间的映射，创建表和新增字段的时候只需要在Model中新增即可。由TractoFramework来创建表，以及更新字段，不需要开发人员建立完表之后又去建立Model（索引需要手动建立）。
 
 **提供的注解**
 
@@ -86,7 +86,7 @@ poseidon.model.package = com.poseidon.model.experiment
 
     **@Pk**主键
 
-具体Model的实现可以参考一下本项目下的[UserModel](https://github.com/PageNotFoundx/poseidon/blob/master/src/main/java/com/poseidon/model/experiment/UserModel.java)。
+具体Model的实现可以参考一下本项目下的[UserModel](https://github.com/PageNotFoundx/approve/blob/master/src/main/java/com/approve/model/experiment/UserModel.java)。
 
 当Model配置好了之后在启动时会自动创建表和字段。
 

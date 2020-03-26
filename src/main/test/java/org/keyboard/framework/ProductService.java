@@ -18,7 +18,7 @@ package org.keyboard.framework;
 
 
 
-import org.poseidon.experiment.ProductModel;
+import org.approve.experiment.ProductModel;
 import org.raniaia.approve.framework.sql.Parameter;
 import org.raniaia.approve.framework.sql.SqlMapper;
 

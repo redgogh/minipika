@@ -23,7 +23,7 @@ package org.raniaia.approve.framework.tools;
 import org.raniaia.approve.framework.provide.model.Ignore;
 import org.raniaia.approve.framework.provide.model.Model;
 import org.raniaia.approve.components.config.GlobalConfig;
-import org.raniaia.approve.framework.exception.PoseidonException;
+import org.raniaia.approve.framework.exception.ApproveException;
 import org.raniaia.approve.framework.exception.ModelException;
 
 import java.io.File;
@@ -75,7 +75,7 @@ public class ModelUtils {
                 }
                 return anno;
             } else {
-                throw new PoseidonException("@Model Not Found.");
+                throw new ApproveException("@Model Not Found.");
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -24,7 +24,7 @@ package org.raniaia.approve.framework.exception;
  * mapper xml文件异常
  * @author tiansheng
  */
-public class BuilderXmlException extends PoseidonException {
+public class BuilderXmlException extends ApproveException {
 
     public BuilderXmlException() {
     }

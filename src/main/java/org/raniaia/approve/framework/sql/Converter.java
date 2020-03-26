@@ -22,7 +22,7 @@ package org.raniaia.approve.framework.sql;
 
 import javassist.*;
 import org.raniaia.approve.framework.loader.NativeClassLoader;
-import org.raniaia.approve.components.pool.PoseidonClassPool;
+import org.raniaia.approve.components.pool.ApproveClassPool;
 import org.raniaia.approve.framework.provide.Valid;
 import org.raniaia.approve.framework.sql.xml.build.PrecompiledMethod;
 
@@ -37,7 +37,7 @@ import java.util.Map;
 public class Converter {
 
     @Valid
-    private PoseidonClassPool pool;
+    private ApproveClassPool pool;
 
     @SuppressWarnings("deprecation")
     public void conversion(PrecompiledMethod methodValue, Map<String, Object> parameter, String fullClassName) throws Exception {

@@ -4,13 +4,13 @@
 
 # 配置文件搭建
 
-Poseidon Framework会自动扫描**resources**目录下的**poseidon.properties**,如果没有这个文件那么会报一个**ReadException**
+Approve Framework会自动扫描**resources**目录下的**approve.properties**,如果没有这个文件那么会报一个**ReadException**
 
 如果配置文件的文件名是自定义的，那么需要调用一个手动加载配置的方法**ConfigLoader.loadConfig()**，示例如下:
 
 ```java
-// 假设配置文件的名字叫做"newposeidon.properties"
-ConfigLoader.loadConfig("newposeidon.properties");
+// 假设配置文件的名字叫做"newapprove.properties"
+ConfigLoader.loadConfig("newapprove.properties");
 ```
 
 这个需要在最开始就调用，比如springboot的启动类在启动前调用，或者tomcat的init等，需要在使用前调用。
@@ -21,20 +21,20 @@ ConfigLoader.loadConfig("newposeidon.properties");
 #####################################
 ### 数据库属性
 #####################################
-poseidon.jdbc.url = jdbc:mysql://127.0.0.1:3306/remotely?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
-poseidon.jdbc.driver = com.mysql.cj.jdbc.Driver
-poseidon.jdbc.username = root
-poseidon.jdbc.password = root
+approve.jdbc.url = jdbc:mysql://127.0.0.1:3306/remotely?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+approve.jdbc.driver = com.mysql.cj.jdbc.Driver
+approve.jdbc.username = root
+approve.jdbc.password = root
 
 #####################################
 ### 是否开启事物，默认为false
 #####################################
-poseidon.jdbc.transaction = true
+approve.jdbc.transaction = true
 
 #####################################
 ### 是否开启缓存
 #####################################
-poseidon.jdbc.cache = true
+approve.jdbc.cache = true
 
 #####################################
 ### 缓存过期时间，以秒为单位，支持加减乘除表达式
@@ -42,23 +42,23 @@ poseidon.jdbc.cache = true
 ### second（秒）、minute（分）、
 ### hour（时）、day（天）、week（周）
 #####################################
-poseidon.jdbc.refresh = hour * 1
+approve.jdbc.refresh = hour * 1
 
 #####################################
 ### 连接池大小
 #####################################
-poseidon.connectionPool.minSize = 2
-poseidon.connectionPool.maxSize = 90
+approve.connectionPool.minSize = 2
+approve.connectionPool.maxSize = 90
 
 # 前缀
-poseidon.model.prefix = heitui
+approve.model.prefix = heitui
 # model所在的包
-poseidon.model.package = com.raniaia.modules.provide.model
+approve.model.package = com.raniaia.modules.provide.model
 # builder xml模板文件所在的路径
-poseidon.model.mapper = com.raniaia.modules.provide.model.mapper
+approve.model.mapper = com.raniaia.modules.provide.model.mapper
 
 # 配置norm.json文件路径
-poseidon.norm.json = norm.json
+approve.norm.json = norm.json
 
 
 ```
@@ -67,7 +67,7 @@ poseidon.norm.json = norm.json
 
 # 模型映射
 
-> Poseidon提供了Table和Model之间的映射，创建表和新增字段的时候只需要在Model中新增即可。由框架来自动创建表，以及更新字段，不需要开发人员建立完表之后又去建立Model（索引需要手动建立）。
+> Approve提供了Table和Model之间的映射，创建表和新增字段的时候只需要在Model中新增即可。由框架来自动创建表，以及更新字段，不需要开发人员建立完表之后又去建立Model（索引需要手动建立）。
 
 **提供的注解**
 
@@ -89,7 +89,7 @@ poseidon.norm.json = norm.json
 - @Pk
 > **@Pk**主键
 
-具体Model的实现可以参考一下本项目下的 [ExampleModel](https://github.com/Laniakeamly/poseidon/blob/master/src/main/test/org/poseidon/experiment/ExampleModel.java)。
+具体Model的实现可以参考一下本项目下的 [ExampleModel](https://github.com/Laniakeamly/approve/blob/master/src/main/test/org/approve/experiment/ExampleModel.java)。
 
 当Model配置好了之后在启动时会自动创建表和字段。
 
@@ -99,14 +99,14 @@ poseidon.norm.json = norm.json
 
 ### **获取JdbcSupport**
 
-获取JdbcSupport需要通过框架提供的[BeansManager#getBean](https://github.com/Laniakeamly/poseidon/blob/master/src/main/java/org/raniaia/poseidon/framework/beans/BeansManager.java)对象来获取。
+获取JdbcSupport需要通过框架提供的[BeansManager#getBean](https://github.com/Laniakeamly/approve/blob/master/src/main/java/org/raniaia/approve/framework/beans/BeansManager.java)对象来获取。
 
 示例：
 
 ```java
 public class UserServiceImpl implements UserService{
     // 获取JdbcSupport实例
-    JdbcSupport jdbc = PoseidonApplication.getBean("jdbc");
+    JdbcSupport jdbc = ApproveApplication.getBean("jdbc");
 }
 ```
 
@@ -245,7 +245,7 @@ update其实非常简单，提供了一下三种方法：
 
 ## 使用XML模板
 
-> XML模板是Poseidon框架提供的一个动态SQL的功能，他能帮你简化代码以及管理。
+> XML模板是Approve框架提供的一个动态SQL的功能，他能帮你简化代码以及管理。
 
 先看一个简单的动态SQL模板例子吧。
 
@@ -295,7 +295,7 @@ update其实非常简单，提供了一下三种方法：
     </select>
 </mapper>
 ```
-这样就可以进行动态查询了，当然这种方式太繁琐了。我并不推荐大家用这种方法。poseidon还提供了一种更简单的方法。
+这样就可以进行动态查询了，当然这种方式太繁琐了。我并不推荐大家用这种方法。approve还提供了一种更简单的方法。
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="findProduct">

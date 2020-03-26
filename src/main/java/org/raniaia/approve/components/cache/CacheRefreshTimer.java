@@ -42,9 +42,9 @@ import org.raniaia.approve.framework.timer.Timer;
  */
 public class CacheRefreshTimer implements Timer {
 
-    private PoseidonCache cache;
+    private ApproveCache cache;
 
-    public CacheRefreshTimer(PoseidonCache cache){
+    public CacheRefreshTimer(ApproveCache cache){
         this.cache = cache;
     }
 

@@ -30,7 +30,7 @@ import java.util.Map;
  * 这个配置文件由当前框架所创造的。
  *
  * jap config file full name is Json and properties.
- * this config file create by poseidon.
+ * this config file create by approve.
  *
  * @author tiansheng
  */
@@ -52,7 +52,7 @@ public class JapConfig extends AbstractConfig {
     }
 
     public JapConfig(String path) {
-        super(new JapLoader().load(path).get("poseidon"));
+        super(new JapLoader().load(path).get("approve"));
     }
 
 }

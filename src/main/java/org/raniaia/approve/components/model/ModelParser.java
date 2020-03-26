@@ -21,7 +21,7 @@ package org.raniaia.approve.components.model;
  */
 
 import org.raniaia.approve.framework.provide.model.*;
-import org.raniaia.approve.framework.exception.PoseidonException;
+import org.raniaia.approve.framework.exception.ApproveException;
 import org.raniaia.approve.components.model.publics.Metadata;
 import org.raniaia.approve.framework.tools.ModelUtils;
 import org.raniaia.approve.framework.tools.SecurityManager;
@@ -45,7 +45,7 @@ public interface ModelParser {
     /**
      * Parse model annotation.
      */
-    default Map<String, String> parseModelAnnotation(Class<?> target, Metadata metadata) throws PoseidonException {
+    default Map<String, String> parseModelAnnotation(Class<?> target, Metadata metadata) throws ApproveException {
         String tableName;
         Map<String, String> map = new HashMap<>();
         if (SecurityManager.existModel(target)) {
@@ -53,7 +53,7 @@ public interface ModelParser {
             tableName = model.value();
             Engine engine = model.engine();
             if (StringUtils.isEmpty(tableName)) {
-                throw new PoseidonException("@Model value cannot null");
+                throw new ApproveException("@Model value cannot null");
             }
             metadata.setTableName(tableName);
             metadata.setEngine(engine);

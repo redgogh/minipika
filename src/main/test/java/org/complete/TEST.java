@@ -45,7 +45,7 @@ public class TEST {
     UserMapper mapper = BeansManager.newInstance(UserMapper.class);
 
     public static void main(String[] args) {
-        ConfigLoader.loadConfig("classpath:/compete/poseidon.jap");
+        ConfigLoader.loadConfig("classpath:/compete/approve.jap");
         TEST test = BeansManager.newInstance(TEST.class);
         // 测试user对象insert
         test.userInsertByObject();
@@ -54,7 +54,7 @@ public class TEST {
     }
 
     public void userInsertByObject(){
-        jdbc.insert(new User("test1","test1","test1@poseidon.com"));
+        jdbc.insert(new User("test1","test1","test1@approve.com"));
     }
 
     public void findUserById(int id){

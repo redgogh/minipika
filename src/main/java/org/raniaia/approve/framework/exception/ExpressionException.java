@@ -23,7 +23,7 @@ package org.raniaia.approve.framework.exception;
 /**
  * @author tiansheng
  */
-public class ExpressionException extends PoseidonException {
+public class ExpressionException extends ApproveException {
 
     public ExpressionException() {
     }

@@ -28,7 +28,7 @@ import java.security.MessageDigest;
 import java.util.*;
 
 /**
- * Poseidon ORM Framework简写POF
+ * Approve ORM Framework简写POF
  * @author tiansheng
  */
 public final class POFUtils {

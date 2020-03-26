@@ -66,7 +66,7 @@ public final class GlobalConfig {
     private String configPath;
 
     private GlobalConfig() {
-        this("poseidon.jap");
+        this("approve.jap");
     }
 
     private GlobalConfig(String configpath) {

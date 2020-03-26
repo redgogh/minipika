@@ -24,7 +24,7 @@ package org.raniaia.approve.framework.exception;
  * Model异常
  * @author tiansheng
  */
-public class ModelException extends PoseidonException {
+public class ModelException extends ApproveException {
 
     public ModelException() {
     }

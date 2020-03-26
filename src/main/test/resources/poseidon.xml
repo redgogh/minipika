@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<poseidon>
+<approve>
 
     <jdbc>
         <url>username</url>
@@ -16,12 +16,12 @@
     </connection>
 
     <model>
-        <package>org.poseidon.experiment</package>
-        <mapper>org.poseidon.builder</mapper>
+        <package>org.approve.experiment</package>
+        <mapper>org.approve.builder</mapper>
         <norm>norm.json</norm>
     </model>
     <default>
         <model>default_model.json</model>
     </default>
 
-</poseidon>
+</approve>

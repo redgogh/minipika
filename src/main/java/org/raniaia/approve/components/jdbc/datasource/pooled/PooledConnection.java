@@ -24,7 +24,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.raniaia.approve.components.log.Log;
 import org.raniaia.approve.components.log.LogFactory;
-import org.raniaia.approve.framework.exception.PoseidonException;
+import org.raniaia.approve.framework.exception.ApproveException;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -139,7 +139,7 @@ public class PooledConnection implements InvocationHandler {
                 }
                 return method.invoke(realConnection, args);
             } catch (Exception e) {
-                throw new PoseidonException(e);
+                throw new ApproveException(e);
             }
         }
     }

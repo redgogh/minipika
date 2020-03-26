@@ -18,7 +18,7 @@ package org.dev;
 
 
 
-import org.poseidon.experiment.ProductModel;
+import org.approve.experiment.ProductModel;
 
 import java.util.List;
 

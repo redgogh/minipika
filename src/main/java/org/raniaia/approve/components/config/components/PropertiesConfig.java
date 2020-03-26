@@ -33,13 +33,13 @@ import org.raniaia.approve.framework.tools.*;
 public final class PropertiesConfig extends AbstractConfig {
 
     // 配置文件地址
-    private String configPath = "resources/poseidon.properties";
+    private String configPath = "resources/approve.properties";
 
     private static PropertiesConfig instance;
 
     public static PropertiesConfig getInstance() {
         if (instance == null) {
-            instance = new PropertiesConfig("resources/poseidon.properties");
+            instance = new PropertiesConfig("resources/approve.properties");
         }
         return instance;
     }

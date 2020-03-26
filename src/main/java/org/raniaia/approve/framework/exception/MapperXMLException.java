@@ -23,7 +23,7 @@ package org.raniaia.approve.framework.exception;
 /**
  * @author tiansheng
  */
-public class MapperXMLException extends PoseidonException {
+public class MapperXMLException extends ApproveException {
 
     public MapperXMLException() {
     }

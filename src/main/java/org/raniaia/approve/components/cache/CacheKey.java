@@ -47,7 +47,7 @@ import java.util.List;
  * if tables in {@code CacheKey} contain parser out tables then refresh specify cache.
  *
  * @author tiansheng
- * @see PoseidonCacheImpl#refresh
+ * @see ApproveCacheImpl#refresh
  */
 public class CacheKey {
 

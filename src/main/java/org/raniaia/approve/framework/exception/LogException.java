@@ -23,7 +23,7 @@ package org.raniaia.approve.framework.exception;
 /**
  * @author tiansheng
  */
-public class LogException extends PoseidonException {
+public class LogException extends ApproveException {
 
     public LogException() {
     }

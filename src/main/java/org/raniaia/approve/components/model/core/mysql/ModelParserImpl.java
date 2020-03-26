@@ -22,7 +22,7 @@ package org.raniaia.approve.components.model.core.mysql;
 
 import org.raniaia.approve.framework.provide.component.Component;
 import org.raniaia.approve.framework.provide.model.*;
-import org.raniaia.approve.framework.exception.PoseidonException;
+import org.raniaia.approve.framework.exception.ApproveException;
 import org.raniaia.approve.components.model.ModelParser;
 import org.raniaia.approve.components.model.publics.Metadata;
 import org.raniaia.approve.framework.tools.ModelUtils;
@@ -44,7 +44,7 @@ public class ModelParserImpl implements ModelParser {
     /**
      * 解析类的信息，构建出一个实体的元数据
      */
-    private Metadata buildMetadata(Class<?> target) throws PoseidonException {
+    private Metadata buildMetadata(Class<?> target) throws ApproveException {
         String engine = null;                                   // 储存引擎
         String tableName = null;                                // 表名
         Metadata metadata = new Metadata();                     // 完整sql
@@ -75,7 +75,7 @@ public class ModelParserImpl implements ModelParser {
     /**
      * 解析字段信息
      */
-    private void parseField(Class<?> target, Metadata metadata, StringBuilder script, Map<String, String> columns) throws PoseidonException {
+    private void parseField(Class<?> target, Metadata metadata, StringBuilder script, Map<String, String> columns) throws ApproveException {
         for (Field field : ModelUtils.getModelField(target)) {
             String columnName = ModelUtils.humpToUnderline(field.getName());
             StringBuilder tableColumn = new StringBuilder(columnName); // 字段
@@ -87,7 +87,7 @@ public class ModelParserImpl implements ModelParser {
                 Column column = field.getDeclaredAnnotation(Column.class);
                 String statement = column.value();
                 if (StringUtils.isEmpty(statement)) {
-                    throw new PoseidonException("column property statement cannot null");
+                    throw new ApproveException("column property statement cannot null");
                 }
                 tableColumn.append(" ").append(statement).append(" ");
             }
@@ -123,7 +123,7 @@ public class ModelParserImpl implements ModelParser {
                 Metadata metadata = buildMetadata(target);
                 Metadata.putAttribute(metadata.getTableName(), metadata);
             }
-        } catch (PoseidonException e) {
+        } catch (ApproveException e) {
             e.printStackTrace();
         }
     }

@@ -1,4 +1,4 @@
-poseidon: {
+approve: {
 
     // jdbc
     jdbc.url = jdbc:oracle:thin:@127.0.0.1:1521:orcl
@@ -28,10 +28,10 @@ poseidon: {
     model.prefix = kkb
 
     // ģ�����ڵİ�
-    model.package = ["org.poseidon.experiment"]
+    model.package = ["org.approve.experiment"]
     
     // mapper��̬sql�ļ����ڵ�·��
-    model.mapper = ["org.poseidon.builder"]
+    model.mapper = ["org.approve.builder"]
 
     // ����norm.json�ļ�·��
     model.norm = norm.json

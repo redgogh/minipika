@@ -23,7 +23,7 @@ package org.raniaia.approve.framework.provide.component;
 import java.lang.annotation.*;
 
 /**
- * Class annotated with {@code Component} means a poseidon component.
+ * Class annotated with {@code Component} means a approve component.
  * It is recommended that each component implement a interface
  *
  * @author tiansheng

@@ -23,7 +23,7 @@ package org.raniaia.approve.framework.exception;
 /**
  * @author tiansheng
  */
-public class BeansManagerException extends PoseidonException {
+public class BeansManagerException extends ApproveException {
 
     public BeansManagerException() {
     }

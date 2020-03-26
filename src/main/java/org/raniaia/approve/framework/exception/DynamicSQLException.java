@@ -23,7 +23,7 @@ package org.raniaia.approve.framework.exception;
 /**
  * @author tiansheng
  */
-public class DynamicSQLException extends PoseidonException {
+public class DynamicSQLException extends ApproveException {
 
     public DynamicSQLException() {
     }

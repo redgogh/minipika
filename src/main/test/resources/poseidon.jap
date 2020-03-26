@@ -1,4 +1,4 @@
-poseidon: {
+approve: {
 
     // jdbc
     jdbc.url = jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
@@ -28,10 +28,10 @@ poseidon: {
     model.prefix = kkb
 
     // 模型所在的包
-    model.package = ["org.poseidon.experiment"]
+    model.package = ["org.approve.experiment"]
     
     // mapper动态sql文件所在的路径
-    model.mapper = ["org.poseidon.builder"]
+    model.mapper = ["org.approve.builder"]
 
     // 配置norm.json文件路径
     model.norm = norm.json

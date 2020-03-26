@@ -25,7 +25,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.raniaia.approve.framework.provide.model.Model;
 import org.raniaia.approve.framework.provide.model.Norm;
-import org.raniaia.approve.components.pool.PoseidonClassPool;
+import org.raniaia.approve.components.pool.ApproveClassPool;
 import org.raniaia.approve.framework.tools.StringUtils;
 
 import java.util.ArrayList;
@@ -52,14 +52,14 @@ public class ModelPreProcess {
 
     private List<NormProperties> properties;
     private ClassLoader loader = getClass().getClassLoader();
-    private final ClassPool classPool = new PoseidonClassPool(true);
-    private final String superClasspath = "org.raniaia.poseidon.components.model.publics.AbstractModel";
+    private final ClassPool classPool = new ApproveClassPool(true);
+    private final String superClasspath = "org.raniaia.approve.components.model.publics.AbstractModel";
     private final String methodJavaCode = "" +
             "{" +
             "if(" +
-            "!org.raniaia.poseidon.framework.tools." +
+            "!org.raniaia.approve.framework.tools." +
             "NormUtils.getInstanceSave().matches($1," +
-            "org.raniaia.poseidon.components.config.GlobalConfig.getConfig().getNorm(\"{}\"))" +
+            "org.raniaia.approve.components.config.GlobalConfig.getConfig().getNorm(\"{}\"))" +
             "){super.canSave=false;}" +
             "}";
 
@@ -130,7 +130,7 @@ public class ModelPreProcess {
         if (packages == null) return null;
         List<NormProperties> normPropertiesList = new ArrayList<>();
         for (String aPackage : packages) {
-            CtClass[] ctClasses = ((PoseidonClassPool) classPool).getCtClassArray(aPackage);
+            CtClass[] ctClasses = ((ApproveClassPool) classPool).getCtClassArray(aPackage);
             for (CtClass aClass : ctClasses) {
                 if (aClass.getAnnotation(Model.class) != null) {
                     String filedir = loader.getResource(".").toString().substring(6);

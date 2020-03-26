@@ -35,14 +35,14 @@ private String email;
 ```properties
 
 # model所在的包
-poseidon.model.package[0] = org.raniaia.approve.experiment
-poseidon.model.package[1] = org.raniaia.approve.experiment
-poseidon.model.package[2] = org.raniaia.approve.experiment
-poseidon.model.package[3] = org.raniaia.approve.experiment
+approve.model.package[0] = org.raniaia.approve.experiment
+approve.model.package[1] = org.raniaia.approve.experiment
+approve.model.package[2] = org.raniaia.approve.experiment
+approve.model.package[3] = org.raniaia.approve.experiment
 # builder xml模板文件所在的路径
-poseidon.model.mapper[0] = org.raniaia.approve.builder
-poseidon.model.mapper[1] = org.raniaia.approve.builder
-poseidon.model.mapper[2] = org.raniaia.approve.builder
-poseidon.model.mapper[3] = org.raniaia.poseidon.builder
+approve.model.mapper[0] = org.raniaia.approve.builder
+approve.model.mapper[1] = org.raniaia.approve.builder
+approve.model.mapper[2] = org.raniaia.approve.builder
+approve.model.mapper[3] = org.raniaia.approve.builder
 
 ```

@@ -22,7 +22,7 @@ package org.raniaia.approve.components.jdbc;
 
 import lombok.SneakyThrows;
 import org.raniaia.approve.BeansManager;
-import org.raniaia.approve.components.cache.PoseidonCache;
+import org.raniaia.approve.components.cache.ApproveCache;
 import org.raniaia.approve.components.config.GlobalConfig;
 import org.raniaia.approve.components.jdbc.transaction.Transaction;
 import org.raniaia.approve.components.jdbc.transaction.TransactionFactory;
@@ -53,7 +53,7 @@ public class NativeJdbcImpl implements NativeJdbc {
 
 
     @Valid
-    private PoseidonCache cache;
+    private ApproveCache cache;
 
     @Valid
     private DataSource dataSource;

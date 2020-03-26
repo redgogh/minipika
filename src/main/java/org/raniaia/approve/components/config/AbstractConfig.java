@@ -39,7 +39,7 @@ import java.util.Properties;
  * @since 1.8
  */
 public abstract
-class AbstractConfig implements PoseidonConfig {
+class AbstractConfig implements ApproveConfig {
 
     @Getter
     protected IDataSource iDataSource;
@@ -69,7 +69,7 @@ class AbstractConfig implements PoseidonConfig {
     private Object configObject;
 
     public AbstractConfig() {
-        this(new JapLoader().load().get("poseidon"));
+        this(new JapLoader().load().get("approve"));
     }
 
     /**
@@ -152,7 +152,7 @@ class AbstractConfig implements PoseidonConfig {
         if (configObject instanceof Map) {
             return (String) ((Map) configObject).get(key);
         } else if (configObject instanceof Properties) {
-            return ((Properties) configObject).getProperty("poseidon.".concat(key));
+            return ((Properties) configObject).getProperty("approve.".concat(key));
         }
         throw new ConfigException("unknown config object.");
     }

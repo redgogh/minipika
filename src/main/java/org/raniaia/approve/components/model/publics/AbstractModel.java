@@ -55,7 +55,7 @@ public abstract class AbstractModel {
      *
      * Field object of {@link AbstractModel#canSave} it can get the canSave value.
      * because {@link AbstractModel} is no need for programmer extends manually.
-     * poseidon framework will auto give all model class extends {@link AbstractModel}.
+     * approve framework will auto give all model class extends {@link AbstractModel}.
      *
      * so we need this object to get canSave the value.
      *

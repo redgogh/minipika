@@ -21,7 +21,7 @@ package org.recycle.compiler;
 import javassist.*;
 
 import org.raniaia.approve.BeansManager;
-import org.raniaia.approve.components.pool.PoseidonClassPool;
+import org.raniaia.approve.components.pool.ApproveClassPool;
 import org.raniaia.approve.framework.provide.ProvideVar;
 import org.recycle.build.PrecompiledClass;
 import org.recycle.build.PrecompiledMethod;
@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
  */
 public class Precompiler {
 
-    private PoseidonClassPool pool = BeansManager.get("classPool");
+    private ApproveClassPool pool = BeansManager.get("classPool");
 
     /**
      * 加载一个类对象,只加载类信息不加载任何方法
@@ -191,7 +191,7 @@ public class Precompiler {
                 } else {
                     String[] str = arg.split("\\.");
                     builder.append(StringUtils.format(ProvideVar.SQL_PARAMS_SET +
-                            ".add(org.raniaia.poseidon.framework.tools.ReflectUtils.getMemberValue(${},\"{}\"));", str[0],str[1]));
+                            ".add(org.raniaia.approve.framework.tools.ReflectUtils.getMemberValue(${},\"{}\"));", str[0],str[1]));
                 }
             }
             return builder.toString();

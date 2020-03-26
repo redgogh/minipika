@@ -35,7 +35,7 @@ public class Test1 {
     public void test(){
 
         String input = "a:{aaa:{}} b{}";
-        System.out.println(Arrays.asList(PIOUtils.getResourceAsString("/poseidon.jap").split("[\\s\\S]:\\{}",1)));
+        System.out.println(Arrays.asList(PIOUtils.getResourceAsString("/approve.jap").split("[\\s\\S]:\\{}",1)));
 
     }
 

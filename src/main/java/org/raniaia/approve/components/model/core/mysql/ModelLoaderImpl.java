@@ -31,7 +31,7 @@ import org.raniaia.approve.framework.provide.component.Component;
 import org.raniaia.approve.framework.provide.model.Model;
 import org.raniaia.approve.components.config.GlobalConfig;
 import org.raniaia.approve.components.jdbc.JdbcSupport;
-import org.raniaia.approve.framework.exception.PoseidonException;
+import org.raniaia.approve.framework.exception.ApproveException;
 import org.raniaia.approve.components.model.ModelLoader;
 import org.raniaia.approve.components.model.ModelParser;
 import org.raniaia.approve.components.model.publics.Metadata;
@@ -134,9 +134,9 @@ public class ModelLoaderImpl implements ModelLoader {
     /**
      * 检测是否有新增的字段
      *
-     * @throws PoseidonException
+     * @throws ApproveException
      */
-    private void loadColumn() throws PoseidonException {
+    private void loadColumn() throws ApproveException {
         List<Class<?>> models = ModelUtils.getModels();
         if (models == null) return;
         for (Class<?> target : models) {
@@ -169,7 +169,7 @@ public class ModelLoaderImpl implements ModelLoader {
                 }
 
             } else {
-                throw new PoseidonException(target.getName() + " no @Model");
+                throw new ApproveException(target.getName() + " no @Model");
             }
         }
     }

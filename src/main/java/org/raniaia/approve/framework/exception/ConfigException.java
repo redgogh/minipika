@@ -23,7 +23,7 @@ package org.raniaia.approve.framework.exception;
 /**
  * @author tiansheng
  */
-public class ConfigException extends PoseidonException {
+public class ConfigException extends ApproveException {
 
     public ConfigException() {
     }

@@ -24,7 +24,7 @@ package org.raniaia.approve.framework.exception;
  * @author tiansheng
  */
 public class
-ReadException extends PoseidonException {
+ReadException extends ApproveException {
 
     public ReadException() {
     }

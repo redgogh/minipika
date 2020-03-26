@@ -27,7 +27,7 @@ import org.raniaia.approve.framework.tools.StringUtils;
  * @author tiansheng
  * @since 1.8
  */
-interface PoseidonConfig {
+interface ApproveConfig {
 
     enum DriverType {MYSQL, ORACLE}
 

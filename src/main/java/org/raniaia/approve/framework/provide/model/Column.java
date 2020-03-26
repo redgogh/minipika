@@ -30,7 +30,7 @@ import java.lang.annotation.*;
  * statement script,no need write column name.
  *
  * If we have a age column now, we just need write sql script 'int(3) not null default 18',
- * as for column name poseidon will auto create.
+ * as for column name approve will auto create.
  *
  * Model class the column property annotation.
  *

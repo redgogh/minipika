@@ -24,7 +24,7 @@ import org.junit.Test;
 
 import org.raniaia.approve.BeansManager;
 import org.raniaia.approve.components.jdbc.JdbcSupport;
-import org.poseidon.experiment.UserInfo;
+import org.approve.experiment.UserInfo;
 
 /**
  * @author tiansheng
