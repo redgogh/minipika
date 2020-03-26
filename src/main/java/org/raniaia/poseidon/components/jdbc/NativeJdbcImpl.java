@@ -23,7 +23,7 @@ package org.raniaia.poseidon.components.jdbc;
 import org.raniaia.poseidon.BeansManager;
 import org.raniaia.poseidon.components.jdbc.datasource.pooled.PooledConnection;
 import org.raniaia.poseidon.components.log.LogFactory;
-import org.raniaia.poseidon.components.pool.ConnectionPool;
+
 import org.raniaia.poseidon.components.log.Log;
 import org.raniaia.poseidon.framework.provide.Valid;
 import org.raniaia.poseidon.components.cache.PoseidonCache;
@@ -47,7 +47,7 @@ import java.util.List;
 public class NativeJdbcImpl implements NativeJdbc {
 
     @Valid
-    private ConnectionPool dataSource;
+    private DataSource dataSource;
 
     @Valid
     private PoseidonCache cache;

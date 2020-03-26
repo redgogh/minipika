@@ -24,6 +24,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import org.raniaia.available.io.file.Files;
+import org.raniaia.poseidon.components.jdbc.datasource.unpooled.IDataSource;
 import org.raniaia.poseidon.framework.exception.ConfigException;
 import org.raniaia.poseidon.framework.jap.JapLoader;
 import org.raniaia.poseidon.framework.tools.Calculator;
@@ -40,11 +41,9 @@ import java.util.Properties;
 public abstract
 class AbstractConfig implements PoseidonConfig {
 
-    // url
-    protected String url;
-    // 数据库账号密码
-    protected String username;
-    protected String password;
+    @Getter
+    protected IDataSource iDataSource;
+
     // 驱动类型
     @Getter
     protected DriverType driverType;
@@ -103,16 +102,19 @@ class AbstractConfig implements PoseidonConfig {
      * 初始化
      */
     private void initConfig() {
-        this.url = getValue("jdbc.url");
         this.cache = getValue("jdbc.cache");
         this.refresh = getValue("jdbc.refresh");
         this.maxSize = getValue("connectionPool.maxSize");
         this.minSize = getValue("connectionPool.minSize");
-        String driver = getValue("jdbc.driver");
-        this.password = getValue("jdbc.password");
-        this.username = getValue("jdbc.username");
         this.tablePrefix = getValue("model.prefix");
         this.transaction = getValue("jdbc.transaction");
+
+        this.iDataSource = new IDataSource(
+                getValue("jdbc.url"),
+                getValue("jdbc.driver"),
+                getValue("jdbc.password"),
+                getValue("jdbc.username")
+        );
 
         // 模型文件存放目录
         JSONArray modelArray = JSONArray.parseArray(getValue("model.package"));
@@ -137,9 +139,7 @@ class AbstractConfig implements PoseidonConfig {
             this.defaultModel = JSONObject.parseObject(Files.read(defaultModelName));
         }
 
-        this.driverType = loadDriver(driver);
-
-        String temp = url;
+        String temp = iDataSource.getUrl();
         for (int i = 0; i < 3; i++) {
             temp = temp.substring(temp.indexOf("/") + 1);
         }
@@ -166,20 +166,8 @@ class AbstractConfig implements PoseidonConfig {
         return modelPackage;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
     public String getTablePrefix() {
         return tablePrefix == null ? "" : tablePrefix;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public Integer getMaxSize() {

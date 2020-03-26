@@ -20,7 +20,7 @@ package org.raniaia.poseidon.components.jdbc;
  * Creates on 2019/11/13.
  */
 
-import org.raniaia.poseidon.components.pool.ConnectionPool;
+
 
 import java.sql.*;
 import java.util.List;
@@ -112,11 +112,6 @@ public interface NativeJdbc {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    // 归还连接
-    default void release(Connection connection, ConnectionPool pool) {
-        if (connection != null) pool.release(connection);
     }
 
 }
