@@ -21,6 +21,7 @@ package org.raniaia.approve.components.jdbc.datasource.unpooled;
  */
 
 import lombok.Getter;
+import lombok.Setter;
 import org.raniaia.available.map.Maps;
 import org.raniaia.approve.framework.loader.NativeClassLoader;
 import org.raniaia.approve.framework.tools.StringUtils;
@@ -45,6 +46,13 @@ public class IDataSource {
     protected String username;
     @Getter
     protected String password;
+
+    /*
+     * 标明自己应该被哪个DataSource所创建
+     */
+    @Getter
+    @Setter
+    protected String sourceType;
 
     ClassLoader driverClassLoader;
 
