@@ -52,23 +52,32 @@ public class PooledDataSource implements DataSource {
     // Unpooled DataSource.
     private final UnpooledDatasource datasource;
 
+    /*
+     * 最大空闲连接
+     */
     /**
      * Maximum idle connections.
      */
-    int poolMaximumIdleConnections = 10;
+    int poolMaximumIdleConnections = 50;
 
+    /*
+     * 最小空闲连接
+     */
     /**
      * Minimum idle connections.
      */
     int poolMinimumIdleConnections = 2;
 
+    /*
+     * 如果一个连接存在的时间过长，就将它销毁掉，重新创建。
+     * 默认时间为3小时
+     */
     /**
      * Connection maximum survive time. 3H
      */
-    // 3小时
     long maximumTimestamp = 10800L;
 
-    long poolTimeToWait = 20000L;
+    long poolTimeToWait = 2000L;
 
     public PooledDataSource() {
         this.datasource = new UnpooledDatasource();
@@ -109,6 +118,7 @@ public class PooledDataSource implements DataSource {
                     // if idle connections equals null.
                     if (state.activeConnections.size() < poolMaximumIdleConnections) {
                         conn = new PooledConnection(datasource.getConnection(username, password), this);
+                        state.accumulateCreateCount++;
                         if (log.isDebugEnabled()) {
                             log.debug("Creates connection " + conn.getRealHasCode() + ".");
                         }

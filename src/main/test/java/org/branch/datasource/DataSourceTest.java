@@ -25,6 +25,7 @@ import org.raniaia.approve.components.jdbc.datasource.pooled.PooledConnection;
 import org.raniaia.approve.components.jdbc.datasource.pooled.PooledDataSource;
 import org.raniaia.approve.components.jdbc.datasource.unpooled.IDataSource;
 import org.raniaia.approve.components.jdbc.datasource.unpooled.UnpooledDatasource;
+import org.raniaia.available.thread.Threads;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -36,10 +37,15 @@ public class DataSourceTest {
 
     volatile long count = 0L;
 
+    class Lock {
+    }
+
+    Lock lock = new Lock();
+
     IDataSource iDataSource = new IDataSource(
             "jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT",
             "com.mysql.cj.jdbc.Driver",
-            "root","root"
+            "root", "root"
     );
 
     @Test
@@ -55,7 +61,7 @@ public class DataSourceTest {
     @Test
     public void pooled() throws SQLException, InterruptedException {
         PooledDataSource source = new PooledDataSource(iDataSource);
-        for(int i=0; i<20000; i++){
+        for (int i = 0; i < 2000; i++) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -65,13 +71,14 @@ public class DataSourceTest {
                             conn.close();
                             count++;
                         }
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    lock.notifyAll();
                 }
             }).start();
         }
-        System.out.println(source.getState().toString());
+        System.err.println(source.getState().toString());
     }
 
 }

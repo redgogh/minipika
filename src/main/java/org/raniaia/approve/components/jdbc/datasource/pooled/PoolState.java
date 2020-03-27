@@ -39,6 +39,7 @@ public class PoolState {
     long accumulateWaitTime                             = 0L; // 总等待时间
     long badConnectionCount                             = 0L; // 坏的链接总数
     long hadToWaitCount                                 = 0L; // 总等待数
+    long accumulateCreateCount                          = 0L; // 连接的总创建数
 
     public PoolState() {
     }
@@ -107,13 +108,14 @@ public class PoolState {
     public synchronized String toString() {
         return "PoolState{" +
                 "\n\tdataSource=" + dataSource +
-                "\n\tidleConnections=" + idleConnections +
-                "\n\tactiveConnections=" + activeConnections +
+                "\n\tidleConnections=" + idleConnections.size() +
+                "\n\tactiveConnections=" + activeConnections.size() +
                 "\n\trequestCount=" + requestCount +
                 "\n\trequestAccumulateTime=" + requestAccumulateTime +
                 "\n\taccumulateWaitTime=" + accumulateWaitTime +
                 "\n\tbadConnectionCount=" + badConnectionCount +
                 "\n\thadToWaitCount=" + hadToWaitCount +
+                "\n\taccumulateCreateCount=" + accumulateCreateCount +
                 "\n}";
     }
 }
