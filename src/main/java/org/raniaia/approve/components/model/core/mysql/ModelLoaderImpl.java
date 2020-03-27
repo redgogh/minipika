@@ -26,7 +26,7 @@ import jdk.nashorn.internal.runtime.ParserException;
 import org.raniaia.approve.BeansManager;
 
 import org.raniaia.approve.framework.provide.ProvideVar;
-import org.raniaia.approve.framework.provide.Valid;
+import org.raniaia.approve.framework.provide.Approve;
 import org.raniaia.approve.framework.provide.component.Component;
 import org.raniaia.approve.framework.provide.model.Model;
 import org.raniaia.approve.components.config.GlobalConfig;
@@ -51,7 +51,7 @@ import java.util.*;
 @Component
 public class ModelLoaderImpl implements ModelLoader {
 
-    @Valid
+    @Approve
     private JdbcSupport jdbc;
 
     @Override

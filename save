@@ -1,0 +1,47 @@
+<!-- maven编译插件 -->
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>${maven.compile.version}</version>
+    <configuration>
+        <source>${java.version}</source>
+        <target>${java.version}</target>
+        <!-- 编译参数, 此编译参数可以让.class文件保存原来的参数名 -->
+        <compilerArgument>-parameters</compilerArgument>
+    </configuration>
+</plugin>
+
+<!-- maven打包时doc插件 -->
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-javadoc-plugin</artifactId>
+    <version>2.10.4</version>
+    <executions>
+        <execution>
+            <id>attach-javadocs</id>
+            <phase>package</phase>
+            <goals>
+                <goal>jar</goal>
+            </goals>
+            <!-- java8版本导致javadoc打包编译失败时候，添加-->
+            <configuration>
+                <additionalparam>${javadoc.opts}</additionalparam>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+
+<!-- 源码打包 -->
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-source-plugin</artifactId>
+    <version>2.2.1</version>
+    <executions>
+        <execution>
+            <id>attach-sources</id>
+            <goals>
+                <goal>jar-no-fork</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>

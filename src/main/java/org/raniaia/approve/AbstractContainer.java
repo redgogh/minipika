@@ -27,7 +27,7 @@ import org.raniaia.available.reflect.Methods;
 import org.raniaia.approve.components.config.GlobalConfig;
 import org.raniaia.approve.components.jdbc.datasource.unpooled.IDataSource;
 import org.raniaia.approve.framework.mapper.MapperInvocation;
-import org.raniaia.approve.framework.provide.Valid;
+import org.raniaia.approve.framework.provide.Approve;
 import org.raniaia.approve.framework.provide.component.Component;
 import org.raniaia.approve.framework.provide.component.ComponentType;
 import org.raniaia.approve.framework.sql.SqlMapper;
@@ -134,7 +134,7 @@ public abstract class AbstractContainer extends RootContainer<String, Object> {
         Class<?> clazz = instance.getClass();
         Field[] fields = Fields.getDeclaredFields(clazz, true);
         for (Field field : fields) {
-            Valid valid = Annotations.isAnnotation(field, Valid.class);
+            Approve valid = Annotations.isAnnotation(field, Approve.class);
             if (valid != null) {
                 String componentName = field.getType().getSimpleName();
                 Object componentInstance = getRoots0(componentName);

@@ -23,7 +23,7 @@ package org.raniaia.approve.framework.sql;
 import org.raniaia.approve.BeansManager;
 import org.raniaia.approve.framework.container.PrecompileContainer;
 import org.raniaia.approve.components.jdbc.JdbcSupport;
-import org.raniaia.approve.framework.provide.Valid;
+import org.raniaia.approve.framework.provide.Approve;
 import org.raniaia.approve.framework.sql.xml.build.PrecompiledClass;
 import org.raniaia.approve.framework.sql.xml.build.PrecompiledMethod;
 
@@ -37,7 +37,7 @@ public class SqlMapper {
     private Converter converter = BeansManager.newInstance(Converter.class);
     private static PrecompileContainer container = PrecompileContainer.getContainer();
 
-    @Valid
+    @Approve
     private JdbcSupport jdbcSupport;
 
     /**

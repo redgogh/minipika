@@ -29,7 +29,7 @@ import org.raniaia.approve.components.jdbc.transaction.TransactionFactory;
 import org.raniaia.approve.components.jdbc.transaction.TransactionIsolationLevel;
 import org.raniaia.approve.components.log.Log;
 import org.raniaia.approve.components.log.LogFactory;
-import org.raniaia.approve.framework.provide.Valid;
+import org.raniaia.approve.framework.provide.Approve;
 import org.raniaia.approve.framework.provide.component.Component;
 import org.raniaia.approve.framework.tools.Arrays;
 import org.raniaia.approve.framework.tools.SQLUtils;
@@ -52,13 +52,13 @@ import java.util.List;
 public class NativeJdbcImpl implements NativeJdbc {
 
 
-    @Valid
+    @Approve
     private ApproveCache cache;
 
-    @Valid
+    @Approve
     private DataSource dataSource;
 
-    @Valid
+    @Approve
     protected TransactionFactory transactionFactory;
 
     private Log log                                     =       LogFactory.getLog(NativeJdbcImpl.class);

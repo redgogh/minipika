@@ -20,6 +20,14 @@ package org.raniaia.approve.components.jdbc.datasource.distribute;
  * Creates on 2020/3/25.
  */
 
+import org.raniaia.approve.components.jdbc.datasource.pooled.PooledDataSource;
+import org.raniaia.approve.components.jdbc.datasource.unpooled.IDataSource;
+import org.raniaia.available.list.Lists;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
 /**
  * 支持分布式的数据源
  * Distributed datasource.
@@ -27,4 +35,21 @@ package org.raniaia.approve.components.jdbc.datasource.distribute;
  * @author tiansheng
  */
 public class DistributeDatasource {
+
+    List<PooledDataSource> dataSources = Lists.newArrayList();
+
+    public DistributeDatasource(PooledDataSource[] pooledDataSources){
+        dataSources.addAll(Arrays.asList(pooledDataSources));
+    }
+
+    public DistributeDatasource(Collection<PooledDataSource> pooledDataSources){
+        dataSources.addAll(pooledDataSources);
+    }
+
+    public DistributeDatasource(IDataSource... iDataSources){
+        for (IDataSource iDataSource : iDataSources) {
+            dataSources.add(new PooledDataSource(iDataSource));
+        }
+    }
+
 }

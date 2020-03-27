@@ -26,7 +26,7 @@ import org.complete.mapper.UserMapper;
 import org.raniaia.approve.BeansManager;
 import org.raniaia.approve.components.config.ConfigLoader;
 import org.raniaia.approve.components.jdbc.JdbcSupport;
-import org.raniaia.approve.framework.provide.Valid;
+import org.raniaia.approve.framework.provide.Approve;
 
 /**
  * @author tiansheng
@@ -36,7 +36,7 @@ public class TEST {
     /**
      * 注入JDBC操作类
      */
-    @Valid
+    @Approve
     private JdbcSupport jdbc;
 
     /**

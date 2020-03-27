@@ -23,7 +23,7 @@ package org.raniaia.approve.framework.sql;
 import javassist.*;
 import org.raniaia.approve.framework.loader.NativeClassLoader;
 import org.raniaia.approve.components.pool.ApproveClassPool;
-import org.raniaia.approve.framework.provide.Valid;
+import org.raniaia.approve.framework.provide.Approve;
 import org.raniaia.approve.framework.sql.xml.build.PrecompiledMethod;
 
 import java.lang.reflect.Method;
@@ -36,7 +36,7 @@ import java.util.Map;
  */
 public class Converter {
 
-    @Valid
+    @Approve
     private ApproveClassPool pool;
 
     @SuppressWarnings("deprecation")

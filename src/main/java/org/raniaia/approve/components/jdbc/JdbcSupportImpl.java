@@ -21,7 +21,7 @@ package org.raniaia.approve.components.jdbc;
  */
 
 import org.raniaia.approve.framework.provide.ProvideVar;
-import org.raniaia.approve.framework.provide.Valid;
+import org.raniaia.approve.framework.provide.Approve;
 import org.raniaia.approve.components.config.GlobalConfig;
 import org.raniaia.approve.components.model.publics.AbstractModel;
 import org.raniaia.approve.framework.provide.component.Component;
@@ -44,7 +44,7 @@ import java.util.Set;
 @Component
 public class JdbcSupportImpl implements JdbcSupport {
 
-    @Valid
+    @Approve
     private NativeJdbc nativeJdbc;
 
     @Override

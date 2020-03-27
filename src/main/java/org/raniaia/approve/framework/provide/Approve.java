@@ -23,7 +23,7 @@ package org.raniaia.approve.framework.provide;
 import java.lang.annotation.*;
 
 /**
- * bean容器注入注解
+ * 这个注解可以理解为Spring的Autowired注解
  *
  * bean container inject annotation.
  *
@@ -32,7 +32,7 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Valid {
+public @interface Approve {
 
     String[] paramsId() default {};
 
