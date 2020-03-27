@@ -44,6 +44,15 @@ public class SqlExecute {
 
     }
 
+    /**
+     * @param sql       sql script.
+     * @param args      script parameters.
+     * @param result    result type.
+     * @param jdbc      jdbc operation class.
+     * @param label     query label.
+     *
+     * @see SqlMapper#build
+     */
     public SqlExecute(String sql, Object[] args, Class<?> result, JdbcSupport jdbc, QueryTag label) {
         this.sql = sql;
         this.jdbc = jdbc;

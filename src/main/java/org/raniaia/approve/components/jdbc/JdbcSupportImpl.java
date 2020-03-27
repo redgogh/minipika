@@ -20,6 +20,11 @@ package org.raniaia.approve.components.jdbc;
  * Creates on 2020/03/24.
  */
 
+import org.raniaia.approve.components.jdbc.transaction.TransactionFactory;
+import org.raniaia.approve.components.jdbc.transaction.jdbc.JdbcTransactionFactory;
+import org.raniaia.approve.components.log.Log;
+import org.raniaia.approve.components.log.LogFactory;
+import org.raniaia.approve.framework.exception.ApproveException;
 import org.raniaia.approve.framework.provide.ProvideVar;
 import org.raniaia.approve.framework.provide.Approve;
 import org.raniaia.approve.components.config.GlobalConfig;
@@ -31,6 +36,7 @@ import org.raniaia.approve.components.model.database.ColumnPo;
 import org.raniaia.approve.framework.tools.JdbcUtils;
 import org.raniaia.approve.framework.tools.ModelUtils;
 import org.raniaia.approve.framework.tools.StringUtils;
+import org.raniaia.available.thread.Threads;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -46,6 +52,15 @@ public class JdbcSupportImpl implements JdbcSupport {
 
     @Approve
     private NativeJdbc nativeJdbc;
+
+    private static final Log log = LogFactory.getLog(JdbcSupportImpl.class);
+
+    public JdbcSupportImpl() {
+    }
+
+    public JdbcSupportImpl(TransactionFactory transactionFactory) {
+        nativeJdbc.setTransactionFactory(transactionFactory);
+    }
 
     @Override
     public <T> T queryForObject(String sql, Class<T> obj, Object... args) {
@@ -114,7 +129,7 @@ public class JdbcSupportImpl implements JdbcSupport {
 
     @Override
     public int insert(Object obj) {
-        if (!AbstractModel.getCanSave(obj)) return 0;
+        checkCanSave(obj);
         List<Object> params = new ArrayList<>();
         String sql = JdbcUtils.generateInsertSQL(obj, params);
         return nativeJdbc.executeUpdate(sql, params.toArray());
@@ -189,7 +204,7 @@ public class JdbcSupportImpl implements JdbcSupport {
     // 是否更新为NULL的字段是否更新为NULL的字段
     private int update(Object obj, boolean bool) {
         try {
-            if (!AbstractModel.getCanSave(obj)) return 0;
+            checkCanSave(obj);
             Class<?> target = obj.getClass();
             List<Object> params = new ArrayList<>();
             StringBuffer buffer = new StringBuffer("update ");
@@ -222,6 +237,15 @@ public class JdbcSupportImpl implements JdbcSupport {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    private void checkCanSave(Object obj) {
+        if (!AbstractModel.getCanSave(obj)) {
+            log.error("Error while executing update method. Cause: " +
+                    "some of your fields failed validating.");
+            throw new ApproveException("Error while executing update method. Cause: " +
+                    "some of your fields failed validating.");
+        }
     }
 
 }

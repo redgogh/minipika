@@ -55,7 +55,7 @@ public class SqlMapper {
     /**
      * Is exist mapper.
      */
-    public static boolean isMapper(String name){
+    public static boolean isMapper(String name) {
         return container.getValue(name) != null;
     }
 
