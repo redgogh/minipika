@@ -20,6 +20,7 @@ package org.raniaia.approve.components;
  * Creates on 2020/3/26.
  */
 
+import org.raniaia.approve.AbstractContainer;
 import org.raniaia.approve.components.config.GlobalConfig;
 import org.raniaia.approve.components.jdbc.datasource.unpooled.IDataSource;
 import org.raniaia.approve.framework.provide.component.Component;
@@ -27,6 +28,7 @@ import org.raniaia.approve.framework.provide.component.ComponentType;
 
 /**
  * @author tiansheng
+ * @see AbstractContainer#loadComponents
  */
 public class MyComponents {
 

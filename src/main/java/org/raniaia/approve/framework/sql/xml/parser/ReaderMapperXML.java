@@ -26,7 +26,7 @@ import org.jdom2.input.SAXBuilder;
 import org.raniaia.approve.framework.sql.xml.node.XMLNode;
 import org.raniaia.approve.framework.exception.BuilderXmlException;
 import org.raniaia.approve.framework.sql.xml.node.XMLMapperNode;
-import org.raniaia.approve.framework.tools.POFUtils;
+import org.raniaia.approve.framework.tools.ApproveUtils;
 import org.raniaia.approve.framework.tools.StringUtils;
 
 import java.io.File;
@@ -52,7 +52,7 @@ public class ReaderMapperXML {
      * @return
      */
     private List<File> getBuilderXMLFiles() {
-        return POFUtils.getMapperXMLs();
+        return ApproveUtils.getMapperXMLs();
     }
 
     /**

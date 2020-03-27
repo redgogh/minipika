@@ -23,7 +23,7 @@ package org.raniaia.approve.framework.jap;
 import org.raniaia.available.io.file.Files;
 import org.raniaia.approve.components.config.GlobalConfig;
 import org.raniaia.approve.framework.exception.ConfigException;
-import org.raniaia.approve.framework.tools.PIOUtils;
+import org.raniaia.approve.framework.tools.ApproveIOUtils;
 import org.raniaia.approve.framework.tools.StringUtils;
 
 import java.io.FileInputStream;
@@ -63,7 +63,7 @@ public class JapLoader {
             configContent = Files.read(path);
         }else{
             try {
-                configContent = PIOUtils.getStringByInputStream(new FileInputStream(System.getProperty("user.dir").concat(path)));
+                configContent = ApproveIOUtils.getStringByInputStream(new FileInputStream(System.getProperty("user.dir").concat(path)));
             } catch (Exception e) {
                 e.printStackTrace();
             }

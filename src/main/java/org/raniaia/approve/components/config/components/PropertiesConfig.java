@@ -45,7 +45,7 @@ public final class PropertiesConfig extends AbstractConfig {
     }
 
     public PropertiesConfig(String configPath) {
-        super(PIOUtils.getResourceAsProperties(configPath));
+        super(ApproveIOUtils.getResourceAsProperties(configPath));
         instance = this;
     }
 

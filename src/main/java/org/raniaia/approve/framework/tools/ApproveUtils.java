@@ -28,10 +28,9 @@ import java.security.MessageDigest;
 import java.util.*;
 
 /**
- * Approve ORM Framework简写POF
  * @author tiansheng
  */
-public final class POFUtils {
+public final class ApproveUtils {
 
     /**
      * 获取Pte文件的File对象

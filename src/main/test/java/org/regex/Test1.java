@@ -19,7 +19,7 @@ package org.regex;
 
 
 import org.junit.Test;
-import org.raniaia.approve.framework.tools.PIOUtils;
+import org.raniaia.approve.framework.tools.ApproveIOUtils;
 
 import java.util.Arrays;
 
@@ -35,7 +35,7 @@ public class Test1 {
     public void test(){
 
         String input = "a:{aaa:{}} b{}";
-        System.out.println(Arrays.asList(PIOUtils.getResourceAsString("/approve.jap").split("[\\s\\S]:\\{}",1)));
+        System.out.println(Arrays.asList(ApproveIOUtils.getResourceAsString("/approve.jap").split("[\\s\\S]:\\{}",1)));
 
     }
 

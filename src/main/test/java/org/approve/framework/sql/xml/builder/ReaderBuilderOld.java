@@ -25,7 +25,7 @@ import org.raniaia.approve.framework.provide.ProvideVar;
 import org.raniaia.approve.framework.sql.xml.token.Token;
 import org.raniaia.approve.framework.sql.xml.token.TokenValue;
 import org.raniaia.approve.framework.tools.NewlineBuilder;
-import org.raniaia.approve.framework.tools.POFUtils;
+import org.raniaia.approve.framework.tools.ApproveUtils;
 import org.raniaia.approve.framework.tools.StringUtils;
 import org.jdom2.Content;
 import org.jdom2.Document;
@@ -76,7 +76,7 @@ public class ReaderBuilderOld {
      * @return
      */
     private List<File> getBuilderXMLFiles() {
-        return POFUtils.getMapperXMLs();
+        return ApproveUtils.getMapperXMLs();
     }
 
     public void parseXML() throws Exception {

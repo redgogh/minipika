@@ -24,7 +24,7 @@ import org.approve.experiment.UserModel;
 import org.raniaia.approve.BeansManager;
 import org.raniaia.approve.components.cache.ApproveCache;
 import org.raniaia.approve.components.jdbc.JdbcSupport;
-import org.raniaia.approve.framework.tools.POFUtils;
+import org.raniaia.approve.framework.tools.ApproveUtils;
 import org.raniaia.approve.framework.tools.DateUtils;
 
 import java.util.Date;
@@ -87,7 +87,7 @@ public class Query {
             System.out.println("[执行查询]");
             String sql = "select * from kkb_user_model as u left join kkb_product_model as p on u.uuid = p.uuid where u.id = ?";
 
-            String uuid = POFUtils.uuid();
+            String uuid = ApproveUtils.uuid();
             UserModel userModel = new UserModel();
             userModel.setUserName(uuid);
             userModel.setGoogleEmail(uuid);

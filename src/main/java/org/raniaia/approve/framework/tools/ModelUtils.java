@@ -177,7 +177,7 @@ public class ModelUtils {
 
     private static void getModels(String basePackage, List<Class<?>> models) throws ClassNotFoundException {
         //扫描编译好的所有类路径
-        URL url = POFUtils.class.getResource("/" + basePackage.replaceAll("\\.", "/"));
+        URL url = ApproveUtils.class.getResource("/" + basePackage.replaceAll("\\.", "/"));
         if (url == null) return;
         //将url转换为文件类型
         File dir = new File(url.getFile());

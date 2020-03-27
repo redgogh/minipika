@@ -31,7 +31,7 @@ import java.util.Properties;
 /**
  * @author tiansheng
  */
-public class PIOUtils {
+public class ApproveIOUtils {
 
     /**
      * 获取Resource文件夹下的文件
@@ -39,7 +39,7 @@ public class PIOUtils {
      * @return
      */
     public static InputStream getResourceAsStream(String name){
-        return PIOUtils.class.getClassLoader().getResourceAsStream(name);
+        return ApproveIOUtils.class.getClassLoader().getResourceAsStream(name);
     }
 
     /**

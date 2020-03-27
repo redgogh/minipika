@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.raniaia.approve.framework.sql.Parameter;
 import org.raniaia.approve.framework.sql.SqlExecute;
 import org.raniaia.approve.framework.sql.SqlMapper;
-import org.raniaia.approve.framework.tools.POFUtils;
+import org.raniaia.approve.framework.tools.ApproveUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +43,8 @@ public class MapperTest {
         List<ProductModel> list = new ArrayList<>();
         for(int i=0; i<5; i++) {
             ProductModel product = new ProductModel();
-            product.setUuid(POFUtils.uuid()+i);
-            product.setProductName(POFUtils.uuid()+i);
+            product.setUuid(ApproveUtils.uuid()+i);
+            product.setProductName(ApproveUtils.uuid()+i);
             list.add(product);
         }
 

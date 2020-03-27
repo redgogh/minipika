@@ -22,7 +22,7 @@ package org.raniaia.approve.components.cache;
 
 import org.raniaia.approve.components.jdbc.NativeResult;
 import org.raniaia.approve.framework.provide.component.Component;
-import org.raniaia.approve.framework.tools.POFUtils;
+import org.raniaia.approve.framework.tools.ApproveUtils;
 import org.raniaia.approve.framework.tools.SQLUtils;
 
 import java.util.ArrayList;
@@ -125,7 +125,7 @@ public class ApproveCacheImpl implements ApproveCache{
         for (Object arg : args) {
             values.add(arg.toString());
         }
-        return POFUtils.encryptToMd5(values.toString());
+        return ApproveUtils.encryptToMd5(values.toString());
     }
 
 }
