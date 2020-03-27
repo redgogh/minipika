@@ -1,7 +1,7 @@
-package org.raniaia.approve.components.log.slf4j;
+package org.raniaia.approve.components.logging.stdlog;
 
 /*
- * Copyright (C) 2020 Tiansheng All rights reserved.
+ * Copyright (C) 2020 tiansheng All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,54 +17,54 @@ package org.raniaia.approve.components.log.slf4j;
  */
 
 /*
- * Creates on 2019/12/17.
+ * Creates on 2020/3/27.
  */
 
-import org.raniaia.approve.components.log.Log;
-import org.raniaia.approve.framework.provide.component.Component;
+import org.raniaia.approve.components.logging.Log;
 
 /**
  * @author tiansheng
  */
-@Component
-public class Slf4jLog implements Log {
+public class StdLog implements Log {
 
-    private org.slf4j.Logger logger;
-
-    public Slf4jLog() {
+    public StdLog() {
     }
 
-    public Slf4jLog(org.slf4j.Logger logger) {
-        this.logger = logger;
+    public StdLog(Class<?> name){
+        this(name.getName());
+    }
+
+    public StdLog(String name){
+        // Do Noting
     }
 
     @Override
     public boolean isDebugEnabled() {
-        return logger.isDebugEnabled();
+        return true;
     }
 
     @Override
     public void info(String msg) {
-        logger.info(msg);
+        System.out.println(msg);
     }
 
     @Override
     public void warn(String msg) {
-        logger.warn(msg);
+        System.out.println(msg);
     }
 
     @Override
     public void debug(String msg) {
-        logger.debug(msg);
+        System.out.println(msg);
     }
 
     @Override
     public void error(String msg) {
-        logger.error(msg);
+        System.out.println(msg);
     }
 
     @Override
     public void error(String msg, Throwable e) {
-        logger.error(msg, e);
+        System.out.println(msg);
     }
 }

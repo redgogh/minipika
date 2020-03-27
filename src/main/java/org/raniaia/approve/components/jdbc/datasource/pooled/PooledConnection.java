@@ -22,8 +22,8 @@ package org.raniaia.approve.components.jdbc.datasource.pooled;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.raniaia.approve.components.log.Log;
-import org.raniaia.approve.components.log.LogFactory;
+import org.raniaia.approve.components.logging.Log;
+import org.raniaia.approve.components.logging.LogFactory;
 import org.raniaia.approve.framework.exception.ApproveException;
 
 import java.lang.reflect.InvocationHandler;

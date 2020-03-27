@@ -1,7 +1,7 @@
-package org.raniaia.approve.components.log;
+package org.raniaia.approve.components.logging;
 
 /*
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 Tiansheng All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,15 +17,28 @@ package org.raniaia.approve.components.log;
  */
 
 /*
- * Creates on 2020/3/26.
+ * Creates on 2019/12/9.
  */
 
 /**
+ * 使用自定义的日志框架，如果没有使用默认。
+ *
+ * Configuration logger framework if there is not use default.
+ *
  * @author tiansheng
  */
-public interface LogAdapter {
+public interface Log {
 
-    Log getLog(String key);
-    Log getLog(Class<?> key);
+    boolean isDebugEnabled();
+
+    void info(String msg);
+
+    void warn(String msg);
+
+    void debug(String msg);
+
+    void error(String msg);
+
+    void error(String msg,Throwable e);
 
 }

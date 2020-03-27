@@ -20,8 +20,8 @@ package org.raniaia.approve.framework.sql.xml.build;
  * Creates on 2019/12/17.
  */
 
-import org.raniaia.approve.components.log.Log;
-import org.raniaia.approve.components.log.LogFactory;
+import org.raniaia.approve.components.logging.Log;
+import org.raniaia.approve.components.logging.LogFactory;
 import org.raniaia.approve.framework.exception.DynamicSQLException;
 import org.raniaia.approve.framework.exception.ExpressionException;
 import org.raniaia.approve.framework.provide.ProvideVar;

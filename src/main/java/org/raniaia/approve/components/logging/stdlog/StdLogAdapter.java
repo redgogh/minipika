@@ -1,4 +1,4 @@
-package org.raniaia.approve.components.log.slf4j;
+package org.raniaia.approve.components.logging.stdlog;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,24 +17,24 @@ package org.raniaia.approve.components.log.slf4j;
  */
 
 /*
- * Creates on 2020/3/26.
+ * Creates on 2020/3/27.
  */
 
-import org.raniaia.approve.components.log.Log;
-import org.raniaia.approve.components.log.LogAdapter;
-import org.slf4j.LoggerFactory;
+import org.raniaia.approve.components.logging.Log;
+import org.raniaia.approve.components.logging.LogAdapter;
 
 /**
  * @author tiansheng
  */
-public class Slf4jLogAdapter implements LogAdapter {
+public class StdLogAdapter implements LogAdapter {
 
-    public Log getLog(String key){
-        return new Slf4jLog(LoggerFactory.getLogger(key));
+    @Override
+    public Log getLog(String key) {
+        return new StdLog(key);
     }
 
-    public Log getLog(Class<?> key){
-        return new Slf4jLog(LoggerFactory.getLogger(key));
+    @Override
+    public Log getLog(Class<?> key) {
+        return new StdLog(key);
     }
-
 }

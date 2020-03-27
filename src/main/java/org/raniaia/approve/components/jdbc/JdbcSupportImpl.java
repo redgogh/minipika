@@ -21,9 +21,8 @@ package org.raniaia.approve.components.jdbc;
  */
 
 import org.raniaia.approve.components.jdbc.transaction.TransactionFactory;
-import org.raniaia.approve.components.jdbc.transaction.jdbc.JdbcTransactionFactory;
-import org.raniaia.approve.components.log.Log;
-import org.raniaia.approve.components.log.LogFactory;
+import org.raniaia.approve.components.logging.Log;
+import org.raniaia.approve.components.logging.LogFactory;
 import org.raniaia.approve.framework.exception.ApproveException;
 import org.raniaia.approve.framework.provide.ProvideVar;
 import org.raniaia.approve.framework.provide.Approve;
@@ -36,7 +35,6 @@ import org.raniaia.approve.components.model.database.ColumnPo;
 import org.raniaia.approve.framework.tools.JdbcUtils;
 import org.raniaia.approve.framework.tools.ModelUtils;
 import org.raniaia.approve.framework.tools.StringUtils;
-import org.raniaia.available.thread.Threads;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

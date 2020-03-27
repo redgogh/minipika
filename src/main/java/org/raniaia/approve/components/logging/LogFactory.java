@@ -1,4 +1,4 @@
-package org.raniaia.approve.components.log;
+package org.raniaia.approve.components.logging;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -21,7 +21,8 @@ package org.raniaia.approve.components.log;
  */
 
 
-import org.raniaia.approve.components.log.slf4j.Slf4jLogAdapter;
+import org.raniaia.approve.components.logging.slf4j.Slf4jLogAdapter;
+import org.raniaia.approve.components.logging.stdlog.StdLogAdapter;
 import org.raniaia.approve.framework.exception.LogException;
 
 import java.lang.reflect.Constructor;
@@ -35,6 +36,7 @@ public class LogFactory {
 
     static {
         tryFindLogImplementation(LogFactory::useSlf4jLogging);
+        tryFindLogImplementation(LogFactory::useStdLogging);
     }
 
     public static Log getLog(Class<?> key) {
@@ -55,9 +57,15 @@ public class LogFactory {
         setLogImplementation(Slf4jLogAdapter.class);
     }
 
+    private static void useStdLogging() {
+        setLogImplementation(StdLogAdapter.class);
+    }
+
     private static void tryFindLogImplementation(Runnable runnable) {
         try {
-            runnable.run();
+            if(logAdapterConstructor == null) {
+                runnable.run();
+            }
         } catch (Throwable e) {
             // ignore
         }

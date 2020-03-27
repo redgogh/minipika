@@ -22,8 +22,8 @@ package org.raniaia.approve.components.jdbc.transaction.jdbc;
 
 import org.raniaia.approve.components.jdbc.transaction.Transaction;
 import org.raniaia.approve.components.jdbc.transaction.TransactionIsolationLevel;
-import org.raniaia.approve.components.log.Log;
-import org.raniaia.approve.components.log.LogFactory;
+import org.raniaia.approve.components.logging.Log;
+import org.raniaia.approve.components.logging.LogFactory;
 import org.raniaia.approve.framework.provide.component.Component;
 
 import javax.sql.DataSource;

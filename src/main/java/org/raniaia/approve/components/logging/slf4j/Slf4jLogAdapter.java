@@ -1,4 +1,4 @@
-package org.component;
+package org.raniaia.approve.components.logging.slf4j;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,20 +20,21 @@ package org.component;
  * Creates on 2020/3/26.
  */
 
-import org.junit.Test;
 import org.raniaia.approve.components.logging.Log;
-import org.raniaia.approve.components.logging.LogFactory;
+import org.raniaia.approve.components.logging.LogAdapter;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author tiansheng
  */
-public class LogTest {
+public class Slf4jLogAdapter implements LogAdapter {
 
-    Log log = LogFactory.getLog(LogTest.class);
+    public Log getLog(String key){
+        return new Slf4jLog(LoggerFactory.getLogger(key));
+    }
 
-    @Test
-    public void logTest(){
-        log.error("log error test.");
+    public Log getLog(Class<?> key){
+        return new Slf4jLog(LoggerFactory.getLogger(key));
     }
 
 }

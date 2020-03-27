@@ -48,7 +48,7 @@ public class IDataSource {
     protected String password;
 
     /*
-     * 标明自己应该被哪个DataSource所创建
+     *
      */
     @Getter
     @Setter
