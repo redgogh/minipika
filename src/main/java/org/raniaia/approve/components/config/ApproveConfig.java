@@ -31,28 +31,17 @@ interface ApproveConfig {
 
     enum DriverType {MYSQL, ORACLE}
 
-    /**
-     * 加载驱动
-     */
-    default DriverType loadDriver(String classpath) {
-        if (StringUtils.isEmpty(classpath)) {
-            throw new ConfigException("jdbc driver cannot null.");
-        }
-        System.setProperty("jdbc.drivers", classpath);
-        if (classpath.contains("mysql")) {
-            return DriverType.MYSQL;
-        } else if (classpath.contains("oracle")) {
-            return DriverType.ORACLE;
-        }
-        return DriverType.MYSQL;
-    }
-
-    /**
-     * get config value
-     *
-     * @param key
-     * @return
-     */
-    String getValue(String key);
+    void prefix(String prefix);
+    void cache(boolean desired);
+    void cache(boolean desired,Integer refresh);
+    void cache(boolean desired,String refresh);
+    void transaction(boolean desired);
+    void maximumIdleConnection(int size);
+    void minimumIdleConnection(int size);
+    void model(String... packages);
+    void mapper(String... paths);
+    void norm(String path);
+    void defaultData(String path);
+    void datasource(String url,String driver,String username,String password);
 
 }

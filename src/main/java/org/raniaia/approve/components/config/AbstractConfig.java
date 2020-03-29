@@ -148,7 +148,6 @@ class AbstractConfig implements ApproveConfig {
 
     }
 
-    @Override
     public String getValue(String key) {
         if (configObject instanceof Map) {
             return (String) ((Map) configObject).get(key);
