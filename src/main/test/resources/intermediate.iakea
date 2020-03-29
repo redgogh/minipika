@@ -3,7 +3,7 @@
 //
 mapper user_iakea {
 
-    select findUserByName UserModel {
+    select findUserByName UserEntity {
 
         P:
             Map as map;
@@ -16,7 +16,7 @@ mapper user_iakea {
             #append from sql.append();
 
         C:
-            sql.append("select * from user_model where 1 = 1");
+            sql.append("select * from user_entity where 1 = 1");
             ifne {username},[NULL]:
                 #append(and user_name = {{username}});
             else:
@@ -24,7 +24,7 @@ mapper user_iakea {
     }
 
 
-    insert insertUserModel {
+    insert insertUserEntity {
 
        P:
             Map as map;
@@ -35,7 +35,7 @@ mapper user_iakea {
             #append     from sql.append();
 
        C:
-            #append("INSERT INTO `user_model`(
+            #append("INSERT INTO `user_entity`(
                                  `google_email`,
                                  `password`,
                                  `user_age`,

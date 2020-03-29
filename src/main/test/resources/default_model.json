@@ -4,7 +4,7 @@
     "b": "bbb"
   },
 
-  "ExampleModel": [
+  "ExampleEntity": [
     {"createTime":"#currentTime#","username": "keyboard0", "email": "this.Test"},
     {"createTime":"#currentTime#","username": "keyboard3", "email": "10086@vip.com"}
   ]

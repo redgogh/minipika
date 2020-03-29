@@ -24,7 +24,7 @@ import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.util.TablesNamesFinder;
-import org.raniaia.approve.components.model.database.ColumnPo;
+import org.raniaia.approve.components.entity.database.ColumnPo;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

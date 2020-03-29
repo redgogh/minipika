@@ -1,4 +1,4 @@
-package org.approve.column;
+package org.raniaia.approve.framework.provide.entity;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -16,30 +16,23 @@ package org.approve.column;
  * limitations under the License.
  */
 
+/*
+ * Creates on 2019/11/13.
+ */
 
-
-import org.junit.Test;
-
-import org.raniaia.approve.BeansManager;
-import org.raniaia.approve.components.jdbc.JdbcSupport;
-import org.raniaia.approve.components.entity.database.ColumnPo;
-
-import java.util.List;
+import java.lang.annotation.*;
 
 /**
- * Copyright by tiansheng on 2020/2/15 1:47
+ * 忽略某个字段，被忽略字段不会对数据库进行影响
+ *
+ * This annotation only to have {@link Entity} the class effective.
+ *
+ * Ignore column, be ignored column will not impact on the database.
+ *
  * @author tiansheng
- * @version 1.0.0
- * @since 1.8
  */
-public class Test0 {
-
-    JdbcSupport jdbc = BeansManager.get("jdbc");
-
-    @Test
-    public void getColumn() {
-        List<ColumnPo> columnEntitys = jdbc.queryForList("show full columns from kkb_example_entity", ColumnPo.class);
-        System.out.println(columnEntitys.toString());
-    }
-
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface Ignore {
 }

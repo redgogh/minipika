@@ -2,14 +2,14 @@
 <mapper name="productService">
 
     <select name="findProductName" result="math(BigDecimal)">
-        select product_name from kkb_product_model where id = {{id}}
+        select product_name from kkb_product_entity where id = {{id}}
     </select>
 
     <!--
         测试条件查询（不为空则不添加到条件）
     -->
-    <select name="findProduct" result="ProductModel">
-        select * from kkb_product_model where 1=1
+    <select name="findProduct" result="ProductEntity">
+        select * from kkb_product_entity where 1=1
         <if test="$req != null">
             <cond>and product_name = {{productName}}</cond>
             <cond>and uuid = {{uuid}}</cond>
@@ -19,10 +19,10 @@
     <!--
         测试普通查询
         result参数代表要返回的对象,这个对象不用加全路径。
-        但是要求对象必须在approve.model.package配置的包下
+        但是要求对象必须在approve.entity.package配置的包下
     -->
-    <select name="findProductByUUID" result="ProductModel">
-        select * from kkb_product_model where uuid = {{uuid}}
+    <select name="findProductByUUID" result="ProductEntity">
+        select * from kkb_product_entity where uuid = {{uuid}}
     </select>
 
     <!--
@@ -41,7 +41,7 @@
         然后调用SqlExecute执行对应的方法
     -->
     <insert name="addProducts">
-        INSERT INTO `kkb_product_model`(`product_name`, `uuid`) VALUES (?,?);
+        INSERT INTO `kkb_product_entity`(`product_name`, `uuid`) VALUES (?,?);
         <foreach item="product" collections="products">
             <parameter>{{product.productName}},{{product.uuid}}</parameter>
         </foreach>

@@ -88,7 +88,7 @@ public class ProvideVar {
     private static final String SQL_APPEND                              = "sql.append(\" {} \");";
     private static final String GET_MEMBER_VALUE                        = "org.raniaia.approve.framework.tools.ReflectUtils.getMemberValue({},{})";
 
-    // default_model.json中的特殊变量
+    // default_entity.json中的特殊变量
     // ---------------------------------------------------------------------
 
     private static final String CURRENT_TIME                            = "#currentTime#";
@@ -96,11 +96,11 @@ public class ProvideVar {
     // ---------------------------------------------------------------------
 
     /**
-     * 更新default_model JSONObject中的特殊变量
+     * 更新default_entity JSONObject中的特殊变量
      * @param jsonObject
      */
     public static synchronized void updateSpecialVariable(JSONObject jsonObject) {
-        JSONObject parent = GlobalConfig.getConfig().getDefaultModel();
+        JSONObject parent = GlobalConfig.getConfig().getDefaultEntity();
         for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue().toString();

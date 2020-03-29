@@ -20,8 +20,8 @@ package org.raniaia.approve.framework.tools;
  * Creates on 2019/11/12.
  */
 
-import org.raniaia.available.Available;
 import org.raniaia.approve.components.config.GlobalConfig;
+import org.raniaia.available.io.Paths;
 
 import java.io.*;
 import java.security.MessageDigest;
@@ -47,7 +47,7 @@ public final class ApproveUtils {
 
     private static void getXMLs(String basePackage, List<File> files) {
         //扫描编译好的所有类路径
-        String path = Available.toClasspath(basePackage);
+        String path = Paths.toClasspath(basePackage);
         if (StringUtils.isEmpty(path)) return;
         //将url转换为文件类型
         File dir = new File(path);

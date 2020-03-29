@@ -20,7 +20,7 @@ package org.raniaia.approve.components.jdbc;
  * Creates on 2019/11/11.
  */
 
-import org.raniaia.approve.components.model.database.ColumnPo;
+import org.raniaia.approve.components.entity.database.ColumnPo;
 
 import java.util.List;
 import java.util.Set;
@@ -124,21 +124,21 @@ public interface JdbcSupport {
 
     /**
      * 通过实体类来更新数据
-     * @param model 实体类
+     * @param entity 实体类
      * @return 更新条数
      */
-    int insert(Object model);
+    int insert(Object entity);
 
     /**
      * 批量插入
-     * @param models
+     * @param entitys
      * @return
      */
-    int[] insert(List<Object> models);
+    int[] insert(List<Object> entitys);
 
     /**
      * 统计单张表的所有数据
-     * @param target 传入UserModel
+     * @param target 传入UserEntity
      * @return
      */
     int count(Class<?> target);

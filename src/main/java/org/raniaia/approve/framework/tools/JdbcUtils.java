@@ -20,7 +20,7 @@ package org.raniaia.approve.framework.tools;
  * Creates on 2020/2/15.
  */
 
-import org.raniaia.approve.framework.provide.model.Model;
+import org.raniaia.approve.framework.provide.entity.Entity;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class JdbcUtils {
 
     /**
      * 生成insert语句
-     * @param obj    model对象
+     * @param obj    entity对象
      * @return
      * @throws Exception
      */
@@ -42,17 +42,17 @@ public class JdbcUtils {
             StringBuffer into = new StringBuffer("insert into ");
             StringBuffer values = new StringBuffer(" values ");
             Class<?> target = obj.getClass();
-            if (SecurityManager.existModel(target)) {
-                Model model = ModelUtils.getModelAnnotation(target);
-                into.append("`").append(model.value()).append("`");
+            if (SecurityManager.existEntity(target)) {
+                Entity entity = EntityUtils.getEntityAnnotation(target);
+                into.append("`").append(entity.value()).append("`");
             }
             into.append("(");
             values.append("(");
-            List<Field> fields = ModelUtils.getModelField(obj);
+            List<Field> fields = EntityUtils.getEntityField(obj);
             for (Field field : fields) {
                 Object v = field.get(obj);
                 if (v != null) {
-                    into.append("`").append(ModelUtils.humpToUnderline(field.getName())).append("`,");
+                    into.append("`").append(EntityUtils.humpToUnderline(field.getName())).append("`,");
                     values.append("?,");
                     params.add(v);
                 }

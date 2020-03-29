@@ -25,19 +25,19 @@ approve: {
     connectionPool.maxSize = 90
 
     // 表名前缀
-    model.prefix = kkb
+    entity.prefix = kkb
 
     // 模型所在的包
-    model.package = ["org.approve.experiment"]
+    entity.package = ["org.approve.experiment"]
     
     // mapper动态sql文件所在的路径
-    model.mapper = ["org.approve.builder"]
+    entity.mapper = ["org.approve.builder"]
 
     // 配置norm.json文件路径
-    model.norm = norm.json
+    entity.norm = norm.json
 
     // 默认数据文件
-    default.model = default_model.json
+    default.entity = default_entity.json
 
 }
 

@@ -27,13 +27,13 @@ import org.raniaia.approve.framework.exception.ApproveException;
 import org.raniaia.approve.framework.provide.ProvideVar;
 import org.raniaia.approve.framework.provide.Approve;
 import org.raniaia.approve.components.config.GlobalConfig;
-import org.raniaia.approve.components.model.publics.AbstractModel;
+import org.raniaia.approve.components.entity.publics.AbstractEntity;
 import org.raniaia.approve.framework.provide.component.Component;
 import org.raniaia.approve.framework.tools.SecurityManager;
-import org.raniaia.approve.components.model.publics.Metadata;
-import org.raniaia.approve.components.model.database.ColumnPo;
+import org.raniaia.approve.components.entity.publics.Metadata;
+import org.raniaia.approve.components.entity.database.ColumnPo;
 import org.raniaia.approve.framework.tools.JdbcUtils;
-import org.raniaia.approve.framework.tools.ModelUtils;
+import org.raniaia.approve.framework.tools.EntityUtils;
 import org.raniaia.approve.framework.tools.StringUtils;
 
 import java.lang.reflect.Field;
@@ -134,9 +134,9 @@ public class JdbcSupportImpl implements JdbcSupport {
     }
 
     @Override
-    public int[] insert(List<Object> models) {
+    public int[] insert(List<Object> entitys) {
         List<Object[]> params = new ArrayList<>();
-        String sql = JdbcUtils.generateInsertBatchSQL(models, params);
+        String sql = JdbcUtils.generateInsertBatchSQL(entitys, params);
         return executeBatch(sql, params);
     }
 
@@ -147,8 +147,8 @@ public class JdbcSupportImpl implements JdbcSupport {
 
     @Override
     public int count(Class<?> target) {
-        if (SecurityManager.existModel(target)) {
-            String table = ModelUtils.getModelAnnotation(target).value();
+        if (SecurityManager.existEntity(target)) {
+            String table = EntityUtils.getEntityAnnotation(target).value();
             return count("select count(*) from ".concat(table));
         }
         return 0;
@@ -206,18 +206,18 @@ public class JdbcSupportImpl implements JdbcSupport {
             Class<?> target = obj.getClass();
             List<Object> params = new ArrayList<>();
             StringBuffer buffer = new StringBuffer("update ");
-            String table = ModelUtils.getModelAnnotation(target).value();
+            String table = EntityUtils.getEntityAnnotation(target).value();
             buffer.append("`").append(table).append("` set ");
-            List<Field> fields = ModelUtils.getModelField(obj);
+            List<Field> fields = EntityUtils.getEntityField(obj);
             for (Field field : fields) {
                 Object v = field.get(obj);
                 if (!bool) {
                     if (v != null) {
-                        buffer.append("`").append(ModelUtils.humpToUnderline(field.getName())).append("` = ?, ");
+                        buffer.append("`").append(EntityUtils.humpToUnderline(field.getName())).append("` = ?, ");
                         params.add(v);
                     }
                 } else {
-                    buffer.append("`").append(ModelUtils.humpToUnderline(field.getName())).append("` = ?, ");
+                    buffer.append("`").append(EntityUtils.humpToUnderline(field.getName())).append("` = ?, ");
                     params.add(v);
                 }
             }
@@ -238,7 +238,7 @@ public class JdbcSupportImpl implements JdbcSupport {
     }
 
     private void checkCanSave(Object obj) {
-        if (!AbstractModel.getCanSave(obj)) {
+        if (!AbstractEntity.getCanSave(obj)) {
             log.error("Error while executing update method. Cause: " +
                     "some of your fields failed validating.");
             throw new ApproveException("Error while executing update method. Cause: " +

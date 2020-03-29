@@ -24,15 +24,15 @@ package org.complete.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.raniaia.approve.framework.provide.model.Column;
-import org.raniaia.approve.framework.provide.model.Comment;
-import org.raniaia.approve.framework.provide.model.Model;
-import org.raniaia.approve.framework.provide.model.PK;
+import org.raniaia.approve.framework.provide.entity.Column;
+import org.raniaia.approve.framework.provide.entity.Comment;
+import org.raniaia.approve.framework.provide.entity.Entity;
+import org.raniaia.approve.framework.provide.entity.PK;
 
 /**
  * @author tiansheng
  */
-@Model("user")
+@Entity("user")
 @Getter
 @Setter
 public class User {

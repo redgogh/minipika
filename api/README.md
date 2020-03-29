@@ -51,11 +51,11 @@ approve.connectionPool.minSize = 2
 approve.connectionPool.maxSize = 90
 
 # 前缀
-approve.model.prefix = heitui
-# model所在的包
-approve.model.package = com.raniaia.modules.provide.model
+approve.entity.prefix = heitui
+# entity所在的包
+approve.entity.package = com.raniaia.modules.provide.entity
 # builder xml模板文件所在的路径
-approve.model.mapper = com.raniaia.modules.provide.model.mapper
+approve.entity.mapper = com.raniaia.modules.provide.entity.mapper
 
 # 配置norm.json文件路径
 approve.norm.json = norm.json
@@ -67,12 +67,12 @@ approve.norm.json = norm.json
 
 # 模型映射
 
-> Approve提供了Table和Model之间的映射，创建表和新增字段的时候只需要在Model中新增即可。由框架来自动创建表，以及更新字段，不需要开发人员建立完表之后又去建立Model（索引需要手动建立）。
+> Approve提供了Table和Entity之间的映射，创建表和新增字段的时候只需要在Entity中新增即可。由框架来自动创建表，以及更新字段，不需要开发人员建立完表之后又去建立Entity（索引需要手动建立）。
 
 **提供的注解**
 
-- @Model
-> @Model注解的范围在**TYPE**内，将注解放在类上即代表这是一个模型类。@Model注解有三个参数分别为：**value**、**engine**、**increment**，它们分别代表名、引擎、自增长从多少开始。
+- @Entity
+> @Entity注解的范围在**TYPE**内，将注解放在类上即代表这是一个模型类。@Entity注解有三个参数分别为：**value**、**engine**、**increment**，它们分别代表名、引擎、自增长从多少开始。
 
 - @Ignore
 > **@Ignore**注解范围在**FIELD**内，将注解放在在字段上代表该字段不和数据库进行交互动作。
@@ -89,9 +89,9 @@ approve.norm.json = norm.json
 - @Pk
 > **@Pk**主键
 
-具体Model的实现可以参考一下本项目下的 [ExampleModel](https://github.com/Laniakeamly/approve/blob/master/src/main/test/org/approve/experiment/ExampleModel.java)。
+具体Entity的实现可以参考一下本项目下的 [ExampleEntity](https://github.com/Laniakeamly/approve/blob/master/src/main/test/org/approve/experiment/ExampleEntity.java)。
 
-当Model配置好了之后在启动时会自动创建表和字段。
+当Entity配置好了之后在启动时会自动创建表和字段。
 
 ----
 
@@ -128,7 +128,7 @@ public class UserServiceImpl implements UserService{
 
 **示例：**
 
-*假设我们当前有一张user_model表，我们要查询单条数据*
+*假设我们当前有一张user_entity表，我们要查询单条数据*
 
 ```java
 public class Main{
@@ -137,10 +137,10 @@ public class Main{
     static JdbcSupport jdbc = JdbcSupport.getTemplate();
 
     public static void main(String[] args){
-        String sql = "select * from user_model where user_name = ?";
-        UserModel user = jdbc.queryForObject(sql,UserModel.class,"张三");
+        String sql = "select * from user_entity where user_name = ?";
+        UserEntity user = jdbc.queryForObject(sql,UserEntity.class,"张三");
         // 这里的话queryForList也是一样的，没什么太大的区别。
-        List<UserModel> user = jdbc.queryForList(sql,UserModel.class,"张三");
+        List<UserEntity> user = jdbc.queryForList(sql,UserEntity.class,"张三");
     }
     
 }
@@ -164,13 +164,13 @@ NativePageHelper queryForPage(String sql, NativePageHelper pageVo, Object... arg
 
 **示例代码：**
 
-*假设我们要查询**user_model**这张表的**user_name**字段，查询10到20条之间的数据。*
+*假设我们要查询**user_entity**这张表的**user_name**字段，查询10到20条之间的数据。*
 
 ```java
 //
 // 第一步需要new一个PageHelper插件
 //
-PageHelper pageVo = new PageHelper(UserModel.class); // 构造函数需要返回结果的类型
+PageHelper pageVo = new PageHelper(UserEntity.class); // 构造函数需要返回结果的类型
 // 设置页码和页面大小，这两个可以通过构造函数传入。
 pageVo.setPageNum(2);     
 pageVo.setPageSize(10);
@@ -178,7 +178,7 @@ pageVo.setPageSize(10);
 //
 // 第二步编写SQL
 //
-String sql = "select `user_name` from user_model";
+String sql = "select `user_name` from user_entity";
 
 //
 // 第三步执行查询
@@ -255,23 +255,23 @@ update其实非常简单，提供了一下三种方法：
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="findProductPric">
     <select name="findProductName" result="math(BigDecimal)">
-        select product_amount from kkb_product_model where id = {{id}}
+        select product_amount from kkb_product_entity where id = {{id}}
     </select>
 </mapper>
 ```
 这里面就可以看出来和MyBatis中的一些不同。比如我们的Result。这边的Result采用的不是全类名，我将他简化成了包名加类名。如果你要返回String结果那么使用lang(String)即可。
 
-如果result对象是Model呢？
-那就更简单了，比如我要return一个ProductModel。那么我们直接这样写即可：
+如果result对象是Entity呢？
+那就更简单了，比如我要return一个ProductEntity。那么我们直接这样写即可：
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="findProductPric">
-    <select name="findProduct" result="ProductModel">
-        select * from kkb_product_model where id = {{id}}
+    <select name="findProduct" result="ProductEntity">
+        select * from kkb_product_entity where id = {{id}}
     </select>
 </mapper>
 ```
-不需要加上全类名，因为在配置文件中我已经知道了你Model类放在哪个位置了。框架会自动帮你添加上。
+不需要加上全类名，因为在配置文件中我已经知道了你Entity类放在哪个位置了。框架会自动帮你添加上。
 
 ### if操作 
 
@@ -281,8 +281,8 @@ update其实非常简单，提供了一下三种方法：
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="findProduct">
-    <select name="findProduct" result="ProductModel">
-        select * from kkb_product_model where 1=1
+    <select name="findProduct" result="ProductEntity">
+        select * from kkb_product_entity where 1=1
         <if test="id != null">
             and id = {{id}}
         </if>
@@ -299,8 +299,8 @@ update其实非常简单，提供了一下三种方法：
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="findProduct">
-    <select name="findProduct" result="ProductModel">
-        select * from kkb_product_model where 1=1
+    <select name="findProduct" result="ProductEntity">
+        select * from kkb_product_entity where 1=1
         <if test="$req != null">
             <cond>and id = {{id}}</cond>
             <cond>and name = {{name}}</cond>
@@ -313,8 +313,8 @@ update其实非常简单，提供了一下三种方法：
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="findProduct">
-    <select name="findProduct" result="ProductModel">
-        select * from kkb_product_model where 1=1
+    <select name="findProduct" result="ProductEntity">
+        select * from kkb_product_entity where 1=1
         <choose>
             <if test="$req != null">
                 <cond>and id = {{id}}</cond>
@@ -334,8 +334,8 @@ update其实非常简单，提供了一下三种方法：
 
 ### 批量插入
 ```xml
-<insert name="insertUserModel">
-    INSERT INTO `user_model`(
+<insert name="insertUserEntity">
+    INSERT INTO `user_entity`(
     `google_email`,
     `password`,
     `user_age`,

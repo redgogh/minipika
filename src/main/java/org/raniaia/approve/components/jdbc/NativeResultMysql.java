@@ -21,9 +21,9 @@ package org.raniaia.approve.components.jdbc;
  */
 
 import com.alibaba.fastjson.JSONObject;
-import org.raniaia.approve.framework.provide.model.Ignore;
+import org.raniaia.approve.framework.provide.entity.Ignore;
 import org.raniaia.approve.framework.tools.Maps;
-import org.raniaia.approve.framework.tools.ModelUtils;
+import org.raniaia.approve.framework.tools.EntityUtils;
 import org.raniaia.approve.framework.tools.StringUtils;
 
 import java.lang.reflect.Field;
@@ -85,27 +85,27 @@ public class NativeResultMysql implements NativeResult {
         if (resultSet.isEmpty()) return null;
         Map<String, String> resultMap;
         List<String> names = new ArrayList<>();
-        T model = null;
+        T entity = null;
         try {
             resultMap = resultSet.get(0);
             if (resultMap.isEmpty()) return null;
             Object v1 = base(target, String.valueOf(Maps.getFirstValue(resultMap)));
             if(v1 instanceof Exception) return null;
             if (v1 != null) return (T) v1;
-            model = target.newInstance();
+            entity = target.newInstance();
             for (Field field : target.getDeclaredFields()) names.add(field.getName());
             for (Map.Entry<String, String> v : resultMap.entrySet()) {
-                String hump = ModelUtils.UnderlineToHump(v.getKey());
-                if (!names.contains(hump)) continue;                                 // 判断Model中是否含有hump字段
+                String hump = EntityUtils.UnderlineToHump(v.getKey());
+                if (!names.contains(hump)) continue;                                 // 判断Entity中是否含有hump字段
                 Field field = target.getDeclaredField(hump);
                 if (field.isAnnotationPresent(Ignore.class)) continue;               // 判断字段是否存在Ignore注解
                 field.setAccessible(true);
-                setValue(field, v.getValue(), model);
+                setValue(field, v.getValue(), entity);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return model;
+        return entity;
     }
 
     @Override
@@ -122,7 +122,7 @@ public class NativeResultMysql implements NativeResult {
             if (target.equals(Byte.class)) return conversionJavaByteList();
             if (target.equals(BigInteger.class)) return conversionJavaBigIntegerList();
             if (target.equals(Date.class)) return conversionJavaDateList();
-            return conversionModelList(target);
+            return conversionEntityList(target);
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -130,32 +130,32 @@ public class NativeResultMysql implements NativeResult {
     }
 
     /**
-     * 转换成Model List
+     * 转换成Entity List
      * @param target
      * @param <T>
      * @return
      */
-    private <T> List<T> conversionModelList(Class<T> target) {
-        List<T> models = new ArrayList<>();
+    private <T> List<T> conversionEntityList(Class<T> target) {
+        List<T> entitys = new ArrayList<>();
         List<String> names = new ArrayList<>();
         try {
             for (Field field : target.getDeclaredFields()) names.add(field.getName());
             for (Map<String, String> resultMap : resultSet) {
-                T model = target.newInstance();
+                T entity = target.newInstance();
                 for (Map.Entry<String, String> v : resultMap.entrySet()) {
-                    String hump = ModelUtils.UnderlineToHump(v.getKey());
-                    if (!names.contains(hump)) continue;                                 // 判断Model中是否含有hump字段
+                    String hump = EntityUtils.UnderlineToHump(v.getKey());
+                    if (!names.contains(hump)) continue;                                 // 判断Entity中是否含有hump字段
                     Field field = target.getDeclaredField(hump);
                     if (field.isAnnotationPresent(Ignore.class)) continue;               // 判断字段是否存在Ignore注解
                     field.setAccessible(true);
-                    setValue(field, v.getValue(), model);
+                    setValue(field, v.getValue(), entity);
                 }
-                models.add(model);
+                entitys.add(entity);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return models;
+        return entitys;
     }
 
     /**
@@ -362,52 +362,52 @@ public class NativeResultMysql implements NativeResult {
      *
      * @param field
      * @param v
-     * @param model
+     * @param entity
      * @throws Exception
      */
-    private void setValue(Field field, String v, Object model) throws Exception {
+    private void setValue(Field field, String v, Object entity) throws Exception {
         if (field.getType().equals(String.class)) {
-            field.set(model, v);
+            field.set(entity, v);
             return;
         }
         if (field.getType().equals(Date.class)) {
-            field.set(model, formatter.parse(v));
+            field.set(entity, formatter.parse(v));
             return;
         }
         if (field.getType().equals(Byte.class)) {
-            field.set(model, Byte.valueOf(v));
+            field.set(entity, Byte.valueOf(v));
             return;
         }
         if (field.getType().equals(Long.class)) {
-            field.set(model, Long.valueOf(v));
+            field.set(entity, Long.valueOf(v));
             return;
         }
         if (field.getType().equals(Short.class)) {
-            field.set(model, Short.valueOf(v));
+            field.set(entity, Short.valueOf(v));
             return;
         }
         if (field.getType().equals(Float.class)) {
-            field.set(model, Float.valueOf(v));
+            field.set(entity, Float.valueOf(v));
             return;
         }
         if (field.getType().equals(Double.class)) {
-            field.set(model, Double.valueOf(v));
+            field.set(entity, Double.valueOf(v));
             return;
         }
         if (field.getType().equals(Boolean.class)) {
-            field.set(model, Boolean.valueOf(v));
+            field.set(entity, Boolean.valueOf(v));
             return;
         }
         if (field.getType().equals(Integer.class)) {
-            field.set(model, Integer.valueOf(v));
+            field.set(entity, Integer.valueOf(v));
             return;
         }
         if (field.getType().equals(BigDecimal.class)) {
-            field.set(model, new BigDecimal(v));
+            field.set(entity, new BigDecimal(v));
             return;
         }
         if (field.getType().equals(BigInteger.class)) {
-            field.set(model, new BigInteger(v));
+            field.set(entity, new BigInteger(v));
             return;
         }
     }

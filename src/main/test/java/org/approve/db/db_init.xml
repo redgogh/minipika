@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="userIakea">
 
-    <select name="findUserByName" result="UserModel">
-        select * from kkb_user_model
+    <select name="findUserByName" result="UserEntity">
+        select * from kkb_user_entity
         where 1=1
         <if test="username != null">
             and user_name1 = {{username}}
@@ -14,7 +14,7 @@
 
     <!-- <update name="updateUserById">
 
-        UPDATE `test`.`user_model`
+        UPDATE `test`.`user_entity`
         SET `user_name` = 'geg|-',
         WHERE
         <choose>
@@ -25,8 +25,8 @@
 
     </update> -->
 
-    <insert name="insertUserModel">
-        INSERT INTO `user_model`(
+    <insert name="insertUserEntity">
+        INSERT INTO `user_entity`(
         `google_email`,
         `password`,
         `user_age`,

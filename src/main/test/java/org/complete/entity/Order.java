@@ -22,15 +22,15 @@ package org.complete.entity;
  * Creates on 2020/3/23 23:16
  */
 
-import org.raniaia.approve.framework.provide.model.Column;
-import org.raniaia.approve.framework.provide.model.Comment;
-import org.raniaia.approve.framework.provide.model.Model;
-import org.raniaia.approve.framework.provide.model.PK;
+import org.raniaia.approve.framework.provide.entity.Column;
+import org.raniaia.approve.framework.provide.entity.Comment;
+import org.raniaia.approve.framework.provide.entity.Entity;
+import org.raniaia.approve.framework.provide.entity.PK;
 
 /**
  * @author tiansheng
  */
-@Model("order")
+@Entity("order")
 public class Order {
 
     @PK

@@ -15,13 +15,13 @@
         <max>90</max>
     </connection>
 
-    <model>
+    <entity>
         <package>org.approve.experiment</package>
         <mapper>org.approve.builder</mapper>
         <norm>norm.json</norm>
-    </model>
+    </entity>
     <default>
-        <model>default_model.json</model>
+        <entity>default_entity.json</entity>
     </default>
 
 </approve>

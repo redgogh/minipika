@@ -42,7 +42,7 @@ package org.approve.modules;
 
 
 import org.raniaia.approve.BeansManager;
-import org.raniaia.approve.components.model.ModelParser;
+import org.raniaia.approve.components.entity.EntityParser;
 
 /**
  * @author tiansheng
@@ -50,7 +50,7 @@ import org.raniaia.approve.components.model.ModelParser;
 public class ModulesManagerTest {
 
     public static void main(String[] args) {
-        ModelParser parser = BeansManager.newInstance(ModelParser.class);
+        EntityParser parser = BeansManager.newInstance(EntityParser.class);
     }
 
 }

@@ -1,7 +1,7 @@
 # 新功能
 
 - 添加字段约束
-- 配置多个model和mapper路径
+- 配置多个entity和mapper路径
 - 字段检测，动态修改字段
 - 事务管理器
 - 支持所有模板引擎，并开放模板引擎编写脚本
@@ -30,19 +30,19 @@ private String email;
 private String email;
 ```
 
-# 可配置多个model和mapper路径
+# 可配置多个entity和mapper路径
 
 ```properties
 
-# model所在的包
-approve.model.package[0] = org.raniaia.approve.experiment
-approve.model.package[1] = org.raniaia.approve.experiment
-approve.model.package[2] = org.raniaia.approve.experiment
-approve.model.package[3] = org.raniaia.approve.experiment
+# entity所在的包
+approve.entity.package[0] = org.raniaia.approve.experiment
+approve.entity.package[1] = org.raniaia.approve.experiment
+approve.entity.package[2] = org.raniaia.approve.experiment
+approve.entity.package[3] = org.raniaia.approve.experiment
 # builder xml模板文件所在的路径
-approve.model.mapper[0] = org.raniaia.approve.builder
-approve.model.mapper[1] = org.raniaia.approve.builder
-approve.model.mapper[2] = org.raniaia.approve.builder
-approve.model.mapper[3] = org.raniaia.approve.builder
+approve.entity.mapper[0] = org.raniaia.approve.builder
+approve.entity.mapper[1] = org.raniaia.approve.builder
+approve.entity.mapper[2] = org.raniaia.approve.builder
+approve.entity.mapper[3] = org.raniaia.approve.builder
 
 ```

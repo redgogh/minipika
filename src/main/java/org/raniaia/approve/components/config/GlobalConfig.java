@@ -24,9 +24,9 @@ package org.raniaia.approve.components.config;
 import org.raniaia.approve.BeansManager;
 import org.raniaia.approve.components.config.components.JapConfig;
 import org.raniaia.approve.components.config.components.PropertiesConfig;
-import org.raniaia.approve.components.model.core.mysql.ModelLoaderImpl;
+import org.raniaia.approve.components.entity.core.mysql.EntityLoaderImpl;
 import org.raniaia.approve.framework.exception.ConfigException;
-import org.raniaia.approve.components.model.ModelLoader;
+import org.raniaia.approve.components.entity.EntityLoader;
 import org.raniaia.approve.framework.provide.component.Component;
 
 /**
@@ -57,7 +57,7 @@ public final class GlobalConfig {
         }
         if (!run) {
             run = true;
-            ModelLoader init = BeansManager.newInstance(ModelLoaderImpl.class);
+            EntityLoader init = BeansManager.newInstance(EntityLoaderImpl.class);
             init.run();
         }
         return config;

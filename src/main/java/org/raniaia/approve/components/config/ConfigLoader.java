@@ -20,8 +20,8 @@ package org.raniaia.approve.components.config;
  * Creates on 2019/12/3.
  */
 
-import org.raniaia.available.Available;
 import org.raniaia.approve.framework.tools.StringUtils;
+import org.raniaia.available.io.Paths;
 
 import java.net.URL;
 
@@ -47,7 +47,7 @@ public class ConfigLoader {
         if (url != null && "jar".equals(url.getProtocol())) {
             GlobalConfig.setJar(true);
         }
-        GlobalConfig.loaderConfig(Available.toClasspath(configPath));
+        GlobalConfig.loaderConfig(Paths.toClasspath(configPath));
     }
 
 }

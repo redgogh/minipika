@@ -37,7 +37,7 @@ public class Jdom {
     @Test
     public void parserNotXMLFile() throws JDOMException, IOException {
 
-        File file = new File("F:\\1ABCDE_FUCKERF\\approve\\src\\main\\java\\org\\raniaia\\approve\\model\\builder\\user_mapper.iakea");
+        File file = new File("F:\\1ABCDE_FUCKERF\\approve\\src\\main\\java\\org\\raniaia\\approve\\entity\\builder\\user_mapper.iakea");
 
         SAXBuilder saxBuilder = new SAXBuilder();
         Document document = saxBuilder.build(file);

@@ -40,7 +40,7 @@ import java.util.Properties;
  * @since 1.8
  */
 public abstract
-class AbstractConfig implements ApproveConfig {
+class AbstractConfig {
 
     @Getter
     protected IDataSource iDataSource;
@@ -50,8 +50,8 @@ class AbstractConfig implements ApproveConfig {
     protected String minSize;
     // 数据库表名前缀
     protected String tablePrefix;
-    // model包路径
-    protected String[] modelPackage;
+    // entity包路径
+    protected String[] entityPackage;
     // mapper模板文件存放位置
     protected String[] mapperPackage;
     // 是否开启事物
@@ -64,8 +64,8 @@ class AbstractConfig implements ApproveConfig {
     protected String dbname;
     // norm.json文件
     protected JSONObject normJson;
-    // default_model.json文件
-    protected JSONObject defaultModel;
+    // default_entity.json文件
+    protected JSONObject defaultEntity;
 
     private Object configObject;
 
@@ -104,7 +104,7 @@ class AbstractConfig implements ApproveConfig {
         this.refresh = getValue("jdbc.refresh");
         this.maxSize = getValue("connectionPool.maxSize");
         this.minSize = getValue("connectionPool.minSize");
-        this.tablePrefix = getValue("model.prefix");
+        this.tablePrefix = getValue("entity.prefix");
         this.desiredAutoCommit = getValue("jdbc.desiredAutoCommit");
         if (StringUtils.isEmpty(desiredAutoCommit)) {
             this.desiredAutoCommit = "false";
@@ -118,26 +118,26 @@ class AbstractConfig implements ApproveConfig {
         );
 
         // 模型文件存放目录
-        JSONArray modelArray = JSONArray.parseArray(getValue("model.package"));
-        if (modelArray != null) {
-            modelPackage = new String[modelArray.size()];
-            modelArray.toArray(modelPackage);
+        JSONArray entityArray = JSONArray.parseArray(getValue("entity.package"));
+        if (entityArray != null) {
+            entityPackage = new String[entityArray.size()];
+            entityArray.toArray(entityPackage);
         }
-        JSONArray mapperArray = JSONArray.parseArray(getValue("model.mapper"));
+        JSONArray mapperArray = JSONArray.parseArray(getValue("entity.mapper"));
         if (mapperArray != null) {
-            mapperPackage = new String[modelArray.size()];
+            mapperPackage = new String[entityArray.size()];
             mapperArray.toArray(mapperPackage);
         }
         // 获取字段约束配置文件路径
-        String normJsonName = getValue("model.norm");
+        String normJsonName = getValue("entity.norm");
         if (!StringUtils.isEmpty(normJsonName)) {
             this.normJson = JSONObject.parseObject(Files.read(normJsonName));
         }
 
         // 获取默认数据配置文件路径
-        String defaultModelName = getValue("default.model");
-        if (!StringUtils.isEmpty(defaultModelName)) {
-            this.defaultModel = JSONObject.parseObject(Files.read(defaultModelName));
+        String defaultEntityName = getValue("default.entity");
+        if (!StringUtils.isEmpty(defaultEntityName)) {
+            this.defaultEntity = JSONObject.parseObject(Files.read(defaultEntityName));
         }
 
         String temp = iDataSource.getUrl();
@@ -161,8 +161,8 @@ class AbstractConfig implements ApproveConfig {
         return dbname;
     }
 
-    public String[] getModelPackage() {
-        return modelPackage;
+    public String[] getEntityPackage() {
+        return entityPackage;
     }
 
     public String getTablePrefix() {
@@ -222,8 +222,8 @@ class AbstractConfig implements ApproveConfig {
         return (String) this.normJson.get(name);
     }
 
-    public JSONObject getDefaultModel() {
-        return this.defaultModel;
+    public JSONObject getDefaultEntity() {
+        return this.defaultEntity;
     }
 
 }

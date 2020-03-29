@@ -2,7 +2,7 @@
 <mapper name="test">
 
     <insert name="addProduct">
-        INSERT INTO `product_model`(`product_name`, `uuid`) VALUES (?,?);
+        INSERT INTO `product_entity`(`product_name`, `uuid`) VALUES (?,?);
         <foreach item="product" collections="products">
             <parameter>{{product.productName}},{{product.uuid}}</parameter>
         </foreach>

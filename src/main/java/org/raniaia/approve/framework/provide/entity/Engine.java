@@ -1,4 +1,4 @@
-package org.approve.column;
+package org.raniaia.approve.framework.provide.entity;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -16,30 +16,27 @@ package org.approve.column;
  * limitations under the License.
  */
 
-
-
-import org.junit.Test;
-
-import org.raniaia.approve.BeansManager;
-import org.raniaia.approve.components.jdbc.JdbcSupport;
-import org.raniaia.approve.components.entity.database.ColumnPo;
-
-import java.util.List;
+/*
+ * Creates on 2019/11/20.
+ */
 
 /**
- * Copyright by tiansheng on 2020/2/15 1:47
+ * MYSQL支持的引擎列表
+ *
+ * Mysql support engine list.
+ *
  * @author tiansheng
- * @version 1.0.0
- * @since 1.8
  */
-public class Test0 {
+public enum Engine {
 
-    JdbcSupport jdbc = BeansManager.get("jdbc");
-
-    @Test
-    public void getColumn() {
-        List<ColumnPo> columnEntitys = jdbc.queryForList("show full columns from kkb_example_entity", ColumnPo.class);
-        System.out.println(columnEntitys.toString());
-    }
-
+    CSV,
+    INNODB,
+    MYISAM,
+    MEMORY,
+    ARCHIVE,
+    BLACKHOLE,
+    FEDERATED,
+    MRG_MYISAM,
+    PERFORMANCE_SCHEMA,
+    ;
 }

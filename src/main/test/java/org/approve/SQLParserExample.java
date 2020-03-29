@@ -26,7 +26,7 @@ import org.raniaia.approve.framework.tools.SQLUtils;
  */
 public class SQLParserExample {
 
-    static String sql = "select * from user_model as u,user_money as m left join product_model as p on u.name = p.name where id = 1";
+    static String sql = "select * from user_entity as u,user_money as m left join product_entity as p on u.name = p.name where id = 1";
 
     public static void main(String[] args) throws JSQLParserException {
         System.out.println(SQLUtils.getSQLTables(sql));

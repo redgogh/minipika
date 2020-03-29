@@ -1,7 +1,7 @@
-package org.raniaia.approve.framework.tools;
+package org.raniaia.approve.framework.provide;
 
 /*
- * Copyright (C) 2020 Tiansheng All rights reserved.
+ * Copyright (C) 2020 tiansheng All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,19 +17,16 @@ package org.raniaia.approve.framework.tools;
  */
 
 /*
- * Creates on 2019/11/27.
+ * Creates on 2020/3/29.
  */
 
-import org.raniaia.approve.framework.provide.entity.Entity;
+import java.lang.annotation.*;
 
 /**
- * 检查一些类是否遵守标准
  * @author tiansheng
  */
-public class SecurityManager {
-
-    public static boolean existEntity(Class<?> target){
-        return target.isAnnotationPresent(Entity.class);
-    }
-
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface Configuration {
 }

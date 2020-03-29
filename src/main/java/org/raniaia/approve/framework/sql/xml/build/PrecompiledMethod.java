@@ -22,7 +22,7 @@ package org.raniaia.approve.framework.sql.xml.build;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.raniaia.approve.components.model.publics.Metadata;
+import org.raniaia.approve.components.entity.publics.Metadata;
 import org.raniaia.approve.framework.provide.ProvideVar;
 import org.raniaia.approve.framework.sql.QueryTag;
 import org.raniaia.approve.framework.tools.ReflectUtils;
@@ -92,9 +92,9 @@ public class PrecompiledMethod {
                         break;
                     }
                 }
-                // 如果不是默认model包下的内容
+                // 如果不是默认entity包下的内容
                 else if (!StringUtils.isEmpty(result)) {
-                    this.result = Class.forName(Metadata.getModelClass(result).getName());
+                    this.result = Class.forName(Metadata.getEntityClass(result).getName());
                 }
             }
             method.append(StringUtils.format("public java.lang.String {} (java.util.Map map,java.util.List " + ProvideVar.SQL_PARAMS_SET + ")", name));

@@ -25,19 +25,19 @@ approve: {
     connectionPool.maxSize = 90
 
     // 表名前缀
-    model.prefix = kkb
+    entity.prefix = kkb
 
     // 模型所在的包
-    model.package = ["org.complete.entity"]
+    entity.package = ["org.complete.entity"]
 
     // mapper动态sql文件所在的路径
-    model.mapper = ["classpath:/compete/mapper"]
+    entity.mapper = ["classpath:/compete/mapper"]
 
     // 配置norm.json文件路径
-    model.norm = classpath:/compete/norm.json
+    entity.norm = classpath:/compete/norm.json
 
     // 默认数据文件
-    // default.model = default_model.json
+    // default.entity = default_entity.json
 
 }
 

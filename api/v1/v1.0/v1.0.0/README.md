@@ -47,10 +47,10 @@ approve.connectionPool.maxSize = 90
 #####################################
 ### 表名前缀，可为空
 #####################################
-approve.model.prefix = kkb
+approve.entity.prefix = kkb
 
 # 模型所在的包
-approve.model.package = com.approve.model.experiment
+approve.entity.package = com.approve.entity.experiment
 
 ```
 
@@ -58,13 +58,13 @@ approve.model.package = com.approve.model.experiment
 
 # 模型映射
 
-> Approve提供了Table和Model之间的映射，创建表和新增字段的时候只需要在Model中新增即可。由TractoFramework来创建表，以及更新字段，不需要开发人员建立完表之后又去建立Model（索引需要手动建立）。
+> Approve提供了Table和Entity之间的映射，创建表和新增字段的时候只需要在Entity中新增即可。由TractoFramework来创建表，以及更新字段，不需要开发人员建立完表之后又去建立Entity（索引需要手动建立）。
 
 **提供的注解**
 
-- @Model
+- @Entity
 
-    **@Model**注解的范围在**TYPE**内，将注解放在类上即代表这是一个模型类。Model注解有两个参数分别为：**value**和**engine**，engine默认值为**InnoDB**
+    **@Entity**注解的范围在**TYPE**内，将注解放在类上即代表这是一个模型类。Entity注解有两个参数分别为：**value**和**engine**，engine默认值为**InnoDB**
 
 - @Ignore
 
@@ -86,9 +86,9 @@ approve.model.package = com.approve.model.experiment
 
     **@Pk**主键
 
-具体Model的实现可以参考一下本项目下的[UserModel](https://github.com/PageNotFoundx/approve/blob/master/src/main/java/com/approve/model/experiment/UserModel.java)。
+具体Entity的实现可以参考一下本项目下的[UserEntity](https://github.com/PageNotFoundx/approve/blob/master/src/main/java/com/approve/entity/experiment/UserEntity.java)。
 
-当Model配置好了之后在启动时会自动创建表和字段。
+当Entity配置好了之后在启动时会自动创建表和字段。
 
 ----
 
@@ -138,7 +138,7 @@ public class Main{
 
 **示例：**
 
-*假设我们当前有一张user_model表，我们要查询单条数据*
+*假设我们当前有一张user_entity表，我们要查询单条数据*
 
 ```java
 public class Main{
@@ -147,10 +147,10 @@ public class Main{
     static JdbcSupport jdbc = JdbcSupport.getTemplate();
 
     public static void main(String[] args){
-        String sql = "select * from user_model where user_name = ?";
-        UserModel user = jdbc.queryForObject(sql,UserModel.class,"张三");
+        String sql = "select * from user_entity where user_name = ?";
+        UserEntity user = jdbc.queryForObject(sql,UserEntity.class,"张三");
         // 这里的话queryForList也是一样的，没什么太大的区别。
-        List<UserModel> user = jdbc.queryForList(sql,UserModel.class,"张三");
+        List<UserEntity> user = jdbc.queryForList(sql,UserEntity.class,"张三");
     }
     
 }
@@ -174,13 +174,13 @@ NativePageHelper queryForPage(String sql, NativePageHelper pageVo, Object... arg
 
 **示例代码：**
 
-*假设我们要查询**user_model**这张表的**user_name**字段，查询10到20条之间的数据。*
+*假设我们要查询**user_entity**这张表的**user_name**字段，查询10到20条之间的数据。*
 
 ```java
 //
 // 第一步需要new一个PageHelper插件
 //
-PageHelper pageVo = new PageHelper(UserModel.class); // 构造函数需要返回结果的类型
+PageHelper pageVo = new PageHelper(UserEntity.class); // 构造函数需要返回结果的类型
 // 设置页码和页面大小，这两个可以通过构造函数传入。
 pageVo.setPageNum(2);     
 pageVo.setPageSize(10);
@@ -188,7 +188,7 @@ pageVo.setPageSize(10);
 //
 // 第二步编写SQL
 //
-String sql = "select `user_name` from user_model";
+String sql = "select `user_name` from user_entity";
 
 //
 // 第三步执行查询

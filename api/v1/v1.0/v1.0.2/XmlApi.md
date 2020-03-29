@@ -6,7 +6,7 @@
 
 ```properties
 # mapper xml文件所在的位置
-approve.model.mapper = org.raniaia.approve.mapper
+approve.entity.mapper = org.raniaia.approve.mapper
 ```
 
 # mapper xml
@@ -60,13 +60,13 @@ mapper标签有个**name**属性，这个属性代表了整个xml。它是唯一
 
     <!--
         mapper标签下的内容。
-        以下内容表示从kkb_user_model表中根据uuid查询
+        以下内容表示从kkb_user_entity表中根据uuid查询
         result中是返回结果，这个返回结果可以不用加全类名。
-        但条件是这个Model类必须在配置文件中配置的路径下。
-        配置项为：approve.model.package
+        但条件是这个Entity类必须在配置文件中配置的路径下。
+        配置项为：approve.entity.package
     -->
-    <mapper name="findUserByUUID" result="UserModel">
-        select * from kkb_user_model where uuid = {{uuid}}
+    <mapper name="findUserByUUID" result="UserEntity">
+        select * from kkb_user_entity where uuid = {{uuid}}
     </mapper>
 
 </mapper>
@@ -215,7 +215,7 @@ foreach标签有三个属性
 
 ```xml
 <insert name="addProducts">
-    INSERT INTO `product_model`(`product_name`, `uuid`) VALUES (?,?);
+    INSERT INTO `product_entity`(`product_name`, `uuid`) VALUES (?,?);
     <foreach item="product" collections="products">
         <parameter>{{product.productName}},{{product.uuid}}</parameter>
     </foreach>

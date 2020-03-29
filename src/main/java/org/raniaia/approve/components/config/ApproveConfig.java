@@ -3,7 +3,7 @@ package org.raniaia.approve.components.config;
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License"){}
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -27,21 +27,21 @@ import org.raniaia.approve.framework.tools.StringUtils;
  * @author tiansheng
  * @since 1.8
  */
-interface ApproveConfig {
+public abstract class ApproveConfig {
 
     enum DriverType {MYSQL, ORACLE}
 
-    void prefix(String prefix);
-    void cache(boolean desired);
-    void cache(boolean desired,Integer refresh);
-    void cache(boolean desired,String refresh);
-    void transaction(boolean desired);
-    void maximumIdleConnection(int size);
-    void minimumIdleConnection(int size);
-    void model(String... packages);
-    void mapper(String... paths);
-    void norm(String path);
-    void defaultData(String path);
-    void datasource(String url,String driver,String username,String password);
+    protected void prefix(String prefix){}
+    protected void cache(boolean desired){}
+    protected void cache(boolean desired,Integer refresh){}
+    protected void cache(boolean desired,String refresh){}
+    protected void transaction(boolean desired){}
+    protected void maximumIdleConnection(int size){}
+    protected void minimumIdleConnection(int size){}
+    protected void entity(String... packages){}
+    protected void mapper(String... paths){}
+    protected void norm(String path){}
+    protected void defaultData(String path){}
+    protected void datasource(String url,String driver,String username,String password){}
 
 }
