@@ -39,6 +39,10 @@ public class IDataSource {
     static Map<String, Driver> registerDrivers = Maps.newConcurrentHashMap();
 
     @Getter
+    @Setter
+    protected Object id;
+
+    @Getter
     protected String url;
     @Getter
     protected String driver;

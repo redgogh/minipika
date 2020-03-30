@@ -23,7 +23,10 @@ package org.raniaia.approve.components.jdbc.datasource.distribute;
 import org.raniaia.approve.components.jdbc.datasource.pooled.PooledDataSource;
 import org.raniaia.approve.components.jdbc.datasource.unpooled.IDataSource;
 import org.raniaia.approve.components.jdbc.datasource.unpooled.UnpooledDatasource;
+import org.raniaia.approve.components.logging.Log;
+import org.raniaia.approve.components.logging.LogFactory;
 import org.raniaia.approve.framework.exception.ApproveException;
+import org.raniaia.approve.framework.tools.Maps;
 import org.raniaia.available.list.Lists;
 
 import javax.sql.DataSource;
@@ -35,6 +38,7 @@ import java.sql.SQLFeatureNotSupportedException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /*
@@ -56,40 +60,42 @@ public class DistributeDatasource implements DataSource {
      */
     DataSource activeDataSource;
 
-    List<DataSource> dataSources = Lists.newArrayList();
+    Map<Object, DataSource> dataSources = Maps.newHashMap();
+
+    static final Log log = LogFactory.getLog(DistributeDatasource.class);
 
     public DistributeDatasource(IDataSource... iDataSources) {
-        List<DataSource> creates = Lists.newArrayList();
         for (IDataSource iDataSource : iDataSources) {
-            if ("POOLED".equals(iDataSource.getSourceType())) {
-                creates.add(new PooledDataSource(iDataSource));
-                continue;
-            }
-            if ("UNPOOLED".equals(iDataSource.getSourceType())) {
-                creates.add(new UnpooledDatasource(iDataSource));
-            }
+            addDataSource(iDataSource);
         }
-    }
-
-    public DistributeDatasource(Collection<? extends DataSource> pooledDataSources) {
-        dataSources.addAll(pooledDataSources);
     }
 
     /*
      * 手动添加数据源
      */
-    public void addDataSource(DataSource dataSource) {
-        dataSources.add(dataSource);
+    public void addDataSource(IDataSource dataSource) {
+        dataSources.put(dataSource.getId(), createDataSource(dataSource));
+    }
+
+    public DataSource createDataSource(IDataSource iDataSource) {
+        if ("POOLED".equals(iDataSource.getSourceType())) {
+            return new PooledDataSource(iDataSource);
+        }
+        if ("UNPOOLED".equals(iDataSource.getSourceType())) {
+            return new UnpooledDatasource(iDataSource);
+        }
+        log.error("Error DistributeDataSource create PooledDataSource or UnpooledDataSource failure. " +
+                "Cause: IDataSource#sourceType mistaken, please check your sourceType parameter.");
+
+        throw new ApproveException("Error DistributeDataSource create PooledDataSource or UnpooledDataSource failure. " +
+                "Cause: IDataSource#sourceType mistaken, please check your sourceType parameter.");
     }
 
     /*
      * 切换当前正在使用的数据源
      */
-    public void switchDataSource(DataSource dataSource) {
-        this.activeDataSource = dataSource;
-        if (!dataSources.contains(dataSource)) {
-            dataSources.add(dataSource);
-        }
+    public void switchDataSource(Object key) {
+        this.activeDataSource = dataSources.get(key);
     }
 
     @Override
