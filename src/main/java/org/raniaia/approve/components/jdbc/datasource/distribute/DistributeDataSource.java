@@ -27,7 +27,6 @@ import org.raniaia.approve.components.logging.Log;
 import org.raniaia.approve.components.logging.LogFactory;
 import org.raniaia.approve.framework.exception.ApproveException;
 import org.raniaia.approve.framework.tools.Maps;
-import org.raniaia.available.list.Lists;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
@@ -35,14 +34,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 /*
  * 支持分布式的数据源, 可以对多个库进行查询。
+ * 可以在项目运行时进行对库的切换，也可以通过事务管理器来进行自动的切换。
+ * 在负载均衡策略上也能够做到灵活的对多个库进行切换查询。
  */
 
 /**
@@ -50,7 +48,7 @@ import java.util.logging.Logger;
  *
  * @author tiansheng
  */
-public class DistributeDatasource implements DataSource {
+public class DistributeDataSource implements DataSource {
 
     /*
      * 正在被使用的数据源
@@ -62,9 +60,9 @@ public class DistributeDatasource implements DataSource {
 
     Map<Object, DataSource> dataSources = Maps.newHashMap();
 
-    static final Log log = LogFactory.getLog(DistributeDatasource.class);
+    static final Log log = LogFactory.getLog(DistributeDataSource.class);
 
-    public DistributeDatasource(IDataSource... iDataSources) {
+    public DistributeDataSource(IDataSource... iDataSources) {
         for (IDataSource iDataSource : iDataSources) {
             addDataSource(iDataSource);
         }
@@ -77,6 +75,7 @@ public class DistributeDatasource implements DataSource {
         dataSources.put(dataSource.getId(), createDataSource(dataSource));
     }
 
+    // 根据IDataSource中的sourceType字段去创建一个DataSource实例
     public DataSource createDataSource(IDataSource iDataSource) {
         if ("POOLED".equals(iDataSource.getSourceType())) {
             return new PooledDataSource(iDataSource);
@@ -94,8 +93,9 @@ public class DistributeDatasource implements DataSource {
     /*
      * 切换当前正在使用的数据源
      */
-    public void switchDataSource(Object key) {
-        this.activeDataSource = dataSources.get(key);
+    public void switchDataSource(Object id) {
+        DataSource dataSource = dataSources.get(id);
+        this.activeDataSource = Objects.requireNonNull(dataSource,"wrong datasource id.");
     }
 
     @Override
