@@ -20,28 +20,9 @@ package org.raniaia.approve.components.config;
  * Creates on 2020/2/13.
  */
 
-import org.raniaia.approve.framework.exception.ConfigException;
-import org.raniaia.approve.framework.tools.StringUtils;
-
-/**
- * @author tiansheng
- * @since 1.8
- */
 public abstract class ApproveConfig {
 
-    enum DriverType {MYSQL, ORACLE}
-
-    protected void prefix(String prefix){}
-    protected void cache(boolean desired){}
-    protected void cache(boolean desired,Integer refresh){}
-    protected void cache(boolean desired,String refresh){}
-    protected void transaction(boolean desired){}
-    protected void maximumIdleConnection(int size){}
-    protected void minimumIdleConnection(int size){}
-    protected void entity(String... packages){}
-    protected void mapper(String... paths){}
-    protected void norm(String path){}
-    protected void defaultData(String path){}
-    protected void datasource(String url,String driver,String username,String password){}
+    protected void datasource(String url, String driver, String username, String password) {
+    }
 
 }
