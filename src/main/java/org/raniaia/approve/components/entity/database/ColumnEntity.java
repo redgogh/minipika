@@ -28,7 +28,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ColumnPo {
+public class ColumnEntity {
 
     /**
      * 字段名称

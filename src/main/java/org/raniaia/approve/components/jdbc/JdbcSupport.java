@@ -20,7 +20,7 @@ package org.raniaia.approve.components.jdbc;
  * Creates on 2019/11/11.
  */
 
-import org.raniaia.approve.components.entity.database.ColumnPo;
+import org.raniaia.approve.components.entity.database.ColumnEntity;
 
 import java.util.List;
 import java.util.Set;
@@ -191,6 +191,6 @@ public interface JdbcSupport {
     /**
      * 查询表中字段的元数据
      */
-    List<ColumnPo> getColumnMetadata(String table);
+    List<ColumnEntity> getColumnMetadata(String table);
 
 }

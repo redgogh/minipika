@@ -32,6 +32,9 @@ import org.raniaia.approve.framework.provide.component.ComponentType;
  */
 public class MyComponents {
 
+    /**
+     * This component is a parameter.
+     */
     @Component(type = ComponentType.PARAMETER, name = "defaultDataSource")
     public IDataSource getIDataSource(){
         return GlobalConfig.getConfig().getIDataSource();

@@ -37,6 +37,7 @@ import org.raniaia.approve.components.entity.EntityParser;
 import org.raniaia.approve.components.entity.publics.Metadata;
 import org.raniaia.approve.components.entity.publics.EntityPreProcess;
 import org.raniaia.approve.framework.tools.EntityUtils;
+import org.raniaia.approve.framework.tools.Lists;
 import org.raniaia.approve.framework.tools.SecurityManager;
 import org.raniaia.approve.framework.tools.StringUtils;
 
@@ -78,13 +79,12 @@ public class EntityLoaderImpl implements EntityLoader {
         EntityParser parserEntity = BeansManager.newInstance(org.raniaia.approve.components.entity.core.mysql.EntityParserImpl.class);
         parserEntity.parse(EntityUtils.getEntitys());
         Map<String, Metadata> messages = Metadata.getAttribute();
-        Iterator iter = messages.entrySet().iterator();
-        while (iter.hasNext()) {
+        for (Map.Entry<String, Metadata> stringMetadataEntry : messages.entrySet()) {
 
             String UPDATE_ENGINE = ProvideVar.UPDATE_ENGINE;
             String SHOW_TABLE_STATUS = ProvideVar.SHOW_TABLE_STATUS;
 
-            Map.Entry<String, Metadata> entry = (Map.Entry<String, Metadata>) iter.next();
+            Map.Entry<String, Metadata> entry = stringMetadataEntry;
             Metadata metadata = entry.getValue();
             String tableName = metadata.getTableName();
             // 如果数据库中不存在这张表就创建
@@ -99,11 +99,10 @@ public class EntityLoaderImpl implements EntityLoader {
                 if (defaultJson != null) {
                     defaultArray = (JSONArray) defaultJson.get(entitySimpleName);
                 }
-                List entityDataList = new ArrayList();
+                List entityDataList = Lists.newArrayList();
                 if (defaultArray != null && !defaultArray.isEmpty()) {
-                    Iterator iterator = defaultArray.iterator();
-                    while (iterator.hasNext()) {
-                        JSONObject iterJsonObject = (JSONObject) iterator.next();
+                    for (Object o : defaultArray) {
+                        JSONObject iterJsonObject = (JSONObject) o;
                         // 判断数据中是否有特殊变量，如:$currentTime
                         ProvideVar.updateSpecialVariable(iterJsonObject);
                         entityDataList.add(iterJsonObject.toJavaObject(Metadata.getEntityClass(entitySimpleName)));

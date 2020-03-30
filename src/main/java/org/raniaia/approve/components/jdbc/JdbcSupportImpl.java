@@ -31,7 +31,7 @@ import org.raniaia.approve.components.entity.publics.AbstractEntity;
 import org.raniaia.approve.framework.provide.component.Component;
 import org.raniaia.approve.framework.tools.SecurityManager;
 import org.raniaia.approve.components.entity.publics.Metadata;
-import org.raniaia.approve.components.entity.database.ColumnPo;
+import org.raniaia.approve.components.entity.database.ColumnEntity;
 import org.raniaia.approve.framework.tools.JdbcUtils;
 import org.raniaia.approve.framework.tools.EntityUtils;
 import org.raniaia.approve.framework.tools.StringUtils;
@@ -194,9 +194,9 @@ public class JdbcSupportImpl implements JdbcSupport {
     }
 
     @Override
-    public List<ColumnPo> getColumnMetadata(String table) {
+    public List<ColumnEntity> getColumnMetadata(String table) {
         String queryColumnsSql = StringUtils.format(ProvideVar.QUERY_COLUMNS, table);
-        return queryForList(queryColumnsSql, ColumnPo.class);
+        return queryForList(queryColumnsSql, ColumnEntity.class);
     }
 
     // 是否更新为NULL的字段是否更新为NULL的字段

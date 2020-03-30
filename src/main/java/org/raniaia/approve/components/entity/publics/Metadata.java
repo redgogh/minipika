@@ -23,7 +23,7 @@ package org.raniaia.approve.components.entity.publics;
 import org.raniaia.approve.framework.provide.entity.Engine;
 import org.raniaia.approve.framework.provide.entity.Entity;
 import org.raniaia.approve.framework.tools.SecurityManager;
-import org.raniaia.approve.components.entity.database.ColumnPo;
+import org.raniaia.approve.components.entity.database.ColumnEntity;
 import org.raniaia.approve.framework.tools.EntityUtils;
 
 import java.util.HashMap;
@@ -51,7 +51,7 @@ public class Metadata {
     /**
      * 每张表对应的字段属性
      */
-    private static final Map<String, List<ColumnPo>> db_columns = new HashMap<>();
+    private static final Map<String, List<ColumnEntity>> db_columns = new HashMap<>();
 
     /**
      * 主键字段
@@ -152,11 +152,11 @@ public class Metadata {
         return entityNameAndTableName.get(table);
     }
 
-    public static void putDbColumn(String tableName,List<ColumnPo> columnEntitys){
+    public static void putDbColumn(String tableName,List<ColumnEntity> columnEntitys){
         db_columns.put(tableName,columnEntitys);
     }
 
-    public static List<ColumnPo> getDbColumn(String tableName){
+    public static List<ColumnEntity> getDbColumn(String tableName){
         return db_columns.get(tableName);
     }
 

@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import org.raniaia.approve.BeansManager;
 import org.raniaia.approve.components.jdbc.JdbcSupport;
-import org.raniaia.approve.components.entity.database.ColumnPo;
+import org.raniaia.approve.components.entity.database.ColumnEntity;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class Test0 {
 
     @Test
     public void getColumn() {
-        List<ColumnPo> columnEntitys = jdbc.queryForList("show full columns from kkb_example_entity", ColumnPo.class);
+        List<ColumnEntity> columnEntitys = jdbc.queryForList("show full columns from kkb_example_entity", ColumnEntity.class);
         System.out.println(columnEntitys.toString());
     }
 
