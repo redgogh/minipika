@@ -40,7 +40,7 @@ import java.util.logging.Logger;
 /*
  * 支持分布式的数据源, 可以对多个库进行查询。
  * 可以在项目运行时进行对库的切换，也可以通过事务管理器来进行自动的切换。
- * 在负载均衡策略上也能够做到灵活的对多个库进行切换查询。 
+ * 在负载均衡策略上也能够做到灵活的对多个库进行切换查询。
  */
 
 /**
@@ -63,6 +63,10 @@ public class DistributeDataSource implements DataSource {
     static final Log log = LogFactory.getLog(DistributeDataSource.class);
 
     public DistributeDataSource(IDataSource... iDataSources) {
+        if(iDataSources == null) {
+            log.error("Error during initialization datasource, datasource info cannot null.");
+            throw new ApproveException("Error during initialization datasource, datasource info cannot null.");
+        }
         for (IDataSource iDataSource : iDataSources) {
             addDataSource(iDataSource);
         }
@@ -95,7 +99,7 @@ public class DistributeDataSource implements DataSource {
      */
     public void switchDataSource(Object id) {
         DataSource dataSource = dataSources.get(id);
-        this.activeDataSource = Objects.requireNonNull(dataSource,"wrong datasource id.");
+        this.activeDataSource = Objects.requireNonNull(dataSource, "wrong datasource id.");
     }
 
     @Override

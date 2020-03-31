@@ -66,4 +66,5 @@ public class JdbcTransactionFactory implements TransactionFactory {
     public Transaction newTransaction(DataSource dataSource, TransactionIsolationLevel level, boolean desiredAutoCommit) {
         return new JdbcTransaction(dataSource, level, desiredAutoCommit);
     }
+
 }
