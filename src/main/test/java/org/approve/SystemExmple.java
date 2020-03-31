@@ -18,6 +18,9 @@ package org.approve;
 
 
 
+import org.raniaia.approve.components.jdbc.datasource.distribute.DistributeDataSource;
+
+import javax.sql.DataSource;
 import java.net.MalformedURLException;
 
 /**
@@ -60,7 +63,9 @@ public class SystemExmple {
         // System.out.println(Config.getInstance().getRefresh());
         // System.out.println(1 + 1 * 2 - 1);
 
-
+        DistributeDataSource dataSource = new DistributeDataSource();
+        DataSource d1 = dataSource;
+        DistributeDataSource d2 = (DistributeDataSource) d1;
 
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime));
