@@ -68,6 +68,16 @@ public class NativeJdbcImpl implements NativeJdbc {
 
     public NativeJdbcImpl(){}
 
+    /*
+     * 这个构造器是提供给Approve注解使用的，因为此注解的设计是可以通过构造器去初始化需要注入的对象。
+     * 所以为NativeJdbcImpl提供了一个初始初始化的方法。
+     */
+    /**
+     * This constructor is provided for {@link Approve} annotation.
+     *
+     * @param transactionFactory {@code TransactionFactory} instance.
+     * @see Approve#paramsId
+     */
     public NativeJdbcImpl(TransactionFactory transactionFactory){
         this.transactionFactory = transactionFactory;
     }
