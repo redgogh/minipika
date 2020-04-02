@@ -1,4 +1,4 @@
-package org.raniaia.approve.framework.provide;
+package org.raniaia.approve.components.config.components;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,16 +17,11 @@ package org.raniaia.approve.framework.provide;
  */
 
 /*
- * Creates on 2020/3/29.
+ * Creates on 2020/4/2.
  */
-
-import java.lang.annotation.*;
 
 /**
- * @author tiansheng
+ * Use kotlin as a configuration file.
  */
-@Target({ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface Configuration {
+public class KotlinConfig {
 }

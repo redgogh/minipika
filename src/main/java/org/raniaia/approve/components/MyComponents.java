@@ -22,7 +22,7 @@ package org.raniaia.approve.components;
 
 import org.raniaia.approve.AbstractContainer;
 import org.raniaia.approve.components.config.GlobalConfig;
-import org.raniaia.approve.components.jdbc.datasource.unpooled.IDataSource;
+import org.raniaia.approve.components.jdbc.datasource.unpooled.Dsi;
 import org.raniaia.approve.framework.provide.component.Component;
 import org.raniaia.approve.framework.provide.component.ComponentType;
 
@@ -36,8 +36,8 @@ public class MyComponents {
      * This component is a parameter.
      */
     @Component(type = ComponentType.PARAMETER, name = "defaultDataSource")
-    public IDataSource getIDataSource(){
-        return GlobalConfig.getConfig().getIDataSource();
+    public Dsi getDsi(){
+        return GlobalConfig.getConfig().getDsi();
     }
 
 }

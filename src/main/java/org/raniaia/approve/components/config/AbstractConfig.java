@@ -23,9 +23,8 @@ package org.raniaia.approve.components.config;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
-import org.raniaia.available.io.Paths;
 import org.raniaia.available.io.file.Files;
-import org.raniaia.approve.components.jdbc.datasource.unpooled.IDataSource;
+import org.raniaia.approve.components.jdbc.datasource.unpooled.Dsi;
 import org.raniaia.approve.framework.exception.ConfigException;
 import org.raniaia.approve.framework.jap.JapLoader;
 import org.raniaia.approve.framework.tools.Calculator;
@@ -43,7 +42,7 @@ public abstract
 class AbstractConfig {
 
     @Getter
-    protected IDataSource iDataSource;
+    protected Dsi dsi;
 
     // 连接池配置
     protected String maxSize;
@@ -109,7 +108,7 @@ class AbstractConfig {
         if (StringUtils.isEmpty(desiredAutoCommit)) {
             this.desiredAutoCommit = "false";
         }
-        this.iDataSource = new IDataSource(
+        this.dsi = new Dsi(
                 getValue("jdbc.url"),
                 getValue("jdbc.driver"),
                 getValue("jdbc.password"),
@@ -140,7 +139,7 @@ class AbstractConfig {
             this.defaultEntity = JSONObject.parseObject(Files.read(defaultEntityName));
         }
 
-        String temp = iDataSource.getUrl();
+        String temp = dsi.getUrl();
         for (int i = 0; i < 3; i++) {
             temp = temp.substring(temp.indexOf("/") + 1);
         }
@@ -182,7 +181,7 @@ class AbstractConfig {
     }
 
     public boolean getCache() {
-        return Boolean.valueOf(cache == null ? "false" : cache);
+        return Boolean.parseBoolean(cache == null ? "false" : cache);
     }
 
     public long getRefresh() {
