@@ -31,6 +31,7 @@ import org.raniaia.approve.framework.tools.StringUtils;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -94,7 +95,8 @@ public class PrecompiledMethod {
                 }
                 // 如果不是默认entity包下的内容
                 else if (!StringUtils.isEmpty(result)) {
-                    this.result = Class.forName(Metadata.getEntityClass(result).getName());
+                    this.result = Class.forName(Objects.requireNonNull(Metadata.getEntityClass(result),
+                            "Error PrecompiledMethod. Cause: Your entity class configuration path is wrong.").getName());
                 }
             }
             method.append(StringUtils.format("public java.lang.String {} (java.util.Map map,java.util.List " + ProvideVar.SQL_PARAMS_SET + ")", name));

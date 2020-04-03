@@ -25,7 +25,7 @@ import org.raniaia.available.reflect.ClassUtils;
 import org.raniaia.available.reflect.Fields;
 import org.raniaia.available.reflect.Methods;
 import org.raniaia.approve.components.config.GlobalConfig;
-import org.raniaia.approve.components.jdbc.datasource.unpooled.IDataSource;
+import org.raniaia.approve.components.jdbc.datasource.unpooled.Dsi;
 import org.raniaia.approve.framework.mapper.MapperInvocation;
 import org.raniaia.approve.framework.provide.Approve;
 import org.raniaia.approve.framework.provide.component.Component;
@@ -144,8 +144,8 @@ public abstract class AbstractContainer extends RootContainer<String, Object> {
                         throw new NullPointerException("cannot found [" + componentName + "] component");
                     }
                     if ("DataSource".equals(componentName)) {
-                        componentInstance = ClassUtils.newInstance(componentClass, new Class<?>[]{IDataSource.class},
-                                GlobalConfig.getConfig().getIDataSource());
+                        componentInstance = ClassUtils.newInstance(componentClass, new Class<?>[]{Dsi.class},
+                                GlobalConfig.getConfig().getDsi());
                     } else {
                         componentInstance = ClassUtils.newInstance(componentClass);
                     }

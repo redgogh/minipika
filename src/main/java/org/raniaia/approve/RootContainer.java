@@ -46,7 +46,7 @@ public class RootContainer<K, V> {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked"})
     protected <T> T getRoots0(K name) {
         return (T) roots.get(name);
     }

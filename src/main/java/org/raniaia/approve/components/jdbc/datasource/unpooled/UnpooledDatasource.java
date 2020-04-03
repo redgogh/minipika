@@ -40,57 +40,57 @@ public class UnpooledDatasource implements DataSource {
 
     // 保存URL，DRIVER等属性的POJO
     @Getter
-    protected IDataSource iDataSource;
+    protected Dsi dsi;
 
     public UnpooledDatasource() {
     }
 
-    public UnpooledDatasource(IDataSource iDataSource) {
-        this(iDataSource,null);
+    public UnpooledDatasource(Dsi dsi) {
+        this(dsi,null);
     }
 
-    public UnpooledDatasource(IDataSource iDataSource,ClassLoader classLoader) {
-        this.iDataSource = iDataSource;
+    public UnpooledDatasource(Dsi dsi, ClassLoader classLoader) {
+        this.dsi = dsi;
         if(classLoader != null){
             this.driverClassLoader = classLoader;
         }else{
-            this.driverClassLoader = iDataSource.driverClassLoader;
+            this.driverClassLoader = dsi.driverClassLoader;
         }
     }
 
     private Connection doGetConnection() throws SQLException {
-        return doGetConnection(iDataSource.username,iDataSource.password);
+        return doGetConnection(dsi.username,dsi.password);
     }
 
     private Connection doGetConnection(String username,String password) throws SQLException {
         initializeDriver();
-        Driver driver = IDataSource.registerDrivers.get(iDataSource.driver);
-        Connection connection = driver.connect(iDataSource.url, IDataSource.buildDriverInfo(username,password));
+        Driver driver = Dsi.registerDrivers.get(dsi.driver);
+        Connection connection = driver.connect(dsi.url, Dsi.buildDriverInfo(username,password));
         configureConnection(connection);
         return connection;
     }
 
     private void configureConnection(Connection conn) throws SQLException {
         // 是否自动提交
-        if (iDataSource.autoCommit != null && iDataSource.autoCommit != conn.getAutoCommit()) {
-            conn.setAutoCommit(iDataSource.autoCommit);
+        if (dsi.autoCommit != null && dsi.autoCommit != conn.getAutoCommit()) {
+            conn.setAutoCommit(dsi.autoCommit);
         }
     }
 
     /**
-     * 初始化当前{@link IDataSource#driver}中的驱动
+     * 初始化当前{@link Dsi#driver}中的驱动
      */
     private synchronized void initializeDriver() throws SQLException {
-        if (!IDataSource.registerDrivers.containsKey(iDataSource.driver)) {
+        if (!Dsi.registerDrivers.containsKey(dsi.driver)) {
             Class<?> driver = null;
             try {
-                driver = Class.forName(iDataSource.driver, true, driverClassLoader);
+                driver = Class.forName(dsi.driver, true, driverClassLoader);
                 Driver driverInstance = (Driver) driver.newInstance();
                 //
                 // 代理的作用是防止在多线程环境下实例化驱动导致死锁问题
                 //
                 DriverManager.registerDriver(new DriverProxy(driverInstance));
-                IDataSource.registerDrivers.put(iDataSource.driver, driverInstance);
+                Dsi.registerDrivers.put(dsi.driver, driverInstance);
             } catch (Exception e) {
                 throw new SQLException("Error setting jdbc driver on UnpooledDataSource. Cause: " + e);
             }

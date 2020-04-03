@@ -25,7 +25,7 @@ import java.lang.annotation.*;
 /**
  * @author tiansheng
  */
-@Target({ElementType.TYPE})
+@Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Configuration {

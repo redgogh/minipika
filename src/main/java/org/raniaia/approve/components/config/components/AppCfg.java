@@ -1,4 +1,4 @@
-package org.raniaia.approve.components;
+package org.raniaia.approve.components.config.components;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,27 +17,27 @@ package org.raniaia.approve.components;
  */
 
 /*
- * Creates on 2020/3/26.
+ * Creates on 2020/4/3.
  */
 
-import org.raniaia.approve.AbstractContainer;
-import org.raniaia.approve.components.config.GlobalConfig;
-import org.raniaia.approve.components.jdbc.datasource.unpooled.Dsi;
-import org.raniaia.approve.framework.provide.component.Component;
-import org.raniaia.approve.framework.provide.component.ComponentType;
+import lombok.SneakyThrows;
+import org.raniaia.approve.components.config.AbstractConfig;
+import org.raniaia.available.config.Cfg;
+
+import java.io.IOException;
 
 /**
  * @author tiansheng
- * @see AbstractContainer#loadComponents
  */
-public class MyComponents {
+public class AppCfg extends AbstractConfig {
 
-    /**
-     * This component is a parameter.
-     */
-    @Component(type = ComponentType.PARAMETER, name = "defaultDataSource")
-    public Dsi getDsi(){
-        return GlobalConfig.getConfig().getDsi();
+    public AppCfg(String path){
+        super(newCfg(path));
+    }
+
+    @SneakyThrows
+    static Cfg newCfg(String path){
+        return new Cfg(path);
     }
 
 }

@@ -39,6 +39,10 @@ public class ConfigLoader {
     private ConfigLoader() {
     }
 
+    /**
+     * Loading config.
+     * @param configPath
+     */
     public static void loadConfig(String configPath) {
         URL url = Thread.currentThread().getStackTrace()[2].getClass().getResource("");
         if (StringUtils.isEmpty(configPath)) {

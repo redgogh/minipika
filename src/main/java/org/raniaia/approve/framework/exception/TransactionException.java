@@ -1,4 +1,4 @@
-package org.raniaia.approve.components;
+package org.raniaia.approve.framework.exception;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,27 +17,29 @@ package org.raniaia.approve.components;
  */
 
 /*
- * Creates on 2020/3/26.
+ * Creates on 2020/3/31.
  */
-
-import org.raniaia.approve.AbstractContainer;
-import org.raniaia.approve.components.config.GlobalConfig;
-import org.raniaia.approve.components.jdbc.datasource.unpooled.Dsi;
-import org.raniaia.approve.framework.provide.component.Component;
-import org.raniaia.approve.framework.provide.component.ComponentType;
 
 /**
  * @author tiansheng
- * @see AbstractContainer#loadComponents
  */
-public class MyComponents {
-
-    /**
-     * This component is a parameter.
-     */
-    @Component(type = ComponentType.PARAMETER, name = "defaultDataSource")
-    public Dsi getDsi(){
-        return GlobalConfig.getConfig().getDsi();
+public class TransactionException extends ApproveException {
+    public TransactionException() {
     }
 
+    public TransactionException(String message) {
+        super(message);
+    }
+
+    public TransactionException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public TransactionException(Throwable cause) {
+        super(cause);
+    }
+
+    public TransactionException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
 }

@@ -64,10 +64,20 @@ public class NativeJdbcImpl implements NativeJdbc {
     private Log log                                     =       LogFactory.getLog(NativeJdbcImpl.class);
 
     protected final boolean isCache                     =       GlobalConfig.getConfig().getCache();
-    protected final boolean desiredAutoCommit           =       GlobalConfig.getConfig().getdesiredAutoCommit();
+    protected final boolean desiredAutoCommit           =       GlobalConfig.getConfig().gettransaction();
 
     public NativeJdbcImpl(){}
 
+    /*
+     * 这个构造器是提供给Approve注解使用的，因为此注解的设计是可以通过构造器去初始化需要注入的对象。
+     * 所以为NativeJdbcImpl提供了一个初始初始化的方法。
+     */
+    /**
+     * This constructor is provided for {@link Approve} annotation.
+     *
+     * @param transactionFactory {@code TransactionFactory} instance.
+     * @see Approve#paramsId
+     */
     public NativeJdbcImpl(TransactionFactory transactionFactory){
         this.transactionFactory = transactionFactory;
     }
@@ -117,7 +127,7 @@ public class NativeJdbcImpl implements NativeJdbc {
     @SneakyThrows
     public NativeResult executeQuery(String sql, Object... args) {
         if(log.isDebugEnabled()){
-            log.debug("query: " + sql);
+            log.debug("query: " + sql + ", current database: "+GlobalConfig.getConfig().getDbname());
         }
         NativeResult result = null;
         Connection connection = null;

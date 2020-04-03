@@ -45,7 +45,7 @@ public class TEST {
     UserMapper mapper = BeansManager.newInstance(UserMapper.class);
 
     public static void main(String[] args) {
-        ConfigLoader.loadConfig("classpath:/compete/approve.jap");
+        ConfigLoader.loadConfig("classpath:/compete/approve.cfg");
         TEST test = BeansManager.newInstance(TEST.class);
         // 测试user对象insert
         test.userInsertByObject();
@@ -58,7 +58,8 @@ public class TEST {
     }
 
     public void findUserById(int id){
-        System.out.println(JSONObject.toJSONString(mapper.findUserById(id)));
+        Object o = mapper.findUserById(id);
+        System.out.println(JSONObject.toJSONString(o));
     }
 
 }

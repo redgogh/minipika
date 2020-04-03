@@ -21,7 +21,7 @@ package org.raniaia.approve.components.jdbc.datasource.pooled;
  */
 
 import lombok.Getter;
-import org.raniaia.approve.components.jdbc.datasource.unpooled.IDataSource;
+import org.raniaia.approve.components.jdbc.datasource.unpooled.Dsi;
 import org.raniaia.approve.components.jdbc.datasource.unpooled.UnpooledDatasource;
 import org.raniaia.approve.components.logging.Log;
 import org.raniaia.approve.components.logging.LogFactory;
@@ -83,8 +83,8 @@ public class PooledDataSource implements DataSource {
         this.datasource = new UnpooledDatasource();
     }
 
-    public PooledDataSource(IDataSource iDataSource) {
-        this.datasource = new UnpooledDatasource(iDataSource);
+    public PooledDataSource(Dsi dsi) {
+        this.datasource = new UnpooledDatasource(dsi);
         try {
             for (int i = 0; i < poolMinimumIdleConnections; i++) {
                 state.idleConnections.add(new PooledConnection(datasource.getConnection(), this));
@@ -95,8 +95,8 @@ public class PooledDataSource implements DataSource {
     }
 
     public PooledConnection popConnection() throws SQLException {
-        return popConnection(datasource.getIDataSource().getUsername(),
-                datasource.getIDataSource().getPassword());
+        return popConnection(datasource.getDsi().getUsername(),
+                datasource.getDsi().getPassword());
     }
 
     /**

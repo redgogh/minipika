@@ -2,12 +2,15 @@
 <approve>
 
     <jdbc>
-        <url>username</url>
+        <!-- url加参数 -->
+        <url params="useUnicode=true,characterEncoding=utf-8,useSSL=false,serverTimezone=GMT">
+            jdbc:mysql://127.0.0.1:3306/test
+        </url>
         <driver>com.mysql.cj.jdbc.Driver</driver>
         <username>root</username>
         <password>root</password>
         <transaction>true</transaction>
-        <cache refresh="5 + 6 +7">true</cache>
+        <cache refresh="5 + 6 + 7">true</cache>
     </jdbc>
 
     <connection>
@@ -16,10 +19,15 @@
     </connection>
 
     <entity>
-        <package>org.approve.experiment</package>
         <mapper>org.approve.builder</mapper>
-        <norm>norm.json</norm>
+        <package>
+            org.approve.experiment,
+            org.approve.experiment,
+            org.approve.experiment
+        </package>
     </entity>
+
+    <!-- 默认值 -->
     <default>
         <entity>default_entity.json</entity>
     </default>

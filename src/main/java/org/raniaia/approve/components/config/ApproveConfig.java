@@ -20,9 +20,92 @@ package org.raniaia.approve.components.config;
  * Creates on 2020/2/13.
  */
 
-public abstract class ApproveConfig {
+import org.raniaia.approve.components.jdbc.datasource.unpooled.Dsi;
+import org.raniaia.approve.framework.provide.Approve;
+import org.raniaia.approve.framework.tools.Lists;
+import org.raniaia.approve.framework.tools.Maps;
 
-    protected void datasource(String url, String driver, String username, String password) {
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+public class ApproveConfig {
+
+    protected Map<String,String> config = Maps.newHashMap();
+
+    /**
+     * Configuration datasource info.
+     */
+    protected
+    void datasource(Dsi... dataSources)
+    {
+
+    }
+
+    /**
+     * Enable transaction.
+     */
+    protected
+    void transaction(boolean desiredTransaction)
+    {
+
+    }
+
+    /**
+     * Enable cache.
+     */
+    protected
+    void cache(boolean desiredCache)
+    {
+
+    }
+
+    /**
+     * Enable cache.
+     */
+    protected
+    void cache(boolean desiredCache, long refresh)
+    {
+
+    }
+
+    /**
+     * Configuartion connection pool the idle connection size.
+     *
+     * @param maximum max size
+     * @param minimum min size
+     */
+    protected
+    void pool(long minimum,long maximum)
+    {
+
+    }
+
+    /**
+     * Configuration table name prefix.
+     */
+    protected
+    void prefix(String prefix)
+    {
+
+    }
+
+    /**
+     * Configuration entity class path.
+     */
+    protected
+    void entity(String... basePackages)
+    {
+
+    }
+
+    /**
+     * Configuration mapper file path.
+     */
+    protected
+    void mapper(String... basePackages)
+    {
+
     }
 
 }

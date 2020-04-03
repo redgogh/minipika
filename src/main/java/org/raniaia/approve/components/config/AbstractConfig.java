@@ -23,9 +23,9 @@ package org.raniaia.approve.components.config;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
-import org.raniaia.available.io.Paths;
+import org.raniaia.available.config.Cfg;
 import org.raniaia.available.io.file.Files;
-import org.raniaia.approve.components.jdbc.datasource.unpooled.IDataSource;
+import org.raniaia.approve.components.jdbc.datasource.unpooled.Dsi;
 import org.raniaia.approve.framework.exception.ConfigException;
 import org.raniaia.approve.framework.jap.JapLoader;
 import org.raniaia.approve.framework.tools.Calculator;
@@ -43,7 +43,7 @@ public abstract
 class AbstractConfig {
 
     @Getter
-    protected IDataSource iDataSource;
+    protected Dsi dsi;
 
     // 连接池配置
     protected String maxSize;
@@ -55,7 +55,7 @@ class AbstractConfig {
     // mapper模板文件存放位置
     protected String[] mapperPackage;
     // 是否开启事物
-    protected String desiredAutoCommit;
+    protected String transaction;
     // 是否开启缓存
     protected String cache;
     // 缓存过期时间
@@ -91,6 +91,10 @@ class AbstractConfig {
         this((Object) config);
     }
 
+    public AbstractConfig(Cfg cfg){
+        this((Object) cfg);
+    }
+
     public AbstractConfig(Object config) {
         this.configObject = config;
         initConfig();
@@ -100,34 +104,35 @@ class AbstractConfig {
      * 初始化
      */
     private void initConfig() {
-        this.cache = getValue("jdbc.cache");
-        this.refresh = getValue("jdbc.refresh");
-        this.maxSize = getValue("connectionPool.maxSize");
-        this.minSize = getValue("connectionPool.minSize");
+        this.cache = getValue("cache.enable");
+        this.refresh = getValue("cache.refresh");
+        this.maxSize = getValue("pool.maximum");
+        this.minSize = getValue("pool.minimum");
         this.tablePrefix = getValue("entity.prefix");
-        this.desiredAutoCommit = getValue("jdbc.desiredAutoCommit");
-        if (StringUtils.isEmpty(desiredAutoCommit)) {
-            this.desiredAutoCommit = "false";
+        this.transaction = getValue("jdbc.transaction");
+        if (StringUtils.isEmpty(transaction)) {
+            this.transaction = "false";
         }
-        this.iDataSource = new IDataSource(
+        this.dsi = new Dsi(
                 getValue("jdbc.url"),
                 getValue("jdbc.driver"),
                 getValue("jdbc.password"),
                 getValue("jdbc.username"),
-                Boolean.parseBoolean(this.desiredAutoCommit)
+                Boolean.parseBoolean(this.transaction)
         );
 
         // 模型文件存放目录
-        JSONArray entityArray = JSONArray.parseArray(getValue("entity.package"));
-        if (entityArray != null) {
-            entityPackage = new String[entityArray.size()];
-            entityArray.toArray(entityPackage);
+        String e_pacakges = getValue("entity.package");
+        if (!StringUtils.isEmpty(e_pacakges)) {
+            this.entityPackage = e_pacakges.split(",");
         }
-        JSONArray mapperArray = JSONArray.parseArray(getValue("entity.mapper"));
-        if (mapperArray != null) {
-            mapperPackage = new String[entityArray.size()];
-            mapperArray.toArray(mapperPackage);
+
+        // mapper映射文件存放位置
+        String m_packlage = getValue("mapper.package");
+        if (!StringUtils.isEmpty(m_packlage)) {
+            this.mapperPackage = m_packlage.split(",");
         }
+
         // 获取字段约束配置文件路径
         String normJsonName = getValue("entity.norm");
         if (!StringUtils.isEmpty(normJsonName)) {
@@ -140,7 +145,7 @@ class AbstractConfig {
             this.defaultEntity = JSONObject.parseObject(Files.read(defaultEntityName));
         }
 
-        String temp = iDataSource.getUrl();
+        String temp = dsi.getUrl();
         for (int i = 0; i < 3; i++) {
             temp = temp.substring(temp.indexOf("/") + 1);
         }
@@ -153,6 +158,10 @@ class AbstractConfig {
             return (String) ((Map) configObject).get(key);
         } else if (configObject instanceof Properties) {
             return ((Properties) configObject).getProperty("approve.".concat(key));
+        } else if(configObject instanceof  Cfg){
+            int index = key.indexOf(".");
+            String root = key.substring(0,index);
+            return ((Cfg) configObject).get(root,key.substring(index+1));
         }
         throw new ConfigException("unknown config object.");
     }
@@ -177,12 +186,12 @@ class AbstractConfig {
         return Integer.valueOf(StringUtils.isEmpty(minSize) ? "2" : minSize);
     }
 
-    public Boolean getdesiredAutoCommit() {
-        return Boolean.valueOf(desiredAutoCommit);
+    public Boolean gettransaction() {
+        return Boolean.valueOf(transaction);
     }
 
     public boolean getCache() {
-        return Boolean.valueOf(cache == null ? "false" : cache);
+        return Boolean.parseBoolean(cache == null ? "false" : cache);
     }
 
     public long getRefresh() {

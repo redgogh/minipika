@@ -23,9 +23,8 @@ package org.branch.datasource;
 import org.junit.Test;
 import org.raniaia.approve.components.jdbc.datasource.pooled.PooledConnection;
 import org.raniaia.approve.components.jdbc.datasource.pooled.PooledDataSource;
-import org.raniaia.approve.components.jdbc.datasource.unpooled.IDataSource;
+import org.raniaia.approve.components.jdbc.datasource.unpooled.Dsi;
 import org.raniaia.approve.components.jdbc.datasource.unpooled.UnpooledDatasource;
-import org.raniaia.available.thread.Threads;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -42,7 +41,7 @@ public class DataSourceTest {
 
     Lock lock = new Lock();
 
-    IDataSource iDataSource = new IDataSource(
+    Dsi dsi = new Dsi(
             "jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT",
             "com.mysql.cj.jdbc.Driver",
             "root", "root"
@@ -51,7 +50,7 @@ public class DataSourceTest {
     @Test
     public void unpooled() throws SQLException {
 
-        UnpooledDatasource unpooledDatasource = new UnpooledDatasource(iDataSource);
+        UnpooledDatasource unpooledDatasource = new UnpooledDatasource(dsi);
 
         Connection connection = unpooledDatasource.getConnection();
         System.out.println("AUTOCOMMIT: " + connection.getAutoCommit());
@@ -60,7 +59,7 @@ public class DataSourceTest {
 
     @Test
     public void pooled() throws SQLException, InterruptedException {
-        PooledDataSource source = new PooledDataSource(iDataSource);
+        PooledDataSource source = new PooledDataSource(dsi);
         for (int i = 0; i < 2000; i++) {
             new Thread(new Runnable() {
                 @Override

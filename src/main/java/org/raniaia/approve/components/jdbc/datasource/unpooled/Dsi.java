@@ -31,31 +31,21 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
+ * DataSource info
  * @author tiansheng
  */
-public class IDataSource {
+@Getter
+@Setter
+public class Dsi {
 
     // 存放驱动实例
     static Map<String, Driver> registerDrivers = Maps.newConcurrentHashMap();
 
-    @Getter
-    @Setter
     protected Object id;
-
-    @Getter
     protected String url;
-    @Getter
     protected String driver;
-    @Getter
     protected String username;
-    @Getter
     protected String password;
-
-    /*
-     *
-     */
-    @Getter
-    @Setter
     protected String sourceType;
 
     ClassLoader driverClassLoader;
@@ -63,21 +53,21 @@ public class IDataSource {
     // 是否设置为自动提交
     Boolean autoCommit;
 
-    public IDataSource() {
+    public Dsi() {
     }
 
-    public IDataSource(String url, String driver, String username,
-                       String password) {
+    public Dsi(String url, String driver, String username,
+               String password) {
         this(url, driver, username, password, false, new NativeClassLoader());
     }
 
-    public IDataSource(String url, String driver, String username,
-                       String password,boolean autoCommit) {
+    public Dsi(String url, String driver, String username,
+               String password, boolean autoCommit) {
         this(url, driver, username, password, autoCommit, new NativeClassLoader());
     }
 
-    public IDataSource(String url, String driver, String username,
-                       String password, Boolean autoCommit, ClassLoader classLoader) {
+    public Dsi(String url, String driver, String username,
+               String password, Boolean autoCommit, ClassLoader classLoader) {
         this.url = url;
         this.driver = driver;
         this.username = username;
