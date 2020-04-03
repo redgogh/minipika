@@ -17,11 +17,27 @@ package org.raniaia.approve.components.config.components;
  */
 
 /*
- * Creates on 2020/4/2.
+ * Creates on 2020/4/3.
  */
 
+import lombok.SneakyThrows;
+import org.raniaia.approve.components.config.AbstractConfig;
+import org.raniaia.available.config.Cfg;
+
+import java.io.IOException;
+
 /**
- * Use kotlin as a configuration file.
+ * @author tiansheng
  */
-public class KotlinConfig {
+public class AppCfg extends AbstractConfig {
+
+    public AppCfg(String path){
+        super(newCfg(path));
+    }
+
+    @SneakyThrows
+    static Cfg newCfg(String path){
+        return new Cfg(path);
+    }
+
 }

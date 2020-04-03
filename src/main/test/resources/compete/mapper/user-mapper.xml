@@ -2,7 +2,7 @@
 <mapper name="UserMapper">
 
     <select name="findUserById" result="User">
-        select * from kkb_user where id = {{id}}
+        select * from approve_user where id = {{id}}
     </select>
 
 </mapper>

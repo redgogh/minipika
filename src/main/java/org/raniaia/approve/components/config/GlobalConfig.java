@@ -22,6 +22,7 @@ package org.raniaia.approve.components.config;
 
 
 import org.raniaia.approve.BeansManager;
+import org.raniaia.approve.components.config.components.AppCfg;
 import org.raniaia.approve.components.config.components.JapConfig;
 import org.raniaia.approve.components.config.components.PropertiesConfig;
 import org.raniaia.approve.components.entity.core.mysql.EntityLoaderImpl;
@@ -74,16 +75,22 @@ public final class GlobalConfig {
     }
 
     private AbstractConfig newConfig() {
-        Object config;
+        AbstractConfig config;
         String suffix = configPath.substring(configPath.lastIndexOf(".") + 1);
-        if ("jap".equals(suffix)) {
-            config = new JapConfig(configPath);
-        } else if ("properties".equals(suffix)) {
-            config = new PropertiesConfig(configPath);
-        } else {
-            throw new ConfigException("unknown config file suffix '" + suffix + "'");
+        switch (suffix) {
+            case "cfg":
+                config = new AppCfg(configPath);
+                break;
+            case "jap":
+                config = new JapConfig(configPath);
+                break;
+            case "properties":
+                config = new PropertiesConfig(configPath);
+                break;
+            default:
+                throw new ConfigException("unknown config file suffix '" + suffix + "'");
         }
-        return (AbstractConfig) config;
+        return config;
     }
 
     public static boolean isJar() {

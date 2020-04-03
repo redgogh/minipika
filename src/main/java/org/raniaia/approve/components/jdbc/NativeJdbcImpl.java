@@ -64,7 +64,7 @@ public class NativeJdbcImpl implements NativeJdbc {
     private Log log                                     =       LogFactory.getLog(NativeJdbcImpl.class);
 
     protected final boolean isCache                     =       GlobalConfig.getConfig().getCache();
-    protected final boolean desiredAutoCommit           =       GlobalConfig.getConfig().getdesiredAutoCommit();
+    protected final boolean desiredAutoCommit           =       GlobalConfig.getConfig().gettransaction();
 
     public NativeJdbcImpl(){}
 
@@ -127,7 +127,7 @@ public class NativeJdbcImpl implements NativeJdbc {
     @SneakyThrows
     public NativeResult executeQuery(String sql, Object... args) {
         if(log.isDebugEnabled()){
-            log.debug("query: " + sql);
+            log.debug("query: " + sql + ", current database: "+GlobalConfig.getConfig().getDbname());
         }
         NativeResult result = null;
         Connection connection = null;

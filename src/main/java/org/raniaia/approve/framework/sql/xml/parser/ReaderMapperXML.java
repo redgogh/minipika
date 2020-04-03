@@ -23,11 +23,15 @@ package org.raniaia.approve.framework.sql.xml.parser;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
+import org.raniaia.approve.components.config.GlobalConfig;
+import org.raniaia.approve.components.logging.Log;
+import org.raniaia.approve.components.logging.LogFactory;
 import org.raniaia.approve.framework.sql.xml.node.XMLNode;
 import org.raniaia.approve.framework.exception.BuilderXmlException;
 import org.raniaia.approve.framework.sql.xml.node.XMLMapperNode;
 import org.raniaia.approve.framework.tools.ApproveUtils;
 import org.raniaia.approve.framework.tools.StringUtils;
+import org.raniaia.available.array.ArrayUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,21 +42,34 @@ import java.util.List;
  */
 public class ReaderMapperXML {
 
+    static final Log log = LogFactory.getLog(ReaderMapperXML.class);
+
     /**
      * 解析xml中的标签
      */
-    @SuppressWarnings("SpellCheckingInspection")
     private MapperLabelParser xmlparser = new MapperLabelParser();
     private ReaderCrudElement readerCrud = new ReaderCrudElement();
 
-    private List<XMLMapperNode> mappers = new ArrayList();
+    private List<XMLMapperNode> mappers = new ArrayList<>();
 
     /**
      * 获取xml文件列表
      * @return
      */
     private List<File> getBuilderXMLFiles() {
-        return ApproveUtils.getMapperXMLs();
+        try {
+            return ApproveUtils.getMapperXMLs();
+        } catch (Exception e) {
+            if (e instanceof NullPointerException) {
+                String array = ArrayUtils.toString(GlobalConfig.getConfig().getMapperBasePackage());
+                log.error("Error reading xml file, Cause: " + array + " directory nothing, please check " +
+                        "if the entered address is correct.");
+                throw new NullPointerException("Error reading xml file, Cause: " + array + " directory nothing, please check " +
+                        "if the entered address is correct.");
+            }
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

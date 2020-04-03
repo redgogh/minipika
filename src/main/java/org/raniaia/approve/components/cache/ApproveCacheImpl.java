@@ -123,7 +123,7 @@ public class ApproveCacheImpl implements ApproveCache{
         List<String> values = new ArrayList<>(5);
         values.add(sql);
         for (Object arg : args) {
-            values.add(arg.toString());
+            values.add(arg == null ? "NULL" : arg.toString());
         }
         return ApproveUtils.encryptToMd5(values.toString());
     }
