@@ -163,6 +163,7 @@ public class EntityLoaderImpl implements EntityLoader {
                         jdbc.execute(executeScript);
                     } else {
                         // TODO 如果存在该字段则判断字段属性是否被修改
+                        // TODO 可加可不加的功能，等以后有时间再看到底要不要加，目前就先这样做。
                     }
                     previousKey = key;
                 }
