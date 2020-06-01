@@ -1,0 +1,55 @@
+package org.raniaia.minipika.framework.factory;
+
+/*
+ * Copyright (C) 2020 tiansheng All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Creates on 2020/6/1.
+ */
+
+import org.raniaia.minipika.framework.annotations.Minipika;
+import org.raniaia.minipika.framework.util.Annotations;
+import org.raniaia.minipika.framework.util.Classic;
+import org.raniaia.minipika.framework.util.Fields;
+import org.raniaia.minipika.framework.util.StringUtils;
+
+import java.lang.reflect.Field;
+import java.util.Map;
+import java.util.Objects;
+
+/**
+ * 自动注入工具类
+ *
+ * @author tiansheng
+ */
+public class MinipikaInjectUtils {
+
+  public static Object inject(Class<?> clazz, Map<String, Object> components) throws IllegalAccessException {
+    Object instance = Classic.newInstance(clazz);
+    Field[] fields = Fields.getDeclaredFieldsIncludeSuper(clazz, true, new Class[]{Minipika.class});
+    for (Field field : fields) {
+      Minipika minipika = Annotations.isAnnotation(field, Minipika.class);
+      String name = minipika.name();
+      if (StringUtils.isEmpty(name)) {
+        name = field.getClass().getSimpleName();
+      }
+      Object injectedObject = components.get(name);
+      field.set(instance, Objects.requireNonNull(injectedObject, "未找到名为" + name + "的组件")); // 注入对象
+    }
+    return instance;
+  }
+
+}

@@ -1,4 +1,4 @@
-package org.raniaia.minipika;
+package org.minipika.testObject;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,28 +20,16 @@ package org.raniaia.minipika;
  * Creates on 2020/6/1.
  */
 
+import org.raniaia.minipika.framework.annotations.Minipika;
+
 /**
  * @author tiansheng
  */
-public class MinipikaComponentFactory implements MinipikaComponentManager{
+public class MinipikaEntity {
 
-  @Override
-  public <T> T newInstance(Class<?> clazz) {
-    return null;
-  }
+  @Minipika
+  private String a;
 
-  @Override
-  public void reloading(Object object) {
+  private Integer b;
 
-  }
-
-  @Override
-  public void registerObjectToComponentManager(Object object) {
-
-  }
-
-  @Override
-  public void removeObjectFromComponentManager(Class<?> type) {
-
-  }
 }

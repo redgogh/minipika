@@ -1,4 +1,4 @@
-package org.raniaia.minipika;
+package org.raniaia.minipika.framework.factory;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -23,7 +23,7 @@ package org.raniaia.minipika;
 /**
  * @author tiansheng
  */
-public interface MinipikaComponentManager {
+public interface MinipikaComponentFactory {
 
   /**
    * 创建一个新的实例对象，并像对象内部的成员进行注入
@@ -32,27 +32,35 @@ public interface MinipikaComponentManager {
    * @param <T>   任意类
    * @return 已注入完成的实例对象
    */
-  <T> T newInstance(Class<?> clazz);
+  <T> T forClass(Class<?> clazz);
 
   /**
    * 重新加载对象
    *
    * @param object 已实例化后的对象
    */
-  void reloading(Object object);
+  void reloading(String key, Object object);
 
   /**
    * 注册一个已经实例化后的对象到组件管理器
    *
    * @param object 已实例化的对象
    */
-  void registerObjectToComponentManager(Object object);
+  void registerObjectToComponentFactory(String key, Object object);
 
   /**
    * 从组件管理器中删除掉一个对象
    *
-   * @param type 对象的类型
+   * @param key 对象的key
    */
-  void removeObjectFromComponentManager(Class<?> type);
+  void removeObjectFromComponentFactory(String key);
+
+  /**
+   * 检查组件对象是否为空
+   */
+  default void checkingComponent(Object object) {
+    if(object == null)
+      throw new NullPointerException("组件对象不能为空");
+  }
 
 }

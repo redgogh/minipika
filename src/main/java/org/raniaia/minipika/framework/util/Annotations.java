@@ -14,22 +14,22 @@ import java.lang.reflect.AccessibleObject;
  */
 public class Annotations {
 
-    @SuppressWarnings("unchecked")
-    public static <A> A isAnnotation(AccessibleObject target,
-                                     Class<? extends Annotation> annotation) {
-        if (target.isAnnotationPresent(annotation)) {
-            return (A) target.getDeclaredAnnotation(annotation);
-        }
-        return null;
+  @SuppressWarnings("unchecked")
+  public static <A> A isAnnotation(AccessibleObject target,
+                                   Class<? extends Annotation> annotation) {
+    if (target.isAnnotationPresent(annotation)) {
+      return (A) target.getDeclaredAnnotation(annotation);
     }
+    return null;
+  }
 
-    @SuppressWarnings("unchecked")
-    public static <A> A isAnnotation(Class<?> target,
-                                     Class<? extends Annotation> annotation) {
-        if (target.isAnnotationPresent(annotation)) {
-            return (A) target.getDeclaredAnnotation(annotation);
-        }
-        return null;
+  @SuppressWarnings("unchecked")
+  public static <A> A isAnnotation(Class<?> target,
+                                   Class<? extends Annotation> annotation) {
+    if (target.isAnnotationPresent(annotation)) {
+      return (A) target.getDeclaredAnnotation(annotation);
     }
+    return null;
+  }
 
 }

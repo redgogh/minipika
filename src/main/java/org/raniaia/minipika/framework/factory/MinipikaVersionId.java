@@ -1,4 +1,4 @@
-package org.raniaia.minipika;
+package org.raniaia.minipika.framework.factory;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.

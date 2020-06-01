@@ -71,9 +71,13 @@ public class Fields {
   }
 
   /**
-   * 获取类的所有字段，包括父类的
+   * 获取类的所有成员，包括父类的
+   *
+   * @param classic       目标类
+   * @param accessible    是否禁用安全检查
+   * @return              所有成员
    */
-  @SuppressWarnings({"unchecked", "ConstantConditions"})
+  @SuppressWarnings({"ConstantConditions"})
   public static Field[] getDeclaredFieldsIncludeSuper(Class<?> classic, boolean accessible) {
     List<Class<?>> classes = Classic.getSuperClasses(classic);
     List<Field> fields = Lists.newArrayList(getDeclaredFields(classic, accessible));
@@ -84,6 +88,30 @@ public class Fields {
     }
     Field[] rf = new Field[fields.size()];
     return fields.toArray(rf);
+  }
+
+  /**
+   * 获取类的所有成员，包括父类的
+   *
+   * @param classic       目标类
+   * @param accessible    是否禁用安全检查
+   * @param annotations   成员必须拥有annotations中的其中一个注解才可以返回
+   * @return              所有成员
+   */
+  @SuppressWarnings({"ConstantConditions"})
+  public static Field[] getDeclaredFieldsIncludeSuper(Class<?> classic, boolean accessible,
+                                                      Class<? extends Annotation>[] annotations) {
+    List<Field> haveAnnotationTheFields = Lists.newArrayList();
+    Field[] fields = getDeclaredFieldsIncludeSuper(classic, accessible);
+    for (Field field : fields) {
+      for (Class<? extends Annotation> annotation : annotations) {
+        if(field.isAnnotationPresent(annotation)) {
+          haveAnnotationTheFields.add(field);
+        }
+      }
+    }
+    Field[] rf = new Field[haveAnnotationTheFields.size()];
+    return haveAnnotationTheFields.toArray(rf);
   }
 
   /**
