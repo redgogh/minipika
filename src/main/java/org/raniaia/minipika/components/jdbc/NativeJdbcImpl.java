@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Native jdbc operation.
+ * JDBC操作
  *
  * @author tiansheng
  */
@@ -52,221 +52,219 @@ import java.util.List;
 public class NativeJdbcImpl implements NativeJdbc {
 
 
-    @Minipika
-    private MinipikaCache cache;
+  @Minipika
+  private MinipikaCache cache;
 
-    @Minipika
-    private DataSource dataSource;
+  @Minipika
+  private DataSource dataSource;
 
-    @Minipika
-    protected TransactionFactory transactionFactory;
+  @Minipika
+  protected TransactionFactory transactionFactory;
 
-    private Log log                                     =       LogFactory.getLog(NativeJdbcImpl.class);
+  private Log log = LogFactory.getLog(NativeJdbcImpl.class);
 
-    protected final boolean isCache                     =       GlobalConfig.getConfig().getCache();
-    protected final boolean desiredAutoCommit           =       GlobalConfig.getConfig().gettransaction();
+  protected final boolean isCache = GlobalConfig.getConfig().getCache();
+  protected final boolean desiredAutoCommit = GlobalConfig.getConfig().gettransaction();
 
-    public NativeJdbcImpl(){}
+  public NativeJdbcImpl() {
+  }
 
-    /*
-     * 这个构造器是提供给Minipika注解使用的，因为此注解的设计是可以通过构造器去初始化需要注入的对象。
-     * 所以为NativeJdbcImpl提供了一个初始初始化的方法。
-     */
-    /**
-     * This constructor is provided for {@link Minipika} annotation.
-     *
-     * @param transactionFactory {@code TransactionFactory} instance.
-     * @see Minipika#paramsId
-     */
-    public NativeJdbcImpl(TransactionFactory transactionFactory){
-        this.transactionFactory = transactionFactory;
+  /**
+   * 这个构造器是提供给Minipika注解使用的，因为此注解的设计是可以通过构造器去初始化需要注入的对象。
+   * 所以为NativeJdbcImpl提供了一个初始初始化的方法。
+   *
+   * @param transactionFactory {@code TransactionFactory} instance.
+   * @see Minipika#paramsId
+   */
+  public NativeJdbcImpl(TransactionFactory transactionFactory) {
+    this.transactionFactory = transactionFactory;
+  }
+
+  @Override
+  public void setTransactionFactory(TransactionFactory transactionFactory) {
+    this.transactionFactory = transactionFactory;
+  }
+
+  @Override
+  public void setTransactionFactory(TransactionFactory transaction, TransactionIsolationLevel level) {
+    this.transactionFactory = transactionFactory;
+    this.transactionFactory.setTransactionIsolationLevel(level);
+  }
+
+  @Override
+  public void setTransactionIsolationLevel(TransactionIsolationLevel level) {
+    this.transactionFactory.setTransactionIsolationLevel(level);
+  }
+
+  @Override
+  @SneakyThrows
+  public boolean execute(String sql, Object... args) {
+    if (log.isDebugEnabled()) {
+      log.debug("execute: " + sql);
     }
-
-    @Override
-    public void setTransactionFactory(TransactionFactory transactionFactory) {
-        this.transactionFactory = transactionFactory;
+    Connection connection = null;
+    PreparedStatement statement = null;
+    Transaction transaction = transactionFactory.newTransaction(dataSource, desiredAutoCommit);
+    try {
+      connection = transaction.getConnection();
+      statement = connection.prepareStatement(sql);
+      Boolean bool = setValues(statement, args).execute();
+      transaction.commit(); // 提交
+      return bool;
+    } catch (Exception e) {
+      transaction.rollback();
+      e.printStackTrace();
+    } finally {
+      close(statement);
+      transaction.close();
     }
+    return false;
+  }
 
-    @Override
-    public void setTransactionFactory(TransactionFactory transaction, TransactionIsolationLevel level) {
-        this.transactionFactory = transactionFactory;
-        this.transactionFactory.setTransactionIsolationLevel(level);
+  @Override
+  @SneakyThrows
+  public NativeResult executeQuery(String sql, Object... args) {
+    if (log.isDebugEnabled()) {
+      log.debug("query: " + sql + ", current database: " + GlobalConfig.getConfig().getDbname());
     }
-
-    @Override
-    public void setTransactionIsolationLevel(TransactionIsolationLevel level) {
-        this.transactionFactory.setTransactionIsolationLevel(level);
-    }
-
-    @Override
-    @SneakyThrows
-    public boolean execute(String sql, Object... args) {
-        if(log.isDebugEnabled()) {
-            log.debug("execute: " + sql);
+    NativeResult result = null;
+    Connection connection = null;
+    PreparedStatement statement = null;
+    Transaction transaction = transactionFactory.newTransaction(dataSource, desiredAutoCommit);
+    try {
+      connection = transaction.getConnection();
+      statement = connection.prepareStatement(sql);
+      // 判断是否开启缓存
+      if (isCache) {
+        result = cache.get(sql, args);
+        if (result == null) {
+          ResultSet resultSet = setValues(statement, args).executeQuery();
+          result = BeansManager.newNativeResult().build(resultSet);
+          cache.save(sql, result, args);
+          return cache.get(sql, args);
         }
-        Connection connection = null;
-        PreparedStatement statement = null;
-        Transaction transaction = transactionFactory.newTransaction(dataSource,desiredAutoCommit);
-        try {
-            connection = transaction.getConnection();
-            statement = connection.prepareStatement(sql);
-            Boolean bool = setValues(statement, args).execute();
-            transaction.commit(); // 提交
-            return bool;
-        } catch (Exception e) {
-            transaction.rollback();
-            e.printStackTrace();
-        } finally {
-            close(statement);
-            transaction.close();
-        }
-        return false;
+        return result;
+      } else {
+        ResultSet resultSet = setValues(statement, args).executeQuery();
+        return BeansManager.newNativeResult().build(resultSet);
+      }
+    } catch (Throwable e) {
+      e.printStackTrace();
+    } finally {
+      close(statement);
+      transaction.close();
     }
+    return null;
+  }
 
-    @Override
-    @SneakyThrows
-    public NativeResult executeQuery(String sql, Object... args) {
-        if(log.isDebugEnabled()){
-            log.debug("query: " + sql + ", current database: "+GlobalConfig.getConfig().getDbname());
-        }
-        NativeResult result = null;
-        Connection connection = null;
-        PreparedStatement statement = null;
-        Transaction transaction = transactionFactory.newTransaction(dataSource,desiredAutoCommit);
-        try {
-            connection = transaction.getConnection();
-            statement = connection.prepareStatement(sql);
-            // 判断是否开启缓存
-            if (isCache) {
-                result = cache.get(sql, args);
-                if (result == null) {
-                    ResultSet resultSet = setValues(statement, args).executeQuery();
-                    result = BeansManager.newNativeResult().build(resultSet);
-                    cache.save(sql, result, args);
-                    return cache.get(sql, args);
-                }
-                return result;
-            } else {
-                ResultSet resultSet = setValues(statement, args).executeQuery();
-                return BeansManager.newNativeResult().build(resultSet);
-            }
-        } catch (Throwable e) {
-            e.printStackTrace();
-        } finally {
-            close( statement);
-            transaction.close();
-        }
-        return null;
+  @Override
+  @SneakyThrows
+  public int executeUpdate(String sql, Object... args) {
+    if (log.isDebugEnabled()) {
+      log.debug("NativeJdbc: 执行SQL - " + sql);
     }
+    Connection connection = null;
+    PreparedStatement statement = null;
+    Transaction transaction = transactionFactory.newTransaction(dataSource, desiredAutoCommit);
+    try {
+      connection = transaction.getConnection();
+      statement = connection.prepareStatement(sql);
+      int result = setValues(statement, args).executeUpdate();
+      transaction.commit(); // 提交
+      if (isCache) cache.refresh(sql); // 刷新缓存
+      return result;
+    } catch (Throwable e) {
+      transaction.rollback(); // 回滚
+      e.printStackTrace();
+    } finally {
+      close(statement);
+      transaction.close();
+    }
+    return 0;
+  }
 
-    @Override
-    @SneakyThrows
-    public int executeUpdate(String sql, Object... args) {
-        if(log.isDebugEnabled()){
-            log.debug("NativeJdbc: execute sql - " + sql);
-        }
-        Connection connection = null;
-        PreparedStatement statement = null;
-        Transaction transaction = transactionFactory.newTransaction(dataSource,desiredAutoCommit);
-        try {
-            connection = transaction.getConnection();
-            statement = connection.prepareStatement(sql);
-            int result = setValues(statement, args).executeUpdate();
-            transaction.commit(); // 提交
-            if (isCache) cache.refresh(sql); // 刷新缓存
-            return result;
-        } catch (Throwable e) {
-            transaction.rollback(); // 回滚
-            e.printStackTrace();
-        } finally {
-            close(statement);
-            transaction.close();
-        }
-        return 0;
-    }
+  @Override
+  public int[] executeBatch(String sql, List<Object[]> args) {
+    return this.executeBatch(sql, args.toArray());
+  }
 
-    @Override
-    public int[] executeBatch(String sql, List<Object[]> args) {
-        return this.executeBatch(sql, args.toArray());
+  @Override
+  @SneakyThrows
+  public int[] executeBatch(String sql, Object... args) {
+    // 判断sql中是否包含多条sql，根据';'来判断
+    out:
+    if (sql.contains(";")) {
+      String[] sqls = (String[]) Arrays.remove(sql.split(";"), Arrays.Op.LAST);
+      // 如果sql包含';'，但是数组中只有一条sql的话就跳出if
+      if (sqls.length == 1) break out;
+      List<Object[]> objList = new ArrayList<>();
+      int argsIndex = 0;
+      for (String isql : sqls) {
+        int length = 0;
+        for (char chara : isql.toCharArray()) {
+          if (chara == '?') length++;
+        }
+        Object[] objects = new Object[length];
+        System.arraycopy(args, argsIndex, objects, 0, length);
+        argsIndex = length;
+        objList.add(objects);
+      }
+      return executeBatch(sqls, objList);
     }
+    Connection connection = null;
+    PreparedStatement statement = null;
+    Transaction transaction = transactionFactory.newTransaction(dataSource, desiredAutoCommit);
+    try {
+      connection = transaction.getConnection();
+      statement = connection.prepareStatement(sql);
+      for (Object arg : args) {
+        Object[] value = (Object[]) arg;
+        int i = 1;
+        for (Object o : value) {
+          statement.setObject(i, o);
+          i++;
+        }
+        statement.addBatch();
+      }
+      int[] result = statement.executeBatch();
+      transaction.commit();
+      if (isCache) cache.refresh(sql);
+      return result;
+    } catch (Throwable e) {
+      transaction.rollback();
+      e.printStackTrace();
+    } finally {
+      close(statement);
+    }
+    return new int[0];
+  }
 
-    @Override
-    @SneakyThrows
-    public int[] executeBatch(String sql, Object... args) {
-        // 判断sql中是否包含多条sql，根据';'来判断
-        out:
-        if (sql.contains(";")) {
-            String[] sqls = (String[]) Arrays.remove(sql.split(";"), Arrays.Op.LAST);
-            // 如果sql包含';'，但是数组中只有一条sql的话就跳出if
-            if (sqls.length == 1) break out;
-            List<Object[]> objList = new ArrayList<>();
-            int argsIndex = 0;
-            for (String isql : sqls) {
-                int length = 0;
-                for (char chara : isql.toCharArray()) {
-                    if (chara == '?') length++;
-                }
-                Object[] objects = new Object[length];
-                System.arraycopy(args, argsIndex, objects, 0, length);
-                argsIndex = length;
-                objList.add(objects);
-            }
-            return executeBatch(sqls, objList);
-        }
-        Connection connection = null;
-        PreparedStatement statement = null;
-        Transaction transaction = transactionFactory.newTransaction(dataSource,desiredAutoCommit);
-        try {
-            connection = transaction.getConnection();
-            statement = connection.prepareStatement(sql);
-            for (Object arg : args) {
-                Object[] value = (Object[]) arg;
-                int i = 1;
-                for (Object o : value) {
-                    statement.setObject(i, o);
-                    i++;
-                }
-                statement.addBatch();
-            }
-            int[] result = statement.executeBatch();
-            transaction.commit();
-            if (isCache) cache.refresh(sql);
-            return result;
-        } catch (Throwable e) {
-            transaction.rollback();
-            e.printStackTrace();
-        } finally {
-            close(statement);
-        }
-        return new int[0];
+  @Override
+  @SneakyThrows
+  public int[] executeBatch(String[] sqls, List<Object[]> args) {
+    Statement statement = null;
+    Connection connection = null;
+    Transaction transaction = transactionFactory.newTransaction(dataSource, desiredAutoCommit);
+    try {
+      connection = transaction.getConnection();
+      statement = connection.createStatement();
+      int index = -1;
+      for (String sql : sqls) {
+        statement.addBatch(SQLUtils.buildPreSQL(sql, args.get(index = (index + 1))));
+      }
+      int[] result = statement.executeBatch();
+      transaction.commit();
+      if (isCache) {
+        for (String sql : sqls) cache.refresh(sql);
+      }
+      return result;
+    } catch (Throwable e) {
+      transaction.rollback();
+      e.printStackTrace();
+    } finally {
+      close(statement);
     }
-
-    @Override
-    @SneakyThrows
-    public int[] executeBatch(String[] sqls, List<Object[]> args) {
-        Statement statement = null;
-        Connection connection = null;
-        Transaction transaction = transactionFactory.newTransaction(dataSource,desiredAutoCommit);
-        try {
-            connection = transaction.getConnection();
-            statement = connection.createStatement();
-            int index = -1;
-            for (String sql : sqls) {
-                statement.addBatch(SQLUtils.buildPreSQL(sql, args.get(index = (index + 1))));
-            }
-            int[] result = statement.executeBatch();
-            transaction.commit();
-            if (isCache) {
-                for (String sql : sqls) cache.refresh(sql);
-            }
-            return result;
-        } catch (Throwable e) {
-            transaction.rollback();
-            e.printStackTrace();
-        } finally {
-            close(statement);
-        }
-        return new int[0];
-    }
+    return new int[0];
+  }
 
 }

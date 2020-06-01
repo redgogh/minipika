@@ -39,109 +39,114 @@ import java.sql.SQLException;
  */
 public class PooledConnection implements InvocationHandler {
 
-    private static String CLOSE = "close";
-    private static Class<?>[] IFACE = new Class[]{Connection.class};
+  private static String CLOSE = "close";
+  private static Class<?>[] IFACE = new Class[]{Connection.class};
 
-    private final static Log log = LogFactory.getLog(PooledConnection.class);
+  private final static Log log = LogFactory.getLog(PooledConnection.class);
 
-    private boolean                 valid;
-    @Getter
-    private Connection              realConnection;
-    @Getter
-    private PooledDataSource        dataSource;
-    @Getter
-    private Connection              proxyConnection;
-    @Getter
-    @Setter
-    private long                    createTimestamp;
-    @Getter
-    @Setter
-    private long                    lastUsedTimestamp;
+  private boolean                       valid;
 
-    public PooledConnection() {
+  @Getter
+  private Connection                    realConnection;
+
+  @Getter
+  private PooledDataSource              dataSource;
+
+  @Getter
+  private Connection                    proxyConnection;
+
+  @Getter
+  @Setter
+  private long                          createTimestamp;
+
+  @Getter
+  @Setter
+  private long                          lastUsedTimestamp;
+
+  public PooledConnection() {
+  }
+
+  public PooledConnection(Connection connection, PooledDataSource dataSource) {
+    this.realConnection = connection;
+    this.dataSource = dataSource;
+    this.proxyConnection = (Connection)
+            Proxy.newProxyInstance(Connection.class.getClassLoader(), IFACE, this);
+    this.valid = true;
+    this.createTimestamp = System.currentTimeMillis();
+  }
+
+  public long checkoutTimestamp() {
+    return (System.currentTimeMillis() - createTimestamp) / 1000;
+  }
+
+  /**
+   * Verify that the connection works.
+   */
+  // 验证链接是否可以正常使用
+  public boolean isValid() throws SQLException {
+    return valid && (realConnection != null) && !realConnection.isClosed();
+  }
+
+  /**
+   * Invalidates the connection.
+   */
+  public void invalidate() throws SQLException {
+    forceClose();
+    valid = false;
+  }
+
+  /**
+   * Check if connection is available.
+   */
+  private void checkConnection() throws SQLException {
+    if (!isValid()) {
+      throw new SQLException("Error accessing connection is invalid.");
     }
+  }
 
-    public PooledConnection(Connection connection, PooledDataSource dataSource) {
-        this.realConnection = connection;
-        this.dataSource = dataSource;
-        this.proxyConnection = (Connection)
-                Proxy.newProxyInstance(Connection.class.getClassLoader(), IFACE, this);
-        this.valid = true;
-        this.createTimestamp = System.currentTimeMillis();
-    }
+  /**
+   * Check connection is available.
+   */
+  public boolean ping() {
+    return false;
+  }
 
-    public long checkoutTimestamp(){
-        return (System.currentTimeMillis() - createTimestamp) / 1000;
-    }
+  /**
+   * Close the proxy connection, this close is not a really closed.
+   * Is returning to connection pool.
+   */
+  public void close() throws SQLException {
+    proxyConnection.close();
+  }
 
-    /**
-     * Verify that the connection works.
-     */
-    // 验证链接是否可以正常使用
-    public boolean isValid() throws SQLException {
-        return valid && (realConnection != null) && !realConnection.isClosed();
-    }
+  /**
+   * force close.
+   */
+  // 强制关闭链接
+  public void forceClose() throws SQLException {
+    realConnection.close();
+  }
 
-    /**
-     * Invalidates the connection.
-     */
-    public void invalidate() throws SQLException {
-        forceClose();
-        valid = false;
-    }
+  public int getRealHasCode() {
+    return realConnection == null ? -1 : realConnection.hashCode();
+  }
 
-    /**
-     * Check if connection is available.
-     */
-    private void checkConnection() throws SQLException {
-        if (!isValid()) {
-            throw new SQLException("Error accessing connection is invalid.");
+  @Override
+  public Object invoke(Object proxy, Method method, Object[] args) throws Exception {
+    String methodName = method.getName();
+    if (CLOSE.equals(methodName)) {
+      dataSource.pushConnection(this);
+      return null;
+    } else {
+      try {
+        if (!Object.class.equals(method.getDeclaringClass())) {
+          checkConnection();
         }
+        return method.invoke(realConnection, args);
+      } catch (Exception e) {
+        throw new MinipikaException(e);
+      }
     }
-
-    /**
-     * Check connection is available.
-     */
-    public boolean ping(){
-        return false;
-    }
-
-    /**
-     * Close the proxy connection, this close is not a really closed.
-     * Is returning to connection pool.
-     */
-    public void close() throws SQLException {
-        proxyConnection.close();
-    }
-
-    /**
-     * force close.
-     */
-    // 强制关闭链接
-    public void forceClose() throws SQLException {
-        realConnection.close();
-    }
-
-    public int getRealHasCode(){
-        return realConnection == null? -1 : realConnection.hashCode();
-    }
-
-    @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Exception {
-        String methodName = method.getName();
-        if (CLOSE.equals(methodName)) {
-            dataSource.pushConnection(this);
-            return null;
-        } else {
-            try {
-                if (!Object.class.equals(method.getDeclaringClass())) {
-                    checkConnection();
-                }
-                return method.invoke(realConnection, args);
-            } catch (Exception e) {
-                throw new MinipikaException(e);
-            }
-        }
-    }
+  }
 
 }

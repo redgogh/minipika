@@ -2,7 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <entityVersion>4.0.0</entityVersion>
+
+<!--    <entityVersion>4.0.0</entityVersion>-->
 
     <!--
          mvn clean install deploy -P release
@@ -15,7 +16,7 @@
 
     <groupId>io.github.raniaia</groupId>
     <artifactId>minipika</artifactId>
-    <version>1.0.0.Rebirth</version>
+    <version>1.0.0.breathe</version>
     <packaging>jar</packaging>
 
     <licenses>
@@ -92,11 +93,11 @@
         <!--                                                             -->
         <!--                                                             -->
         <!-- available                                                   -->
-        <dependency>
-            <groupId>io.github.raniaia</groupId>
-            <artifactId>available</artifactId>
-            <version>1.0.0.FIRST</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.github.raniaia</groupId>-->
+<!--            <artifactId>available</artifactId>-->
+<!--            <version>1.0.0.FIRST</version>-->
+<!--        </dependency>-->
         <!--                                                             -->
         <!--                                                             -->
         <!--                                                             -->
