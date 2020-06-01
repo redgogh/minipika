@@ -20,7 +20,8 @@ package org.raniaia.minipika.components.jdbc.datasource.pooled;
  * Creates on 2020/3/25.
  */
 
-import org.raniaia.available.list.Lists;
+
+import org.raniaia.minipika.framework.tools.Lists;
 
 import java.util.List;
 
@@ -29,93 +30,93 @@ import java.util.List;
  */
 public class PoolState {
 
-    private PooledDataSource dataSource;
+  private PooledDataSource dataSource;
 
-    final List<PooledConnection> idleConnections = Lists.newArrayList();
-    final List<PooledConnection> activeConnections = Lists.newArrayList();
+  final List<PooledConnection> idleConnections          = Lists.newArrayList();
+  final List<PooledConnection> activeConnections        = Lists.newArrayList();
 
-    long requestCount                                   = 0L; // 请求总数
-    long requestAccumulateTime                          = 0L; // 请求总时间
-    long accumulateWaitTime                             = 0L; // 总等待时间
-    long badConnectionCount                             = 0L; // 坏的链接总数
-    long hadToWaitCount                                 = 0L; // 总等待数
-    long accumulateCreateCount                          = 0L; // 连接的总创建数
+  long requestCount                                     = 0L; // 请求总数
+  long requestAccumulateTime                            = 0L; // 请求总时间
+  long accumulateWaitTime                               = 0L; // 总等待时间
+  long badConnectionCount                               = 0L; // 坏的链接总数
+  long hadToWaitCount                                   = 0L; // 总等待数
+  long accumulateCreateCount                            = 0L; // 连接的总创建数
 
-    public PoolState() {
-    }
+  public PoolState() {
+  }
 
-    public PoolState(PooledDataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+  public PoolState(PooledDataSource dataSource) {
+    this.dataSource = dataSource;
+  }
 
-    public synchronized PooledDataSource getDataSource() {
-        return dataSource;
-    }
+  public synchronized PooledDataSource getDataSource() {
+    return dataSource;
+  }
 
-    public synchronized void setDataSource(PooledDataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+  public synchronized void setDataSource(PooledDataSource dataSource) {
+    this.dataSource = dataSource;
+  }
 
-    public synchronized List<PooledConnection> getIdleConnections() {
-        return idleConnections;
-    }
+  public synchronized List<PooledConnection> getIdleConnections() {
+    return idleConnections;
+  }
 
-    public synchronized List<PooledConnection> getActiveConnections() {
-        return activeConnections;
-    }
+  public synchronized List<PooledConnection> getActiveConnections() {
+    return activeConnections;
+  }
 
-    public synchronized long getRequestCount() {
-        return requestCount;
-    }
+  public synchronized long getRequestCount() {
+    return requestCount;
+  }
 
-    public synchronized void setRequestCount(long requestCount) {
-        this.requestCount = requestCount;
-    }
+  public synchronized void setRequestCount(long requestCount) {
+    this.requestCount = requestCount;
+  }
 
-    public synchronized long getRequestAccumulateTime() {
-        return requestAccumulateTime;
-    }
+  public synchronized long getRequestAccumulateTime() {
+    return requestAccumulateTime;
+  }
 
-    public synchronized void setRequestAccumulateTime(long requestAccumulateTime) {
-        this.requestAccumulateTime = requestAccumulateTime;
-    }
+  public synchronized void setRequestAccumulateTime(long requestAccumulateTime) {
+    this.requestAccumulateTime = requestAccumulateTime;
+  }
 
-    public synchronized long getAccumulateWaitTime() {
-        return accumulateWaitTime;
-    }
+  public synchronized long getAccumulateWaitTime() {
+    return accumulateWaitTime;
+  }
 
-    public synchronized void setAccumulateWaitTime(long accumulateWaitTime) {
-        this.accumulateWaitTime = accumulateWaitTime;
-    }
+  public synchronized void setAccumulateWaitTime(long accumulateWaitTime) {
+    this.accumulateWaitTime = accumulateWaitTime;
+  }
 
-    public synchronized long getBadConnectionCount() {
-        return badConnectionCount;
-    }
+  public synchronized long getBadConnectionCount() {
+    return badConnectionCount;
+  }
 
-    public synchronized void setBadConnectionCount(long badConnectionCount) {
-        this.badConnectionCount = badConnectionCount;
-    }
+  public synchronized void setBadConnectionCount(long badConnectionCount) {
+    this.badConnectionCount = badConnectionCount;
+  }
 
-    public synchronized long getHadToWaitCount() {
-        return hadToWaitCount;
-    }
+  public synchronized long getHadToWaitCount() {
+    return hadToWaitCount;
+  }
 
-    public synchronized void setHadToWaitCount(long hadToWaitCount) {
-        this.hadToWaitCount = hadToWaitCount;
-    }
+  public synchronized void setHadToWaitCount(long hadToWaitCount) {
+    this.hadToWaitCount = hadToWaitCount;
+  }
 
-    @Override
-    public synchronized String toString() {
-        return "PoolState{" +
-                "\n\tdataSource=" + dataSource +
-                "\n\tidleConnections=" + idleConnections.size() +
-                "\n\tactiveConnections=" + activeConnections.size() +
-                "\n\trequestCount=" + requestCount +
-                "\n\trequestAccumulateTime=" + requestAccumulateTime +
-                "\n\taccumulateWaitTime=" + accumulateWaitTime +
-                "\n\tbadConnectionCount=" + badConnectionCount +
-                "\n\thadToWaitCount=" + hadToWaitCount +
-                "\n\taccumulateCreateCount=" + accumulateCreateCount +
-                "\n}";
-    }
+  @Override
+  public synchronized String toString() {
+    return "PoolState{" +
+            "\n\tdataSource=" + dataSource +
+            "\n\tidleConnections=" + idleConnections.size() +
+            "\n\tactiveConnections=" + activeConnections.size() +
+            "\n\trequestCount=" + requestCount +
+            "\n\trequestAccumulateTime=" + requestAccumulateTime +
+            "\n\taccumulateWaitTime=" + accumulateWaitTime +
+            "\n\tbadConnectionCount=" + badConnectionCount +
+            "\n\thadToWaitCount=" + hadToWaitCount +
+            "\n\taccumulateCreateCount=" + accumulateCreateCount +
+            "\n}";
+  }
 }

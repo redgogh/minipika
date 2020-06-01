@@ -22,7 +22,8 @@ package org.raniaia.minipika.components.config.components;
 
 import lombok.SneakyThrows;
 import org.raniaia.minipika.components.config.AbstractConfig;
-import org.raniaia.available.config.Cfg;
+import org.raniaia.minipika.framework.config.Cfg;
+
 
 import java.io.IOException;
 

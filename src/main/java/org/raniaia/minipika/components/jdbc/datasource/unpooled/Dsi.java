@@ -22,8 +22,9 @@ package org.raniaia.minipika.components.jdbc.datasource.unpooled;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.raniaia.available.map.Maps;
+
 import org.raniaia.minipika.framework.loader.NativeClassLoader;
+import org.raniaia.minipika.framework.tools.Maps;
 import org.raniaia.minipika.framework.tools.StringUtils;
 
 import java.sql.Driver;
@@ -32,59 +33,60 @@ import java.util.Properties;
 
 /**
  * DataSource info
+ *
  * @author tiansheng
  */
 @Getter
 @Setter
 public class Dsi {
 
-    // 存放驱动实例
-    static Map<String, Driver> registerDrivers = Maps.newConcurrentHashMap();
+  // 存放驱动实例
+  static Map<String, Driver> registerDrivers = Maps.newConcurrentHashMap();
 
-    protected Object id;
-    protected String url;
-    protected String driver;
-    protected String username;
-    protected String password;
-    protected String sourceType;
+  protected Object id;
+  protected String url;
+  protected String driver;
+  protected String username;
+  protected String password;
+  protected String sourceType;
 
-    ClassLoader driverClassLoader;
+  ClassLoader driverClassLoader;
 
-    // 是否设置为自动提交
-    Boolean autoCommit;
+  // 是否设置为自动提交
+  Boolean autoCommit;
 
-    public Dsi() {
+  public Dsi() {
+  }
+
+  public Dsi(String url, String driver, String username,
+             String password) {
+    this(url, driver, username, password, false, new NativeClassLoader());
+  }
+
+  public Dsi(String url, String driver, String username,
+             String password, boolean autoCommit) {
+    this(url, driver, username, password, autoCommit, new NativeClassLoader());
+  }
+
+  public Dsi(String url, String driver, String username,
+             String password, Boolean autoCommit, ClassLoader classLoader) {
+    this.url = url;
+    this.driver = driver;
+    this.username = username;
+    this.password = password;
+    this.autoCommit = autoCommit;
+    this.driverClassLoader = classLoader;
+  }
+
+  static Properties buildDriverInfo(String username, String password) {
+    final Properties info = new Properties();
+    if (!StringUtils.isEmpty(username)) {
+      info.setProperty("user", username);
     }
-
-    public Dsi(String url, String driver, String username,
-               String password) {
-        this(url, driver, username, password, false, new NativeClassLoader());
+    if (!StringUtils.isEmpty(password)) {
+      info.setProperty("password", password);
     }
-
-    public Dsi(String url, String driver, String username,
-               String password, boolean autoCommit) {
-        this(url, driver, username, password, autoCommit, new NativeClassLoader());
-    }
-
-    public Dsi(String url, String driver, String username,
-               String password, Boolean autoCommit, ClassLoader classLoader) {
-        this.url = url;
-        this.driver = driver;
-        this.username = username;
-        this.password = password;
-        this.autoCommit = autoCommit;
-        this.driverClassLoader = classLoader;
-    }
-
-    static Properties buildDriverInfo(String username, String password) {
-        final Properties info = new Properties();
-        if (!StringUtils.isEmpty(username)) {
-            info.setProperty("user", username);
-        }
-        if (!StringUtils.isEmpty(password)) {
-            info.setProperty("password", password);
-        }
-        return info;
-    }
+    return info;
+  }
 
 }

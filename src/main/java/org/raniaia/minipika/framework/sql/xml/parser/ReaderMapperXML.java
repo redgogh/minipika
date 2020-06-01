@@ -29,9 +29,10 @@ import org.raniaia.minipika.components.logging.LogFactory;
 import org.raniaia.minipika.framework.sql.xml.node.XMLNode;
 import org.raniaia.minipika.framework.exception.BuilderXmlException;
 import org.raniaia.minipika.framework.sql.xml.node.XMLMapperNode;
+import org.raniaia.minipika.framework.tools.Arrays;
 import org.raniaia.minipika.framework.tools.MinipikaUtils;
 import org.raniaia.minipika.framework.tools.StringUtils;
-import org.raniaia.available.array.ArrayUtils;
+
 
 import java.io.File;
 import java.util.ArrayList;
@@ -42,70 +43,72 @@ import java.util.List;
  */
 public class ReaderMapperXML {
 
-    static final Log log = LogFactory.getLog(ReaderMapperXML.class);
+  static final Log log = LogFactory.getLog(ReaderMapperXML.class);
 
-    /**
-     * 解析xml中的标签
-     */
-    private MapperLabelParser xmlparser = new MapperLabelParser();
-    private ReaderCrudElement readerCrud = new ReaderCrudElement();
+  /**
+   * 解析xml中的标签
+   */
+  private MapperLabelParser xmlparser = new MapperLabelParser();
+  private ReaderCrudElement readerCrud = new ReaderCrudElement();
 
-    private List<XMLMapperNode> mappers = new ArrayList<>();
+  private List<XMLMapperNode> mappers = new ArrayList<>();
 
-    /**
-     * 获取xml文件列表
-     * @return
-     */
-    private List<File> getBuilderXMLFiles() {
-        try {
-            return MinipikaUtils.getMapperXMLs();
-        } catch (Exception e) {
-            if (e instanceof NullPointerException) {
-                String array = ArrayUtils.toString(GlobalConfig.getConfig().getMapperBasePackage());
-                log.error("Error reading xml file, Cause: " + array + " directory nothing, please check " +
-                        "if the entered address is correct.");
-                throw new NullPointerException("Error reading xml file, Cause: " + array + " directory nothing, please check " +
-                        "if the entered address is correct.");
-            }
-            e.printStackTrace();
-        }
-        return null;
+  /**
+   * 获取xml文件列表
+   *
+   * @return
+   */
+  private List<File> getBuilderXMLFiles() {
+    try {
+      return MinipikaUtils.getMapperXMLs();
+    } catch (Exception e) {
+      if (e instanceof NullPointerException) {
+        String array = Arrays.toString(GlobalConfig.getConfig().getMapperBasePackage(), ",");
+        log.error("Error reading xml file, Cause: " + array + " directory nothing, please check " +
+                "if the entered address is correct.");
+        throw new NullPointerException("Error reading xml file, Cause: " + array + " directory nothing, please check " +
+                "if the entered address is correct.");
+      }
+      e.printStackTrace();
     }
+    return null;
+  }
 
-    /**
-     * 读取并解析XML
-     * XML to {@link XMLNode}
-     * @throws Exception
-     */
-    public List<XMLMapperNode> parseXML() {
-        try {
-            SAXBuilder saxBuilder = new SAXBuilder();
+  /**
+   * 读取并解析XML
+   * XML to {@link XMLNode}
+   *
+   * @throws Exception
+   */
+  public List<XMLMapperNode> parseXML() {
+    try {
+      SAXBuilder saxBuilder = new SAXBuilder();
 
-            /*
-             * 开始解析mapper xml
-             */
-            for (File mapperXML : getBuilderXMLFiles()) {
+      /*
+       * 开始解析mapper xml
+       */
+      for (File mapperXML : getBuilderXMLFiles()) {
 
-                Document document = saxBuilder.build(mapperXML);
-                Element rootElement = document.getRootElement();
+        Document document = saxBuilder.build(mapperXML);
+        Element rootElement = document.getRootElement();
 
-                String builderName = rootElement.getAttributeValue("name");
+        String builderName = rootElement.getAttributeValue("name");
 
-                if (StringUtils.isEmpty(builderName))
-                    throw new BuilderXmlException("builder label attribute \"name\" cannot null");
+        if (StringUtils.isEmpty(builderName))
+          throw new BuilderXmlException("builder label attribute \"name\" cannot null");
 
-                xmlparser.setCurrentBuilder(builderName); // 设置当前Mapper name
+        xmlparser.setCurrentBuilder(builderName); // 设置当前Mapper name
 
-                List<Element> crudLabels = rootElement.getChildren();
-                mappers.add(readerCrud.reader(crudLabels, xmlparser));
+        List<Element> crudLabels = rootElement.getChildren();
+        mappers.add(readerCrud.reader(crudLabels, xmlparser));
 
-            }
+      }
 
-            return mappers;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+      return mappers;
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+    return null;
+  }
 
 }

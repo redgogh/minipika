@@ -20,8 +20,9 @@ package org.raniaia.minipika.components.config;
  * Creates on 2019/12/3.
  */
 
+import org.raniaia.minipika.framework.tools.Paths;
 import org.raniaia.minipika.framework.tools.StringUtils;
-import org.raniaia.available.io.Paths;
+
 
 import java.net.URL;
 

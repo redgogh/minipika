@@ -20,9 +20,10 @@ package org.raniaia.minipika.framework.jap;
  * Creates on 2020/2/12.
  */
 
-import org.raniaia.available.io.file.Files;
+
 import org.raniaia.minipika.components.config.GlobalConfig;
 import org.raniaia.minipika.framework.exception.ConfigException;
+import org.raniaia.minipika.framework.tools.Files;
 import org.raniaia.minipika.framework.tools.MinipikaIOUtils;
 import org.raniaia.minipika.framework.tools.StringUtils;
 

@@ -20,10 +20,6 @@ package org.raniaia.minipika;
  * Creates on 2020/3/21.
  */
 
-import org.raniaia.available.reflect.Annotations;
-import org.raniaia.available.reflect.ClassUtils;
-import org.raniaia.available.reflect.Fields;
-import org.raniaia.available.reflect.Methods;
 import org.raniaia.minipika.components.config.GlobalConfig;
 import org.raniaia.minipika.components.jdbc.datasource.unpooled.Dsi;
 import org.raniaia.minipika.framework.mapper.MapperInvocation;
@@ -31,7 +27,7 @@ import org.raniaia.minipika.framework.provide.Minipika;
 import org.raniaia.minipika.framework.provide.component.Component;
 import org.raniaia.minipika.framework.provide.component.ComponentType;
 import org.raniaia.minipika.framework.sql.SqlMapper;
-import org.raniaia.minipika.framework.tools.StringUtils;
+import org.raniaia.minipika.framework.tools.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -75,9 +71,9 @@ public abstract class AbstractContainer extends RootContainer<String, Object> {
             }
         }
         if (parametersTypes == null) {
-            return (T) ClassUtils.newInstance(clazz);
+            return (T) Classic.newInstance(clazz);
         }
-        Object instance = ClassUtils.newInstance(clazz, parametersTypes, args);
+        Object instance = Classic.newInstance(clazz, parametersTypes, args);
         return (T) inject(instance);
     }
 
@@ -100,7 +96,7 @@ public abstract class AbstractContainer extends RootContainer<String, Object> {
         if (instance == null) {
             Class<?> component = getComponents0(name);
             if (component == null) return null;
-            instance = ClassUtils.newInstance(component);
+            instance = Classic.newInstance(component);
             submitBean(name, inject(instance));
         }
         return (T) instance;
@@ -144,10 +140,10 @@ public abstract class AbstractContainer extends RootContainer<String, Object> {
                         throw new NullPointerException("cannot found [" + componentName + "] component");
                     }
                     if ("DataSource".equals(componentName)) {
-                        componentInstance = ClassUtils.newInstance(componentClass, new Class<?>[]{Dsi.class},
+                        componentInstance = Classic.newInstance(componentClass, new Class<?>[]{Dsi.class},
                                 GlobalConfig.getConfig().getDsi());
                     } else {
-                        componentInstance = ClassUtils.newInstance(componentClass);
+                        componentInstance = Classic.newInstance(componentClass);
                     }
                     inject(componentInstance);
                 }

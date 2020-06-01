@@ -17,93 +17,141 @@ package org.raniaia.minipika.framework.tools;
  */
 
 /*
- * Creates on 2020/1/19.
+ * Creates on 2020/3/11.
  */
+
+import com.alibaba.fastjson.JSON;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 静态{@link Map}工具类。
  *
- * Static utility methods to {@link Map} instance.
+ * Static {@code Map} tools class.
  *
- * @author tiansheng
+ * @author TianSheng
  */
-public class Maps {
+public final class Maps {
 
-    private Maps(){}
+    private Maps() {}
 
     /**
-     * Creates <i>mutable</i>, empty {@code HashMap} instance.
-     *
-     * @return a new, empty {@code HashMap}
+     * 创建一个新的{@code HashMap}实例
+     * @return 新的且空的{@code HashMap}实例
      */
     public static <K, V> HashMap<K, V> newHashMap() {
         return new HashMap<>();
     }
 
     /**
-     * Creates <i>mutable</i>, empty {@code HashMap} instance.
-     *
-     * Copy a {@link Map} instance to created {@code HashMap} instance.
-     *
-     * @return a new {@code HashMap} instance after copy.
+     * 拷贝{@code Map}中的数据到新创建的{@code HashMap}实例中
+     * @return 拷贝数据后的{@code HashMap}实例
      */
     public static <K, V> HashMap<K, V> newHashMap(Map<K, V> map) {
         return new HashMap<>(map);
     }
 
     /**
-     * Get first key in {@link Map} instance.
-     *
-     * @return first key in map.
+     * 创建一个新的{@code LinkedHashMap}实例
+     * @return 一个新的、空的{@code LinkedHashMap}实例
      */
-    public static Object getFirstKey(Map map) {
-        for (Object o : map.keySet()) {
-            return o;
+    public static <K, V> LinkedHashMap<K, V> newLinkedHashMap() {
+        return new LinkedHashMap<>();
+    }
+
+    /**
+     * 拷贝{@code Map}中的数据到新创建的{@code LinkedHashMap}中
+     * @return 拷贝数据后的{@code HashMap}实例
+     */
+    public static <K, V> LinkedHashMap<K, V> newLinkedHashMap(Map<K, V> map) {
+        return new LinkedHashMap<>(map);
+    }
+
+    /**
+     * 创建一个新的{@code ConcurrentHashMap}实例
+     * @return 一个新的、空的{@code ConcurrentHashMap}实例
+     */
+    public static <K, V> ConcurrentHashMap<K, V> newConcurrentHashMap() {
+        return new ConcurrentHashMap<>();
+    }
+
+    /**
+     * 拷贝{@code Map}中的数据到新的{@code ConcurrentHashMap}实例中
+     * @return 拷贝数据后的{@code ConcurrentHashMap}实例
+     */
+    public static <K, V> ConcurrentHashMap<K, V> newConcurrentHashMap(Map<K, V> map) {
+        return new ConcurrentHashMap<>(map);
+    }
+
+    /**
+     * 获取{@code Map}中的第一个Key
+     */
+    public static <K, V> K getFirstKey(Map<K, V> map) {
+        for (K key : map.keySet()) {
+            return key;
         }
         return null;
     }
 
     /**
-     * Get first value in {@link Map} instance.
-     *
-     * @return first value in {@link Map} instance.
+     * 获取{@code Map}中的第一个值
      */
-    public static Object getFirstValue(Map map) {
-        for (Object value : map.values()) {
+    public static <K, V> V getFirstValue(Map<K, V> map) {
+        for (V value : map.values()) {
             return value;
         }
         return null;
     }
 
     /**
-     * Get key by index in {@link Map} instance.
-     *
-     * @return the index key.
+     * 删除{@code Map}中的第一条数据，返回Key
      */
-    public static Object getKey(Map map, int index) {
+    public static <K,V> K removeFirstKey(Map<K,V> map){
+        for (K key : map.keySet()) {
+            map.remove(key);
+            return key;
+        }
+        return null;
+    }
+
+    /**
+     * 删除{@code Map}中的第一条数据，返回Value
+     */
+    public static <K, V> V removeFirstValue(Map<K, V> map) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            return map.remove(entry.getKey());
+        }
+        return null;
+    }
+
+    /**
+     * 根据下标获取{@code Map}中的Key
+     */
+    public static <K, V> K getKey(Map<K, V> map, int index) {
         int count = 0;
-        for (Object value : map.keySet()) {
-            if (count == index) return value;
+        for (K key : map.keySet()) {
+            if (count == index) return key;
             count++;
         }
         return null;
     }
 
     /**
-     * Get value by index in {@link Map} instance.
-     *
-     * @return the index value.
+     * 根据下标获取{@code Map}中的Value
      */
-    public static Object getValue(Map map, int index) {
+    public static <K, V> V getValue(Map<K, V> map, int index) {
         int count = 0;
-        for (Object value : map.values()) {
+        for (V value : map.values()) {
             if (count == index) return value;
             count++;
         }
         return null;
+    }
+
+    public static String toString(Map map){
+        return JSON.toJSONString(map);
     }
 
 }

@@ -20,7 +20,8 @@ package org.raniaia.minipika;
  * Creates on 2020/3/21.
  */
 
-import org.raniaia.available.map.Maps;
+
+import org.raniaia.minipika.framework.tools.Maps;
 import org.raniaia.minipika.framework.tools.StringUtils;
 
 import java.util.List;
