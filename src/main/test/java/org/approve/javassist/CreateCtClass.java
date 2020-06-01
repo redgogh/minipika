@@ -1,4 +1,4 @@
-package org.approve.javassist;
+package org.minipika.javassist;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -21,7 +21,7 @@ package org.approve.javassist;
 import javassist.CannotCompileException;
 import javassist.CtClass;
 import org.junit.Test;
-import org.raniaia.approve.components.pool.ApproveClassPool;
+import org.raniaia.minipika.components.pool.MinipikaClassPool;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/19 16:07
@@ -30,8 +30,8 @@ public class CreateCtClass {
 
     @Test
     public void create() throws CannotCompileException {
-        ApproveClassPool pool = new ApproveClassPool(true);
-        CtClass[] ctClasses = pool.getCtClassArray("org.approve.experiment");
+        MinipikaClassPool pool = new MinipikaClassPool(true);
+        CtClass[] ctClasses = pool.getCtClassArray("org.minipika.experiment");
         System.out.println();
     }
 

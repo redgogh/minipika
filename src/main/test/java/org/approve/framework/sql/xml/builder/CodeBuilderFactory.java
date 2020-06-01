@@ -1,4 +1,4 @@
-package org.approve.framework.sql.xml.builder;
+package org.minipika.framework.sql.xml.builder;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.

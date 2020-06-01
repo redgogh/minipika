@@ -1,4 +1,4 @@
-package org.approve.framework.test;
+package org.minipika.framework.test;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.

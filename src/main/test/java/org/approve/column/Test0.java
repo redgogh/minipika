@@ -1,4 +1,4 @@
-package org.approve.column;
+package org.minipika.column;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,9 +20,9 @@ package org.approve.column;
 
 import org.junit.Test;
 
-import org.raniaia.approve.BeansManager;
-import org.raniaia.approve.components.jdbc.JdbcSupport;
-import org.raniaia.approve.components.entity.database.ColumnEntity;
+import org.raniaia.minipika.BeansManager;
+import org.raniaia.minipika.components.jdbc.JdbcSupport;
+import org.raniaia.minipika.components.entity.database.ColumnEntity;
 
 import java.util.List;
 

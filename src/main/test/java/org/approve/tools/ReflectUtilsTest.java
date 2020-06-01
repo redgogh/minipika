@@ -1,4 +1,4 @@
-package org.approve.tools;
+package org.minipika.tools;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,7 +20,7 @@ package org.approve.tools;
 
 import lombok.Setter;
 import org.junit.Test;
-import org.raniaia.approve.framework.tools.ReflectUtils;
+import org.raniaia.minipika.framework.tools.ReflectUtils;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/20 11:55

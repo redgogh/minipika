@@ -21,7 +21,7 @@ package org.branch.datasource;
  */
 
 import org.junit.Test;
-import org.raniaia.approve.framework.loader.NativeClassLoader;
+import org.raniaia.minipika.framework.loader.NativeClassLoader;
 
 /**
  * @author tiansheng

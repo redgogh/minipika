@@ -21,8 +21,8 @@ package org.component;
  */
 
 import org.junit.Test;
-import org.raniaia.approve.components.logging.Log;
-import org.raniaia.approve.components.logging.LogFactory;
+import org.raniaia.minipika.components.logging.Log;
+import org.raniaia.minipika.components.logging.LogFactory;
 
 /**
  * @author tiansheng

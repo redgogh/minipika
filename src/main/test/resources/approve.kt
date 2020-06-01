@@ -1,8 +1,8 @@
-import org.raniaia.approve.components.config.ApproveConfig
-import org.raniaia.approve.components.jdbc.datasource.unpooled.Dsi
-import org.raniaia.approve.framework.provide.Configuration
+import org.raniaia.minipika.components.config.MinipikaConfig
+import org.raniaia.minipika.components.jdbc.datasource.unpooled.Dsi
+import org.raniaia.minipika.framework.provide.Configuration
 
-class approve: ApproveConfig()
+class minipika: MinipikaConfig()
 {
     @Configuration
     fun configuration()
@@ -20,7 +20,7 @@ class approve: ApproveConfig()
         cache(false)
         transaction(false)
         pool(10,50)
-        entity("org.approve.experiment")
-        mapper("org.approve.builder")
+        entity("org.minipika.experiment")
+        mapper("org.minipika.builder")
     }
 }

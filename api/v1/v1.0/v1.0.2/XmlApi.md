@@ -2,11 +2,11 @@
 
 > v1.0.2版本新增的内容
 
-**首先我们需要在approve.properties配置文件中新增一条配置**
+**首先我们需要在minipika.properties配置文件中新增一条配置**
 
 ```properties
 # mapper xml文件所在的位置
-approve.entity.mapper = org.raniaia.approve.mapper
+minipika.entity.mapper = org.raniaia.minipika.mapper
 ```
 
 # mapper xml
@@ -63,7 +63,7 @@ mapper标签有个**name**属性，这个属性代表了整个xml。它是唯一
         以下内容表示从kkb_user_entity表中根据uuid查询
         result中是返回结果，这个返回结果可以不用加全类名。
         但条件是这个Entity类必须在配置文件中配置的路径下。
-        配置项为：approve.entity.package
+        配置项为：minipika.entity.package
     -->
     <mapper name="findUserByUUID" result="UserEntity">
         select * from kkb_user_entity where uuid = {{uuid}}
@@ -129,7 +129,7 @@ if(userFriendId != null){
 ```
 如果我猜得没错的话肯定是这样写的吧，即便是mybatis也是一个一个if标签对吗？
 
-然而approve有提供了一个内置参数，可以让你简写if，请看：
+然而minipika有提供了一个内置参数，可以让你简写if，请看：
 
 ```xml
 select * 

@@ -1,4 +1,4 @@
-package org.approve;
+package org.minipika;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -18,7 +18,7 @@ package org.approve;
 
 
 
-import org.raniaia.approve.framework.tools.Calculator;
+import org.raniaia.minipika.framework.tools.Calculator;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/7 21:35

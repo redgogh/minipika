@@ -1,4 +1,4 @@
-package org.approve;
+package org.minipika;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -17,7 +17,7 @@ package org.approve;
  */
 
 
-import org.raniaia.approve.framework.provide.SQL;
+import org.raniaia.minipika.framework.provide.SQL;
 
 /**
  * Copyright by tiansheng on 2020/2/29 23:48

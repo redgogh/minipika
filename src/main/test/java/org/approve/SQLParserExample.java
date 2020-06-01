@@ -1,4 +1,4 @@
-package org.approve;
+package org.minipika;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -19,7 +19,7 @@ package org.approve;
 
 
 import net.sf.jsqlparser.JSQLParserException;
-import org.raniaia.approve.framework.tools.SQLUtils;
+import org.raniaia.minipika.framework.tools.SQLUtils;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/6 16:02

@@ -23,10 +23,10 @@ package org.complete;
 import com.alibaba.fastjson.JSONObject;
 import org.complete.entity.User;
 import org.complete.mapper.UserMapper;
-import org.raniaia.approve.BeansManager;
-import org.raniaia.approve.components.config.ConfigLoader;
-import org.raniaia.approve.components.jdbc.JdbcSupport;
-import org.raniaia.approve.framework.provide.Approve;
+import org.raniaia.minipika.BeansManager;
+import org.raniaia.minipika.components.config.ConfigLoader;
+import org.raniaia.minipika.components.jdbc.JdbcSupport;
+import org.raniaia.minipika.framework.provide.Minipika;
 
 /**
  * @author tiansheng
@@ -36,7 +36,7 @@ public class TEST {
     /**
      * 注入JDBC操作类
      */
-    @Approve
+    @Minipika
     private JdbcSupport jdbc;
 
     /**
@@ -45,7 +45,7 @@ public class TEST {
     UserMapper mapper = BeansManager.newInstance(UserMapper.class);
 
     public static void main(String[] args) {
-        ConfigLoader.loadConfig("classpath:/compete/approve.cfg");
+        ConfigLoader.loadConfig("classpath:/compete/minipika.cfg");
         TEST test = BeansManager.newInstance(TEST.class);
         // 测试user对象insert
         test.userInsertByObject();
@@ -54,7 +54,7 @@ public class TEST {
     }
 
     public void userInsertByObject(){
-        jdbc.insert(new User("test1","test1","test1@approve.com"));
+        jdbc.insert(new User("test1","test1","test1@minipika.com"));
     }
 
     public void findUserById(int id){

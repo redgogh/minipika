@@ -1,4 +1,4 @@
-package org.approve.framework.sql.xml.builder;
+package org.minipika.framework.sql.xml.builder;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,8 +20,8 @@ package org.approve.framework.sql.xml.builder;
  * Creates on 2019/12/11 23:16
  */
 
-import org.raniaia.approve.framework.tools.Arrays;
-import org.raniaia.approve.framework.tools.LineBuilder;
+import org.raniaia.minipika.framework.tools.Arrays;
+import org.raniaia.minipika.framework.tools.LineBuilder;
 
 import java.io.Serializable;
 

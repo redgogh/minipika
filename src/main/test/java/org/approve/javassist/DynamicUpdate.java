@@ -1,4 +1,4 @@
-package org.approve.javassist;
+package org.minipika.javassist;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -30,7 +30,7 @@ public class DynamicUpdate {
     public static void main(String[] args) throws Exception {
 
         ClassPool pool = ClassPool.getDefault();
-        CtClass ctClass = pool.get("org.raniaia.approve.javassist.DynamicUpdate");
+        CtClass ctClass = pool.get("org.raniaia.minipika.javassist.DynamicUpdate");
         CtMethod newMethod = CtNewMethod.make("public static void fuck(){ System.out.println(\"hello world by dynamic create!\"); }", ctClass);
         ctClass.addMethod(newMethod);
 

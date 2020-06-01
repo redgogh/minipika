@@ -1,4 +1,4 @@
-package org.approve.javassist;
+package org.minipika.javassist;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.

@@ -1,4 +1,4 @@
-approve:
+minipika:
   jdbc:
     url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
     driver: com.mysql.cj.jdbc.Driver
@@ -12,6 +12,6 @@ approve:
     maximum: 10
   entity:
     prefix: kkb
-    package: org.approve.experiment
+    package: org.minipika.experiment
   mapper:
-    pacakge: org.approve.builder
+    pacakge: org.minipika.builder

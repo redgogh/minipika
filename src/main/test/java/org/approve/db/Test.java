@@ -1,4 +1,4 @@
-package org.approve.db;
+package org.minipika.db;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.

@@ -1,4 +1,4 @@
-package org.approve;
+package org.minipika;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -21,7 +21,7 @@ package org.approve;
 /**
  *
  * <p/>
- * License: <a href="https://github.com/Laniakeamly/approve/blob/master/LICENSE">Apache License 2.0</a>
+ * License: <a href="https://github.com/Laniakeamly/minipika/blob/master/LICENSE">Apache License 2.0</a>
  * <p/>
  * Copyright: Create by tiansheng on 2019/12/17 18:29
  * @author tiansheng

@@ -1,4 +1,4 @@
-package org.approve.service;
+package org.minipika.service;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -19,8 +19,8 @@ package org.approve.service;
 
 
 
-import org.raniaia.approve.BeansManager;
-import org.raniaia.approve.components.jdbc.JdbcSupport;
+import org.raniaia.minipika.BeansManager;
+import org.raniaia.minipika.components.jdbc.JdbcSupport;
 
 /**
  * @author tiansheng

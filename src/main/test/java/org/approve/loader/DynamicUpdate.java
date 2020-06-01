@@ -1,4 +1,4 @@
-package org.approve.loader;
+package org.minipika.loader;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -22,7 +22,7 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
 import javassist.CtNewMethod;
-import org.raniaia.approve.framework.loader.NativeClassLoader;
+import org.raniaia.minipika.framework.loader.NativeClassLoader;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/19 10:24
@@ -38,14 +38,14 @@ public class DynamicUpdate {
 
     public static void loader(String method,String name) throws Exception {
         DynamicUpdate du = new DynamicUpdate();
-        String fullClassName = "org.raniaia.approve.javassist.DynamicUpdate";
+        String fullClassName = "org.raniaia.minipika.javassist.DynamicUpdate";
         ClassPool pool = ClassPool.getDefault();
         CtClass ctClass = pool.get(fullClassName);
         ctClass.defrost();
         CtMethod newMethod = CtNewMethod.make(method, ctClass);
         ctClass.addMethod(newMethod);
         NativeClassLoader classLoader = new NativeClassLoader();
-        // todo exception：Exception in thread "main" java.lang.LinkageError: loader (instance of  org/raniaia/approve/framework/loader/ApproveClassLoader): attempted  duplicate class definition for name: "org/raniaia/approve/javassist/DynamicUpdate"
+        // todo exception：Exception in thread "main" java.lang.LinkageError: loader (instance of  org/raniaia/minipika/framework/loader/MinipikaClassLoader): attempted  duplicate class definition for name: "org/raniaia/minipika/javassist/DynamicUpdate"
         // todo 解决方案：https://blog.csdn.net/is_zhoufeng/article/details/26602689
         Class<?> target = classLoader.findClassByBytes(fullClassName,ctClass.toBytecode());
         Object copy = classLoader.getObject(target,du);

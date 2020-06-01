@@ -1,4 +1,4 @@
-package org.approve.framework.sql.xml.builder;
+package org.minipika.framework.sql.xml.builder;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Copyright: Create by tiansheng on 2019/12/13 15:14
  */
-public class ClassBuilder extends org.approve.framework.sql.xml.builder.StringNewline implements org.approve.framework.sql.xml.builder.CodeBuilderFactory {
+public class ClassBuilder extends org.minipika.framework.sql.xml.builder.StringNewline implements org.minipika.framework.sql.xml.builder.CodeBuilderFactory {
 
     @Setter
     @Getter
@@ -39,7 +39,7 @@ public class ClassBuilder extends org.approve.framework.sql.xml.builder.StringNe
 
     private int next = 0;
 
-    private List<org.approve.framework.sql.xml.builder.MethodBuilder> methods;
+    private List<org.minipika.framework.sql.xml.builder.MethodBuilder> methods;
 
     public ClassBuilder(String name,String fullClassName){
         this.name = name;
@@ -49,7 +49,7 @@ public class ClassBuilder extends org.approve.framework.sql.xml.builder.StringNe
     @Override
     public ClassBuilder methodToClassBody() {
         StringBuilder builder = new StringBuilder();
-        for (org.approve.framework.sql.xml.builder.MethodBuilder method : methods) {
+        for (org.minipika.framework.sql.xml.builder.MethodBuilder method : methods) {
             builder.append(method.toString(method.getArgs()));
         }
         insertLine(next,builder.toString());
@@ -64,7 +64,7 @@ public class ClassBuilder extends org.approve.framework.sql.xml.builder.StringNe
     }
 
     @Override
-    public ClassBuilder putMethod(org.approve.framework.sql.xml.builder.MethodBuilder methodBuilder) {
+    public ClassBuilder putMethod(org.minipika.framework.sql.xml.builder.MethodBuilder methodBuilder) {
         if(methods == null){
             methods = new ArrayList<>();
         }

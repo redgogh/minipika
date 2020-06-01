@@ -1,4 +1,4 @@
-package org.approve.timer;
+package org.minipika.timer;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -18,7 +18,7 @@ package org.approve.timer;
 
 
 
-import org.raniaia.approve.framework.timer.Timer;
+import org.raniaia.minipika.framework.timer.Timer;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/6 21:53

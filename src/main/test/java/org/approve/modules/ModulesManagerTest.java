@@ -1,4 +1,4 @@
-package org.approve.modules;
+package org.minipika.modules;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -41,8 +41,8 @@ package org.approve.modules;
  */
 
 
-import org.raniaia.approve.BeansManager;
-import org.raniaia.approve.components.entity.EntityParser;
+import org.raniaia.minipika.BeansManager;
+import org.raniaia.minipika.components.entity.EntityParser;
 
 /**
  * @author tiansheng

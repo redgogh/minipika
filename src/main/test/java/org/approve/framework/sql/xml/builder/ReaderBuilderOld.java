@@ -1,4 +1,4 @@
-package org.approve.framework.sql.xml.builder;
+package org.minipika.framework.sql.xml.builder;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -19,14 +19,14 @@ package org.approve.framework.sql.xml.builder;
 
 
 
-import org.raniaia.approve.framework.exception.BuilderXmlException;
-import org.raniaia.approve.framework.exception.ExpressionException;
-import org.raniaia.approve.framework.provide.ProvideVar;
-import org.raniaia.approve.framework.sql.xml.token.Token;
-import org.raniaia.approve.framework.sql.xml.token.TokenValue;
-import org.raniaia.approve.framework.tools.NewlineBuilder;
-import org.raniaia.approve.framework.tools.ApproveUtils;
-import org.raniaia.approve.framework.tools.StringUtils;
+import org.raniaia.minipika.framework.exception.BuilderXmlException;
+import org.raniaia.minipika.framework.exception.ExpressionException;
+import org.raniaia.minipika.framework.provide.ProvideVar;
+import org.raniaia.minipika.framework.sql.xml.token.Token;
+import org.raniaia.minipika.framework.sql.xml.token.TokenValue;
+import org.raniaia.minipika.framework.tools.NewlineBuilder;
+import org.raniaia.minipika.framework.tools.MinipikaUtils;
+import org.raniaia.minipika.framework.tools.StringUtils;
 import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -61,7 +61,7 @@ public class ReaderBuilderOld {
 
     private Pattern paramsPattern = Pattern.compile("\\{\\{(.*?)}}");
 
-    private String fullPath = "com.approve.mapper.$class.";
+    private String fullPath = "com.minipika.mapper.$class.";
 
     /**
      * $empty代表判断String是否为空
@@ -76,7 +76,7 @@ public class ReaderBuilderOld {
      * @return
      */
     private List<File> getBuilderXMLFiles() {
-        return ApproveUtils.getMapperXMLs();
+        return MinipikaUtils.getMapperXMLs();
     }
 
     public void parseXML() throws Exception {
@@ -560,7 +560,7 @@ public class ReaderBuilderOld {
      */
     private String checkPrevious(TokenValue previous) {
         if ("$".equals(StringUtils.getFirstCharacter(previous.getValue())))
-            throw new ExpressionException("condition the first value cannot is approve provide the object：" + previous.getValue());
+            throw new ExpressionException("condition the first value cannot is minipika provide the object：" + previous.getValue());
         return previous.getValue();
     }
 

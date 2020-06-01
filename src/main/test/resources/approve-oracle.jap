@@ -1,4 +1,4 @@
-approve: {
+minipika: {
 
     // jdbc
     jdbc.url = jdbc:oracle:thin:@127.0.0.1:1521:orcl
@@ -28,10 +28,10 @@ approve: {
     entity.prefix = kkb
 
     // ģ�����ڵİ�
-    entity.package = ["org.approve.experiment"]
+    entity.package = ["org.minipika.experiment"]
     
     // mapper��̬sql�ļ����ڵ�·��
-    entity.mapper = ["org.approve.builder"]
+    entity.mapper = ["org.minipika.builder"]
 
     // ����norm.json�ļ�·��
     entity.norm = norm.json

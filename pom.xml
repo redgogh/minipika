@@ -14,7 +14,7 @@
     </parent>
 
     <groupId>io.github.raniaia</groupId>
-    <artifactId>approve</artifactId>
+    <artifactId>minipika</artifactId>
     <version>1.0.0.Rebirth</version>
     <packaging>jar</packaging>
 
@@ -29,8 +29,8 @@
     <scm>
         <tag>master</tag>
         <url>https://github.com/raniaia/avaliable</url>
-        <connection>scm:git@github.com:raniaia/approve.git</connection>
-        <developerConnection>scm:git@github.com:raniaia/approve.git</developerConnection>
+        <connection>scm:git@github.com:raniaia/minipika.git</connection>
+        <developerConnection>scm:git@github.com:raniaia/minipika.git</developerConnection>
     </scm>
 
     <developers>

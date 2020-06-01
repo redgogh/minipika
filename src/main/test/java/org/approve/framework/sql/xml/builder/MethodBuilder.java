@@ -1,4 +1,4 @@
-package org.approve.framework.sql.xml.builder;
+package org.minipika.framework.sql.xml.builder;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -18,10 +18,10 @@ package org.approve.framework.sql.xml.builder;
 
 
 
-import org.raniaia.approve.framework.tools.NewlineBuilder;
+import org.raniaia.minipika.framework.tools.NewlineBuilder;
 import lombok.Getter;
 import lombok.Setter;
-import org.raniaia.approve.framework.tools.StringUtils;
+import org.raniaia.minipika.framework.tools.StringUtils;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/13 23:57

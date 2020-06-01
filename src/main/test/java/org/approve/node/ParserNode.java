@@ -1,4 +1,4 @@
-package org.approve.node;
+package org.minipika.node;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -19,8 +19,8 @@ package org.approve.node;
 
 
 import org.junit.Test;
-import org.raniaia.approve.framework.sql.xml.build.ParserMapperNode;
-import org.raniaia.approve.framework.sql.xml.build.PrecompiledClass;
+import org.raniaia.minipika.framework.sql.xml.build.ParserMapperNode;
+import org.raniaia.minipika.framework.sql.xml.build.PrecompiledClass;
 
 import java.util.Map;
 

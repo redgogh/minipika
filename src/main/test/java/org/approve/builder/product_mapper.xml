@@ -19,7 +19,7 @@
     <!--
         测试普通查询
         result参数代表要返回的对象,这个对象不用加全路径。
-        但是要求对象必须在approve.entity.package配置的包下
+        但是要求对象必须在minipika.entity.package配置的包下
     -->
     <select name="findProductByUUID" result="ProductEntity">
         select * from kkb_product_entity where uuid = {{uuid}}

@@ -1,7 +1,7 @@
-approve: {
+minipika: {
 
     // jdbc
-    jdbc.url = jdbc:mysql://127.0.0.1:3306/approve?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+    jdbc.url = jdbc:mysql://127.0.0.1:3306/minipika?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
     jdbc.driver = com.mysql.cj.jdbc.Driver
     jdbc.username = root
     jdbc.password = root
