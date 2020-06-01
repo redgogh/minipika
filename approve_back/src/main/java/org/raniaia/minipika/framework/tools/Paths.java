@@ -42,7 +42,7 @@ public class Paths {
         if(Objects.requireNonNull(path,"path cannot null.").contains("classpath:")){
             path = path.replace("classpath:",getClasspath(clazz));
         }
-        return path.replaceAll("\\\\","/");
+        return StringUtils.delFirst(path.replaceAll("\\\\","/"));
     }
 
     /**

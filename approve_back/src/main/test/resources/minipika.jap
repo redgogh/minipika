@@ -1,0 +1,42 @@
+minipika: {
+
+    // jdbc
+    jdbc.url = jdbc:oracle:thin:@127.0.0.1:1521:orcl
+    jdbc.driver = oracle.jdbc.driver.OracleDriver
+    jdbc.username = scott
+    jdbc.password = Abc123456
+
+    // �Ƿ������Ĭ��Ϊfalse
+    jdbc.transaction = true
+
+    // �Ƿ�������
+    jdbc.cache = false
+
+    /--
+        �������ʱ�䣬����Ϊ��λ��֧�ּӼ��˳����ʽ
+        �ṩ��ʱ���������ϱ��ʽʹ��
+        second���룩��minute���֣���
+        hour��ʱ����day���죩��week���ܣ�
+    --/
+    jdbc.refresh = 5+ 6 +7
+
+    // ���ӳش�С
+    connectionPool.minSize = 2
+    connectionPool.maxSize = 90
+
+    // ����ǰ׺
+    entity.prefix = kkb
+
+    // ģ�����ڵİ�
+    entity.package = ["org.minipika.experiment"]
+    
+    // mapper��̬sql�ļ����ڵ�·��
+    entity.mapper = ["org.minipika.builder"]
+
+    // ����norm.json�ļ�·��
+    entity.norm = norm.json
+
+    // Ĭ�������ļ�
+    default.entity = default_entity.json
+
+}
