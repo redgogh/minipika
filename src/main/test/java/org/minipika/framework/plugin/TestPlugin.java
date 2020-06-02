@@ -39,11 +39,6 @@ public class TestPlugin implements MinipikaPlugin {
 
   @Override
   public InputStream pluginXMLConfigInputStream() {
-    return new InputStream() {
-      @Override
-      public int read() throws IOException {
-        return 0;
-      }
-    };
+    return null;
   }
 }
