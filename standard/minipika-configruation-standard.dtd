@@ -14,25 +14,27 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!ELEMENT minipika (default?, datasources, plugins?)>
+<!ELEMENT minipika (datasources?, plugins?, properties?)>
 
-<!ELEMENT datasources (master)>
+<!ELEMENT datasources (master?, slaves?)>
 <!ATTLIST datasources
-using CDATA
+using CDATA #IMPLIED
 >
 
 <!ELEMENT properties (printExecutingLog?)>
 
-<!ELEMENT printExecutingLog EMPTY>
+<!ELEMENT printExecutingLog ()>
 
 <!ELEMENT master (url, driver, username, password)>
 <!ATTLIST master
-type CDATA
+type CDATA #IMPLIED
+task CDATA
 >
 
 <!ELEMENT slaves (url, driver, username, password)>
 <!ATTLIST slaves
-type CDATA
+type CDATA #IMPLIED
+task CDATA #IMPLIED
 >
 
 <!ELEMENT property EMPTY>
@@ -40,10 +42,6 @@ type CDATA
 key CDATA #REQUIRED
 value CDATA #REQUIRED
 >
-
-<!ELEMENT default (datasource)>
-
-<!ELEMENT datasource EMPTY>
 
 <!ELEMENT url (property?)>
 <!ATTLIST url
@@ -65,4 +63,9 @@ value CDATA #REQUIRED
 value CDATA #REQUIRED
 >
 
-<!ELEMENT plugins EMPTY>
+<!ELEMENT plugins (plugin?)>
+
+<!ELEMENT plugin ()>
+<!ATTLIST plugin
+class CDATA #REQUIRED
+>

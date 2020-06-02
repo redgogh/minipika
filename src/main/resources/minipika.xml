@@ -2,10 +2,35 @@
 <!DOCTYPE minipika SYSTEM
         "https://gitee.com/appcuver/minipika/blob/master/standard/minipika-configruation-standard.dtd">
 <minipika>
-  <!-- 配置数据源 -->
+
+  <!-- 支持全局使用的属性配置, 这个大家都清楚就不再赘述了 -->
+  <properties>
+    <printExecutingLog>false</printExecutingLog>
+  </properties>
+
+  <!--
+    配置数据源.
+    如果不想用默认数据源的话可以在datasources标签中添加using属性，并设置你的数据源类的路径即可.
+    像这样：<datasources using="com.alibaba.druid.pool.DruidDataSource">配置德鲁伊的数据源
+
+    如果存在多个数据源的话也可以配置主从数据源, 还可以将每个数据源抽出来做读写分离
+    主从数据源可以是不同类型的数据库, 可以是MYSQL, 可以是ORACLE等不同的数据库, 只需要在数据源的标签上
+    添加一个type即可: <master type="MYSQL"> 不分大小写
+
+    如果要设置单个数据源的任务的话可以使用task="READ"或者是task="WRITE"来设置单个数据源的作业
+    示例:
+      // 将主库设置为只读
+      <master type="MYSQL" task="READ">
+        省略部分代码...
+      </master>
+
+      // 将从库设置为只写
+      <slaves type="MYSQL" task="WRITE">
+        省略部分代码...
+      </slaves
+   -->
   <datasources>
-    <!-- 主数据源 -->
-    <master type="MYSQL">
+    <master type="MYSQL" task="READ">
       <!-- 设置JDBC URL以及URL参数 -->
       <url value="jdbc:mysql://127.0.0.1:3306/test">
         <property key="useSSL" value="false"/>
@@ -17,19 +42,6 @@
       <username value="root"/>
       <password value="root"/>
     </master>
-
-    <!-- 配置从数据源
-    <slaves type="MYSQL">
-      <url value="jdbc:mysql://127.0.0.2:3306/test">
-        <property key="useSSL" value="false"/>
-        <property key="useUnicode" value="true"/>
-        <property key="characterEncoding" value="utf-8"/>
-        <property key="serverTimezone" value="GMT"/>
-      </url>
-      <driver value="com.mysql.cj.jdbc.Driver"/>
-      <username value="root"/>
-      <password value="root"/>
-    </slaves>
-    -->
   </datasources>
+
 </minipika>
