@@ -1,4 +1,4 @@
-package org.raniaia.minipika.framework.plugins;
+package org.minipika.framework.plugin;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,24 +20,30 @@ package org.raniaia.minipika.framework.plugins;
  * Creates on 2020/6/1.
  */
 
+import org.raniaia.minipika.framework.plugins.Invocation;
+import org.raniaia.minipika.framework.plugins.MinipikaPlugin;
+
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * @author tiansheng
  */
-public interface MinipikaPlugin {
+public class TestPlugin implements MinipikaPlugin {
 
-  /**
-   * 执行当前拦截到的方法
-   *
-   * @param invocation 方法执行接口
-   * @Param args       传入的参数
-   */
-  Object invocation(Invocation invocation, Object[] args);
+  @Override
+  public Object invocation(Invocation invocation, Object[] args) {
+    return invocation.invoke(args);
+  }
 
-  /**
-   * 插件内部配置文件读取流
-   */
-  InputStream pluginXMLConfigInputStream();
-
+  @Override
+  public InputStream pluginXMLConfigInputStream() {
+    return new InputStream() {
+      @Override
+      public int read() throws IOException {
+        return 0;
+      }
+    };
+  }
 }
