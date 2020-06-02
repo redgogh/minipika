@@ -34,6 +34,12 @@ public class DefaultComponentFactory implements ComponentFactory {
    */
   private static final Map<String, Object> components = Maps.newConcurrentHashMap(8);
 
+  private static final ComponentFactory factory = new DefaultComponentFactory();
+
+  public static ComponentFactory getFactory() {
+    return factory;
+  }
+
   @Override
   @SuppressWarnings("unchecked")
   public <T> T forClass(Class<?> clazz) {

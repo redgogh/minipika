@@ -1,4 +1,4 @@
-package org.minipika.framework.configuration;
+package org.raniaia.minipika.framework.configuration.xmlbuilder;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,25 +17,35 @@ package org.minipika.framework.configuration;
  */
 
 /*
- * Creates on 2020/6/1.
+ * Creates on 2020/6/2.
  */
 
-import org.junit.Test;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 import org.raniaia.minipika.framework.configuration.FindStrategy;
-import org.raniaia.minipika.framework.util.Threads;
+import org.raniaia.minipika.framework.factory.Factorys;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * 配置文件寻找策略
+ * 读取XML配置文件并解析
  *
  * @author tiansheng
  */
-public class FindStrategyTest {
+public class XMLConfigBuilder {
 
-  @Test
-  public void getResource(){
-    // strategy.tryFindConfigFromClassPath();
+  public void read() throws JDOMException, IOException {
+    InputStream stream = FindStrategy.getConfigInputStream();
+    if(stream == null) {
+      throw new IOException("未获取到minipika.xml配置文件");
+    }
+    read(stream);
+  }
+
+  public void read(InputStream inputStream) {
   }
 
 }

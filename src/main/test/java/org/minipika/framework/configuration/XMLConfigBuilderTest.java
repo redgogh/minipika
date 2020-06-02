@@ -17,25 +17,25 @@ package org.minipika.framework.configuration;
  */
 
 /*
- * Creates on 2020/6/1.
+ * Creates on 2020/6/2.
  */
 
+import org.jdom2.JDOMException;
 import org.junit.Test;
-import org.raniaia.minipika.framework.configuration.FindStrategy;
-import org.raniaia.minipika.framework.util.Threads;
+import org.raniaia.minipika.framework.configuration.xmlbuilder.XMLConfigBuilder;
+import org.raniaia.minipika.framework.factory.Factorys;
 
-import java.io.InputStream;
+import java.io.IOException;
 
 /**
- * 配置文件寻找策略
- *
  * @author tiansheng
  */
-public class FindStrategyTest {
+public class XMLConfigBuilderTest {
 
   @Test
-  public void getResource(){
-    // strategy.tryFindConfigFromClassPath();
+  public void test() throws JDOMException, IOException {
+    XMLConfigBuilder builder = Factorys.forClass(XMLConfigBuilder.class);
+    builder.read();
   }
 
 }

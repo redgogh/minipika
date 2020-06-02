@@ -1,4 +1,4 @@
-package org.minipika.framework.configuration;
+package org.raniaia.minipika.framework.factory;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,25 +17,16 @@ package org.minipika.framework.configuration;
  */
 
 /*
- * Creates on 2020/6/1.
+ * Creates on 2020/6/2.
  */
-
-import org.junit.Test;
-import org.raniaia.minipika.framework.configuration.FindStrategy;
-import org.raniaia.minipika.framework.util.Threads;
-
-import java.io.InputStream;
 
 /**
- * 配置文件寻找策略
- *
  * @author tiansheng
  */
-public class FindStrategyTest {
+public class Factorys {
 
-  @Test
-  public void getResource(){
-    // strategy.tryFindConfigFromClassPath();
+  public static <T> T forClass(Class<T> clazz) {
+    return DefaultComponentFactory.getFactory().forClass(clazz);
   }
 
 }

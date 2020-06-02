@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE minipika SYSTEM
         "https://gitee.com/appcuver/minipika/blob/master/standard/minipika-configruation-standard.dtd">
 <minipika>
@@ -36,7 +36,7 @@
         <property key="useSSL" value="false"/>
         <property key="useUnicode" value="true"/>
         <property key="characterEncoding" value="utf-8"/>
-        <property key="serverTimezone" value="GMT" />
+        <property key="serverTimezone" value="GMT"/>
       </url>
       <driver value="com.mysql.cj.jdbc.Driver"/>
       <username value="root"/>

@@ -20,6 +20,7 @@ package org.raniaia.minipika.framework.configuration;
  * Creates on 2020/6/1.
  */
 
+import lombok.Getter;
 import org.raniaia.minipika.framework.util.Threads;
 
 import java.io.InputStream;
@@ -34,25 +35,23 @@ public class FindStrategy {
   // 默认配置文件名称
   static final String DEFAULT_NAME = "minipika.cfg";
 
-  private InputStream configInputStream;
+  private static InputStream configInputStream;
 
-  public FindStrategy() {
-    tryFindConfig(this::tryFindConfigFromClassPath);
+  private FindStrategy() {
   }
 
-  private void tryFindConfig(Runnable runnable) {
-    try {
-      runnable.run();
-    } catch (Exception ignoreException) {
-      // 忽略异常
+  public static InputStream getConfigInputStream(){
+    if(configInputStream == null) {
+      usingConfigFromClassPath();
     }
+    return configInputStream;
   }
 
   /**
    * 从{@code classpath}中寻找配置文件
    */
-  private void tryFindConfigFromClassPath() {
-    this.configInputStream = Threads.getCallerLoader().getResourceAsStream(DEFAULT_NAME);
+  private static void usingConfigFromClassPath() {
+    configInputStream = Threads.getCallerLoader().getResourceAsStream(DEFAULT_NAME);
   }
 
 }
