@@ -36,7 +36,7 @@ import java.util.Map;
  */
 public class Converter {
 
-    @Minipika
+    @Inject
     private MinipikaClassPool pool;
 
     @SuppressWarnings("deprecation")

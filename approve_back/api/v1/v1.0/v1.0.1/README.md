@@ -4,7 +4,7 @@
 
 # 配置文件搭建
 
-MinipikaFramework会自动扫描**resources**目录下的**inject.properties**,如果没有这个文件那么会报一个**ReadException**
+MinipikaFramework会自动扫描**resources**目录下的**minipika.properties**,如果没有这个文件那么会报一个**ReadException**
 
 如果配置文件的文件名是自定义的，那么需要调用一个手动加载配置的方法**ManualConfig.load()**，示例如下:
 
@@ -22,20 +22,20 @@ ManualConfig.load("newminipika.properties");
 #####################################
 ### 数据库属性
 #####################################
-inject.jdbc.url = jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
-inject.jdbc.driver = com.mysql.cj.jdbc.Driver
-inject.jdbc.username = root
-inject.jdbc.password = root
+minipika.jdbc.url = jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+minipika.jdbc.driver = com.mysql.cj.jdbc.Driver
+minipika.jdbc.username = root
+minipika.jdbc.password = root
 
 #####################################
 ### 是否开启事物，默认为false
 #####################################
-inject.jdbc.transaction = true
+minipika.jdbc.transaction = true
 
 #####################################
 ### 是否开启缓存
 #####################################
-inject.jdbc.cache = true
+minipika.jdbc.cache = true
 
 #####################################
 ### 缓存过期时间，以秒为单位，支持加减乘除表达式
@@ -45,18 +45,18 @@ inject.jdbc.cache = true
 ### 需要注意的是该表达式并不遵循先乘除后加减的顺序
 ### 计算是按照顺序执行的
 #####################################
-inject.jdbc.refresh = 5 + 6
+minipika.jdbc.refresh = 5 + 6
 
 #####################################
 ### 连接池大小
 #####################################
-inject.connectionPool.minSize = 2
-inject.connectionPool.maxSize = 90
+minipika.connectionPool.minSize = 2
+minipika.connectionPool.maxSize = 90
 
 # 前缀
-inject.entity.prefix = kkb
+minipika.entity.prefix = kkb
 # entity所在的包
-inject.entity.package = com.inject.entity.experiment
+minipika.entity.package = com.minipika.entity.experiment
 
 ```
 
@@ -92,7 +92,7 @@ inject.entity.package = com.inject.entity.experiment
 
     @Pk主键
 
-具体Entity的实现可以参考一下本项目下的[UserEntity](https://github.com/PageNotFoundx/inject/blob/master/src/main/java/com/inject/entity/experiment/UserEntity.java)。
+具体Entity的实现可以参考一下本项目下的[UserEntity](https://github.com/PageNotFoundx/minipika/blob/master/src/main/java/com/minipika/entity/experiment/UserEntity.java)。
 
 当Entity配置好了之后在启动时会自动创建表和字段。
 

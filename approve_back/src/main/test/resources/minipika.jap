@@ -1,4 +1,4 @@
-inject: {
+minipika: {
 
     // jdbc
     jdbc.url = jdbc:oracle:thin:@127.0.0.1:1521:orcl
@@ -28,10 +28,10 @@ inject: {
     entity.prefix = kkb
 
     // ģ�����ڵİ�
-    entity.package = ["org.inject.experiment"]
+    entity.package = ["org.minipika.experiment"]
     
     // mapper��̬sql�ļ����ڵ�·��
-    entity.mapper = ["org.inject.builder"]
+    entity.mapper = ["org.minipika.builder"]
 
     // ����norm.json�ļ�·��
     entity.norm = norm.json

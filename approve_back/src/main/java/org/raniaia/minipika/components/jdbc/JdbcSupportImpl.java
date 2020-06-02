@@ -48,7 +48,7 @@ import java.util.Set;
 @Component
 public class JdbcSupportImpl implements JdbcSupport {
 
-  @Minipika
+  @Inject
   private NativeJdbc nativeJdbc;
 
   private static final Log log = LogFactory.getLog(JdbcSupportImpl.class);

@@ -58,7 +58,7 @@ public class BeansManager {
     }
 
     /**
-     * Creates a new object, during create will inject bean into the object.
+     * Creates a new object, during create will minipika bean into the object.
      * This {@code #newInstance} method will calling No-argument construct.
      */
     public static <T> T newInstance(Class<?> clazz) {
@@ -66,7 +66,7 @@ public class BeansManager {
     }
 
     /**
-     * Creates a new object, during create will inject bean into the object.
+     * Creates a new object, during create will minipika bean into the object.
      * This {@code #newInstance} method will calling argument construct.
      *
      * @param args construct parameters.

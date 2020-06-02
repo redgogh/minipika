@@ -37,7 +37,7 @@ public class SqlMapper {
     private Converter converter = BeansManager.newInstance(Converter.class);
     private static PrecompileContainer container = PrecompileContainer.getContainer();
 
-    @Minipika
+    @Inject
     private JdbcSupport jdbcSupport;
 
     /**

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<inject>
+<minipika>
 
     <jdbc>
         <!-- url加参数 -->
@@ -19,11 +19,11 @@
     </connection>
 
     <entity>
-        <mapper>org.inject.builder</mapper>
+        <mapper>org.minipika.builder</mapper>
         <package>
-            org.inject.experiment,
-            org.inject.experiment,
-            org.inject.experiment
+            org.minipika.experiment,
+            org.minipika.experiment,
+            org.minipika.experiment
         </package>
     </entity>
 
@@ -32,4 +32,4 @@
         <entity>default_entity.json</entity>
     </default>
 
-</inject>
+</minipika>

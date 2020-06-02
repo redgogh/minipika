@@ -6,7 +6,7 @@
 
 ```properties
 # mapper xml文件所在的位置
-inject.entity.mapper = org.raniaia.inject.mapper
+minipika.entity.mapper = org.raniaia.minipika.mapper
 ```
 
 # mapper xml
@@ -63,7 +63,7 @@ mapper标签有个**name**属性，这个属性代表了整个xml。它是唯一
         以下内容表示从kkb_user_entity表中根据uuid查询
         result中是返回结果，这个返回结果可以不用加全类名。
         但条件是这个Entity类必须在配置文件中配置的路径下。
-        配置项为：inject.entity.package
+        配置项为：minipika.entity.package
     -->
     <mapper name="findUserByUUID" result="UserEntity">
         select * from kkb_user_entity where uuid = {{uuid}}

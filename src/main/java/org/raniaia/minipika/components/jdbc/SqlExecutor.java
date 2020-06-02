@@ -31,7 +31,7 @@ public interface SqlExecutor {
    *
    * @return true执行成功, false执行失败
    */
-  void execute(String sql, Object... args);
+  boolean execute(String sql, Object... args);
 
   /**
    * 查询数据
@@ -39,7 +39,7 @@ public interface SqlExecutor {
    * @param sql     sql脚本
    * @param args    参数
    */
-  void select(String sql, Object... args);
+  QueryResultSet select(String sql, Object... args);
 
   /**
    * 更新数据

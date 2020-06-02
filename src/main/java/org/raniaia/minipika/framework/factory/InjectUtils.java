@@ -20,7 +20,7 @@ package org.raniaia.minipika.framework.factory;
  * Creates on 2020/6/1.
  */
 
-import org.raniaia.minipika.framework.annotations.Inject;
+import org.raniaia.minipika.framework.annotations.minipika;
 import org.raniaia.minipika.framework.util.Annotations;
 import org.raniaia.minipika.framework.util.Classic;
 import org.raniaia.minipika.framework.util.Fields;
@@ -35,19 +35,19 @@ import java.util.Objects;
  *
  * @author tiansheng
  */
-public class InjectUtils {
+public class minipikaUtils {
 
-  public static Object inject(Class<?> clazz, Map<String, Object> components) throws IllegalAccessException {
+  public static Object minipika(Class<?> clazz, Map<String, Object> components) throws IllegalAccessException {
     Object instance = Classic.newInstance(clazz);
-    Field[] fields = Fields.getDeclaredFieldsIncludeSuper(clazz, true, new Class[]{Inject.class});
+    Field[] fields = Fields.getDeclaredFieldsIncludeSuper(clazz, true, new Class[]{minipika.class});
     for (Field field : fields) {
-      Inject inject = Annotations.isAnnotation(field, Inject.class);
-      String name = inject.name();
+      minipika minipika = Annotations.isAnnotation(field, minipika.class);
+      String name = minipika.name();
       if (StringUtils.isEmpty(name)) {
         name = field.getClass().getSimpleName();
       }
-      Object injectedObject = components.get(name);
-      field.set(instance, Objects.requireNonNull(injectedObject, "未找到名为" + name + "的组件")); // 注入对象
+      Object minipikaedObject = components.get(name);
+      field.set(instance, Objects.requireNonNull(minipikaedObject, "未找到名为" + name + "的组件")); // 注入对象
     }
     return instance;
   }

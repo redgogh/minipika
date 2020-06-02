@@ -52,13 +52,13 @@ import java.util.List;
 public class NativeJdbcImpl implements NativeJdbc {
 
 
-  @Minipika
+  @Inject
   private MinipikaCache cache;
 
-  @Minipika
+  @Inject
   private DataSource dataSource;
 
-  @Minipika
+  @Inject
   protected TransactionFactory transactionFactory;
 
   private Log log = LogFactory.getLog(NativeJdbcImpl.class);

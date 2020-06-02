@@ -25,7 +25,7 @@ import java.lang.annotation.*;
 /**
  * 这个注解可以理解为Spring的Autowired注解
  *
- * bean container inject annotation.
+ * bean container minipika annotation.
  *
  * @author tiansheng
  */

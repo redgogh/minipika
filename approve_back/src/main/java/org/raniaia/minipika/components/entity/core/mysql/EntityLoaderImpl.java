@@ -52,7 +52,7 @@ import java.util.*;
 @Component
 public class EntityLoaderImpl implements EntityLoader {
 
-    @Minipika
+    @Inject
     private JdbcSupport jdbc;
 
     @Override

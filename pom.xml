@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
   
   <!--    <entityVersion>4.0.0</entityVersion>-->
   
@@ -15,7 +16,7 @@
   </parent>
   
   <groupId>io.github.raniaia</groupId>
-  <artifactId>inject</artifactId>
+  <artifactId>minipika</artifactId>
   <version>1.0.0.breathe</version>
   <packaging>jar</packaging>
   
@@ -30,8 +31,8 @@
   <scm>
     <tag>master</tag>
     <url>https://github.com/raniaia/avaliable</url>
-    <connection>scm:git@github.com:raniaia/inject.git</connection>
-    <developerConnection>scm:git@github.com:raniaia/inject.git</developerConnection>
+    <connection>scm:git@github.com:raniaia/minipika.git</connection>
+    <developerConnection>scm:git@github.com:raniaia/minipika.git</developerConnection>
   </scm>
   
   <developers>

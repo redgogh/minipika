@@ -36,7 +36,7 @@ public class TEST {
     /**
      * 注入JDBC操作类
      */
-    @Minipika
+    @Inject
     private JdbcSupport jdbc;
 
     /**

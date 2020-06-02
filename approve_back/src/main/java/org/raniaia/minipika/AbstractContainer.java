@@ -49,7 +49,7 @@ public abstract class AbstractContainer extends RootContainer<String, Object> {
 
     public <T> T newInstance(Class<?> clazz) {
         Object instance = newInstance(clazz, null);
-        return (T) inject(instance);
+        return (T) minipika(instance);
     }
 
     public <T> T newInstance(Class<?> clazz, Object... args) {
@@ -74,7 +74,7 @@ public abstract class AbstractContainer extends RootContainer<String, Object> {
             return (T) Classic.newInstance(clazz);
         }
         Object instance = Classic.newInstance(clazz, parametersTypes, args);
-        return (T) inject(instance);
+        return (T) minipika(instance);
     }
 
     /**
@@ -97,7 +97,7 @@ public abstract class AbstractContainer extends RootContainer<String, Object> {
             Class<?> component = getComponents0(name);
             if (component == null) return null;
             instance = Classic.newInstance(component);
-            submitBean(name, inject(instance));
+            submitBean(name, minipika(instance));
         }
         return (T) instance;
     }
@@ -124,9 +124,9 @@ public abstract class AbstractContainer extends RootContainer<String, Object> {
     }
 
     /**
-     * inject object.
+     * minipika object.
      */
-    protected Object inject(Object instance) {
+    protected Object minipika(Object instance) {
         Class<?> clazz = instance.getClass();
         Field[] fields = Fields.getDeclaredFields(clazz, true);
         for (Field field : fields) {
@@ -145,7 +145,7 @@ public abstract class AbstractContainer extends RootContainer<String, Object> {
                     } else {
                         componentInstance = Classic.newInstance(componentClass);
                     }
-                    inject(componentInstance);
+                    minipika(componentInstance);
                 }
                 Fields.set(instance, componentInstance, field);
                 submitBean(getComponentName(componentInstance.getClass()),

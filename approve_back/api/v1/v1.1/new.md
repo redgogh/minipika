@@ -35,14 +35,14 @@ private String email;
 ```properties
 
 # entity所在的包
-inject.entity.package[0] = org.raniaia.inject.experiment
-inject.entity.package[1] = org.raniaia.inject.experiment
-inject.entity.package[2] = org.raniaia.inject.experiment
-inject.entity.package[3] = org.raniaia.inject.experiment
+minipika.entity.package[0] = org.raniaia.minipika.experiment
+minipika.entity.package[1] = org.raniaia.minipika.experiment
+minipika.entity.package[2] = org.raniaia.minipika.experiment
+minipika.entity.package[3] = org.raniaia.minipika.experiment
 # builder xml模板文件所在的路径
-inject.entity.mapper[0] = org.raniaia.inject.builder
-inject.entity.mapper[1] = org.raniaia.inject.builder
-inject.entity.mapper[2] = org.raniaia.inject.builder
-inject.entity.mapper[3] = org.raniaia.inject.builder
+minipika.entity.mapper[0] = org.raniaia.minipika.builder
+minipika.entity.mapper[1] = org.raniaia.minipika.builder
+minipika.entity.mapper[2] = org.raniaia.minipika.builder
+minipika.entity.mapper[3] = org.raniaia.minipika.builder
 
 ```
