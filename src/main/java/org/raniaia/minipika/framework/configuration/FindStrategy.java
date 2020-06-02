@@ -32,7 +32,7 @@ import java.io.InputStream;
 public class FindStrategy {
 
   // 默认配置文件名称
-  static final String DEFAULT_NAME = "minipika.xml";
+  static final String DEFAULT_NAME = "minipika.cfg";
 
   private InputStream configInputStream;
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!ELEMENT minipika (properties)>
+
+<!ELEMENT properties (datasources)>
+
+<!ELEMENT datasources (master)>
+
+<!ELEMENT master (url, driver, username, password)>
+
+<!ELEMENT slaves (url, driver, username, password)>
+
+<!ELEMENT url EMPTY>
+<!ATTLIST url
+value CDATA #REQUIRED
+>
+
+<!ELEMENT driver EMPTY>
+<!ATTLIST driver
+value CDATA #REQUIRED
+>
+
+<!ELEMENT username EMPTY>
+<!ATTLIST username
+value CDATA #REQUIRED
+>
+
+<!ELEMENT password EMPTY>
+<!ATTLIST password
+value CDATA #REQUIRED
+>
+
+<!ELEMENT default-datasource EMPTY>
+<!ATTLIST default-datasource
+value CDATA #REQUIRED
+>
