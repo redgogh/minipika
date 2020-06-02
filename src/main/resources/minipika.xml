@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE minipika SYSTEM "https://github.com/raniaia/minipika/blob/master/standard/minipika-configruation-standard.dtd">
 <minipika>
   <properties>
     <!-- 配置数据源 -->
     <datasources>
-      <default-datasource value="default"/>
       <!-- 主数据源 -->
       <master type="MYSQL">
         <!-- 设置JDBC URL以及URL参数 -->
