@@ -14,4 +14,17 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!ELEMENT plugin ()>
+<!ELEMENT configuration (slices?)>
+
+<!ELEMENT slices (slice?)>
+
+<!ELEMENT slice ()>
+<!ATTLIST slice
+class CDATA #REQUIRED
+>
+
+<!ELEMENT plugin EMPTY>
+<!ATTLIST plugin
+method CDATA #REQUIRED
+loading CDATA #REQUIRED
+>
