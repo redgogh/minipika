@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE minipika SYSTEM
-        "https://gitee.com/appcuver/minipika/blob/master/standard/minipika-configruation-standard.dtd">
-<minipika>
+<!DOCTYPE inject SYSTEM
+        "https://gitee.com/appcuver/inject/blob/master/standard/inject-configruation-standard.dtd">
+<inject>
 
   <!-- 支持全局使用的属性配置, 这个大家都清楚就不再赘述了 -->
   <properties>
@@ -44,4 +44,4 @@
     </master>
   </datasources>
 
-</minipika>
+</inject>

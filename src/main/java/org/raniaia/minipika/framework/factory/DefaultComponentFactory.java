@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * @author tiansheng
  */
-public class DefaultMinipikaComponentFactory implements MinipikaComponentFactory {
+public class DefaultComponentFactory implements ComponentFactory {
 
   /**
    * 组件容器
@@ -38,7 +38,7 @@ public class DefaultMinipikaComponentFactory implements MinipikaComponentFactory
   @SuppressWarnings("unchecked")
   public <T> T forClass(Class<?> clazz) {
     try {
-      return (T) MinipikaInjectUtils.inject(clazz, components);
+      return (T) InjectUtils.inject(clazz, components);
     } catch (IllegalAccessException e) {
       e.printStackTrace();
     }

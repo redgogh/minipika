@@ -23,7 +23,7 @@ package org.raniaia.minipika.framework.factory;
 /**
  * @author tiansheng
  */
-public interface MinipikaComponentFactory {
+public interface ComponentFactory {
 
   /**
    * 创建一个新的实例对象，并像对象内部的成员进行注入

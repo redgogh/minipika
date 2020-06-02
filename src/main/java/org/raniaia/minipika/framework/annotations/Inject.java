@@ -1,4 +1,4 @@
-package org.minipika.framework.plugin;
+package org.raniaia.minipika.framework.annotations;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,23 +20,20 @@ package org.minipika.framework.plugin;
  * Creates on 2020/6/1.
  */
 
-import org.raniaia.minipika.framework.plugins.Invocation;
-import org.raniaia.minipika.framework.plugins.Interceptor;
-
-import java.io.InputStream;
+import java.lang.annotation.*;
 
 /**
+ * 被注解的成员代表需要Minipika自动注入
  * @author tiansheng
  */
-public class TestMnpkPlugin implements Interceptor {
+@Target({ElementType.FIELD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface Inject {
 
-  @Override
-  public Object invocation(Invocation invocation, Object[] args) {
-    return invocation.invoke(args);
-  }
+  /**
+   * @return 组件名称
+   */
+  String name() default "";
 
-  @Override
-  public InputStream pluginXMLConfigInputStream() {
-    return null;
-  }
 }

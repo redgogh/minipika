@@ -20,7 +20,7 @@ package org.raniaia.minipika.framework.factory;
  * Creates on 2020/6/1.
  */
 
-import org.raniaia.minipika.framework.annotations.Minipika;
+import org.raniaia.minipika.framework.annotations.Inject;
 import org.raniaia.minipika.framework.util.Annotations;
 import org.raniaia.minipika.framework.util.Classic;
 import org.raniaia.minipika.framework.util.Fields;
@@ -35,14 +35,14 @@ import java.util.Objects;
  *
  * @author tiansheng
  */
-public class MinipikaInjectUtils {
+public class InjectUtils {
 
   public static Object inject(Class<?> clazz, Map<String, Object> components) throws IllegalAccessException {
     Object instance = Classic.newInstance(clazz);
-    Field[] fields = Fields.getDeclaredFieldsIncludeSuper(clazz, true, new Class[]{Minipika.class});
+    Field[] fields = Fields.getDeclaredFieldsIncludeSuper(clazz, true, new Class[]{Inject.class});
     for (Field field : fields) {
-      Minipika minipika = Annotations.isAnnotation(field, Minipika.class);
-      String name = minipika.name();
+      Inject inject = Annotations.isAnnotation(field, Inject.class);
+      String name = inject.name();
       if (StringUtils.isEmpty(name)) {
         name = field.getClass().getSimpleName();
       }

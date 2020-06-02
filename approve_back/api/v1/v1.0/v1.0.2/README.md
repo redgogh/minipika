@@ -3,11 +3,11 @@
 > API手册
 
 如果你已经看过这些了，那么可以看XML使用文档了
-[XMLAPI-使用手册](https://github.com/PageNotFoundx/minipika/blob/master/api/v1.0/v1.0.2/XmlApi.md)
+[XMLAPI-使用手册](https://github.com/PageNotFoundx/inject/blob/master/api/v1.0/v1.0.2/XmlApi.md)
 
 # 配置文件搭建
 
-MinipikaFramework会自动扫描**resources**目录下的**minipika.properties**,如果没有这个文件那么会报一个**ReadException**
+MinipikaFramework会自动扫描**resources**目录下的**inject.properties**,如果没有这个文件那么会报一个**ReadException**
 
 如果配置文件的文件名是自定义的，那么需要调用一个手动加载配置的方法**ManualConfig.load()**，示例如下:
 
@@ -25,20 +25,20 @@ ManualConfig.load("newminipika.properties");
 #####################################
 ### 数据库属性
 #####################################
-minipika.jdbc.url = jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
-minipika.jdbc.driver = com.mysql.cj.jdbc.Driver
-minipika.jdbc.username = root
-minipika.jdbc.password = root
+inject.jdbc.url = jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+inject.jdbc.driver = com.mysql.cj.jdbc.Driver
+inject.jdbc.username = root
+inject.jdbc.password = root
 
 #####################################
 ### 是否开启事物，默认为false
 #####################################
-minipika.jdbc.transaction = true
+inject.jdbc.transaction = true
 
 #####################################
 ### 是否开启缓存
 #####################################
-minipika.jdbc.cache = true
+inject.jdbc.cache = true
 
 #####################################
 ### 缓存过期时间，以秒为单位，支持加减乘除表达式
@@ -46,20 +46,20 @@ minipika.jdbc.cache = true
 ### second（秒）、minute（分）、
 ### hour（时）、day（天）、week（周）
 #####################################
-minipika.jdbc.refresh = 5+ 6 +7
+inject.jdbc.refresh = 5+ 6 +7
 
 #####################################
 ### 连接池大小
 #####################################
-minipika.connectionPool.minSize = 2
-minipika.connectionPool.maxSize = 90
+inject.connectionPool.minSize = 2
+inject.connectionPool.maxSize = 90
 
 # 前缀
-minipika.entity.prefix = kkb
+inject.entity.prefix = kkb
 # entity所在的包
-minipika.entity.package = org.raniaia.minipika.experiment
+inject.entity.package = org.raniaia.inject.experiment
 # UPDATE ---> builder xml模板文件所在的路径
-minipika.entity.mapper = org.raniaia.minipika.builder
+inject.entity.mapper = org.raniaia.inject.builder
 
 ```
 
@@ -95,7 +95,7 @@ minipika.entity.mapper = org.raniaia.minipika.builder
 
     @Pk主键
 
-具体Entity的实现可以参考一下本项目下的[UserEntity](https://github.com/PageNotFoundx/minipika/blob/master/src/main/java/com/minipika/entity/experiment/UserEntity.java)。
+具体Entity的实现可以参考一下本项目下的[UserEntity](https://github.com/PageNotFoundx/inject/blob/master/src/main/java/com/inject/entity/experiment/UserEntity.java)。
 
 当Entity配置好了之后在启动时会自动创建表和字段。
 

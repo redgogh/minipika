@@ -1,4 +1,4 @@
-package org.raniaia.minipika.framework.annotations;
+package org.minipika.framework.factory;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,20 +20,17 @@ package org.raniaia.minipika.framework.annotations;
  * Creates on 2020/6/1.
  */
 
-import java.lang.annotation.*;
+import org.junit.Test;
+import org.raniaia.minipika.framework.factory.VersionId;
 
 /**
- * 被注解的成员代表需要Minipika自动注入
  * @author tiansheng
  */
-@Target({ElementType.FIELD})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface Minipika {
+public class VersionIdTest implements VersionId {
 
-  /**
-   * @return 组件名称
-   */
-  String name() default "";
+  @Test
+  public void genId(){
+    System.out.println(versionId());
+  }
 
 }

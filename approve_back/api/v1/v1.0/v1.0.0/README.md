@@ -4,7 +4,7 @@
 
 # 配置文件搭建
 
-MinipikaFramework会自动扫描**resources**目录下的**minipika.properties**,如果没有这个文件那么会报一个**ReadException**
+MinipikaFramework会自动扫描**resources**目录下的**inject.properties**,如果没有这个文件那么会报一个**ReadException**
 
 如果配置文件的文件名是自定义的，那么需要调用一个手动加载配置的方法**ManualConfig.load()**，示例如下:
 
@@ -21,36 +21,36 @@ ManualConfig.load("newminipika.properties");
 #####################################
 ### 数据库属性
 #####################################
-minipika.jdbc.url = jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
-minipika.jdbc.driver = com.mysql.cj.jdbc.Driver
-minipika.jdbc.username = root
-minipika.jdbc.password = root
+inject.jdbc.url = jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+inject.jdbc.driver = com.mysql.cj.jdbc.Driver
+inject.jdbc.username = root
+inject.jdbc.password = root
 
 #####################################
 ### 是否开启事物，默认为false
 #####################################
-minipika.jdbc.transaction = true
+inject.jdbc.transaction = true
 
 #####################################
 ### 是否开启缓存，默认为false
 #####################################
-minipika.jdbc.cache = false
+inject.jdbc.cache = false
 
 #####################################
 ### 连接池大小
 ### 默认最小连接为2个连接
 ### 默认最大连接为6个连接
 #####################################
-minipika.connectionPool.minSize = 2
-minipika.connectionPool.maxSize = 90
+inject.connectionPool.minSize = 2
+inject.connectionPool.maxSize = 90
 
 #####################################
 ### 表名前缀，可为空
 #####################################
-minipika.entity.prefix = kkb
+inject.entity.prefix = kkb
 
 # 模型所在的包
-minipika.entity.package = com.minipika.entity.experiment
+inject.entity.package = com.inject.entity.experiment
 
 ```
 
@@ -86,7 +86,7 @@ minipika.entity.package = com.minipika.entity.experiment
 
     **@Pk**主键
 
-具体Entity的实现可以参考一下本项目下的[UserEntity](https://github.com/PageNotFoundx/minipika/blob/master/src/main/java/com/minipika/entity/experiment/UserEntity.java)。
+具体Entity的实现可以参考一下本项目下的[UserEntity](https://github.com/PageNotFoundx/inject/blob/master/src/main/java/com/inject/entity/experiment/UserEntity.java)。
 
 当Entity配置好了之后在启动时会自动创建表和字段。
 

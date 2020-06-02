@@ -1,4 +1,4 @@
-package org.minipika.framework.factory;
+package org.raniaia.minipika.components.jdbc;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,17 +20,18 @@ package org.minipika.framework.factory;
  * Creates on 2020/6/1.
  */
 
-import org.junit.Test;
-import org.raniaia.minipika.framework.factory.MinipikaVersionId;
-
 /**
+ * sql执行器
  * @author tiansheng
  */
-public class MinipikaVersionIdTest implements MinipikaVersionId {
+public interface SqlExecutor {
 
-  @Test
-  public void genId(){
-    System.out.println(versionId());
-  }
+  void execute(String sql, Object... args);
+
+  void select(String sql, Object... args);
+
+  int update(String sql, Object... args);
+
+  int delete(String sql, Object... args);
 
 }

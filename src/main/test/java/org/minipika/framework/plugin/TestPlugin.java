@@ -1,4 +1,4 @@
-package org.minipika.testObject;
+package org.minipika.framework.plugin;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,16 +20,23 @@ package org.minipika.testObject;
  * Creates on 2020/6/1.
  */
 
-import org.raniaia.minipika.framework.annotations.Minipika;
+import org.raniaia.minipika.framework.plugins.Invocation;
+import org.raniaia.minipika.framework.plugins.Interceptor;
+
+import java.io.InputStream;
 
 /**
  * @author tiansheng
  */
-public class MinipikaEntity {
+public class TestPlugin implements Interceptor {
 
-  @Minipika
-  private String a;
+  @Override
+  public Object invocation(Invocation invocation, Object[] args) {
+    return invocation.invoke(args);
+  }
 
-  private Integer b;
-
+  @Override
+  public InputStream pluginXMLConfigInputStream() {
+    return null;
+  }
 }

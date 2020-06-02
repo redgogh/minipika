@@ -4,7 +4,7 @@
 
 # 配置文件搭建
 
-Minipika Framework会自动扫描**resources**目录下的**minipika.properties**,如果没有这个文件那么会报一个**ReadException**
+Minipika Framework会自动扫描**resources**目录下的**inject.properties**,如果没有这个文件那么会报一个**ReadException**
 
 如果配置文件的文件名是自定义的，那么需要调用一个手动加载配置的方法**ConfigLoader.loadConfig()**，示例如下:
 
@@ -21,20 +21,20 @@ ConfigLoader.loadConfig("newminipika.properties");
 #####################################
 ### 数据库属性
 #####################################
-minipika.jdbc.url = jdbc:mysql://127.0.0.1:3306/remotely?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
-minipika.jdbc.driver = com.mysql.cj.jdbc.Driver
-minipika.jdbc.username = root
-minipika.jdbc.password = root
+inject.jdbc.url = jdbc:mysql://127.0.0.1:3306/remotely?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+inject.jdbc.driver = com.mysql.cj.jdbc.Driver
+inject.jdbc.username = root
+inject.jdbc.password = root
 
 #####################################
 ### 是否开启事物，默认为false
 #####################################
-minipika.jdbc.transaction = true
+inject.jdbc.transaction = true
 
 #####################################
 ### 是否开启缓存
 #####################################
-minipika.jdbc.cache = true
+inject.jdbc.cache = true
 
 #####################################
 ### 缓存过期时间，以秒为单位，支持加减乘除表达式
@@ -42,23 +42,23 @@ minipika.jdbc.cache = true
 ### second（秒）、minute（分）、
 ### hour（时）、day（天）、week（周）
 #####################################
-minipika.jdbc.refresh = hour * 1
+inject.jdbc.refresh = hour * 1
 
 #####################################
 ### 连接池大小
 #####################################
-minipika.connectionPool.minSize = 2
-minipika.connectionPool.maxSize = 90
+inject.connectionPool.minSize = 2
+inject.connectionPool.maxSize = 90
 
 # 前缀
-minipika.entity.prefix = heitui
+inject.entity.prefix = heitui
 # entity所在的包
-minipika.entity.package = com.raniaia.modules.provide.entity
+inject.entity.package = com.raniaia.modules.provide.entity
 # builder xml模板文件所在的路径
-minipika.entity.mapper = com.raniaia.modules.provide.entity.mapper
+inject.entity.mapper = com.raniaia.modules.provide.entity.mapper
 
 # 配置norm.json文件路径
-minipika.norm.json = norm.json
+inject.norm.json = norm.json
 
 
 ```
@@ -89,7 +89,7 @@ minipika.norm.json = norm.json
 - @Pk
 > **@Pk**主键
 
-具体Entity的实现可以参考一下本项目下的 [ExampleEntity](https://github.com/Laniakeamly/minipika/blob/master/src/main/test/org/minipika/experiment/ExampleEntity.java)。
+具体Entity的实现可以参考一下本项目下的 [ExampleEntity](https://github.com/Laniakeamly/inject/blob/master/src/main/test/org/inject/experiment/ExampleEntity.java)。
 
 当Entity配置好了之后在启动时会自动创建表和字段。
 
@@ -99,7 +99,7 @@ minipika.norm.json = norm.json
 
 ### **获取JdbcSupport**
 
-获取JdbcSupport需要通过框架提供的[BeansManager#getBean](https://github.com/Laniakeamly/minipika/blob/master/src/main/java/org/raniaia/minipika/framework/beans/BeansManager.java)对象来获取。
+获取JdbcSupport需要通过框架提供的[BeansManager#getBean](https://github.com/Laniakeamly/inject/blob/master/src/main/java/org/raniaia/inject/framework/beans/BeansManager.java)对象来获取。
 
 示例：
 

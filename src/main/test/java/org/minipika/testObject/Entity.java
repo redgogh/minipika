@@ -1,4 +1,4 @@
-package org.minipika.framework.util;
+package org.minipika.testObject;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,28 +20,16 @@ package org.minipika.framework.util;
  * Creates on 2020/6/1.
  */
 
-import org.junit.Test;
-import org.minipika.testObject.Entity;
 import org.raniaia.minipika.framework.annotations.Inject;
-import org.raniaia.minipika.framework.util.ArrayUtils;
-import org.raniaia.minipika.framework.util.Fields;
-
-import java.lang.reflect.Field;
 
 /**
  * @author tiansheng
  */
-public class FieldsTest {
+public class Entity {
 
-  @Test
-  public void getFieldsIncludeSuper() {
+  @Inject
+  private String a;
 
-    Field[] fields = Fields.getDeclaredFieldsIncludeSuper(Entity.class, true);
-    System.out.println(ArrayUtils.toString(fields));
-    System.out.println("======================================================");
-    fields = Fields.getDeclaredFieldsIncludeSuper(Entity.class, true, new Class[]{Inject.class});
-    System.out.println(ArrayUtils.toString(fields));
-
-  }
+  private Integer b;
 
 }

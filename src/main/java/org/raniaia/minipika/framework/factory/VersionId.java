@@ -27,7 +27,7 @@ import org.raniaia.minipika.framework.util.UniqueId;
  *
  * @author tiansheng
  */
-public interface MinipikaVersionId {
+public interface VersionId {
 
   /**
    * @return {@code long}类型的VersionId, 默认使用{@link #getVersionId()}
