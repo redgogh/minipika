@@ -35,6 +35,7 @@ public class DefaultMinipikaComponentFactory implements MinipikaComponentFactory
   private static final Map<String, Object> components = Maps.newConcurrentHashMap(8);
 
   @Override
+  @SuppressWarnings("unchecked")
   public <T> T forClass(Class<?> clazz) {
     try {
       return (T) MinipikaInjectUtils.inject(clazz, components);
