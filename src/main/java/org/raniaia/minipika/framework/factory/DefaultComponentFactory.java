@@ -38,7 +38,7 @@ public class DefaultComponentFactory implements ComponentFactory {
   @SuppressWarnings("unchecked")
   public <T> T forClass(Class<?> clazz) {
     try {
-      return (T) minipikaUtils.minipika(clazz, components);
+      return (T) InjectUtils.minipika(clazz, components);
     } catch (IllegalAccessException e) {
       e.printStackTrace();
     }

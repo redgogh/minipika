@@ -2,12 +2,12 @@
 <!DOCTYPE minipika SYSTEM
         "https://gitee.com/appcuver/minipika/blob/master/standard/minipika-configruation-standard.dtd">
 <minipika>
-
+  
   <!-- 支持全局使用的属性配置, 这个大家都清楚就不再赘述了 -->
   <properties>
     <printExecutingLog>false</printExecutingLog>
   </properties>
-
+  
   <!--
     配置数据源.
     如果不想用默认数据源的话可以在datasources标签中添加using属性，并设置你的数据源类的路径即可.
@@ -36,7 +36,7 @@
         <property key="useSSL" value="false"/>
         <property key="useUnicode" value="true"/>
         <property key="characterEncoding" value="utf-8"/>
-        <property key="serverTimezone" value="GMT"/>
+        <property key="serverTimezone" value="GMT" />
       </url>
       <driver value="com.mysql.cj.jdbc.Driver"/>
       <username value="root"/>

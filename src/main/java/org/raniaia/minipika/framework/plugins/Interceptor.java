@@ -31,7 +31,7 @@ public interface Interceptor {
    * 执行当前拦截到的方法
    *
    * @param invocation 方法执行接口
-   * @Param args       传入的参数
+   * @param args       传入的参数
    */
   Object invocation(Invocation invocation, Object[] args);
 
