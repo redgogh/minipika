@@ -22,7 +22,7 @@ value CDATA #REQUIRED
 
 <!ELEMENT datasource EMPTY>
 
-<!ELEMENT url (property?)>
+<!ELEMENT url (property)>
 <!ATTLIST url
 value CDATA #REQUIRED
 >
