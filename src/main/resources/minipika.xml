@@ -1,37 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE minipika SYSTEM "https://github.com/raniaia/minipika/blob/master/standard/minipika-configruation-standard.dtd">
+<!DOCTYPE minipika SYSTEM
+        "https://gitee.com/appcuver/minipika/blob/master/standard/minipika-configruation-standard.dtd">
 <minipika>
-  <properties>
-    <!-- 配置数据源 -->
-    <datasources>
-      <!-- 主数据源 -->
-      <master type="MYSQL">
-        <!-- 设置JDBC URL以及URL参数 -->
-        <url value="jdbc:mysql://127.0.0.1:3306/test">
-          <property key="useSSL" value="false"/>
-          <property key="useUnicode" value="true"/>
-          <property key="characterEncoding" value="utf-8"/>
-          <property key="serverTimezone" value="GMT"/>
-        </url>
-        <driver value="com.mysql.cj.jdbc.Driver"/>
-        <username value="root"/>
-        <password value="root"/>
-      </master>
+  <!-- 配置数据源 -->
+  <datasources>
+    <!-- 主数据源 -->
+    <master type="MYSQL">
+      <!-- 设置JDBC URL以及URL参数 -->
+      <url value="jdbc:mysql://127.0.0.1:3306/test">
+        <property key="useSSL" value="false"/>
+        <property key="useUnicode" value="true"/>
+        <property key="characterEncoding" value="utf-8"/>
+        <property key="serverTimezone" value="GMT"/>
+      </url>
+      <driver value="com.mysql.cj.jdbc.Driver"/>
+      <username value="root"/>
+      <password value="root"/>
+    </master>
 
-      <!-- 配置从数据源
-      <slaves type="MYSQL">
-        <url value="jdbc:mysql://127.0.0.2:3306/test">
-          <property key="useSSL" value="false"/>
-          <property key="useUnicode" value="true"/>
-          <property key="characterEncoding" value="utf-8"/>
-          <property key="serverTimezone" value="GMT"/>
-        </url>
-        <driver value="com.mysql.cj.jdbc.Driver"/>
-        <username value="root"/>
-        <password value="root"/>
-      </slaves>
-      -->
-    </datasources>
-  </properties>
-
+    <!-- 配置从数据源
+    <slaves type="MYSQL">
+      <url value="jdbc:mysql://127.0.0.2:3306/test">
+        <property key="useSSL" value="false"/>
+        <property key="useUnicode" value="true"/>
+        <property key="characterEncoding" value="utf-8"/>
+        <property key="serverTimezone" value="GMT"/>
+      </url>
+      <driver value="com.mysql.cj.jdbc.Driver"/>
+      <username value="root"/>
+      <password value="root"/>
+    </slaves>
+    -->
+  </datasources>
 </minipika>
