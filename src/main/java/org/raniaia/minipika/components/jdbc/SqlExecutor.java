@@ -26,12 +26,37 @@ package org.raniaia.minipika.components.jdbc;
  */
 public interface SqlExecutor {
 
+  /**
+   * 执行一条SQL
+   *
+   * @return true执行成功, false执行失败
+   */
   void execute(String sql, Object... args);
 
+  /**
+   * 查询数据
+   *
+   * @param sql     sql脚本
+   * @param args    参数
+   */
   void select(String sql, Object... args);
 
+  /**
+   * 更新数据
+   *
+   * @param sql     sql脚本
+   * @param args    参数
+   * @return 更新条数
+   */
   int update(String sql, Object... args);
 
+  /**
+   * 删除一条数据
+   *
+   * @param sql      sql脚本
+   * @param args     参数
+   * @return 更新条数
+   */
   int delete(String sql, Object... args);
 
 }
