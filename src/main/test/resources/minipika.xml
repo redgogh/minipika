@@ -1,6 +1,4 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE minipika SYSTEM
-        "https://github.com/raniaia/minipika/blob/master/standard/minipika-configruation-standard.dtd">
 <minipika>
 
   <!-- 支持全局使用的属性配置, 这个大家都清楚就不再赘述了 -->
@@ -19,7 +17,7 @@
 
     如果要设置单个数据源的任务的话可以使用task="READ"或者是task="WRITE"来设置单个数据源的作业
    -->
-  <datasources>
+  <datasource>
     <master type="MYSQL" task="READ">
       <!-- 设置JDBC URL以及URL参数 -->
       <url value="jdbc:mysql://127.0.0.1:3306/test">
@@ -32,6 +30,9 @@
       <username value="root"/>
       <password value="root"/>
     </master>
-  </datasources>
+    <sa>
+
+    </sa>
+  </datasource>
 
 </minipika>

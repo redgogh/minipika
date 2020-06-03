@@ -1,4 +1,4 @@
-package org.minipika.framework.configuration;
+package org.raniaia.minipika.framework.configuration.node;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,22 +17,28 @@ package org.minipika.framework.configuration;
  */
 
 /*
- * Creates on 2020/6/2.
+ * Creates on 2020/6/1.
  */
 
-import org.raniaia.minipika.framework.configuration.XMLConfigBuilder;
-import org.raniaia.minipika.framework.configuration.FindStrategy;
+import lombok.Getter;
+import lombok.Setter;
+import org.jdom2.Element;
 
-import java.io.InputStream;
+import java.util.List;
 
 /**
+ * 数据源节点下的数据
+ *
  * @author tiansheng
  */
-public class XMLConfigBuilderTest {
+@Getter
+@Setter
+public class DataSourceNode implements ElementParser{
 
-  public static void main(String[] args) {
-    InputStream istream = FindStrategy.getConfigInputStream();
-    XMLConfigBuilder configBuilder = new XMLConfigBuilder("D:\\dev\\minipika\\src\\main\\test\\resources\\minipika.xml");
+  private List<SingleDataSourceNode> dataSourceNodes;
+
+  @Override
+  public void parse(Element element) {
+
   }
-
 }
