@@ -20,6 +20,14 @@ package org.raniaia.minipika.framework.configuration;
  * Creates on 2020/6/1.
  */
 
+import org.raniaia.minipika.framework.exception.XMLParseException;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -27,12 +35,24 @@ import java.io.InputStream;
  */
 public class ConfigBuilder {
 
-  public ConfigBuilder(InputStream inputStream) {
-
+  public ConfigBuilder(String xfile) {
+    try {
+      getDocument(xfile);
+    } catch (Exception e) {
+      throw new XMLParseException("Error xml file reading. Cause: " + e.getMessage());
+    }
   }
 
   public void loadProperties() {
 
+  }
+
+  private Document getDocument(String file)
+          throws ParserConfigurationException, IOException, SAXException {
+    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    DocumentBuilder builder = factory.newDocumentBuilder();
+    Document document = builder.parse(file);
+    return document;
   }
 
 }

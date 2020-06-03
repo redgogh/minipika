@@ -1,4 +1,4 @@
-package org.minipika.framework.configuration;
+package org.raniaia.minipika.framework.logging.slf4j;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,25 +17,24 @@ package org.minipika.framework.configuration;
  */
 
 /*
- * Creates on 2020/6/2.
+ * Creates on 2020/3/26.
  */
 
-import org.junit.Test;
-import org.raniaia.minipika.framework.configuration.ConfigBuilder;
-import org.raniaia.minipika.framework.configuration.FindStrategy;
-import org.raniaia.minipika.framework.factory.Factorys;
-
-import java.io.IOException;
-import java.io.InputStream;
+import org.raniaia.minipika.framework.logging.Log;
+import org.raniaia.minipika.framework.logging.LogAdapter;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author tiansheng
  */
-public class XMLConfigBuilderTest {
+public class Slf4jLogAdapter implements LogAdapter {
 
-  public static void main(String[] args) {
-    InputStream istream = FindStrategy.getConfigInputStream();
-    ConfigBuilder configBuilder = new ConfigBuilder("D:\\dev\\minipika\\src\\main\\test\\resources\\minipika.xml");
-  }
+    public Log getLog(String key){
+        return new Slf4jLog(LoggerFactory.getLogger(key));
+    }
+
+    public Log getLog(Class<?> key){
+        return new Slf4jLog(LoggerFactory.getLogger(key));
+    }
 
 }

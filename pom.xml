@@ -173,11 +173,11 @@
       <version>3.1</version>
     </dependency>
     <!-- xml解析 -->
-    <dependency>
+    <!--<dependency>
       <groupId>org.jdom</groupId>
       <artifactId>jdom2</artifactId>
       <version>${jdom.version}</version>
-    </dependency>
+    </dependency>-->
     <!-- 字节码操作工具 -->
     <dependency>
       <groupId>javassist</groupId>

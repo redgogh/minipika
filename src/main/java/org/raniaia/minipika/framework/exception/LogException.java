@@ -1,4 +1,4 @@
-package org.minipika.framework.configuration;
+package org.raniaia.minipika.framework.exception;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,25 +17,30 @@ package org.minipika.framework.configuration;
  */
 
 /*
- * Creates on 2020/6/2.
+ * Creates on 2020/6/1.
  */
-
-import org.junit.Test;
-import org.raniaia.minipika.framework.configuration.ConfigBuilder;
-import org.raniaia.minipika.framework.configuration.FindStrategy;
-import org.raniaia.minipika.framework.factory.Factorys;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * @author tiansheng
  */
-public class XMLConfigBuilderTest {
+public class LogException extends BasicException {
 
-  public static void main(String[] args) {
-    InputStream istream = FindStrategy.getConfigInputStream();
-    ConfigBuilder configBuilder = new ConfigBuilder("D:\\dev\\minipika\\src\\main\\test\\resources\\minipika.xml");
+  public LogException() {
   }
 
+  public LogException(String message) {
+    super(message);
+  }
+
+  public LogException(String message, Throwable cause) {
+    super(message, cause);
+  }
+
+  public LogException(Throwable cause) {
+    super(cause);
+  }
+
+  public LogException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    super(message, cause, enableSuppression, writableStackTrace);
+  }
 }

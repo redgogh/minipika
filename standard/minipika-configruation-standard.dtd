@@ -23,7 +23,7 @@ using CDATA #IMPLIED
 
 <!ELEMENT properties (printExecutingLog?)>
 
-<!ELEMENT printExecutingLog ()>
+<!ELEMENT printExecutingLog EMPTY>
 
 <!ELEMENT master (url, driver, username, password)>
 <!ATTLIST master
@@ -65,7 +65,7 @@ value CDATA #REQUIRED
 
 <!ELEMENT plugins (plugin?)>
 
-<!ELEMENT plugin ()>
+<!ELEMENT plugin EMPTY>
 <!ATTLIST plugin
 class CDATA #REQUIRED
 >
