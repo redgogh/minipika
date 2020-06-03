@@ -30,9 +30,6 @@
       <username value="root"/>
       <password value="root"/>
     </master>
-    <sa>
-
-    </sa>
   </datasource>
 
 </minipika>

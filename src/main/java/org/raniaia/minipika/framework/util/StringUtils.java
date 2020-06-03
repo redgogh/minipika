@@ -4,6 +4,8 @@ package org.raniaia.minipika.framework.util;
  * Creates on 2020/3/11.
  */
 
+import org.raniaia.minipika.framework.factory.Factorys;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -62,6 +64,18 @@ class StringUtils {
    */
   public static boolean isNull(String input) {
     return input == null || "null".equals(input);
+  }
+
+  public static String requireNonNull(String input, String message) {
+    return requireNonNull(input, message, NullPointerException.class);
+  }
+
+  public static String requireNonNull(String input, String message, Class<? extends RuntimeException> e) {
+    if(isEmpty(input)) {
+      RuntimeException e1 = Factorys.forClass(e, new Class[]{String.class}, message);
+      throw e1;
+    }
+    return input;
   }
 
   /**

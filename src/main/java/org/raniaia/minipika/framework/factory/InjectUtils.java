@@ -39,6 +39,17 @@ public class InjectUtils {
 
   public static Object minipika(Class<?> clazz, Map<String, Object> components) throws IllegalAccessException {
     Object instance = Classic.newInstance(clazz);
+    return minipika(clazz, instance, components);
+  }
+
+  public static Object minipika(Class<?> clazz, Class<?>[] types, Map<String, Object> components,
+                                Object... parameter) throws IllegalAccessException {
+    Object instance = Classic.newInstance(clazz, types, parameter);
+    return minipika(clazz, instance, components);
+  }
+
+  private static Object minipika(Class<?> clazz, Object instance, Map<String, Object> components)
+          throws IllegalAccessException {
     Field[] fields = Fields.getDeclaredFieldsIncludeSuper(clazz, true, new Class[]{Inject.class});
     for (Field field : fields) {
       Inject minipika = Annotations.isAnnotation(field, Inject.class);

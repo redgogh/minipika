@@ -35,6 +35,16 @@ public interface ComponentFactory {
   <T> T forClass(Class<?> clazz);
 
   /**
+   * 通过有参构造器创建一个对象
+   *
+   * @param clazz     需要实例化的类对象
+   * @param types     构造器参数类型
+   * @param parameter 构造器参数
+   * @return 已注入的完成实例对象
+   */
+  <T> T forClass(Class<?> clazz, Class<?>[] types, Object... parameter);
+
+  /**
    * 重新加载对象
    *
    * @param object 已实例化后的对象
@@ -59,7 +69,7 @@ public interface ComponentFactory {
    * 检查组件对象是否为空
    */
   default void checkingComponent(Object object) {
-    if(object == null)
+    if (object == null)
       throw new NullPointerException("组件对象不能为空");
   }
 

@@ -1,4 +1,4 @@
-package org.raniaia.minipika.framework.factory;
+package org.raniaia.minipika.framework.configuration.node;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,20 +17,44 @@ package org.raniaia.minipika.framework.factory;
  */
 
 /*
- * Creates on 2020/6/2.
+ * Creates on 2020/6/1.
  */
 
 /**
+ * 支持的数据库类型
+ *
  * @author tiansheng
  */
-public class Factorys {
+public enum DatabaseSupport {
 
-  public static <T> T forClass(Class<T> clazz) {
-    return DefaultComponentFactory.getFactory().forClass(clazz);
-  }
+  /**
+   * 未知数据源类型，默认使用JDBC进行驱动加载
+   */
+  JDBC,
 
-  public static <T> T forClass(Class<?> clazz, Class<?>[] types, Object... parameter) {
-    return DefaultComponentFactory.getFactory().forClass(clazz, types, parameter);
-  }
+  /**
+   * Oracle旗下的一款开源的关系型数据库
+   */
+  MYSQL,
+
+  /**
+   * Oracle自己的关系型数据库
+   */
+  ORACLE,
+
+  /**
+   * 类似Oracle的数据库叫达梦，由国内的达梦公司维护
+   */
+  DM,
+
+  /**
+   * 微软的一款叼的不行的关系型数据库
+   */
+  SQLSERVER,
+
+  /**
+   * 一款NOSQL数据库
+   */
+  MANGODB,
 
 }

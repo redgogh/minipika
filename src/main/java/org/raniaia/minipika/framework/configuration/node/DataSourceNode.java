@@ -23,7 +23,11 @@ package org.raniaia.minipika.framework.configuration.node;
 import lombok.Getter;
 import lombok.Setter;
 import org.jdom2.Element;
+import org.raniaia.minipika.framework.exception.XMLParseException;
+import org.raniaia.minipika.framework.factory.Factorys;
+import org.raniaia.minipika.framework.util.Lists;
 
+import javax.swing.text.AbstractDocument;
 import java.util.List;
 
 /**
@@ -33,12 +37,33 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class DataSourceNode implements ElementParser{
+public class DataSourceNode implements ElementParser {
 
-  private List<SingleDataSourceNode> dataSourceNodes;
+  static final String MASTER = "master";
+
+  private List<SingleDataSourceNode> dataSourceNodes = Lists.newArrayList();
 
   @Override
   public void parse(Element element) {
-
+    // 判断是否存在主数据源
+    checkIsExistsMaster(element);
+    List<Element> elements = element.getChildren();
+    for (Element datasource : elements) {
+      SingleDataSourceNode sds = Factorys.forClass(SingleDataSourceNode.class);
+      sds.parse(datasource);
+      dataSourceNodes.add(sds);
+    }
   }
+
+  /**
+   * 检查数据源节点中是否存在主节点
+   *
+   * @param element 被检查的元素对象
+   */
+  void checkIsExistsMaster(Element element) {
+    if (element.getChild(MASTER) == null)
+      throw new XMLParseException("minipika config content does not exist master node in datasource node. " +
+              "Cause: master datasource node is necessary.");
+  }
+
 }

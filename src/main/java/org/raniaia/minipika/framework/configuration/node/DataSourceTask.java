@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.jdbc.datasource;
+package org.raniaia.minipika.framework.configuration.node;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,22 +17,27 @@ package org.raniaia.minipika.components.jdbc.datasource;
  */
 
 /*
- * Creates on 2020/6/1.
+ * Creates on 2020/6/3.
  */
 
 /**
- * 支持的数据库类型
- *
- * @author tiansheng
+ * @author TianSheng
  */
-public enum DatabaseSupport {
+public enum DataSourceTask {
 
-  MYSQL,
+  /**
+   * 代表数据源读写操作都支持（默认使用ALL）
+   */
+  ALL,
 
-  ORACLE,
+  /**
+   * 数据源只支持读操作
+   */
+  READ,
 
-  MANGO,
-
-  DM,
+  /**
+   * 数据源只支持写操作
+   */
+  WRITE,
 
 }

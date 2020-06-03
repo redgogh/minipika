@@ -52,6 +52,16 @@ public class DefaultComponentFactory implements ComponentFactory {
   }
 
   @Override
+  public <T> T forClass(Class<?> clazz, Class<?>[] types, Object... parameter) {
+    try {
+      return (T) InjectUtils.minipika(clazz, types, components, parameter);
+    } catch (IllegalAccessException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  @Override
   public void reloading(String key, Object object) {
     checkingComponent(object);
     components.put(key, object);

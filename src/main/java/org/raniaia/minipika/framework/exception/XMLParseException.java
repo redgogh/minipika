@@ -20,6 +20,8 @@ package org.raniaia.minipika.framework.exception;
  * Creates on 2020/6/1.
  */
 
+import org.jdom2.Element;
+
 /**
  * @author tiansheng
  */
@@ -43,4 +45,35 @@ public class XMLParseException extends BasicException {
   public XMLParseException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
     super(message, cause, enableSuppression, writableStackTrace);
   }
+
+  /**
+   * 构建XML异常追踪
+   *
+   * @param element 目标元素
+   */
+  public static String buildTrack(Element element) {
+    String def = buildTrack(element, "");
+    def = def.concat(" -> ").concat(element.getName());
+    return def;
+  }
+
+  private static String buildTrack(Element element, String def) {
+    Element parent = null;
+    try {
+      parent = (Element) element.getParent(); // 获取当前标签的父标签
+      if (parent == null) {
+        return def;
+      }
+    } catch (Exception e) {
+      if (e instanceof ClassCastException) {
+        return def;
+      }
+      e.printStackTrace();
+    }
+    String name = parent.getName();
+    def = name.concat(" -> ").concat(def);
+    def = buildTrack(parent, def);
+    return def;
+  }
+
 }
