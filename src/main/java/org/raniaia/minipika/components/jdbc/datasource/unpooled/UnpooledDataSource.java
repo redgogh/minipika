@@ -20,9 +20,7 @@ package org.raniaia.minipika.components.jdbc.datasource.unpooled;
  * Creates on 2020/6/1.
  */
 
-import org.raniaia.minipika.components.jdbc.datasource.DatabaseSupport;
 import org.raniaia.minipika.framework.factory.Factorys;
-import org.raniaia.minipika.framework.util.StringUtils;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
@@ -166,7 +164,6 @@ public class UnpooledDataSource implements DataSource {
     public Logger getParentLogger() throws SQLFeatureNotSupportedException {
       return d.getParentLogger();
     }
-
   }
 
 }
