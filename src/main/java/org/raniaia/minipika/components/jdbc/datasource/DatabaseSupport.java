@@ -1,4 +1,4 @@
-package org.minipika.framework.configuration;
+package org.raniaia.minipika.components.jdbc.datasource;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,23 +17,22 @@ package org.minipika.framework.configuration;
  */
 
 /*
- * Creates on 2020/6/2.
+ * Creates on 2020/6/1.
  */
-
-import org.jdom2.JDOMException;
-import org.junit.Test;
-import org.raniaia.minipika.framework.factory.Factorys;
-
-import java.io.IOException;
 
 /**
+ * 支持的数据库类型
+ *
  * @author tiansheng
  */
-public class XMLConfigBuilderTest {
+public enum DatabaseSupport {
 
-  @Test
-  public void test() throws JDOMException, IOException {
+  MYSQL,
 
-  }
+  ORACLE,
+
+  MANGO,
+
+  DM,
 
 }
