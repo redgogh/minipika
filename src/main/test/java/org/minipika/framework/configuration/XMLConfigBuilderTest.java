@@ -32,7 +32,7 @@ public class XMLConfigBuilderTest {
 
   public static void main(String[] args) {
     InputStream istream = FindStrategy.getConfigInputStream();
-    XMLConfigBuilder configBuilder = new XMLConfigBuilder("D:\\dev\\minipika\\src\\main\\test\\resources\\minipika.xml");
+    XMLConfigBuilder configBuilder = new XMLConfigBuilder("minipika.xml");
   }
 
 }

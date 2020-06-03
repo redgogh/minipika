@@ -41,13 +41,13 @@ public class PropertiesNode implements ElementParser {
   @Override
   public void parse(Element element) {
     List<Element> children = element.getChildren();
-    if(children != null || !children.isEmpty()) {
+    if (children != null || !children.isEmpty()) {
       properties = new Properties();
       for (Element child : children) {
         String key = child.getName();
-        String value = child.getChildText(key);
+        String value = child.getText();
         // 如果key和value都不等于空的话那么将属性设置到系统的properties对象中
-        if(StringUtils.isNotEmpty(key) || StringUtils.isNotEmpty(value)) {
+        if (StringUtils.isNotEmpty(key) && StringUtils.isNotEmpty(value)) {
           System.setProperty(key, value);
           properties.put(key, value);
         }

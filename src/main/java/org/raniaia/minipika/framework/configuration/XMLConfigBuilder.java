@@ -27,6 +27,7 @@ import org.raniaia.minipika.framework.configuration.node.MinipikaXMLConfig;
 import org.raniaia.minipika.framework.factory.Factorys;
 import org.raniaia.minipika.framework.logging.Log;
 import org.raniaia.minipika.framework.logging.LogFactory;
+import org.raniaia.minipika.framework.util.Threads;
 
 /**
  * @author tiansheng
@@ -37,6 +38,7 @@ public class XMLConfigBuilder {
 
   public XMLConfigBuilder(String xfile) {
     try {
+      xfile = perfectPath(xfile);
       SAXBuilder builder = Factorys.forClass(SAXBuilder.class);
       Document document = builder.build(xfile);
       Element root = document.getRootElement();
@@ -54,6 +56,10 @@ public class XMLConfigBuilder {
   private synchronized void initialize(Element element) {
     MinipikaXMLConfig minipikaXMLConfig = Factorys.forClass(MinipikaXMLConfig.class);
     minipikaXMLConfig.parse(element);
+  }
+
+  private String perfectPath(String path) {
+    return Threads.getCallerLoader().getResource(path).toString();
   }
 
   public void loadProperties() {
