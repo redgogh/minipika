@@ -88,7 +88,7 @@ public class UnpooledDataSource implements DataSource {
 
   @Override
   public <T> T unwrap(Class<T> iface) throws SQLException {
-    throw new SQLException(getClass().getName() + " is not a wrapper.");
+    throw new SQLException(getClass().getName() + " 不是一个wrapper.");
   }
 
   @Override
