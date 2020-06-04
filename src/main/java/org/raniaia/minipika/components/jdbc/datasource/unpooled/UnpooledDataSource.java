@@ -21,6 +21,8 @@ package org.raniaia.minipika.components.jdbc.datasource.unpooled;
  */
 
 
+import lombok.Getter;
+import lombok.Setter;
 import org.raniaia.minipika.framework.configuration.node.SingleDataSource;
 import org.raniaia.minipika.framework.loader.CopyingClassLoader;
 import org.raniaia.minipika.framework.util.ClassUtils;
@@ -40,7 +42,11 @@ public class UnpooledDataSource implements DataSource {
 
   protected Driver driver;
 
+  @Setter
+  @Getter
   protected SingleDataSource dataSource;
+
+  protected Properties properties = new Properties();
 
   public UnpooledDataSource() {
   }
@@ -51,11 +57,16 @@ public class UnpooledDataSource implements DataSource {
 
   private Connection doGetConnection(String username, String password) throws SQLException {
     initializeDriver();
-    Connection connection = driver.connect(dataSource.getUrl(), dataSource.getInfo());
+    properties.setProperty(SingleDataSource.USERNAME, username);
+    properties.setProperty(SingleDataSource.PASSWORD, password);
+    Connection connection = driver.connect(dataSource.getUrl(), properties);
     return configurationConnection(connection);
   }
 
-  private Connection configurationConnection(Connection connection) {
+  private Connection configurationConnection(Connection connection) throws SQLException {
+    if (dataSource.isDesiredAutoCommit() != connection.getAutoCommit()) {
+      connection.setAutoCommit(dataSource.isDesiredAutoCommit());
+    }
     return connection;
   }
 
@@ -124,37 +135,37 @@ public class UnpooledDataSource implements DataSource {
 
   @Override
   public Connection getConnection() throws SQLException {
-    return null;
+    return doGetConnection(dataSource.getUsername(), dataSource.getPassword());
   }
 
   @Override
   public Connection getConnection(String username, String password) throws SQLException {
-    return null;
+    return doGetConnection(username, password);
   }
 
   @Override
   public PrintWriter getLogWriter() throws SQLException {
-    return null;
+    return DriverManager.getLogWriter();
   }
 
   @Override
   public void setLogWriter(PrintWriter out) throws SQLException {
-
+    DriverManager.setLogWriter(out);
   }
 
   @Override
   public void setLoginTimeout(int seconds) throws SQLException {
-
+    DriverManager.setLoginTimeout(seconds);
   }
 
   @Override
   public int getLoginTimeout() throws SQLException {
-    return 0;
+    return DriverManager.getLoginTimeout();
   }
 
   @Override
   public <T> T unwrap(Class<T> iface) throws SQLException {
-    return null;
+    throw new SQLException(getClass().getName() + " is not a wrapper");
   }
 
   @Override
@@ -164,7 +175,7 @@ public class UnpooledDataSource implements DataSource {
 
   @Override
   public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-    return null;
+    return Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
   }
 
 }

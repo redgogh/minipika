@@ -28,6 +28,7 @@ import org.raniaia.minipika.framework.exception.XMLParseException;
 import org.raniaia.minipika.framework.util.Maps;
 import org.raniaia.minipika.framework.util.StringUtils;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -53,14 +54,14 @@ public class SingleDataSource implements ElementParser {
   private DatabaseSupport type;
   private boolean desiredAutoCommit; // 是否选择自动提交, 默认false
 
-  static final String URL                 = "url";
-  static final String USERNAME            = "username";
-  static final String PASSWORD            = "password";
-  static final String DRIVER              = "driver";
-  static final String VALUE               = "value";
-  static final String TYPE                = "type";
-  static final String TASK                = "task";
-  static final String AUTO_COMMIT         = "commit";
+  public static final String URL = "url";
+  public static final String USERNAME = "username";
+  public static final String PASSWORD = "password";
+  public static final String DRIVER = "driver";
+  public static final String VALUE = "value";
+  public static final String TYPE = "type";
+  public static final String TASK = "task";
+  public static final String AUTO_COMMIT = "commit";
 
   /**
    * 链接属性
@@ -213,12 +214,8 @@ public class SingleDataSource implements ElementParser {
     if (desiredAutoCommitAttribute == null) {
       desiredAutoCommit = false;
     } else {
-      try {
-        String value = desiredAutoCommitAttribute.getValue();
-        desiredAutoCommit = Boolean.parseBoolean(value);
-      } catch (Exception ignoreException) {
-        desiredAutoCommit = false;
-      }
+      String value = desiredAutoCommitAttribute.getValue();
+      desiredAutoCommit = Boolean.parseBoolean(value);
     }
   }
 
