@@ -18,7 +18,7 @@
     如果要设置单个数据源的任务的话可以使用task="READ"或者是task="WRITE"来设置单个数据源的作业
    -->
   <datasource>
-    <master type="MYSQL" task="READ">
+    <master type="mysql" task="read" commit="true">
       <!-- 设置JDBC URL以及URL参数 -->
       <url value="jdbc:mysql://127.0.0.1:3306/test">
         <property key="useSSL" value="false"/>

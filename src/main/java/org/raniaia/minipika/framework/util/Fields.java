@@ -79,7 +79,7 @@ public class Fields {
    */
   @SuppressWarnings({"ConstantConditions"})
   public static Field[] getDeclaredFieldsIncludeSuper(Class<?> classic, boolean accessible) {
-    List<Class<?>> classes = Classic.getSuperClasses(classic);
+    List<Class<?>> classes = ClassUtils.getSuperClasses(classic);
     List<Field> fields = Lists.newArrayList(getDeclaredFields(classic, accessible));
     for (Class<?> single : classes) {
       Field[] f = getDeclaredFields(single, true);

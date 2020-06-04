@@ -44,7 +44,7 @@ public class MinipikaXMLConfig implements ElementParser {
   /**
    * 配置的数据源
    */
-  protected DataSourceNode   dataSourceNode;
+  protected DataSourceNode dataSourceNode;
 
   @Override
   public void parse(Element element) {

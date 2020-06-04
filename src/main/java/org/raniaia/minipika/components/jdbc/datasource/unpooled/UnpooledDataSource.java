@@ -20,7 +20,10 @@ package org.raniaia.minipika.components.jdbc.datasource.unpooled;
  * Creates on 2020/6/1.
  */
 
-import org.raniaia.minipika.framework.factory.Factorys;
+
+import org.raniaia.minipika.framework.configuration.node.SingleDataSource;
+import org.raniaia.minipika.framework.loader.CopyingClassLoader;
+import org.raniaia.minipika.framework.util.ClassUtils;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
@@ -29,105 +32,58 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 /**
+ * 未池化的数据源
+ *
  * @author tiansheng
  */
 public class UnpooledDataSource implements DataSource {
 
-  protected SourceInfo source;
+  protected Driver driver;
+
+  protected SingleDataSource dataSource;
 
   public UnpooledDataSource() {
   }
 
-  public UnpooledDataSource(SourceInfo source) {
-    this.source = source;
-  }
-
-  @Override
-  public Connection getConnection() throws SQLException {
-    return doGetConnection(source.username, source.password);
-  }
-
-  @Override
-  public Connection getConnection(String username, String password) throws SQLException {
-    return doGetConnection(username, password);
+  public UnpooledDataSource(SingleDataSource dataSource) {
+    this.dataSource = dataSource;
   }
 
   private Connection doGetConnection(String username, String password) throws SQLException {
     initializeDriver();
-    Driver driver = SourceInfo.registerDrivers.get(source.driver);
-    Connection connection = driver.connect(source.url, source.buildDriverInfo(username, password));
-    configurationConnection(connection);
+    Connection connection = driver.connect(dataSource.getUrl(), dataSource.getInfo());
+    return configurationConnection(connection);
+  }
+
+  private Connection configurationConnection(Connection connection) {
     return connection;
   }
 
-  private void configurationConnection(Connection connection) throws SQLException {
-    // 是否自动提交
-    if (source.autoCommit != null && source.autoCommit != connection.getAutoCommit()) {
-      connection.setAutoCommit(source.autoCommit);
-    }
-  }
-
+  /**
+   * 初始化驱动程序
+   */
   private synchronized void initializeDriver() throws SQLException {
-    if (!SourceInfo.registerDrivers.containsKey(source.driver)) {
-      Class<?> driver = null;
+    if (this.driver == null) {
       try {
-        driver = Class.forName(source.driver, true, source.driverClassLoader);
-        Driver driverInstance = (Driver) Factorys.forClass(driver);
-        //
-        // 代理的作用是防止在多线程环境下实例化驱动导致死锁问题
-        //
-        DriverManager.registerDriver(new DriverProxy(driverInstance));
-        SourceInfo.registerDrivers.put(source.driver, driverInstance);
+        Class<?> driverClass = Class.forName(dataSource.getDriver(), true, new CopyingClassLoader());
+        Driver driver0 = (Driver) ClassUtils.newInstance(driverClass);
+        Driver driverProxy = new DriverProxy(driver0);
+        DriverManager.registerDriver(driverProxy);
       } catch (Exception e) {
-        throw new SQLException("在未池化得数据源中设置JDBC驱动异常, 原因: " + e.getMessage());
+        throw new SQLException("Error failed to initialize driver. Cause: " + e.getMessage());
       }
     }
-  }
-
-  @Override
-  public <T> T unwrap(Class<T> iface) throws SQLException {
-    throw new SQLException(getClass().getName() + " 不是一个wrapper.");
-  }
-
-  @Override
-  public boolean isWrapperFor(Class<?> iface) throws SQLException {
-    return false;
-  }
-
-  @Override
-  public PrintWriter getLogWriter() throws SQLException {
-    return DriverManager.getLogWriter();
-  }
-
-  @Override
-  public void setLogWriter(PrintWriter out) throws SQLException {
-    DriverManager.setLogWriter(out);
-  }
-
-  @Override
-  public void setLoginTimeout(int seconds) throws SQLException {
-    DriverManager.setLoginTimeout(seconds);
-  }
-
-  @Override
-  public int getLoginTimeout() throws SQLException {
-    return DriverManager.getLoginTimeout();
-  }
-
-  @Override
-  public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-    return Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
   }
 
   /**
    * 驱动代理
    */
-  class DriverProxy implements Driver {
+  static class DriverProxy implements Driver {
 
     Driver d;
 
-    DriverProxy(Driver driver) {
-      this.d = driver;
+    DriverProxy(Driver d) {
+      this.d = d;
     }
 
     @Override
@@ -164,6 +120,51 @@ public class UnpooledDataSource implements DataSource {
     public Logger getParentLogger() throws SQLFeatureNotSupportedException {
       return d.getParentLogger();
     }
+  }
+
+  @Override
+  public Connection getConnection() throws SQLException {
+    return null;
+  }
+
+  @Override
+  public Connection getConnection(String username, String password) throws SQLException {
+    return null;
+  }
+
+  @Override
+  public PrintWriter getLogWriter() throws SQLException {
+    return null;
+  }
+
+  @Override
+  public void setLogWriter(PrintWriter out) throws SQLException {
+
+  }
+
+  @Override
+  public void setLoginTimeout(int seconds) throws SQLException {
+
+  }
+
+  @Override
+  public int getLoginTimeout() throws SQLException {
+    return 0;
+  }
+
+  @Override
+  public <T> T unwrap(Class<T> iface) throws SQLException {
+    return null;
+  }
+
+  @Override
+  public boolean isWrapperFor(Class<?> iface) throws SQLException {
+    return false;
+  }
+
+  @Override
+  public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+    return null;
   }
 
 }

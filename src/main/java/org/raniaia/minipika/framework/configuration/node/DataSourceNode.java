@@ -27,7 +27,6 @@ import org.raniaia.minipika.framework.exception.XMLParseException;
 import org.raniaia.minipika.framework.factory.Factorys;
 import org.raniaia.minipika.framework.util.Lists;
 
-import javax.swing.text.AbstractDocument;
 import java.util.List;
 
 /**
@@ -41,7 +40,7 @@ public class DataSourceNode implements ElementParser {
 
   static final String MASTER = "master";
 
-  private List<SingleDataSourceNode> dataSourceNodes = Lists.newArrayList();
+  private List<SingleDataSource> dataSourceNodes = Lists.newArrayList();
 
   @Override
   public void parse(Element element) {
@@ -49,7 +48,7 @@ public class DataSourceNode implements ElementParser {
     checkIsExistsMaster(element);
     List<Element> elements = element.getChildren();
     for (Element datasource : elements) {
-      SingleDataSourceNode sds = Factorys.forClass(SingleDataSourceNode.class);
+      SingleDataSource sds = Factorys.forClass(SingleDataSource.class);
       sds.parse(datasource);
       dataSourceNodes.add(sds);
     }

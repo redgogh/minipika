@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author lts
  */
-public class Classic {
+public class ClassUtils {
 
   /**
    * 创建一个实例。
@@ -34,7 +34,7 @@ public class Classic {
   @SneakyThrows
   public static Object newInstance(Class<?> clazz, Class<?>[] parametersType,
                                    Object... parametersValue) {
-    Constructor constructor = clazz.getConstructor(parametersType);
+    Constructor<?> constructor = clazz.getConstructor(parametersType);
     return constructor.newInstance(parametersValue);
   }
 

@@ -22,7 +22,7 @@ package org.raniaia.minipika.framework.factory;
 
 import org.raniaia.minipika.framework.annotations.Inject;
 import org.raniaia.minipika.framework.util.Annotations;
-import org.raniaia.minipika.framework.util.Classic;
+import org.raniaia.minipika.framework.util.ClassUtils;
 import org.raniaia.minipika.framework.util.Fields;
 import org.raniaia.minipika.framework.util.StringUtils;
 
@@ -38,13 +38,13 @@ import java.util.Objects;
 public class InjectUtils {
 
   public static Object minipika(Class<?> clazz, Map<String, Object> components) throws IllegalAccessException {
-    Object instance = Classic.newInstance(clazz);
+    Object instance = ClassUtils.newInstance(clazz);
     return minipika(clazz, instance, components);
   }
 
   public static Object minipika(Class<?> clazz, Class<?>[] types, Map<String, Object> components,
                                 Object... parameter) throws IllegalAccessException {
-    Object instance = Classic.newInstance(clazz, types, parameter);
+    Object instance = ClassUtils.newInstance(clazz, types, parameter);
     return minipika(clazz, instance, components);
   }
 

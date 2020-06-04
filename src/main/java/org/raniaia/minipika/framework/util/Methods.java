@@ -82,7 +82,7 @@ public class Methods {
     @SneakyThrows
     public static Object invoke(Method method, Object... args) {
         Class clazz = method.getDeclaringClass();
-        Object instance = Classic.newInstance(clazz);
+        Object instance = ClassUtils.newInstance(clazz);
         return method.invoke(instance, args);
     }
 
@@ -90,7 +90,7 @@ public class Methods {
     public static Object invoke(Method method, boolean accessible, Object... args) {
         setAccessible(method, accessible);
         Class clazz = method.getDeclaringClass();
-        Object instance = Classic.newInstance(clazz);
+        Object instance = ClassUtils.newInstance(clazz);
         return method.invoke(instance, args);
     }
 

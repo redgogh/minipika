@@ -31,6 +31,7 @@ import org.raniaia.minipika.framework.util.StringUtils;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Properties;
 
 /**
  * 单个数据源节点下的数据, 比如master、slaves
@@ -39,7 +40,7 @@ import java.util.Objects;
  */
 @Getter
 @Setter
-public class SingleDataSourceNode implements ElementParser {
+public class SingleDataSource implements ElementParser {
 
   private String url;
   private String username;
@@ -47,16 +48,24 @@ public class SingleDataSourceNode implements ElementParser {
   private String driver;
   private Map<String, String> urlParam = Maps.newHashMap();
 
+
   private DataSourceTask task;
   private DatabaseSupport type;
+  private boolean desiredAutoCommit; // 是否选择自动提交, 默认false
 
-  static final String URL             = "url";
-  static final String USERNAME        = "username";
-  static final String PASSWORD        = "password";
-  static final String DRIVER          = "driver";
-  static final String VALUE           = "value";
-  static final String TYPE            = "type";
-  static final String TASK            = "task";
+  static final String URL                 = "url";
+  static final String USERNAME            = "username";
+  static final String PASSWORD            = "password";
+  static final String DRIVER              = "driver";
+  static final String VALUE               = "value";
+  static final String TYPE                = "type";
+  static final String TASK                = "task";
+  static final String AUTO_COMMIT         = "commit";
+
+  /**
+   * 链接属性
+   */
+  private Properties info;
 
   @Override
   public void parse(Element element) {
@@ -90,9 +99,24 @@ public class SingleDataSourceNode implements ElementParser {
     driver = attribute.getValue();
     // 拼接URL参数
     buildURL();
-    System.out.println();
+    buildConnectProperties();
   }
 
+  /**
+   * 构建链接属性并静态化,避免二次创建
+   */
+  private void buildConnectProperties() {
+    Properties properties = new Properties();
+    properties.setProperty(USERNAME, username);
+    properties.setProperty(PASSWORD, password);
+    this.info = properties;
+  }
+
+  /**
+   * 解析URL节点
+   *
+   * @param urlElement url节点元素
+   */
   private void parseURLElementNode(Element urlElement) {
     Attribute urlAttribute = urlElement.getAttribute(VALUE);
     if (urlAttribute == null) {
@@ -184,6 +208,18 @@ public class SingleDataSourceNode implements ElementParser {
       }
     }
     task = getDataSourceTask(taskAttributeValue);
+    // 获取数据源是否需要自动提交
+    Attribute desiredAutoCommitAttribute = element.getAttribute(AUTO_COMMIT);
+    if (desiredAutoCommitAttribute == null) {
+      desiredAutoCommit = false;
+    } else {
+      try {
+        String value = desiredAutoCommitAttribute.getValue();
+        desiredAutoCommit = Boolean.parseBoolean(value);
+      } catch (Exception ignoreException) {
+        desiredAutoCommit = false;
+      }
+    }
   }
 
   /**
