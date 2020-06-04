@@ -23,6 +23,7 @@ package org.raniaia.minipika.framework.configuration.node;
 import org.jdom2.Element;
 
 /**
+ * 每个节点只解析对应的元素内容
  * @author tiansheng
  */
 public interface ElementParser {

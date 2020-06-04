@@ -36,8 +36,14 @@ public class MinipikaXMLConfig implements ElementParser {
 
   public static final String CHIlD_PROPERTIES = "properties";
 
+  /**
+   * 所有配置的属性值
+   */
   protected PropertiesNode   propertiesNode;
 
+  /**
+   * 配置的数据源
+   */
   protected DataSourceNode   dataSourceNode;
 
   @Override
