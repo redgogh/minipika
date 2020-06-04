@@ -50,13 +50,13 @@ public class SingleDataSourceNode implements ElementParser {
   private DataSourceTask task;
   private DatabaseSupport type;
 
-  static final String URL = "url";
-  static final String USERNAME = "username";
-  static final String PASSWORD = "password";
-  static final String DRIVER = "driver";
-  static final String VALUE = "value";
-  static final String TYPE = "type";
-  static final String TASK = "task";
+  static final String URL             = "url";
+  static final String USERNAME        = "username";
+  static final String PASSWORD        = "password";
+  static final String DRIVER          = "driver";
+  static final String VALUE           = "value";
+  static final String TYPE            = "type";
+  static final String TASK            = "task";
 
   @Override
   public void parse(Element element) {
@@ -90,6 +90,7 @@ public class SingleDataSourceNode implements ElementParser {
     driver = attribute.getValue();
     // 拼接URL参数
     buildURL();
+    System.out.println();
   }
 
   private void parseURLElementNode(Element urlElement) {
@@ -185,6 +186,11 @@ public class SingleDataSourceNode implements ElementParser {
     task = getDataSourceTask(taskAttributeValue);
   }
 
+  /**
+   * 获取当前数据源的数据库类型
+   *
+   * @param key 配置的数据库类型
+   */
   DatabaseSupport getDataBaseSupport(String key) {
     key = StringUtils.toLowerCase(key);
     if (key.contains("mysql")) {
@@ -196,6 +202,11 @@ public class SingleDataSourceNode implements ElementParser {
     }
   }
 
+  /**
+   * 获取数据源对应的任务, 如果没有填写默认数据源读写都支持
+   *
+   * @param key 配置的任务类型
+   */
   DataSourceTask getDataSourceTask(String key) {
     key = StringUtils.toLowerCase(key);
     if (key.contains("read")) {
