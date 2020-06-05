@@ -18,13 +18,15 @@
     如果要设置单个数据源的任务的话可以使用task="READ"或者是task="WRITE"来设置单个数据源的作业
    -->
   <datasource>
+    <configuration>
+    </configuration>
     <master type="mysql" task="read" commit="true">
       <!-- 设置JDBC URL以及URL参数 -->
       <url value="jdbc:mysql://127.0.0.1:3306/test">
-        <property key="useSSL" value="false"/>
-        <property key="useUnicode" value="true"/>
-        <property key="characterEncoding" value="utf-8"/>
-        <property key="serverTimezone" value="GMT"/>
+        <property name="useSSL" value="false"/>
+        <property name="useUnicode" value="true"/>
+        <property name="characterEncoding" value="utf-8"/>
+        <property name="serverTimezone" value="GMT"/>
       </url>
       <driver value="com.mysql.cj.jdbc.Driver"/>
       <username value="root"/>

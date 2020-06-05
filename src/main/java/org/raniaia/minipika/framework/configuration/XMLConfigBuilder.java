@@ -62,8 +62,4 @@ public class XMLConfigBuilder {
     return Threads.getCallerLoader().getResource(path).toString();
   }
 
-  public void loadProperties() {
-
-  }
-
 }

@@ -62,6 +62,7 @@ public class SingleDataSource implements ElementParser {
   public static final String TYPE = "type";
   public static final String TASK = "task";
   public static final String AUTO_COMMIT = "commit";
+  public static final String NAME = "name";
 
   /**
    * 链接属性
@@ -137,16 +138,16 @@ public class SingleDataSource implements ElementParser {
     if (urlElementParam != null && !urlElementParam.isEmpty()) {
       for (Element param : urlElementParam) {
         String def = XMLParseException.buildTrack(urlElement);
-        Attribute keyAttribute = Objects.requireNonNull(param.getAttribute("key"),
+        Attribute nameAttribute = Objects.requireNonNull(param.getAttribute(NAME),
                 "Error attribute key not obtained in " + def + ".");
         Attribute valueAttribute = Objects.requireNonNull(param.getAttribute(VALUE),
                 "Error attribute value not obtained in " + def + ".");
 
-        String key = StringUtils.requireNonNull(keyAttribute.getValue(),
+        String name = StringUtils.requireNonNull(nameAttribute.getValue(),
                 "Error value cannot empty.", XMLParseException.class);
         String value = StringUtils.requireNonNull(valueAttribute.getValue(),
                 "Error value cnannot empty.", XMLParseException.class);
-        urlParam.put(key, value);
+        urlParam.put(name, value);
       }
     }
   }
