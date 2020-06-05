@@ -33,7 +33,7 @@ public interface QueryResultSet {
   /**
    * 构建一个{@link QueryResultSet}结果集
    *
-   * @param resultSet   JDBC查询返回的结果集
+   * @param resultSet JDBC查询返回的结果集
    * @return {@link QueryResultSet}结果集实现
    */
   QueryResultSet build(ResultSet resultSet);
@@ -71,6 +71,7 @@ public interface QueryResultSet {
 
   /**
    * 将结果集转换成JSON字符串
+   *
    * @return json字符串
    */
   String toJSONString();

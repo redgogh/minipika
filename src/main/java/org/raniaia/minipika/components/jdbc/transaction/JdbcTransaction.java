@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.jdbc;
+package org.raniaia.minipika.components.jdbc.transaction;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,46 +17,45 @@ package org.raniaia.minipika.components.jdbc;
  */
 
 /*
- * Creates on 2020/6/1.
+ * Creates on 2020/6/6.
  */
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
- * sql执行器
+ * 事务管理器接口
+ *
  * @author tiansheng
  */
-public interface SqlExecutor {
+public interface JdbcTransaction {
 
   /**
-   * 执行一条SQL
+   * 获取连接
    *
-   * @return true执行成功, false执行失败
+   * @return JDBC连接
    */
-  boolean execute(String sql, Object... args);
+  Connection getConnection();
 
   /**
-   * 查询数据
+   * 提交信息
    *
-   * @param sql     sql脚本
-   * @param args    参数
+   * @throws SQLException
    */
-  QueryResultSet select(String sql, Object... args);
+  void commit() throws SQLException;
 
   /**
-   * 更新数据
+   * 事务回滚
    *
-   * @param sql     sql脚本
-   * @param args    参数
-   * @return 更新条数
+   * @throws SQLException
    */
-  int update(String sql, Object... args);
+  void rollback() throws SQLException;
 
   /**
-   * 删除一条数据
-   *
-   * @param sql      sql脚本
-   * @param args     参数
-   * @return 更新条数
+   * 连接关闭
+   * 
+   * @throws SQLException
    */
-  int delete(String sql, Object... args);
+  void close() throws SQLException;
 
 }
