@@ -80,6 +80,7 @@ public class UnpooledDataSource implements DataSource {
         Driver driver0 = (Driver) ClassUtils.newInstance(driverClass);
         Driver driverProxy = new DriverProxy(driver0);
         DriverManager.registerDriver(driverProxy);
+        this.driver = driverProxy;
       } catch (Exception e) {
         throw new SQLException("Error failed to initialize driver. Cause: " + e.getMessage());
       }
