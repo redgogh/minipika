@@ -33,12 +33,12 @@ public class PooledConnection implements InvocationHandler {
   private static final String CLOSE = "close";
   private Class<?>[] IFACE = new Class[]{Connection.class};
 
-  protected boolean               valid;
+  protected boolean               valid = true;
   protected PooledState           state;
   protected PooledDataSource      dataSource;
   protected Connection            proxyConnection;        // 代理链接
-  protected Connection            realConnection;    // 真实链接
-  protected long                  lastUsedTimestamp; // 上次使用时间
+  protected Connection            realConnection;         // 真实链接
+  protected long                  lastUsedTimestamp;      // 上次使用时间
 
   public PooledConnection(){}
 
