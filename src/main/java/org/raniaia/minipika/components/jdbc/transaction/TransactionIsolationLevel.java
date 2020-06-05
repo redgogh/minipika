@@ -20,9 +20,38 @@ package org.raniaia.minipika.components.jdbc.transaction;
  * Creates on 2020/6/6.
  */
 
+import java.sql.Connection;
+
 /**
  * 事务隔离级别
  * @author TianSheng
  */
 public enum TransactionIsolationLevel {
+
+  /** Jdbc驱动不支持事务 */
+  TRANSACTION_NONE(Connection.TRANSACTION_NONE),
+
+  /** 允许脏读、不可重复读和幻读 */
+  TRANSACTION_READ_UNCOMMITTED(Connection.TRANSACTION_READ_UNCOMMITTED),
+
+  /** 禁止脏读，但允许不可重复读和幻读 */
+  TRANSACTION_READ_COMMITTED(Connection.TRANSACTION_READ_COMMITTED),
+
+  /** 禁止脏读和不可重复读，单运行幻读 */
+  TRANSACTION_REPEATABLE_READ(Connection.TRANSACTION_REPEATABLE_READ),
+
+  /** 禁止脏读、不可重复读和幻读 */
+  TRANSACTION_SERIALIZABLE(Connection.TRANSACTION_SERIALIZABLE),
+  ;
+
+  private final int value;
+
+  TransactionIsolationLevel(int value) {
+    this.value = value;
+  }
+
+  private int getTransactionIsolationLevel() {
+    return this.value;
+  }
+
 }

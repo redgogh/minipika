@@ -28,7 +28,7 @@ import java.sql.SQLException;
  *
  * @author tiansheng
  */
-public interface JdbcTransaction {
+public interface Transaction {
 
   /**
    * 获取连接
@@ -36,6 +36,13 @@ public interface JdbcTransaction {
    * @return JDBC连接
    */
   Connection getConnection();
+
+  /**
+   * 获取当前事务管理器的事务隔离级别
+   *
+   * @return 事务隔离级别
+   */
+  TransactionIsolationLevel getTransactionIsolationLevel();
 
   /**
    * 提交信息
@@ -53,7 +60,7 @@ public interface JdbcTransaction {
 
   /**
    * 连接关闭
-   * 
+   *
    * @throws SQLException
    */
   void close() throws SQLException;
