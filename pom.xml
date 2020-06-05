@@ -3,9 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  
+
   <!--    <entityVersion>4.0.0</entityVersion>-->
-  
+
   <!--
        mvn clean install deploy -P release
   -->
@@ -14,12 +14,12 @@
     <artifactId>oss-parent</artifactId>
     <version>9</version>
   </parent>
-  
+
   <groupId>io.github.raniaia</groupId>
   <artifactId>minipika</artifactId>
   <version>1.0.0.breathe</version>
   <packaging>jar</packaging>
-  
+
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
@@ -27,14 +27,14 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  
+
   <scm>
     <tag>master</tag>
     <url>https://github.com/raniaia/avaliable</url>
     <connection>scm:git@github.com:raniaia/minipika.git</connection>
     <developerConnection>scm:git@github.com:raniaia/minipika.git</developerConnection>
   </scm>
-  
+
   <developers>
     <developer>
       <name>2B键盘</name>
@@ -42,7 +42,7 @@
       <url>https://github.com/404NotFoundx</url>
     </developer>
   </developers>
-  
+
   <distributionManagement>
     <repository>
       <id>repository</id>
@@ -53,7 +53,7 @@
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
-  
+
   <properties>
     <java.version>1.8</java.version>
     <jdom.version>2.0.6</jdom.version>
@@ -72,9 +72,9 @@
     <maven.compile.version>3.2</maven.compile.version>
     <maven.test.skip>true</maven.test.skip>
   </properties>
-  
+
   <dependencies>
-    
+
     <!-- Jdbc Driver                                                 -->
     <!--                                                             -->
     <!--                                                             -->
@@ -87,9 +87,9 @@
     <!--                                                             -->
     <!--                                                             -->
     <!--                                                             -->
-    
+
     <!-- ########################################################### -->
-    
+
     <!-- github.com/raniaia                                          -->
     <!--                                                             -->
     <!--                                                             -->
@@ -102,9 +102,9 @@
     <!--                                                             -->
     <!--                                                             -->
     <!--                                                             -->
-    
+
     <!-- ########################################################### -->
-    
+
     <!-- kotlin dependencies                                         -->
     <!--                                                             -->
     <!--                                                             -->
@@ -123,9 +123,9 @@
     <!--                                                             -->
     <!--                                                             -->
     <!--                                                             -->
-    
+
     <!-- ########################################################### -->
-    
+
     <!-- logging dependencies                                        -->
     <!--                                                             -->
     <!--                                                             -->
@@ -151,9 +151,9 @@
     <!--                                                             -->
     <!--                                                             -->
     <!--                                                             -->
-    
+
     <!-- ########################################################### -->
-    
+
     <!-- lombok -->
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -184,6 +184,11 @@
       <artifactId>javassist</artifactId>
       <version>${javassist.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.carrotsearch</groupId>
+      <artifactId>java-sizeof</artifactId>
+      <version>0.0.5</version>
+    </dependency>
     <!-- junit测试 -->
     <dependency>
       <groupId>junit</groupId>
@@ -191,14 +196,14 @@
       <version>4.13-rc-2</version>
       <scope>test</scope>
     </dependency>
-      <dependency>
-          <groupId>org.junit.jupiter</groupId>
-          <artifactId>junit-jupiter</artifactId>
-          <version>RELEASE</version>
-          <scope>compile</scope>
-      </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
-  
+
   <build>
     <testSourceDirectory>src/main/test/java</testSourceDirectory>
     <plugins>

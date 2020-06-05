@@ -19,6 +19,11 @@
    -->
   <datasource>
     <configuration>
+      <property name="min_connect" value="10"/>
+      <property name="max_connect" value="20"/>
+      <property name="connection_life_cycle" value="24h"/>
+      <!-- 内置缓存大小, 默认5mb -->
+      <property name="cache_size" value="3mb"/>
     </configuration>
     <master type="mysql" task="read" commit="true">
       <!-- 设置JDBC URL以及URL参数 -->
