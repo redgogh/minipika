@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 
 /**
- * 如果使用了事务管理器，那么系统将假定你的{@link Connection#getAutoCommit()}值
+ * 如果使用了事务管理器，那么框架将假定你的{@link Connection#getAutoCommit()}值
  * 是为true的，如果AutoCommit属性不为true则没办法启动事务管理。
  *
  * @author tiansheng
