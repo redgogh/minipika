@@ -20,12 +20,31 @@ package org.raniaia.minipika.components.jdbc.transaction;
  * Creates on 2020/6/6.
  */
 
+import org.raniaia.minipika.framework.factory.Factorys;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+
 /**
  * 默认的事务创建工厂类
+ *
  * @author tiansheng
  */
-public class DefaultTransactionFactory {
+public class DefaultTransactionFactory implements TransactionFactory {
 
+  private TransactionIsolationLevel level;
 
+  @Override
+  public void setTransactionIsolationLevel(TransactionIsolationLevel level) {
+    this.level = level;
+  }
+
+  @Override
+  public Transaction newTransaction(DataSource dataSource) {
+    Transaction transaction = Factorys.forClass(Transaction.class);
+    transaction.setDataSource(dataSource);
+    transaction.setTransactionIsolationLevel(level);
+    return transaction;
+  }
 
 }

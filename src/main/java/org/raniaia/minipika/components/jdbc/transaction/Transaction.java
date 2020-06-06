@@ -20,6 +20,7 @@ package org.raniaia.minipika.components.jdbc.transaction;
  * Creates on 2020/6/6.
  */
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -31,11 +32,37 @@ import java.sql.SQLException;
 public interface Transaction {
 
   /**
+   * 设置数据源
+   *
+   * @param dataSource
+   */
+  void setDataSource(DataSource dataSource);
+
+  /**
    * 获取连接
    *
    * @return JDBC连接
    */
-  Connection getConnection();
+  Connection getConnection() throws SQLException;
+
+  /**
+   * 获取一个连接，但是这个连接不需要挂载事务
+   * @return #Connection
+   * @throws SQLException
+   */
+  Connection getConnection(boolean openTransaction) throws SQLException;
+
+  /**
+   * 设置事务隔离级别
+   *
+   * @param level {@link TransactionIsolationLevel}
+   * @see TransactionIsolationLevel#TRANSACTION_NONE
+   * @see TransactionIsolationLevel#TRANSACTION_READ_COMMITTED
+   * @see TransactionIsolationLevel#TRANSACTION_READ_UNCOMMITTED
+   * @see TransactionIsolationLevel#TRANSACTION_REPEATABLE_READ
+   * @see TransactionIsolationLevel#TRANSACTION_SERIALIZABLE
+   */
+  void setTransactionIsolationLevel(TransactionIsolationLevel level);
 
   /**
    * 获取当前事务管理器的事务隔离级别

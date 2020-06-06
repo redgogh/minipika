@@ -20,8 +20,11 @@ package org.raniaia.minipika.components.jdbc.datasource.pooled;
  * Creates on 2020/6/1.
  */
 
+import org.raniaia.minipika.framework.exception.MinipikaException;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -31,20 +34,23 @@ import java.sql.SQLException;
 public class PooledConnection implements InvocationHandler {
 
   private static final String CLOSE = "close";
-  private Class<?>[] IFACE = new Class[]{Connection.class};
+  public static final Class<?>[] IFACE = new Class[]{Connection.class};
 
-  protected boolean               valid = true;
-  protected PooledState           state;
-  protected PooledDataSource      dataSource;
-  protected Connection            proxyConnection;        // 代理链接
-  protected Connection            realConnection;         // 真实链接
-  protected long                  lastUsedTimestamp;      // 上次使用时间
+  protected boolean valid = true;
+  protected PooledState state;
+  protected PooledDataSource dataSource;
+  protected Connection proxyConnection;        // 代理链接
+  protected Connection realConnection;         // 真实链接
+  protected long lastUsedTimestamp;      // 上次使用时间
 
-  public PooledConnection(){}
+  public PooledConnection() {
+  }
 
   public PooledConnection(Connection connection, PooledDataSource dataSource) {
     this.dataSource = dataSource;
     this.realConnection = connection;
+    this.proxyConnection = (Connection)
+            Proxy.newProxyInstance(Connection.class.getClassLoader(), IFACE, this);
   }
 
   /**
@@ -96,6 +102,7 @@ public class PooledConnection implements InvocationHandler {
 
   /**
    * 设置链接上次使用时间
+   *
    * @param lastUsedTimestamp 时间戳
    */
   public void setLastUsedTimestamp(long lastUsedTimestamp) {
@@ -104,6 +111,16 @@ public class PooledConnection implements InvocationHandler {
 
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-    return null;
+    String methodName = method.getName();
+    if (CLOSE.equals(methodName)) {
+      dataSource.pushConnection(this);
+      return null;
+    } else {
+      try {
+        return method.invoke(realConnection, args);
+      } catch (Exception e) {
+        throw new MinipikaException(e);
+      }
+    }
   }
 }

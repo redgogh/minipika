@@ -50,7 +50,7 @@ public enum TransactionIsolationLevel {
     this.value = value;
   }
 
-  private int getTransactionIsolationLevel() {
+  public int getLevel() {
     return this.value;
   }
 

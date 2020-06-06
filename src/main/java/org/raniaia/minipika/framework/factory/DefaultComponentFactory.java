@@ -20,6 +20,11 @@ package org.raniaia.minipika.framework.factory;
  * Creates on 2020/6/1.
  */
 
+import org.raniaia.minipika.components.jdbc.transaction.DefaultTransaction;
+import org.raniaia.minipika.components.jdbc.transaction.DefaultTransactionFactory;
+import org.raniaia.minipika.components.jdbc.transaction.Transaction;
+import org.raniaia.minipika.components.jdbc.transaction.TransactionFactory;
+import org.raniaia.minipika.framework.util.ClassUtils;
 import org.raniaia.minipika.framework.util.Maps;
 
 import java.util.Map;
@@ -34,29 +39,74 @@ public class DefaultComponentFactory implements ComponentFactory {
    */
   private static final Map<String, Object> components = Maps.newConcurrentHashMap(8);
 
-  private static final ComponentFactory factory = new DefaultComponentFactory();
+  private static ComponentFactory factory;
+
+  private DefaultComponentFactory() {
+    {
+      components.put(DefaultTransaction.class.getName(), forClass(DefaultTransaction.class));
+      components.put(TransactionFactory.class.getName(), forClass(DefaultTransactionFactory.class));
+    }
+  }
 
   public static ComponentFactory getFactory() {
+    if (factory == null) {
+      factory = new DefaultComponentFactory();
+    }
     return factory;
   }
 
   @Override
   @SuppressWarnings("unchecked")
   public <T> T forClass(Class<?> clazz) {
-    try {
-      return (T) InjectUtils.minipika(clazz, components);
-    } catch (IllegalAccessException e) {
-      e.printStackTrace();
-    }
-    return null;
+    return forClass(clazz, null);
   }
 
   @Override
   public <T> T forClass(Class<?> clazz, Class<?>[] types, Object... parameter) {
+    Object component = null;
+    String className = clazz.getName();
+    component = components.get(className);
+    if (!component.equals(null)) {
+      return (T) component;
+    }
     try {
-      return (T) InjectUtils.minipika(clazz, types, components, parameter);
+      if (ClassUtils.isInterface(clazz)) {
+        // 如果是接口的话那么就查找匹配接口类型的类
+        component = findMatchesClassType(clazz);
+        if (component != null) {
+          return (T) component;
+        }
+      }
+      // 判断是否执行有参构造器
+      if (types == null) {
+        component = InjectUtils.minipika(clazz, components);
+      }
+      component = InjectUtils.minipika(clazz, types, components, parameter);
     } catch (IllegalAccessException e) {
       e.printStackTrace();
+    }
+    if (component != null) {
+      components.put(className, component);
+    }
+    return (T) component;
+  }
+
+  /**
+   * 查找接口匹配的实现类
+   *
+   * @param IFACE 接口对象
+   * @return 对应的实现类
+   */
+  private static Object findMatchesClassType(Class<?> IFACE) {
+    for (Object value : components.values()) {
+      Class<?>[] interfaces = value.getClass().getInterfaces();
+      if (interfaces != null && interfaces.length != 0) {
+        for (Class<?> IFACES : interfaces) {
+          if (IFACE == IFACES) {
+            return value;
+          }
+        }
+      }
     }
     return null;
   }

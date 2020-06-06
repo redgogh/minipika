@@ -41,20 +41,27 @@ public class ClassUtils {
   /**
    * 获取所有父类
    */
-  public static List<Class<?>> getSuperClasses(Class<?> classic) {
+  public static List<Class<?>> getSuperClasses(Class<?> target) {
     List<Class<?>> classes = Lists.newArrayList();
-    getSuperClasses(classic, classes);
+    getSuperClasses(target, classes);
     return classes;
   }
 
   /**
    * 获取所有父类递归方法
    */
-  static void getSuperClasses(Class<?> classic, List<Class<?>> classes) {
-    Class<?> superclass = classic.getSuperclass();
+  static void getSuperClasses(Class<?> target, List<Class<?>> classes) {
+    Class<?> superclass = target.getSuperclass();
     if (superclass == null) return;
     classes.add(superclass);
     getSuperClasses(superclass, classes);
+  }
+
+  /**
+   * 判断是不是接口
+   */
+  public static boolean isInterface(Class<?> target) {
+    return target != null && target.isInterface();
   }
 
 }
