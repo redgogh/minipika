@@ -21,7 +21,6 @@ package org.raniaia.minipika.framework.sql;
  */
 
 import lombok.Getter;
-import org.raniaia.minipika.components.jdbc.JdbcSupport;
 
 import java.util.List;
 

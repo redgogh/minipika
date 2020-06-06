@@ -21,7 +21,6 @@ package org.minipika.column;
 import org.junit.Test;
 
 import org.raniaia.minipika.BeansManager;
-import org.raniaia.minipika.components.jdbc.JdbcSupport;
 import org.raniaia.minipika.components.entity.database.ColumnEntity;
 
 import java.util.List;

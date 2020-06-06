@@ -21,7 +21,6 @@ package org.raniaia.minipika.framework.provide.entity;
  */
 
 import java.lang.annotation.*;
-import org.raniaia.minipika.components.jdbc.JdbcSupport;
 
 /**
  * 配置Entity类字段约束

@@ -25,7 +25,6 @@ import org.complete.entity.User;
 import org.complete.mapper.UserMapper;
 import org.raniaia.minipika.BeansManager;
 import org.raniaia.minipika.components.config.ConfigLoader;
-import org.raniaia.minipika.components.jdbc.JdbcSupport;
 import org.raniaia.minipika.framework.provide.Minipika;
 
 /**

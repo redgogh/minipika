@@ -20,7 +20,6 @@ package org.minipika.service;
 
 
 import org.raniaia.minipika.BeansManager;
-import org.raniaia.minipika.components.jdbc.JdbcSupport;
 
 /**
  * @author tiansheng

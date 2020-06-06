@@ -30,7 +30,6 @@ import org.raniaia.minipika.framework.provide.Minipika;
 import org.raniaia.minipika.framework.provide.component.Component;
 import org.raniaia.minipika.framework.provide.entity.Entity;
 import org.raniaia.minipika.components.config.GlobalConfig;
-import org.raniaia.minipika.components.jdbc.JdbcSupport;
 import org.raniaia.minipika.framework.exception.MinipikaException;
 import org.raniaia.minipika.components.entity.EntityLoader;
 import org.raniaia.minipika.components.entity.EntityParser;

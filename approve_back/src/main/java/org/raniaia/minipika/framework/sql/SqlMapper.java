@@ -22,7 +22,6 @@ package org.raniaia.minipika.framework.sql;
 
 import org.raniaia.minipika.BeansManager;
 import org.raniaia.minipika.framework.container.PrecompileContainer;
-import org.raniaia.minipika.components.jdbc.JdbcSupport;
 import org.raniaia.minipika.framework.provide.Minipika;
 import org.raniaia.minipika.framework.sql.xml.build.PrecompiledClass;
 import org.raniaia.minipika.framework.sql.xml.build.PrecompiledMethod;

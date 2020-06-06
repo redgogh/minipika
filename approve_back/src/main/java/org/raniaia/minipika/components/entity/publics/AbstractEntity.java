@@ -22,7 +22,6 @@ package org.raniaia.minipika.components.entity.publics;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.raniaia.minipika.components.jdbc.JdbcSupport;
 
 import java.lang.reflect.Field;
 
