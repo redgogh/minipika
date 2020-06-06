@@ -37,7 +37,7 @@ public interface SQLExecutor {
    *
    * @return true执行成功, false执行失败
    */
-  boolean execute(String sql, Object... args);
+  boolean execute(String sql, Object... args) throws SQLException;
 
   /**
    * 查询数据
@@ -56,24 +56,6 @@ public interface SQLExecutor {
    * @return 影响行数
    */
   int update(String sql, Object... args);
-
-  /**
-   * 添加数据
-   *
-   * @param sql  sql脚本
-   * @param args sql参数
-   * @return 影响行数
-   */
-  int insert(String sql, Object... args);
-
-  /**
-   * 删除一条数据
-   *
-   * @param sql  sql脚本
-   * @param args 参数
-   * @return 影响行数
-   */
-  int delete(String sql, Object... args);
 
   /**
    * 批量执行

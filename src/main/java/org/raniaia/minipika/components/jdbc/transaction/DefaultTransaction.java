@@ -50,22 +50,28 @@ public class DefaultTransaction implements Transaction, InvocationHandler {
   }
 
   @Override
-  public Connection getConnection() throws SQLException {
+  public Connection getConnection() {
     return getConnection(true);
   }
 
   @Override
-  public Connection getConnection(boolean openTransaction) throws SQLException {
-    if (dataSource == null) {
-      throw new SQLException("Current transaction manager not support create connection.");
+  public Connection getConnection(boolean openTransaction) {
+    try {
+      if (dataSource == null) {
+        throw new SQLException("Current transaction manager not support create connection.");
+      }
+      connection = dataSource.getConnection();
+      if (openTransaction) {
+        return (Connection) Proxy.newProxyInstance(getClass().getClassLoader(), PooledConnection.IFACE, this);
+      } else {
+        connection.setAutoCommit(true);
+        return connection;
+      }
+    } catch (SQLException e) {
+      LOG.error("Error getConnection failure, Cause: " + e.getMessage());
+      e.printStackTrace();
     }
-    connection = dataSource.getConnection();
-    if (openTransaction) {
-      return (Connection) Proxy.newProxyInstance(getClass().getClassLoader(), PooledConnection.IFACE, this);
-    } else {
-      connection.setAutoCommit(true);
-      return connection;
-    }
+    return null;
   }
 
   @Override
@@ -79,54 +85,76 @@ public class DefaultTransaction implements Transaction, InvocationHandler {
   }
 
   @Override
-  public void commit() throws SQLException {
-    if (connection != null && !connection.getAutoCommit()) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("An error occurred while commit the connection[" + connection.hashCode() + "].");
+  public void commit() {
+    try {
+      if (connection != null && !connection.getAutoCommit()) {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("An error occurred while commit the connection[" + connection.hashCode() + "].");
+        }
+        this.connection.commit();
+      } else {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("An error occurred while commit the connection, but no rollback. " +
+                  "Cause: connection is null or autoCommit property is true of connection.");
+        }
       }
-      this.connection.commit();
-    } else {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("An error occurred while commit the connection, but no rollback. " +
-                "Cause: connection is null or autoCommit property is true of connection.");
-      }
+    } catch (SQLException e) {
+      LOG.error("Error execute commit failure, Cause: " + e.getMessage());
+      e.printStackTrace();
     }
   }
 
   @Override
-  public void rollback() throws SQLException {
-    if (connection != null && !connection.getAutoCommit()) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("executing commit rollback for connection[" + connection.hashCode() + "]");
+  public void rollback() {
+    try {
+      if (connection != null && !connection.getAutoCommit()) {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("executing commit rollback for connection[" + connection.hashCode() + "]");
+        }
+        this.connection.rollback();
+      } else {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Do not execute rollback. Cause: connection is null or " +
+                  "autoCommit property is true of connection.");
+        }
       }
-      this.connection.rollback();
-    } else {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Do not execute rollback. Cause: connection is null or " +
-                "autoCommit property is true of connection.");
-      }
+    } catch (SQLException e) {
+      LOG.error("Error rollback failure, Cause: " + e.getMessage());
+      e.printStackTrace();
     }
   }
 
-  public void close() throws SQLException {
+  public void close() {
     if (connection != null) {
-      connection.close();
-    }
-  }
-
-  private void configurationConnection(Connection connection) throws SQLException {
-    setDesiredAutoCommit(connection);
-    if(level != null) {
-      connection.setTransactionIsolation(level.getLevel());
-    }
-  }
-
-  private void setDesiredAutoCommit(Connection connection) throws SQLException {
-    if (connection.getAutoCommit()) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("set " + connection.hashCode() + " connection autoCommit property to true");
+      try {
+        connection.close();
+      } catch (SQLException throwables) {
+        throwables.printStackTrace();
       }
-      connection.setAutoCommit(false);
+    }
+  }
+
+  private void configurationConnection(Connection connection) {
+    setDesiredAutoCommit(connection);
+    if (level != null) {
+      try {
+        connection.setTransactionIsolation(level.getLevel());
+      } catch (SQLException throwables) {
+        throwables.printStackTrace();
+      }
+    }
+  }
+
+  private void setDesiredAutoCommit(Connection connection) {
+    try {
+      if (connection.getAutoCommit()) {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("set " + connection.hashCode() + " connection autoCommit property to true");
+        }
+        connection.setAutoCommit(false);
+      }
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
     }
   }
 

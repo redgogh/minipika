@@ -43,14 +43,14 @@ public interface Transaction {
    *
    * @return JDBC连接
    */
-  Connection getConnection() throws SQLException;
+  Connection getConnection() ;
 
   /**
    * 获取一个连接，但是这个连接不需要挂载事务
    * @return #Connection
-   * @throws SQLException
+   * @
    */
-  Connection getConnection(boolean openTransaction) throws SQLException;
+  Connection getConnection(boolean openTransaction) ;
 
   /**
    * 设置事务隔离级别
@@ -73,23 +73,17 @@ public interface Transaction {
 
   /**
    * 提交信息
-   *
-   * @throws SQLException
    */
-  void commit() throws SQLException;
+  void commit() ;
 
   /**
    * 事务回滚
-   *
-   * @throws SQLException
    */
-  void rollback() throws SQLException;
+  void rollback() ;
 
   /**
    * 连接关闭
-   *
-   * @throws SQLException
    */
-  void close() throws SQLException;
+  void close() ;
 
 }

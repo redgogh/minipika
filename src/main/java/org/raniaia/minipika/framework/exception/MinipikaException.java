@@ -23,7 +23,7 @@ package org.raniaia.minipika.framework.exception;
 /**
  * @author tiansheng
  */
-public class MinipikaException extends Exception {
+public class MinipikaException extends RuntimeException {
 
   public MinipikaException() {
   }

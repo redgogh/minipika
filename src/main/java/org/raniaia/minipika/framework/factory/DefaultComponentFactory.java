@@ -20,6 +20,8 @@ package org.raniaia.minipika.framework.factory;
  * Creates on 2020/6/1.
  */
 
+import org.raniaia.minipika.components.jdbc.DefaultResultSet;
+import org.raniaia.minipika.components.jdbc.QueryResultSet;
 import org.raniaia.minipika.components.jdbc.transaction.DefaultTransaction;
 import org.raniaia.minipika.components.jdbc.transaction.DefaultTransactionFactory;
 import org.raniaia.minipika.components.jdbc.transaction.Transaction;
@@ -43,6 +45,7 @@ public class DefaultComponentFactory implements ComponentFactory {
 
   private DefaultComponentFactory() {
     {
+      components.put(QueryResultSet.class.getName(),     forClass(DefaultResultSet.class));
       components.put(DefaultTransaction.class.getName(), forClass(DefaultTransaction.class));
       components.put(TransactionFactory.class.getName(), forClass(DefaultTransactionFactory.class));
     }
