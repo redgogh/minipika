@@ -21,6 +21,7 @@ package org.raniaia.minipika.framework.factory;
  */
 
 import org.raniaia.minipika.components.jdbc.DefaultResultSet;
+import org.raniaia.minipika.components.jdbc.DefaultSQLExecutor;
 import org.raniaia.minipika.components.jdbc.QueryResultSet;
 import org.raniaia.minipika.components.jdbc.transaction.DefaultTransaction;
 import org.raniaia.minipika.components.jdbc.transaction.DefaultTransactionFactory;
@@ -46,6 +47,7 @@ public class DefaultComponentFactory implements ComponentFactory {
   private DefaultComponentFactory() {
     {
       components.put(QueryResultSet.class.getName(),     forClass(DefaultResultSet.class));
+      components.put(DefaultSQLExecutor.class.getName(), forClass(DefaultSQLExecutor.class));
       components.put(DefaultTransaction.class.getName(), forClass(DefaultTransaction.class));
       components.put(TransactionFactory.class.getName(), forClass(DefaultTransactionFactory.class));
     }
@@ -69,7 +71,7 @@ public class DefaultComponentFactory implements ComponentFactory {
     Object component = null;
     String className = clazz.getName();
     component = components.get(className);
-    if (!component.equals(null)) {
+    if (component != null) {
       return (T) component;
     }
     try {

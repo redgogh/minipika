@@ -20,8 +20,6 @@ package org.raniaia.minipika.components.jdbc;
  * Creates on 2020/6/1.
  */
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -74,37 +72,5 @@ public interface SQLExecutor {
    * @return 影响行数
    */
   int[] batch(String[] sql, List<Object[]> args);
-
-  // 添加预编译sql的参数
-  default PreparedStatement setValues(PreparedStatement statement, Object... args) throws SQLException {
-    if (args != null) {
-      for (int i = 0; i < args.length; i++) {
-        statement.setObject((i + 1), args[i]);
-      }
-    }
-    return statement;
-  }
-
-  // 关闭流
-  default void close(AutoCloseable... closeables) {
-    try {
-      for (AutoCloseable closeable : closeables) {
-        if (closeable != null) {
-          closeable.close();
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  // 回滚
-  default void rollback(Connection connection, boolean auto) {
-    try {
-      if (connection != null && auto) connection.rollback();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
 
 }

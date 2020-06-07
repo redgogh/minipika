@@ -193,4 +193,36 @@ public class DefaultSQLExecutor implements SQLExecutor {
     return transaction;
   }
 
+  // 添加预编译sql的参数
+  private PreparedStatement setValues(PreparedStatement statement, Object... args) throws SQLException {
+    if (args != null) {
+      for (int i = 0; i < args.length; i++) {
+        statement.setObject((i + 1), args[i]);
+      }
+    }
+    return statement;
+  }
+
+  // 关闭流
+  private void close(AutoCloseable... closeables) {
+    try {
+      for (AutoCloseable closeable : closeables) {
+        if (closeable != null) {
+          closeable.close();
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  // 回滚
+  private void rollback(Connection connection, boolean auto) {
+    try {
+      if (connection != null && auto) connection.rollback();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
 }

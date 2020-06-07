@@ -46,8 +46,8 @@ public class PooledState {
   protected long requestAccumulateTime                      = 0L; // 链接请求时间统计
   protected long hadToWaitCount                             = 0L; // 当前有多少个链接在等待中
   protected long accumulateCreatesCount                     = 0L; // 链接创建统计
-  protected long maximumConnections                         = 0L; // 最大连接数
-  protected long minimumConnections                         = 0L; // 最小连接数
+  protected long maximumConnections                         = 10L; // 最大连接数
+  protected long minimumConnections                         = 5L; // 最小连接数
   protected long currentConnectionsCount                    = 0L; // 当前总连接数
   protected long maximumWaitTimeout                         = 0L; // 链接最长等待时间
   protected long maximumWaitTimeoutCount                    = 0L; // 链接等待时间统计

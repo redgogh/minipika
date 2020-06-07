@@ -36,13 +36,15 @@ public class XMLConfigBuilder {
 
   final Log log = LogFactory.getLog(XMLConfigBuilder.class);
 
+  private Element root;
+
   public XMLConfigBuilder(String xfile) {
     try {
       xfile = perfectPath(xfile);
       SAXBuilder builder = Factorys.forClass(SAXBuilder.class);
       Document document = builder.build(xfile);
       Element root = document.getRootElement();
-      initialize(root);
+      this.root = root;
     } catch (Exception e) {
       e.printStackTrace();
       log.error("Error xml file reading. Cause: " + e.getMessage());
@@ -51,11 +53,10 @@ public class XMLConfigBuilder {
 
   /**
    * 初始化配置类
-   * @param element 根节点
    */
-  private synchronized void initialize(Element element) {
+  public synchronized void initialize() {
     MinipikaXMLConfig minipikaXMLConfig = Factorys.forClass(MinipikaXMLConfig.class);
-    minipikaXMLConfig.parse(element);
+    minipikaXMLConfig.parse(root);
   }
 
   private String perfectPath(String path) {

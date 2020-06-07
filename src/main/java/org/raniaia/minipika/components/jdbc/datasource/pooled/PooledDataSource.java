@@ -21,6 +21,7 @@ package org.raniaia.minipika.components.jdbc.datasource.pooled;
  */
 
 import lombok.Setter;
+import org.raniaia.minipika.components.jdbc.datasource.DataSourceManager;
 import org.raniaia.minipika.components.jdbc.datasource.unpooled.UnpooledDataSource;
 import org.raniaia.minipika.framework.configuration.node.DataSourceNode;
 import org.raniaia.minipika.framework.logging.Log;
@@ -53,6 +54,7 @@ public class PooledDataSource implements DataSource {
   public PooledDataSource(UnpooledDataSource dataaSource) {
     this.dataSource = dataaSource;
     this.state = new PooledState(this);
+    DataSourceManager.registerDataSource(dataaSource.getDataSource().getName(), this);
   }
 
   /**

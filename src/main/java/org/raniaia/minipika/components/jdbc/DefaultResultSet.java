@@ -33,15 +33,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@SuppressWarnings({"SpellCheckingInspection", "unchecked"})
 public class DefaultResultSet implements QueryResultSet {
 
-  private String next;
   private int nextOffset = 0;
   private int hasNextOffset = 0;
   private List<String> hasNext;
   private List<Map<String, String>> resultSet;
-  private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
   public DefaultResultSet() {
   }
@@ -348,7 +346,7 @@ public class DefaultResultSet implements QueryResultSet {
 
   @Override
   public void reset() {
-    this.next = null;
+    String next = null;
     this.hasNext = null;
     this.nextOffset = 0;
     this.hasNextOffset = 0;
@@ -405,17 +403,13 @@ public class DefaultResultSet implements QueryResultSet {
     }
     if (field.getType().equals(BigInteger.class)) {
       field.set(entity, new BigInteger(v));
-      return;
     }
   }
 
   /**
    * 判断是不是基本数据类型或其他数据类型
-   *
-   * @param target
-   * @return
    */
-  public Object base(Class<?> target, String value) throws ParseException {
+  public Object base(Class<?> target, String value) {
     if (StringUtils.isEmpty(value)) return null;
     try {
       if (target.equals(String.class)) {

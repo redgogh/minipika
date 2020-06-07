@@ -5,7 +5,15 @@
   <properties>
     <printExecutingLog>false</printExecutingLog>
   </properties>
-
+  
+  <configuration>
+    <property name="min_connect" value="10"/>
+    <property name="max_connect" value="20"/>
+    <property name="connection_life_cycle" value="24h"/>
+    <!-- 内置缓存大小, 默认5mb -->
+    <property name="cache_size" value="3mb"/>
+  </configuration>
+  
   <!--
     配置数据源.
     如果不想用默认数据源的话可以在datasources标签中添加using属性，并设置你的数据源类的路径即可.
@@ -18,20 +26,15 @@
     如果要设置单个数据源的任务的话可以使用task="READ"或者是task="WRITE"来设置单个数据源的作业
    -->
   <datasource>
-    <configuration>
-      <property name="min_connect" value="10"/>
-      <property name="max_connect" value="20"/>
-      <property name="connection_life_cycle" value="24h"/>
-      <!-- 内置缓存大小, 默认5mb -->
-      <property name="cache_size" value="3mb"/>
-    </configuration>
-    <master type="mysql" task="read" commit="true">
+    <master type="mysql" pooled="true" commit="true">
       <!-- 设置JDBC URL以及URL参数 -->
-      <url value="jdbc:mysql://127.0.0.1:3306/test">
+      <url value="jdbc:mysql://127.0.0.1:3306/sys">
         <property name="useSSL" value="false"/>
         <property name="useUnicode" value="true"/>
         <property name="characterEncoding" value="utf-8"/>
         <property name="serverTimezone" value="GMT"/>
+        <!-- 解决MYSQL8.0的Public Key Retrieval is not allowed异常问题 -->
+        <property name="allowPublicKeyRetrieval" value="true"/>
       </url>
       <driver value="com.mysql.cj.jdbc.Driver"/>
       <username value="root"/>

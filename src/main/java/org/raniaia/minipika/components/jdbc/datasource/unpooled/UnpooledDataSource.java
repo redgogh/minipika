@@ -23,8 +23,11 @@ package org.raniaia.minipika.components.jdbc.datasource.unpooled;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.raniaia.minipika.components.jdbc.datasource.DataSourceManager;
 import org.raniaia.minipika.framework.configuration.node.SingleDataSource;
 import org.raniaia.minipika.framework.loader.CopyingClassLoader;
+import org.raniaia.minipika.framework.logging.Log;
+import org.raniaia.minipika.framework.logging.LogFactory;
 import org.raniaia.minipika.framework.util.ClassUtils;
 
 import javax.sql.DataSource;
@@ -49,10 +52,12 @@ public class UnpooledDataSource implements DataSource {
   protected Properties properties = new Properties();
 
   public UnpooledDataSource() {
+    this(null);
   }
 
   public UnpooledDataSource(SingleDataSource dataSource) {
     this.dataSource = dataSource;
+    DataSourceManager.registerDataSource(getDataSource().getName(), this);
   }
 
   private Connection doGetConnection(String username, String password) throws SQLException {
@@ -94,13 +99,21 @@ public class UnpooledDataSource implements DataSource {
 
     Driver d;
 
+    final Log LOG = LogFactory.getLog(DriverProxy.class);
+
     DriverProxy(Driver d) {
       this.d = d;
     }
 
     @Override
     public Connection connect(String url, Properties info) throws SQLException {
-      return d.connect(url, info);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("using url: " + url);
+      }
+//      return d.connect(url, info);
+      String name = info.getProperty(SingleDataSource.USERNAME);
+      String pass = info.getProperty(SingleDataSource.PASSWORD);
+      return DriverManager.getConnection(url, name, pass);
     }
 
     @Override

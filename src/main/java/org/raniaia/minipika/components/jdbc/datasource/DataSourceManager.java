@@ -61,6 +61,13 @@ public class DataSourceManager {
   }
 
   /**
+   * 通过名称获取
+   */
+  public synchronized static DataSource getDataSource(String name) {
+    return dataSourceMap.get(name);
+  }
+
+  /**
    * 获取主数据源
    */
   public synchronized static DataSource getMasterDataSource() {

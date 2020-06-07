@@ -24,6 +24,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jdom2.Attribute;
 import org.jdom2.Element;
+import org.raniaia.minipika.components.jdbc.datasource.DataSourceManager;
+import org.raniaia.minipika.components.jdbc.datasource.pooled.PooledDataSource;
+import org.raniaia.minipika.components.jdbc.datasource.unpooled.UnpooledDataSource;
 import org.raniaia.minipika.framework.exception.XMLParseException;
 import org.raniaia.minipika.framework.util.Maps;
 import org.raniaia.minipika.framework.util.StringUtils;
@@ -49,10 +52,13 @@ public class SingleDataSource implements ElementParser {
   private String driver;
   private Map<String, String> urlParam = Maps.newHashMap();
 
-
   private DataSourceTask task;
   private DatabaseSupport type;
   private boolean desiredAutoCommit; // 是否选择自动提交, 默认false
+
+  private String name; // 数据源名称
+
+  private boolean pooled = true; // 当前数据源是不是池化的数据源
 
   public static final String URL = "url";
   public static final String USERNAME = "username";
@@ -68,6 +74,19 @@ public class SingleDataSource implements ElementParser {
    * 链接属性
    */
   private Properties info;
+
+  /**
+   * 解析完后将当前数据源注册到{@link DataSourceManager}
+   */
+  private void register() {
+    UnpooledDataSource dataSource = new UnpooledDataSource(this);
+    if (pooled) {
+      new PooledDataSource(dataSource);
+    }
+    if(DataSourceManager.MASTER.equals(name)) {
+      DataSourceManager.select(DataSourceNode.MASTER);
+    }
+  }
 
   @Override
   public void parse(Element element) {
@@ -102,6 +121,8 @@ public class SingleDataSource implements ElementParser {
     // 拼接URL参数
     buildURL();
     buildConnectProperties();
+    // 将当前数据源注册到数据源管理器中
+    register();
   }
 
   /**
@@ -156,19 +177,21 @@ public class SingleDataSource implements ElementParser {
    * 将url参数组装到url的字符串中
    */
   void buildURL() {
+    String splice = "";
     for (Map.Entry<String, String> param : urlParam.entrySet()) {
       String key = param.getKey();
       String value = param.getValue();
       String paramValue = key.concat("=").concat(value);
-      if (!"?".equals(StringUtils.getLast(url))) {
-        url = url.concat("?");
+      if (!splice.contains("?")) {
+        splice = splice.concat("?");
       } else {
         if (!"&".equals(StringUtils.getLast(url))) {
-          url = url.concat("&");
+          splice = splice.concat("&");
         }
       }
-      url = url.concat(paramValue);
+      splice = splice.concat(paramValue);
     }
+    url = url.concat(splice);
   }
 
   /**
@@ -187,6 +210,24 @@ public class SingleDataSource implements ElementParser {
    * 设置数据源节点属性值
    */
   void setting(Element element) {
+    // 获取数据源名称, 必要名称master
+    String name = element.getName();
+    if (DataSourceNode.MASTER.equals(name)) {
+      this.name = name;
+    } else {
+      try {
+        this.name = element.getAttribute("name").getValue();
+      }catch (Exception e) {
+        if(e instanceof NullPointerException) {
+          throw new NullPointerException("Error: can be null except master tag. All other tag must speify name.");
+        }
+      }
+    }
+    // 获取数据源是否需要池化
+    Attribute pooledAttribute = element.getAttribute("pooled");
+    if (pooledAttribute != null) {
+      this.pooled = Boolean.parseBoolean(pooledAttribute.getValue());
+    }
     // 获取数据库类型
     Attribute typeAttribute = element.getAttribute(TYPE);
     //
@@ -208,8 +249,10 @@ public class SingleDataSource implements ElementParser {
       if (StringUtils.isEmpty(taskAttributeValue)) {
         task = DataSourceTask.ALL;
       }
+      task = getDataSourceTask(taskAttributeValue);
+    } else {
+      task = DataSourceTask.ALL;
     }
-    task = getDataSourceTask(taskAttributeValue);
     // 获取数据源是否需要自动提交
     Attribute desiredAutoCommitAttribute = element.getAttribute(AUTO_COMMIT);
     if (desiredAutoCommitAttribute == null) {
