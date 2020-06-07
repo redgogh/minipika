@@ -37,7 +37,7 @@ public class DataSourceManager {
 
   public static final String MASTER = "master";
 
-  private static final Map<String, DataSource> dataSourceMap = Maps.newHashMap();
+  private static final Map<String, DataSource> dataSourceMap = Maps.newConcurrentHashMap();
 
   private static DataSource currentDataSource;
 
@@ -49,21 +49,21 @@ public class DataSourceManager {
    * @param name       数据源名称
    * @param dataSource 数据源对象
    */
-  public static void registerDataSource(String name, DataSource dataSource) {
+  public synchronized static void registerDataSource(String name, DataSource dataSource) {
     dataSourceMap.put(name, dataSource);
   }
 
   /**
    * @return 当前正在使用的数据源
    */
-  public static DataSource getDataSource() {
+  public synchronized static DataSource getDataSource() {
     return currentDataSource;
   }
 
   /**
    * 获取主数据源
    */
-  public static DataSource getMasterDataSource() {
+  public synchronized static DataSource getMasterDataSource() {
     return dataSourceMap.get(MASTER);
   }
 
@@ -72,7 +72,7 @@ public class DataSourceManager {
    *
    * @param name 注册时的数据源名称
    */
-  public static void select(String name) {
+  public synchronized static void select(String name) {
     DataSource dataSource = dataSourceMap.get(name);
     if (dataSource != null) {
       currentDataSource = dataSource;
