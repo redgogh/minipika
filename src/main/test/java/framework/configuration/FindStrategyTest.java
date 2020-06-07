@@ -1,4 +1,4 @@
-package org.minipika.framework.configuration;
+package framework.configuration;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,22 +17,21 @@ package org.minipika.framework.configuration;
  */
 
 /*
- * Creates on 2020/6/2.
+ * Creates on 2020/6/1.
  */
 
-import org.raniaia.minipika.framework.configuration.XMLConfigBuilder;
-import org.raniaia.minipika.framework.configuration.FindStrategy;
-
-import java.io.InputStream;
+import org.junit.Test;
 
 /**
+ * 配置文件寻找策略
+ *
  * @author tiansheng
  */
-public class XMLConfigBuilderTest {
+public class FindStrategyTest {
 
-  public static void main(String[] args) {
-    InputStream istream = FindStrategy.getConfigInputStream();
-    XMLConfigBuilder configBuilder = new XMLConfigBuilder("minipika.xml");
+  @Test
+  public void getResource(){
+    // strategy.tryFindConfigFromClassPath();
   }
 
 }

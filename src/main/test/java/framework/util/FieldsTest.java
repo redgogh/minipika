@@ -1,4 +1,4 @@
-package org.minipika.framework.util;
+package framework.util;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -21,7 +21,7 @@ package org.minipika.framework.util;
  */
 
 import org.junit.Test;
-import org.minipika.testObject.Entity;
+import testObject.Entity;
 import org.raniaia.minipika.framework.annotations.Inject;
 import org.raniaia.minipika.framework.util.ArrayUtils;
 import org.raniaia.minipika.framework.util.Fields;

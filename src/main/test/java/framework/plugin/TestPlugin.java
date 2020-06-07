@@ -1,4 +1,4 @@
-package org.minipika.framework.configuration;
+package framework.plugin;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,22 +20,23 @@ package org.minipika.framework.configuration;
  * Creates on 2020/6/1.
  */
 
-import org.junit.Test;
-import org.raniaia.minipika.framework.configuration.FindStrategy;
-import org.raniaia.minipika.framework.util.Threads;
+import org.raniaia.minipika.framework.plugins.Invocation;
+import org.raniaia.minipika.framework.plugins.Interceptor;
 
 import java.io.InputStream;
 
 /**
- * 配置文件寻找策略
- *
  * @author tiansheng
  */
-public class FindStrategyTest {
+public class TestPlugin implements Interceptor {
 
-  @Test
-  public void getResource(){
-    // strategy.tryFindConfigFromClassPath();
+  @Override
+  public Object invocation(Invocation invocation, Object[] args) {
+    return invocation.invoke(args);
   }
 
+  @Override
+  public InputStream pluginXMLConfigInputStream() {
+    return null;
+  }
 }

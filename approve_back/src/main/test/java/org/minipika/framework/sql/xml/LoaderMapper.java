@@ -1,4 +1,4 @@
-package org.minipika.framework.sql.xml;
+package framework.sql.xml;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.

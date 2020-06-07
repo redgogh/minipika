@@ -1,4 +1,4 @@
-package org.minipika.framework.plugin;
+package testObject;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,23 +20,16 @@ package org.minipika.framework.plugin;
  * Creates on 2020/6/1.
  */
 
-import org.raniaia.minipika.framework.plugins.Invocation;
-import org.raniaia.minipika.framework.plugins.Interceptor;
-
-import java.io.InputStream;
+import org.raniaia.minipika.framework.annotations.Inject;
 
 /**
  * @author tiansheng
  */
-public class TestPlugin implements Interceptor {
+public class Entity {
 
-  @Override
-  public Object invocation(Invocation invocation, Object[] args) {
-    return invocation.invoke(args);
-  }
+  @Inject
+  private String a;
 
-  @Override
-  public InputStream pluginXMLConfigInputStream() {
-    return null;
-  }
+  private Integer b;
+
 }

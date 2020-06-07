@@ -1,4 +1,4 @@
-package org.minipika.components.jdbc;
+package Instrumentation;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,28 +17,19 @@ package org.minipika.components.jdbc;
  */
 
 /*
- * Creates on 2020/6/8.
+ * Creates on 2020/6/1.
  */
 
-import com.alibaba.fastjson.JSON;
+import javassist.NotFoundException;
 import org.junit.Test;
-import org.raniaia.minipika.components.jdbc.QueryResultSet;
-import org.raniaia.minipika.components.jdbc.SQLExecutor;
-import org.raniaia.minipika.framework.configuration.XMLConfigBuilder;
-import org.raniaia.minipika.framework.factory.Factorys;
 
 /**
  * @author tiansheng
  */
-public class SQLExecutorTest {
+public class GetObjectSizeTest {
 
   @Test
-  public void testSQLExecutor(){
-    XMLConfigBuilder builder = new XMLConfigBuilder("minipika.xml");
-    builder.initialize();
-    SQLExecutor executor = Factorys.forClass(SQLExecutor.class);
-    QueryResultSet resultSet = executor.select("select * from sys_config");
-    System.out.println(JSON.toJSONString(resultSet));
+  public void test() throws NotFoundException {
   }
 
 }

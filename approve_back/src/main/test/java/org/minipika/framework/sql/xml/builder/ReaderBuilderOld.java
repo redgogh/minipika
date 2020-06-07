@@ -1,4 +1,4 @@
-//package org.minipika.framework.sql.xml.builder;
+//package framework.sql.xml.builder;
 //
 ///*
 // * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -84,7 +84,7 @@
 //        List<ClassBuilder> classBuilderList = new ArrayList<>();
 //
 //        SAXBuilder saxBuilder = new SAXBuilder();
-//        String sbo = org.minipika.framework.sql.xml.builder.JavaElement.STRING_BUILDER_OBJECT;
+//        String sbo = framework.sql.xml.builder.JavaElement.STRING_BUILDER_OBJECT;
 //
 //        /*
 //         * 开始解析mapper xml

@@ -1,4 +1,4 @@
-package org.minipika.framework.compiler;
+package framework.compiler;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.

@@ -1,4 +1,4 @@
-package org.minipika.testObject;
+package framework.factory;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,16 +20,17 @@ package org.minipika.testObject;
  * Creates on 2020/6/1.
  */
 
-import org.raniaia.minipika.framework.annotations.Inject;
+import org.junit.Test;
+import org.raniaia.minipika.framework.factory.VersionId;
 
 /**
  * @author tiansheng
  */
-public class Entity {
+public class VersionIdTest implements VersionId {
 
-  @Inject
-  private String a;
-
-  private Integer b;
+  @Test
+  public void genId(){
+    System.out.println(versionId());
+  }
 
 }

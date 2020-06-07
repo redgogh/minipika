@@ -1,4 +1,4 @@
-package org.minipika.framework.factory;
+package framework.configuration;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,20 +17,22 @@ package org.minipika.framework.factory;
  */
 
 /*
- * Creates on 2020/6/1.
+ * Creates on 2020/6/2.
  */
 
-import org.junit.Test;
-import org.raniaia.minipika.framework.factory.VersionId;
+import org.raniaia.minipika.framework.configuration.XMLConfigBuilder;
+import org.raniaia.minipika.framework.configuration.FindStrategy;
+
+import java.io.InputStream;
 
 /**
  * @author tiansheng
  */
-public class VersionIdTest implements VersionId {
+public class XMLConfigBuilderTest {
 
-  @Test
-  public void genId(){
-    System.out.println(versionId());
+  public static void main(String[] args) {
+    InputStream istream = FindStrategy.getConfigInputStream();
+    XMLConfigBuilder configBuilder = new XMLConfigBuilder("minipika.xml");
   }
 
 }

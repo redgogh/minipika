@@ -1,4 +1,4 @@
-//package org.minipika.framework.sql.xml.builder;
+//package framework.sql.xml.builder;
 //
 ///*
 // * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -27,7 +27,7 @@
 ///**
 // * Copyright: Create by tiansheng on 2019/12/13 15:14
 // */
-//public class ClassBuilder extends org.minipika.framework.sql.xml.builder.StringNewline implements org.minipika.framework.sql.xml.builder.CodeBuilderFactory {
+//public class ClassBuilder extends framework.sql.xml.builder.StringNewline implements framework.sql.xml.builder.CodeBuilderFactory {
 //
 //    @Setter
 //    @Getter
@@ -38,7 +38,7 @@
 //
 //    private int next = 0;
 //
-//    private List<org.minipika.framework.sql.xml.builder.MethodBuilder> methods;
+//    private List<framework.sql.xml.builder.MethodBuilder> methods;
 //
 //    public ClassBuilder(String name,String fullClassName){
 //        this.name = name;
@@ -48,7 +48,7 @@
 //    @Override
 //    public ClassBuilder methodToClassBody() {
 //        StringBuilder builder = new StringBuilder();
-//        for (org.minipika.framework.sql.xml.builder.MethodBuilder method : methods) {
+//        for (framework.sql.xml.builder.MethodBuilder method : methods) {
 //            builder.append(method.toString(method.getArgs()));
 //        }
 //        insertLine(next,builder.toString());
@@ -63,7 +63,7 @@
 //    }
 //
 //    @Override
-//    public ClassBuilder putMethod(org.minipika.framework.sql.xml.builder.MethodBuilder methodBuilder) {
+//    public ClassBuilder putMethod(framework.sql.xml.builder.MethodBuilder methodBuilder) {
 //        if(methods == null){
 //            methods = new ArrayList<>();
 //        }

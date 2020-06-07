@@ -1,4 +1,4 @@
-package org.minipika.Instrumentation;
+package components.jdbc;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,23 +17,28 @@ package org.minipika.Instrumentation;
  */
 
 /*
- * Creates on 2020/6/1.
+ * Creates on 2020/6/8.
  */
 
-import com.carrotsearch.sizeof.RamUsageEstimator;
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.NotFoundException;
+import com.alibaba.fastjson.JSON;
 import org.junit.Test;
-import sun.misc.Unsafe;
+import org.raniaia.minipika.components.jdbc.QueryResultSet;
+import org.raniaia.minipika.components.jdbc.SQLExecutor;
+import org.raniaia.minipika.framework.configuration.XMLConfigBuilder;
+import org.raniaia.minipika.framework.factory.Factorys;
 
 /**
  * @author tiansheng
  */
-public class GetObjectSizeTest {
+public class SQLExecutorTest {
 
   @Test
-  public void test() throws NotFoundException {
+  public void testSQLExecutor(){
+    XMLConfigBuilder builder = new XMLConfigBuilder("minipika.xml");
+    builder.initialize();
+    SQLExecutor executor = Factorys.forClass(SQLExecutor.class);
+    QueryResultSet resultSet = executor.select("select * from sys_config");
+    System.out.println(JSON.toJSONString(resultSet));
   }
 
 }
