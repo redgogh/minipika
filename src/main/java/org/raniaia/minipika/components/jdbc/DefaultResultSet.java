@@ -21,6 +21,7 @@ package org.raniaia.minipika.components.jdbc;
  */
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.Getter;
 import org.raniaia.minipika.framework.util.Maps;
 import org.raniaia.minipika.framework.util.StringUtils;
 
@@ -38,6 +39,7 @@ public class DefaultResultSet implements QueryResultSet {
   private int nextOffset = 0;
   private int hasNextOffset = 0;
   private List<String> hasNext;
+  @Getter
   private List<Map<String, String>> resultSet;
   private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
