@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<minipika>
+<minipika xmlns="">
 
   <!-- 支持全局使用的属性配置, 这个大家都清楚就不再赘述了 -->
-  <properties>
-    <printExecutingLog>false</printExecutingLog>
-  </properties>
+  <properties></properties>
   
   <configuration>
     <min-connection>10</min-connection>
