@@ -23,14 +23,12 @@ package org.raniaia.minipika.components.jdbc.datasource.pooled;
 import lombok.Setter;
 import org.raniaia.minipika.components.jdbc.datasource.DataSourceManager;
 import org.raniaia.minipika.components.jdbc.datasource.unpooled.UnpooledDataSource;
-import org.raniaia.minipika.framework.configuration.node.DataSourceNode;
 import org.raniaia.minipika.framework.logging.Log;
 import org.raniaia.minipika.framework.logging.LogFactory;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.logging.Logger;
