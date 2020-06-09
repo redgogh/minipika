@@ -24,16 +24,20 @@ package org.raniaia.minipika.components.jdbc.datasource.unpooled;
 import lombok.Getter;
 import lombok.Setter;
 import org.raniaia.minipika.components.jdbc.datasource.DataSourceManager;
+import org.raniaia.minipika.framework.PropertyNames;
 import org.raniaia.minipika.framework.configuration.node.SingleDataSource;
 import org.raniaia.minipika.framework.loader.CopyingClassLoader;
 import org.raniaia.minipika.framework.logging.Log;
 import org.raniaia.minipika.framework.logging.LogFactory;
 import org.raniaia.minipika.framework.util.ClassUtils;
+import org.raniaia.minipika.framework.util.StringUtils;
+import sun.management.jmxremote.ConnectorBootstrap;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.*;
 import java.util.Properties;
+import java.util.concurrent.*;
 import java.util.logging.Logger;
 
 /**
@@ -107,13 +111,35 @@ public class UnpooledDataSource implements DataSource {
 
     @Override
     public Connection connect(String url, Properties info) throws SQLException {
+      Connection connection = null;
       if (LOG.isDebugEnabled()) {
         LOG.debug("using url: " + url);
       }
-//      return d.connect(url, info);
       String name = info.getProperty(SingleDataSource.USERNAME);
       String pass = info.getProperty(SingleDataSource.PASSWORD);
-      return DriverManager.getConnection(url, name, pass);
+      Executor executor = Executors.newSingleThreadExecutor();
+      FutureTask<Connection> futureTask = new FutureTask<>(new Callable<Connection>() {
+        @Override
+        public Connection call() throws Exception {
+          return DriverManager.getConnection(url, name, pass);
+        }
+      });
+      executor.execute(futureTask);
+      String connectTimeout = System.getProperty(PropertyNames.CONNECT_TIMEOUT);
+      // 设置超时时间
+      long timeout = StringUtils.asLong(connectTimeout);
+      if (timeout == 0) {
+        timeout = 15L;
+      }
+      try {
+        connection = futureTask.get(timeout, TimeUnit.SECONDS);
+      } catch (InterruptedException | TimeoutException | ExecutionException e) {
+        if (e instanceof TimeoutException) {
+          LOG.error("Error get connection timeout. Cause: set timeout is " + timeout + " seconds.");
+        }
+        e.printStackTrace();
+      }
+      return connection;
     }
 
     @Override

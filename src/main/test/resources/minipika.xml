@@ -7,11 +7,9 @@
   </properties>
   
   <configuration>
-    <property name="min_connect" value="10"/>
-    <property name="max_connect" value="20"/>
-    <property name="connection_life_cycle" value="24h"/>
-    <!-- 内置缓存大小, 默认5mb -->
-    <property name="cache_size" value="3mb"/>
+    <min-connection>10</min-connection>
+    <max-connection>20</max-connection>
+    <conenct-timeout>15</conenct-timeout>
   </configuration>
   
   <!--
