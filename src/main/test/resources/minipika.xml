@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<minipika xmlns="">
+<!DOCTYPE minipika PUBLIC "-//MINIPIKA//XSD MINIPIKA//CH" "D:\dev\minipika\standard\minipika-configruation-standard.xsd">
+<minipika>
 
   <!-- 支持全局使用的属性配置, 这个大家都清楚就不再赘述了 -->
-  <properties></properties>
-  
+  <properties>http://www.springframework.org/schema/beans/spring-beans-2.0.xsd</properties>
+
   <configuration>
     <min-connection>10</min-connection>
     <max-connection>20</max-connection>
-    <conenct-timeout>15</conenct-timeout>
+    <connect-timeout>15</connect-timeout>
   </configuration>
-  
+
   <!--
     配置数据源.
     如果不想用默认数据源的话可以在datasources标签中添加using属性，并设置你的数据源类的路径即可.
@@ -22,7 +23,7 @@
     如果要设置单个数据源的任务的话可以使用task="READ"或者是task="WRITE"来设置单个数据源的作业
    -->
   <datasource>
-    <master type="mysql" pooled="true" commit="true">
+    <master type="mysql">
       <!-- 设置JDBC URL以及URL参数 -->
       <url value="jdbc:mysql://127.0.0.1:3306/sys">
         <property name="useSSL" value="false"/>

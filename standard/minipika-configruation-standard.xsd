@@ -1,15 +1,64 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.w3school.com.cn"
            xmlns="http://www.w3school.com.cn" elementFormDefault="qualified">
-
-  <xs:element name="minipika">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="properties"/>
-        <xs:element name="configuration"/>
-        <xs:element name="datasource"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  <xs:element name="minipika" type="Body"/>
+  <xs:complexType name="Body">
+    <xs:all>
+      <xs:element name="properties" type="Properties"/>
+      <xs:element name="configuration" type="Configuration"/>
+      <xs:element name="datasource" type="DataSource"/>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="Properties">
+    <xs:sequence>
+      <xs:element name="property"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Configuration">
+    <xs:all>
+      <xs:element name="min-connection"/>
+      <xs:element name="max-connection"/>
+      <xs:element name="connect-timeout"/>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="DataSource">
+    <xs:all>
+      <xs:element name="master" type="SourceBody"/>
+      <xs:element name="slaves" type="SourceBody"/>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="SourceBody">
+    <xs:all>
+      <xs:element name="url" type="Url"/>
+      <xs:element name="username" type="Username"/>
+      <xs:element name="password" type="Password"/>
+      <xs:element name="driver" type="Driver"/>
+    </xs:all>
+    <xs:attributeGroup ref="SourceTag"/>
+  </xs:complexType>
+  <xs:complexType name="Url">
+    <xs:all>
+      <xs:element name="property" type="Property"/>
+    </xs:all>
+    <xs:attribute name="value" type="xs:string" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="Driver">
+    <xs:attribute name="value" type="xs:string" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="Username">
+    <xs:attribute name="value" type="xs:string" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="Password">
+    <xs:attribute name="value" type="xs:string" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="Property">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="value" type="xs:string" use="required"/>
+  </xs:complexType>
+  <xs:attributeGroup name="SourceTag">
+    <xs:attribute name="type" type="xs:string"/>
+    <xs:attribute name="pooled" type="xs:boolean" default="true"/>
+    <xs:attribute name="commit" type="xs:boolean" default="true"/>
+  </xs:attributeGroup>
 
 </xs:schema>
