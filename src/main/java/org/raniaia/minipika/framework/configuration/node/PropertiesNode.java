@@ -41,7 +41,7 @@ public class PropertiesNode implements ElementParser {
   @Override
   public void parse(Element element) {
     List<Element> children = element.getChildren();
-    if (children != null || !children.isEmpty()) {
+    if (children != null && !children.isEmpty()) {
       properties = new Properties();
       for (Element child : children) {
         String key = child.getName();

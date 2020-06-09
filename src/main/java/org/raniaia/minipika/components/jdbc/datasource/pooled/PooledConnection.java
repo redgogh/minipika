@@ -36,12 +36,12 @@ public class PooledConnection implements InvocationHandler {
   private static final String CLOSE = "close";
   public static final Class<?>[] IFACE = new Class[]{Connection.class};
 
-  protected boolean valid = true;
-  protected PooledState state;
-  protected PooledDataSource dataSource;
-  protected Connection proxyConnection;        // 代理链接
-  protected Connection realConnection;         // 真实链接
-  protected long lastUsedTimestamp;      // 上次使用时间
+  protected boolean             valid = true;
+  protected PooledState         state;
+  protected PooledDataSource    dataSource;
+  protected Connection          proxyConnection;        // 代理链接
+  protected Connection          realConnection;         // 真实链接
+  protected long                lastUsedTimestamp;      // 上次使用时间
 
   public PooledConnection() {
   }
@@ -49,6 +49,7 @@ public class PooledConnection implements InvocationHandler {
   public PooledConnection(Connection connection, PooledDataSource dataSource) {
     this.dataSource = dataSource;
     this.realConnection = connection;
+    this.state = dataSource.state;
     this.proxyConnection = (Connection)
             Proxy.newProxyInstance(Connection.class.getClassLoader(), IFACE, this);
   }
@@ -123,4 +124,5 @@ public class PooledConnection implements InvocationHandler {
       }
     }
   }
+
 }

@@ -29,6 +29,8 @@ import org.raniaia.minipika.framework.logging.Log;
 import org.raniaia.minipika.framework.logging.LogFactory;
 import org.raniaia.minipika.framework.util.Threads;
 
+import java.util.Objects;
+
 /**
  * @author tiansheng
  */
@@ -43,8 +45,7 @@ public class XMLConfigBuilder {
       xfile = perfectPath(xfile);
       SAXBuilder builder = Factorys.forClass(SAXBuilder.class);
       Document document = builder.build(xfile);
-      Element root = document.getRootElement();
-      this.root = root;
+      this.root = document.getRootElement();
     } catch (Exception e) {
       e.printStackTrace();
       log.error("Error xml file reading. Cause: " + e.getMessage());
@@ -60,7 +61,7 @@ public class XMLConfigBuilder {
   }
 
   private String perfectPath(String path) {
-    return Threads.getCallerLoader().getResource(path).toString();
+    return Objects.requireNonNull(Threads.getCallerLoader().getResource(path)).toString();
   }
 
 }

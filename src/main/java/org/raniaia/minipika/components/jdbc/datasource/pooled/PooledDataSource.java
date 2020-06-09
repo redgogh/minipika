@@ -45,16 +45,31 @@ public class PooledDataSource implements DataSource {
   @Setter
   protected UnpooledDataSource dataSource;
 
+  protected String username;
+
+  protected String password;
+
   private static final Log log = LogFactory.getLog(PooledConnection.class);
 
-  public PooledDataSource() {
-    this(null);
-  }
-
   public PooledDataSource(UnpooledDataSource dataaSource) {
-    this.dataSource = dataaSource;
-    this.state = new PooledState(this);
-    DataSourceManager.registerDataSource(dataaSource.getDataSource().getName(), this);
+    {
+      this.dataSource = dataaSource;
+      this.state = new PooledState(this);
+      DataSourceManager.registerDataSource(dataaSource.getDataSource().getName(), this);
+    }
+    {
+      this.username = dataSource.getDataSource().getUsername();
+      this.password = dataSource.getDataSource().getPassword();
+    }
+    {
+      try {
+        for (int i = 0; i < state.minimumConnections; i++) {
+          state.idleConnections.add(createConnection(username, password));
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
   /**
@@ -86,14 +101,14 @@ public class PooledDataSource implements DataSource {
     }
   }
 
-  private PooledConnection popConnection() throws SQLException {
-    return popConnection(dataSource.getDataSource().getUsername(), dataSource.getDataSource().getPassword());
+  protected PooledConnection popConnection() throws SQLException {
+    return popConnection(username, password);
   }
 
   /**
    * 弹出链接
    */
-  private PooledConnection popConnection(String username, String password) throws SQLException {
+  protected PooledConnection popConnection(String username, String password) throws SQLException {
     PooledConnection connection = null;
     long startTime = System.currentTimeMillis();
     synchronized (state) {
@@ -105,7 +120,7 @@ public class PooledDataSource implements DataSource {
           }
         } else {
           if (state.currentConnectionsCount < state.maximumConnections) {
-            connection = new PooledConnection(dataSource.getConnection(username, password), this);
+            connection = createConnection(username, password);
             state.accumulateCreatesCount++;
           } else {
             try {
@@ -142,6 +157,11 @@ public class PooledDataSource implements DataSource {
       }
     }
     return connection;
+  }
+
+  protected synchronized PooledConnection createConnection(
+          String username, String password) throws SQLException {
+    return new PooledConnection(dataSource.getConnection(username, password), this);
   }
 
   @Override

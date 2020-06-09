@@ -32,9 +32,9 @@ import org.raniaia.minipika.framework.factory.Factorys;
 @Setter
 public class MinipikaXMLConfig implements ElementParser {
 
-  public static final String CHIlD_DATASOURCE = "datasource";
-
-  public static final String CHIlD_PROPERTIES = "properties";
+  public static final String CHIlD_DATASOURCE       = "datasource";
+  public static final String CHIlD_PROPERTIES       = "properties";
+  public static final String CHILD_CONFIGURATION    = "configuration";
 
   /**
    * 所有配置的属性值
@@ -50,9 +50,14 @@ public class MinipikaXMLConfig implements ElementParser {
   public void parse(Element element) {
     // 解析properties节点
     Element properties = element.getChild(CHIlD_PROPERTIES);
+    propertiesNode = Factorys.forClass(PropertiesNode.class);
     if(properties != null) {
-      propertiesNode = Factorys.forClass(PropertiesNode.class);
       propertiesNode.parse(properties);
+    }
+    // 解析configuration节点
+    Element configuration = element.getChild(CHILD_CONFIGURATION);
+    if(configuration != null) {
+      propertiesNode.parse(configuration);
     }
     // 解析datasource节点
     Element datasource = element.getChild(CHIlD_DATASOURCE);
