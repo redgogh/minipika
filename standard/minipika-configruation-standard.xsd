@@ -60,5 +60,4 @@
     <xs:attribute name="pooled" type="xs:boolean" default="true"/>
     <xs:attribute name="commit" type="xs:boolean" default="true"/>
   </xs:attributeGroup>
-
 </xs:schema>
