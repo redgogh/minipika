@@ -1,7 +1,5 @@
-package org.raniaia.minipika.framework.util;
-
 /*
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 Tiansheng All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +15,12 @@ package org.raniaia.minipika.framework.util;
  */
 
 /*
- * Creates on 2020/6/1.
+ * Creates on 2020/6/9.
  */
 
 /**
- * 定时任务
+ * 内置一级缓存支持基础包。一级缓存表示minipika内置的缓存系统，
+ * 二级缓存则表示外部的缓存系统，如redis。
  * @author tiansheng
  */
-public class Task {
-
-  public static void execute(Runnable runnable, long millis) {
-
-  }
-
-}
+package org.raniaia.minipika.components.cache;
