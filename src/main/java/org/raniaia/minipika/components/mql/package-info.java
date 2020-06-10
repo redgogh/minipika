@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
  * Copyright (C) 2020 Tiansheng All rights reserved.
-=======
- * Copyright (C) 2020 tiansheng All rights reserved.
->>>>>>> f4c914a9bb797545d1667085b1044e628c8780c5
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,20 +15,12 @@
  */
 
 /*
-<<<<<<< HEAD
  * Creates on 2020/6/9.
- */
-
-/**
- * 动态sql支持基础包
-=======
- * Creates on 2020/6/1.
  */
 
 /**
  * 动态SQL支持基础包, 提供SQL模板引擎重写功能。以及可像插件
  * 一样下载外部的动态SQL模板进行开发，或者是重写。
->>>>>>> f4c914a9bb797545d1667085b1044e628c8780c5
  * @author tiansheng
  */
 package org.raniaia.minipika.components.mql;
