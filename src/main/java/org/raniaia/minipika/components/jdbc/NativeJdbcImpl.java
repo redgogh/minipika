@@ -20,6 +20,7 @@ package org.raniaia.minipika.components.jdbc;
  * Creates on 2020/6/6.
  */
 
+import org.raniaia.minipika.components.cache.ResultSetCache;
 import org.raniaia.minipika.components.jdbc.datasource.DataSourceManager;
 import org.raniaia.minipika.components.jdbc.transaction.Transaction;
 import org.raniaia.minipika.framework.factory.Factorys;
@@ -39,6 +40,8 @@ import java.util.List;
 public class NativeJdbcImpl implements NativeJdbc {
 
   private static final Log LOG = LogFactory.getLog(NativeJdbcImpl.class);
+
+  private final ResultSetCache cache = Factorys.forClass(ResultSetCache.class);
 
   @Override
   public boolean execute(String sql, Object... args) {

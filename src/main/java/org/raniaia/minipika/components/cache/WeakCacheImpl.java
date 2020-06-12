@@ -35,13 +35,13 @@ public class WeakCacheImpl implements ResultSetCache {
   private final WeakReference<Map<String, QueryResultSet>> weak = new WeakReference<>(Maps.newHashMap());
 
   @Override
-  public QueryResultSet getResultSet(String sql, Object... args) {
-    return weak.get().get(getKey(sql, args));
+  public QueryResultSet getResultSet(String key) {
+    return weak.get().get(key);
   }
 
   @Override
-  public void addResultSet(String sql, QueryResultSet resultSet, Object... args) {
-    weak.get().put(getKey(sql, args), resultSet);
+  public void addResultSet(String key, QueryResultSet resultSet) {
+    weak.get().put(key, resultSet);
   }
 
   @Override

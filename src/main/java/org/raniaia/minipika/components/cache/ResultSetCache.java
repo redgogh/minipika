@@ -32,21 +32,19 @@ public interface ResultSetCache {
   /**
    * 获取缓存中的{@link QueryResultSet}对象
    *
-   * @param sql sql语句
-   * @param args sql语句参数
+   * @param key 缓存键
    * @return {@link QueryResultSet}对象
    */
-  QueryResultSet getResultSet(String sql, Object... args);
+  QueryResultSet getResultSet(String key);
 
   /**
    * 添加{@link QueryResultSet}对象, 同时更新也通过
    * 这个方法去更新, 覆盖掉原有的QueryResultSet对象
    *
-   * @param sql sql语句
-   * @param args sql语句参数
+   * @param key 缓存键
    * @param resultSet 缓存对象
    */
-  void addResultSet(String sql, QueryResultSet resultSet, Object... args);
+  void addResultSet(String key, QueryResultSet resultSet);
 
   /**
    * 清空所有缓存对象
@@ -65,7 +63,7 @@ public interface ResultSetCache {
    * @param args 参数
    * @return md5 key
    */
-  default String getKey(String sql, Object... args) {
+  static String getKey(String sql, Object... args) {
     StringBuilder key = new StringBuilder(sql);
     for (Object arg : args) {
       key.append(arg.toString());
