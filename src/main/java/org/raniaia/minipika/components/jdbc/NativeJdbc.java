@@ -28,7 +28,7 @@ import java.util.List;
  *
  * @author tiansheng
  */
-public interface SQLExecutor {
+public interface NativeJdbc {
 
   /**
    * 执行一条SQL

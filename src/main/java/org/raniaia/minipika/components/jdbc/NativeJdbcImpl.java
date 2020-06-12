@@ -36,9 +36,9 @@ import java.util.List;
 /**
  * @author tiansheng
  */
-public class ConstSQLExecutor implements SQLExecutor {
+public class NativeJdbcImpl implements NativeJdbc {
 
-  private static final Log LOG = LogFactory.getLog(ConstSQLExecutor.class);
+  private static final Log LOG = LogFactory.getLog(NativeJdbcImpl.class);
 
   @Override
   public boolean execute(String sql, Object... args) {

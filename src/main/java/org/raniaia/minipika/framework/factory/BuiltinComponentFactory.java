@@ -23,7 +23,7 @@ package org.raniaia.minipika.framework.factory;
 import org.raniaia.minipika.components.cache.WeakCacheImpl;
 import org.raniaia.minipika.components.cache.ResultSetCache;
 import org.raniaia.minipika.components.jdbc.ConstResultSet;
-import org.raniaia.minipika.components.jdbc.ConstSQLExecutor;
+import org.raniaia.minipika.components.jdbc.NativeJdbcImpl;
 import org.raniaia.minipika.components.jdbc.QueryResultSet;
 import org.raniaia.minipika.components.jdbc.transaction.JdbcTransaction;
 import org.raniaia.minipika.components.jdbc.transaction.JdbcTransactionFactory;
@@ -47,8 +47,8 @@ public class BuiltinComponentFactory implements ComponentFactory {
 
   private BuiltinComponentFactory() {
     {
-      components.put(QueryResultSet.class.getName(),     forClass(ConstResultSet.class));
-      components.put(ConstSQLExecutor.class.getName(), forClass(ConstSQLExecutor.class));
+      components.put(QueryResultSet.class.getName(), forClass(ConstResultSet.class));
+      components.put(NativeJdbcImpl.class.getName(), forClass(NativeJdbcImpl.class));
       components.put(JdbcTransaction.class.getName(), forClass(JdbcTransaction.class));
       components.put(TransactionFactory.class.getName(), forClass(JdbcTransactionFactory.class));
       components.put(ResultSetCache.class.getName(), forClass(WeakCacheImpl.class));

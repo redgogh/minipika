@@ -23,20 +23,20 @@ package components.jdbc;
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 import org.raniaia.minipika.components.jdbc.QueryResultSet;
-import org.raniaia.minipika.components.jdbc.SQLExecutor;
+import org.raniaia.minipika.components.jdbc.NativeJdbc;
 import org.raniaia.minipika.framework.configuration.XMLConfigBuilder;
 import org.raniaia.minipika.framework.factory.Factorys;
 
 /**
  * @author tiansheng
  */
-public class SQLExecutorTest {
+public class NativeJdbcTest {
 
   @Test
   public void testSQLExecutor(){
     XMLConfigBuilder builder = new XMLConfigBuilder("minipika.xml");
     builder.initialize();
-    SQLExecutor executor = Factorys.forClass(SQLExecutor.class);
+    NativeJdbc executor = Factorys.forClass(NativeJdbc.class);
     QueryResultSet resultSet = executor.select("select * from sys_config");
     System.out.println(JSON.toJSONString(resultSet));
   }
