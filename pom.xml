@@ -71,6 +71,7 @@
     <surefire.version>2.4.2</surefire.version>
     <maven.compile.version>3.2</maven.compile.version>
     <maven.test.skip>true</maven.test.skip>
+    <commons-codec.version>1.11</commons-codec.version>
   </properties>
 
   <dependencies>
@@ -154,6 +155,12 @@
 
     <!-- ########################################################### -->
 
+    <!-- common-codec -->
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>${commons-codec.version}</version>
+    </dependency>
     <!-- lombok -->
     <dependency>
       <groupId>org.projectlombok</groupId>

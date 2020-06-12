@@ -34,7 +34,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class DefaultResultSet implements QueryResultSet {
+public class ConstResultSet implements QueryResultSet {
 
   private int nextOffset = 0;
   private int hasNextOffset = 0;
@@ -43,10 +43,10 @@ public class DefaultResultSet implements QueryResultSet {
   private List<Map<String, String>> resultSet;
   private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-  public DefaultResultSet() {
+  public ConstResultSet() {
   }
 
-  public DefaultResultSet(ResultSet input) {
+  public ConstResultSet(ResultSet input) {
     build(input);
   }
 

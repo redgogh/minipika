@@ -20,12 +20,13 @@ package org.raniaia.minipika.framework.factory;
  * Creates on 2020/6/1.
  */
 
-import org.raniaia.minipika.components.jdbc.DefaultResultSet;
-import org.raniaia.minipika.components.jdbc.DefaultSQLExecutor;
+import org.raniaia.minipika.components.cache.WeakCacheImpl;
+import org.raniaia.minipika.components.cache.ResultSetCache;
+import org.raniaia.minipika.components.jdbc.ConstResultSet;
+import org.raniaia.minipika.components.jdbc.ConstSQLExecutor;
 import org.raniaia.minipika.components.jdbc.QueryResultSet;
-import org.raniaia.minipika.components.jdbc.transaction.DefaultTransaction;
-import org.raniaia.minipika.components.jdbc.transaction.DefaultTransactionFactory;
-import org.raniaia.minipika.components.jdbc.transaction.Transaction;
+import org.raniaia.minipika.components.jdbc.transaction.JdbcTransaction;
+import org.raniaia.minipika.components.jdbc.transaction.JdbcTransactionFactory;
 import org.raniaia.minipika.components.jdbc.transaction.TransactionFactory;
 import org.raniaia.minipika.framework.util.ClassUtils;
 import org.raniaia.minipika.framework.util.Maps;
@@ -35,7 +36,7 @@ import java.util.Map;
 /**
  * @author tiansheng
  */
-public class DefaultComponentFactory implements ComponentFactory {
+public class BuiltinComponentFactory implements ComponentFactory {
 
   /**
    * 组件容器
@@ -44,18 +45,19 @@ public class DefaultComponentFactory implements ComponentFactory {
 
   private static ComponentFactory factory;
 
-  private DefaultComponentFactory() {
+  private BuiltinComponentFactory() {
     {
-      components.put(QueryResultSet.class.getName(),     forClass(DefaultResultSet.class));
-      components.put(DefaultSQLExecutor.class.getName(), forClass(DefaultSQLExecutor.class));
-      components.put(DefaultTransaction.class.getName(), forClass(DefaultTransaction.class));
-      components.put(TransactionFactory.class.getName(), forClass(DefaultTransactionFactory.class));
+      components.put(QueryResultSet.class.getName(),     forClass(ConstResultSet.class));
+      components.put(ConstSQLExecutor.class.getName(), forClass(ConstSQLExecutor.class));
+      components.put(JdbcTransaction.class.getName(), forClass(JdbcTransaction.class));
+      components.put(TransactionFactory.class.getName(), forClass(JdbcTransactionFactory.class));
+      components.put(ResultSetCache.class.getName(), forClass(WeakCacheImpl.class));
     }
   }
 
   public static ComponentFactory getFactory() {
     if (factory == null) {
-      factory = new DefaultComponentFactory();
+      factory = new BuiltinComponentFactory();
     }
     return factory;
   }

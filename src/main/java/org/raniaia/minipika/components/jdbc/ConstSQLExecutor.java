@@ -36,9 +36,9 @@ import java.util.List;
 /**
  * @author tiansheng
  */
-public class DefaultSQLExecutor implements SQLExecutor {
+public class ConstSQLExecutor implements SQLExecutor {
 
-  private static final Log LOG = LogFactory.getLog(DefaultSQLExecutor.class);
+  private static final Log LOG = LogFactory.getLog(ConstSQLExecutor.class);
 
   @Override
   public boolean execute(String sql, Object... args) {

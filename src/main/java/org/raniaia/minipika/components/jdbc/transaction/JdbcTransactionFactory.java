@@ -30,7 +30,7 @@ import java.sql.Connection;
  *
  * @author tiansheng
  */
-public class DefaultTransactionFactory implements TransactionFactory {
+public class JdbcTransactionFactory implements TransactionFactory {
 
   private TransactionIsolationLevel level;
 

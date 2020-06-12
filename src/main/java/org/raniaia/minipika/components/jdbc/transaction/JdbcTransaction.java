@@ -36,13 +36,13 @@ import java.sql.SQLException;
  *
  * @author tiansheng
  */
-public class DefaultTransaction implements Transaction, InvocationHandler {
+public class JdbcTransaction implements Transaction, InvocationHandler {
 
   private DataSource dataSource;
   private TransactionIsolationLevel level;
   private Connection connection; // 当前使用的连接
 
-  private static final Log LOG = LogFactory.getLog(DefaultTransaction.class);
+  private static final Log LOG = LogFactory.getLog(JdbcTransaction.class);
 
   @Override
   public void setDataSource(DataSource dataSource) {

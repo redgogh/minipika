@@ -26,11 +26,11 @@ package org.raniaia.minipika.framework.factory;
 public class Factorys {
 
   public static <T> T forClass(Class<T> clazz) {
-    return DefaultComponentFactory.getFactory().forClass(clazz);
+    return BuiltinComponentFactory.getFactory().forClass(clazz);
   }
 
   public static <T> T forClass(Class<?> clazz, Class<?>[] types, Object... parameter) {
-    return DefaultComponentFactory.getFactory().forClass(clazz, types, parameter);
+    return BuiltinComponentFactory.getFactory().forClass(clazz, types, parameter);
   }
 
 }
