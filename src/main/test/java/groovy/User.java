@@ -1,4 +1,4 @@
-package Instrumentation;
+package groovy;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,21 +17,23 @@ package Instrumentation;
  */
 
 /*
- * Creates on 2020/6/1.
+ * Creates on 2020/6/14.
  */
 
-import groovy.MqlMapper;
-import javassist.NotFoundException;
-import org.jiakesimk.minipika.framework.annotations.Inject;
-import org.junit.Test;
+import lombok.Data;
+
+import java.math.BigDecimal;
 
 /**
  * @author tiansheng
  */
-public class GetObjectSizeTest {
+@Data
+public class User {
 
-  @Test
-  public void test() throws NotFoundException {
-  }
+  private Integer id;
+  private String name;
+  private Integer age;
+  private BigDecimal money;
+
 
 }

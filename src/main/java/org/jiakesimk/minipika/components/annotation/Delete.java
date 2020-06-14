@@ -1,4 +1,4 @@
-package Instrumentation;
+package org.jiakesimk.minipika.components.annotation;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,21 +17,24 @@ package Instrumentation;
  */
 
 /*
- * Creates on 2020/6/1.
+ * Creates on 2020/6/14.
  */
 
-import groovy.MqlMapper;
-import javassist.NotFoundException;
-import org.jiakesimk.minipika.framework.annotations.Inject;
-import org.junit.Test;
+import java.lang.annotation.*;
 
 /**
+ * 被注解的方法代表是一个删除方法
+ *
  * @author tiansheng
  */
-public class GetObjectSizeTest {
+@Target({ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface Delete {
 
-  @Test
-  public void test() throws NotFoundException {
-  }
+  /**
+   * @return 删除SQL
+   */
+  String value() default "";
 
 }

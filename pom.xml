@@ -3,9 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
+  
   <!--    <entityVersion>4.0.0</entityVersion>-->
-
+  
   <!--
        mvn clean install deploy -P release
   -->
@@ -14,12 +14,12 @@
     <artifactId>oss-parent</artifactId>
     <version>9</version>
   </parent>
-
+  
   <groupId>io.github.raniaia</groupId>
   <artifactId>minipika</artifactId>
   <version>1.0.0.breathe</version>
   <packaging>jar</packaging>
-
+  
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
@@ -27,14 +27,14 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
+  
   <scm>
     <tag>master</tag>
     <url>https://github.com/raniaia/avaliable</url>
     <connection>scm:git@github.com:raniaia/minipika.git</connection>
     <developerConnection>scm:git@github.com:raniaia/minipika.git</developerConnection>
   </scm>
-
+  
   <developers>
     <developer>
       <name>2B键盘</name>
@@ -42,7 +42,7 @@
       <url>https://github.com/404NotFoundx</url>
     </developer>
   </developers>
-
+  
   <distributionManagement>
     <repository>
       <id>repository</id>
@@ -53,7 +53,7 @@
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
-
+  
   <properties>
     <java.version>1.8</java.version>
     <jdom.version>2.0.6</jdom.version>
@@ -66,6 +66,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <logback.version>1.2.3</logback.version>
     <slf4j.version>1.7.21</slf4j.version>
+    <gmaven.version>1.0-rc-3</gmaven.version>
     <!-- plugin -->
     <maven.doc.version>2.8</maven.doc.version>
     <surefire.version>2.4.2</surefire.version>
@@ -73,9 +74,9 @@
     <maven.test.skip>true</maven.test.skip>
     <commons-codec.version>1.11</commons-codec.version>
   </properties>
-
+  
   <dependencies>
-
+    
     <!-- Jdbc Driver                                                 -->
     <!--                                                             -->
     <!--                                                             -->
@@ -88,9 +89,9 @@
     <!--                                                             -->
     <!--                                                             -->
     <!--                                                             -->
-
+    
     <!-- ########################################################### -->
-
+    
     <!-- github.com/raniaia                                          -->
     <!--                                                             -->
     <!--                                                             -->
@@ -103,9 +104,9 @@
     <!--                                                             -->
     <!--                                                             -->
     <!--                                                             -->
-
+    
     <!-- ########################################################### -->
-
+    
     <!-- kotlin dependencies                                         -->
     <!--                                                             -->
     <!--                                                             -->
@@ -124,9 +125,9 @@
     <!--                                                             -->
     <!--                                                             -->
     <!--                                                             -->
-
+    
     <!-- ########################################################### -->
-
+    
     <!-- logging dependencies                                        -->
     <!--                                                             -->
     <!--                                                             -->
@@ -152,9 +153,15 @@
     <!--                                                             -->
     <!--                                                             -->
     <!--                                                             -->
-
+    
     <!-- ########################################################### -->
-
+    
+    <!-- groovy支持 -->
+    <dependency>
+      <groupId>org.codehaus.groovy.maven.runtime</groupId>
+      <artifactId>gmaven-runtime-default</artifactId>
+      <version>${gmaven.version}</version>
+    </dependency>
     <!-- common-codec -->
     <dependency>
       <groupId>commons-codec</groupId>
@@ -210,10 +217,25 @@
       <scope>compile</scope>
     </dependency>
   </dependencies>
-
+  
   <build>
     <testSourceDirectory>src/main/test/java</testSourceDirectory>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.groovy.maven</groupId>
+        <artifactId>gmaven-plugin</artifactId>
+        <version>1.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generateStubs</goal>
+              <goal>compile</goal>
+              <goal>generateTestStubs</goal>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
