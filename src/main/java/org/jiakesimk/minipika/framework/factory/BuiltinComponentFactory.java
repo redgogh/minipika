@@ -20,6 +20,7 @@ package org.jiakesimk.minipika.framework.factory;
  * Creates on 2020/6/1.
  */
 
+import org.jiakesimk.minipika.components.cache.SetCache;
 import org.jiakesimk.minipika.components.cache.WeakCacheImpl;
 import org.jiakesimk.minipika.components.jdbc.ConstResultSet;
 import org.jiakesimk.minipika.components.jdbc.NativeJdbcImpl;
@@ -50,7 +51,7 @@ public class BuiltinComponentFactory implements ComponentFactory {
       components.put(NativeJdbcImpl.class.getName(), forClass(NativeJdbcImpl.class));
       components.put(JdbcTransaction.class.getName(), forClass(JdbcTransaction.class));
       components.put(TransactionFactory.class.getName(), forClass(JdbcTransactionFactory.class));
-      components.put(ResultSetCache.class.getName(), forClass(WeakCacheImpl.class));
+      components.put(SetCache.class.getName(), forClass(WeakCacheImpl.class));
     }
   }
 

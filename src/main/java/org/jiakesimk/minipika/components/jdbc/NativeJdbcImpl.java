@@ -20,6 +20,7 @@ package org.jiakesimk.minipika.components.jdbc;
  * Creates on 2020/6/6.
  */
 
+import org.jiakesimk.minipika.components.cache.SetCache;
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
 import org.jiakesimk.minipika.components.jdbc.transaction.Transaction;
 import org.jiakesimk.minipika.framework.factory.Factorys;
@@ -40,7 +41,7 @@ public class NativeJdbcImpl implements NativeJdbc {
 
   private static final Log LOG = LogFactory.getLog(NativeJdbcImpl.class);
 
-  private final ResultSetCache cache = Factorys.forClass(ResultSetCache.class);
+  private final SetCache cache = Factorys.forClass(SetCache.class);
 
   @Override
   public boolean execute(String sql, Object... args) {
