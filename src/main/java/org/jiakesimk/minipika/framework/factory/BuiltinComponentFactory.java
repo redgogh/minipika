@@ -21,7 +21,6 @@ package org.jiakesimk.minipika.framework.factory;
  */
 
 import org.jiakesimk.minipika.components.cache.WeakCacheImpl;
-import org.jiakesimk.minipika.components.cache.ResultSetCache;
 import org.jiakesimk.minipika.components.jdbc.ConstResultSet;
 import org.jiakesimk.minipika.components.jdbc.NativeJdbcImpl;
 import org.jiakesimk.minipika.components.jdbc.QueryResultSet;

@@ -20,7 +20,6 @@ package org.jiakesimk.minipika.components.jdbc;
  * Creates on 2020/6/6.
  */
 
-import org.jiakesimk.minipika.components.cache.ResultSetCache;
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
 import org.jiakesimk.minipika.components.jdbc.transaction.Transaction;
 import org.jiakesimk.minipika.framework.factory.Factorys;
