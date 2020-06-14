@@ -24,10 +24,10 @@ package org.complete.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.raniaia.minipika.framework.provide.entity.Column;
-import org.raniaia.minipika.framework.provide.entity.Comment;
-import org.raniaia.minipika.framework.provide.entity.Entity;
-import org.raniaia.minipika.framework.provide.entity.PK;
+import org.jiakesiws.minipika.framework.provide.entity.Column;
+import org.jiakesiws.minipika.framework.provide.entity.Comment;
+import org.jiakesiws.minipika.framework.provide.entity.Entity;
+import org.jiakesiws.minipika.framework.provide.entity.PK;
 
 /**
  * @author tiansheng

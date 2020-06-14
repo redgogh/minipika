@@ -21,7 +21,7 @@ package framework.factory;
  */
 
 import org.junit.Test;
-import org.raniaia.minipika.framework.factory.VersionId;
+import org.jiakesiws.minipika.framework.factory.VersionId;
 
 /**
  * @author tiansheng

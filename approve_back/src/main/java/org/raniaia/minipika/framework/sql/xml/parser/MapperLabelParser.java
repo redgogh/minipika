@@ -1,4 +1,4 @@
-package org.raniaia.minipika.framework.sql.xml.parser;
+package org.jiakesiws.minipika.framework.sql.xml.parser;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -24,10 +24,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jdom2.Content;
 import org.jdom2.Element;
-import org.raniaia.minipika.framework.exception.ExpressionException;
-import org.raniaia.minipika.framework.provide.ProvideVar;
-import org.raniaia.minipika.framework.sql.xml.node.XMLNode;
-import org.raniaia.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.framework.exception.ExpressionException;
+import org.jiakesiws.minipika.framework.provide.ProvideVar;
+import org.jiakesiws.minipika.framework.sql.xml.node.XMLNode;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.util.List;
 

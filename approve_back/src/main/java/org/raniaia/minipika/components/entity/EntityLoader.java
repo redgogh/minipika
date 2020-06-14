@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.entity;
+package org.jiakesiws.minipika.components.entity;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -29,7 +29,7 @@ public interface EntityLoader {
 
     /**
      * execute entity scanner, and process entity bytecode
-     * add supper class {@link org.raniaia.minipika.components.entity.publics.AbstractEntity}.
+     * add supper class {@link org.jiakesiws.minipika.components.entity.publics.AbstractEntity}.
      */
     void run();
 

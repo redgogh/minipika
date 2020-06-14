@@ -1,4 +1,4 @@
-package org.raniaia.minipika.framework.provide;
+package org.jiakesiws.minipika.framework.provide;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -21,8 +21,8 @@ package org.raniaia.minipika.framework.provide;
  */
 
 import com.alibaba.fastjson.JSONObject;
-import org.raniaia.minipika.components.config.GlobalConfig;
-import org.raniaia.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.components.config.GlobalConfig;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.util.Date;
 import java.util.List;

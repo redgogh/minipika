@@ -1,4 +1,4 @@
-package org.raniaia.minipika.framework.provide;
+package org.jiakesiws.minipika.framework.provide;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.

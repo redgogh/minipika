@@ -17,7 +17,7 @@ package org.minipika;
  */
 
 
-import org.raniaia.minipika.framework.provide.SQL;
+import org.jiakesiws.minipika.framework.provide.SQL;
 
 /**
  * Copyright by tiansheng on 2020/2/29 23:48

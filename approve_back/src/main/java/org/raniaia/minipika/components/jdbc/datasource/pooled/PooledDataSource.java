@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.jdbc.datasource.pooled;
+package org.jiakesiws.minipika.components.jdbc.datasource.pooled;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -21,11 +21,11 @@ package org.raniaia.minipika.components.jdbc.datasource.pooled;
  */
 
 import lombok.Getter;
-import org.raniaia.minipika.components.jdbc.datasource.unpooled.Dsi;
-import org.raniaia.minipika.components.jdbc.datasource.unpooled.UnpooledDatasource;
-import org.raniaia.minipika.components.logging.Log;
-import org.raniaia.minipika.components.logging.LogFactory;
-import org.raniaia.minipika.framework.provide.component.Component;
+import org.jiakesiws.minipika.components.jdbc.datasource.unpooled.Dsi;
+import org.jiakesiws.minipika.components.jdbc.datasource.unpooled.UnpooledDatasource;
+import org.jiakesiws.minipika.components.logging.Log;
+import org.jiakesiws.minipika.components.logging.LogFactory;
+import org.jiakesiws.minipika.framework.provide.component.Component;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;

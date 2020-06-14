@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.jdbc;
+package org.jiakesiws.minipika.components.jdbc;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -21,8 +21,8 @@ package org.raniaia.minipika.components.jdbc;
  */
 
 
-import org.raniaia.minipika.components.jdbc.transaction.TransactionFactory;
-import org.raniaia.minipika.components.jdbc.transaction.TransactionIsolationLevel;
+import org.jiakesiws.minipika.components.jdbc.transaction.TransactionFactory;
+import org.jiakesiws.minipika.components.jdbc.transaction.TransactionIsolationLevel;
 
 import java.sql.*;
 import java.util.List;

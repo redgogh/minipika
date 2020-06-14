@@ -22,10 +22,10 @@ package org.complete.entity;
  * Creates on 2020/3/23 23:16
  */
 
-import org.raniaia.minipika.framework.provide.entity.Column;
-import org.raniaia.minipika.framework.provide.entity.Comment;
-import org.raniaia.minipika.framework.provide.entity.Entity;
-import org.raniaia.minipika.framework.provide.entity.PK;
+import org.jiakesiws.minipika.framework.provide.entity.Column;
+import org.jiakesiws.minipika.framework.provide.entity.Comment;
+import org.jiakesiws.minipika.framework.provide.entity.Entity;
+import org.jiakesiws.minipika.framework.provide.entity.PK;
 
 /**
  * @author tiansheng

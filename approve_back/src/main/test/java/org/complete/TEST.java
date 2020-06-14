@@ -23,9 +23,9 @@ package org.complete;
 import com.alibaba.fastjson.JSONObject;
 import org.complete.entity.User;
 import org.complete.mapper.UserMapper;
-import org.raniaia.minipika.BeansManager;
-import org.raniaia.minipika.components.config.ConfigLoader;
-import org.raniaia.minipika.framework.provide.Minipika;
+import org.jiakesiws.minipika.BeansManager;
+import org.jiakesiws.minipika.components.config.ConfigLoader;
+import org.jiakesiws.minipika.framework.provide.Minipika;
 
 /**
  * @author tiansheng

@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.entity.core.mysql;
+package org.jiakesiws.minipika.components.entity.core.mysql;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -23,22 +23,22 @@ package org.raniaia.minipika.components.entity.core.mysql;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import jdk.nashorn.internal.runtime.ParserException;
-import org.raniaia.minipika.BeansManager;
+import org.jiakesiws.minipika.BeansManager;
 
-import org.raniaia.minipika.framework.provide.ProvideVar;
-import org.raniaia.minipika.framework.provide.Minipika;
-import org.raniaia.minipika.framework.provide.component.Component;
-import org.raniaia.minipika.framework.provide.entity.Entity;
-import org.raniaia.minipika.components.config.GlobalConfig;
-import org.raniaia.minipika.framework.exception.MinipikaException;
-import org.raniaia.minipika.components.entity.EntityLoader;
-import org.raniaia.minipika.components.entity.EntityParser;
-import org.raniaia.minipika.components.entity.publics.Metadata;
-import org.raniaia.minipika.components.entity.publics.EntityPreProcess;
-import org.raniaia.minipika.framework.tools.EntityUtils;
-import org.raniaia.minipika.framework.tools.Lists;
-import org.raniaia.minipika.framework.tools.SecurityManager;
-import org.raniaia.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.framework.provide.ProvideVar;
+import org.jiakesiws.minipika.framework.provide.Minipika;
+import org.jiakesiws.minipika.framework.provide.component.Component;
+import org.jiakesiws.minipika.framework.provide.entity.Entity;
+import org.jiakesiws.minipika.components.config.GlobalConfig;
+import org.jiakesiws.minipika.framework.exception.MinipikaException;
+import org.jiakesiws.minipika.components.entity.EntityLoader;
+import org.jiakesiws.minipika.components.entity.EntityParser;
+import org.jiakesiws.minipika.components.entity.publics.Metadata;
+import org.jiakesiws.minipika.components.entity.publics.EntityPreProcess;
+import org.jiakesiws.minipika.framework.tools.EntityUtils;
+import org.jiakesiws.minipika.framework.tools.Lists;
+import org.jiakesiws.minipika.framework.tools.SecurityManager;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.util.*;
 
@@ -75,7 +75,7 @@ public class EntityLoaderImpl implements EntityLoader {
         Set<String> tables = jdbc.queryForSet(ProvideVar.QUERY_TABLES, String.class,
                 GlobalConfig.getConfig().getDbname());
 
-        EntityParser parserEntity = BeansManager.newInstance(org.raniaia.minipika.components.entity.core.mysql.EntityParserImpl.class);
+        EntityParser parserEntity = BeansManager.newInstance(org.jiakesiws.minipika.components.entity.core.mysql.EntityParserImpl.class);
         parserEntity.parse(EntityUtils.getEntitys());
         Map<String, Metadata> messages = Metadata.getAttribute();
         for (Map.Entry<String, Metadata> stringMetadataEntry : messages.entrySet()) {

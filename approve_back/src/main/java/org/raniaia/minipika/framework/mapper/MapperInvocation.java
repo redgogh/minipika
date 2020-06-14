@@ -1,4 +1,4 @@
-package org.raniaia.minipika.framework.mapper;
+package org.jiakesiws.minipika.framework.mapper;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,12 +20,12 @@ package org.raniaia.minipika.framework.mapper;
  * Creates on 2020/2/28.
  */
 
-import org.raniaia.minipika.BeansManager;
-import org.raniaia.minipika.framework.sql.QueryTag;
-import org.raniaia.minipika.framework.sql.SqlExecute;
-import org.raniaia.minipika.framework.sql.SqlMapper;
-import org.raniaia.minipika.framework.tools.Arrays;
-import org.raniaia.minipika.framework.tools.ReflectUtils;
+import org.jiakesiws.minipika.BeansManager;
+import org.jiakesiws.minipika.framework.sql.QueryTag;
+import org.jiakesiws.minipika.framework.sql.SqlExecute;
+import org.jiakesiws.minipika.framework.sql.SqlMapper;
+import org.jiakesiws.minipika.framework.tools.Arrays;
+import org.jiakesiws.minipika.framework.tools.ReflectUtils;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

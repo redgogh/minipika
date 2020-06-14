@@ -6,7 +6,7 @@
 
 ```properties
 # mapper xml文件所在的位置
-minipika.entity.mapper = org.raniaia.minipika.mapper
+minipika.entity.mapper = org.jiakesiws.minipika.mapper
 ```
 
 # mapper xml

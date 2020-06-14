@@ -21,7 +21,7 @@ package org.minipika.javassist;
 import javassist.CannotCompileException;
 import javassist.CtClass;
 import org.junit.Test;
-import org.raniaia.minipika.components.pool.MinipikaClassPool;
+import org.jiakesiws.minipika.components.pool.MinipikaClassPool;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/19 16:07

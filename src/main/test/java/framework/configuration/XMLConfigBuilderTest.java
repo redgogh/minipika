@@ -20,8 +20,8 @@ package framework.configuration;
  * Creates on 2020/6/2.
  */
 
-import org.raniaia.minipika.framework.configuration.XMLConfigBuilder;
-import org.raniaia.minipika.framework.configuration.FindStrategy;
+import org.jiakesiws.minipika.framework.configuration.XMLConfigBuilder;
+import org.jiakesiws.minipika.framework.configuration.FindStrategy;
 
 import java.io.InputStream;
 

@@ -1,4 +1,4 @@
-package org.raniaia.minipika.framework.sql.xml.build;
+package org.jiakesiws.minipika.framework.sql.xml.build;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,17 +20,17 @@ package org.raniaia.minipika.framework.sql.xml.build;
  * Creates on 2019/12/17.
  */
 
-import org.raniaia.minipika.components.logging.Log;
-import org.raniaia.minipika.components.logging.LogFactory;
-import org.raniaia.minipika.framework.exception.DynamicSQLException;
-import org.raniaia.minipika.framework.exception.ExpressionException;
-import org.raniaia.minipika.framework.provide.ProvideVar;
-import org.raniaia.minipika.framework.sql.xml.node.XMLDynamicSqlNode;
-import org.raniaia.minipika.framework.sql.xml.node.XMLMapperNode;
-import org.raniaia.minipika.framework.sql.xml.node.XMLNode;
-import org.raniaia.minipika.framework.sql.xml.token.Token;
-import org.raniaia.minipika.framework.sql.xml.token.TokenValue;
-import org.raniaia.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.components.logging.Log;
+import org.jiakesiws.minipika.components.logging.LogFactory;
+import org.jiakesiws.minipika.framework.exception.DynamicSQLException;
+import org.jiakesiws.minipika.framework.exception.ExpressionException;
+import org.jiakesiws.minipika.framework.provide.ProvideVar;
+import org.jiakesiws.minipika.framework.sql.xml.node.XMLDynamicSqlNode;
+import org.jiakesiws.minipika.framework.sql.xml.node.XMLMapperNode;
+import org.jiakesiws.minipika.framework.sql.xml.node.XMLNode;
+import org.jiakesiws.minipika.framework.sql.xml.token.Token;
+import org.jiakesiws.minipika.framework.sql.xml.token.TokenValue;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

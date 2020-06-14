@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.entity.core.mysql;
+package org.jiakesiws.minipika.components.entity.core.mysql;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,13 +20,13 @@ package org.raniaia.minipika.components.entity.core.mysql;
  * Creates on 2019/11/12.
  */
 
-import org.raniaia.minipika.framework.provide.component.Component;
-import org.raniaia.minipika.framework.provide.entity.*;
-import org.raniaia.minipika.framework.exception.MinipikaException;
-import org.raniaia.minipika.components.entity.EntityParser;
-import org.raniaia.minipika.components.entity.publics.Metadata;
-import org.raniaia.minipika.framework.tools.EntityUtils;
-import org.raniaia.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.framework.provide.component.Component;
+import org.jiakesiws.minipika.framework.provide.entity.*;
+import org.jiakesiws.minipika.framework.exception.MinipikaException;
+import org.jiakesiws.minipika.components.entity.EntityParser;
+import org.jiakesiws.minipika.components.entity.publics.Metadata;
+import org.jiakesiws.minipika.framework.tools.EntityUtils;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.lang.reflect.Field;
 import java.util.LinkedHashMap;

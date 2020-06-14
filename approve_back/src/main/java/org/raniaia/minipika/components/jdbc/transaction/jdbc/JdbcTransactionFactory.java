@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.jdbc.transaction.jdbc;
+package org.jiakesiws.minipika.components.jdbc.transaction.jdbc;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,10 +20,10 @@ package org.raniaia.minipika.components.jdbc.transaction.jdbc;
  * Creates on 2020/3/26.
  */
 
-import org.raniaia.minipika.components.jdbc.transaction.Transaction;
-import org.raniaia.minipika.components.jdbc.transaction.TransactionFactory;
-import org.raniaia.minipika.components.jdbc.transaction.TransactionIsolationLevel;
-import org.raniaia.minipika.framework.provide.component.Component;
+import org.jiakesiws.minipika.components.jdbc.transaction.Transaction;
+import org.jiakesiws.minipika.components.jdbc.transaction.TransactionFactory;
+import org.jiakesiws.minipika.components.jdbc.transaction.TransactionIsolationLevel;
+import org.jiakesiws.minipika.framework.provide.component.Component;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

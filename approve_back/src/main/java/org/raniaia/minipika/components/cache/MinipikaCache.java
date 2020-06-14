@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.cache;
+package org.jiakesiws.minipika.components.cache;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,7 +20,7 @@ package org.raniaia.minipika.components.cache;
  * Creates on 2019/12/9.
  */
 
-import org.raniaia.minipika.components.jdbc.NativeResult;
+import org.jiakesiws.minipika.components.jdbc.NativeResult;
 
 /**
  * 缓存接口.

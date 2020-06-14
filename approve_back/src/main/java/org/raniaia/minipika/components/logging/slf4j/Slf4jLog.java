@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.logging.slf4j;
+package org.jiakesiws.minipika.components.logging.slf4j;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,8 +20,8 @@ package org.raniaia.minipika.components.logging.slf4j;
  * Creates on 2019/12/17.
  */
 
-import org.raniaia.minipika.components.logging.Log;
-import org.raniaia.minipika.framework.provide.component.Component;
+import org.jiakesiws.minipika.components.logging.Log;
+import org.jiakesiws.minipika.framework.provide.component.Component;
 
 /**
  * @author tiansheng

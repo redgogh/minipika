@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.entity;
+package org.jiakesiws.minipika.components.entity;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,12 +20,12 @@ package org.raniaia.minipika.components.entity;
  * Create on 2020/3/20 0:13.
  */
 
-import org.raniaia.minipika.framework.provide.entity.*;
-import org.raniaia.minipika.framework.exception.MinipikaException;
-import org.raniaia.minipika.components.entity.publics.Metadata;
-import org.raniaia.minipika.framework.tools.EntityUtils;
-import org.raniaia.minipika.framework.tools.SecurityManager;
-import org.raniaia.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.framework.provide.entity.*;
+import org.jiakesiws.minipika.framework.exception.MinipikaException;
+import org.jiakesiws.minipika.components.entity.publics.Metadata;
+import org.jiakesiws.minipika.framework.tools.EntityUtils;
+import org.jiakesiws.minipika.framework.tools.SecurityManager;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.util.HashMap;
 import java.util.List;

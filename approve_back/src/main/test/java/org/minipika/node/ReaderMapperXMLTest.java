@@ -19,8 +19,8 @@ package org.minipika.node;
 
 
 import org.junit.Test;
-import org.raniaia.minipika.framework.sql.xml.node.XMLMapperNode;
-import org.raniaia.minipika.framework.sql.xml.parser.ReaderMapperXML;
+import org.jiakesiws.minipika.framework.sql.xml.node.XMLMapperNode;
+import org.jiakesiws.minipika.framework.sql.xml.parser.ReaderMapperXML;
 
 import java.util.List;
 

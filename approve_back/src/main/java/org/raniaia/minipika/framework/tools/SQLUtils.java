@@ -1,4 +1,4 @@
-package org.raniaia.minipika.framework.tools;
+package org.jiakesiws.minipika.framework.tools;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -24,7 +24,7 @@ import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.util.TablesNamesFinder;
-import org.raniaia.minipika.components.entity.database.ColumnEntity;
+import org.jiakesiws.minipika.components.entity.database.ColumnEntity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

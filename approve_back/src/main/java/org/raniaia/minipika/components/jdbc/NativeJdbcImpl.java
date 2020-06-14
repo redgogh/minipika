@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.jdbc;
+package org.jiakesiws.minipika.components.jdbc;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -21,18 +21,18 @@ package org.raniaia.minipika.components.jdbc;
  */
 
 import lombok.SneakyThrows;
-import org.raniaia.minipika.BeansManager;
-import org.raniaia.minipika.components.cache.MinipikaCache;
-import org.raniaia.minipika.components.config.GlobalConfig;
-import org.raniaia.minipika.components.jdbc.transaction.Transaction;
-import org.raniaia.minipika.components.jdbc.transaction.TransactionFactory;
-import org.raniaia.minipika.components.jdbc.transaction.TransactionIsolationLevel;
-import org.raniaia.minipika.components.logging.Log;
-import org.raniaia.minipika.components.logging.LogFactory;
-import org.raniaia.minipika.framework.provide.Minipika;
-import org.raniaia.minipika.framework.provide.component.Component;
-import org.raniaia.minipika.framework.tools.Arrays;
-import org.raniaia.minipika.framework.tools.SQLUtils;
+import org.jiakesiws.minipika.BeansManager;
+import org.jiakesiws.minipika.components.cache.MinipikaCache;
+import org.jiakesiws.minipika.components.config.GlobalConfig;
+import org.jiakesiws.minipika.components.jdbc.transaction.Transaction;
+import org.jiakesiws.minipika.components.jdbc.transaction.TransactionFactory;
+import org.jiakesiws.minipika.components.jdbc.transaction.TransactionIsolationLevel;
+import org.jiakesiws.minipika.components.logging.Log;
+import org.jiakesiws.minipika.components.logging.LogFactory;
+import org.jiakesiws.minipika.framework.provide.Minipika;
+import org.jiakesiws.minipika.framework.provide.component.Component;
+import org.jiakesiws.minipika.framework.tools.Arrays;
+import org.jiakesiws.minipika.framework.tools.SQLUtils;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

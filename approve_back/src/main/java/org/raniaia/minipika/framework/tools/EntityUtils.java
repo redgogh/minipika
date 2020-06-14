@@ -1,4 +1,4 @@
-package org.raniaia.minipika.framework.tools;
+package org.jiakesiws.minipika.framework.tools;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,11 +20,11 @@ package org.raniaia.minipika.framework.tools;
  * Creates on 2020/2/15.
  */
 
-import org.raniaia.minipika.framework.provide.entity.Ignore;
-import org.raniaia.minipika.framework.provide.entity.Entity;
-import org.raniaia.minipika.components.config.GlobalConfig;
-import org.raniaia.minipika.framework.exception.MinipikaException;
-import org.raniaia.minipika.framework.exception.EntityException;
+import org.jiakesiws.minipika.framework.provide.entity.Ignore;
+import org.jiakesiws.minipika.framework.provide.entity.Entity;
+import org.jiakesiws.minipika.components.config.GlobalConfig;
+import org.jiakesiws.minipika.framework.exception.MinipikaException;
+import org.jiakesiws.minipika.framework.exception.EntityException;
 
 import java.io.File;
 import java.lang.reflect.Field;

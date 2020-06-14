@@ -1,4 +1,4 @@
-package org.raniaia.minipika.framework.jap;
+package org.jiakesiws.minipika.framework.jap;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -21,11 +21,11 @@ package org.raniaia.minipika.framework.jap;
  */
 
 
-import org.raniaia.minipika.components.config.GlobalConfig;
-import org.raniaia.minipika.framework.exception.ConfigException;
-import org.raniaia.minipika.framework.tools.Files;
-import org.raniaia.minipika.framework.tools.MinipikaIOUtils;
-import org.raniaia.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.components.config.GlobalConfig;
+import org.jiakesiws.minipika.framework.exception.ConfigException;
+import org.jiakesiws.minipika.framework.tools.Files;
+import org.jiakesiws.minipika.framework.tools.MinipikaIOUtils;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.io.FileInputStream;
 import java.util.*;

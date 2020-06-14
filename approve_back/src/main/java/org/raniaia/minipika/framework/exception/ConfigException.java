@@ -1,4 +1,4 @@
-package org.raniaia.minipika.framework.exception;
+package org.jiakesiws.minipika.framework.exception;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.

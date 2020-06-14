@@ -20,8 +20,8 @@ package org.recycle.build;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.raniaia.minipika.framework.provide.ProvideVar;
-import org.raniaia.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.framework.provide.ProvideVar;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;

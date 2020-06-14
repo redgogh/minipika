@@ -19,8 +19,8 @@ package org.minipika.node;
 
 
 import org.junit.Test;
-import org.raniaia.minipika.framework.sql.xml.build.ParserMapperNode;
-import org.raniaia.minipika.framework.sql.xml.build.PrecompiledClass;
+import org.jiakesiws.minipika.framework.sql.xml.build.ParserMapperNode;
+import org.jiakesiws.minipika.framework.sql.xml.build.PrecompiledClass;
 
 import java.util.Map;
 

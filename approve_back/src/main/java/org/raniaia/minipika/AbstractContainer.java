@@ -1,4 +1,4 @@
-package org.raniaia.minipika;
+package org.jiakesiws.minipika;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,14 +20,14 @@ package org.raniaia.minipika;
  * Creates on 2020/3/21.
  */
 
-import org.raniaia.minipika.components.config.GlobalConfig;
-import org.raniaia.minipika.components.jdbc.datasource.unpooled.Dsi;
-import org.raniaia.minipika.framework.mapper.MapperInvocation;
-import org.raniaia.minipika.framework.provide.Minipika;
-import org.raniaia.minipika.framework.provide.component.Component;
-import org.raniaia.minipika.framework.provide.component.ComponentType;
-import org.raniaia.minipika.framework.sql.SqlMapper;
-import org.raniaia.minipika.framework.tools.*;
+import org.jiakesiws.minipika.components.config.GlobalConfig;
+import org.jiakesiws.minipika.components.jdbc.datasource.unpooled.Dsi;
+import org.jiakesiws.minipika.framework.mapper.MapperInvocation;
+import org.jiakesiws.minipika.framework.provide.Minipika;
+import org.jiakesiws.minipika.framework.provide.component.Component;
+import org.jiakesiws.minipika.framework.provide.component.ComponentType;
+import org.jiakesiws.minipika.framework.sql.SqlMapper;
+import org.jiakesiws.minipika.framework.tools.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

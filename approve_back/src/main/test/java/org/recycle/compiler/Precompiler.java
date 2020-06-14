@@ -20,13 +20,13 @@ package org.recycle.compiler;
 
 import javassist.*;
 
-import org.raniaia.minipika.BeansManager;
-import org.raniaia.minipika.components.pool.MinipikaClassPool;
-import org.raniaia.minipika.framework.provide.ProvideVar;
+import org.jiakesiws.minipika.BeansManager;
+import org.jiakesiws.minipika.components.pool.MinipikaClassPool;
+import org.jiakesiws.minipika.framework.provide.ProvideVar;
 import org.recycle.build.PrecompiledClass;
 import org.recycle.build.PrecompiledMethod;
-import org.raniaia.minipika.framework.loader.NativeClassLoader;
-import org.raniaia.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.framework.loader.NativeClassLoader;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.util.*;
 import java.util.regex.Matcher;

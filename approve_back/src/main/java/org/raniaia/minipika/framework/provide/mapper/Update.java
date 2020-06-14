@@ -1,4 +1,4 @@
-package org.raniaia.minipika.framework.provide.mapper;
+package org.jiakesiws.minipika.framework.provide.mapper;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.

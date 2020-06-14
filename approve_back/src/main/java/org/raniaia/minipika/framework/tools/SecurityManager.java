@@ -1,4 +1,4 @@
-package org.raniaia.minipika.framework.tools;
+package org.jiakesiws.minipika.framework.tools;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,7 +20,7 @@ package org.raniaia.minipika.framework.tools;
  * Creates on 2019/11/27.
  */
 
-import org.raniaia.minipika.framework.provide.entity.Entity;
+import org.jiakesiws.minipika.framework.provide.entity.Entity;
 
 /**
  * 检查一些类是否遵守标准

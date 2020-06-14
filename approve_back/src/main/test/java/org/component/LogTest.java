@@ -21,8 +21,8 @@ package org.component;
  */
 
 import org.junit.Test;
-import org.raniaia.minipika.components.logging.Log;
-import org.raniaia.minipika.components.logging.LogFactory;
+import org.jiakesiws.minipika.components.logging.Log;
+import org.jiakesiws.minipika.components.logging.LogFactory;
 
 /**
  * @author tiansheng

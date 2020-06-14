@@ -1,4 +1,4 @@
-package org.raniaia.minipika.framework.sql;
+package org.jiakesiws.minipika.framework.sql;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,11 +20,11 @@ package org.raniaia.minipika.framework.sql;
  * Creates on 2019/12/23.
  */
 
-import org.raniaia.minipika.BeansManager;
-import org.raniaia.minipika.framework.container.PrecompileContainer;
-import org.raniaia.minipika.framework.provide.Minipika;
-import org.raniaia.minipika.framework.sql.xml.build.PrecompiledClass;
-import org.raniaia.minipika.framework.sql.xml.build.PrecompiledMethod;
+import org.jiakesiws.minipika.BeansManager;
+import org.jiakesiws.minipika.framework.container.PrecompileContainer;
+import org.jiakesiws.minipika.framework.provide.Minipika;
+import org.jiakesiws.minipika.framework.sql.xml.build.PrecompiledClass;
+import org.jiakesiws.minipika.framework.sql.xml.build.PrecompiledMethod;
 
 import java.util.*;
 

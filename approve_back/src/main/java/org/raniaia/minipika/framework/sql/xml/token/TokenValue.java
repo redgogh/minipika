@@ -1,4 +1,4 @@
-package org.raniaia.minipika.framework.sql.xml.token;
+package org.jiakesiws.minipika.framework.sql.xml.token;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -21,8 +21,8 @@ package org.raniaia.minipika.framework.sql.xml.token;
  */
 
 import lombok.Data;
-import org.raniaia.minipika.framework.provide.ProvideVar;
-import org.raniaia.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.framework.provide.ProvideVar;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 /**
  * @author tiansheng

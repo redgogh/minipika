@@ -1,11 +1,11 @@
-public class org.raniaia.minipika.framework.beans.BeansManager {
-  public org.raniaia.minipika.framework.beans.BeansManager();
+public class org.jiakesiws.minipika.framework.beans.BeansManager {
+  public org.jiakesiws.minipika.framework.beans.BeansManager();
     Code:
        0: aload_0
        1: invokespecial #1                  // Method java/lang/Object."<init>":()V
        4: return
 
-  public static org.raniaia.minipika.components.db.NativeResult newNativeResult();
+  public static org.jiakesiws.minipika.components.db.NativeResult newNativeResult();
     Code:
        0: new           #4                  // class org/raniaia/minipika/framework/db/NativeResultMysql
        3: dup

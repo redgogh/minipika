@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.config;
+package org.jiakesiws.minipika.components.config;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -21,14 +21,14 @@ package org.raniaia.minipika.components.config;
  */
 
 
-import org.raniaia.minipika.BeansManager;
-import org.raniaia.minipika.components.config.components.AppCfg;
-import org.raniaia.minipika.components.config.components.JapConfig;
-import org.raniaia.minipika.components.config.components.PropertiesConfig;
-import org.raniaia.minipika.components.entity.core.mysql.EntityLoaderImpl;
-import org.raniaia.minipika.framework.exception.ConfigException;
-import org.raniaia.minipika.components.entity.EntityLoader;
-import org.raniaia.minipika.framework.provide.component.Component;
+import org.jiakesiws.minipika.BeansManager;
+import org.jiakesiws.minipika.components.config.components.AppCfg;
+import org.jiakesiws.minipika.components.config.components.JapConfig;
+import org.jiakesiws.minipika.components.config.components.PropertiesConfig;
+import org.jiakesiws.minipika.components.entity.core.mysql.EntityLoaderImpl;
+import org.jiakesiws.minipika.framework.exception.ConfigException;
+import org.jiakesiws.minipika.components.entity.EntityLoader;
+import org.jiakesiws.minipika.framework.provide.component.Component;
 
 /**
  * 统一配置调用

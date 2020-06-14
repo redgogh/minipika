@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.config;
+package org.jiakesiws.minipika.components.config;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -25,14 +25,14 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 
 
-import org.raniaia.minipika.components.jdbc.datasource.unpooled.Dsi;
-import org.raniaia.minipika.framework.config.Cfg;
-import org.raniaia.minipika.framework.exception.ConfigException;
-import org.raniaia.minipika.framework.jap.JapLoader;
-import org.raniaia.minipika.framework.tools.Calculator;
-import org.raniaia.minipika.framework.tools.Files;
-import org.raniaia.minipika.framework.tools.StringUtils;
-import org.raniaia.minipika.framework.tools.DateUtils;
+import org.jiakesiws.minipika.components.jdbc.datasource.unpooled.Dsi;
+import org.jiakesiws.minipika.framework.config.Cfg;
+import org.jiakesiws.minipika.framework.exception.ConfigException;
+import org.jiakesiws.minipika.framework.jap.JapLoader;
+import org.jiakesiws.minipika.framework.tools.Calculator;
+import org.jiakesiws.minipika.framework.tools.Files;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.framework.tools.DateUtils;
 
 import java.util.Map;
 import java.util.Properties;

@@ -1,10 +1,10 @@
-package org.raniaia.minipika.framework.tools;
+package org.jiakesiws.minipika.framework.tools;
 
 /*
  * Creates on 2020/3/20.
  */
 
-import org.raniaia.minipika.framework.tools.Lists;
+import org.jiakesiws.minipika.framework.tools.Lists;
 import lombok.SneakyThrows;
 
 import java.lang.annotation.Annotation;

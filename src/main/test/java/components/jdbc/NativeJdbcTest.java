@@ -22,10 +22,10 @@ package components.jdbc;
 
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
-import org.raniaia.minipika.components.jdbc.QueryResultSet;
-import org.raniaia.minipika.components.jdbc.NativeJdbc;
-import org.raniaia.minipika.framework.configuration.XMLConfigBuilder;
-import org.raniaia.minipika.framework.factory.Factorys;
+import org.jiakesiws.minipika.components.jdbc.QueryResultSet;
+import org.jiakesiws.minipika.components.jdbc.NativeJdbc;
+import org.jiakesiws.minipika.framework.configuration.XMLConfigBuilder;
+import org.jiakesiws.minipika.framework.factory.Factorys;
 
 /**
  * @author tiansheng

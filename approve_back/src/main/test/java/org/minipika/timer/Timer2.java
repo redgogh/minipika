@@ -18,8 +18,8 @@ package org.minipika.timer;
 
 
 
-import org.raniaia.minipika.framework.timer.Timer;
-import org.raniaia.minipika.framework.tools.DateUtils;
+import org.jiakesiws.minipika.framework.timer.Timer;
+import org.jiakesiws.minipika.framework.tools.DateUtils;
 
 import java.util.ArrayList;
 

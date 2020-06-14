@@ -20,8 +20,8 @@ package org.minipika.column;
 
 import org.junit.Test;
 
-import org.raniaia.minipika.BeansManager;
-import org.raniaia.minipika.components.entity.database.ColumnEntity;
+import org.jiakesiws.minipika.BeansManager;
+import org.jiakesiws.minipika.components.entity.database.ColumnEntity;
 
 import java.util.List;
 

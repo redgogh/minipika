@@ -18,13 +18,13 @@ package org.recycle.build;
 
 
 
-import org.raniaia.minipika.framework.provide.ProvideVar;
-import org.raniaia.minipika.framework.sql.xml.node.XMLMapperNode;
-import org.raniaia.minipika.framework.sql.xml.node.XMLNode;
-import org.raniaia.minipika.framework.sql.xml.node.XMLDynamicSqlNode;
-import org.raniaia.minipika.framework.sql.xml.token.Token;
-import org.raniaia.minipika.framework.sql.xml.token.TokenValue;
-import org.raniaia.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.framework.provide.ProvideVar;
+import org.jiakesiws.minipika.framework.sql.xml.node.XMLMapperNode;
+import org.jiakesiws.minipika.framework.sql.xml.node.XMLNode;
+import org.jiakesiws.minipika.framework.sql.xml.node.XMLDynamicSqlNode;
+import org.jiakesiws.minipika.framework.sql.xml.token.Token;
+import org.jiakesiws.minipika.framework.sql.xml.token.TokenValue;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.config.components;
+package org.jiakesiws.minipika.components.config.components;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,8 +20,8 @@ package org.raniaia.minipika.components.config.components;
  * Creates on 2020/2/13.
  */
 
-import org.raniaia.minipika.components.config.AbstractConfig;
-import org.raniaia.minipika.framework.jap.JapLoader;
+import org.jiakesiws.minipika.components.config.AbstractConfig;
+import org.jiakesiws.minipika.framework.jap.JapLoader;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package org.raniaia.minipika.framework.sql.xml.build;
+package org.jiakesiws.minipika.framework.sql.xml.build;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -22,11 +22,11 @@ package org.raniaia.minipika.framework.sql.xml.build;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.raniaia.minipika.components.entity.publics.Metadata;
-import org.raniaia.minipika.framework.provide.ProvideVar;
-import org.raniaia.minipika.framework.sql.QueryTag;
-import org.raniaia.minipika.framework.tools.ReflectUtils;
-import org.raniaia.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.components.entity.publics.Metadata;
+import org.jiakesiws.minipika.framework.provide.ProvideVar;
+import org.jiakesiws.minipika.framework.sql.QueryTag;
+import org.jiakesiws.minipika.framework.tools.ReflectUtils;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.lang.reflect.Method;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.entity.database;
+package org.jiakesiws.minipika.components.entity.database;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.

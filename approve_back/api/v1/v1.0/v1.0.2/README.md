@@ -57,9 +57,9 @@ minipika.connectionPool.maxSize = 90
 # 前缀
 minipika.entity.prefix = kkb
 # entity所在的包
-minipika.entity.package = org.raniaia.minipika.experiment
+minipika.entity.package = org.jiakesiws.minipika.experiment
 # UPDATE ---> builder xml模板文件所在的路径
-minipika.entity.mapper = org.raniaia.minipika.builder
+minipika.entity.mapper = org.jiakesiws.minipika.builder
 
 ```
 

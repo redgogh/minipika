@@ -20,7 +20,7 @@ package org.minipika.tools;
 
 import lombok.Setter;
 import org.junit.Test;
-import org.raniaia.minipika.framework.tools.ReflectUtils;
+import org.jiakesiws.minipika.framework.tools.ReflectUtils;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/20 11:55

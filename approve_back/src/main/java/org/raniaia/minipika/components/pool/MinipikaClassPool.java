@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.pool;
+package org.jiakesiws.minipika.components.pool;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -21,7 +21,7 @@ package org.raniaia.minipika.components.pool;
  */
 
 import javassist.*;
-import org.raniaia.minipika.framework.provide.component.Component;
+import org.jiakesiws.minipika.framework.provide.component.Component;
 
 import java.io.File;
 import java.net.URL;

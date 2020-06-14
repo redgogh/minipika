@@ -1,4 +1,4 @@
-package org.raniaia.minipika;
+package org.jiakesiws.minipika;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -21,8 +21,8 @@ package org.raniaia.minipika;
  */
 
 
-import org.raniaia.minipika.framework.tools.Maps;
-import org.raniaia.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.framework.tools.Maps;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.util.List;
 import java.util.Map;

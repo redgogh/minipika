@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.jdbc.transaction;
+package org.jiakesiws.minipika.components.jdbc.transaction;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,7 +20,7 @@ package org.raniaia.minipika.components.jdbc.transaction;
  * Creates on 2020/3/26.
  */
 
-import org.raniaia.minipika.components.jdbc.NativeJdbcImpl;
+import org.jiakesiws.minipika.components.jdbc.NativeJdbcImpl;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

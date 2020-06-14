@@ -19,7 +19,7 @@ package org.minipika;
 
 
 import net.sf.jsqlparser.JSQLParserException;
-import org.raniaia.minipika.framework.tools.SQLUtils;
+import org.jiakesiws.minipika.framework.tools.SQLUtils;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/6 16:02

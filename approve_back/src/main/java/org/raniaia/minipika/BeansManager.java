@@ -1,4 +1,4 @@
-package org.raniaia.minipika;
+package org.jiakesiws.minipika;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,10 +20,10 @@ package org.raniaia.minipika;
  * Creates on 2020/3/21.
  */
 
-import org.raniaia.minipika.components.MyComponents;
-import org.raniaia.minipika.components.jdbc.NativeResult;
-import org.raniaia.minipika.components.jdbc.NativeResultMysql;
-import org.raniaia.minipika.framework.sql.SqlMapper;
+import org.jiakesiws.minipika.components.MyComponents;
+import org.jiakesiws.minipika.components.jdbc.NativeResult;
+import org.jiakesiws.minipika.components.jdbc.NativeResultMysql;
+import org.jiakesiws.minipika.framework.sql.SqlMapper;
 
 /**
  * Bean container management object, all beans will be created

@@ -1,4 +1,4 @@
-package org.raniaia.minipika.components.jdbc;
+package org.jiakesiws.minipika.components.jdbc;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,7 +20,7 @@ package org.raniaia.minipika.components.jdbc;
  * Creates on 2019/11/11.
  */
 
-import org.raniaia.minipika.components.entity.database.ColumnEntity;
+import org.jiakesiws.minipika.components.entity.database.ColumnEntity;
 
 import java.util.List;
 import java.util.Set;
