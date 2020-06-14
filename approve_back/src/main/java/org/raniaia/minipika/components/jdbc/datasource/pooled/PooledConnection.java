@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components.jdbc.datasource.pooled;
+package org.jiakesimk.minipika.components.jdbc.datasource.pooled;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -22,9 +22,9 @@ package org.jiakesiws.minipika.components.jdbc.datasource.pooled;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.jiakesiws.minipika.components.logging.Log;
-import org.jiakesiws.minipika.components.logging.LogFactory;
-import org.jiakesiws.minipika.framework.exception.MinipikaException;
+import org.jiakesimk.minipika.components.logging.Log;
+import org.jiakesimk.minipika.components.logging.LogFactory;
+import org.jiakesimk.minipika.framework.exception.MinipikaException;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

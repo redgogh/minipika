@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components.jdbc;
+package org.jiakesimk.minipika.components.jdbc;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -21,10 +21,10 @@ package org.jiakesiws.minipika.components.jdbc;
  */
 
 import com.alibaba.fastjson.JSONObject;
-import org.jiakesiws.minipika.framework.provide.entity.Ignore;
-import org.jiakesiws.minipika.framework.tools.Maps;
-import org.jiakesiws.minipika.framework.tools.EntityUtils;
-import org.jiakesiws.minipika.framework.tools.StringUtils;
+import org.jiakesimk.minipika.framework.provide.entity.Ignore;
+import org.jiakesimk.minipika.framework.tools.Maps;
+import org.jiakesimk.minipika.framework.tools.EntityUtils;
+import org.jiakesimk.minipika.framework.tools.StringUtils;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;

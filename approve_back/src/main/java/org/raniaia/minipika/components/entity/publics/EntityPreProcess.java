@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components.entity.publics;
+package org.jiakesimk.minipika.components.entity.publics;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -23,10 +23,10 @@ package org.jiakesiws.minipika.components.entity.publics;
 import javassist.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.jiakesiws.minipika.framework.provide.entity.Entity;
-import org.jiakesiws.minipika.framework.provide.entity.Norm;
-import org.jiakesiws.minipika.components.pool.MinipikaClassPool;
-import org.jiakesiws.minipika.framework.tools.StringUtils;
+import org.jiakesimk.minipika.framework.provide.entity.Entity;
+import org.jiakesimk.minipika.framework.provide.entity.Norm;
+import org.jiakesimk.minipika.components.pool.MinipikaClassPool;
+import org.jiakesimk.minipika.framework.tools.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

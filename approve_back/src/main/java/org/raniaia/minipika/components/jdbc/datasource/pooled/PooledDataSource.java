@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components.jdbc.datasource.pooled;
+package org.jiakesimk.minipika.components.jdbc.datasource.pooled;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -21,11 +21,11 @@ package org.jiakesiws.minipika.components.jdbc.datasource.pooled;
  */
 
 import lombok.Getter;
-import org.jiakesiws.minipika.components.jdbc.datasource.unpooled.Dsi;
-import org.jiakesiws.minipika.components.jdbc.datasource.unpooled.UnpooledDatasource;
-import org.jiakesiws.minipika.components.logging.Log;
-import org.jiakesiws.minipika.components.logging.LogFactory;
-import org.jiakesiws.minipika.framework.provide.component.Component;
+import org.jiakesimk.minipika.components.jdbc.datasource.unpooled.Dsi;
+import org.jiakesimk.minipika.components.jdbc.datasource.unpooled.UnpooledDatasource;
+import org.jiakesimk.minipika.components.logging.Log;
+import org.jiakesimk.minipika.components.logging.LogFactory;
+import org.jiakesimk.minipika.framework.provide.component.Component;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;

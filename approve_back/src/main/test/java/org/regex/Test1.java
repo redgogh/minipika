@@ -19,7 +19,7 @@ package org.regex;
 
 
 import org.junit.Test;
-import org.jiakesiws.minipika.framework.tools.MinipikaIOUtils;
+import org.jiakesimk.minipika.framework.tools.MinipikaIOUtils;
 
 import java.util.Arrays;
 

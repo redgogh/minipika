@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components.jdbc;
+package org.jiakesimk.minipika.components.jdbc;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.

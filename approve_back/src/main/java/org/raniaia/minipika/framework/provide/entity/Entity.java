@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.framework.provide.entity;
+package org.jiakesimk.minipika.framework.provide.entity;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -46,7 +46,7 @@ public @interface Entity {
      * 储存引擎
      * @return
      */
-    Engine engine() default org.jiakesiws.minipika.framework.provide.entity.Engine.INNODB;
+    Engine engine() default org.jiakesimk.minipika.framework.provide.entity.Engine.INNODB;
 
     /**
      * 自增长从多少开始

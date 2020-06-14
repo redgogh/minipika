@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components.cache;
+package org.jiakesimk.minipika.components.cache;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -22,7 +22,7 @@ package org.jiakesiws.minipika.components.cache;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.jiakesiws.minipika.components.jdbc.NativeJdbc;
+import org.jiakesimk.minipika.components.jdbc.NativeJdbc;
 
 import java.util.List;
 

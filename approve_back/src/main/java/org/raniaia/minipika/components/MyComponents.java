@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components;
+package org.jiakesimk.minipika.components;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,11 +20,11 @@ package org.jiakesiws.minipika.components;
  * Creates on 2020/3/26.
  */
 
-import org.jiakesiws.minipika.AbstractContainer;
-import org.jiakesiws.minipika.components.config.GlobalConfig;
-import org.jiakesiws.minipika.components.jdbc.datasource.unpooled.Dsi;
-import org.jiakesiws.minipika.framework.provide.component.Component;
-import org.jiakesiws.minipika.framework.provide.component.ComponentType;
+import org.jiakesimk.minipika.AbstractContainer;
+import org.jiakesimk.minipika.components.config.GlobalConfig;
+import org.jiakesimk.minipika.components.jdbc.datasource.unpooled.Dsi;
+import org.jiakesimk.minipika.framework.provide.component.Component;
+import org.jiakesimk.minipika.framework.provide.component.ComponentType;
 
 /**
  * @author tiansheng

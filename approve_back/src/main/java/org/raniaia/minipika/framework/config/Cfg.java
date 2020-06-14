@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.framework.config;
+package org.jiakesimk.minipika.framework.config;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,7 +20,7 @@ package org.jiakesiws.minipika.framework.config;
  * Creates on 2020/4/2.
  */
 
-import org.jiakesiws.minipika.framework.tools.*;
+import org.jiakesimk.minipika.framework.tools.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;

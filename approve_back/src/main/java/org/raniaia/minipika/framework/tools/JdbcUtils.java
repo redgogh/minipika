@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.framework.tools;
+package org.jiakesimk.minipika.framework.tools;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,7 +20,7 @@ package org.jiakesiws.minipika.framework.tools;
  * Creates on 2020/2/15.
  */
 
-import org.jiakesiws.minipika.framework.provide.entity.Entity;
+import org.jiakesimk.minipika.framework.provide.entity.Entity;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

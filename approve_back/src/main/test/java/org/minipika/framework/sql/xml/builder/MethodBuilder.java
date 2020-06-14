@@ -18,10 +18,10 @@ package framework.sql.xml.builder;
 
 
 
-import org.jiakesiws.minipika.framework.tools.NewlineBuilder;
+import org.jiakesimk.minipika.framework.tools.NewlineBuilder;
 import lombok.Getter;
 import lombok.Setter;
-import org.jiakesiws.minipika.framework.tools.StringUtils;
+import org.jiakesimk.minipika.framework.tools.StringUtils;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/13 23:57

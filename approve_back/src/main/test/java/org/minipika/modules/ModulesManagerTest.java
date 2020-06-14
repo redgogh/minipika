@@ -41,8 +41,8 @@ package org.minipika.modules;
  */
 
 
-import org.jiakesiws.minipika.BeansManager;
-import org.jiakesiws.minipika.components.entity.EntityParser;
+import org.jiakesimk.minipika.BeansManager;
+import org.jiakesimk.minipika.components.entity.EntityParser;
 
 /**
  * @author tiansheng

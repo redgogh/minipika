@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components.logging;
+package org.jiakesimk.minipika.components.logging;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -21,9 +21,9 @@ package org.jiakesiws.minipika.components.logging;
  */
 
 
-import org.jiakesiws.minipika.components.logging.slf4j.Slf4jLogAdapter;
-import org.jiakesiws.minipika.components.logging.stdlog.StdLogAdapter;
-import org.jiakesiws.minipika.framework.exception.LogException;
+import org.jiakesimk.minipika.components.logging.slf4j.Slf4jLogAdapter;
+import org.jiakesimk.minipika.components.logging.stdlog.StdLogAdapter;
+import org.jiakesimk.minipika.framework.exception.LogException;
 
 import java.lang.reflect.Constructor;
 

@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components.monitor;
+package org.jiakesimk.minipika.components.monitor;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -21,7 +21,7 @@ package org.jiakesiws.minipika.components.monitor;
  */
 
 
-import org.jiakesiws.minipika.framework.sql.SqlExecute;
+import org.jiakesimk.minipika.framework.sql.SqlExecute;
 
 /**
  *

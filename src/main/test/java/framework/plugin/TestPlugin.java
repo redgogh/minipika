@@ -20,8 +20,8 @@ package framework.plugin;
  * Creates on 2020/6/1.
  */
 
-import org.jiakesiws.minipika.framework.plugins.Invocation;
-import org.jiakesiws.minipika.framework.plugins.Interceptor;
+import org.jiakesimk.minipika.framework.plugins.Invocation;
+import org.jiakesimk.minipika.framework.plugins.Interceptor;
 
 import java.io.InputStream;
 

@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components.cache;
+package org.jiakesimk.minipika.components.cache;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,8 +20,8 @@ package org.jiakesiws.minipika.components.cache;
  * Creates on 2019/12/7.
  */
 
-import org.jiakesiws.minipika.components.config.GlobalConfig;
-import org.jiakesiws.minipika.framework.timer.Timer;
+import org.jiakesimk.minipika.components.config.GlobalConfig;
+import org.jiakesimk.minipika.framework.timer.Timer;
 
 /**
  *

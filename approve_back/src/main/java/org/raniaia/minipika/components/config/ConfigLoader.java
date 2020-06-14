@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components.config;
+package org.jiakesimk.minipika.components.config;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,8 +20,8 @@ package org.jiakesiws.minipika.components.config;
  * Creates on 2019/12/3.
  */
 
-import org.jiakesiws.minipika.framework.tools.Paths;
-import org.jiakesiws.minipika.framework.tools.StringUtils;
+import org.jiakesimk.minipika.framework.tools.Paths;
+import org.jiakesimk.minipika.framework.tools.StringUtils;
 
 
 import java.net.URL;

@@ -18,8 +18,8 @@ package org.minipika.timer;
 
 
 
-import org.jiakesiws.minipika.framework.timer.Timer;
-import org.jiakesiws.minipika.framework.tools.DateUtils;
+import org.jiakesimk.minipika.framework.timer.Timer;
+import org.jiakesimk.minipika.framework.tools.DateUtils;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/9 11:18

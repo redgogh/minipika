@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika;
+package org.jiakesimk.minipika;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.

@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.framework.sql.xml.parser;
+package org.jiakesimk.minipika.framework.sql.xml.parser;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -22,7 +22,7 @@ package org.jiakesiws.minipika.framework.sql.xml.parser;
 
 import org.jdom2.Content;
 import org.jdom2.Element;
-import org.jiakesiws.minipika.framework.sql.xml.node.XMLNode;
+import org.jiakesimk.minipika.framework.sql.xml.node.XMLNode;
 
 /**
  * 解析XML

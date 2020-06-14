@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.framework.loader;
+package org.jiakesimk.minipika.framework.loader;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.

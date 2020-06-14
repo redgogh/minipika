@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.framework.sql.xml.token;
+package org.jiakesimk.minipika.framework.sql.xml.token;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.

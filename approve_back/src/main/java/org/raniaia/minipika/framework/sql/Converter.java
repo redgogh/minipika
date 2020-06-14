@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.framework.sql;
+package org.jiakesimk.minipika.framework.sql;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -21,10 +21,10 @@ package org.jiakesiws.minipika.framework.sql;
  */
 
 import javassist.*;
-import org.jiakesiws.minipika.framework.loader.NativeClassLoader;
-import org.jiakesiws.minipika.components.pool.MinipikaClassPool;
-import org.jiakesiws.minipika.framework.provide.Minipika;
-import org.jiakesiws.minipika.framework.sql.xml.build.PrecompiledMethod;
+import org.jiakesimk.minipika.framework.loader.NativeClassLoader;
+import org.jiakesimk.minipika.components.pool.MinipikaClassPool;
+import org.jiakesimk.minipika.framework.provide.Minipika;
+import org.jiakesimk.minipika.framework.sql.xml.build.PrecompiledMethod;
 
 import java.lang.reflect.Method;
 import java.util.List;

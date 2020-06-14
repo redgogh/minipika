@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.framework.sql.xml.build;
+package org.jiakesimk.minipika.framework.sql.xml.build;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,9 +20,9 @@ package org.jiakesiws.minipika.framework.sql.xml.build;
  * Creates on 2019/12/17.
  */
 
-import org.jiakesiws.minipika.framework.sql.xml.node.XMLDynamicSqlNode;
-import org.jiakesiws.minipika.framework.sql.xml.node.XMLMapperNode;
-import org.jiakesiws.minipika.framework.sql.xml.parser.ReaderMapperXML;
+import org.jiakesimk.minipika.framework.sql.xml.node.XMLDynamicSqlNode;
+import org.jiakesimk.minipika.framework.sql.xml.node.XMLMapperNode;
+import org.jiakesimk.minipika.framework.sql.xml.parser.ReaderMapperXML;
 
 import java.util.HashMap;
 import java.util.List;

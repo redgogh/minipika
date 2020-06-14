@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.framework.timer;
+package org.jiakesimk.minipika.framework.timer;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.

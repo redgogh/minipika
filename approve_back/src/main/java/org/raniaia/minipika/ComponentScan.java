@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika;
+package org.jiakesimk.minipika;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -23,11 +23,11 @@ package org.jiakesiws.minipika;
 import lombok.Getter;
 import lombok.SneakyThrows;
 
-import org.jiakesiws.minipika.framework.provide.component.Component;
-import org.jiakesiws.minipika.framework.tools.Annotations;
-import org.jiakesiws.minipika.framework.tools.ClassResources;
-import org.jiakesiws.minipika.framework.tools.Lists;
-import org.jiakesiws.minipika.framework.tools.Threads;
+import org.jiakesimk.minipika.framework.provide.component.Component;
+import org.jiakesimk.minipika.framework.tools.Annotations;
+import org.jiakesimk.minipika.framework.tools.ClassResources;
+import org.jiakesimk.minipika.framework.tools.Lists;
+import org.jiakesimk.minipika.framework.tools.Threads;
 
 import java.io.File;
 import java.util.List;

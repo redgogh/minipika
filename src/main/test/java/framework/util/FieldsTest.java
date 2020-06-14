@@ -22,9 +22,9 @@ package framework.util;
 
 import org.junit.Test;
 import testObject.Entity;
-import org.jiakesiws.minipika.framework.annotations.Inject;
-import org.jiakesiws.minipika.framework.util.ArrayUtils;
-import org.jiakesiws.minipika.framework.util.Fields;
+import org.jiakesimk.minipika.framework.annotations.Inject;
+import org.jiakesimk.minipika.framework.util.ArrayUtils;
+import org.jiakesimk.minipika.framework.util.Fields;
 
 import java.lang.reflect.Field;
 

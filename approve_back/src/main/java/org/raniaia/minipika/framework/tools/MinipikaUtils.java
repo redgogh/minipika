@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.framework.tools;
+package org.jiakesimk.minipika.framework.tools;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,7 +20,7 @@ package org.jiakesiws.minipika.framework.tools;
  * Creates on 2019/11/12.
  */
 
-import org.jiakesiws.minipika.components.config.GlobalConfig;
+import org.jiakesimk.minipika.components.config.GlobalConfig;
 
 import java.io.*;
 import java.security.MessageDigest;

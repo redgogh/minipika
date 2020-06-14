@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.framework.container;
+package org.jiakesimk.minipika.framework.container;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,8 +20,8 @@ package org.jiakesiws.minipika.framework.container;
  * Creates on 2019/12/23.
  */
 
-import org.jiakesiws.minipika.framework.sql.xml.build.ParserMapperNode;
-import org.jiakesiws.minipika.framework.sql.xml.build.PrecompiledClass;
+import org.jiakesimk.minipika.framework.sql.xml.build.ParserMapperNode;
+import org.jiakesimk.minipika.framework.sql.xml.build.PrecompiledClass;
 
 import java.util.Map;
 

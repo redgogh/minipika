@@ -19,7 +19,7 @@ package org.minipika.service;
 
 
 
-import org.jiakesiws.minipika.BeansManager;
+import org.jiakesimk.minipika.BeansManager;
 
 /**
  * @author tiansheng

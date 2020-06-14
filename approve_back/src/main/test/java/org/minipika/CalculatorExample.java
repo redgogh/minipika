@@ -18,7 +18,7 @@ package org.minipika;
 
 
 
-import org.jiakesiws.minipika.framework.tools.Calculator;
+import org.jiakesimk.minipika.framework.tools.Calculator;
 
 /**
  * Copyright: Create by tiansheng on 2019/12/7 21:35

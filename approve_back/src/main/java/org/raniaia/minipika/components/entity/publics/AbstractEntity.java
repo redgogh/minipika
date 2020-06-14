@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components.entity.publics;
+package org.jiakesimk.minipika.components.entity.publics;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.

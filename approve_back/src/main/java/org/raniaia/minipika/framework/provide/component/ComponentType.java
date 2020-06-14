@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.framework.provide.component;
+package org.jiakesimk.minipika.framework.provide.component;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.

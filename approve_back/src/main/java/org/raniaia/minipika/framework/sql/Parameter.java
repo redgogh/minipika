@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.framework.sql;
+package org.jiakesimk.minipika.framework.sql;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.

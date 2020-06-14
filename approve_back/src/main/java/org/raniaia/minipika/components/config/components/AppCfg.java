@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components.config.components;
+package org.jiakesimk.minipika.components.config.components;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -21,8 +21,8 @@ package org.jiakesiws.minipika.components.config.components;
  */
 
 import lombok.SneakyThrows;
-import org.jiakesiws.minipika.components.config.AbstractConfig;
-import org.jiakesiws.minipika.framework.config.Cfg;
+import org.jiakesimk.minipika.components.config.AbstractConfig;
+import org.jiakesimk.minipika.framework.config.Cfg;
 
 
 import java.io.IOException;

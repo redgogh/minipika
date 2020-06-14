@@ -20,7 +20,7 @@ package testObject;
  * Creates on 2020/6/1.
  */
 
-import org.jiakesiws.minipika.framework.annotations.Inject;
+import org.jiakesimk.minipika.framework.annotations.Inject;
 
 /**
  * @author tiansheng

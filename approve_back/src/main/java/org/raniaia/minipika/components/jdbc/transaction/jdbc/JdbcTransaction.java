@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components.jdbc.transaction.jdbc;
+package org.jiakesimk.minipika.components.jdbc.transaction.jdbc;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,11 +20,11 @@ package org.jiakesiws.minipika.components.jdbc.transaction.jdbc;
  * Creates on 2020/1/30.
  */
 
-import org.jiakesiws.minipika.components.jdbc.transaction.Transaction;
-import org.jiakesiws.minipika.components.jdbc.transaction.TransactionIsolationLevel;
-import org.jiakesiws.minipika.components.logging.Log;
-import org.jiakesiws.minipika.components.logging.LogFactory;
-import org.jiakesiws.minipika.framework.provide.component.Component;
+import org.jiakesimk.minipika.components.jdbc.transaction.Transaction;
+import org.jiakesimk.minipika.components.jdbc.transaction.TransactionIsolationLevel;
+import org.jiakesimk.minipika.components.logging.Log;
+import org.jiakesimk.minipika.components.logging.LogFactory;
+import org.jiakesimk.minipika.framework.provide.component.Component;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

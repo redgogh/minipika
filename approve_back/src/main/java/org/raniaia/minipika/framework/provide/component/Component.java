@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.framework.provide.component;
+package org.jiakesimk.minipika.framework.provide.component;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -37,14 +37,14 @@ public @interface Component {
     /**
      * component type.
      *
-     * @see org.jiakesiws.minipika.AbstractContainer#loadComponents
+     * @see org.jiakesimk.minipika.AbstractContainer#loadComponents
      */
     ComponentType type() default ComponentType.DEFAULT;
 
     /**
      * component name.
      * 
-     * @see org.jiakesiws.minipika.AbstractContainer#loadComponents
+     * @see org.jiakesimk.minipika.AbstractContainer#loadComponents
      */
     String name() default "";
 

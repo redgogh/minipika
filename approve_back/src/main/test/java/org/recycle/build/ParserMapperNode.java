@@ -18,9 +18,9 @@ package org.recycle.build;
 
 
 
-import org.jiakesiws.minipika.framework.sql.xml.node.XMLMapperNode;
-import org.jiakesiws.minipika.framework.sql.xml.node.XMLDynamicSqlNode;
-import org.jiakesiws.minipika.framework.sql.xml.parser.ReaderMapperXML;
+import org.jiakesimk.minipika.framework.sql.xml.node.XMLMapperNode;
+import org.jiakesimk.minipika.framework.sql.xml.node.XMLDynamicSqlNode;
+import org.jiakesimk.minipika.framework.sql.xml.parser.ReaderMapperXML;
 
 import java.util.HashMap;
 import java.util.List;

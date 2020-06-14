@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components.jdbc.datasource.pooled;
+package org.jiakesimk.minipika.components.jdbc.datasource.pooled;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -21,7 +21,7 @@ package org.jiakesiws.minipika.components.jdbc.datasource.pooled;
  */
 
 
-import org.jiakesiws.minipika.framework.tools.Lists;
+import org.jiakesimk.minipika.framework.tools.Lists;
 
 import java.util.List;
 
