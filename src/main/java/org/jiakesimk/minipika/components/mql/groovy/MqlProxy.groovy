@@ -81,7 +81,7 @@ class MqlProxy implements InvocationHandler {
    * @return Java方法对象
    */
   @SuppressWarnings("ALL")
-  private static syntaxAnalysis(sql, Method method) {
+  private static syntaxAnalysis(sql, method) {
     println method.parameters
     // 初始代码
     def code = new StringBuilder("""
