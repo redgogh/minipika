@@ -12,7 +12,7 @@ class CacheKeyGen {
    */
   static String getKey(String sql, Object... args) {
     StringBuilder key = new StringBuilder(sql)
-    for (Object arg : args) {
+    args.each { arg ->
       key.append(arg.toString())
     }
     return Eac64.MD5.digest32(key.toString())
