@@ -38,11 +38,6 @@ class MqlProxy implements InvocationHandler {
 
   private Object agent
 
-  /**
-   * sql语句中的关键字集合
-   */
-  def keywords = ["nul": -1, "if": 0, "foreach": 1, "end": 2]
-
   MqlProxy(virtual) {
     this.virtual = virtual
     initialization()
