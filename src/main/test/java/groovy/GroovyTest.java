@@ -40,7 +40,7 @@ public class GroovyTest {
     user.setAge(18);
     user.setMoney(new BigDecimal("200.00"));
     MqlMapper mqlMapper = new MqlMapper();
-    mqlMapper.findUser(user);
+    mqlMapper.findUser(user, "");
     // 测试获取注解
     Method method = MqlMapper.class.getDeclaredMethod("findUser", User.class);
     Select select = Annotations.isAnnotation(method, Select.class);
