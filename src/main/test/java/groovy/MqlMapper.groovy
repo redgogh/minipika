@@ -1,17 +1,8 @@
 package groovy
 
-import javassist.ClassPool
-import javassist.CtClass
-import javassist.CtMethod
-import javassist.Modifier
-import javassist.bytecode.CodeAttribute
-import javassist.bytecode.LocalVariableAttribute
-import javassist.bytecode.MethodInfo
 import org.jiakesimk.minipika.components.annotation.Select
 import org.jiakesimk.minipika.components.mql.groovy.MqlProxy
 import org.junit.Test
-
-import java.lang.reflect.Method
 
 class MqlMapper {
 

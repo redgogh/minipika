@@ -73,16 +73,26 @@ class MqlProxy implements InvocationHandler {
 
   /**
    * sql语法解析，将sql字符串解析成Java代码
+   *
    * @param sql sql字符串
    * @return Java方法对象
    */
   @SuppressWarnings("all")
   private static syntaxAnalysis(sql, method) {
+    def paramTypes = method.getParameterTypes() as Class<?>[]
+    def paramNames = Methods.getParameterNames(method) as String[]
     // 初始代码
-    def code = new StringBuilder("""
-      public String $method.name() { \n")
-      code.append("StringBuilder sql = new StringBuilder();\n
-    """)
+    def code = new StringBuilder("public String $method.name(")
+    // 添加参数
+    println paramTypes.eachWithIndex { Class<?> type, int i ->
+      def typeName = type.getName()
+      def paramName = paramNames[i]
+      code.append("$typeName $paramName,")
+    }
+    code.replace(code.length() - 1, code.length(), "")
+    code.append(") {\n")
+    code.append("StringBuilder sql = new StringBuilder();\n");
+    code.append("List<Object> arguments = new LinkedList();\n");
     def lines = sql.split "\n"
     for (String line : lines) {
       line = line.trim()
@@ -106,6 +116,7 @@ class MqlProxy implements InvocationHandler {
     }
     code.append("return sql.toString();\n")
     code.append("}")
+    println code
     return code.toString()
   }
 
