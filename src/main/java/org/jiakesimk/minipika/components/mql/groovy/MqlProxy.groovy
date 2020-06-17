@@ -4,6 +4,7 @@ import org.jiakesimk.minipika.components.annotation.Delete
 import org.jiakesimk.minipika.components.annotation.Insert
 import org.jiakesimk.minipika.components.annotation.Select
 import org.jiakesimk.minipika.components.annotation.Update
+import org.jiakesimk.minipika.framework.util.Methods
 import org.jiakesimk.minipika.framework.util.StringUtils
 
 import java.lang.reflect.InvocationHandler
@@ -75,9 +76,8 @@ class MqlProxy implements InvocationHandler {
    * @param sql sql字符串
    * @return Java方法对象
    */
-  @SuppressWarnings("ALL")
+  @SuppressWarnings("all")
   private static syntaxAnalysis(sql, method) {
-    println method.parameters
     // 初始代码
     def code = new StringBuilder("""
       public String $method.name() { \n")

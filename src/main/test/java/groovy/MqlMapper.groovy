@@ -8,6 +8,7 @@ import javassist.bytecode.CodeAttribute
 import javassist.bytecode.LocalVariableAttribute
 import javassist.bytecode.MethodInfo
 import org.jiakesimk.minipika.components.annotation.Select
+import org.jiakesimk.minipika.components.mql.groovy.MqlProxy
 import org.junit.Test
 
 import java.lang.reflect.Method
@@ -28,22 +29,7 @@ class MqlMapper {
 
   @Test
   void test() {
-    ClassPool pool = ClassPool.getDefault()
-    CtClass ctClass = pool.get('groovy.MqlMapper')
-    CtClass ctUser = pool.get('groovy.User')
-    CtClass ctString = pool.get("java.lang.String")
-    CtMethod ctMethod = ctClass.getDeclaredMethod('findUser', ctUser, ctString)
-    MethodInfo methodInfo = ctMethod.getMethodInfo()
-    CodeAttribute codeAttribute = methodInfo.codeAttribute
-    String[] paramNames = new String[ctMethod.getParameterTypes().length]
-    LocalVariableAttribute attr = (LocalVariableAttribute) codeAttribute.getAttribute(LocalVariableAttribute.tag)
-    if (attr != null)  {
-      int pos = Modifier.isStatic(ctMethod.getModifiers()) ? 0 : 1;
-      for (int i = 0; i < paramNames.length; i++){
-        paramNames[i] = attr.variableName(i + pos);
-      }
-      println paramNames
-    }
+    new MqlProxy(MqlMapper.class)
   }
 
 }
