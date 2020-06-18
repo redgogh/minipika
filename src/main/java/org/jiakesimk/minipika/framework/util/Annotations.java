@@ -6,6 +6,8 @@ package org.jiakesimk.minipika.framework.util;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * 注解工具类
@@ -30,6 +32,11 @@ public class Annotations {
       return (A) target.getDeclaredAnnotation(annotation);
     }
     return null;
+  }
+
+  public static Object getValue(Annotation annotation) throws Exception {
+    Method method = annotation.getClass().getDeclaredMethod("value");
+    return method.invoke(annotation);
   }
 
 }
