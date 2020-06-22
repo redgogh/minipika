@@ -71,7 +71,7 @@ class StringUtils {
   }
 
   public static String requireNonNull(String input, String message, Class<? extends RuntimeException> e) {
-    if(isEmpty(input)) {
+    if (isEmpty(input)) {
       RuntimeException e1 = Factorys.forClass(e, new Class[]{String.class}, message);
       throw e1;
     }
@@ -433,6 +433,7 @@ class StringUtils {
   }
 
   public static String toUpperCase(String input) {
+    if (input == null) return input;
     return input.toUpperCase();
   }
 

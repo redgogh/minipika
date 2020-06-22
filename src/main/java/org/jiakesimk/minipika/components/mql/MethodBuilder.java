@@ -109,6 +109,10 @@ public class MethodBuilder {
       // 如果存在if标签的话就认定这是一个if语句
       if (line.contains("#if")) {
         line = line.replaceAll("#if", "if(");
+        String group[] = existArguments(line);
+        for (String s : group) {
+          line = line.replaceFirst("#(.*?)\\S+", s);
+        }
         line = line.concat("){");
         builder.append(line);
         continue;
@@ -118,13 +122,7 @@ public class MethodBuilder {
         builder.append("}");
         continue;
       }
-      // 判断字符串中是否存在参数
-      String[] group = Matches.find(line, "#(.*?)\\S+", new Closure(null) {
-        @Override
-        public Object call(Object... args) {
-          return ((String) args[0]).replace("#", "");
-        }
-      });
+      String group[] = existArguments(line);
       for (String value : group) {
         builder.append("arguments.add(").append(value).append(");\n");
       }
@@ -160,4 +158,26 @@ public class MethodBuilder {
   public String toString() {
     return builder.toString();
   }
+
+  private String[] existArguments(String input) {
+    // 判断字符串中是否存在参数
+    return Matches.find(input, "#(.*?)\\S+", new Closure(null) {
+      @Override
+      public Object call(Object... args) {
+        String value = ((String) args[0]).replace("#", "");
+        value = value.replaceAll("\\("," ");
+        value = value.replaceAll("\\)"," ");
+        if (value.contains(".")) {
+          String[] d = value.split("\\.");
+          StringBuilder v = new StringBuilder(d[0]);
+          for (int i = 1; i < d.length; i++) {
+            v.append(".get").append(StringUtils.toUpperCase(d[i], 1)).append("()");
+          }
+          value = v.toString();
+        }
+        return value;
+      }
+    });
+  }
+
 }

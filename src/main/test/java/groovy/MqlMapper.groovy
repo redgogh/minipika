@@ -8,10 +8,10 @@ class MqlMapper {
 
   @Select("""
     select * from user_info where 1=1
-    #if StringUtils.isNotEmpty(user.name)
+    #if StringUtils.isNotEmpty(#user.name)
       and name = #user.name
     #end
-    #if user.name != 0 && user.name != null
+    #if #user.name != null && StringUtils.isEmpty(#user.name)
       and age > #user.age
     #end
     and money >= #user.money
