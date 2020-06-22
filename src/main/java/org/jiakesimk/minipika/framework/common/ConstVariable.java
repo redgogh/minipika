@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.annotation;
+package org.jiakesimk.minipika.framework.common;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,24 +17,20 @@ package org.jiakesimk.minipika.components.annotation;
  */
 
 /*
- * Creates on 2020/6/14.
+ * Creates on 2020/6/22.
  */
 
-import java.lang.annotation.*;
+import javassist.ClassPool;
 
 /**
- * 被注解的方法代表是一个执行更新的方法
+ * 一些通用的常量定义
  *
  * @author tiansheng
  */
-@Target({ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface Update {
+public interface ConstVariable {
 
-  /**
-   * @return 更新SQL
-   */
-  String value() default "";
+  ClassPool CLASS_POOL = ClassPool.getDefault();
+
+  String MQL_PROXY_CLASSNAME = "org.minipika.commponents.proxy.$";
 
 }

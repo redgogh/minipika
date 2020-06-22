@@ -9,6 +9,7 @@ import javassist.bytecode.CodeAttribute
 import javassist.bytecode.LocalVariableAttribute
 import javassist.bytecode.MethodInfo
 import lombok.SneakyThrows
+import org.jiakesimk.minipika.framework.common.ConstVariable
 
 import java.lang.annotation.Annotation
 import java.lang.reflect.Method
@@ -134,7 +135,7 @@ class Methods {
    * @return 方法名称，根据顺序排序
    */
   static String[] getParameterNames(Method method) throws NotFoundException {
-    ClassPool pool = ClassPool.getDefault()
+    ClassPool pool = ConstVariable.CLASS_POOL
     CtClass ctClass = pool.get(method.getDeclaringClass().getName())
     def parameters = []
     method.getParameterTypes().each { paramType ->

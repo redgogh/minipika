@@ -17,24 +17,23 @@ package org.jiakesimk.minipika.components.annotation;
  */
 
 /*
- * Creates on 2020/6/14.
+ * Creates on 2020/6/22.
  */
 
 import java.lang.annotation.*;
 
 /**
- * 被注解的方法代表是一个删除方法
- *
  * @author tiansheng
  */
-@Target({ElementType.METHOD})
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Delete {
+public @interface StructuredQuery {
 
   /**
-   * @return 删除SQL
+   * sql语句
+   * @return
    */
-  String value() default "";
+  String[] value() default "";
 
 }
