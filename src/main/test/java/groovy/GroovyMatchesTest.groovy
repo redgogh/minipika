@@ -1,6 +1,9 @@
 package groovy
 
-import org.junit.Test;
+import org.jiakesimk.minipika.framework.util.Matches
+import org.junit.Test
+
+import java.util.regex.Pattern;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -29,10 +32,20 @@ class GroovyMatchesTest {
 
   @Test
   void test() {
-    def theString = "The #Groovy"
-    def matches = theString =~ /#(.*?)/
-    println matches.count
-    println matches.group(1)
+    def s = "username = #username and password = #password and user = #user.a"
+    def m = s =~ /#(.*?)\S+/
+    while (m.find()) {
+      println m.group().replace('#','')
+    }
+  }
+
+  @Test
+  void test2() {
+    def s = "username = #username and password = #password and user = #user.a"
+    def r = /#(.*?)\S+/
+    Matches.matches(s, r, { value ->
+      value.replace('#','')
+    })
   }
 
 }
