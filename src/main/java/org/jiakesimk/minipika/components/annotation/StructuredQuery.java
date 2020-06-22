@@ -34,6 +34,6 @@ public @interface StructuredQuery {
    * sql语句
    * @return
    */
-  String[] value() default "";
+  String value() default "";
 
 }

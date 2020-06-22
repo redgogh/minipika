@@ -59,7 +59,7 @@ public class BaseBuilder {
     // 创建方法声明
     finalSrc.append("public Object[] ").append(methodName).append("(");
     for (int i = 0; i < paramNames.length; i++) {
-      finalSrc.append(paramTypes[i]).append(" ").append(paramNames[i]);
+      finalSrc.append(paramTypes[i].getName()).append(" ").append(paramNames[i]);
       finalSrc.append(",");
     }
     finalSrc.delete(finalSrc.length() - 1, finalSrc.length()).append("){"); // 方法头部声明结尾
@@ -79,12 +79,21 @@ public class BaseBuilder {
     builder.append("List<Object> arguments = new LinkedList<>();");
     String[] single = src.split("\n");
     for (String input : single) {
+      input = input.trim();
       // 判断当前行是不是普通的SQL语句
-      if (input.charAt(0) != '#') {
-        builder.append("sql.append(").append(input).append(")");
+      if (StringUtils.isNotEmpty(input) && input.charAt(0) != '#') {
+        builder.append("sql.append(\"").append(input).append("\");");
         String[] arguments = existArguments(input);
         for (String argument : arguments) {
-          builder.append("arguments.add(").append(argument).append(")");
+          builder.append("arguments.add(").append(argument).append(");");
+        }
+      } else {
+        if(input.contains("#if")) {
+          input = input.replace("#if", "");
+          System.out.println();
+        }
+        if(input.contains("#end")) {
+          builder.append("}");
         }
       }
     }
