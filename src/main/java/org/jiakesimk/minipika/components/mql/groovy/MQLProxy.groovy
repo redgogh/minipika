@@ -40,36 +40,15 @@ class MQLProxy extends BaseBuilder {
   private Class<?> virtual
 
   MQLProxy(virtual) {
-    super(virtual.getSimpleName())
     this.virtual = virtual
     initialization()
-    carryout()
-    // 编译代码
-    compileCodeInitAgent()
   }
 
   /**
    * 初始化
    */
   private void initialization() {
-    Method[] methods = virtual.getDeclaredMethods()
-    methods.each { method ->
-      // 如果存在CRUD注解
-      if (method.isAnnotationPresent(Select.class)
-              || method.isAnnotationPresent(Update.class)
-              || method.isAnnotationPresent(Insert.class)
-              || method.isAnnotationPresent(Delete.class)) {
-        createMethod(method)
-      }
-    }
-  }
 
-  /**
-   * 编译代码
-   */
-  void compileCodeInitAgent() {
-    Class<?> agent = JavaCompiler.compile(fullname, precompile as String)
-    this.agent = ClassUtils.newInstance(agent);
   }
 
 }
