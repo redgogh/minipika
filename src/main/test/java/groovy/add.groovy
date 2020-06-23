@@ -1,0 +1,5 @@
+package groovy
+
+trait add {
+
+}

@@ -32,17 +32,15 @@ class Matches {
    *
    * @param r 正则表达式, 如果是Java的情况下请传入字符串, groovy则传入
    *          两个斜杠组成的正则表达式语句，例子匹配井号后面的字符：/#(.*)/
-   *
    * @param closure 闭包，处理字符串内容。如果匹配结果需要另外的处理的话则创建一个{@link Closure}对象
    *                并实现{@link Closure#call}方法，进行处理
-   *
    * @return 匹配结果数组，如果没有匹配到结果则返回空数组(不是空对象)
    */
   static String[] find(s, r, Closure closure = null) {
     def group = []
     def m = s =~ r
     while (m.find()) {
-      def v = m.group()
+      def v = m.group(1)
       if (closure != null) {
         group.add closure.call(v)
       } else {

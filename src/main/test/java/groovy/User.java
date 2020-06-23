@@ -35,5 +35,10 @@ public class User {
   private Integer age;
   private BigDecimal money;
 
+  public User(){}
+
+  public User(String name) {
+    this.name = name;
+  }
 
 }

@@ -38,8 +38,7 @@ public class GroovyTest {
     user.setName("张三");
     user.setAge(18);
     user.setMoney(new BigDecimal("200.00"));
-    MqlMapper mqlMapper = new MqlMapper();
-    mqlMapper.findUser(user, "");
+    // mqlMapper.findUser(user, "");
     // 测试获取注解
   }
 

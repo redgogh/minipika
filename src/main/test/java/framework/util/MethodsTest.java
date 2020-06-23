@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.annotation;
+package framework.util;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,23 +17,26 @@ package org.jiakesimk.minipika.components.annotation;
  */
 
 /*
- * Creates on 2020/6/22.
+ * Creates on 2020/6/23.
  */
 
-import java.lang.annotation.*;
+import groovy.MqlMapper;
+import javassist.*;
+import javassist.bytecode.CodeAttribute;
+import javassist.bytecode.LocalVariableAttribute;
+import javassist.bytecode.MethodInfo;
+import org.jiakesimk.minipika.framework.util.ArrayUtils;
+import org.jiakesimk.minipika.framework.util.Methods;
+import org.junit.Test;
 
 /**
  * @author tiansheng
  */
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface StructuredQuery {
+public class MethodsTest {
 
-  /**
-   * sql语句
-   * @return
-   */
-  String value() default "";
+  @Test
+  public void test() throws NotFoundException {
+    ArrayUtils.toString(Methods.getParameterNames(MqlMapper.class.getDeclaredMethods()[0]));
+  }
 
 }

@@ -98,7 +98,8 @@ public class BaseBuilder extends Invoker {
       input = input.trim();
       // 判断当前行是不是普通的SQL语句
       if (StringUtils.isNotEmpty(input) && input.charAt(0) != '#') {
-        builder.append("sql.append(\"").append(input).append("\");");
+        builder.append("sql.append(\"").append(input.replaceAll("#\\{(.*?)}", "?"))
+                .append(" ").append("\");");
         String[] arguments = existArguments(input);
         for (String argument : arguments) {
           builder.append("arguments.add(").append(argument).append(");");
@@ -172,7 +173,7 @@ public class BaseBuilder extends Invoker {
    */
   @SuppressWarnings({"rawtypes"})
   private String[] existArguments(String input) {
-    return Matches.find(input, "#(.*?)\\S+", new Closure(null) {
+    return Matches.find(input, "#\\{(.*?)}\\S+", new Closure(null) {
       @Override
       public Object call(Object... args) {
         String args0 = (String) args[0];
@@ -189,8 +190,7 @@ public class BaseBuilder extends Invoker {
   }
 
   protected void end() {
-    target = JavaCompiler.compile(classname, mtClass.toString());
-    instance = ClassUtils.newInstance(target);
+    instance = ClassUtils.newInstance(JavaCompiler.compile(classname, mtClass.toString()));
   }
 
 }

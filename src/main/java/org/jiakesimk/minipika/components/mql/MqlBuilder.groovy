@@ -1,6 +1,6 @@
 package org.jiakesimk.minipika.components.mql
 
-import org.jiakesimk.minipika.components.annotation.StructuredQuery
+import org.jiakesimk.minipika.components.annotation.SQL
 import org.jiakesimk.minipika.framework.common.ConstVariable
 
 /*
@@ -45,8 +45,8 @@ class MqlBuilder extends BaseBuilder {
   private void initialization() {
     def methods = virtual.methods
     methods.each({ method ->
-      if (method.isAnnotationPresent(StructuredQuery)) {
-        StructuredQuery query = method.getDeclaredAnnotation(StructuredQuery)
+      if (method.isAnnotationPresent(SQL)) {
+        SQL query = method.getDeclaredAnnotation(SQL)
         String queryScript = query.value()
         createMethod(method, queryScript)
       }

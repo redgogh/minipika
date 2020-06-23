@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.mql;
+package org.jiakesimk.minipika.components.annotation;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,18 +17,23 @@ package org.jiakesimk.minipika.components.mql;
  */
 
 /*
- * Creates on 2020/6/23.
+ * Creates on 2020/6/22.
  */
+
+import java.lang.annotation.*;
 
 /**
  * @author tiansheng
  */
-class Invoker {
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface SQL {
 
-  protected Object instance
-
-  Object[] invoke(String method, Object... arguments) {
-    instance.invokeMethod(method, arguments)
-  }
+  /**
+   * sql语句
+   * @return
+   */
+  String value() default "";
 
 }
