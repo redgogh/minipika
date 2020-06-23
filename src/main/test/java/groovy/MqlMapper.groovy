@@ -8,7 +8,7 @@ class MqlMapper {
 
   @StructuredQuery("""
     select * from minipika_user where 1=1
-    #if user.name != null || isNotEmpty(user.name)
+    #if isNotEmpty(user.name) && user.name != null 
       username = #user.name
     #end
   """)

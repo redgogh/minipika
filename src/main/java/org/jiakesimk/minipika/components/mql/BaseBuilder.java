@@ -23,11 +23,17 @@ package org.jiakesimk.minipika.components.mql;
 import groovy.lang.Closure;
 import javassist.*;
 import org.jiakesimk.minipika.framework.common.ConstVariable;
+import org.jiakesimk.minipika.framework.compiler.JavaCompiler;
+import org.jiakesimk.minipika.framework.util.Lists;
 import org.jiakesimk.minipika.framework.util.Matches;
 import org.jiakesimk.minipika.framework.util.Methods;
 import org.jiakesimk.minipika.framework.util.StringUtils;
 
+import javax.sound.midi.MidiEvent;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,15 +41,15 @@ import java.util.Map;
  */
 public class BaseBuilder {
 
-  private CtClass cc;
+  private String classname;
 
-  private Class<?> statement;
+  private StringBuilder mtClass = new StringBuilder();
 
-  private ClassPool pool = ConstVariable.CLASS_POOL;
-
-  public BaseBuilder(Class<?> statement) {
-    this.statement = statement;
-    cc = pool.makeClass(ConstVariable.MQL_PROXY_CLASSNAME.concat(statement.getSimpleName()));
+  public BaseBuilder(String classname) {
+    int lastIndexOf = classname.lastIndexOf(".");
+    mtClass.append("package ").append(classname, 0, lastIndexOf).append(";");
+    mtClass.append("public class ").append(classname, lastIndexOf + 1, classname.length()).append("{}");
+    this.classname = classname;
   }
 
   /**
@@ -65,10 +71,17 @@ public class BaseBuilder {
       finalSrc.append(paramTypes[i].getName()).append(" ").append(paramNames[i]);
       finalSrc.append(",");
     }
-    finalSrc.delete(finalSrc.length() - 1, finalSrc.length()).append("){"); // 方法头部声明结尾
+    finalSrc.delete(finalSrc.length() - 1, finalSrc.length());
+    finalSrc.delete(finalSrc.length(), finalSrc.length()).append("){"); // 方法头部声明结尾
     // 构建方法体
     buildBody(src, finalSrc);
-    // CtMethod ctMethod = CtMethod.make(finalSrc.toString(), cc);
+    finalSrc.append("Object[] objects = new Object[2];");
+    finalSrc.append("objects[0] = sql.toString();");
+    finalSrc.append("objects[1] = arguments;");
+    finalSrc.append("return objects;}");
+    // mtClass.insert(mtClass.length() - 1, finalSrc);
+    System.out.println(mtClass);
+    JavaCompiler.compile(classname, finalSrc.toString());
   }
 
   /**
@@ -79,7 +92,7 @@ public class BaseBuilder {
    */
   private void buildBody(String src, StringBuilder builder) {
     builder.append("StringBuilder sql = new StringBuilder();");
-    builder.append("List<Object> arguments = new LinkedList<>();");
+    builder.append("List arguments = new LinkedList();");
     String[] single = src.split("\n");
     for (String input : single) {
       input = input.trim();
@@ -91,16 +104,53 @@ public class BaseBuilder {
           builder.append("arguments.add(").append(argument).append(");");
         }
       } else {
-        if(input.contains("#if")) {
-          input = input.replace("#if", "");
-          System.out.println();
+        if (input.contains("#if")) {
+          input = input.replace("#if", "").trim();
+          input = "".concat("if(").concat(parseIfStatement(input)).concat("){");
+          builder.append(input);
         }
-        if(input.contains("#end")) {
+        if (input.contains("#end")) {
           builder.append("}");
         }
       }
     }
-    System.out.println(builder.toString());
+  }
+
+  /**
+   * 解析if语句
+   *
+   * @param input if语句块
+   */
+  private String parseIfStatement(String input) {
+    input = input.concat(" ");
+    char[] charArray = input.toCharArray();
+    StringBuilder builder = new StringBuilder();
+    StringBuilder temp = new StringBuilder();
+    for (int i = 0; i < charArray.length; i++) {
+      char ch = charArray[i];
+      if (('a' <= ch && 'z' >= ch) ||
+              ('A' <= ch && 'Z' >= ch) ||
+              (ch == '_' || ch == '$' || ch == '.')) {
+        temp.append(ch);
+      } else {
+        String content = invokeToAddGet(temp.toString());
+        builder.append(content);
+        builder.append(ch);
+        temp.delete(0, builder.length());
+      }
+    }
+    return builder.toString();
+  }
+
+  private String invokeToAddGet(String input) {
+    if (input.contains(".")) {
+      String[] idens = input.split("\\.");
+      input = idens[0];
+      for (int j = 1; j < idens.length; j++) {
+        input = input.concat(".").concat("get").concat(StringUtils.toUpperCase(idens[j], 1)).concat("()");
+      }
+    }
+    return input;
   }
 
   /**
@@ -109,6 +159,7 @@ public class BaseBuilder {
    * @param input
    * @return
    */
+  @SuppressWarnings({"rawtypes"})
   private String[] existArguments(String input) {
     return Matches.find(input, "#(.*?)\\S+", new Closure(null) {
       @Override
@@ -118,9 +169,7 @@ public class BaseBuilder {
         if (args0.contains(".")) {
           String[] split = args0.split("\\.");
           for (int i = 1; i < split.length; i++) {
-            String s = split[i];
-            s = s.concat("()");
-            args0 = args0.concat(".").concat(StringUtils.toUpperCase(s, 1));
+            args0 = invokeToAddGet(args0);
           }
         }
         return args0;

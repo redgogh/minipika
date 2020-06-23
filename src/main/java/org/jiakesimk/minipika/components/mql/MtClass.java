@@ -1,10 +1,4 @@
-package org.jiakesimk.minipika.components.mql.groovy
-
-import org.jiakesimk.minipika.components.mql.BaseBuilder
-import org.jiakesimk.minipika.framework.compiler.JavaCompiler
-import org.jiakesimk.minipika.framework.util.ClassUtils
-
-import java.lang.reflect.Method
+package org.jiakesimk.minipika.components.mql;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -23,26 +17,12 @@ import java.lang.reflect.Method
  */
 
 /*
- * Creates on 2020/6/14.
+ * Creates on 2020/6/1.
  */
 
 /**
  * @author tiansheng
  */
-class MQLProxy extends BaseBuilder {
-
-  private Object agent
-
-  MQLProxy(statement) {
-    super(statement as Class<?>)
-    initialization()
-  }
-
-  /**
-   * 初始化
-   */
-  private void initialization() {
-
-  }
+public class MtClass {
 
 }
