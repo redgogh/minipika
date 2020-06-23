@@ -54,7 +54,7 @@ public class DataSourceManager {
     try {
       if (dataSource == null) {
         LOG.error("Error datasource register fail. Cause: datasource is null.");
-        throw new NullPointerException("Error driver register fail. Cause: datasource is null.");
+        throw new NullPointerException("Error datasource register fail. Cause: datasource is null.");
       }
       dataSource.getConnection();
       dataSourceMap.put(name, dataSource);

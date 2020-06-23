@@ -1,10 +1,7 @@
-package org.jiakesimk.minipika.components.mql.groovy
+package org.jiakesimk.minipika.components.mql
 
-import org.jiakesimk.minipika.components.mql.BaseBuilder
-import org.jiakesimk.minipika.framework.compiler.JavaCompiler
-import org.jiakesimk.minipika.framework.util.ClassUtils
-
-import java.lang.reflect.Method
+import org.jiakesimk.minipika.components.annotation.StructuredQuery
+import org.jiakesimk.minipika.framework.common.ConstVariable
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -27,14 +24,19 @@ import java.lang.reflect.Method
  */
 
 /**
+ * 动态SQL构建
+ *
  * @author tiansheng
  */
-class MQLProxy extends BaseBuilder {
+class MqlBuilder extends BaseBuilder {
 
   private Object agent
 
-  MQLProxy(statement) {
-    super(statement as Class<?>)
+  private Class<?> virtual
+
+  MqlBuilder(Class<?> virtual) {
+    super(ConstVariable.MQL_PROXY_CLASSNAME.concat(virtual.getSimpleName()))
+    this.virtual = virtual
     initialization()
   }
 
@@ -42,7 +44,14 @@ class MQLProxy extends BaseBuilder {
    * 初始化
    */
   private void initialization() {
-
+    def methods = virtual.methods
+    methods.each({ method ->
+      if (method.isAnnotationPresent(StructuredQuery)) {
+        StructuredQuery query = method.getDeclaredAnnotation(StructuredQuery)
+        String queryScript = query.value()
+        createMethod(method, queryScript)
+      }
+    })
   }
 
 }

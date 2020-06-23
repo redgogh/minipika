@@ -20,7 +20,6 @@ package groovy;
  * Creates on 2020/6/14.
  */
 
-import org.jiakesimk.minipika.components.annotation.Select;
 import org.jiakesimk.minipika.framework.util.Annotations;
 import org.junit.Test;
 
@@ -42,9 +41,6 @@ public class GroovyTest {
     MqlMapper mqlMapper = new MqlMapper();
     mqlMapper.findUser(user, "");
     // 测试获取注解
-    Method method = MqlMapper.class.getDeclaredMethod("findUser", User.class);
-    Select select = Annotations.isAnnotation(method, Select.class);
-    System.out.println(select.value());
   }
 
 }
