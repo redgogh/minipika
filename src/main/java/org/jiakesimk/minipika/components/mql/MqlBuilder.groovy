@@ -30,14 +30,13 @@ import org.jiakesimk.minipika.framework.common.ConstVariable
  */
 class MqlBuilder extends BaseBuilder {
 
-  private Object agent
-
   private Class<?> virtual
 
   MqlBuilder(Class<?> virtual) {
     super(ConstVariable.MQL_PROXY_CLASSNAME.concat(virtual.getSimpleName()))
     this.virtual = virtual
     initialization()
+    end()
   }
 
   /**

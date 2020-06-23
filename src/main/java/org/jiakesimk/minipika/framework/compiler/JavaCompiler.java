@@ -4,6 +4,8 @@ package org.jiakesimk.minipika.framework.compiler;
  * Creates on 2020/3/24.
  */
 
+import org.jiakesimk.minipika.framework.util.Charsets;
+
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
@@ -28,7 +30,8 @@ public class JavaCompiler {
    */
   public static Class<?> compile(String fullClassname, String code) {
     javax.tools.JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-    StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
+    StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null,
+            Charsets.GBK);
     JavaFileSource srcObject = new JavaFileSource(fullClassname, code);
     Iterable<? extends JavaFileObject> fileObjects = Collections.singletonList(srcObject);
     String flag = "-d";
@@ -40,7 +43,8 @@ public class JavaCompiler {
       e1.printStackTrace();
     }
     Iterable<String> options = Arrays.asList(flag, outDir);
-    javax.tools.JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager, null, options, null, fileObjects);
+    javax.tools.JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager,
+            null, options, null, fileObjects);
     boolean result = task.call();
     if (result) {
       try {

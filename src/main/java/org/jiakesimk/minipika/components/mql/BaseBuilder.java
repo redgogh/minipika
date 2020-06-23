@@ -21,33 +21,34 @@ package org.jiakesimk.minipika.components.mql;
  */
 
 import groovy.lang.Closure;
-import javassist.*;
+import javassist.NotFoundException;
 import org.jiakesimk.minipika.framework.common.ConstVariable;
 import org.jiakesimk.minipika.framework.compiler.JavaCompiler;
-import org.jiakesimk.minipika.framework.util.Lists;
+import org.jiakesimk.minipika.framework.util.ClassUtils;
 import org.jiakesimk.minipika.framework.util.Matches;
 import org.jiakesimk.minipika.framework.util.Methods;
 import org.jiakesimk.minipika.framework.util.StringUtils;
 
-import javax.sound.midi.MidiEvent;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author tiansheng
  */
-public class BaseBuilder {
+public class BaseBuilder extends Invoker {
 
-  private String classname;
+  private final String classname;
 
-  private StringBuilder mtClass = new StringBuilder();
+  private final StringBuilder mtClass = new StringBuilder();
 
   public BaseBuilder(String classname) {
     int lastIndexOf = classname.lastIndexOf(".");
     mtClass.append("package ").append(classname, 0, lastIndexOf).append(";");
+    mtClass.append("import java.lang.*;");
+    mtClass.append("import java.util.*;");
+    mtClass.append("import java.lang.*;");
+    mtClass.append("import java.math.*;");
+    mtClass.append("import org.jiakesimk.minipika.framework.util.StringUtils;");
+    mtClass.append("@SuppressWarnings(\"unchecked\")");
     mtClass.append("public class ").append(classname, lastIndexOf + 1, classname.length()).append("{}");
     this.classname = classname;
   }
@@ -79,9 +80,8 @@ public class BaseBuilder {
     finalSrc.append("objects[0] = sql.toString();");
     finalSrc.append("objects[1] = arguments;");
     finalSrc.append("return objects;}");
-    // mtClass.insert(mtClass.length() - 1, finalSrc);
+    mtClass.insert(mtClass.length() - 1, finalSrc);
     System.out.println(mtClass);
-    JavaCompiler.compile(classname, finalSrc.toString());
   }
 
   /**
@@ -126,8 +126,7 @@ public class BaseBuilder {
     char[] charArray = input.toCharArray();
     StringBuilder builder = new StringBuilder();
     StringBuilder temp = new StringBuilder();
-    for (int i = 0; i < charArray.length; i++) {
-      char ch = charArray[i];
+    for (char ch : charArray) {
       if (('a' <= ch && 'z' >= ch) ||
               ('A' <= ch && 'Z' >= ch) ||
               (ch == '_' || ch == '$' || ch == '.')) {
@@ -142,7 +141,19 @@ public class BaseBuilder {
     return builder.toString();
   }
 
+  /**
+   * 调用时特殊处理
+   *
+   * @param input
+   * @return
+   */
   private String invokeToAddGet(String input) {
+    if (ConstVariable.IEE.equals(input)) {
+      return "StringUtils.isEmpty";
+    }
+    if (ConstVariable.INE.equals(input)) {
+      return "StringUtils.isNotEmpty";
+    }
     if (input.contains(".")) {
       String[] idens = input.split("\\.");
       input = idens[0];
@@ -175,6 +186,11 @@ public class BaseBuilder {
         return args0;
       }
     });
+  }
+
+  protected void end() {
+    target = JavaCompiler.compile(classname, mtClass.toString());
+    instance = ClassUtils.newInstance(target);
   }
 
 }

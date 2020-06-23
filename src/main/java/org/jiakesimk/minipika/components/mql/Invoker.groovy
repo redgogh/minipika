@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.common;
+package org.jiakesimk.minipika.components.mql;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,30 +17,20 @@ package org.jiakesimk.minipika.framework.common;
  */
 
 /*
- * Creates on 2020/6/22.
+ * Creates on 2020/6/23.
  */
-
-import javassist.ClassPool;
 
 /**
- * 一些通用的常量定义
- *
  * @author tiansheng
  */
-public interface ConstVariable {
+class Invoker {
 
-  ClassPool CLASS_POOL = ClassPool.getDefault();
+  protected Class<?> target
 
-  String MQL_PROXY_CLASSNAME = "org.minipika.commponents.proxy.$";
+  protected Object instance
 
-  /**
-   * 判断字符串是否等于空
-   */
-  String IEE = "IEE";
-
-  /**
-   * 判断字符串是否不等于空
-   */
-  String INE = "INE";
+  Object[] invoke(String method, Object... arguments) {
+    instance.invokeMethod(method, arguments)
+  }
 
 }

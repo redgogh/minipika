@@ -8,7 +8,7 @@ class MqlMapper {
 
   @StructuredQuery("""
     select * from minipika_user where 1=1
-    #if isNotEmpty(user.name) && user.name != null 
+    #if INE(user.name) && user.name != null 
       username = #user.name
     #end
   """)
@@ -16,7 +16,10 @@ class MqlMapper {
 
   @Test
   void test() {
-    new MqlBuilder(MqlMapper.class)
+    MqlBuilder m = new MqlBuilder(MqlMapper.class)
+    User user = new User()
+    user.name = "123"
+    println m.invoke("findUser", user, "GNM")
   }
 
 }
