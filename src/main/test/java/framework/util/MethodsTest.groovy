@@ -27,16 +27,23 @@ import javassist.bytecode.LocalVariableAttribute;
 import javassist.bytecode.MethodInfo;
 import org.jiakesimk.minipika.framework.util.ArrayUtils;
 import org.jiakesimk.minipika.framework.util.Methods;
-import org.junit.Test;
+import org.junit.Test
+
+import java.lang.reflect.Method;
 
 /**
  * @author tiansheng
  */
-public class MethodsTest {
+class MethodsTest {
 
   @Test
-  public void test() throws NotFoundException {
-    ArrayUtils.toString(Methods.getParameterNames(MqlMapper.class.getDeclaredMethods()[0]));
+  void test() throws NotFoundException {
+    ArrayUtils.toString(Methods.getParameterNames(MqlMapper.methods[0]));
+  }
+
+  @Test
+  void test2() {
+ss
   }
 
 }

@@ -21,15 +21,15 @@ interface MqlMapper {
 
 }
 
-//class Test {
-//
-//  @org.junit.Test
-//  void test() {
-//    MqlBuilder m = new MqlBuilder(MqlMapper.class)
-//    User user = new User()
-//    user.name = "123"
-//    println m.invoke("findUser", user, "XXX")
-//    println m.invoke("addUser", user)
-//  }
-//
-//}
+class Test {
+
+  @org.junit.Test
+  void test() {
+    MqlBuilder m = new MqlBuilder(MqlMapper.class)
+    User user = new User()
+    user.name = "123"
+    println m.invoke("findUser", user, "XXX")
+    println m.invoke("addUser", user)
+  }
+
+}
