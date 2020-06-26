@@ -1,4 +1,6 @@
-package framework.util;
+package framework.util
+
+import groovy.MqlMapper;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,16 +22,10 @@ package framework.util;
  * Creates on 2020/6/23.
  */
 
-import groovy.MqlMapper;
-import javassist.*;
-import javassist.bytecode.CodeAttribute;
-import javassist.bytecode.LocalVariableAttribute;
-import javassist.bytecode.MethodInfo;
-import org.jiakesimk.minipika.framework.util.ArrayUtils;
-import org.jiakesimk.minipika.framework.util.Methods;
+import javassist.NotFoundException
+import org.jiakesimk.minipika.framework.util.ArrayUtils
+import org.jiakesimk.minipika.framework.util.Methods
 import org.junit.Test
-
-import java.lang.reflect.Method;
 
 /**
  * @author tiansheng
@@ -43,7 +39,7 @@ class MethodsTest {
 
   @Test
   void test2() {
-ss
+
   }
 
 }
