@@ -32,7 +32,7 @@ public class ForJava {
 
   @Test
   public void test() {
-    String[] s = MatchesDemo.find("username = #username and password = #password", "#(.*?)\\S+", new Closure(null) {
+    String[] s = groovy.MatchesDemo.find("username = #username and password = #password", "#(.*?)\\S+", new Closure(null) {
       @Override
       public Object call(Object... args) {
         return args[0] + "xxxx";
