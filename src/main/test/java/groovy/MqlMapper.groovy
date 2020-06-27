@@ -1,5 +1,15 @@
 package groovy
 
+import groovyjarjarasm.asm.tree.ClassNode
+import groovyjarjarasm.asm.tree.FieldNode
+import groovyjarjarasm.asm.tree.MethodNode
+import org.codehaus.groovy.ast.ASTNode
+import org.codehaus.groovy.ast.ConstructorNode
+import org.codehaus.groovy.ast.GroovyClassVisitor
+import org.codehaus.groovy.ast.PropertyNode
+import org.codehaus.groovy.control.SourceUnit
+import org.codehaus.groovy.transform.ASTTransformation
+import org.codehaus.groovy.transform.GroovyASTTransformation
 import org.jiakesimk.minipika.components.annotation.SQL
 import org.jiakesimk.minipika.components.mql.MqlBuilder
 
@@ -21,7 +31,45 @@ interface MqlMapper {
 
 }
 
-class Test {
+@GroovyASTTransformation
+class Test implements ASTTransformation {
+
+  @Override
+  void visit(ASTNode[] nodes, SourceUnit source) {
+    source.each {
+      it.visitContents(new GroovyClassVisitor() {
+        @Override
+        void visitClass(org.codehaus.groovy.ast.ClassNode node) {
+          println node.name
+        }
+
+        @Override
+        void visitMethod(org.codehaus.groovy.ast.MethodNode node) {
+          println node.name
+        }
+
+        @Override
+        void visitField(org.codehaus.groovy.ast.FieldNode node) {
+          println node.name
+        }
+
+        @Override
+        void visitConstructor(ConstructorNode node) {
+          println node.name
+        }
+
+        @Override
+        void visitProperty(PropertyNode node) {
+          println node.name
+        }
+      })
+    }
+  }
+
+  @org.junit.Test
+  void ast() {
+    MqlMapper.class
+  }
 
   @org.junit.Test
   void test() {
