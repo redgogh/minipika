@@ -5,13 +5,24 @@
 plugins {
   id 'java'
   id 'maven-publish'
+  id "io.franzbecker.gradle-lombok" version "3.1.0"
 }
+
+apply plugin: 'groovy'
+apply plugin: "io.franzbecker.gradle-lombok"
 
 allprojects {
   repositories {
     mavenLocal()
     maven { url 'https://maven.aliyun.com/repository/google/' }
     maven { url 'https://maven.aliyun.com/repository/jcenter/' }
+  }
+}
+
+sourceSets {
+  main {
+    java { srcDirs = [] }
+    groovy { srcDirs 'src/main/java' }
   }
 }
 
@@ -31,8 +42,8 @@ dependencies {
   testImplementation 'junit:junit:4.13-rc-2'
 }
 
-group = 'io.github.raniaia'
-version = '1.0.0.breathe'
+group = 'com.jiakesimk'
+version = '1.0.BREATH'
 sourceCompatibility = '1.8'
 
 tasks.withType(JavaCompile) {

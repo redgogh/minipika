@@ -23,7 +23,6 @@ package groovy;
 import groovy.lang.Closure;
 import org.jiakesimk.minipika.framework.util.ArrayUtils;
 import org.junit.Test;
-import org.junit.jupiter.api.TestTemplate;
 
 /**
  * @author tiansheng
@@ -32,7 +31,7 @@ public class ForJava {
 
   @Test
   public void test() {
-    String[] s = groovy.MatchesDemo.find("username = #username and password = #password", "#(.*?)\\S+", new Closure(null) {
+    String[] s = MatchesDemo.find("username = #username and password = #password", "#(.*?)\\S+", new Closure(null) {
       @Override
       public Object call(Object... args) {
         return args[0] + "xxxx";
