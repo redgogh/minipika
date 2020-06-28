@@ -30,6 +30,7 @@ import org.jiakesimk.minipika.framework.util.Methods;
 import org.jiakesimk.minipika.framework.util.StringUtils;
 
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 /**
  * @author tiansheng
@@ -145,8 +146,8 @@ public class BaseBuilder extends Invoker {
   /**
    * 调用时特殊处理
    *
-   * @param input
-   * @return
+   * @param input 判断当前字符是不是方法或者是对象
+   * @return 处理过后的字符串
    */
   private String invokeToAddGet(String input) {
     if (ConstVariable.IEE.equals(input)) {
@@ -168,8 +169,8 @@ public class BaseBuilder extends Invoker {
   /**
    * 是否存在参数
    *
-   * @param input
-   * @return
+   * @param input 传入类似"#{xxx}"这样的字符串, 截取出xxx
+   * @return 截取到的参数名称
    */
   @SuppressWarnings({"rawtypes"})
   private String[] existArguments(String input) {
@@ -190,7 +191,8 @@ public class BaseBuilder extends Invoker {
   }
 
   protected void end() {
-    instance = ClassUtils.newInstance(JavaCompiler.compile(classname, mtClass.toString()));
+    Class<?> clazz = Objects.requireNonNull(JavaCompiler.compile(classname, mtClass.toString()));
+    instance = ClassUtils.newInstance(clazz);
   }
 
 }

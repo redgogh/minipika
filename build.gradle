@@ -4,6 +4,7 @@
 
 plugins {
   id 'java'
+  id 'groovy'
   id 'maven-publish'
   id "io.franzbecker.gradle-lombok" version "3.1.0"
 }
@@ -45,6 +46,14 @@ dependencies {
 group = 'com.jiakesimk'
 version = '1.0.BREATH'
 sourceCompatibility = '1.8'
+
+compileJava {
+  options.compilerArgs << "-parameters"
+}
+
+compileGroovy {
+  options.compilerArgs << "-parameters"
+}
 
 tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'
