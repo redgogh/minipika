@@ -13,6 +13,7 @@ import org.jiakesimk.minipika.framework.common.ConstVariable
 
 import java.lang.annotation.Annotation
 import java.lang.reflect.Method
+import java.lang.reflect.Parameter
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -38,6 +39,8 @@ import java.lang.reflect.Method
  * @author tiansheng
  */
 class Methods {
+
+  static def pool = ConstVariable.CLASS_POOL
 
   /**
    * 通过{@link Class}实例获取方法。
@@ -135,7 +138,6 @@ class Methods {
    * @return 方法名称，根据顺序排序
    */
   static String[] getParameterNames(Method method) throws NotFoundException {
-    ClassPool pool = ConstVariable.CLASS_POOL
     CtClass ctClass = pool.get(method.getDeclaringClass().getName())
     def parameters = []
     method.getParameterTypes().each { paramType ->
@@ -153,6 +155,12 @@ class Methods {
       }
     }
     return paramNames
+  }
+
+  static Map<String, Parameter> getParameter(Method method) {
+    def parameterMap = [:]
+    CtClass ctClass = pool.get(method.getDeclaringClass().getName())
+
   }
 
 }

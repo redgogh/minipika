@@ -1,4 +1,4 @@
-package groovy
+package org.jiakesimk.minipika.test
 
 
 import org.jiakesimk.minipika.components.annotation.SQL

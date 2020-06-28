@@ -76,7 +76,7 @@ public class BaseBuilder extends Invoker {
     finalSrc.delete(finalSrc.length() - 1, finalSrc.length());
     finalSrc.delete(finalSrc.length(), finalSrc.length()).append("){"); // 方法头部声明结尾
     // 构建方法体
-    buildBody(src, finalSrc);
+    buildBody(src, finalSrc, method);
     finalSrc.append("Object[] objects = new Object[2];");
     finalSrc.append("objects[0] = sql.toString();");
     finalSrc.append("objects[1] = arguments;");
@@ -91,7 +91,7 @@ public class BaseBuilder extends Invoker {
    * @param src     动态sql
    * @param builder StringBuilder引用
    */
-  private void buildBody(String src, StringBuilder builder) {
+  private void buildBody(String src, StringBuilder builder, Method method) throws NotFoundException {
     builder.append("StringBuilder sql = new StringBuilder();");
     builder.append("List arguments = new LinkedList();");
     String[] single = src.split("\n");
@@ -110,6 +110,11 @@ public class BaseBuilder extends Invoker {
           input = input.replace("#if", "").trim();
           input = "".concat("if(").concat(parseIfStatement(input)).concat("){");
           builder.append(input);
+        }
+        if(input.contains("#foreach")) {
+          Methods.getParameterNames(method);
+          input = input.replace("#foreach", "for(").concat(")");
+          System.out.println();
         }
         if (input.contains("#end")) {
           builder.append("}");
