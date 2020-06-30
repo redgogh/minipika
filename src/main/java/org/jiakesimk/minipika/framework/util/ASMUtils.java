@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.asm;
+package org.jiakesimk.minipika.framework.util;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -21,9 +21,9 @@ package org.jiakesimk.minipika.framework.asm;
  */
 
 import com.github.houbb.asm.tool.reflection.AsmMethods;
+import org.jiakesimk.minipika.framework.exception.MinipikaException;
 import org.jiakesimk.minipika.framework.util.Fields;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.List;
@@ -52,8 +52,8 @@ public class ASMUtils {
       return parameters;
     } catch (Exception e) {
       e.printStackTrace();
+      throw new MinipikaException(e);
     }
-    return null;
   }
 
 }
