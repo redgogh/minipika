@@ -177,4 +177,16 @@ public class Fields {
     field.set(instance, value);
   }
 
+  public static Object getValue(Object instance, String name) {
+    try {
+      Class<?> target = instance.getClass();
+      Field field = target.getDeclaredField(name);
+      field.setAccessible(true);
+      return field.get(instance);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
 }

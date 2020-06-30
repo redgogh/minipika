@@ -1,5 +1,6 @@
 package org.jiakesimk.minipika.framework.util
 
+import com.github.houbb.asm.tool.reflection.AsmMethods
 import javassist.ClassPool
 import javassist.CtClass
 import javassist.CtMethod
@@ -10,6 +11,7 @@ import javassist.bytecode.LocalVariableAttribute
 import javassist.bytecode.MethodInfo
 import lombok.SneakyThrows
 import org.jiakesimk.minipika.framework.common.ConstVariable
+import org.jiakesimk.minipika.framework.exception.MinipikaException
 
 import java.lang.annotation.Annotation
 import java.lang.reflect.Method
@@ -157,10 +159,27 @@ class Methods {
     return paramNames
   }
 
-  static Map<String, Parameter> getParameter(Method method) {
-    def parameterMap = [:]
-    CtClass ctClass = pool.get(method.getDeclaringClass().getName())
-
+  /**
+   * 获取{@link Method}的参数{@link Parameter}数组, 其中会获取
+   * 真实名称
+   *
+   * @param method 方法对象
+   * @return {@code Parameter}数组
+   */
+  static Map<String, Parameter> getParameters(Method method) {
+    try {
+      Map<String, Parameter> map = Maps.newHashMap()
+      List<String> strValue = AsmMethods.getParamNamesByAsm(method)
+      Parameter[] parameters = method.getParameters();
+      for (int i = 0; i < parameters.length; i++) {
+        Fields.set(parameters[i], strValue.get(i), "name")
+        map.put strValue.get(i), parameters[i]
+      }
+      return map;
+    } catch (Exception e) {
+      e.printStackTrace();
+      throw new MinipikaException(e);
+    }
   }
 
 }

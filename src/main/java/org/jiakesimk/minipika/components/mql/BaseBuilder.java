@@ -30,6 +30,8 @@ import org.jiakesimk.minipika.framework.util.Methods;
 import org.jiakesimk.minipika.framework.util.StringUtils;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -48,7 +50,7 @@ public class BaseBuilder extends Invoker {
     mtClass.append("import java.util.*;");
     mtClass.append("import java.lang.*;");
     mtClass.append("import java.math.*;");
-    mtClass.append("import org.jiakesimk.minipika.framework.util.StringUtils;");
+    mtClass.append("import org.jiakesimk.minipika.framework.util.*;");
     mtClass.append("@SuppressWarnings(\"unchecked\")");
     mtClass.append("public class ").append(classname, lastIndexOf + 1, classname.length()).append("{}");
     this.classname = classname;
@@ -97,29 +99,26 @@ public class BaseBuilder extends Invoker {
     String[] single = src.split("\n");
     for (String input : single) {
       input = input.trim();
-      // 判断当前行是不是普通的SQL语句
-      if (StringUtils.isNotEmpty(input) && input.charAt(0) != '#') {
-        builder.append("sql.append(\"").append(input.replaceAll("#\\{(.*?)}", "?"))
-                .append(" ").append("\");");
+      if (input.contains("#if")) {
+        input = input.replace("#if", "").trim();
+        input = "".concat("if(").concat(parseIfStatement(input)).concat("){");
+        builder.append(input);
+      } else if (input.contains("#foreach")) {
+        input = input.replace("#foreach", "for(Object").concat("").concat("){");
+        builder.append(input);
+      } else if (input.contains("#end")) {
+        builder.append("}");
+      } else {
+        String sql = input.replaceAll("#\\{(.*?)}", "?").trim();
+        if(!"?".equals(sql)) {
+          builder.append("sql.append(\"").append(sql).append(" ").append("\");");
+        }
         String[] arguments = existArguments(input);
         for (String argument : arguments) {
           builder.append("arguments.add(").append(argument).append(");");
         }
-      } else {
-        if (input.contains("#if")) {
-          input = input.replace("#if", "").trim();
-          input = "".concat("if(").concat(parseIfStatement(input)).concat("){");
-          builder.append(input);
-        }
-        if(input.contains("#foreach")) {
-          Methods.getParameterNames(method);
-          input = input.replace("#foreach", "for(").concat(")");
-          System.out.println();
-        }
-        if (input.contains("#end")) {
-          builder.append("}");
-        }
       }
+
     }
   }
 
@@ -163,9 +162,13 @@ public class BaseBuilder extends Invoker {
     }
     if (input.contains(".")) {
       String[] idens = input.split("\\.");
-      input = idens[0];
+      String objectName = idens[0];
       for (int j = 1; j < idens.length; j++) {
-        input = input.concat(".").concat("get").concat(StringUtils.toUpperCase(idens[j], 1)).concat("()");
+        if (j > 1) {
+          input = "Fields.getValue(".concat(input).concat(",\"").concat(idens[j]).concat("\")");
+        } else {
+          input = "Fields.getValue(".concat(objectName).concat(",\"").concat(idens[j]).concat("\")");
+        }
       }
     }
     return input;
@@ -179,16 +182,13 @@ public class BaseBuilder extends Invoker {
    */
   @SuppressWarnings({"rawtypes"})
   private String[] existArguments(String input) {
-    return Matches.find(input, "#\\{(.*?)}\\S+", new Closure(null) {
+    return Matches.find(input, "#\\{(.*?)}\\S*", new Closure(null) {
       @Override
       public Object call(Object... args) {
         String args0 = (String) args[0];
         args0 = args0.replaceAll("#", "");
         if (args0.contains(".")) {
-          String[] split = args0.split("\\.");
-          for (int i = 1; i < split.length; i++) {
-            args0 = invokeToAddGet(args0);
-          }
+          args0 = invokeToAddGet(args0);
         }
         return args0;
       }

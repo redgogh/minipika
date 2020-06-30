@@ -43,11 +43,30 @@ class StringUtils {
    * @param input 目标字符串
    * @return true为空，false反之。
    */
+  public static boolean isEmpty(Object input) {
+    return isEmpty(String.valueOf(input));
+  }
+
+  /**
+   * 字符串是否为空
+   *
+   * @param input 目标字符串
+   * @return true为空，false反之。
+   */
   public static boolean isEmpty(String input) {
     return input == null
             || input.length() == 0
             || UNICODE_U0000.equals(input)
             || UNICODE_U3000.equals(input);
+  }
+
+  /**
+   * 判断字符串是否不为空
+   *
+   * @return true表示当前不为空，false反之
+   */
+  public static boolean isNotEmpty(Object input) {
+    return isNotEmpty(String.valueOf(input));
   }
 
   /**
