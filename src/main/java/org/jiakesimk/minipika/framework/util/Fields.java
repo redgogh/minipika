@@ -171,7 +171,9 @@ public class Fields {
    * 设置{@code Filed}的值。
    */
   @SneakyThrows
-  public static void set(Object instance, Object value, Field field) {
+  public static void set(Object instance, Object value, String name) {
+    Field field = instance.getClass().getDeclaredField(name);
+    field.setAccessible(true);
     field.set(instance, value);
   }
 

@@ -20,9 +20,13 @@ package org.jiakesimk.minipika.framework.asm;
  * Creates on 2020/6/1.
  */
 
-import java.io.IOException;
+import com.github.houbb.asm.tool.reflection.AsmMethods;
+import org.jiakesimk.minipika.framework.util.Fields;
+
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.List;
 
 /**
  * ASM字节码操作框架工具类
@@ -38,7 +42,17 @@ public class ASMUtils {
    * @param method 方法对象
    * @return {@code Parameter}数组
    */
-  public static String[] getParameters(Method method) throws IOException {
+  public static Parameter[] getParameters(Method method) {
+    try {
+      List<String> strValue = AsmMethods.getParamNamesByAsm(method);
+      Parameter[] parameters = method.getParameters();
+      for (int i = 0; i < parameters.length; i++) {
+        Fields.set(parameters[i], strValue.get(i), "name");
+      }
+      return parameters;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     return null;
   }
 

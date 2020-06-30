@@ -3,6 +3,7 @@ package groovy
 
 import org.jiakesimk.minipika.components.annotation.SQL
 import org.jiakesimk.minipika.components.mql.MqlBuilder
+import org.jiakesimk.minipika.framework.asm.ASMUtils
 import org.junit.Test
 
 import java.lang.reflect.Method
@@ -43,8 +44,9 @@ class MqlMapper {
 
   @Test
   void getParameterNamesTest() {
-    Method method = MqlMapper.class.getDeclaredMethod("addBatch", List.class)
-    println method.getParameters()
+    Method method = MqlMapper.class.getDeclaredMethod("findUser", User.class, String.class)
+    println ASMUtils.getParameters(method)
+
   }
 
 }
