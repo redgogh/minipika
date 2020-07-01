@@ -27,11 +27,8 @@ import org.jiakesimk.minipika.framework.compiler.JavaCompiler;
 import org.jiakesimk.minipika.framework.util.ClassUtils;
 import org.jiakesimk.minipika.framework.util.Matches;
 import org.jiakesimk.minipika.framework.util.Methods;
-import org.jiakesimk.minipika.framework.util.StringUtils;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -84,7 +81,8 @@ public class BaseBuilder extends Invoker {
     finalSrc.append("objects[1] = arguments;");
     finalSrc.append("return objects;}");
     mtClass.insert(mtClass.length() - 1, finalSrc);
-    System.out.println(mtClass);
+    // -- debug使用
+    // System.out.println(mtClass);
   }
 
   /**
@@ -110,7 +108,7 @@ public class BaseBuilder extends Invoker {
         builder.append("}");
       } else {
         String sql = input.replaceAll("#\\{(.*?)}", "?").trim();
-        if(!"?".equals(sql)) {
+        if (!"?".equals(sql)) {
           builder.append("sql.append(\"").append(sql).append(" ").append("\");");
         }
         String[] arguments = existArguments(input);
@@ -118,7 +116,6 @@ public class BaseBuilder extends Invoker {
           builder.append("arguments.add(").append(argument).append(");");
         }
       }
-
     }
   }
 

@@ -2,6 +2,11 @@ package org.jiakesimk.minipika.components.mql
 
 import org.jiakesimk.minipika.components.annotation.SQL
 import org.jiakesimk.minipika.framework.common.ConstVariable
+import org.jiakesimk.minipika.framework.util.ClassUtils
+
+import java.lang.reflect.InvocationHandler
+import java.lang.reflect.Method
+import java.lang.reflect.Proxy
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -28,15 +33,18 @@ import org.jiakesimk.minipika.framework.common.ConstVariable
  *
  * @author tiansheng
  */
-class MqlBuilder extends BaseBuilder {
+class MqlBuilder extends BaseBuilder implements InvocationHandler {
 
   private Class<?> virtual
+
+  private Object instance
 
   MqlBuilder(Class<?> virtual) {
     super(ConstVariable.MQL_PROXY_CLASSNAME.concat(virtual.getSimpleName()))
     this.virtual = virtual
     initialization()
     end()
+    instance = ClassUtils.newInstance(virtual)
   }
 
   /**
@@ -51,6 +59,20 @@ class MqlBuilder extends BaseBuilder {
         createMethod(method, queryScript)
       }
     })
+  }
+
+  Object bind() {
+    return Proxy.newProxyInstance(this.class.getClassLoader(),
+            instance.getClass().getInterfaces(), this)
+  }
+
+  @Override
+  Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    def name = method.name
+    if (name != "getMetaClass") {
+      return invoke(method.name, args)
+    }
+    return method.invoke(instance, args)
   }
 
 }

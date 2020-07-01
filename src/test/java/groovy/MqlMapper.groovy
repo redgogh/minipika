@@ -6,9 +6,7 @@ import org.jiakesimk.minipika.components.mql.MqlBuilder
 
 import org.junit.Test
 
-import java.lang.reflect.Method
-
-class MqlMapper {
+interface MqlMapper {
 
   @SQL("""
     select * from minipika_user where 1=1
@@ -17,12 +15,12 @@ class MqlMapper {
     #end
     and wdnmd = #{wdnmd}
   """)
-  def findUser(User user, String wdnmd) {}
+  def findUser(User user, String wdnmd)
 
   @SQL("""
     insert into user (username) values (#{user.name})
   """)
-  def addUser(User user) {}
+  def addUser(User user)
 
   @SQL("""
     insert into user (username) values (?)
@@ -30,9 +28,13 @@ class MqlMapper {
       #{user.name}
     #end
   """)
-  def addBatch(List<User> users){}
+  def addBatch(List<User> users)
 
-  @Test
+}
+
+class Test {
+
+  @org.junit.Test
   void test() {
     User user = new User()
     user.name = "123"
@@ -41,11 +43,19 @@ class MqlMapper {
     println m.invoke("addUser", user)
   }
 
-  @Test
+  @org.junit.Test
   void test2() {
     MqlBuilder m = new MqlBuilder(MqlMapper.class)
     List<User> users = [new User("name1"), new User("name2")]
     println m.invoke("addBatch", users)
+  }
+
+  @org.junit.Test
+  void test3() {
+    MqlBuilder m = new MqlBuilder(MqlMapper.class)
+    Mapper mapper = m.bind()
+    List<User> users = [new User("name1"), new User("name2")]
+    println mapper.addBatch(users)
   }
 
 }
