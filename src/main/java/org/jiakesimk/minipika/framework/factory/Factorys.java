@@ -26,6 +26,7 @@ import org.jiakesimk.minipika.components.jdbc.*;
 import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransaction;
 import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransactionFactory;
 import org.jiakesimk.minipika.components.jdbc.transaction.TransactionFactory;
+import org.jiakesimk.minipika.framework.context.ContextManager;
 
 /**
  * @author tiansheng
@@ -33,6 +34,7 @@ import org.jiakesimk.minipika.components.jdbc.transaction.TransactionFactory;
 public class Factorys {
 
   static {
+    ContextManager.loadContext(); // 加载上下文
     BuiltinComponentFactory.components.put(NativeResultSet.class.getName(), forClass(ConstResultSet.class));
     BuiltinComponentFactory.components.put(NativeJdbcImpl.class.getName(), forClass(NativeJdbcImpl.class));
     BuiltinComponentFactory.components.put(JdbcTransaction.class.getName(), forClass(JdbcTransaction.class));

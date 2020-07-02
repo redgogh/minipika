@@ -20,8 +20,12 @@ package org.jiakesimk.minipika.framework.configuration;
  * Creates on 2020/6/1.
  */
 
+import org.jiakesimk.minipika.framework.util.Charsets;
 import org.jiakesimk.minipika.framework.util.Threads;
+import org.jiakesimk.minipika.framework.util.UrlTools;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
@@ -39,11 +43,16 @@ public class FindStrategy {
   private FindStrategy() {
   }
 
-  public static InputStream getConfigInputStream(){
-    if(configInputStream == null) {
-      usingConfigFromClassPath();
+  public static InputStream getConfigInputStream() {
+    try {
+      if (configInputStream == null) {
+        usingConfigFromClassPath();
+      }
+      return configInputStream;
+    } catch (Exception e) {
+      e.printStackTrace();
     }
-    return configInputStream;
+    return null;
   }
 
   /**

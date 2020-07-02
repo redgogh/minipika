@@ -27,8 +27,10 @@ import org.jiakesimk.minipika.framework.configuration.node.MinipikaXMLConfig;
 import org.jiakesimk.minipika.framework.factory.Factorys;
 import org.jiakesimk.minipika.framework.logging.Log;
 import org.jiakesimk.minipika.framework.logging.LogFactory;
+import org.jiakesimk.minipika.framework.util.Charsets;
 import org.jiakesimk.minipika.framework.util.Threads;
-
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Objects;
 
 /**
@@ -40,11 +42,36 @@ public class XMLConfigBuilder {
 
   private Element root;
 
-  public XMLConfigBuilder(String xfile) {
+  public XMLConfigBuilder() {
+  }
+
+  public XMLConfigBuilder(String file) {
+    load(file);
+  }
+
+  /**
+   * 根据输入流去加载配置
+   */
+  public void load(InputStream in) {
+    parseRoot(in);
+  }
+
+  /**
+   * 根据输出流去加载配置
+   */
+  public void load(String file) {
+    parseRoot(file);
+  }
+
+  private void parseRoot(Object object) {
     try {
-      xfile = perfectPath(xfile);
+      Document document = null;
       SAXBuilder builder = Factorys.forClass(SAXBuilder.class);
-      Document document = builder.build(xfile);
+      if (object instanceof String) {
+        document = builder.build((String) object);
+      } else if (object instanceof InputStream) {
+        document = builder.build(new InputStreamReader((InputStream) object, Charsets.UTF_8));
+      }
       this.root = document.getRootElement();
     } catch (Exception e) {
       e.printStackTrace();
