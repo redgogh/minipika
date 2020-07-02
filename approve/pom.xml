@@ -60,7 +60,7 @@
         <lombok.version>1.18.10</lombok.version>
         <fastjson.version>1.2.62</fastjson.version>
         <javassist.version>3.12.1.GA</javassist.version>
-        <mysql.connector.version>8.0.11</mysql.connector.version>
+        <mysql.connector.version>8.0.16</mysql.connector.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <logback.version>1.2.3</logback.version>
