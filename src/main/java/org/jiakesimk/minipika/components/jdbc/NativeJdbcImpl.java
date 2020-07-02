@@ -184,8 +184,12 @@ public class NativeJdbcImpl implements NativeJdbc {
   /**
    * @return 当前事务管理器
    */
-  private Transaction getTransaction() {
+  private Transaction getTransaction() throws SQLException {
     DataSource dataSource = DataSourceManager.getDataSource();
+    if(dataSource == null) {
+      LOG.error("Error get transaction failure. Cause: not obtained datasource.");
+      throw new SQLException("Error get transaction failure. Cause: not obtained datasource.");
+    }
     Transaction transaction = Factorys.forClass(Transaction.class);
     transaction.setDataSource(dataSource);
     return transaction;

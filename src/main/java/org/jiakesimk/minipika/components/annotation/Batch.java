@@ -1,6 +1,4 @@
-package groovy
-
-import org.jiakesimk.minipika.components.annotation.SQL;
+package org.jiakesimk.minipika.components.annotation;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -19,21 +17,23 @@ import org.jiakesimk.minipika.components.annotation.SQL;
  */
 
 /*
- * Creates on 2020/6/30.
+ * Creates on 2020/7/2.
  */
+
+import java.lang.annotation.*;
 
 /**
  * @author tiansheng
  */
-interface MqlMapper2 {
+@Target({ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface Batch {
 
-  @SQL("""
-    select * from minipika_user where 1=1
-    #if INE(user.name) && user.name != null
-      and username = #{user.name}
-    #end
-    and wdnmd = #{wdnmd}
-  """)
-  def findUser(User user, String wdnmd);
+  /**
+   * sql语句
+   * @return
+   */
+  String value() default "";
 
 }

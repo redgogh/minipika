@@ -1,8 +1,14 @@
 package org.jiakesimk.minipika.components.mql
 
-import org.jiakesimk.minipika.components.annotation.SQL
+import org.jiakesimk.minipika.components.annotation.Batch
+
+import org.jiakesimk.minipika.components.annotation.Select
+import org.jiakesimk.minipika.components.annotation.Update
+import org.jiakesimk.minipika.components.jdbc.Executor
+import org.jiakesimk.minipika.components.jdbc.SQLExecutor
 import org.jiakesimk.minipika.framework.common.ConstVariable
-import org.jiakesimk.minipika.framework.util.ClassUtils
+import org.jiakesimk.minipika.framework.exception.MinipikaException
+import org.jiakesimk.minipika.framework.factory.Factorys
 
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
@@ -37,6 +43,8 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
 
   private Class<?> virtual
 
+  private Executor executor = Factorys.forClass(SQLExecutor)
+
   MqlCallback(Class<?> virtual) {
     super(ConstVariable.MQL_PROXY_CLASSNAME.concat(virtual.getSimpleName()))
     this.virtual = virtual
@@ -50,10 +58,17 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
   private void initialization() {
     def methods = virtual.methods
     methods.each({ method ->
-      if (method.isAnnotationPresent(SQL)) {
-        SQL query = method.getDeclaredAnnotation(SQL)
-        String queryScript = query.value()
-        createMethod(method, queryScript)
+      if (method.isAnnotationPresent(Update)) {
+        Update update = method.getDeclaredAnnotation(Update)
+        createMethod(method, update.value())
+      }
+      if (method.isAnnotationPresent(Select)) {
+        Select select = method.getDeclaredAnnotation(Select)
+        createMethod(method, select.value())
+      }
+      if (method.isAnnotationPresent(Batch)) {
+        Batch batch = method.getDeclaredAnnotation(Batch)
+        createMethod(method, batch.value())
       }
     })
   }
@@ -66,7 +81,21 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
 
   @Override
   Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-    def arguments = invoke(method.name, args)
+    try {
+      def objects = invoke(method.name, args)
+      String sql = objects[0]
+      Object[] arguments = objects[1]
+      if (method.isAnnotationPresent(Select)) {
+        def type = method.returnType
+        executor.queryForObject(sql, type, arguments)
+      }
+      if (method.isAnnotationPresent(Update)) {
+      }
+      if (method.isAnnotationPresent(Batch)) {
+      }
+    } catch (Throwable e) {
+      throw new MinipikaException(e.message, e)
+    }
   }
 
 }

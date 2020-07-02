@@ -1,5 +1,4 @@
-package groovy
-
+package org.jiakesimk.minipika.components.annotation;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -18,18 +17,23 @@ package groovy
  */
 
 /*
- * Creates on 2020/7/1.
+ * Creates on 2020/7/2.
  */
+
+import java.lang.annotation.*;
 
 /**
  * @author tiansheng
  */
-interface Mapper {
+@Target({ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface Select {
 
-  def findUser(User user, String wdnmd)
-
-  def addUser(User user)
-
-  def addBatch(List<User> users)
+  /**
+   * sql语句
+   * @return
+   */
+  String value() default "";
 
 }

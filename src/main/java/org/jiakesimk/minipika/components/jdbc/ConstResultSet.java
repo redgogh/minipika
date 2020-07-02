@@ -34,12 +34,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@SuppressWarnings("unchecked")
 public class ConstResultSet implements NativeResultSet {
 
   private int nextOffset = 0;
   private int hasNextOffset = 0;
   private List<String> hasNext;
+
   @Getter
   private List<Map<String, String>> resultSet;
   private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -27,13 +27,15 @@ import org.jiakesimk.minipika.components.jdbc.NativeJdbc;
 import org.jiakesimk.minipika.framework.configuration.XMLConfigBuilder;
 import org.jiakesimk.minipika.framework.factory.Factorys;
 
+import java.sql.SQLException;
+
 /**
  * @author tiansheng
  */
 public class NativeJdbcTest {
 
   @Test
-  public void testSQLExecutor(){
+  public void testSQLExecutor() throws SQLException {
     XMLConfigBuilder builder = new XMLConfigBuilder("minipika.xml");
     builder.initialize();
     NativeJdbc executor = Factorys.forClass(NativeJdbc.class);

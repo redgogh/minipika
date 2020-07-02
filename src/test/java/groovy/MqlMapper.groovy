@@ -1,13 +1,15 @@
 package groovy
 
+import org.jiakesimk.minipika.components.annotation.Batch
 
-import org.jiakesimk.minipika.components.annotation.SQL
+import org.jiakesimk.minipika.components.annotation.Select
+import org.jiakesimk.minipika.components.annotation.Update
 import org.jiakesimk.minipika.components.mql.MqlCallback
 import org.junit.Test
 
 interface MqlMapper {
 
-  @SQL("""
+  @Select("""
     select * from minipika_user where 1=1
     #if INE(user.name) && user.name != null
       and username = #{user.name}
@@ -16,20 +18,18 @@ interface MqlMapper {
   """)
   def findUser(User user, int age)
 
-  @SQL("""
+  @Update("""
     insert into user (username) values (#{user.name})
   """)
   def addUser(User user)
 
-  @SQL("""
+  @Batch("""
     insert into user (username) values (?)
     #foreach user : users
       #{user.name}
     #end
   """)
   def addBatch(List<User> users)
-
-  def fuck()
 
   class ForGroovy {
 

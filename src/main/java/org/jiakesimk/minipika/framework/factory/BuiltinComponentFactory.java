@@ -22,9 +22,7 @@ package org.jiakesimk.minipika.framework.factory;
 
 import org.jiakesimk.minipika.components.cache.SetCache;
 import org.jiakesimk.minipika.components.cache.WeakCacheImpl;
-import org.jiakesimk.minipika.components.jdbc.ConstResultSet;
-import org.jiakesimk.minipika.components.jdbc.NativeJdbcImpl;
-import org.jiakesimk.minipika.components.jdbc.NativeResultSet;
+import org.jiakesimk.minipika.components.jdbc.*;
 import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransaction;
 import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransactionFactory;
 import org.jiakesimk.minipika.components.jdbc.transaction.TransactionFactory;
@@ -42,30 +40,16 @@ public class BuiltinComponentFactory implements ComponentFactory {
   /**
    * 组件容器
    */
-  private static final Map<String, Object> components = Maps.newConcurrentHashMap(8);
+  static final Map<String, Object> components = Maps.newConcurrentHashMap(8);
 
-  private static ComponentFactory factory;
+  static final ComponentFactory factory = new BuiltinComponentFactory();
 
   private BuiltinComponentFactory() {
-    {
-      components.put(NativeResultSet.class.getName(), forClass(ConstResultSet.class));
-      components.put(NativeJdbcImpl.class.getName(), forClass(NativeJdbcImpl.class));
-      components.put(JdbcTransaction.class.getName(), forClass(JdbcTransaction.class));
-      components.put(TransactionFactory.class.getName(), forClass(JdbcTransactionFactory.class));
-      components.put(SetCache.class.getName(), forClass(WeakCacheImpl.class));
-    }
-  }
-
-  public static ComponentFactory getFactory() {
-    if (factory == null) {
-      factory = new BuiltinComponentFactory();
-    }
-    return factory;
   }
 
   @Override
   public <T> T forClass(Class<?> clazz) {
-    return forClass(clazz, null);
+     return forClass(clazz, null);
   }
 
   @Override

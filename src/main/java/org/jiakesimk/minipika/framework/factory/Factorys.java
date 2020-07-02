@@ -20,17 +20,33 @@ package org.jiakesimk.minipika.framework.factory;
  * Creates on 2020/6/2.
  */
 
+import org.jiakesimk.minipika.components.cache.SetCache;
+import org.jiakesimk.minipika.components.cache.WeakCacheImpl;
+import org.jiakesimk.minipika.components.jdbc.*;
+import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransaction;
+import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransactionFactory;
+import org.jiakesimk.minipika.components.jdbc.transaction.TransactionFactory;
+
 /**
  * @author tiansheng
  */
 public class Factorys {
 
+  static {
+    BuiltinComponentFactory.components.put(NativeResultSet.class.getName(), forClass(ConstResultSet.class));
+    BuiltinComponentFactory.components.put(NativeJdbcImpl.class.getName(), forClass(NativeJdbcImpl.class));
+    BuiltinComponentFactory.components.put(JdbcTransaction.class.getName(), forClass(JdbcTransaction.class));
+    BuiltinComponentFactory.components.put(TransactionFactory.class.getName(), forClass(JdbcTransactionFactory.class));
+    BuiltinComponentFactory.components.put(SetCache.class.getName(), forClass(WeakCacheImpl.class));
+    BuiltinComponentFactory.components.put(Executor.class.getName(), forClass(SQLExecutor.class));
+  }
+
   public static <T> T forClass(Class<T> clazz) {
-    return BuiltinComponentFactory.getFactory().forClass(clazz);
+    return BuiltinComponentFactory.factory.forClass(clazz);
   }
 
   public static <T> T forClass(Class<?> clazz, Class<?>[] types, Object... parameter) {
-    return BuiltinComponentFactory.getFactory().forClass(clazz, types, parameter);
+    return BuiltinComponentFactory.factory.forClass(clazz, types, parameter);
   }
 
 }

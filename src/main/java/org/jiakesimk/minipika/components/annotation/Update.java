@@ -17,7 +17,7 @@ package org.jiakesimk.minipika.components.annotation;
  */
 
 /*
- * Creates on 2020/6/22.
+ * Creates on 2020/7/2.
  */
 
 import java.lang.annotation.*;
@@ -25,10 +25,10 @@ import java.lang.annotation.*;
 /**
  * @author tiansheng
  */
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface SQL {
+public @interface Update {
 
   /**
    * sql语句
