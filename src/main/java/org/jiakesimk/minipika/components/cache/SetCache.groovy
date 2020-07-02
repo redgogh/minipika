@@ -1,25 +1,25 @@
 package org.jiakesimk.minipika.components.cache
 
-import org.jiakesimk.minipika.components.jdbc.QueryResultSet
+import org.jiakesimk.minipika.components.jdbc.NativeResultSet
 
 interface SetCache {
 
   /**
-   * 获取缓存中的{@link org.jiakesimk.minipika.components.jdbc.QueryResultSet}对象
+   * 获取缓存中的{@link NativeResultSet}对象
    *
    * @param key 缓存键
-   * @return {@link org.jiakesimk.minipika.components.jdbc.QueryResultSet}对象
+   * @return {@link NativeResultSet}对象
    */
-  QueryResultSet getResultSet(String key)
+  NativeResultSet getResultSet(String key)
 
   /**
-   * 添加{@link QueryResultSet}对象, 同时更新也通过
+   * 添加{@link NativeResultSet}对象, 同时更新也通过
    * 这个方法去更新, 覆盖掉原有的QueryResultSet对象
    *
    * @param key 缓存键
    * @param resultSet 缓存对象
    */
-  void addResultSet(String key, QueryResultSet resultSet)
+  void addResultSet(String key, NativeResultSet resultSet)
 
   /**
    * 清空所有缓存对象

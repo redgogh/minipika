@@ -34,7 +34,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class ConstResultSet implements QueryResultSet {
+@SuppressWarnings("unchecked")
+public class ConstResultSet implements NativeResultSet {
 
   private int nextOffset = 0;
   private int hasNextOffset = 0;
@@ -51,7 +52,7 @@ public class ConstResultSet implements QueryResultSet {
   }
 
   @Override
-  public QueryResultSet build(ResultSet rset) {
+  public NativeResultSet build(ResultSet rset) {
     try {
       resultSet = new ArrayList<>();
       ResultSetMetaData mdata = rset.getMetaData();

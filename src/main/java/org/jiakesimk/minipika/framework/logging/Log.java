@@ -22,23 +22,23 @@ package org.jiakesimk.minipika.framework.logging;
 
 /**
  * 使用自定义的日志框架，如果没有使用默认。
- *
+ * <p>
  * Configuration logger framework if there is not use default.
  *
  * @author tiansheng
  */
 public interface Log {
 
-    boolean isDebugEnabled();
+  boolean isDebugEnabled();
 
-    void info(String msg);
+  void info(String msg);
 
-    void warn(String msg);
+  void warn(String msg);
 
-    void debug(String msg);
+  void debug(String msg);
 
-    void error(String msg);
+  void error(String msg);
 
-    void error(String msg,Throwable e);
+  void error(String msg, Throwable e);
 
 }

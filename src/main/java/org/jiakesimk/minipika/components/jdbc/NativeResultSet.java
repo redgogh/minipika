@@ -28,15 +28,15 @@ import java.util.List;
  *
  * @author tiansheng
  */
-public interface QueryResultSet {
+public interface NativeResultSet {
 
   /**
-   * 构建一个{@link QueryResultSet}结果集
+   * 构建一个{@link NativeResultSet}结果集
    *
    * @param resultSet JDBC查询返回的结果集
-   * @return {@link QueryResultSet}结果集实现
+   * @return {@link NativeResultSet}结果集实现
    */
-  QueryResultSet build(ResultSet resultSet);
+  NativeResultSet build(ResultSet resultSet);
 
   /**
    * 将结果集转换成Java对象

@@ -66,11 +66,7 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
 
   @Override
   Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-    def name = method.name
-    if (name != "getMetaClass") {
-      return invoke(method.name, args)
-    }
-    return method.invoke(this, args)
+    def arguments = invoke(method.name, args)
   }
 
 }

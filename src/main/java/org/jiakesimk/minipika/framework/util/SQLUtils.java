@@ -36,9 +36,6 @@ public class SQLUtils {
 
   /**
    * 获取sql中的表名
-   *
-   * @param sql
-   * @return
    */
   public static List<String> getSQLTables(String sql) {
     TablesNamesFinder finder = new TablesNamesFinder();
@@ -57,18 +54,14 @@ public class SQLUtils {
 
   /**
    * 构建带参数的sql
-   *
-   * @param sql
-   * @param args
-   * @return
    */
   public static String buildPreSQL(String sql, Object[] args) {
     StringBuilder builder = new StringBuilder();
     char[] charArray = sql.toCharArray();
     int index = -1;
     for (int i = 0; i < charArray.length; i++) {
-      char ichar = charArray[i];
-      if (ichar == '?') {
+      char ch = charArray[i];
+      if (ch == '?') {
         Object object = args[index = (index + 1)];
         if (object instanceof String) {
           builder.append("'");
@@ -78,18 +71,10 @@ public class SQLUtils {
           builder.append(object);
         }
       } else {
-        builder.append(ichar);
+        builder.append(ch);
       }
     }
     return builder.toString();
-  }
-
-  public static void main(String[] args) {
-    String sql = "select * from user where username = ? and userage = ?";
-    Object[] objects = new Object[2];
-    objects[0] = "keyboard";
-    objects[1] = new BigDecimal("18.25");
-    System.out.println(buildPreSQL(sql, objects));
   }
 
 }

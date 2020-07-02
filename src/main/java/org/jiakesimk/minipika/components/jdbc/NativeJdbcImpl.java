@@ -20,7 +20,6 @@ package org.jiakesimk.minipika.components.jdbc;
  * Creates on 2020/6/6.
  */
 
-import org.jiakesimk.minipika.components.cache.SetCache;
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
 import org.jiakesimk.minipika.components.jdbc.transaction.Transaction;
 import org.jiakesimk.minipika.framework.factory.Factorys;
@@ -41,12 +40,10 @@ public class NativeJdbcImpl implements NativeJdbc {
 
   private static final Log LOG = LogFactory.getLog(NativeJdbcImpl.class);
 
-  private final SetCache cache = Factorys.forClass(SetCache.class);
-
   @Override
-  public boolean execute(String sql, Object... args) {
+  public boolean execute(String sql, Object... args) throws SQLException {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("execute: " + sql);
+      LOG.debug("执行SQL - " + sql);
     }
     Connection connection = null;
     PreparedStatement statement = null;
@@ -68,11 +65,11 @@ public class NativeJdbcImpl implements NativeJdbc {
   }
 
   @Override
-  public QueryResultSet select(String sql, Object... args) {
+  public NativeResultSet select(String sql, Object... args) throws SQLException {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("query: " + sql + ", current database: " + "");
+      LOG.debug("执行SQL - " + sql);
     }
-    QueryResultSet result = null;
+    NativeResultSet result = null;
     Connection connection = null;
     PreparedStatement statement = null;
     Transaction transaction = getTransaction();
@@ -80,7 +77,7 @@ public class NativeJdbcImpl implements NativeJdbc {
       connection = transaction.getConnection();
       statement = connection.prepareStatement(sql);
       ResultSet resultSet = setValues(statement, args).executeQuery();
-      return Factorys.forClass(QueryResultSet.class).build(resultSet);
+      return Factorys.forClass(NativeResultSet.class).build(resultSet);
     } catch (Throwable e) {
       e.printStackTrace();
     } finally {
@@ -91,9 +88,9 @@ public class NativeJdbcImpl implements NativeJdbc {
   }
 
   @Override
-  public int update(String sql, Object... args) {
+  public int update(String sql, Object... args) throws SQLException {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("NativeJdbc: 执行SQL - " + sql);
+      LOG.debug("执行SQL - " + sql);
     }
     Connection connection = null;
     PreparedStatement statement = null;
@@ -115,15 +112,92 @@ public class NativeJdbcImpl implements NativeJdbc {
   }
 
   @Override
-  public int[] batch(String sql, List<Object[]> args) {
-    // 判断sql中是否包含多条sql，根据';'来判断
+  public int[] executeBatch(String sql, List<Object[]> args) throws SQLException {
+    return this.executeBatch(sql, args.toArray());
+  }
+
+  @Override
+  public int[] executeBatch(String sql, Object... args) throws SQLException {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("执行SQL - " + sql);
+    }
+    Connection connection = null;
+    PreparedStatement statement = null;
+    Transaction transaction = getTransaction();
+    try {
+      int[] result = isMultiSQL(sql, args);
+      if (result != null) return result;
+      connection = transaction.getConnection();
+      statement = connection.prepareStatement(sql);
+      for (Object arg : args) {
+        Object[] value = (Object[]) arg;
+        int i = 1;
+        for (Object o : value) {
+          statement.setObject(i, o);
+          i++;
+        }
+        statement.addBatch();
+      }
+      result = statement.executeBatch();
+      transaction.commit();
+      return result;
+    } catch (Throwable e) {
+      transaction.rollback();
+      throw new SQLException(e);
+    } finally {
+      close(statement);
+    }
+  }
+
+  @Override
+  public int[] executeBatch(String[] sql, List<Object[]> args) throws SQLException {
+    if (LOG.isDebugEnabled()) {
+      for (String it : sql) {
+        LOG.debug("执行SQL - " + it);
+      }
+    }
+    Connection connection = null;
+    Statement statement = null;
+    Transaction transaction = getTransaction();
+    try {
+      connection = transaction.getConnection();
+      statement = connection.createStatement();
+      int index = -1;
+      for (String it : sql) {
+        if (args != null) {
+          statement.addBatch(SQLUtils.buildPreSQL(it, args.get(index = (index + 1))));
+        } else {
+          statement.addBatch(SQLUtils.buildPreSQL(it, null));
+        }
+      }
+      int[] result = statement.executeBatch();
+      transaction.commit();
+      return result;
+    } catch (Throwable e) {
+      transaction.rollback();
+      throw new SQLException(e);
+    } finally {
+      close(statement);
+    }
+  }
+
+  /**
+   * @return 当前事务管理器
+   */
+  private Transaction getTransaction() {
+    DataSource dataSource = DataSourceManager.getDataSource();
+    Transaction transaction = Factorys.forClass(Transaction.class);
+    transaction.setDataSource(dataSource);
+    return transaction;
+  }
+
+  // 判断sql中是否包含多条sql，根据';'来判断
+  private int[] isMultiSQL(String sql, Object... args) throws SQLException {
     out:
     if (sql.contains(";")) {
       String[] sqls = (String[]) ArrayUtils.remove(sql.split(";"), ArrayUtils.OP.LAST);
       // 如果sql包含';'，但是数组中只有一条sql的话就跳出if
-      if (sqls.length == 1) {
-        break out;
-      }
+      if (sqls.length == 1) break out;
       List<Object[]> objList = new ArrayList<>();
       int argsIndex = 0;
       for (String isql : sqls) {
@@ -136,64 +210,9 @@ public class NativeJdbcImpl implements NativeJdbc {
         argsIndex = length;
         objList.add(objects);
       }
-      return batch(sqls, objList);
+      return executeBatch(sqls, objList);
     }
-    Connection connection = null;
-    PreparedStatement statement = null;
-    Transaction transaction = getTransaction();
-    try {
-      connection = transaction.getConnection();
-      statement = connection.prepareStatement(sql);
-      for (Object arg : args) {
-        Object[] value = (Object[]) arg;
-        int i = 1;
-        for (Object o : value) {
-          statement.setObject(i, o);
-          i++;
-        }
-        statement.addBatch();
-      }
-      int[] result = statement.executeBatch();
-      transaction.commit();
-      return result;
-    } catch (Throwable e) {
-      transaction.rollback();
-      e.printStackTrace();
-    } finally {
-      close(statement);
-    }
-    return new int[0];
-  }
-
-  @Override
-  public int[] batch(String[] sqls, List<Object[]> args) {
-    Statement statement = null;
-    Connection connection = null;
-    Transaction transaction = getTransaction();
-    try {
-      connection = transaction.getConnection();
-      statement = connection.createStatement();
-      int index = -1;
-      for (String sql : sqls) {
-        statement.addBatch(SQLUtils.buildPreSQL(sql, args.get(index = (index + 1))));
-      }
-      int[] result = statement.executeBatch();
-      transaction.commit();
-      return result;
-    } catch (Throwable e) {
-      transaction.rollback();
-      e.printStackTrace();
-    } finally {
-      close(statement);
-    }
-    return new int[0];
-  }
-
-  private Transaction getTransaction() {
-    DataSource dataSource = DataSourceManager.getDataSource();
-    Transaction transaction = Factorys.forClass(Transaction.class);
-    transaction.setDataSource(dataSource);
-    return transaction;
+    return null;
   }
 
   // 添加预编译sql的参数
@@ -215,15 +234,6 @@ public class NativeJdbcImpl implements NativeJdbc {
         }
       }
     } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  // 回滚
-  private void rollback(Connection connection, boolean auto) {
-    try {
-      if (connection != null && auto) connection.rollback();
-    } catch (SQLException e) {
       e.printStackTrace();
     }
   }

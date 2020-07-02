@@ -44,7 +44,7 @@ public interface NativeJdbc {
    * @param args 参数
    * @return 自定义结果集
    */
-  QueryResultSet select(String sql, Object... args);
+  NativeResultSet select(String sql, Object... args) throws SQLException;
 
   /**
    * 更新数据
@@ -53,24 +53,33 @@ public interface NativeJdbc {
    * @param args 参数
    * @return 影响行数
    */
-  int update(String sql, Object... args);
+  int update(String sql, Object... args) throws SQLException;
 
   /**
    * 批量执行
    *
    * @param sql  sql脚本
-   * @param args sql参数
+   * @param args 参数集合数组
    * @return 影响行数
    */
-  int[] batch(String sql, List<Object[]> args);
+  int[] executeBatch(String sql, List<Object[]> args) throws SQLException;
 
   /**
    * 批量执行多条sql
    *
-   * @param sql  sql集合
+   * @param sql  sql集合数组
    * @param args 参数集合，每个集合数组对应一条sql的参数
    * @return 影响行数
    */
-  int[] batch(String[] sql, List<Object[]> args);
+  int[] executeBatch(String[] sql, List<Object[]> args) throws SQLException;
+
+  /**
+   * 批量执行
+   *
+   * @param sql  sql脚本
+   * @param args 参数
+   * @return 影响行数
+   */
+  int[] executeBatch(String sql, Object... args) throws SQLException;
 
 }

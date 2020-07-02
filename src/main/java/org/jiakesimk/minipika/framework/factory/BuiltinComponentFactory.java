@@ -24,7 +24,7 @@ import org.jiakesimk.minipika.components.cache.SetCache;
 import org.jiakesimk.minipika.components.cache.WeakCacheImpl;
 import org.jiakesimk.minipika.components.jdbc.ConstResultSet;
 import org.jiakesimk.minipika.components.jdbc.NativeJdbcImpl;
-import org.jiakesimk.minipika.components.jdbc.QueryResultSet;
+import org.jiakesimk.minipika.components.jdbc.NativeResultSet;
 import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransaction;
 import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransactionFactory;
 import org.jiakesimk.minipika.components.jdbc.transaction.TransactionFactory;
@@ -36,6 +36,7 @@ import java.util.Map;
 /**
  * @author tiansheng
  */
+@SuppressWarnings("unchecked")
 public class BuiltinComponentFactory implements ComponentFactory {
 
   /**
@@ -47,7 +48,7 @@ public class BuiltinComponentFactory implements ComponentFactory {
 
   private BuiltinComponentFactory() {
     {
-      components.put(QueryResultSet.class.getName(), forClass(ConstResultSet.class));
+      components.put(NativeResultSet.class.getName(), forClass(ConstResultSet.class));
       components.put(NativeJdbcImpl.class.getName(), forClass(NativeJdbcImpl.class));
       components.put(JdbcTransaction.class.getName(), forClass(JdbcTransaction.class));
       components.put(TransactionFactory.class.getName(), forClass(JdbcTransactionFactory.class));
@@ -63,7 +64,6 @@ public class BuiltinComponentFactory implements ComponentFactory {
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public <T> T forClass(Class<?> clazz) {
     return forClass(clazz, null);
   }
@@ -107,7 +107,7 @@ public class BuiltinComponentFactory implements ComponentFactory {
   private static Object findMatchesClassType(Class<?> IFACE) {
     for (Object value : components.values()) {
       Class<?>[] interfaces = value.getClass().getInterfaces();
-      if (interfaces != null && interfaces.length != 0) {
+      if (interfaces.length != 0) {
         for (Class<?> IFACES : interfaces) {
           if (IFACE == IFACES) {
             return value;

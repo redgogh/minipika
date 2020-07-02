@@ -22,6 +22,7 @@ package org.jiakesimk.minipika.components.jdbc.transaction;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * 事务管理器接口
@@ -33,7 +34,7 @@ public interface Transaction {
   /**
    * 设置数据源
    *
-   * @param dataSource
+   * @param dataSource 数据源
    */
   void setDataSource(DataSource dataSource);
 
@@ -42,14 +43,15 @@ public interface Transaction {
    *
    * @return JDBC连接
    */
-  Connection getConnection() ;
+  Connection getConnection();
 
   /**
    * 获取一个连接，但是这个连接不需要挂载事务
+   *
    * @return #Connection
    * @
    */
-  Connection getConnection(boolean openTransaction) ;
+  Connection getConnection(boolean openTransaction);
 
   /**
    * 设置事务隔离级别
@@ -73,16 +75,16 @@ public interface Transaction {
   /**
    * 提交信息
    */
-  void commit() ;
+  void commit() throws SQLException;
 
   /**
    * 事务回滚
    */
-  void rollback() ;
+  void rollback() throws SQLException;
 
   /**
    * 连接关闭
    */
-  void close() ;
+  void close() throws SQLException;
 
 }

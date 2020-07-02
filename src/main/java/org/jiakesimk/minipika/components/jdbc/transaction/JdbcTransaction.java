@@ -85,7 +85,7 @@ public class JdbcTransaction implements Transaction, InvocationHandler {
   }
 
   @Override
-  public void commit() {
+  public void commit() throws SQLException {
     try {
       if (connection != null && !connection.getAutoCommit()) {
         if (LOG.isDebugEnabled()) {
@@ -100,12 +100,12 @@ public class JdbcTransaction implements Transaction, InvocationHandler {
       }
     } catch (SQLException e) {
       LOG.error("Error execute commit failure, Cause: " + e.getMessage());
-      e.printStackTrace();
+      throw new SQLException(e);
     }
   }
 
   @Override
-  public void rollback() {
+  public void rollback() throws SQLException {
     try {
       if (connection != null && !connection.getAutoCommit()) {
         if (LOG.isDebugEnabled()) {
@@ -120,20 +120,17 @@ public class JdbcTransaction implements Transaction, InvocationHandler {
       }
     } catch (SQLException e) {
       LOG.error("Error rollback failure, Cause: " + e.getMessage());
-      e.printStackTrace();
+      throw new SQLException(e);
     }
   }
 
-  public void close() {
+  public void close() throws SQLException {
     if (connection != null) {
-      try {
-        connection.close();
-      } catch (SQLException throwables) {
-        throwables.printStackTrace();
-      }
+      connection.close();
     }
   }
 
+  @SuppressWarnings("MagicConstant")
   private void configurationConnection(Connection connection) {
     setDesiredAutoCommit(connection);
     if (level != null) {
@@ -160,12 +157,6 @@ public class JdbcTransaction implements Transaction, InvocationHandler {
 
   /**
    * 检测连接是否出现异常
-   *
-   * @param proxy
-   * @param method
-   * @param args
-   * @return
-   * @throws Throwable
    */
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

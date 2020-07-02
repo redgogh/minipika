@@ -22,7 +22,7 @@ package components.jdbc;
 
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
-import org.jiakesimk.minipika.components.jdbc.QueryResultSet;
+import org.jiakesimk.minipika.components.jdbc.NativeResultSet;
 import org.jiakesimk.minipika.components.jdbc.NativeJdbc;
 import org.jiakesimk.minipika.framework.configuration.XMLConfigBuilder;
 import org.jiakesimk.minipika.framework.factory.Factorys;
@@ -37,7 +37,7 @@ public class NativeJdbcTest {
     XMLConfigBuilder builder = new XMLConfigBuilder("minipika.xml");
     builder.initialize();
     NativeJdbc executor = Factorys.forClass(NativeJdbc.class);
-    QueryResultSet resultSet = executor.select("select * from sys_config");
+    NativeResultSet resultSet = executor.select("select * from sys_config");
     System.out.println(JSON.toJSONString(resultSet));
   }
 
