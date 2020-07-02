@@ -2,8 +2,7 @@ package groovy
 
 
 import org.jiakesimk.minipika.components.annotation.SQL
-import org.jiakesimk.minipika.components.mql.MqlBuilder
-
+import org.jiakesimk.minipika.components.mql.MqlCallback
 import org.junit.Test
 
 interface MqlMapper {
@@ -13,9 +12,9 @@ interface MqlMapper {
     #if INE(user.name) && user.name != null
       and username = #{user.name}
     #end
-    and wdnmd = #{wdnmd}
+    and age = #{age}
   """)
-  def findUser(User user, String wdnmd)
+  def findUser(User user, int age)
 
   @SQL("""
     insert into user (username) values (#{user.name})
@@ -30,32 +29,32 @@ interface MqlMapper {
   """)
   def addBatch(List<User> users)
 
-}
+  def fuck()
 
-class Test {
+  class ForGroovy {
 
-  @org.junit.Test
-  void test() {
-    User user = new User()
-    user.name = "123"
-    MqlBuilder m = new MqlBuilder(MqlMapper.class)
-    println m.invoke("findUser", user, "XXX")
-    println m.invoke("addUser", user)
-  }
+    @Test
+    void findUserTest() {
+      MqlCallback m = new MqlCallback(MqlMapper)
+      MqlMapper mapper = m.bind()
+      println mapper.findUser(new User("123"), 18)
+    }
 
-  @org.junit.Test
-  void test2() {
-    MqlBuilder m = new MqlBuilder(MqlMapper.class)
-    List<User> users = [new User("name1"), new User("name2")]
-    println m.invoke("addBatch", users)
-  }
+    @Test
+    void addUserTest() {
+      MqlCallback m = new MqlCallback(MqlMapper)
+      MqlMapper mapper = m.bind()
+      println mapper.addUser(new User("name"))
+    }
 
-  @org.junit.Test
-  void test3() {
-    MqlBuilder m = new MqlBuilder(MqlMapper.class)
-    Mapper mapper = m.bind()
-    List<User> users = [new User("name1"), new User("name2")]
-    println mapper.addBatch(users)
+    @Test
+    void addBatchTest() {
+      MqlCallback m = new MqlCallback(MqlMapper)
+      MqlMapper mapper = m.bind()
+      List<User> users = [new User("name1"), new User("name2")]
+      println mapper.addBatch(users)
+    }
+
   }
 
 }

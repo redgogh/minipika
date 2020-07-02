@@ -33,23 +33,23 @@ import java.util.List;
  */
 public class ForJava {
 
-  @Test
-  public void test() {
-    String[] s = MatchesDemo.find("username = #username and password = #password", "#(.*?)\\S+", new Closure(null) {
-      @Override
-      public Object call(Object... args) {
-        return args[0] + "xxxx";
-      }
-    });
-    System.out.println(ArrayUtils.toString(s));
-  }
-
-  @Test
-  public void getParameterNamesTest() throws NoSuchMethodException {
-    Method method = MqlMapper.class.getDeclaredMethod("addBatch", List.class);
-    for(Parameter parameter : method.getParameters()) {
-      System.out.println(parameter.getName());
-    }
-  }
+//  @Test
+//  public void test() {
+//    String[] s = MatchesDemo.find("username = #username and password = #password", "#(.*?)\\S+", new Closure(null) {
+//      @Override
+//      public Object call(Object... args) {
+//        return args[0] + "xxxx";
+//      }
+//    });
+//    System.out.println(ArrayUtils.toString(s));
+//  }
+//
+//  @Test
+//  public void getParameterNamesTest() throws NoSuchMethodException {
+//    Method method = MqlMapper.class.getDeclaredMethod("addBatch", List.class);
+//    for(Parameter parameter : method.getParameters()) {
+//      System.out.println(parameter.getName());
+//    }
+//  }
 
 }

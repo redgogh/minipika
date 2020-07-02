@@ -33,18 +33,15 @@ import java.lang.reflect.Proxy
  *
  * @author tiansheng
  */
-class MqlBuilder extends BaseBuilder implements InvocationHandler {
+class MqlCallback extends BaseBuilder implements InvocationHandler {
 
   private Class<?> virtual
 
-  private Object instance
-
-  MqlBuilder(Class<?> virtual) {
+  MqlCallback(Class<?> virtual) {
     super(ConstVariable.MQL_PROXY_CLASSNAME.concat(virtual.getSimpleName()))
     this.virtual = virtual
     initialization()
     end()
-    instance = ClassUtils.newInstance(virtual)
   }
 
   /**
@@ -61,9 +58,10 @@ class MqlBuilder extends BaseBuilder implements InvocationHandler {
     })
   }
 
-  Object bind() {
+  @SuppressWarnings("GrUnnecessaryPublicModifier")
+  public <T> T bind() {
     return Proxy.newProxyInstance(this.class.getClassLoader(),
-            instance.getClass().getInterfaces(), this)
+            new Class[]{virtual}, this) as T
   }
 
   @Override
@@ -72,7 +70,7 @@ class MqlBuilder extends BaseBuilder implements InvocationHandler {
     if (name != "getMetaClass") {
       return invoke(method.name, args)
     }
-    return method.invoke(instance, args)
+    return method.invoke(this, args)
   }
 
 }

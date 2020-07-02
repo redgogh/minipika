@@ -23,14 +23,24 @@ allprojects {
 sourceSets {
   main {
     java { srcDirs = [] }
-    groovy { srcDirs 'src/main/java' }
+    groovy {
+      //noinspection GroovyAssignabilityCheck
+      srcDirs 'src/main/java'
+    }
+  }
+  test {
+    java { srcDirs = [] }
+    groovy {
+      //noinspection GroovyAssignabilityCheck
+      srcDirs 'src/test/java'
+    }
   }
 }
 
 dependencies {
   implementation 'mysql:mysql-connector-java:8.0.11'
   implementation 'org.slf4j:slf4j-api:1.7.21'
-  implementation 'org.codehaus.groovy:groovy-all:2.5.0'
+  implementation 'org.codehaus.groovy:groovy-all:3.0.4'
   implementation 'commons-codec:commons-codec:1.11'
   implementation 'org.projectlombok:lombok:1.18.10'
   implementation 'com.alibaba:fastjson:1.2.62'
@@ -42,20 +52,18 @@ dependencies {
   testImplementation 'ch.qos.logback:logback-classic:1.2.3'
   testImplementation 'junit:junit:4.13-rc-2'
   compile group: 'com.github.houbb', name: 'asm-tool', version: '0.0.2'
+  compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.4'
 }
 
 group = 'com.jiakesimk'
 version = '1.0.BREATH'
 sourceCompatibility = '1.8'
 
-compileJava {
-  options.compilerArgs << "-parameters"
-}
-
-compileGroovy {
-  options.compilerArgs << "-parameters"
+tasks.withType(GroovyCompile) {
+  groovyOptions.setParameters true
 }
 
 tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'
+  options.compilerArgs << "-parameters" << "-Xlint:unchecked"
 }

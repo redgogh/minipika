@@ -140,6 +140,17 @@ class Methods {
    * @return 方法名称，根据顺序排序
    */
   static String[] getParameterNames(Method method) throws NotFoundException {
+    Parameter[] parametersArray = method.getParameters();
+    if(parametersArray != null && parametersArray.length != 0) {
+      def parameterName = parametersArray[0].getName()
+      if("var0" != parameterName) {
+        def names = []
+        parametersArray.each {
+          names.add it.getName()
+        }
+        return names
+      }
+    }
     CtClass ctClass = pool.get(method.getDeclaringClass().getName())
     def parameters = []
     method.getParameterTypes().each { paramType ->
@@ -159,7 +170,7 @@ class Methods {
     return paramNames
   }
 
-  /**
+  /**+
    * 获取{@link Method}的参数{@link Parameter}数组, 其中会获取
    * 真实名称
    *
