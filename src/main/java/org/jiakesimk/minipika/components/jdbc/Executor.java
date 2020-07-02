@@ -20,6 +20,7 @@ package org.jiakesimk.minipika.components.jdbc;
  * Creates on 2019/11/11.
  */
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
@@ -38,7 +39,7 @@ public interface Executor {
    * @param args 参数
    * @return 封装好的类型对象
    */
-  <T> T queryForObject(String sql, Class<T> obj, Object... args);
+  <T> T queryForObject(String sql, Class<T> obj, Object... args) throws SQLException;
 
   /**
    * 查询多个结果
@@ -107,29 +108,29 @@ public interface Executor {
   /**
    * 批量执行
    *
-   * @param sql sql语句
+   * @param sql  sql语句
    * @param args 参数集合
    * @return 影响行数
    */
-  int[] executeBatch(String sql, List<Object[]> args);
+  int[] batch(String sql, List<Object[]> args);
 
   /**
    * 批量执行，传入Object数组
    *
-   * @param sql
-   * @param args
-   * @return
+   * @param sql  sql语句
+   * @param args 参数列表
+   * @return 影响行数
    */
-  int[] executeBatch(String sql, Object[] args);
+  int[] batch(String sql, Object[] args);
 
   /**
    * 多条sql语句批量执行
    *
-   * @param sql
-   * @param args
-   * @return
+   * @param sql  sql列表
+   * @param args 参数列表
+   * @return 影响行数
    */
-  int[] executeBatch(String[] sql, List<Object[]> args);
+  int[] batch(String[] sql, List<Object[]> args);
 
 
 }

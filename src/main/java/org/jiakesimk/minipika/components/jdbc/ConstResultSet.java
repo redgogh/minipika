@@ -88,7 +88,7 @@ public class ConstResultSet implements NativeResultSet {
     try {
       resultMap = resultSet.get(0);
       if (resultMap.isEmpty()) return null;
-      Object v1 = base(target, String.valueOf(Maps.getFirstValue(resultMap)));
+      Object v1 = isBase(target, String.valueOf(Maps.getFirstValue(resultMap)));
       if (v1 instanceof Exception) return null;
       if (v1 != null) return (T) v1;
       entity = target.newInstance();
@@ -130,9 +130,8 @@ public class ConstResultSet implements NativeResultSet {
   /**
    * 转换成Entity List
    *
-   * @param target
-   * @param <T>
-   * @return
+   * @param target 实例类型
+   * @return 实例化后的实体集合
    */
   private <T> List<T> conversionEntityList(Class<T> target) {
     List<T> entitys = new ArrayList<>();
@@ -158,8 +157,6 @@ public class ConstResultSet implements NativeResultSet {
 
   /**
    * 将查询结果转换为String集合
-   *
-   * @return1
    */
   private <T> List<T> conversionJavaStringList() {
     List<String> strings = new ArrayList<>();
@@ -173,8 +170,6 @@ public class ConstResultSet implements NativeResultSet {
 
   /**
    * 将查询结果转换为Integer集合
-   *
-   * @return1
    */
   private <T> List<T> conversionJavaIntegerList() {
     List<Integer> list = new ArrayList<>();
@@ -188,8 +183,6 @@ public class ConstResultSet implements NativeResultSet {
 
   /**
    * 将查询结果转换为Long集合
-   *
-   * @return1
    */
   private <T> List<T> conversionJavaLongList() {
     List<Long> list = new ArrayList<>();
@@ -203,8 +196,6 @@ public class ConstResultSet implements NativeResultSet {
 
   /**
    * 将查询结果转换为Short集合
-   *
-   * @return1
    */
   private <T> List<T> conversionJavaShortList() {
     List<Short> list = new ArrayList<>();
@@ -218,8 +209,6 @@ public class ConstResultSet implements NativeResultSet {
 
   /**
    * 将查询结果转换为Boolean集合
-   *
-   * @return1
    */
   private <T> List<T> conversionJavaBooleanList() {
     List<Boolean> list = new ArrayList<>();
@@ -233,8 +222,6 @@ public class ConstResultSet implements NativeResultSet {
 
   /**
    * 将查询结果转换为Double集合
-   *
-   * @return1
    */
   private <T> List<T> conversionJavaDoubleList() {
     List<Double> list = new ArrayList<>();
@@ -248,8 +235,6 @@ public class ConstResultSet implements NativeResultSet {
 
   /**
    * 将查询结果转换为Float集合
-   *
-   * @return1
    */
   private <T> List<T> conversionJavaFloatList() {
     List<Float> list = new ArrayList<>();
@@ -263,8 +248,6 @@ public class ConstResultSet implements NativeResultSet {
 
   /**
    * 将查询结果转换为Float集合
-   *
-   * @return1
    */
   private <T> List<T> conversionJavaByteList() {
     List<Byte> list = new ArrayList<>();
@@ -278,8 +261,6 @@ public class ConstResultSet implements NativeResultSet {
 
   /**
    * 将查询结果转换为BigDecimal集合
-   *
-   * @return1
    */
   private <T> List<T> conversionJavaBigDecimalList() {
     List<BigDecimal> list = new ArrayList<>();
@@ -293,8 +274,6 @@ public class ConstResultSet implements NativeResultSet {
 
   /**
    * 将查询结果转换为BigInteger集合
-   *
-   * @return1
    */
   private <T> List<T> conversionJavaBigIntegerList() {
     List<BigInteger> list = new ArrayList<>();
@@ -308,8 +287,6 @@ public class ConstResultSet implements NativeResultSet {
 
   /**
    * 将查询结果转换为BigInteger集合
-   *
-   * @return1
    */
   private <T> List<T> conversionJavaDateList() throws ParseException {
     List<Date> list = new ArrayList<>();
@@ -358,61 +335,60 @@ public class ConstResultSet implements NativeResultSet {
   /**
    * 添加对应的值
    *
-   * @param field
-   * @param v
-   * @param entity
-   * @throws Exception
+   * @param field  成员对象
+   * @param value  要转换的值
+   * @param entity 实体类型
    */
-  private void setValue(Field field, String v, Object entity) throws Exception {
+  private void setValue(Field field, String value, Object entity) throws Exception {
     if (field.getType().equals(String.class)) {
-      field.set(entity, v);
+      field.set(entity, value);
       return;
     }
     if (field.getType().equals(Date.class)) {
-      field.set(entity, formatter.parse(v));
+      field.set(entity, formatter.parse(value));
       return;
     }
     if (field.getType().equals(Byte.class)) {
-      field.set(entity, Byte.valueOf(v));
+      field.set(entity, Byte.valueOf(value));
       return;
     }
     if (field.getType().equals(Long.class)) {
-      field.set(entity, Long.valueOf(v));
+      field.set(entity, Long.valueOf(value));
       return;
     }
     if (field.getType().equals(Short.class)) {
-      field.set(entity, Short.valueOf(v));
+      field.set(entity, Short.valueOf(value));
       return;
     }
     if (field.getType().equals(Float.class)) {
-      field.set(entity, Float.valueOf(v));
+      field.set(entity, Float.valueOf(value));
       return;
     }
     if (field.getType().equals(Double.class)) {
-      field.set(entity, Double.valueOf(v));
+      field.set(entity, Double.valueOf(value));
       return;
     }
     if (field.getType().equals(Boolean.class)) {
-      field.set(entity, Boolean.valueOf(v));
+      field.set(entity, Boolean.valueOf(value));
       return;
     }
     if (field.getType().equals(Integer.class)) {
-      field.set(entity, Integer.valueOf(v));
+      field.set(entity, Integer.valueOf(value));
       return;
     }
     if (field.getType().equals(BigDecimal.class)) {
-      field.set(entity, new BigDecimal(v));
+      field.set(entity, new BigDecimal(value));
       return;
     }
     if (field.getType().equals(BigInteger.class)) {
-      field.set(entity, new BigInteger(v));
+      field.set(entity, new BigInteger(value));
     }
   }
 
   /**
    * 判断是不是基本数据类型或其他数据类型
    */
-  public Object base(Class<?> target, String value) {
+  public Object isBase(Class<?> target, String value) {
     if (StringUtils.isEmpty(value)) return null;
     try {
       if (target.equals(String.class)) {

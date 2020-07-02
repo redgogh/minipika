@@ -70,13 +70,13 @@ public class BuiltinComponentFactory implements ComponentFactory {
 
   @Override
   public <T> T forClass(Class<?> clazz, Class<?>[] types, Object... parameter) {
-    Object component = null;
-    String className = clazz.getName();
-    component = components.get(className);
-    if (component != null) {
-      return (T) component;
-    }
     try {
+      Object component = null;
+      String className = clazz.getName();
+      component = components.get(className);
+      if (component != null) {
+        return (T) component;
+      }
       if (ClassUtils.isInterface(clazz)) {
         // 如果是接口的话那么就查找匹配接口类型的类
         component = findMatchesClassType(clazz);
@@ -87,15 +87,19 @@ public class BuiltinComponentFactory implements ComponentFactory {
       // 判断是否执行有参构造器
       if (types == null) {
         component = InjectUtils.minipika(clazz, components);
+      } else {
+        component = InjectUtils.minipika(clazz, types, components, parameter);
       }
-      component = InjectUtils.minipika(clazz, types, components, parameter);
+
+      // 如果当前实例化出来的组件不是null, 就添加到组件容器中
+      if (component != null) {
+        components.put(className, component);
+      }
+      return (T) component;
     } catch (IllegalAccessException e) {
       e.printStackTrace();
+      return null;
     }
-    if (component != null) {
-      components.put(className, component);
-    }
-    return (T) component;
   }
 
   /**

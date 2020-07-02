@@ -35,6 +35,7 @@ import java.util.Objects;
  *
  * @author tiansheng
  */
+@SuppressWarnings({"unchecked", "ConstantConditions"})
 public class InjectUtils {
 
   public static Object minipika(Class<?> clazz, Map<String, Object> components) throws IllegalAccessException {
