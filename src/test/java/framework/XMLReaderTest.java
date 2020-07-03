@@ -1,4 +1,4 @@
-package components.jdbc;
+package framework;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,30 +17,26 @@ package components.jdbc;
  */
 
 /*
- * Creates on 2020/6/8.
+ * Creates on 2020/6/1.
  */
 
-import com.alibaba.fastjson.JSON;
-import org.junit.Test;
-import org.jiakesimk.minipika.components.jdbc.NativeResultSet;
-import org.jiakesimk.minipika.components.jdbc.NativeJdbc;
 import org.jiakesimk.minipika.framework.configuration.XMLConfigBuilder;
-import org.jiakesimk.minipika.framework.factory.Factorys;
+import org.jiakesimk.minipika.framework.util.Charsets;
+import org.xml.sax.InputSource;
 
-import java.sql.SQLException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 /**
  * @author tiansheng
  */
-public class NativeJdbcTest {
+public class XMLReaderTest {
 
-  @Test
-  public void testSQLExecutor() throws SQLException {
-    XMLConfigBuilder builder = new XMLConfigBuilder("minipika2.xml");
-    builder.initialize();
-    NativeJdbc executor = Factorys.forClass(NativeJdbc.class);
-    NativeResultSet resultSet = executor.select("select * from sys_config");
-    System.out.println(JSON.toJSONString(resultSet));
+  public static void main(String[] args) throws FileNotFoundException {
+    XMLConfigBuilder builder = new XMLConfigBuilder();
+    builder.load(new InputSource("D:\\dev\\minipika\\src\\test\\resources\\minipika.xml"));
+    System.out.println();
   }
 
 }

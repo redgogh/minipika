@@ -22,6 +22,7 @@ package framework.configuration;
 
 import org.jiakesimk.minipika.framework.configuration.XMLConfigBuilder;
 import org.jiakesimk.minipika.framework.configuration.FindStrategy;
+import org.xml.sax.InputSource;
 
 import java.io.InputStream;
 
@@ -31,8 +32,8 @@ import java.io.InputStream;
 public class XMLConfigBuilderTest {
 
   public static void main(String[] args) {
-    InputStream istream = FindStrategy.getConfigInputStream();
-    XMLConfigBuilder configBuilder = new XMLConfigBuilder("minipika.xml");
+    InputSource istream = FindStrategy.getConfigInputStream();
+    XMLConfigBuilder configBuilder = new XMLConfigBuilder("minipika2.xml");
   }
 
 }

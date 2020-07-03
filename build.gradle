@@ -55,6 +55,7 @@ dependencies {
   testImplementation 'junit:junit:4.13-rc-2'
   compile group: 'com.github.houbb', name: 'asm-tool', version: '0.0.2'
   compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.4'
+  testCompile group: 'mysql', name: 'mysql-connector-java', version: '8.0.20'
 }
 
 group = 'com.jiakesimk'

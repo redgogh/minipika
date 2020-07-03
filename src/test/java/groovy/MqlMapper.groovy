@@ -10,13 +10,12 @@ import org.junit.Test
 interface MqlMapper {
 
   @Select("""
-    select * from minipika_user where 1=1
+    select * from website_user_info where 1=1
     #if INE(user.name) && user.name != null
       and username = #{user.name}
     #end
-    and age = #{age}
   """)
-  def findUser(User user, int age)
+  def findUser(User user)
 
   @Update("""
     insert into user (username) values (#{user.name})
@@ -37,7 +36,7 @@ interface MqlMapper {
     void findUserTest() {
       MqlCallback m = new MqlCallback(MqlMapper)
       MqlMapper mapper = m.bind()
-      println mapper.findUser(new User("123"), 18)
+      println mapper.findUser(new User("zhangsan"))
     }
 
     @Test

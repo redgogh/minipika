@@ -29,6 +29,8 @@ import org.jiakesimk.minipika.framework.logging.Log;
 import org.jiakesimk.minipika.framework.logging.LogFactory;
 import org.jiakesimk.minipika.framework.util.Charsets;
 import org.jiakesimk.minipika.framework.util.Threads;
+import org.xml.sax.InputSource;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Objects;
@@ -57,6 +59,13 @@ public class XMLConfigBuilder {
   }
 
   /**
+   * 根据输入流去加载配置
+   */
+  public void load(InputSource in) {
+    parseRoot(in);
+  }
+
+  /**
    * 根据输出流去加载配置
    */
   public void load(String file) {
@@ -70,9 +79,13 @@ public class XMLConfigBuilder {
       if (object instanceof String) {
         document = builder.build((String) object);
       } else if (object instanceof InputStream) {
-        document = builder.build(new InputStreamReader((InputStream) object, Charsets.UTF_8));
+        document = builder.build(new InputStreamReader((InputStream) object));
+      }
+      else if (object instanceof InputSource) {
+        document = builder.build((InputSource) object);
       }
       this.root = document.getRootElement();
+      initialize();
     } catch (Exception e) {
       e.printStackTrace();
       log.error("Error xml file reading. Cause: " + e.getMessage());

@@ -57,6 +57,7 @@
   </xs:complexType>
   <xs:attributeGroup name="SourceTag">
     <xs:attribute name="type" type="xs:string"/>
+    <xs:attribute name="name" type="xs:string"/>
     <xs:attribute name="pooled" type="xs:boolean" default="true"/>
     <xs:attribute name="commit" type="xs:boolean" default="true"/>
   </xs:attributeGroup>

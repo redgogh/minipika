@@ -23,6 +23,7 @@ package org.jiakesimk.minipika.framework.configuration;
 import org.jiakesimk.minipika.framework.util.Charsets;
 import org.jiakesimk.minipika.framework.util.Threads;
 import org.jiakesimk.minipika.framework.util.UrlTools;
+import org.xml.sax.InputSource;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -36,19 +37,19 @@ import java.io.InputStream;
 public class FindStrategy {
 
   // 默认配置文件名称
-  static final String DEFAULT_NAME = "minipika.cfg";
+  static final String DEFAULT_NAME = "minipika.xml";
 
-  private static InputStream configInputStream;
+  private static InputSource systemId;
 
   private FindStrategy() {
   }
 
-  public static InputStream getConfigInputStream() {
+  public static InputSource getConfigInputStream() {
     try {
-      if (configInputStream == null) {
+      if (systemId == null) {
         usingConfigFromClassPath();
       }
-      return configInputStream;
+      return systemId;
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -59,7 +60,8 @@ public class FindStrategy {
    * 从{@code classpath}中寻找配置文件
    */
   private static void usingConfigFromClassPath() {
-    configInputStream = Threads.getCallerLoader().getResourceAsStream(DEFAULT_NAME);
+    InputStream stream = Threads.getCallerLoader().getResourceAsStream(DEFAULT_NAME);
+    systemId = new InputSource(stream);
   }
 
 }
