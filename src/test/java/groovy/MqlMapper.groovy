@@ -9,12 +9,12 @@ import org.junit.Test
 
 interface MqlMapper {
 
-  @Select("""
+  @Select(value = """
     select * from website_user_info where 1=1
     #if INE(user.name) && user.name != null
       and username = #{user.name}
     #end
-  """)
+  """, forList = User.class)
   def findUser(User user)
 
   @Update("""
@@ -34,9 +34,12 @@ interface MqlMapper {
 
     @Test
     void findUserTest() {
+      def start = System.currentTimeMillis();
       MqlCallback m = new MqlCallback(MqlMapper)
       MqlMapper mapper = m.bind()
       println mapper.findUser(new User("key"))
+      def end = System.currentTimeMillis();
+      println end - start + "ms"
     }
 
     @Test

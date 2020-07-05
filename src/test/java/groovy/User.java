@@ -32,6 +32,8 @@ public class User {
 
   private Integer id;
   private String name;
+  private String username;
+  private String password;
   private Integer age;
   private BigDecimal money;
   private User user;

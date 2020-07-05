@@ -9,10 +9,14 @@ import org.jiakesimk.minipika.components.jdbc.SQLExecutor
 import org.jiakesimk.minipika.framework.common.ConstVariable
 import org.jiakesimk.minipika.framework.exception.MinipikaException
 import org.jiakesimk.minipika.framework.factory.Factorys
+import org.jiakesimk.minipika.framework.logging.Log
+import org.jiakesimk.minipika.framework.logging.LogFactory
 
+import javax.lang.model.type.NullType
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
+import java.sql.SQLException
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -44,6 +48,8 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
   private Class<?> virtual
 
   private Executor executor = Factorys.forClass(SQLExecutor)
+
+  private static final Log LOG = LogFactory.getLog(MqlCallback)
 
   MqlCallback(Class<?> virtual) {
     super(ConstVariable.MQL_PROXY_CLASSNAME.concat(virtual.getSimpleName()))
@@ -86,8 +92,18 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
       String sql = objects[0]
       Object[] arguments = objects[1]
       if (method.isAnnotationPresent(Select)) {
-        def type = method.returnType
-        executor.queryForObject(sql, type, arguments)
+        Select select = method.getDeclaredAnnotation(Select)
+        Class<?> returnType = select.forObject()
+        if (returnType != NullType) {
+          return executor.queryForObject(sql, returnType, arguments)
+        }
+        returnType = select.forList()
+        if (returnType != NullType) {
+          return executor.queryForList(sql, returnType, arguments)
+        }
+        def error = "Error executed query method failure. Cause: unrecognized return type."
+        LOG.error(error)
+        throw new SQLException(error)
       }
       if (method.isAnnotationPresent(Update)) {
       }

@@ -20,6 +20,7 @@ package org.jiakesimk.minipika.components.annotation;
  * Creates on 2020/7/2.
  */
 
+import javax.lang.model.type.NullType;
 import java.lang.annotation.*;
 
 /**
@@ -35,5 +36,9 @@ public @interface Select {
    * @return
    */
   String value() default "";
+
+  Class<?> forObject() default NullType.class;
+
+  Class<?> forList() default NullType.class;
 
 }
