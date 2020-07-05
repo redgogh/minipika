@@ -23,6 +23,7 @@ package org.jiakesimk.minipika.components.jdbc;
 import lombok.Getter;
 import org.jiakesimk.minipika.framework.factory.Factorys;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
@@ -47,53 +48,64 @@ public class SQLExecutor implements Executor {
   }
 
   @Override
-  public <T> List<T> queryForList(String sql, Class<T> obj, Object... args) {
+  public <T> List<T> queryForList(String sql, Class<T> obj, Object... args) throws SQLException {
+    NativeResultSet resultSet = nativeJdbc.select(sql, args);
+    if (resultSet != null) {
+      return resultSet.conversionJavaList(obj);
+    }
     return null;
   }
 
   @Override
-  public <T> Set<T> queryForSet(String sql, Class<T> obj, Object... args) {
+  public String queryForJson(String sql, Object... args) throws SQLException {
+    NativeResultSet resultSet = nativeJdbc.select(sql, args);
+    if (resultSet != null) {
+      return resultSet.toJSONString();
+    }
     return null;
   }
 
   @Override
-  public String queryForJson(String sql, Object... args) {
-    return null;
+  public NativeResultSet queryForNativeResult(String sql, Object... args) throws SQLException {
+    return nativeJdbc.select(sql, args);
   }
 
   @Override
-  public NativeResultSet queryForResult(String sql, Object... args) {
-    return null;
+  public int insert(String sql, Object... args) throws SQLException {
+    return nativeJdbc.update(sql, args);
   }
 
   @Override
-  public int insert(String sql, Object... args) {
-    return 0;
+  public int count(String sql, Object... args) throws SQLException {
+    StringBuilder value = new StringBuilder(sql.toLowerCase());
+    String select = "select";
+    int selectPos = value.indexOf(select) + select.length();
+    int fromPos = value.indexOf("from");
+    value.replace(selectPos, fromPos, " count(*) ");
+    NativeResultSet result = nativeJdbc.select(value.toString(), args);
+    result.hasNext();
+    String next = result.next();
+    return Integer.parseInt(next == null ? "0" : next);
   }
 
   @Override
-  public int count(String sql, Object... args) {
-    return 0;
+  public boolean execute(String sql, Object... args) throws SQLException {
+    return nativeJdbc.execute(sql, args);
   }
 
   @Override
-  public boolean execute(String sql, Object... args) {
-    return false;
+  public int[] batch(String sql, List<Object[]> args) throws SQLException {
+    return nativeJdbc.executeBatch(sql, args);
   }
 
   @Override
-  public int[] batch(String sql, List<Object[]> args) {
-    return new int[0];
+  public int[] batch(String sql, Object[] args) throws SQLException {
+    return nativeJdbc.executeBatch(sql, args);
   }
 
   @Override
-  public int[] batch(String sql, Object[] args) {
-    return new int[0];
-  }
-
-  @Override
-  public int[] batch(String[] sql, List<Object[]> args) {
-    return new int[0];
+  public int[] batch(String[] sql, List<Object[]> args) throws SQLException {
+    return nativeJdbc.executeBatch(sql, args);
   }
 
 }

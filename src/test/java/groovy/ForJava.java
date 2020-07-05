@@ -21,7 +21,9 @@ package groovy;
  */
 
 import groovy.lang.Closure;
+import org.jiakesimk.minipika.components.mql.MqlCallback;
 import org.jiakesimk.minipika.framework.util.ArrayUtils;
+import org.jiakesimk.minipika.framework.util.Lists;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
@@ -33,23 +35,31 @@ import java.util.List;
  */
 public class ForJava {
 
-//  @Test
-//  public void test() {
-//    String[] s = MatchesDemo.find("username = #username and password = #password", "#(.*?)\\S+", new Closure(null) {
-//      @Override
-//      public Object call(Object... args) {
-//        return args[0] + "xxxx";
-//      }
-//    });
-//    System.out.println(ArrayUtils.toString(s));
-//  }
-//
-//  @Test
-//  public void getParameterNamesTest() throws NoSuchMethodException {
-//    Method method = MqlMapper.class.getDeclaredMethod("addBatch", List.class);
-//    for(Parameter parameter : method.getParameters()) {
-//      System.out.println(parameter.getName());
-//    }
-//  }
+  @Test
+  public void test() {
+    String[] s = MatchesDemo.find("username = #username and password = #password", "#(.*?)\\S+", new Closure(null) {
+      @Override
+      public Object call(Object... args) {
+        return args[0] + "xxxx";
+      }
+    });
+    System.out.println(ArrayUtils.toString(s));
+  }
+
+  @Test
+  public void getParameterNamesTest() throws NoSuchMethodException {
+    Method method = MqlMapper.class.getDeclaredMethod("addBatch", List.class);
+    for(Parameter parameter : method.getParameters()) {
+      System.out.println(parameter.getName());
+    }
+  }
+
+  @Test
+  public void returnTest() {
+    MqlCallback m = new MqlCallback(MqlMapper.class);
+    MqlMapper mapper = m.bind();
+    List<User> users = (List<User>) mapper.findUser(new User("key"));
+    System.out.println(Lists.toString(users));
+  }
 
 }

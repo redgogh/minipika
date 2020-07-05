@@ -42,6 +42,7 @@ public class ConstResultSet implements NativeResultSet {
 
   @Getter
   private List<Map<String, String>> resultSet;
+
   private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
   public ConstResultSet() {

@@ -215,12 +215,12 @@ public final class ArrayUtils {
       throw new Error("parameter object not array.");
     }
     Object[] array0 = toArray(array);
-    String str = "[";
+    StringBuilder str = new StringBuilder("[");
     for (Object o : array0) {
-      str += o + delimiter;
+      str.append(o).append(delimiter);
     }
-    str = str.substring(0, str.length() - 1) + "]";
-    return str;
+    str = new StringBuilder(str.substring(0, str.length() - 1) + "]");
+    return str.toString();
   }
 
 }

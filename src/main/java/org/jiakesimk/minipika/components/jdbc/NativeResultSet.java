@@ -22,6 +22,7 @@ package org.jiakesimk.minipika.components.jdbc;
 
 import java.sql.ResultSet;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 封装原生结果集，用于缓存结果从而使ResultSet提前关闭。

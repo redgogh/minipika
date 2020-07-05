@@ -155,9 +155,23 @@ public final class Lists {
     }
   }
 
+  /**
+   * 数组转List
+   * @param objects 需要转化的数组
+   * @return List集合对象
+   */
   public static <T> List<T> asList(T[] objects) {
     if(!ArrayUtils.isArray(objects)) return null;
     return Arrays.asList(objects);
+  }
+
+  public static String toString(List<?> list) {
+    StringBuilder str = new StringBuilder("[");
+    for (Object o : list) {
+      str.append(o).append(",");
+    }
+    str = new StringBuilder(str.substring(0, str.length() - 1) + "]");
+    return str.toString();
   }
 
 }

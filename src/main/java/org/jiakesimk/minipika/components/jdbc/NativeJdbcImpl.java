@@ -52,17 +52,18 @@ public class NativeJdbcImpl implements NativeJdbc {
     try {
       connection = transaction.getConnection();
       statement = connection.prepareStatement(sql);
-      boolean bool = setValues(statement, args).execute();
+      setValues(statement, args).execute();
       transaction.commit(); // 提交
-      return bool;
+      return true;
     } catch (Exception e) {
       transaction.rollback();
+      LOG.error(e.getMessage(), e);
       e.printStackTrace();
+      return false;
     } finally {
       AutoClose.close(statement);
       transaction.close();
     }
-    return false;
   }
 
   @Override
@@ -104,12 +105,11 @@ public class NativeJdbcImpl implements NativeJdbc {
       return result;
     } catch (Throwable e) {
       transaction.rollback(); // 回滚
-      e.printStackTrace();
+      throw new SQLException(e);
     } finally {
       AutoClose.close(statement);
       transaction.close();
     }
-    return 0;
   }
 
   @Override
