@@ -84,7 +84,7 @@ public class UnpooledDataSource implements DataSource {
   private synchronized void initializeDriver() throws SQLException {
     if (this.driver == null) {
       try {
-        Class<?> driverClass = Class.forName(dataSource.getDriver(), true, new CopyingClassLoader());
+        Class<?> driverClass = Class.forName(dataSource.getDriver(), true, this.getClass().getClassLoader());
         Driver driver0 = (Driver) ClassUtils.newInstance(driverClass);
         DriverManager.registerDriver(driver0);
         this.driver = new DriverProxy(driver0);
@@ -109,35 +109,12 @@ public class UnpooledDataSource implements DataSource {
 
     @Override
     public Connection connect(String url, Properties info) throws SQLException {
-      Connection connection = null;
       if (LOG.isDebugEnabled()) {
         LOG.debug("using url: " + url);
       }
       String name = info.getProperty(SingleDataSource.USERNAME);
       String pass = info.getProperty(SingleDataSource.PASSWORD);
-      Executor executor = Executors.newSingleThreadExecutor();
-      FutureTask<Connection> futureTask = new FutureTask<>(new Callable<Connection>() {
-        @Override
-        public Connection call() throws Exception {
-          return DriverManager.getConnection(url, name, pass);
-        }
-      });
-      executor.execute(futureTask);
-      String connectTimeout = System.getProperty(PropertyNames.CONNECT_TIMEOUT);
-      // 设置超时时间
-      long timeout = StringUtils.asLong(connectTimeout);
-      if (timeout == 0) {
-        timeout = 15L;
-      }
-      try {
-        connection = futureTask.get(timeout, TimeUnit.SECONDS);
-      } catch (InterruptedException | TimeoutException | ExecutionException e) {
-        if (e instanceof TimeoutException) {
-          LOG.error("Error get connection timeout. Cause: set timeout is " + timeout + " seconds.");
-        }
-        e.printStackTrace();
-      }
-      return connection;
+      return DriverManager.getConnection(url, name, pass);
     }
 
     @Override

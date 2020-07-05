@@ -20,7 +20,7 @@
    -->
   <datasource>
     <master type="MYSQL" name="master">
-      <url value=" jdbc:mysql://127.0.0.1:3306/demo">
+      <url value="jdbc:mysql://127.0.0.1:3306/test">
         <property name="useUnicode" value="true"/>
         <property name="characterEncoding" value="utf-8"/>
         <property name="useSSL" value="false"/>

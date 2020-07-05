@@ -44,7 +44,6 @@ public class PooledDataSource implements DataSource {
   protected UnpooledDataSource dataSource;
 
   protected String username;
-
   protected String password;
 
   private static final Log log = LogFactory.getLog(PooledConnection.class);
@@ -52,12 +51,12 @@ public class PooledDataSource implements DataSource {
   public PooledDataSource(UnpooledDataSource dataaSource) {
     {
       this.dataSource = dataaSource;
-      this.state = new PooledState(this);
-      DataSourceManager.registerDataSource(dataaSource.getDataSource().getName(), this);
-    }
-    {
       this.username = dataSource.getDataSource().getUsername();
       this.password = dataSource.getDataSource().getPassword();
+      this.state = new PooledState(this);
+    }
+    {
+      DataSourceManager.registerDataSource(dataaSource.getDataSource().getName(), this);
     }
     {
       try {

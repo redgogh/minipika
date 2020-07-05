@@ -23,9 +23,11 @@ package org.jiakesimk.minipika.components.jdbc.datasource;
 import org.jiakesimk.minipika.framework.exception.MinipikaException;
 import org.jiakesimk.minipika.framework.logging.Log;
 import org.jiakesimk.minipika.framework.logging.LogFactory;
+import org.jiakesimk.minipika.framework.util.AutoClose;
 import org.jiakesimk.minipika.framework.util.Maps;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -51,16 +53,19 @@ public class DataSourceManager {
    * @param dataSource 数据源对象
    */
   public synchronized static void registerDataSource(String name, DataSource dataSource) {
+    Connection connection = null;
     try {
       if (dataSource == null) {
         LOG.error("Error datasource register fail. Cause: datasource is null.");
         throw new NullPointerException("Error datasource register fail. Cause: datasource is null.");
       }
-      dataSource.getConnection();
+      connection = dataSource.getConnection(); // 测试数据源是否可用
       dataSourceMap.put(name, dataSource);
     } catch (SQLException e) {
       LOG.error("Error datasource register fail. Cause: cannot get conenction.");
       e.printStackTrace();
+    }finally {
+      AutoClose.close(connection); // 关闭连接
     }
   }
 

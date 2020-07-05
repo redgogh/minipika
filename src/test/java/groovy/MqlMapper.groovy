@@ -36,7 +36,7 @@ interface MqlMapper {
     void findUserTest() {
       MqlCallback m = new MqlCallback(MqlMapper)
       MqlMapper mapper = m.bind()
-      println mapper.findUser(new User("zhangsan"))
+      println mapper.findUser(new User("key"))
     }
 
     @Test

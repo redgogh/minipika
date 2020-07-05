@@ -26,6 +26,7 @@ import org.jiakesimk.minipika.framework.factory.Factorys;
 import org.jiakesimk.minipika.framework.logging.Log;
 import org.jiakesimk.minipika.framework.logging.LogFactory;
 import org.jiakesimk.minipika.framework.util.ArrayUtils;
+import org.jiakesimk.minipika.framework.util.AutoClose;
 import org.jiakesimk.minipika.framework.util.SQLUtils;
 
 import javax.sql.DataSource;
@@ -58,7 +59,7 @@ public class NativeJdbcImpl implements NativeJdbc {
       transaction.rollback();
       e.printStackTrace();
     } finally {
-      close(statement);
+      AutoClose.close(statement);
       transaction.close();
     }
     return false;
@@ -81,7 +82,7 @@ public class NativeJdbcImpl implements NativeJdbc {
     } catch (Throwable e) {
       e.printStackTrace();
     } finally {
-      close(statement);
+      AutoClose.close(statement);
       transaction.close();
     }
     return null;
@@ -105,7 +106,7 @@ public class NativeJdbcImpl implements NativeJdbc {
       transaction.rollback(); // 回滚
       e.printStackTrace();
     } finally {
-      close(statement);
+      AutoClose.close(statement);
       transaction.close();
     }
     return 0;
@@ -145,7 +146,7 @@ public class NativeJdbcImpl implements NativeJdbc {
       transaction.rollback();
       throw new SQLException(e);
     } finally {
-      close(statement);
+      AutoClose.close(statement);
     }
   }
 
@@ -177,7 +178,7 @@ public class NativeJdbcImpl implements NativeJdbc {
       transaction.rollback();
       throw new SQLException(e);
     } finally {
-      close(statement);
+      AutoClose.close(statement);
     }
   }
 
@@ -186,7 +187,7 @@ public class NativeJdbcImpl implements NativeJdbc {
    */
   private Transaction getTransaction() throws SQLException {
     DataSource dataSource = DataSourceManager.getDataSource();
-    if(dataSource == null) {
+    if (dataSource == null) {
       LOG.error("Error get transaction failure. Cause: not obtained datasource.");
       throw new SQLException("Error get transaction failure. Cause: not obtained datasource.");
     }
@@ -227,19 +228,6 @@ public class NativeJdbcImpl implements NativeJdbc {
       }
     }
     return statement;
-  }
-
-  // 关闭流
-  private void close(AutoCloseable... closeables) {
-    try {
-      for (AutoCloseable closeable : closeables) {
-        if (closeable != null) {
-          closeable.close();
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
 }

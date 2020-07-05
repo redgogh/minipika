@@ -48,9 +48,9 @@ public class DataSourceNode implements ElementParser {
     checkIsExistsMaster(element);
     List<Element> elements = element.getChildren();
     for (Element datasource : elements) {
-      SingleDataSource sds = Factorys.forClass(SingleDataSource.class);
-      sds.parse(datasource);
-      dataSourceNodes.add(sds);
+      SingleDataSource singleDataSource = Factorys.forClass(SingleDataSource.class);
+      singleDataSource.parse(datasource);
+      dataSourceNodes.add(singleDataSource);
     }
   }
 

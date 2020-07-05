@@ -1,4 +1,4 @@
-package groovy;
+package org.jiakesimk.minipika.framework.util;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,25 +17,25 @@ package groovy;
  */
 
 /*
- * Creates on 2020/6/14.
+ * Creates on 2020/7/5.
  */
-
-import org.jiakesimk.minipika.framework.util.Annotations;
-import org.junit.Test;
-
-import java.lang.reflect.Method;
-import java.math.BigDecimal;
 
 /**
  * @author tiansheng
  */
-public class GroovyTest {
+public class AutoClose {
 
-  @Test
-  public void test() throws NoSuchMethodException {
-    Integer a = 1;
-    Long b = 1L;
-    System.out.println(a.equals(b));
+  // 关闭流
+  public static void close(AutoCloseable... closeables) {
+    try {
+      for (AutoCloseable closeable : closeables) {
+        if (closeable != null) {
+          closeable.close();
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
 }
