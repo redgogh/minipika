@@ -17,40 +17,27 @@ package org.jiakesimk.minipika.components.annotation;
  */
 
 /*
- * Creates on 2020/7/2.
+ * Creates on 2020/7/5.
  */
-
-import javax.lang.model.type.NullType;
-import java.lang.annotation.*;
-import java.util.Map;
 
 /**
  * @author tiansheng
  */
-@Target({ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface Select {
+public enum SelectMode {
 
   /**
-   * sql语句
-   * @return
+   * NULL
    */
-  String value() default "";
+  NULL,
 
   /**
-   * @return 查询结果返回单个对象
+   * 查询结果集返回Map
    */
-  Class<?> forObject() default NullType.class;
+  FOR_MAP,
 
   /**
-   * @return 查询结果返回List集合
+   * 查询结果集返回JSON
    */
-  Class<?> forList() default NullType.class;
-
-  /**
-   * @return 根据查询模式返回结果
-   */
-  SelectMode mode() default SelectMode.NULL;
+  FOR_JSON
 
 }

@@ -82,7 +82,7 @@ public interface Executor {
   /**
    * 统计sql查询到的所有数据, 使用当前方法的时候请查看说明，
    * 因为这个方法可能会因为SQL不匹配问题导致异常情况的发生，
-   *
+   * <p>
    * {@code count}方法的执行原理是将sql全部转换成小写，并截取select
    * 字符串到第一个from字符串，如果sql存在必要的大写内容会被转化成小写，
    * 并且如果select中的字段存在from的话可能会导致sql出错，所以使用这个方法
@@ -101,6 +101,15 @@ public interface Executor {
    * @return true执行成功， false执行失败
    */
   boolean execute(String sql, Object... args) throws SQLException;
+
+  /**
+   * 执行更新SQL
+   *
+   * @param sql  sql语句
+   * @param args 参数列表
+   * @return 影响行数
+   */
+  int update(String sql, Object... args) throws SQLException;
 
   /**
    * 批量执行

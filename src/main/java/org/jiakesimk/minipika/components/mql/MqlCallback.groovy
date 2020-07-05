@@ -101,13 +101,16 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
         if (returnType != NullType) {
           return executor.queryForList(sql, returnType, arguments)
         }
+        // todo 查询模式实现
         def error = "Error executed query method failure. Cause: unrecognized return type."
         LOG.error(error)
         throw new SQLException(error)
       }
       if (method.isAnnotationPresent(Update)) {
+        return executor.update(sql, arguments)
       }
       if (method.isAnnotationPresent(Batch)) {
+        return executor.update(sql, arguments)
       }
     } catch (Throwable e) {
       throw new MinipikaException(e.message, e)

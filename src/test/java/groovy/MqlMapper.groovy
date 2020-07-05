@@ -18,12 +18,13 @@ interface MqlMapper {
   def findUser(User user)
 
   @Update("""
-    insert into user (username) values (#{user.name})
+    insert into website_user_info (`username`, `password`) 
+    values (#{user.name}, #{user.password})
   """)
   def addUser(User user)
 
   @Batch("""
-    insert into user (username) values (?)
+    insert into website_user_info (`username`, `password`) values (?, ?)
     #foreach user : users
       #{user.name}
     #end
@@ -44,9 +45,12 @@ interface MqlMapper {
 
     @Test
     void addUserTest() {
+      User user = new User("name1")
+      user.setUsername("key1")
+      user.setPassword("value2")
       MqlCallback m = new MqlCallback(MqlMapper)
       MqlMapper mapper = m.bind()
-      println mapper.addUser(new User("name"))
+      println mapper.addUser(user)
     }
 
     @Test
