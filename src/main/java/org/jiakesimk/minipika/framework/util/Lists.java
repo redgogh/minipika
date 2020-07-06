@@ -137,10 +137,10 @@ public final class Lists {
    * @link DESC} DESC则为降序
    * <p>
    * 如果List中的元素是对象的话，如果要根据对象的某个值进行排序的话请实现{@link Comparable}接口。例如：<code>
-   *   // 假设需求是需要对年龄进行降序，可以这样使用
-   *   List<LocalUser> users = Lists.newArrayList();
-   *   // 省略查询users代码...
-   *   users.sort((e1,e2) -> e2.getAge().compareTo(e1.getAge()));
+   * // 假设需求是需要对年龄进行降序，可以这样使用
+   * List<LocalUser> users = Lists.newArrayList();
+   * // 省略查询users代码...
+   * users.sort((e1,e2) -> e2.getAge().compareTo(e1.getAge()));
    * </code>
    */
   public static <T extends Comparable<T>> void sort(List<T> collection, int type) {
@@ -157,14 +157,21 @@ public final class Lists {
 
   /**
    * 数组转List
-   * @param objects 需要转化的数组
+   *
+   * @param a 需要转化的数组
    * @return List集合对象
    */
-  public static <T> List<T> asList(T[] objects) {
-    if(!ArrayUtils.isArray(objects)) return null;
-    return Arrays.asList(objects);
+  @SafeVarargs
+  public static <E> List<E> asList(E... a) {
+    return ArrayUtils.asList(a);
   }
 
+  /**
+   * List转String
+   *
+   * @param list list集合
+   * @return 转换后的String对象
+   */
   public static String toString(List<?> list) {
     StringBuilder str = new StringBuilder("[");
     for (Object o : list) {

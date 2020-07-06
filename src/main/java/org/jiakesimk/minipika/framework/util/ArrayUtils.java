@@ -7,6 +7,8 @@ package org.jiakesimk.minipika.framework.util;
 import java.lang.reflect.Array;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 静态数组工具类
@@ -221,6 +223,18 @@ public final class ArrayUtils {
     }
     str = new StringBuilder(str.substring(0, str.length() - 1) + "]");
     return str.toString();
+  }
+
+  /**
+   * 数组转List
+   *
+   * @param a 需要转化的数组
+   * @return List集合对象
+   */
+  public static <E> List<E> asList(E... a) {
+    if (!ArrayUtils.isArray(a))
+      return null;
+    return Arrays.asList(a);
   }
 
 }

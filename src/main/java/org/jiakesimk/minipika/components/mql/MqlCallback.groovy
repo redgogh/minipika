@@ -11,6 +11,7 @@ import org.jiakesimk.minipika.framework.exception.MinipikaException
 import org.jiakesimk.minipika.framework.factory.Factorys
 import org.jiakesimk.minipika.framework.logging.Log
 import org.jiakesimk.minipika.framework.logging.LogFactory
+import org.jiakesimk.minipika.framework.util.Lists
 
 import javax.lang.model.type.NullType
 import java.lang.reflect.InvocationHandler
@@ -108,6 +109,7 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
       if (method.isAnnotationPresent(Update)) {
       }
       if (method.isAnnotationPresent(Batch)) {
+        return executor.batch(sql, Lists.asList(arguments))
       }
     } catch (Throwable e) {
       throw new MinipikaException(e.message, e)

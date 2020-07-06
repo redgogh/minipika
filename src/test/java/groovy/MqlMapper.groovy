@@ -11,21 +11,21 @@ interface MqlMapper {
 
   @Select(value = """
     select * from website_user_info where 1=1
-    #if INE(user.name) && user.name != null
-      and username = #{user.name}
+    #if INE(user.username) && user.username != null
+      and username = #{user.username}
     #end
   """, forList = User.class)
   def findUser(User user)
 
   @Update("""
-    insert into user (username) values (#{user.name})
+    insert into website_user_info (username) values (#{user.username})
   """)
   def addUser(User user)
 
   @Batch("""
-    insert into user (username) values (?)
+    insert into website_user_info (username, `password`) values (?, ?)
     #foreach user : users
-      #{user.name}
+      #{user.username},#{user.password}
     #end
   """)
   def addBatch(List<User> users)
@@ -37,7 +37,7 @@ interface MqlMapper {
       def start = System.currentTimeMillis();
       MqlCallback m = new MqlCallback(MqlMapper)
       MqlMapper mapper = m.bind()
-      println mapper.findUser(new User("key"))
+      println mapper.findUser(new User("name1", "pass1"))
       def end = System.currentTimeMillis();
       println end - start + "ms"
     }
@@ -46,14 +46,15 @@ interface MqlMapper {
     void addUserTest() {
       MqlCallback m = new MqlCallback(MqlMapper)
       MqlMapper mapper = m.bind()
-      println mapper.addUser(new User("name"))
+      println mapper.addUser(new User("name2", "pass2"))
     }
 
     @Test
     void addBatchTest() {
       MqlCallback m = new MqlCallback(MqlMapper)
       MqlMapper mapper = m.bind()
-      List<User> users = [new User("name1"), new User("name2")]
+      List<User> users = [new User("name3", "pass3"),
+                          new User("name3", "pass3")]
       println mapper.addBatch(users)
     }
 
