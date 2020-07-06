@@ -53,21 +53,32 @@ public class SingleDataSource implements ElementParser {
 
   private DataSourceTask task;
   private DatabaseSupport type;
-  private boolean desiredAutoCommit; // 是否选择自动提交, 默认false
 
-  private String name; // 数据源名称
+  // 数据源名称
+  private String name;
+
+  // 是否选择自动提交, 默认false
+  private boolean desiredAutoCommit;
 
   private boolean pooled = true; // 当前数据源是不是池化的数据源
 
-  public static final String URL = "url";
-  public static final String USERNAME = "username";
-  public static final String PASSWORD = "password";
-  public static final String DRIVER = "driver";
-  public static final String VALUE = "value";
-  public static final String TYPE = "type";
-  public static final String TASK = "task";
-  public static final String AUTO_COMMIT = "commit";
-  public static final String NAME = "name";
+  public static final String URL                = "url";
+
+  public static final String USERNAME           = "username";
+
+  public static final String PASSWORD           = "password";
+
+  public static final String DRIVER             = "driver";
+
+  public static final String VALUE              = "value";
+
+  public static final String TYPE               = "type";
+
+  public static final String TASK               = "task";
+
+  public static final String AUTO_COMMIT        = "commit";
+
+  public static final String NAME               = "name";
 
   /**
    * 链接属性
@@ -89,12 +100,11 @@ public class SingleDataSource implements ElementParser {
 
   @Override
   public void parse(Element element) {
-    // 解析type和task属性
-    setting(element);
     // 解析URL属性
     Element urlElement = element.getChild(URL);
     checkUndefine(urlElement, URL);
     parseURLElementNode(urlElement);
+
     // 解析username
     Element usernameElement = element.getChild(USERNAME);
     Attribute usernameAttribute = usernameElement.getAttribute(VALUE);
@@ -103,6 +113,7 @@ public class SingleDataSource implements ElementParser {
     }
     username = StringUtils.requireNonNull(usernameAttribute.getValue(),
             "Error value of username node cannot empty.", XMLParseException.class);
+
     // 解析password， password可以为NULL
     Element passwordElement = element.getChild(PASSWORD);
     checkUndefine(passwordElement, PASSWORD);
@@ -112,14 +123,20 @@ public class SingleDataSource implements ElementParser {
         password = passwordAttribute.getValue();
       }
     }
+
     // 解析driver
     Element driverElement = element.getChild("driver");
     checkUndefine(driverElement, DRIVER);
     Attribute attribute = driverElement.getAttribute(VALUE);
     driver = attribute.getValue();
+
     // 拼接URL参数
     buildURL();
     buildConnectProperties();
+
+    // 设置属性
+    setting(element);
+
     // 将当前数据源注册到数据源管理器中
     register();
   }
@@ -235,11 +252,10 @@ public class SingleDataSource implements ElementParser {
     String typeKey = null;
     if (typeAttribute != null) {
       typeKey = typeAttribute.getValue();
-      if (StringUtils.isEmpty(typeKey)) {
-        type = getDataBaseSupport(driver);
-      }
     }
-    type = getDataBaseSupport(typeKey);
+    if(StringUtils.isEmpty(typeKey)) {
+      type = getDataBaseSupport(driver);
+    }
     // 获取数据源对应的任务
     String taskAttributeValue = null;
     Attribute taskAttribute = element.getAttribute(TASK);

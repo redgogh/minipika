@@ -9,8 +9,8 @@ import org.jiakesimk.minipika.components.jdbc.SQLExecutor
 import org.jiakesimk.minipika.framework.common.ConstVariable
 import org.jiakesimk.minipika.framework.exception.MinipikaException
 import org.jiakesimk.minipika.framework.factory.Factorys
-import org.jiakesimk.minipika.framework.logging.Log
-import org.jiakesimk.minipika.framework.logging.LogFactory
+import org.jiakesimk.minipika.components.logging.Log
+import org.jiakesimk.minipika.components.logging.LogFactory
 import org.jiakesimk.minipika.framework.util.Lists
 
 import javax.lang.model.type.NullType
