@@ -26,10 +26,10 @@
   </xs:complexType>
   
   <xs:complexType name="DataSource">
-    <xs:all>
+    <xs:sequence>
       <xs:element name="master" type="SourceBody" minOccurs="0"/>
-      <xs:element name="slaves" type="SourceBody" minOccurs="0"/>
-    </xs:all>
+      <xs:element name="slaves" type="SourceBody" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
   </xs:complexType>
   
   <xs:complexType name="SourceBody">

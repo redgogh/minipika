@@ -24,9 +24,10 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 import org.jiakesimk.minipika.components.configuration.node.MinipikaXMLConfig;
-import org.jiakesimk.minipika.framework.factory.Factorys;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
+import org.jiakesimk.minipika.framework.factory.Factorys;
+import org.jiakesimk.minipika.framework.util.JDOMHelper;
 import org.jiakesimk.minipika.framework.util.Threads;
 import org.xml.sax.InputSource;
 
@@ -39,9 +40,9 @@ import java.util.Objects;
  */
 public class XMLConfigBuilder {
 
-  final Log log = LogFactory.getLog(XMLConfigBuilder.class);
-
   private Element root;
+
+  final Log log = LogFactory.getLog(XMLConfigBuilder.class);
 
   public XMLConfigBuilder() {
   }
@@ -74,7 +75,7 @@ public class XMLConfigBuilder {
   private void parseRoot(Object object) {
     try {
       Document document = null;
-      SAXBuilder builder = Factorys.forClass(SAXBuilder.class);
+      SAXBuilder builder = JDOMHelper.getSAXBuilder();
       if (object instanceof String) {
         document = builder.build((String) object);
       } else if (object instanceof InputStream) {

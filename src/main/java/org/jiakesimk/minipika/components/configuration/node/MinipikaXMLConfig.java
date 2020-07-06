@@ -23,6 +23,7 @@ package org.jiakesimk.minipika.components.configuration.node;
 import lombok.Getter;
 import lombok.Setter;
 import org.jdom2.Element;
+import org.jdom2.Namespace;
 import org.jiakesimk.minipika.framework.factory.Factorys;
 
 /**
@@ -32,9 +33,11 @@ import org.jiakesimk.minipika.framework.factory.Factorys;
 @Setter
 public class MinipikaXMLConfig implements ElementParser {
 
-  public static final String CHIlD_DATASOURCE       = "datasource";
-  public static final String CHIlD_PROPERTIES       = "properties";
-  public static final String CHILD_CONFIGURATION    = "configuration";
+  private static final String CHIlD_DATASOURCE         = "datasource";
+
+  private static final String CHIlD_PROPERTIES         = "properties";
+
+  private static final String CHILD_CONFIGURATION      = "configuration";
 
   /**
    * 所有配置的属性值
