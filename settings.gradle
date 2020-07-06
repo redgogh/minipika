@@ -3,3 +3,8 @@
  */
 
 rootProject.name = 'minipika'
+
+def subprojects = []
+
+include(subprojects as String[])
+
