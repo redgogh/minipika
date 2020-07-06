@@ -112,15 +112,6 @@ public interface Executor {
   boolean execute(String sql, Object... args) throws SQLException;
 
   /**
-   * 执行更新SQL
-   *
-   * @param sql  sql语句
-   * @param args 参数列表
-   * @return 影响行数
-   */
-  int update(String sql, Object... args) throws SQLException;
-
-  /**
    * 批量执行
    *
    * @param sql  sql语句

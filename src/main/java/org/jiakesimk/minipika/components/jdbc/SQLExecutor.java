@@ -94,11 +94,6 @@ public class SQLExecutor implements Executor {
   }
 
   @Override
-  public int update(String sql, Object... args) throws SQLException {
-    return nativeJdbc.update(sql, args);
-  }
-
-  @Override
   public boolean execute(String sql, Object... args) throws SQLException {
     return nativeJdbc.execute(sql, args);
   }

@@ -17,15 +17,9 @@ interface MqlMapper {
   """, forList = User.class)
   def findUser(User user)
 
-<<<<<<< HEAD
-  @Update("""
-    insert into website_user_info (`username`, `password`) 
-    values (#{user.name}, #{user.password})
-=======
   @Insert("""
     insert into website_user_info (username, `password`) 
     values (#{user.username},#{user.password})
->>>>>>> 63a9471409364789eed396591cec5f9c9d8e6dfe
   """)
   def addUser(User user)
 
@@ -35,11 +29,7 @@ interface MqlMapper {
   def updateUser(id, User user)
 
   @Batch("""
-<<<<<<< HEAD
-    insert into website_user_info (`username`, `password`) values (?, ?)
-=======
     insert into website_user_info (username, `password`) values (?, ?)
->>>>>>> 63a9471409364789eed396591cec5f9c9d8e6dfe
     #foreach user : users
       #{user.username},#{user.password}
     #end
@@ -65,9 +55,6 @@ interface MqlMapper {
       user.setPassword("value2")
       MqlCallback m = new MqlCallback(MqlMapper)
       MqlMapper mapper = m.bind()
-<<<<<<< HEAD
-      println mapper.addUser(user)
-=======
       println mapper.addUser( new User("name2", "pass2"))
     }
 
@@ -76,7 +63,6 @@ interface MqlMapper {
       MqlCallback m = new MqlCallback(MqlMapper)
       MqlMapper mapper = m.bind()
       println mapper.updateUser(1, new User("update1", "update1"))
->>>>>>> 63a9471409364789eed396591cec5f9c9d8e6dfe
     }
 
     @Test
