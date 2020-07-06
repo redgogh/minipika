@@ -129,5 +129,4 @@ public interface Executor {
    */
   int[] batch(String[] sql, List<Object[]> args) throws SQLException;
 
-
 }

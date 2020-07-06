@@ -87,6 +87,7 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
   }
 
   @Override
+  @SuppressWarnings("GroovyAssignabilityCheck")
   Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
     try {
       def objects = invoke(method.name, args)
