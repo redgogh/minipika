@@ -21,8 +21,8 @@ package org.jiakesimk.minipika.components.jdbc.datasource;
  */
 
 import org.jiakesimk.minipika.framework.exception.MinipikaException;
-import org.jiakesimk.minipika.framework.logging.Log;
-import org.jiakesimk.minipika.framework.logging.LogFactory;
+import org.jiakesimk.minipika.components.logging.Log;
+import org.jiakesimk.minipika.components.logging.LogFactory;
 import org.jiakesimk.minipika.framework.util.AutoClose;
 import org.jiakesimk.minipika.framework.util.Maps;
 

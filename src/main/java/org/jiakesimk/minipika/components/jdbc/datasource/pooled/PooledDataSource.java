@@ -23,8 +23,8 @@ package org.jiakesimk.minipika.components.jdbc.datasource.pooled;
 import lombok.Setter;
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
 import org.jiakesimk.minipika.components.jdbc.datasource.unpooled.UnpooledDataSource;
-import org.jiakesimk.minipika.framework.logging.Log;
-import org.jiakesimk.minipika.framework.logging.LogFactory;
+import org.jiakesimk.minipika.components.logging.Log;
+import org.jiakesimk.minipika.components.logging.LogFactory;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;

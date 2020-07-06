@@ -21,8 +21,8 @@ package org.jiakesimk.minipika.framework.context;
  */
 
 import lombok.Getter;
-import org.jiakesimk.minipika.framework.configuration.FindStrategy;
-import org.jiakesimk.minipika.framework.configuration.XMLConfigBuilder;
+import org.jiakesimk.minipika.components.configuration.FindStrategy;
+import org.jiakesimk.minipika.components.configuration.XMLConfigBuilder;
 
 /**
  * 上下文管理

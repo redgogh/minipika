@@ -24,7 +24,7 @@ import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 import org.jiakesimk.minipika.components.jdbc.NativeResultSet;
 import org.jiakesimk.minipika.components.jdbc.NativeJdbc;
-import org.jiakesimk.minipika.framework.configuration.XMLConfigBuilder;
+import org.jiakesimk.minipika.components.configuration.XMLConfigBuilder;
 import org.jiakesimk.minipika.framework.factory.Factorys;
 
 import java.sql.SQLException;

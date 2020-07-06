@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.configuration.node;
+package org.jiakesimk.minipika.components.logging;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,27 +17,13 @@ package org.jiakesimk.minipika.framework.configuration.node;
  */
 
 /*
- * Creates on 2020/6/3.
+ * Creates on 2020/3/26.
  */
 
 /**
- * @author TianSheng
+ * @author tiansheng
  */
-public enum DataSourceTask {
-
-  /**
-   * 代表数据源读写操作都支持（默认使用ALL）
-   */
-  ALL,
-
-  /**
-   * 数据源只支持读操作
-   */
-  READ,
-
-  /**
-   * 数据源只支持写操作
-   */
-  WRITE,
-
+public interface LogAdapter {
+    Log getLog(String key);
+    Log getLog(Class<?> key);
 }

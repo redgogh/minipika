@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.configuration;
+package org.jiakesimk.minipika.components.configuration;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -23,11 +23,10 @@ package org.jiakesimk.minipika.framework.configuration;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
-import org.jiakesimk.minipika.framework.configuration.node.MinipikaXMLConfig;
+import org.jiakesimk.minipika.components.configuration.node.MinipikaXMLConfig;
 import org.jiakesimk.minipika.framework.factory.Factorys;
-import org.jiakesimk.minipika.framework.logging.Log;
-import org.jiakesimk.minipika.framework.logging.LogFactory;
-import org.jiakesimk.minipika.framework.util.Charsets;
+import org.jiakesimk.minipika.components.logging.Log;
+import org.jiakesimk.minipika.components.logging.LogFactory;
 import org.jiakesimk.minipika.framework.util.Threads;
 import org.xml.sax.InputSource;
 

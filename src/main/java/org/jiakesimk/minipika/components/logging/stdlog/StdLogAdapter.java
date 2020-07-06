@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.logging;
+package org.jiakesimk.minipika.components.logging.stdlog;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,13 +17,24 @@ package org.jiakesimk.minipika.framework.logging;
  */
 
 /*
- * Creates on 2020/3/26.
+ * Creates on 2020/3/27.
  */
+
+import org.jiakesimk.minipika.components.logging.Log;
+import org.jiakesimk.minipika.components.logging.LogAdapter;
 
 /**
  * @author tiansheng
  */
-public interface LogAdapter {
-    Log getLog(String key);
-    Log getLog(Class<?> key);
+public class StdLogAdapter implements LogAdapter {
+
+    @Override
+    public Log getLog(String key) {
+        return new StdLog(key);
+    }
+
+    @Override
+    public Log getLog(Class<?> key) {
+        return new StdLog(key);
+    }
 }

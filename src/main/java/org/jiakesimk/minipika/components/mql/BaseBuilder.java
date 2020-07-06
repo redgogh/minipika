@@ -22,10 +22,9 @@ package org.jiakesimk.minipika.components.mql;
 
 import groovy.lang.Closure;
 import javassist.NotFoundException;
-import org.jiakesimk.minipika.framework.common.ConstVariable;
 import org.jiakesimk.minipika.framework.compiler.JavaCompiler;
-import org.jiakesimk.minipika.framework.logging.Log;
-import org.jiakesimk.minipika.framework.logging.LogFactory;
+import org.jiakesimk.minipika.components.logging.Log;
+import org.jiakesimk.minipika.components.logging.LogFactory;
 import org.jiakesimk.minipika.framework.util.ClassUtils;
 import org.jiakesimk.minipika.framework.util.Matches;
 import org.jiakesimk.minipika.framework.util.Methods;

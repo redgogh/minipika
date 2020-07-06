@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.configuration.node;
+package org.jiakesimk.minipika.components.configuration.node;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,15 +17,27 @@ package org.jiakesimk.minipika.framework.configuration.node;
  */
 
 /*
- * Creates on 2020/6/1.
+ * Creates on 2020/6/3.
  */
-
-import org.jdom2.Element;
 
 /**
- * 每个节点只解析对应的元素内容
- * @author tiansheng
+ * @author TianSheng
  */
-public interface ElementParser {
-  void parse(Element element);
+public enum DataSourceTask {
+
+  /**
+   * 代表数据源读写操作都支持（默认使用ALL）
+   */
+  ALL,
+
+  /**
+   * 数据源只支持读操作
+   */
+  READ,
+
+  /**
+   * 数据源只支持写操作
+   */
+  WRITE,
+
 }

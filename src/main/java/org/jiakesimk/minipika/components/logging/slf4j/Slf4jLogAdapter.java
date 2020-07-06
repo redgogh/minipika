@@ -1,7 +1,7 @@
-package org.jiakesimk.minipika.framework.logging;
+package org.jiakesimk.minipika.components.logging.slf4j;
 
 /*
- * Copyright (C) 2020 Tiansheng All rights reserved.
+ * Copyright (C) 2020 tiansheng All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,28 +17,24 @@ package org.jiakesimk.minipika.framework.logging;
  */
 
 /*
- * Creates on 2019/12/9.
+ * Creates on 2020/3/26.
  */
+
+import org.jiakesimk.minipika.components.logging.Log;
+import org.jiakesimk.minipika.components.logging.LogAdapter;
+import org.slf4j.LoggerFactory;
 
 /**
- * 使用自定义的日志框架，如果没有使用默认。
- * <p>
- * Configuration logger framework if there is not use default.
- *
  * @author tiansheng
  */
-public interface Log {
+public class Slf4jLogAdapter implements LogAdapter {
 
-  boolean isDebugEnabled();
+    public Log getLog(String key){
+        return new Slf4jLog(LoggerFactory.getLogger(key));
+    }
 
-  void info(String msg);
-
-  void warn(String msg);
-
-  void debug(String msg);
-
-  void error(String msg);
-
-  void error(String msg, Throwable e);
+    public Log getLog(Class<?> key){
+        return new Slf4jLog(LoggerFactory.getLogger(key));
+    }
 
 }

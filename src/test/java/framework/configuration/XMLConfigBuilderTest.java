@@ -20,11 +20,9 @@ package framework.configuration;
  * Creates on 2020/6/2.
  */
 
-import org.jiakesimk.minipika.framework.configuration.XMLConfigBuilder;
-import org.jiakesimk.minipika.framework.configuration.FindStrategy;
+import org.jiakesimk.minipika.components.configuration.XMLConfigBuilder;
+import org.jiakesimk.minipika.components.configuration.FindStrategy;
 import org.xml.sax.InputSource;
-
-import java.io.InputStream;
 
 /**
  * @author tiansheng

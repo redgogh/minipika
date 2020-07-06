@@ -24,19 +24,15 @@ package org.jiakesimk.minipika.components.jdbc.datasource.unpooled;
 import lombok.Getter;
 import lombok.Setter;
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
-import org.jiakesimk.minipika.framework.PropertyNames;
-import org.jiakesimk.minipika.framework.configuration.node.SingleDataSource;
-import org.jiakesimk.minipika.framework.loader.CopyingClassLoader;
-import org.jiakesimk.minipika.framework.logging.Log;
-import org.jiakesimk.minipika.framework.logging.LogFactory;
+import org.jiakesimk.minipika.components.configuration.node.SingleDataSource;
+import org.jiakesimk.minipika.components.logging.Log;
+import org.jiakesimk.minipika.components.logging.LogFactory;
 import org.jiakesimk.minipika.framework.util.ClassUtils;
-import org.jiakesimk.minipika.framework.util.StringUtils;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.*;
 import java.util.Properties;
-import java.util.concurrent.*;
 import java.util.logging.Logger;
 
 /**

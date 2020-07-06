@@ -21,8 +21,8 @@ package org.jiakesimk.minipika.components.jdbc.transaction;
  */
 
 import org.jiakesimk.minipika.components.jdbc.datasource.pooled.PooledConnection;
-import org.jiakesimk.minipika.framework.logging.Log;
-import org.jiakesimk.minipika.framework.logging.LogFactory;
+import org.jiakesimk.minipika.components.logging.Log;
+import org.jiakesimk.minipika.components.logging.LogFactory;
 
 import javax.sql.DataSource;
 import java.lang.reflect.InvocationHandler;

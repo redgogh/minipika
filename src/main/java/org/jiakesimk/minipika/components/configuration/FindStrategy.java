@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.configuration;
+package org.jiakesimk.minipika.components.configuration;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,13 +20,9 @@ package org.jiakesimk.minipika.framework.configuration;
  * Creates on 2020/6/1.
  */
 
-import org.jiakesimk.minipika.framework.util.Charsets;
 import org.jiakesimk.minipika.framework.util.Threads;
-import org.jiakesimk.minipika.framework.util.UrlTools;
 import org.xml.sax.InputSource;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**

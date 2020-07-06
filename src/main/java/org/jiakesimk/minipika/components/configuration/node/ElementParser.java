@@ -1,5 +1,7 @@
+package org.jiakesimk.minipika.components.configuration.node;
+
 /*
- * Copyright (C) 2020 Tiansheng All rights reserved.
+ * Copyright (C) 2020 tiansheng All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +20,12 @@
  * Creates on 2020/6/1.
  */
 
+import org.jdom2.Element;
+
 /**
- * 构建框架运行配置的基础软件包
+ * 每个节点只解析对应的元素内容
+ * @author tiansheng
  */
-package org.jiakesimk.minipika.framework.configuration;
+public interface ElementParser {
+  void parse(Element element);
+}

@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.logging.stdlog;
+package org.jiakesimk.minipika.components.logging.stdlog;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,7 +20,7 @@ package org.jiakesimk.minipika.framework.logging.stdlog;
  * Creates on 2020/3/27.
  */
 
-import org.jiakesimk.minipika.framework.logging.Log;
+import org.jiakesimk.minipika.components.logging.Log;
 
 /**
  * @author tiansheng

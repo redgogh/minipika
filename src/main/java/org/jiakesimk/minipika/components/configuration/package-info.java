@@ -1,7 +1,5 @@
-package org.jiakesimk.minipika.framework.logging.stdlog;
-
 /*
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 Tiansheng All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,24 +15,10 @@ package org.jiakesimk.minipika.framework.logging.stdlog;
  */
 
 /*
- * Creates on 2020/3/27.
+ * Creates on 2020/6/1.
  */
-
-import org.jiakesimk.minipika.framework.logging.Log;
-import org.jiakesimk.minipika.framework.logging.LogAdapter;
 
 /**
- * @author tiansheng
+ * 构建框架运行配置的基础软件包
  */
-public class StdLogAdapter implements LogAdapter {
-
-    @Override
-    public Log getLog(String key) {
-        return new StdLog(key);
-    }
-
-    @Override
-    public Log getLog(Class<?> key) {
-        return new StdLog(key);
-    }
-}
+package org.jiakesimk.minipika.components.configuration;

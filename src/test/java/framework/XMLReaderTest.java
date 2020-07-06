@@ -20,12 +20,9 @@ package framework;
  * Creates on 2020/6/1.
  */
 
-import org.jiakesimk.minipika.framework.configuration.XMLConfigBuilder;
-import org.jiakesimk.minipika.framework.util.Charsets;
+import org.jiakesimk.minipika.components.configuration.XMLConfigBuilder;
 import org.xml.sax.InputSource;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 /**
