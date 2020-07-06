@@ -1,7 +1,7 @@
 package org.jiakesimk.minipika.components.mql
 
 import org.jiakesimk.minipika.components.annotation.Batch
-
+import org.jiakesimk.minipika.components.annotation.Insert
 import org.jiakesimk.minipika.components.annotation.Select
 import org.jiakesimk.minipika.components.annotation.Update
 import org.jiakesimk.minipika.components.jdbc.Executor
@@ -11,6 +11,7 @@ import org.jiakesimk.minipika.framework.exception.MinipikaException
 import org.jiakesimk.minipika.framework.factory.Factorys
 import org.jiakesimk.minipika.framework.logging.Log
 import org.jiakesimk.minipika.framework.logging.LogFactory
+import org.jiakesimk.minipika.framework.util.Lists
 
 import javax.lang.model.type.NullType
 import java.lang.reflect.InvocationHandler
@@ -68,6 +69,10 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
         Update update = method.getDeclaredAnnotation(Update)
         createMethod(method, update.value())
       }
+      if (method.isAnnotationPresent(Insert)) {
+        Insert insert = method.getDeclaredAnnotation(Insert)
+        createMethod(method, insert.value())
+      }
       if (method.isAnnotationPresent(Select)) {
         Select select = method.getDeclaredAnnotation(Select)
         createMethod(method, select.value())
@@ -86,6 +91,7 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
   }
 
   @Override
+  @SuppressWarnings("GroovyAssignabilityCheck")
   Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
     try {
       def objects = invoke(method.name, args)
@@ -106,11 +112,12 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
         LOG.error(error)
         throw new SQLException(error)
       }
-      if (method.isAnnotationPresent(Update)) {
+      if (method.isAnnotationPresent(Update)
+              || method.isAnnotationPresent(Insert)) {
         return executor.update(sql, arguments)
       }
       if (method.isAnnotationPresent(Batch)) {
-        return executor.update(sql, arguments)
+        return executor.batch(sql, Lists.asList(arguments))
       }
     } catch (Throwable e) {
       throw new MinipikaException(e.message, e)

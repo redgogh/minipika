@@ -24,6 +24,8 @@ import groovy.lang.Closure;
 import javassist.NotFoundException;
 import org.jiakesimk.minipika.framework.common.ConstVariable;
 import org.jiakesimk.minipika.framework.compiler.JavaCompiler;
+import org.jiakesimk.minipika.framework.logging.Log;
+import org.jiakesimk.minipika.framework.logging.LogFactory;
 import org.jiakesimk.minipika.framework.util.ClassUtils;
 import org.jiakesimk.minipika.framework.util.Matches;
 import org.jiakesimk.minipika.framework.util.Methods;
@@ -39,6 +41,24 @@ public class BaseBuilder extends Invoker {
   private final String classname;
 
   private final StringBuilder mtClass = new StringBuilder();
+
+  private static final Log LOG = LogFactory.getLog(BaseBuilder.class);
+
+  private static final String IF                    = "#if";
+
+  private static final String END                   = "#end";
+
+  private static final String FOREACH               = "#foreach";
+
+  private static final String IS_NOT_EMPTY          = "INE";
+
+  private static final String IS_EQUALS_EMPTY       = "IE";
+
+  //
+  // 用于识别当前是不是解析到foreach语句
+  // 如果是的话foreach语句内容需要特殊处理
+  //
+  private boolean foreach = false;
 
   public BaseBuilder(String classname) {
     int lastIndexOf = classname.lastIndexOf(".");
@@ -97,23 +117,46 @@ public class BaseBuilder extends Invoker {
     String[] single = src.split("\n");
     for (String input : single) {
       input = input.trim();
-      if (input.contains("#if")) {
-        input = input.replace("#if", "").trim();
+      if (input.contains(IF)) {
+        input = input.replace(IF, "").trim();
         input = "".concat("if(").concat(parseIfStatement(input)).concat("){");
         builder.append(input);
-      } else if (input.contains("#foreach")) {
-        input = input.replace("#foreach", "for(Object").concat("").concat("){");
+      } else if (input.contains(FOREACH)) {
+        input = input.replace(FOREACH, "for(Object").concat("").concat("){");
         builder.append(input);
-      } else if (input.contains("#end")) {
+        foreach = true;
+      } else if (input.contains(END)) {
+        if (foreach) {
+          foreach = false;
+        }
         builder.append("}");
       } else {
-        String sql = input.replaceAll("#\\{(.*?)}", "?").trim();
-        if (!"?".equals(sql)) {
-          builder.append("sql.append(\"").append(sql).append(" ").append("\");");
+        // 如果参数存在逗号需要特殊处理
+        if (input.contains(",")) {
+          input = input.replaceAll(",", ", ");
         }
-        String[] arguments = existArguments(input);
-        for (String argument : arguments) {
-          builder.append("arguments.add(").append(argument).append(");");
+        if (foreach) {
+          String[] arguments = existArguments(input);
+          if (arguments != null && arguments.length != 0) {
+            builder.append("Object[] singleArgs = new Object[").append(arguments.length).append("];");
+            int i=0;
+            for (String argument : arguments) {
+              builder.append("singleArgs[").append(i).append("] = ").append(argument).append(";");
+              i++;
+            }
+            builder.append("arguments.add(singleArgs);");
+          }
+        } else {
+          String sql = input.replaceAll("#\\{(.*?)}", "?").trim();
+          if (!"?".equals(sql)) {
+            builder.append("sql.append(\"").append(sql).append(" ").append("\");");
+          }
+          String[] arguments = existArguments(input);
+          if (arguments != null && arguments.length != 0) {
+            for (String argument : arguments) {
+              builder.append("arguments.add(").append(argument).append(");");
+            }
+          }
         }
       }
     }
@@ -151,10 +194,10 @@ public class BaseBuilder extends Invoker {
    * @return 处理过后的字符串
    */
   private String invokeToAddGet(String input) {
-    if (ConstVariable.IEE.equals(input)) {
+    if (IS_EQUALS_EMPTY.equals(input)) {
       return "StringUtils.isEmpty";
     }
-    if (ConstVariable.INE.equals(input)) {
+    if (IS_NOT_EMPTY.equals(input)) {
       return "StringUtils.isNotEmpty";
     }
     if (input.contains(".")) {
@@ -193,6 +236,9 @@ public class BaseBuilder extends Invoker {
   }
 
   protected void end() {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(mtClass.toString());
+    }
     Class<?> clazz = Objects.requireNonNull(JavaCompiler.compile(classname, mtClass.toString()));
     instance = ClassUtils.newInstance(clazz);
   }

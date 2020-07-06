@@ -31,17 +31,15 @@ import java.math.BigDecimal;
 public class User {
 
   private Integer id;
-  private String name;
   private String username;
   private String password;
-  private Integer age;
-  private BigDecimal money;
-  private User user;
 
-  public User(){}
+  public User() {
+  }
 
-  public User(String name) {
-    this.name = name;
+  public User(String username, String password) {
+    this.username = username;
+    this.password = password;
   }
 
 }

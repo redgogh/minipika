@@ -31,8 +31,7 @@ import java.lang.annotation.*;
 public @interface Update {
 
   /**
-   * sql语句
-   * @return
+   * @return sql语句
    */
   String value() default "";
 

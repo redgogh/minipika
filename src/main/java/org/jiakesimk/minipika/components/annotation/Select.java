@@ -33,8 +33,7 @@ import java.util.Map;
 public @interface Select {
 
   /**
-   * sql语句
-   * @return
+   * @return sql语句
    */
   String value() default "";
 

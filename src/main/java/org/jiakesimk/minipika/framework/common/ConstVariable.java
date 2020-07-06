@@ -33,14 +33,4 @@ public interface ConstVariable {
 
   String MQL_PROXY_CLASSNAME = "org.minipika.commponents.proxy.$";
 
-  /**
-   * 判断字符串是否等于空
-   */
-  String IEE = "IEE";
-
-  /**
-   * 判断字符串是否不等于空
-   */
-  String INE = "INE";
-
 }

@@ -71,6 +71,15 @@ public interface Executor {
   NativeResultSet queryForNativeResult(String sql, Object... args) throws SQLException;
 
   /**
+   * 通过sql语句更新一条数据
+   *
+   * @param sql  sql语句
+   * @param args 参数列表
+   * @return 更新条数
+   */
+  int update(String sql, Object... args) throws SQLException;
+
+  /**
    * 通过sql语句插入一条数据
    *
    * @param sql  sql语句
@@ -137,6 +146,5 @@ public interface Executor {
    * @return 影响行数
    */
   int[] batch(String[] sql, List<Object[]> args) throws SQLException;
-
 
 }

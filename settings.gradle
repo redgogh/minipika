@@ -3,3 +3,8 @@
  */
 
 rootProject.name = 'minipika'
+
+def subprojects = ["groovy"]
+
+include(subprojects as String[])
+

@@ -110,7 +110,7 @@ public class UnpooledDataSource implements DataSource {
     @Override
     public Connection connect(String url, Properties info) throws SQLException {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("using url: " + url);
+        LOG.debug(" using url: " + url);
       }
       String name = info.getProperty(SingleDataSource.USERNAME);
       String pass = info.getProperty(SingleDataSource.PASSWORD);

@@ -58,7 +58,7 @@ public class ForJava {
   public void returnTest() {
     MqlCallback m = new MqlCallback(MqlMapper.class);
     MqlMapper mapper = m.bind();
-    List<User> users = (List<User>) mapper.findUser(new User("key"));
+    List<User> users = (List<User>) mapper.findUser(new User("key", "value"));
     System.out.println(Lists.toString(users));
   }
 
