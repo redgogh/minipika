@@ -21,9 +21,8 @@ package org.jiakesimk.minipika.components.configuration;
  */
 
 import org.jdom2.Document;
-import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
-import org.jiakesimk.minipika.components.configuration.node.MinipikaXMLConfig;
+import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
 import org.jiakesimk.minipika.framework.factory.Factorys;
@@ -40,7 +39,7 @@ import java.util.Objects;
  */
 public class XMLConfigBuilder {
 
-  private Element root;
+  private ElementWrapper root;
 
   final Log log = LogFactory.getLog(XMLConfigBuilder.class);
 
@@ -84,7 +83,7 @@ public class XMLConfigBuilder {
       else if (object instanceof InputSource) {
         document = builder.build((InputSource) object);
       }
-      this.root = document.getRootElement();
+      this.root = new ElementWrapper(document.getRootElement());
       initialize();
     } catch (Exception e) {
       e.printStackTrace();

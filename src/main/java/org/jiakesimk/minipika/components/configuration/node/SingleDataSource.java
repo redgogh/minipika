@@ -23,7 +23,7 @@ package org.jiakesimk.minipika.components.configuration.node;
 import lombok.Getter;
 import lombok.Setter;
 import org.jdom2.Attribute;
-import org.jdom2.Element;
+import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
 import org.jiakesimk.minipika.components.jdbc.datasource.pooled.PooledDataSource;
 import org.jiakesimk.minipika.components.jdbc.datasource.unpooled.UnpooledDataSource;
@@ -99,14 +99,14 @@ public class SingleDataSource implements ElementParser {
   }
 
   @Override
-  public void parse(Element element) {
+  public void parse(ElementWrapper element) {
     // 解析URL属性
-    Element urlElement = element.getChild(URL);
+    ElementWrapper urlElement = element.getChild(URL);
     checkUndefine(urlElement, URL);
     parseURLElementNode(urlElement);
 
     // 解析username
-    Element usernameElement = element.getChild(USERNAME);
+    ElementWrapper usernameElement = element.getChild(USERNAME);
     Attribute usernameAttribute = usernameElement.getAttribute(VALUE);
     if (usernameAttribute == null) {
       throw new XMLParseException("Error username node of datasource node undefine.");
@@ -115,7 +115,7 @@ public class SingleDataSource implements ElementParser {
             "Error value of username node cannot empty.", XMLParseException.class);
 
     // 解析password， password可以为NULL
-    Element passwordElement = element.getChild(PASSWORD);
+    ElementWrapper passwordElement = element.getChild(PASSWORD);
     checkUndefine(passwordElement, PASSWORD);
     if (passwordElement != null) {
       Attribute passwordAttribute = passwordElement.getAttribute(VALUE);
@@ -125,7 +125,7 @@ public class SingleDataSource implements ElementParser {
     }
 
     // 解析driver
-    Element driverElement = element.getChild("driver");
+    ElementWrapper driverElement = element.getChild("driver");
     checkUndefine(driverElement, DRIVER);
     Attribute attribute = driverElement.getAttribute(VALUE);
     driver = attribute.getValue();
@@ -156,7 +156,7 @@ public class SingleDataSource implements ElementParser {
    *
    * @param urlElement url节点元素
    */
-  private void parseURLElementNode(Element urlElement) {
+  private void parseURLElementNode(ElementWrapper urlElement) {
     Attribute urlAttribute = urlElement.getAttribute(VALUE);
     if (urlAttribute == null) {
       String def = XMLParseException.buildTrack(urlElement);
@@ -171,9 +171,9 @@ public class SingleDataSource implements ElementParser {
     }
     url = urlValue;
     // 判断URL节点下是否存在子节点
-    List<Element> urlElementParam = urlElement.getChildren("property");
+    List<ElementWrapper> urlElementParam = urlElement.getChildren("property");
     if (urlElementParam != null && !urlElementParam.isEmpty()) {
-      for (Element param : urlElementParam) {
+      for (ElementWrapper param : urlElementParam) {
         String def = XMLParseException.buildTrack(urlElement);
         Attribute nameAttribute = Objects.requireNonNull(param.getAttribute(NAME),
                 "Error attribute key not obtained in " + def + ".");
@@ -216,7 +216,7 @@ public class SingleDataSource implements ElementParser {
    * @param element 元素对象
    * @param name    节点名称
    */
-  void checkUndefine(Element element, String name) {
+  void checkUndefine(ElementWrapper element, String name) {
     if (element == null) {
       throw new NullPointerException("Error " + name + " node undeine.");
     }
@@ -225,7 +225,7 @@ public class SingleDataSource implements ElementParser {
   /**
    * 设置数据源节点属性值
    */
-  void setting(Element element) {
+  void setting(ElementWrapper element) {
     // 获取数据源名称, 必要名称master
     String name = element.getName();
     if (DataSourceNode.MASTER.equals(name)) {

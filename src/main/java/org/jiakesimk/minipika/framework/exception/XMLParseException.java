@@ -20,7 +20,7 @@ package org.jiakesimk.minipika.framework.exception;
  * Creates on 2020/6/1.
  */
 
-import org.jdom2.Element;
+import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
 
 /**
  * @author tiansheng
@@ -51,16 +51,16 @@ public class XMLParseException extends BasicException {
    *
    * @param element 目标元素
    */
-  public static String buildTrack(Element element) {
+  public static String buildTrack(ElementWrapper element) {
     String def = buildTrack(element, "");
     def = def.concat(" -> ").concat(element.getName());
     return def;
   }
 
-  private static String buildTrack(Element element, String def) {
-    Element parent = null;
+  private static String buildTrack(ElementWrapper element, String def) {
+    ElementWrapper parent = null;
     try {
-      parent = (Element) element.getParent(); // 获取当前标签的父标签
+      parent = element.getParent(); // 获取当前标签的父标签
       if (parent == null) {
         return def;
       }

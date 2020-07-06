@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.configuration.node;
+package org.jiakesimk.minipika.components.configuration;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -22,8 +22,10 @@ package org.jiakesimk.minipika.components.configuration.node;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.jdom2.Element;
-import org.jdom2.Namespace;
+import org.jiakesimk.minipika.components.configuration.node.DataSourceNode;
+import org.jiakesimk.minipika.components.configuration.node.ElementParser;
+import org.jiakesimk.minipika.components.configuration.node.PropertiesNode;
+import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
 import org.jiakesimk.minipika.framework.factory.Factorys;
 
 /**
@@ -42,7 +44,7 @@ public class MinipikaXMLConfig implements ElementParser {
   /**
    * 所有配置的属性值
    */
-  protected PropertiesNode   propertiesNode;
+  protected PropertiesNode propertiesNode;
 
   /**
    * 配置的数据源
@@ -50,21 +52,21 @@ public class MinipikaXMLConfig implements ElementParser {
   protected DataSourceNode dataSourceNode;
 
   @Override
-  public void parse(Element element) {
+  public void parse(ElementWrapper element) {
     // 解析properties节点
-    Element properties = element.getChild(CHIlD_PROPERTIES);
+    ElementWrapper properties = element.getChild(CHIlD_PROPERTIES);
     propertiesNode = Factorys.forClass(PropertiesNode.class);
-    if(properties != null) {
+    if(properties.getE() != null) {
       propertiesNode.parse(properties);
     }
     // 解析configuration节点
-    Element configuration = element.getChild(CHILD_CONFIGURATION);
-    if(configuration != null) {
+    ElementWrapper configuration = element.getChild(CHILD_CONFIGURATION);
+    if(configuration.getE() != null) {
       propertiesNode.parse(configuration);
     }
     // 解析datasource节点
-    Element datasource = element.getChild(CHIlD_DATASOURCE);
-    if(datasource != null) {
+    ElementWrapper datasource = element.getChild(CHIlD_DATASOURCE);
+    if(datasource.getE() != null) {
       dataSourceNode = Factorys.forClass(DataSourceNode.class);
       dataSourceNode.parse(datasource);
     }

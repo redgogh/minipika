@@ -22,7 +22,7 @@ package org.jiakesimk.minipika.components.configuration.node;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.jdom2.Element;
+import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
 import org.jiakesimk.minipika.framework.exception.XMLParseException;
 import org.jiakesimk.minipika.framework.factory.Factorys;
 import org.jiakesimk.minipika.framework.util.Lists;
@@ -43,11 +43,11 @@ public class DataSourceNode implements ElementParser {
   private List<SingleDataSource> dataSourceNodes = Lists.newArrayList();
 
   @Override
-  public void parse(Element element) {
+  public void parse(ElementWrapper element) {
     // 判断是否存在主数据源
     checkIsExistsMaster(element);
-    List<Element> elements = element.getChildren();
-    for (Element datasource : elements) {
+    List<ElementWrapper> elements = element.getChildren();
+    for (ElementWrapper datasource : elements) {
       SingleDataSource singleDataSource = Factorys.forClass(SingleDataSource.class);
       singleDataSource.parse(datasource);
       dataSourceNodes.add(singleDataSource);
@@ -59,7 +59,7 @@ public class DataSourceNode implements ElementParser {
    *
    * @param element 被检查的元素对象
    */
-  void checkIsExistsMaster(Element element) {
+  void checkIsExistsMaster(ElementWrapper element) {
     if (element.getChild(MASTER) == null)
       throw new XMLParseException("minipika config content does not exist master node in datasource node. " +
               "Cause: master datasource node is required.");

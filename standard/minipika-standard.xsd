@@ -13,7 +13,7 @@
   
   <xs:complexType name="Properties">
     <xs:sequence>
-      <xs:element name="property" type="Property" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
     </xs:sequence>
   </xs:complexType>
   

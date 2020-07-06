@@ -20,12 +20,12 @@ package org.jiakesimk.minipika.components.configuration.node;
  * Creates on 2020/6/1.
  */
 
-import org.jdom2.Element;
+import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
 
 /**
  * 每个节点只解析对应的元素内容
  * @author tiansheng
  */
 public interface ElementParser {
-  void parse(Element element);
+  void parse(ElementWrapper element);
 }

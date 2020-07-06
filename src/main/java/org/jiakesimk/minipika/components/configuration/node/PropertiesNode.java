@@ -22,7 +22,7 @@ package org.jiakesimk.minipika.components.configuration.node;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.jdom2.Element;
+import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
 import org.jiakesimk.minipika.framework.util.StringUtils;
 
 import java.util.List;
@@ -38,11 +38,11 @@ public class PropertiesNode implements ElementParser {
   private Properties properties;
 
   @Override
-  public void parse(Element element) {
-    List<Element> children = element.getChildren();
+  public void parse(ElementWrapper element) {
+    List<ElementWrapper> children = element.getChildren();
     if (children != null && !children.isEmpty()) {
       properties = new Properties();
-      for (Element child : children) {
+      for (ElementWrapper child : children) {
         String key = child.getName();
         String value = child.getText();
         // 如果key和value都不等于空的话那么将属性设置到系统的properties对象中
