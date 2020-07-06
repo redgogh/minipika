@@ -17,10 +17,9 @@ package org.jiakesimk.minipika.components.annotation;
  */
 
 /*
- * Creates on 2020/7/2.
+ * Creates on 2020/6/1.
  */
 
-import javax.lang.model.type.NullType;
 import java.lang.annotation.*;
 
 /**
@@ -29,15 +28,11 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Select {
+public @interface Insert {
 
   /**
    * @return sql语句
    */
   String value() default "";
-
-  Class<?> forObject() default NullType.class;
-
-  Class<?> forList() default NullType.class;
 
 }

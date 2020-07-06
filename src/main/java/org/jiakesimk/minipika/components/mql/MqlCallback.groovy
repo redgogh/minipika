@@ -1,7 +1,7 @@
 package org.jiakesimk.minipika.components.mql
 
 import org.jiakesimk.minipika.components.annotation.Batch
-
+import org.jiakesimk.minipika.components.annotation.Insert
 import org.jiakesimk.minipika.components.annotation.Select
 import org.jiakesimk.minipika.components.annotation.Update
 import org.jiakesimk.minipika.components.jdbc.Executor
@@ -69,6 +69,10 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
         Update update = method.getDeclaredAnnotation(Update)
         createMethod(method, update.value())
       }
+      if (method.isAnnotationPresent(Insert)) {
+        Insert insert = method.getDeclaredAnnotation(Insert)
+        createMethod(method, insert.value())
+      }
       if (method.isAnnotationPresent(Select)) {
         Select select = method.getDeclaredAnnotation(Select)
         createMethod(method, select.value())
@@ -107,7 +111,9 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
         LOG.error(error)
         throw new SQLException(error)
       }
-      if (method.isAnnotationPresent(Update)) {
+      if (method.isAnnotationPresent(Update)
+              || method.isAnnotationPresent(Insert)) {
+        return executor.update(sql, arguments)
       }
       if (method.isAnnotationPresent(Batch)) {
         return executor.batch(sql, Lists.asList(arguments))
