@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!--<!DOCTYPE minipika SYSTEM-->
-<!--        "D:\dev\minipika\standard\minipika-configruation-standard.xsd">-->
-<minipika>
-
+<minipika xmlns="https://github.com/jiakesiws"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="https://github.com/jiakesiws
+          https://raw.githubusercontent.com/jiakesimk/minipika/master/standard/minipika-standard.xsd">
+  
   <!-- 支持全局使用的属性配置, 这个大家都清楚就不再赘述了 -->
-  <properties>
-  </properties>
-
+  <properties></properties>
+  
   <!--
     配置数据源.
     如果不想用默认数据源的话可以在datasources标签中添加using属性，并设置你的数据源类的路径即可.
