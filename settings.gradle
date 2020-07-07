@@ -4,7 +4,10 @@
 
 rootProject.name = 'minipika'
 
-def subprojects = ["groovy"]
+def subprojects = ["minipika-plugin"]
 
 include(subprojects as String[])
 
+rootProject.children.each { prj ->
+  prj.projectDir = new File("$rootDir/subprojects/$prj.name")
+}
