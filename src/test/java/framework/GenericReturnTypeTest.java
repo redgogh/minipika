@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.common;
+package framework;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,18 +17,24 @@ package org.jiakesimk.minipika.framework.common;
  */
 
 /*
- * Creates on 2020/6/22.
+ * Creates on 2020/6/1.
  */
 
-import javassist.ClassPool;
+import java.lang.reflect.Method;
 
 /**
- * 一些通用的常量定义
- *
  * @author tiansheng
  */
-public interface ConstVariable {
+public class GenericReturnTypeTest {
 
-  ClassPool CLASS_POOL = ClassPool.getDefault();
+  public <T> T getReturnType() {
+    return (T) "";
+  }
+
+  public static void main(String[] args) throws NoSuchMethodException {
+    Class<?> clazz = GenericReturnTypeTest.class;
+    Method method = clazz.getDeclaredMethod("getReturnType");
+    System.out.println(method.getReturnType());
+  }
 
 }

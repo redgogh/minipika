@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.common;
+package framework;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,18 +17,21 @@ package org.jiakesimk.minipika.framework.common;
  */
 
 /*
- * Creates on 2020/6/22.
+ * Creates on 2020/6/1.
  */
 
-import javassist.ClassPool;
+import org.junit.Test;
 
 /**
- * 一些通用的常量定义
- *
  * @author tiansheng
  */
-public interface ConstVariable {
+public class ReplaceObjectTest {
 
-  ClassPool CLASS_POOL = ClassPool.getDefault();
+  @Test
+  public void test() {
+    String s = "java.lang.Object testDefineDefType()";
+    s = s.replace("java.lang.Object", "<T> T");
+    System.out.println(s);
+  }
 
 }

@@ -52,8 +52,10 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
 
   private static final Log LOG = LogFactory.getLog(MqlCallback)
 
+  static def MQL_PROXY_CLASSNAME = 'org.minipika.components.proxy.$'
+
   MqlCallback(Class<?> virtual) {
-    super(ConstVariable.MQL_PROXY_CLASSNAME.concat(virtual.getSimpleName()))
+    super(MQL_PROXY_CLASSNAME.concat(virtual.getSimpleName()))
     this.virtual = virtual
     initialization()
     end()
