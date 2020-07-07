@@ -295,7 +295,7 @@ if "%JAVA_VERSION%" gtr "1.8.0" if "%GROOVY_TURN_OFF_JAVA_WARNINGS%" == "true"  
 if exist "%USERPROFILE%/.groovy/postinit.bat" call "%USERPROFILE%/.groovy/postinit.bat"
 
 @rem Execute Groovy
-"%JAVA_EXE%" %GROOVY_OPTS% %JAVA_OPTS% -classpath "%STARTER_CLASSPATH%" %STARTER_MAIN_CLASS% --main %CLASS% --conf "%STARTER_CONF%" --classpath "%CP%" %REPLACE_PREVIEW% %CMD_LINE_ARGS%
+"%JAVA_EXE%" -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005 %GROOVY_OPTS% %JAVA_OPTS% -classpath "%STARTER_CLASSPATH%" %STARTER_MAIN_CLASS% --main %CLASS% --conf "%STARTER_CONF%" --classpath "%CP%" %REPLACE_PREVIEW% %CMD_LINE_ARGS%
 
 :end
 @rem End local scope for the variables with windows NT shell
