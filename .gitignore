@@ -1,21 +1,23 @@
 # Created by .ignore support plugin (hsz.mobi)
-out
-.idea
-.gradle
-*.iml
-target
-build
+user.gradle
+.gradle/
+target/
+build/
+out/
+
+*.DS_Store
+*.class
+*.swp
 *.log
 *.lnk
-.project
-.classpath
-.settings
-*.tmp
-~$*.docx
-.vs
-Debug
-applog
+*~
 
-### 日志生成文件
-LOG_HOME_IS_UNDEFINED
-var
+.idea
+*.iml
+*.ipr
+*.iws
+.shelf
+
+.classpath
+.settings/
+.project/
