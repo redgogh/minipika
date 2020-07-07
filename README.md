@@ -1,34 +1,21 @@
 # Minipika ORM Framework
 
-![language](https://img.shields.io/badge/Java-100%25-brightgreen)
-![build](https://img.shields.io/badge/build-maven-blue)
-![download](https://img.shields.io/badge/downloads-388K-green)
-![packageist](https://img.shields.io/badge/package-v1.1.7.STAR-%233FB911)
+![language-java](https://img.shields.io/badge/Java-80%25-brightgreen)
+![language-groovy](https://img.shields.io/badge/Groovy-20%25-brightgreen)
+![buildTool](https://img.shields.io/badge/buildTool-gradle-blue)
+![download](https://img.shields.io/badge/downloads-v2.0.0-green)
 ![jdk](https://img.shields.io/badge/jdk-v1.8-blue)
 
 
-> MinipikaFramework是一个非常简单且立马可以上手的ORM框架。它提供了表和对象之前的映射，以及提供了最基本的增删改查和Mapper映射等操作，除此之外MinipikaFramework还内置了缓存。
+> Minipika ORM Framework是基于Java和Groovy开发的持久层框架, 它支持直接调用接口无需声明XML编写SQL。SQL的编写方式是基于注解进行编写的, 
+但是它不像Java的那样在换行时需要使用加号进行拼接。 演示：
 
-[API文档-使用手册](https://github.com/Laniakeamly/minipika/blob/master/api/README.md)
-
-**持续更新中**
-
-# 安装
-
-**MAVEN安装**
-
-[maven仓库地址](https://mvnrepository.com/artifact/io.github.laniakeamly/minipika)
-
-**本地安装**
-
-先**fork**到自己的仓库中去，然后**clone**
-
-**最后使用maven install安装**
-
-```java
-mvn install
+```groovy
+@Select(value = """
+  select * from website_user_info where 1=1
+  #if INE(user.username) && user.username != null
+    and username = #{user.username}
+  #end
+""", forList = User.class)
+def findUser(User user)
 ```
-
-**如果你对这个项目有兴趣，可以发我邮箱我们一起开发。**
-
-**作者邮箱: raniaia@foxmail.com**
