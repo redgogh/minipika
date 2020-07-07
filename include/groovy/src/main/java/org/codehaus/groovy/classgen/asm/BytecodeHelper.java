@@ -18,12 +18,7 @@
  */
 package org.codehaus.groovy.classgen.asm;
 
-import org.codehaus.groovy.ast.ClassHelper;
-import org.codehaus.groovy.ast.ClassNode;
-import org.codehaus.groovy.ast.CompileUnit;
-import org.codehaus.groovy.ast.GenericsType;
-import org.codehaus.groovy.ast.MethodNode;
-import org.codehaus.groovy.ast.Parameter;
+import org.codehaus.groovy.ast.*;
 import org.codehaus.groovy.classgen.asm.util.TypeUtil;
 import org.codehaus.groovy.reflection.ReflectionCache;
 import org.codehaus.groovy.runtime.typehandling.DefaultTypeTransformation;
@@ -32,6 +27,7 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
 import java.lang.reflect.Modifier;
+import java.util.List;
 
 import static org.codehaus.groovy.ast.ClassHelper.VOID_TYPE;
 import static org.codehaus.groovy.ast.ClassHelper.boolean_TYPE;
@@ -291,6 +287,19 @@ public class BytecodeHelper implements Opcodes {
         GenericsType[] generics = node.getGenericsTypes();
         Parameter[] param = node.getParameters();
         ClassNode returnType = node.getReturnType();
+
+        if(generics == null) {
+            List<AnnotationNode> annotationNodes = node.getAnnotations();
+            for(AnnotationNode anode : annotationNodes) {
+                String name = anode.getClassNode().getName();
+                if("java.lang.SuppressWarnings".equals(name)) {
+                    ClassNode cnode = new ClassNode(Object.class);
+                    cnode.setName("T");
+                    generics = new GenericsType[]{new GenericsType(cnode)};
+                    break;
+                }
+            }
+        }
 
         if (generics == null && !hasGenerics(param) && !hasGenerics(returnType)) return null;
 
