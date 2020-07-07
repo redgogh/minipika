@@ -20,12 +20,6 @@ package org.jiakesimk.minipika.framework.factory;
  * Creates on 2020/6/1.
  */
 
-import org.jiakesimk.minipika.components.cache.SetCache;
-import org.jiakesimk.minipika.components.cache.WeakCacheImpl;
-import org.jiakesimk.minipika.components.jdbc.*;
-import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransaction;
-import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransactionFactory;
-import org.jiakesimk.minipika.components.jdbc.transaction.TransactionFactory;
 import org.jiakesimk.minipika.framework.util.ClassUtils;
 import org.jiakesimk.minipika.framework.util.Maps;
 

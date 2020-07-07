@@ -20,8 +20,6 @@ package org.jiakesimk.minipika.framework.factory;
  * Creates on 2020/6/2.
  */
 
-import org.jiakesimk.minipika.components.cache.SetCache;
-import org.jiakesimk.minipika.components.cache.WeakCacheImpl;
 import org.jiakesimk.minipika.components.jdbc.*;
 import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransaction;
 import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransactionFactory;
@@ -39,7 +37,6 @@ public class Factorys {
     BuiltinComponentFactory.components.put(NativeJdbcImpl.class.getName(), forClass(NativeJdbcImpl.class));
     BuiltinComponentFactory.components.put(JdbcTransaction.class.getName(), forClass(JdbcTransaction.class));
     BuiltinComponentFactory.components.put(TransactionFactory.class.getName(), forClass(JdbcTransactionFactory.class));
-    BuiltinComponentFactory.components.put(SetCache.class.getName(), forClass(WeakCacheImpl.class));
     BuiltinComponentFactory.components.put(Executor.class.getName(), forClass(SQLExecutor.class));
   }
 
