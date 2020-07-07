@@ -7,9 +7,9 @@
 ![jdk](https://img.shields.io/badge/jdk-v1.8-blue)
 
 
-> Minipika ORM Framework是基于Java和Groovy开发的持久层框架, 它支持直接调用接口无需声明XML编写SQL。SQL的编写方式是基于注解进行编写的, 
-但是它不像Java的那样在换行时需要使用加号进行拼接。 演示：
+> Minipika ORM Framework是基于Java和Groovy开发的持久层框架。它不用创建XML编写动态SQL, 并且可以直接调用接口进行持久层的调用。
 
+创建dao接口演示: 
 ```groovy
 @Select(value = """
   select * from website_user_info where 1=1
