@@ -28,7 +28,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 /**
- * @author tiansheng
+ * JDOMHelper来源于网络
  */
 public class JDOMHelper {
 
