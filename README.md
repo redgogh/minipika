@@ -9,6 +9,7 @@
 
 > Minipika ORM Framework是基于Java和Groovy开发的持久层框架。它不用创建XML编写动态SQL, 并且可以直接调用接口进行持久层的调用。
 
+
 创建dao接口演示: 
 ```groovy
 @Select(value = """
