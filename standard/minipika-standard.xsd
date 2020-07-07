@@ -18,11 +18,9 @@
   </xs:complexType>
   
   <xs:complexType name="Configuration">
-    <xs:all>
-      <xs:element name="min-connection"/>
-      <xs:element name="max-connection"/>
-      <xs:element name="connect-timeout"/>
-    </xs:all>
+    <xs:sequence>
+      <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
+    </xs:sequence>
   </xs:complexType>
   
   <xs:complexType name="DataSource">
