@@ -67,6 +67,7 @@ public class BaseBuilder extends Invoker {
     mtClass.append("import java.lang.*;");
     mtClass.append("import java.math.*;");
     mtClass.append("import org.jiakesimk.minipika.framework.util.*;");
+    mtClass.append("import org.jiakesimk.minipika.framework.util.agent.*;");
     mtClass.append("@SuppressWarnings(\"unchecked\")");
     mtClass.append("public class ").append(classname, lastIndexOf + 1, classname.length()).append("{}");
     this.classname = classname;
@@ -194,10 +195,10 @@ public class BaseBuilder extends Invoker {
    */
   private String invokeToAddGet(String input) {
     if (IS_EQUALS_EMPTY.equals(input)) {
-      return "StringUtils.isEmpty";
+      return "AgentStringUtils.isEmpty";
     }
     if (IS_NOT_EMPTY.equals(input)) {
-      return "StringUtils.isNotEmpty";
+      return "AgentStringUtils.isNotEmpty";
     }
     if (input.contains(".")) {
       String[] idens = input.split("\\.");
