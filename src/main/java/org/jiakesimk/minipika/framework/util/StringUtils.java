@@ -43,17 +43,7 @@ class StringUtils {
    * @param input 目标字符串
    * @return true为空，false反之。
    */
-  public static boolean isEmpty(Object input) {
-    return isEmpty(String.valueOf(input));
-  }
-
-  /**
-   * 字符串是否为空
-   *
-   * @param input 目标字符串
-   * @return true为空，false反之。
-   */
-  public static boolean isEmpty(String input) {
+  public static boolean isEmpty(final CharSequence input) {
     return input == null
             || input.length() == 0
             || UNICODE_U0000.equals(input)
@@ -65,24 +55,15 @@ class StringUtils {
    *
    * @return true表示当前不为空，false反之
    */
-  public static boolean isNotEmpty(Object input) {
-    return isNotEmpty(String.valueOf(input));
-  }
-
-  /**
-   * 判断字符串是否不为空
-   *
-   * @return true表示当前不为空，false反之
-   */
-  public static boolean isNotEmpty(String input) {
+  public static boolean isNotEmpty(final CharSequence input) {
     return !isEmpty(input);
   }
 
   /**
    * 判断是不是null字符，或者是空
    */
-  public static boolean isNull(String input) {
-    return input == null || "null".equals(input);
+  public static boolean isNull(final CharSequence input) {
+    return input == null || "null".contentEquals(input);
   }
 
   public static String requireNonNull(String input, String message) {
@@ -91,8 +72,7 @@ class StringUtils {
 
   public static String requireNonNull(String input, String message, Class<? extends RuntimeException> e) {
     if (isEmpty(input)) {
-      RuntimeException e1 = Factorys.forClass(e, new Class[]{String.class}, message);
-      throw e1;
+      throw Factorys.<RuntimeException>forClass(e, new Class[]{String.class}, message);
     }
     return input;
   }
