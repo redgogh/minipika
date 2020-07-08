@@ -237,6 +237,7 @@ public class FileSystemCompiler {
                 compiler.unit.getClassLoader()
                         .setResourceLoader(filename -> null);
             }
+            System.out.println("do compiler");
             compiler.compile(filenames);
         } finally {
             try {

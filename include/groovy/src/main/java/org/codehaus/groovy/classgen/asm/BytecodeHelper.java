@@ -288,19 +288,6 @@ public class BytecodeHelper implements Opcodes {
         Parameter[] param = node.getParameters();
         ClassNode returnType = node.getReturnType();
 
-        if(generics == null) {
-            List<AnnotationNode> annotationNodes = node.getAnnotations();
-            for(AnnotationNode anode : annotationNodes) {
-                String name = anode.getClassNode().getName();
-                if("java.lang.SuppressWarnings".equals(name)) {
-                    ClassNode cnode = new ClassNode(Object.class);
-                    cnode.setName("T");
-                    generics = new GenericsType[]{new GenericsType(cnode)};
-                    break;
-                }
-            }
-        }
-
         if (generics == null && !hasGenerics(param) && !hasGenerics(returnType)) return null;
 
         StringBuilder ret = new StringBuilder(100);
