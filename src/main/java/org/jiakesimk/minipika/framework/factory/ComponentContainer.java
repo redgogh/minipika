@@ -29,16 +29,16 @@ import java.util.Map;
  * @author tiansheng
  */
 @SuppressWarnings("unchecked")
-public class BuiltinComponentFactory implements ComponentFactory {
+public class ComponentContainer implements ComponentFactory {
 
   /**
    * 组件容器
    */
-  static final Map<String, Object> components = Maps.newConcurrentHashMap(8);
+  static final Map<String, Object> components = Maps.newConcurrentHashMap();
 
-  static final ComponentFactory factory = new BuiltinComponentFactory();
+  static final ComponentFactory factory = new ComponentContainer();
 
-  private BuiltinComponentFactory() {
+  private ComponentContainer() {
   }
 
   @Override

@@ -24,6 +24,7 @@ import org.jiakesimk.minipika.components.jdbc.*;
 import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransaction;
 import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransactionFactory;
 import org.jiakesimk.minipika.components.jdbc.transaction.TransactionFactory;
+import org.jiakesimk.minipika.components.mql.MqlCallback;
 import org.jiakesimk.minipika.framework.context.ContextManager;
 
 /**
@@ -33,19 +34,31 @@ public class Factorys {
 
   static {
     ContextManager.loadContext(); // 加载上下文
-    BuiltinComponentFactory.components.put(NativeResultSet.class.getName(), forClass(ConstResultSet.class));
-    BuiltinComponentFactory.components.put(NativeJdbcImpl.class.getName(), forClass(NativeJdbcImpl.class));
-    BuiltinComponentFactory.components.put(JdbcTransaction.class.getName(), forClass(JdbcTransaction.class));
-    BuiltinComponentFactory.components.put(TransactionFactory.class.getName(), forClass(JdbcTransactionFactory.class));
-    BuiltinComponentFactory.components.put(Executor.class.getName(), forClass(SQLExecutor.class));
+    ComponentContainer.components.put(NativeResultSet.class.getName(), forClass(ConstResultSet.class));
+    ComponentContainer.components.put(NativeJdbcImpl.class.getName(), forClass(NativeJdbcImpl.class));
+    ComponentContainer.components.put(JdbcTransaction.class.getName(), forClass(JdbcTransaction.class));
+    ComponentContainer.components.put(TransactionFactory.class.getName(), forClass(JdbcTransactionFactory.class));
+    ComponentContainer.components.put(Executor.class.getName(), forClass(SQLExecutor.class));
   }
 
   public static <T> T forClass(Class<T> clazz) {
-    return BuiltinComponentFactory.factory.forClass(clazz);
+    return ComponentContainer.factory.forClass(clazz);
   }
 
   public static <T> T forClass(Class<?> clazz, Class<?>[] types, Object... parameter) {
-    return BuiltinComponentFactory.factory.forClass(clazz, types, parameter);
+    return ComponentContainer.factory.forClass(clazz, types, parameter);
+  }
+
+  @SuppressWarnings("unchecked")
+  public static <T> T forMface(Class<T> clazz) {
+    String name = clazz.getName();
+    T iface = (T) ComponentContainer.components.get(name);
+    if(iface == null) {
+      MqlCallback callback = new MqlCallback(clazz);
+      iface = callback.bind();
+      ComponentContainer.components.put(name, iface);
+    }
+    return iface;
   }
 
 }
