@@ -40,13 +40,13 @@ public class CopyingClassLoader extends ClassLoader {
   /**
    * 复制对象的所有属性并返回一个新的对象
    *
-   * @param target
-   * @param src
-   * @return
+   * @param src 源对象信息
+   * @return 新的一个对象
    */
-  public Object getObject(Class<?> target, Object src) {
+  public static Object getObject(Object src) {
     try {
-      Object instance = target.getDeclaredConstructor().newInstance();
+      Class<?> clazz = src.getClass();
+      Object instance = clazz.getDeclaredConstructor().newInstance();
       Field[] fields = src.getClass().getDeclaredFields();
       for (Field oldField : fields) {
         String fieldName = oldField.getName();
