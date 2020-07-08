@@ -37,4 +37,5 @@ public class StdLogAdapter implements LogAdapter {
     public Log getLog(Class<?> key) {
         return new StdLog(key);
     }
+
 }

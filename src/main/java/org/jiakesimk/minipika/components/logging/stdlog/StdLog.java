@@ -67,4 +67,5 @@ public class StdLog implements Log {
     public void error(String msg, Throwable e) {
         System.out.println(msg);
     }
+
 }
