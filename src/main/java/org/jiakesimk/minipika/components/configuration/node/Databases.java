@@ -25,7 +25,7 @@ package org.jiakesimk.minipika.components.configuration.node;
  *
  * @author tiansheng
  */
-public enum DatabaseSupport {
+public enum Databases {
 
   /**
    * 未知数据源类型，默认使用JDBC进行驱动加载

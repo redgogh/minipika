@@ -43,7 +43,7 @@ import java.util.Properties;
  */
 @Getter
 @Setter
-public class DataSourceConfiguration implements ElementParser {
+public class Configuration implements ElementParser {
 
   private String url;
   private String username;
@@ -52,7 +52,7 @@ public class DataSourceConfiguration implements ElementParser {
   private Map<String, String> urlParam = Maps.newHashMap();
 
   private DataSourceTask task;
-  private DatabaseSupport type;
+  private Databases type;
 
   // 数据源名称
   private String name;
@@ -283,14 +283,14 @@ public class DataSourceConfiguration implements ElementParser {
    *
    * @param key 配置的数据库类型
    */
-  DatabaseSupport getDataBaseSupport(String key) {
+  Databases getDataBaseSupport(String key) {
     key = StringUtils.toLowerCase(key);
     if (key.contains("mysql")) {
-      return DatabaseSupport.MYSQL;
+      return Databases.MYSQL;
     } else if (key.contains("oracle")) {
-      return DatabaseSupport.ORACLE;
+      return Databases.ORACLE;
     } else {
-      return DatabaseSupport.JDBC;
+      return Databases.JDBC;
     }
   }
 

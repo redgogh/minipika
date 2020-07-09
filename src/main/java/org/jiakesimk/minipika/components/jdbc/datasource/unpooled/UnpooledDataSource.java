@@ -21,10 +21,8 @@ package org.jiakesimk.minipika.components.jdbc.datasource.unpooled;
  */
 
 
-import lombok.Getter;
-import lombok.Setter;
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
-import org.jiakesimk.minipika.components.configuration.node.DataSourceConfiguration;
+import org.jiakesimk.minipika.components.configuration.node.Configuration;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
 import org.jiakesimk.minipika.framework.util.ClassUtils;
@@ -44,7 +42,7 @@ public class UnpooledDataSource implements DataSource {
 
   protected Driver driver;
 
-  protected DataSourceConfiguration configuration;
+  protected Configuration configuration;
 
   protected Properties properties = new Properties();
 
@@ -52,23 +50,23 @@ public class UnpooledDataSource implements DataSource {
     this(null);
   }
 
-  public UnpooledDataSource(DataSourceConfiguration configuration) {
+  public UnpooledDataSource(Configuration configuration) {
     this.configuration = configuration;
     DataSourceManager.registerDataSource(getConfiguration().getName(), this);
   }
 
-  public DataSourceConfiguration getConfiguration() {
+  public Configuration getConfiguration() {
     return configuration;
   }
 
-  public void setConfiguration(DataSourceConfiguration configuration) {
+  public void setConfiguration(Configuration configuration) {
     this.configuration = configuration;
   }
 
   private Connection doGetConnection(String username, String password) throws SQLException {
     initializeDriver();
-    properties.setProperty(DataSourceConfiguration.USERNAME, username);
-    properties.setProperty(DataSourceConfiguration.PASSWORD, password);
+    properties.setProperty(Configuration.USERNAME, username);
+    properties.setProperty(Configuration.PASSWORD, password);
     Connection connection = driver.connect(configuration.getUrl(), properties);
     return configurationConnection(connection);
   }
@@ -114,8 +112,8 @@ public class UnpooledDataSource implements DataSource {
       if (LOG.isDebugEnabled()) {
         LOG.debug(" using url: " + url);
       }
-      String name = info.getProperty(DataSourceConfiguration.USERNAME);
-      String pass = info.getProperty(DataSourceConfiguration.PASSWORD);
+      String name = info.getProperty(Configuration.USERNAME);
+      String pass = info.getProperty(Configuration.PASSWORD);
       return DriverManager.getConnection(url, name, pass);
     }
 
