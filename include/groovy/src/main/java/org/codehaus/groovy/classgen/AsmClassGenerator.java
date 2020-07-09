@@ -182,6 +182,11 @@ public class AsmClassGenerator extends ClassGenerator {
     private ClassVisitor classVisitor;
     private final String sourceFile;
 
+    /*
+      minipika custom made features.
+     */
+    private final String PACKAGE_ANNOTATION = "org.jiakesimk.minipika.components.annotation";
+
     public AsmClassGenerator(final SourceUnit source, final GeneratorContext context, final ClassVisitor classVisitor, final String sourceFile) {
         this.source = source;
         this.context = context;
@@ -376,12 +381,16 @@ public class AsmClassGenerator extends ClassGenerator {
         String methodType = BytecodeHelper.getMethodDescriptor(node.getReturnType(), parameters);
         String signature = BytecodeHelper.getGenericsMethodSignature(node);
 
-        System.out.println("do compiler");
-
+        //
+        // if the method contain package of minipika annotation and return type is Object.
+        // that set the method signature to generic <T>.
+        //
         if (StringUtils.isEmpty(signature)) {
             for (AnnotationNode anode : node.getAnnotations()) {
                 String aname = anode.getClassNode().getName();
-                if("java.lang.SuppressWarnings".equals(aname)) {
+                if (aname.substring(0, aname.lastIndexOf(".")).equals(PACKAGE_ANNOTATION) &&
+                        "()Ljava/lang/Object;".equals(methodType)) {
+                    // set the method signature to generic <T>.
                     signature = "<T:Ljava/lang/Object;>()TT;";
                 }
             }
