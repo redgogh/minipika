@@ -12,9 +12,9 @@ interface MqlMapper {
 
   @Select(value = """
     select * from website_user_info where 1=1
-    #if INE(user.username) && user.username != null
+    #IF INE(user.username) && user.username != null
       and username = #{user.username}
-    #end
+    #END
   """, forList = User.class)
   def findUser(user)
 
@@ -31,11 +31,11 @@ interface MqlMapper {
 
   @Batch("""
     insert into website_user_info (username, `password`) values (?, ?)
-    #foreach user : users
+    #FOREACH user : users
       #{user.username},#{user.password}
-    #end
+    #END
   """)
-  def addBatch(users)
+  def addBatch(List<User> users)
 
   class ForGroovy {
 

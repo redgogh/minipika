@@ -516,5 +516,9 @@ class StringUtils {
     return strWriter.toString();
   }
 
+  public static void clear(StringBuilder builder) {
+    builder.delete(0, builder.length());
+  }
+
 }
 

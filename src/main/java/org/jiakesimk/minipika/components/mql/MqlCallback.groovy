@@ -58,7 +58,7 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
     super(MQL_PROXY_CLASSNAME.concat(virtual.getSimpleName()))
     this.virtual = virtual
     initialization()
-    end()
+    buildEnd()
   }
 
   /**

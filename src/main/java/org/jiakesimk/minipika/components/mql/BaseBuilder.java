@@ -28,6 +28,7 @@ import org.jiakesimk.minipika.components.logging.LogFactory;
 import org.jiakesimk.minipika.framework.util.ClassUtils;
 import org.jiakesimk.minipika.framework.util.Matches;
 import org.jiakesimk.minipika.framework.util.Methods;
+import org.jiakesimk.minipika.framework.util.StringUtils;
 
 import java.lang.reflect.Method;
 import java.util.Objects;
@@ -43,21 +44,26 @@ public class BaseBuilder extends Invoker {
 
   private static final Log LOG = LogFactory.getLog(BaseBuilder.class);
 
-  private static final String IF                    = "#if";
+  private static final String IF = "#IF";
 
-  private static final String END                   = "#end";
+  private static final String END = "#END";
 
-  private static final String FOREACH               = "#foreach";
+  private static final String FOREACH = "#FOREACH";
 
-  private static final String IS_NOT_EMPTY          = "INE";
+  private static final String IS_NOT_EMPTY = "INE";
 
-  private static final String IS_EQUALS_EMPTY       = "IE";
+  private static final String IS_EQUALS_EMPTY = "IE";
 
   //
   // 用于识别当前是不是解析到foreach语句
   // 如果是的话foreach语句内容需要特殊处理
   //
   private boolean foreach = false;
+
+  //
+  // 构建方法的StringBuilder, 最后会将它设置为null
+  //
+  private static StringBuilder builder = new StringBuilder();
 
   public BaseBuilder(String classname) {
     int lastIndexOf = classname.lastIndexOf(".");
@@ -82,25 +88,25 @@ public class BaseBuilder extends Invoker {
    */
   protected void createMethod(Method method, String src)
           throws NotFoundException {
-    StringBuilder finalSrc = new StringBuilder();
+    StringUtils.clear(builder);
     String methodName = method.getName(); // 方法名
     String[] paramNames = Methods.getParameterNames(method); // 方法参数名
     Class<?>[] paramTypes = method.getParameterTypes();
     // 创建方法声明
-    finalSrc.append("public Object[] ").append(methodName).append("(");
+    builder.append("public Object[] ").append(methodName).append("(");
     for (int i = 0; i < paramNames.length; i++) {
-      finalSrc.append(paramTypes[i].getName()).append(" ").append(paramNames[i]);
-      finalSrc.append(",");
+      builder.append(paramTypes[i].getName()).append(" ").append(paramNames[i]);
+      builder.append(",");
     }
-    finalSrc.delete(finalSrc.length() - 1, finalSrc.length());
-    finalSrc.delete(finalSrc.length(), finalSrc.length()).append("){"); // 方法头部声明结尾
+    builder.delete(builder.length() - 1, builder.length());
+    builder.delete(builder.length(), builder.length()).append("){"); // 方法头部声明结尾
     // 构建方法体
-    buildBody(src, finalSrc, method);
-    finalSrc.append("Object[] objects = new Object[2];");
-    finalSrc.append("objects[0] = sql.toString();");
-    finalSrc.append("objects[1] = arguments;");
-    finalSrc.append("return objects;}");
-    mtClass.insert(mtClass.length() - 1, finalSrc);
+    buildBody(src, method);
+    builder.append("Object[] objects = new Object[2];");
+    builder.append("objects[0] = sql.toString();");
+    builder.append("objects[1] = arguments;");
+    builder.append("return objects;}");
+    mtClass.insert(mtClass.length() - 1, builder);
     // -- debug使用
     // System.out.println(mtClass);
   }
@@ -108,56 +114,115 @@ public class BaseBuilder extends Invoker {
   /**
    * 构建方法体
    *
-   * @param src     动态sql
-   * @param builder StringBuilder引用
+   * @param src 动态sql
    */
-  private void buildBody(String src, StringBuilder builder, Method method) throws NotFoundException {
+  private void buildBody(String src, Method method) throws NotFoundException {
+    _buildHead();
+    String[] single = src.split("\n");
+    for (String line : single) {
+      line = line.trim();
+
+      if (line.contains(IF)) {
+        _if(line);
+        continue;
+      }
+
+      if (line.contains(FOREACH)) {
+        _foreach(line);
+        continue;
+      }
+
+      if (line.contains(END)) {
+        _end();
+        continue;
+      }
+
+      {
+        line = _check(line);
+        if (foreach) {
+          _eachContent(line);
+        } else {
+          _sqlparse(line);
+        }
+      }
+    }
+  }
+
+  /**
+   * 构建方法所需的成员
+   */
+  private void _buildHead() {
     builder.append("StringBuilder sql = new StringBuilder();");
     builder.append("List arguments = new LinkedList();");
-    String[] single = src.split("\n");
-    for (String input : single) {
-      input = input.trim();
-      if (input.contains(IF)) {
-        input = input.replace(IF, "").trim();
-        input = "".concat("if(").concat(parseIfStatement(input)).concat("){");
-        builder.append(input);
-      } else if (input.contains(FOREACH)) {
-        input = input.replace(FOREACH, "for(Object").concat("").concat("){");
-        builder.append(input);
-        foreach = true;
-      } else if (input.contains(END)) {
-        if (foreach) {
-          foreach = false;
-        }
-        builder.append("}");
-      } else {
-        // 如果参数存在逗号需要特殊处理
-        if (input.contains(",")) {
-          input = input.replaceAll(",", ", ");
-        }
-        if (foreach) {
-          String[] arguments = existArguments(input);
-          if (arguments != null && arguments.length != 0) {
-            builder.append("Object[] singleArgs = new Object[").append(arguments.length).append("];");
-            int i=0;
-            for (String argument : arguments) {
-              builder.append("singleArgs[").append(i).append("] = ").append(argument).append(";");
-              i++;
-            }
-            builder.append("arguments.add(singleArgs);");
-          }
-        } else {
-          String sql = input.replaceAll("#\\{(.*?)}", "?").trim();
-          if (!"?".equals(sql)) {
-            builder.append("sql.append(\"").append(sql).append(" ").append("\");");
-          }
-          String[] arguments = existArguments(input);
-          if (arguments != null && arguments.length != 0) {
-            for (String argument : arguments) {
-              builder.append("arguments.add(").append(argument).append(");");
-            }
-          }
-        }
+  }
+
+  /**
+   * 构建if语句
+   */
+  private void _if(String line) {
+    line = line.replace(IF, "").trim();
+    line = "".concat("if(").concat(parseIfStatement(line)).concat("){");
+    builder.append(line);
+  }
+
+  /**
+   * 构建foreach语句
+   */
+  private void _foreach(String line) {
+    line = line.replace(FOREACH, "for(Object").concat("").concat("){");
+    builder.append(line);
+    foreach = true;
+  }
+
+  /**
+   * 构建foreach内容
+   */
+  private void _eachContent(String line) {
+    String[] arguments = existArguments(line);
+    if (arguments != null && arguments.length != 0) {
+      builder.append("Object[] singleArgs = new Object[").append(arguments.length).append("];");
+      int i = 0;
+      for (String argument : arguments) {
+        builder.append("singleArgs[").append(i).append("] = ").append(argument).append(";");
+        i++;
+      }
+      builder.append("arguments.add(singleArgs);");
+    }
+  }
+
+  /**
+   * 结束
+   */
+  private void _end() {
+    if (foreach) {
+      foreach = false;
+    }
+    builder.append("}");
+  }
+
+  /**
+   * 参数检查
+   */
+  private String _check(String line) {
+    // 如果参数存在逗号需要特殊处理
+    if (line.contains(",")) {
+      line = line.replaceAll(",", ", ");
+    }
+    return line;
+  }
+
+  /**
+   * sql解析
+   */
+  private void _sqlparse(String line) {
+    String sql = line.replaceAll("#\\{(.*?)}", "?").trim();
+    if (!"?".equals(sql)) {
+      builder.append("sql.append(\"").append(sql).append(" ").append("\");");
+    }
+    String[] arguments = existArguments(line);
+    if (arguments != null && arguments.length != 0) {
+      for (String argument : arguments) {
+        builder.append("arguments.add(").append(argument).append(");");
       }
     }
   }
@@ -235,12 +300,17 @@ public class BaseBuilder extends Invoker {
     });
   }
 
-  protected void end() {
+  /**
+   * 构建结束
+   */
+  protected void buildEnd() {
     if (LOG.isDebugEnabled()) {
       LOG.debug(mtClass.toString());
     }
     Class<?> clazz = Objects.requireNonNull(JavaCompiler.compile(classname, mtClass.toString()));
     instance = ClassUtils.newInstance(clazz);
+    // 清空springbuilder
+    builder = null;
   }
 
 }
