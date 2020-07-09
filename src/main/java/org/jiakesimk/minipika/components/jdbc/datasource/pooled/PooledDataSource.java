@@ -20,7 +20,7 @@ package org.jiakesimk.minipika.components.jdbc.datasource.pooled;
  * Creates on 2020/6/1.
  */
 
-import lombok.Setter;
+import org.jiakesimk.minipika.components.configuration.node.DataSourceConfiguration;
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
 import org.jiakesimk.minipika.components.jdbc.datasource.unpooled.UnpooledDataSource;
 import org.jiakesimk.minipika.components.logging.Log;
@@ -38,25 +38,28 @@ import java.util.logging.Logger;
  */
 public class PooledDataSource implements DataSource {
 
+  protected String username;
+
+  protected String password;
+
   protected final PooledState state;
 
-  @Setter
-  protected UnpooledDataSource dataSource;
+  protected DataSourceConfiguration configuration;
 
-  protected String username;
-  protected String password;
+  protected UnpooledDataSource unpooledDataSource;
 
   private static final Log log = LogFactory.getLog(PooledConnection.class);
 
-  public PooledDataSource(UnpooledDataSource dataaSource) {
+  public PooledDataSource(UnpooledDataSource unpooledDataSource) {
     {
-      this.dataSource = dataaSource;
-      this.username = dataSource.getDataSource().getUsername();
-      this.password = dataSource.getDataSource().getPassword();
+      this.unpooledDataSource = unpooledDataSource;
+      this.configuration = unpooledDataSource.getConfiguration();
+      this.username = configuration.getUsername();
+      this.password = configuration.getPassword();
       this.state = new PooledState(this);
     }
     {
-      DataSourceManager.registerDataSource(dataaSource.getDataSource().getName(), this);
+      DataSourceManager.registerDataSource(configuration.getName(), this);
     }
     {
       try {
@@ -67,6 +70,10 @@ public class PooledDataSource implements DataSource {
         e.printStackTrace();
       }
     }
+  }
+
+  public UnpooledDataSource getUnpooledDataSource() {
+    return unpooledDataSource;
   }
 
   /**
@@ -158,7 +165,7 @@ public class PooledDataSource implements DataSource {
 
   protected synchronized PooledConnection createConnection(
           String username, String password) throws SQLException {
-    return new PooledConnection(dataSource.getConnection(username, password), this);
+    return new PooledConnection(unpooledDataSource.getConnection(username, password), this);
   }
 
   @Override
@@ -168,42 +175,42 @@ public class PooledDataSource implements DataSource {
 
   @Override
   public Connection getConnection(String username, String password) throws SQLException {
-    return dataSource.getConnection(username, password);
+    return unpooledDataSource.getConnection(username, password);
   }
 
   @Override
   public PrintWriter getLogWriter() throws SQLException {
-    return dataSource.getLogWriter();
+    return unpooledDataSource.getLogWriter();
   }
 
   @Override
   public void setLogWriter(PrintWriter out) throws SQLException {
-    dataSource.setLogWriter(out);
+    unpooledDataSource.setLogWriter(out);
   }
 
   @Override
   public void setLoginTimeout(int seconds) throws SQLException {
-    dataSource.setLoginTimeout(seconds);
+    unpooledDataSource.setLoginTimeout(seconds);
   }
 
   @Override
   public int getLoginTimeout() throws SQLException {
-    return dataSource.getLoginTimeout();
+    return unpooledDataSource.getLoginTimeout();
   }
 
   @Override
   public <T> T unwrap(Class<T> iface) throws SQLException {
-    return dataSource.unwrap(iface);
+    return unpooledDataSource.unwrap(iface);
   }
 
   @Override
   public boolean isWrapperFor(Class<?> iface) throws SQLException {
-    return dataSource.isWrapperFor(iface);
+    return unpooledDataSource.isWrapperFor(iface);
   }
 
   @Override
   public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-    return dataSource.getParentLogger();
+    return unpooledDataSource.getParentLogger();
   }
 
 }

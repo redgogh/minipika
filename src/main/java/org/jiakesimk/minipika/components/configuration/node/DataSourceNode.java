@@ -24,7 +24,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
 import org.jiakesimk.minipika.framework.exception.XMLParseException;
-import org.jiakesimk.minipika.framework.factory.Factorys;
 import org.jiakesimk.minipika.framework.util.Lists;
 
 import java.util.List;
@@ -40,7 +39,7 @@ public class DataSourceNode implements ElementParser {
 
   static final String MASTER = "master";
 
-  private List<SingleDataSource> dataSourceNodes = Lists.newArrayList();
+  private List<DataSourceConfiguration> dataSourceNodes = Lists.newArrayList();
 
   @Override
   public void parse(ElementWrapper element) {
@@ -48,9 +47,9 @@ public class DataSourceNode implements ElementParser {
     checkIsExistsMaster(element);
     List<ElementWrapper> elements = element.getChildren();
     for (ElementWrapper datasource : elements) {
-      SingleDataSource singleDataSource = new SingleDataSource();
-      singleDataSource.parse(datasource);
-      dataSourceNodes.add(singleDataSource);
+      DataSourceConfiguration dataSourceConfiguration = new DataSourceConfiguration();
+      dataSourceConfiguration.parse(datasource);
+      dataSourceNodes.add(dataSourceConfiguration);
     }
   }
 

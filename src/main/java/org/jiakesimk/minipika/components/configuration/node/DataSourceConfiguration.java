@@ -43,7 +43,7 @@ import java.util.Properties;
  */
 @Getter
 @Setter
-public class SingleDataSource implements ElementParser {
+public class DataSourceConfiguration implements ElementParser {
 
   private String url;
   private String username;

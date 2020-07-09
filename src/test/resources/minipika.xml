@@ -10,6 +10,9 @@
     <database>test</database>
   </properties>
 
+  <configuration>
+  </configuration>
+
   <!--
     配置数据源.
     如果不想用默认数据源的话可以在datasources标签中添加using属性，并设置你的数据源类的路径即可.

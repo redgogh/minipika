@@ -24,7 +24,7 @@ package org.jiakesimk.minipika.components.jdbc.datasource.unpooled;
 import lombok.Getter;
 import lombok.Setter;
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
-import org.jiakesimk.minipika.components.configuration.node.SingleDataSource;
+import org.jiakesimk.minipika.components.configuration.node.DataSourceConfiguration;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
 import org.jiakesimk.minipika.framework.util.ClassUtils;
@@ -44,9 +44,7 @@ public class UnpooledDataSource implements DataSource {
 
   protected Driver driver;
 
-  @Setter
-  @Getter
-  protected SingleDataSource dataSource;
+  protected DataSourceConfiguration configuration;
 
   protected Properties properties = new Properties();
 
@@ -54,22 +52,30 @@ public class UnpooledDataSource implements DataSource {
     this(null);
   }
 
-  public UnpooledDataSource(SingleDataSource dataSource) {
-    this.dataSource = dataSource;
-    DataSourceManager.registerDataSource(getDataSource().getName(), this);
+  public UnpooledDataSource(DataSourceConfiguration configuration) {
+    this.configuration = configuration;
+    DataSourceManager.registerDataSource(getConfiguration().getName(), this);
+  }
+
+  public DataSourceConfiguration getConfiguration() {
+    return configuration;
+  }
+
+  public void setConfiguration(DataSourceConfiguration configuration) {
+    this.configuration = configuration;
   }
 
   private Connection doGetConnection(String username, String password) throws SQLException {
     initializeDriver();
-    properties.setProperty(SingleDataSource.USERNAME, username);
-    properties.setProperty(SingleDataSource.PASSWORD, password);
-    Connection connection = driver.connect(dataSource.getUrl(), properties);
+    properties.setProperty(DataSourceConfiguration.USERNAME, username);
+    properties.setProperty(DataSourceConfiguration.PASSWORD, password);
+    Connection connection = driver.connect(configuration.getUrl(), properties);
     return configurationConnection(connection);
   }
 
   private Connection configurationConnection(Connection connection) throws SQLException {
-    if (dataSource.isDesiredAutoCommit() != connection.getAutoCommit()) {
-      connection.setAutoCommit(dataSource.isDesiredAutoCommit());
+    if (configuration.isDesiredAutoCommit() != connection.getAutoCommit()) {
+      connection.setAutoCommit(configuration.isDesiredAutoCommit());
     }
     return connection;
   }
@@ -80,7 +86,7 @@ public class UnpooledDataSource implements DataSource {
   private synchronized void initializeDriver() throws SQLException {
     if (this.driver == null) {
       try {
-        Class<?> driverClass = Class.forName(dataSource.getDriver(), true, this.getClass().getClassLoader());
+        Class<?> driverClass = Class.forName(configuration.getDriver(), true, this.getClass().getClassLoader());
         Driver driver0 = (Driver) ClassUtils.newInstance(driverClass);
         DriverManager.registerDriver(driver0);
         this.driver = new DriverProxy(driver0);
@@ -108,8 +114,8 @@ public class UnpooledDataSource implements DataSource {
       if (LOG.isDebugEnabled()) {
         LOG.debug(" using url: " + url);
       }
-      String name = info.getProperty(SingleDataSource.USERNAME);
-      String pass = info.getProperty(SingleDataSource.PASSWORD);
+      String name = info.getProperty(DataSourceConfiguration.USERNAME);
+      String pass = info.getProperty(DataSourceConfiguration.PASSWORD);
       return DriverManager.getConnection(url, name, pass);
     }
 
@@ -146,7 +152,7 @@ public class UnpooledDataSource implements DataSource {
 
   @Override
   public Connection getConnection() throws SQLException {
-    return doGetConnection(dataSource.getUsername(), dataSource.getPassword());
+    return doGetConnection(configuration.getUsername(), configuration.getPassword());
   }
 
   @Override

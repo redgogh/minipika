@@ -13,23 +13,23 @@
   
   <xs:complexType name="Properties">
     <xs:sequence>
-      <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
+      <xs:any maxOccurs="unbounded" processContents="skip"/>
     </xs:sequence>
   </xs:complexType>
-  
+
   <xs:complexType name="Configuration">
     <xs:sequence>
       <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
     </xs:sequence>
   </xs:complexType>
-  
+
   <xs:complexType name="DataSource">
     <xs:sequence>
       <xs:element name="master" type="SourceBody" minOccurs="0"/>
       <xs:element name="slaves" type="SourceBody" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
-  
+
   <xs:complexType name="SourceBody">
     <xs:all>
       <xs:element name="url" type="Url"/>
@@ -39,7 +39,7 @@
     </xs:all>
     <xs:attributeGroup ref="SourceTag"/>
   </xs:complexType>
-  
+
   <xs:complexType name="Url">
     <xs:sequence>
       <xs:element name="property" type="Property" minOccurs="0" maxOccurs="unbounded"/>
