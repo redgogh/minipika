@@ -52,12 +52,12 @@ dependencies {
   testImplementation 'ch.qos.logback:logback-core:1.2.3'
   testImplementation 'ch.qos.logback:logback-classic:1.2.3'
   testImplementation 'junit:junit:4.13-rc-2'
+  compile fileTree(dir:'lib',includes:['*jar'])
   compile group: 'com.github.houbb', name: 'asm-tool', version: '0.0.2'
-  compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.4'
   testCompile group: 'mysql', name: 'mysql-connector-java', version: '8.0.20'
 }
 
-group = 'com.jiakesimk'
+group = 'org.jiakesimk'
 version = '1.0.BREATH'
 sourceCompatibility = '1.8'
 

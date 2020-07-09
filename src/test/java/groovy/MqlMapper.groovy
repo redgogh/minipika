@@ -50,7 +50,7 @@ interface MqlMapper {
 
     @Test
     void addUserTest() {
-      User user = new User("name1")
+      User user = new User("name1", "pas1")
       user.setUsername("key1")
       user.setPassword("value2")
       MqlMapper mapper = Factorys.forMface(MqlMapper)
