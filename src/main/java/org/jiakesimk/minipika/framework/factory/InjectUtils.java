@@ -35,31 +35,32 @@ import java.util.Objects;
  *
  * @author tiansheng
  */
-@SuppressWarnings({"unchecked", "ConstantConditions"})
+@SuppressWarnings({"unchecked"})
 public class InjectUtils {
 
-  public static Object minipika(Class<?> clazz, Map<String, Object> components) throws IllegalAccessException {
+  public static Object autowired(Class<?> clazz, Map<String, Object> components) throws IllegalAccessException {
     Object instance = ClassUtils.newInstance(clazz);
-    return minipika(clazz, instance, components);
+    return autowired(clazz, instance, components);
   }
 
-  public static Object minipika(Class<?> clazz, Class<?>[] types, Map<String, Object> components,
-                                Object... parameter) throws IllegalAccessException {
+  public static Object autowired(Class<?> clazz, Class<?>[] types, Map<String, Object> components,
+                                 Object... parameter) throws IllegalAccessException {
     Object instance = ClassUtils.newInstance(clazz, types, parameter);
-    return minipika(clazz, instance, components);
+    return autowired(clazz, instance, components);
   }
 
-  private static Object minipika(Class<?> clazz, Object instance, Map<String, Object> components)
+  private static Object autowired(Class<?> clazz, Object instance, Map<String, Object> components)
           throws IllegalAccessException {
     Field[] fields = Fields.getDeclaredFieldsIncludeSuper(clazz, true, new Class[]{Inject.class});
     for (Field field : fields) {
-      Inject minipika = Annotations.isAnnotation(field, Inject.class);
-      String name = minipika.name();
+      Inject inject = Annotations.isAnnotation(field, Inject.class);
+      String name = inject.name();
       if (StringUtils.isEmpty(name)) {
         name = field.getClass().getSimpleName();
       }
       Object minipikaedObject = components.get(name);
-      field.set(instance, Objects.requireNonNull(minipikaedObject, "未找到名为" + name + "的组件")); // 注入对象
+      field.set(instance, Objects.requireNonNull(minipikaedObject,
+              "Error unable initialize component named" + name)); // 注入对象
     }
     return instance;
   }

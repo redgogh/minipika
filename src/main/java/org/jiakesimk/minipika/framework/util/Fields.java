@@ -73,9 +73,9 @@ public class Fields {
   /**
    * 获取类的所有成员，包括父类的
    *
-   * @param classic       目标类
-   * @param accessible    是否禁用安全检查
-   * @return              所有成员
+   * @param classic    目标类
+   * @param accessible 是否禁用安全检查
+   * @return 所有成员
    */
   @SuppressWarnings({"ConstantConditions"})
   public static Field[] getDeclaredFieldsIncludeSuper(Class<?> classic, boolean accessible) {
@@ -93,19 +93,18 @@ public class Fields {
   /**
    * 获取类的所有成员，包括父类的
    *
-   * @param classic       目标类
-   * @param accessible    是否禁用安全检查
-   * @param annotations   成员必须拥有annotations中的其中一个注解才可以返回
-   * @return              所有成员
+   * @param classic     目标类
+   * @param accessible  是否禁用安全检查
+   * @param annotations 成员必须拥有annotations中的其中一个注解才可以返回
+   * @return 所有成员
    */
-  @SuppressWarnings({"ConstantConditions"})
   public static Field[] getDeclaredFieldsIncludeSuper(Class<?> classic, boolean accessible,
                                                       Class<? extends Annotation>[] annotations) {
     List<Field> haveAnnotationTheFields = Lists.newArrayList();
     Field[] fields = getDeclaredFieldsIncludeSuper(classic, accessible);
     for (Field field : fields) {
       for (Class<? extends Annotation> annotation : annotations) {
-        if(field.isAnnotationPresent(annotation)) {
+        if (field.isAnnotationPresent(annotation)) {
           haveAnnotationTheFields.add(field);
         }
       }
@@ -177,6 +176,13 @@ public class Fields {
     field.set(instance, value);
   }
 
+  /**
+   * 获取成员属性值
+   *
+   * @param instance 实例对象
+   * @param name     成员名称
+   * @return 属性值
+   */
   public static Object getValue(Object instance, String name) {
     try {
       Class<?> target = instance.getClass();

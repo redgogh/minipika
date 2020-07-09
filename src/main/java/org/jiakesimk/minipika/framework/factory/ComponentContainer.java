@@ -64,9 +64,9 @@ public class ComponentContainer implements ComponentFactory {
       }
       // 判断是否执行有参构造器
       if (types == null) {
-        component = InjectUtils.minipika(clazz, components);
+        component = InjectUtils.autowired(clazz, components);
       } else {
-        component = InjectUtils.minipika(clazz, types, components, parameter);
+        component = InjectUtils.autowired(clazz, types, components, parameter);
       }
 
       // 如果当前实例化出来的组件不是null, 就添加到组件容器中
