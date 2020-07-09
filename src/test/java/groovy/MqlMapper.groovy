@@ -16,18 +16,18 @@ interface MqlMapper {
       and username = #{user.username}
     #end
   """, forList = User.class)
-  def findUser(User user)
+  def findUser(user)
 
   @Insert("""
     insert into website_user_info (username, `password`) 
     values (#{user.username},#{user.password})
   """)
-  def addUser(User user)
+  def addUser(user)
 
   @Update("""
     UPDATE `website_user_info` SET `username` = #{user.username}, `password` = #{user.password} WHERE `id` = #{id};
   """)
-  def updateUser(id, User user)
+  def updateUser(id, user)
 
   @Batch("""
     insert into website_user_info (username, `password`) values (?, ?)
@@ -35,7 +35,7 @@ interface MqlMapper {
       #{user.username},#{user.password}
     #end
   """)
-  def addBatch(List<User> users)
+  def addBatch(users)
 
   class ForGroovy {
 

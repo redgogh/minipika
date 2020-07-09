@@ -4,7 +4,13 @@
 
 rootProject.name = 'minipika'
 
-def subprojects = ["minipika-plugin"]
+def subprojects = [
+        "minipika-plugin",
+        "minipika-cache",
+        "minipika-adapter",
+        "minipika-sqlparse",
+        "minipika-connection-pool",
+]
 
 include(subprojects as String[])
 
