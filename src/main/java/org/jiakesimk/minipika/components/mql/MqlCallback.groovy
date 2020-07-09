@@ -6,6 +6,7 @@ import org.jiakesimk.minipika.components.annotation.Select
 import org.jiakesimk.minipika.components.annotation.Update
 import org.jiakesimk.minipika.components.jdbc.Executor
 import org.jiakesimk.minipika.components.jdbc.SQLExecutor
+import org.jiakesimk.minipika.framework.annotations.Inject
 import org.jiakesimk.minipika.framework.common.ConstVariable
 import org.jiakesimk.minipika.framework.exception.MinipikaException
 import org.jiakesimk.minipika.framework.factory.Factorys
@@ -48,7 +49,8 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
 
   private Class<?> virtual
 
-  private Executor executor = Factorys.forClass(SQLExecutor)
+  @Inject
+  private Executor executor
 
   private static final Log LOG = LogFactory.getLog(MqlCallback)
 

@@ -56,11 +56,11 @@ public class InjectUtils {
       Inject inject = Annotations.isAnnotation(field, Inject.class);
       String name = inject.name();
       if (StringUtils.isEmpty(name)) {
-        name = field.getClass().getSimpleName();
+        name = field.getName();
       }
-      Object minipikaedObject = components.get(name);
-      field.set(instance, Objects.requireNonNull(minipikaedObject,
-              "Error unable initialize component named" + name)); // 注入对象
+      Object object = components.get(field.getType().getName());
+      field.set(instance, Objects.requireNonNull(object,
+              "Error unable initialize component named " + name)); // 注入对象
     }
     return instance;
   }

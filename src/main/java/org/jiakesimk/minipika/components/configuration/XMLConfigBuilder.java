@@ -95,7 +95,7 @@ public class XMLConfigBuilder {
    * 初始化配置类
    */
   public synchronized void initialize() {
-    MinipikaXMLConfig minipikaXMLConfig = Factorys.forClass(MinipikaXMLConfig.class);
+    MinipikaXMLConfig minipikaXMLConfig = new MinipikaXMLConfig();
     minipikaXMLConfig.parse(root);
   }
 

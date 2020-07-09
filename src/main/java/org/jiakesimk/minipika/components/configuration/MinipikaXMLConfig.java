@@ -55,7 +55,7 @@ public class MinipikaXMLConfig implements ElementParser {
   public void parse(ElementWrapper element) {
     // 解析properties节点
     ElementWrapper properties = element.getChild(CHIlD_PROPERTIES);
-    propertiesNode = Factorys.forClass(PropertiesNode.class);
+    propertiesNode = new PropertiesNode();
     if(properties.getE() != null) {
       propertiesNode.parse(properties);
     }
@@ -67,7 +67,7 @@ public class MinipikaXMLConfig implements ElementParser {
     // 解析datasource节点
     ElementWrapper datasource = element.getChild(CHIlD_DATASOURCE);
     if(datasource.getE() != null) {
-      dataSourceNode = Factorys.forClass(DataSourceNode.class);
+      dataSourceNode = new DataSourceNode();
       dataSourceNode.parse(datasource);
     }
   }
