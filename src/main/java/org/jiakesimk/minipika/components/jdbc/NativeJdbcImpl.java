@@ -252,12 +252,11 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
     Object result = method.invoke(this, args);
     long endTime = System.currentTimeMillis() - startTime;
 
-    String sql = ((String) args[0]).trim();
-    int key = (sql.charAt(0) + sql.length()) + sql.hashCode();
+    String sql = ((String) args[0]);
     PooledDataSource dataSource = (PooledDataSource) transaction.getDataSource();
     PooledState state = dataSource.getState();
-    state.setSqlTimeConsuming(key, endTime);
-    state.addFrequency(key);
+    state.setSqlTimeConsuming(sql, endTime);
+    state.addFrequency(sql);
 
     return result;
   }

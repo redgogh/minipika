@@ -20,12 +20,12 @@ package org.jiakesimk.minipika.components.jdbc.datasource.pooled;
  * Creates on 2020/6/1.
  */
 
-import com.sun.org.apache.xerces.internal.parsers.IntegratedParserConfiguration;
 import org.jiakesimk.minipika.framework.PropertyNames;
 import org.jiakesimk.minipika.framework.util.Lists;
 import org.jiakesimk.minipika.framework.util.Maps;
 import org.jiakesimk.minipika.framework.util.StringUtils;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -44,22 +44,24 @@ public class PooledState {
   /**
    * sql执行耗时
    */
-  protected Map<Integer, Long> sqlTimeConsuming               = Maps.newHashMap();
+  protected Map<Integer, List<Long>> sqlTimeConsuming           = Maps.newHashMap();
 
-  protected List<PooledConnection> idleConnections            = Lists.newArrayList();
+  protected Map<Integer, String> sqlKeyCollect                  = Maps.newHashMap();
 
-  protected List<PooledConnection> activeConnections          = Lists.newArrayList();
+  protected List<PooledConnection> idleConnections              = Lists.newArrayList();
 
-  protected long requestCount                                 = 0L;   // 链接请求次数统计
-  protected long badConnectionCount                           = 0L;   // 无效链接总数
-  protected long requestAccumulateTime                        = 0L;   // 链接请求时间统计
-  protected long hadToWaitCount                               = 0L;   // 当前有多少个链接在等待中
-  protected long accumulateCreatesCount                       = 0L;   // 链接创建统计
-  protected long maximumConnections                           = 10L;  // 最大连接数
-  protected long minimumConnections                           = 5L;   // 最小连接数
-  protected long currentConnectionsCount                      = 0L;   // 当前总连接数
-  protected long maximumWaitTimeout                           = 0L;   // 链接最长等待时间
-  protected long maximumWaitTimeoutCount                      = 0L;   // 链接等待时间统计
+  protected List<PooledConnection> activeConnections            = Lists.newArrayList();
+
+  protected long requestCount                                   = 0L;   // 链接请求次数统计
+  protected long badConnectionCount                             = 0L;   // 无效链接总数
+  protected long requestAccumulateTime                          = 0L;   // 链接请求时间统计
+  protected long hadToWaitCount                                 = 0L;   // 当前有多少个链接在等待中
+  protected long accumulateCreatesCount                         = 0L;   // 链接创建统计
+  protected long maximumConnections                             = 10L;  // 最大连接数
+  protected long minimumConnections                             = 5L;   // 最小连接数
+  protected long currentConnectionsCount                        = 0L;   // 当前总连接数
+  protected long maximumWaitTimeout                             = 0L;   // 链接最长等待时间
+  protected long maximumWaitTimeoutCount                        = 0L;   // 链接等待时间统计
 
   public PooledState() {
   }
@@ -82,27 +84,32 @@ public class PooledState {
     }
   }
 
-  /**
-   * 获取单条sql执行耗时
-   */
-  public long getSqlTimeConsuming(Integer key) {
-    return sqlTimeConsuming.get(key);
-  }
-
-  public void setSqlTimeConsuming(Integer key, Long time) {
-    sqlTimeConsuming.put(key, time);
+  public void setSqlTimeConsuming(String sql, Long time) {
+    Integer key = getKey(sql);
+    List<Long> times = sqlTimeConsuming.computeIfAbsent(key, k -> Lists.newLinkedList());
+    times.add(time);
   }
 
   /**
    * 执行次数+1
    */
-  public void addFrequency(Integer key) {
+  public void addFrequency(String sql) {
+    Integer key = getKey(sql);
     Long frequ = frequency.get(key);
     if(frequ == null) {
       frequency.put(key, 1L);
     } else {
       frequency.put(key, (frequ + 1));
     }
+  }
+
+  private Integer getKey(String sql) {
+    sql = sql.trim();
+    Integer key = (sql.charAt(0) + sql.length()) + sql.hashCode();
+    if(!sqlKeyCollect.containsKey(key)) {
+      sqlKeyCollect.put(key, sql);
+    }
+    return key;
   }
 
   public synchronized long getRequestCount() {
