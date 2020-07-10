@@ -20,10 +20,11 @@ package org.jiakesimk.minipika.components.jdbc;
  * Creates on 2020/6/6.
  */
 
-import org.aspectj.lang.annotation.Aspect;
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
+import org.jiakesimk.minipika.components.jdbc.datasource.pooled.PooledDataSource;
+import org.jiakesimk.minipika.components.jdbc.datasource.pooled.PooledState;
 import org.jiakesimk.minipika.components.jdbc.transaction.Transaction;
-import org.jiakesimk.minipika.framework.aspect.ExecuteTime;
+import org.jiakesimk.minipika.framework.common.ProxyHandler;
 import org.jiakesimk.minipika.framework.factory.Factorys;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
@@ -32,6 +33,8 @@ import org.jiakesimk.minipika.framework.util.AutoClose;
 import org.jiakesimk.minipika.framework.util.SQLUtils;
 
 import javax.sql.DataSource;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +42,10 @@ import java.util.List;
 /**
  * @author tiansheng
  */
-@Aspect
-public class NativeJdbcImpl implements NativeJdbc {
+
+public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
+
+  private Transaction transaction;
 
   private static final Log LOG = LogFactory.getLog(NativeJdbcImpl.class);
 
@@ -51,7 +56,7 @@ public class NativeJdbcImpl implements NativeJdbc {
     }
     Connection connection = null;
     PreparedStatement statement = null;
-    Transaction transaction = getTransaction();
+    transaction = getTransaction();
     try {
       connection = transaction.getConnection();
       statement = connection.prepareStatement(sql);
@@ -77,7 +82,7 @@ public class NativeJdbcImpl implements NativeJdbc {
     NativeResultSet result = null;
     Connection connection = null;
     PreparedStatement statement = null;
-    Transaction transaction = getTransaction();
+    transaction = getTransaction();
     try {
       connection = transaction.getConnection();
       statement = connection.prepareStatement(sql);
@@ -93,14 +98,13 @@ public class NativeJdbcImpl implements NativeJdbc {
   }
 
   @Override
-  @ExecuteTime
   public int update(String sql, Object... args) throws SQLException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("execute sql - " + sql);
     }
     Connection connection = null;
     PreparedStatement statement = null;
-    Transaction transaction = getTransaction();
+    transaction = getTransaction();
     try {
       connection = transaction.getConnection();
       statement = connection.prepareStatement(sql);
@@ -128,7 +132,7 @@ public class NativeJdbcImpl implements NativeJdbc {
     }
     Connection connection = null;
     PreparedStatement statement = null;
-    Transaction transaction = getTransaction();
+    transaction = getTransaction();
     try {
       int[] result = isMultiSQL(sql, args);
       if (result != null) return result;
@@ -163,7 +167,7 @@ public class NativeJdbcImpl implements NativeJdbc {
     }
     Connection connection = null;
     Statement statement = null;
-    Transaction transaction = getTransaction();
+    transaction = getTransaction();
     try {
       connection = transaction.getConnection();
       statement = connection.createStatement();
@@ -232,6 +236,30 @@ public class NativeJdbcImpl implements NativeJdbc {
       }
     }
     return statement;
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public <T> T getProxyHandler() {
+    return (T) Proxy.newProxyInstance(this.getClass().getClassLoader(),
+            new Class[]{NativeJdbc.class},
+            this);
+  }
+
+  @Override
+  public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    long startTime = System.currentTimeMillis();
+    Object result = method.invoke(this, args);
+    long endTime = System.currentTimeMillis() - startTime;
+
+    String sql = ((String) args[0]).trim();
+    int key = (sql.charAt(0) + sql.length()) + sql.hashCode();
+    PooledDataSource dataSource = (PooledDataSource) transaction.getDataSource();
+    PooledState state = dataSource.getState();
+    state.setSqlTimeConsuming(key, endTime);
+    state.addFrequency(key);
+
+    return result;
   }
 
 }

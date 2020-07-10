@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.annotations;
+package org.jiakesimk.minipika.framework.common;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,21 +20,11 @@ package org.jiakesimk.minipika.framework.annotations;
  * Creates on 2020/6/1.
  */
 
-import java.lang.annotation.*;
+import java.lang.reflect.InvocationHandler;
 
 /**
- * 被注解的成员代表需要自动注入
- *
  * @author tiansheng
  */
-@Target({ElementType.FIELD})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface Inject {
-
-  /**
-   * @return 组件名称
-   */
-  String name() default "";
-
+public interface ProxyHandler extends InvocationHandler {
+  <T> T getProxyHandler();
 }

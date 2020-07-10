@@ -50,6 +50,11 @@ public class JdbcTransaction implements Transaction, InvocationHandler {
   }
 
   @Override
+  public DataSource getDataSource() {
+    return dataSource;
+  }
+
+  @Override
   public Connection getConnection() {
     return getConnection(true);
   }
