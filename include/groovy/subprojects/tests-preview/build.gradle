@@ -25,12 +25,12 @@ tasks.withType(Test) {
     jvmArgs += "--enable-preview"
 }
 
-sourceSets {
-    test {
-        groovy {
-            if (!JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_14)) {
-                exclude '**/vm14/*'
-            }
-        }
-    }
-}
+// sourceSets {
+//     test {
+//         groovy {
+//             if (!JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_14)) {
+//                 exclude '**/vm14/*'
+//             }
+//         }
+//     }
+// }
