@@ -58,7 +58,7 @@ dependencies {
 }
 
 group = 'org.jiakesimk'
-version = '1.0.BREATH'
+version = '1.0.0.BETA'
 sourceCompatibility = '1.8'
 
 tasks.withType(GroovyCompile) {
