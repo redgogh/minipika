@@ -39,6 +39,7 @@ ext {
   logbackVersion = "1.2.3"
   junitVersion = "4.13-rc-2"
   asmToolVersion = "0.0.2"
+  aspectJVersion = "1.8.10"
 }
 
 sourceSets {

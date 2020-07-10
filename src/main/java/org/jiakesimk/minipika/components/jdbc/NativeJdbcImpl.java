@@ -20,8 +20,10 @@ package org.jiakesimk.minipika.components.jdbc;
  * Creates on 2020/6/6.
  */
 
+import org.aspectj.lang.annotation.Aspect;
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
 import org.jiakesimk.minipika.components.jdbc.transaction.Transaction;
+import org.jiakesimk.minipika.framework.aspect.ExecuteTime;
 import org.jiakesimk.minipika.framework.factory.Factorys;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
@@ -37,6 +39,7 @@ import java.util.List;
 /**
  * @author tiansheng
  */
+@Aspect
 public class NativeJdbcImpl implements NativeJdbc {
 
   private static final Log LOG = LogFactory.getLog(NativeJdbcImpl.class);
@@ -44,7 +47,7 @@ public class NativeJdbcImpl implements NativeJdbc {
   @Override
   public boolean execute(String sql, Object... args) throws SQLException {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("执行SQL - " + sql);
+      LOG.debug("execute sql - " + sql);
     }
     Connection connection = null;
     PreparedStatement statement = null;
@@ -69,7 +72,7 @@ public class NativeJdbcImpl implements NativeJdbc {
   @Override
   public NativeResultSet select(String sql, Object... args) throws SQLException {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("执行SQL - " + sql);
+      LOG.debug("execute sql - " + sql);
     }
     NativeResultSet result = null;
     Connection connection = null;
@@ -90,9 +93,10 @@ public class NativeJdbcImpl implements NativeJdbc {
   }
 
   @Override
+  @ExecuteTime
   public int update(String sql, Object... args) throws SQLException {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("执行SQL - " + sql);
+      LOG.debug("execute sql - " + sql);
     }
     Connection connection = null;
     PreparedStatement statement = null;
@@ -120,7 +124,7 @@ public class NativeJdbcImpl implements NativeJdbc {
   @Override
   public int[] executeBatch(String sql, Object... args) throws SQLException {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("执行SQL - " + sql);
+      LOG.debug("execute sql - " + sql);
     }
     Connection connection = null;
     PreparedStatement statement = null;
@@ -154,7 +158,7 @@ public class NativeJdbcImpl implements NativeJdbc {
   public int[] executeBatch(String[] sql, List<Object[]> args) throws SQLException {
     if (LOG.isDebugEnabled()) {
       for (String it : sql) {
-        LOG.debug("执行SQL - " + it);
+        LOG.debug("execute sql - " + it);
       }
     }
     Connection connection = null;
