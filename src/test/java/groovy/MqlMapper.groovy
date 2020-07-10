@@ -61,6 +61,13 @@ interface MqlMapper {
     void updateUserTest() {
       MqlMapper mapper = Factorys.forMface(MqlMapper)
       println mapper.updateUser(1, new User("update1", "update1"))
+      println mapper.updateUser(1, new User("update1", "update1"))
+      println mapper.updateUser(1, new User("update1", "update1"))
+      println mapper.updateUser(1, new User("update1", "update1"))
+      println mapper.updateUser(1, new User("update1", "update1"))
+      println mapper.updateUser(1, new User("update1", "update1"))
+      println mapper.updateUser(1, new User("update1", "update1"))
+      println mapper.updateUser(1, new User("update1", "update1"))
     }
 
     @Test

@@ -39,6 +39,11 @@ public interface Transaction {
   void setDataSource(DataSource dataSource);
 
   /**
+   * @return 获取数据源
+   */
+  DataSource getDataSource();
+
+  /**
    * 获取连接
    *
    * @return JDBC连接

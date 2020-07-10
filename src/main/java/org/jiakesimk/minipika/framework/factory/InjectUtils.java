@@ -21,6 +21,7 @@ package org.jiakesimk.minipika.framework.factory;
  */
 
 import org.jiakesimk.minipika.framework.annotations.Inject;
+import org.jiakesimk.minipika.framework.common.ProxyHandler;
 import org.jiakesimk.minipika.framework.util.Annotations;
 import org.jiakesimk.minipika.framework.util.ClassUtils;
 import org.jiakesimk.minipika.framework.util.Fields;
@@ -38,19 +39,26 @@ import java.util.Objects;
 @SuppressWarnings({"unchecked"})
 public class InjectUtils {
 
-  public static Object autowired(Class<?> clazz, Map<String, Object> components) throws IllegalAccessException {
-    Object instance = ClassUtils.newInstance(clazz);
-    return autowired(clazz, instance, components);
+  private static final Class<?> IFACE = ProxyHandler.class;
+
+  public static Object autowired(Class<?> clazz) throws IllegalAccessException {
+    return autowired(clazz, null, 0);
   }
 
-  public static Object autowired(Class<?> clazz, Class<?>[] types, Map<String, Object> components,
+  public static Object autowired(Class<?> clazz, Class<?>[] types,
                                  Object... parameter) throws IllegalAccessException {
-    Object instance = ClassUtils.newInstance(clazz, types, parameter);
-    return autowired(clazz, instance, components);
+    Object instance;
+    if (types == null) {
+      instance = ClassUtils.newInstance(clazz);
+    } else {
+      instance = ClassUtils.newInstance(clazz, types, parameter);
+    }
+    return autowired(clazz, getProxyHandler(instance, clazz));
   }
 
-  private static Object autowired(Class<?> clazz, Object instance, Map<String, Object> components)
+  private static Object autowired(Class<?> clazz, Object instance)
           throws IllegalAccessException {
+    Map<String, Object> components = ComponentContainer.components;
     Field[] fields = Fields.getDeclaredFieldsIncludeSuper(clazz, true, new Class[]{Inject.class});
     for (Field field : fields) {
       Inject inject = Annotations.isAnnotation(field, Inject.class);
@@ -61,6 +69,24 @@ public class InjectUtils {
       Object object = components.get(field.getType().getName());
       field.set(instance, Objects.requireNonNull(object,
               "Error unable initialize component named " + name)); // 注入对象
+    }
+    return instance;
+  }
+
+  /**
+   * 判断当前类有没有代理程序
+   *
+   * @param instance 实例对象
+   * @param clazz    类信息
+   * @return 如果有代理程序返回代理, 没有返回instance
+   */
+  private static Object getProxyHandler(Object instance, Class<?> clazz) {
+    Class<?>[] ifaces = clazz.getInterfaces();
+    for (Class<?> iface : ifaces) {
+      if (iface == IFACE) {
+        ProxyHandler handler = (ProxyHandler) instance;
+        return handler.getProxyHandler();
+      }
     }
     return instance;
   }

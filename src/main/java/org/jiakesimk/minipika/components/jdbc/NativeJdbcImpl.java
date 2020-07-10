@@ -21,7 +21,10 @@ package org.jiakesimk.minipika.components.jdbc;
  */
 
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
+import org.jiakesimk.minipika.components.jdbc.datasource.pooled.PooledDataSource;
+import org.jiakesimk.minipika.components.jdbc.datasource.pooled.PooledState;
 import org.jiakesimk.minipika.components.jdbc.transaction.Transaction;
+import org.jiakesimk.minipika.framework.common.ProxyHandler;
 import org.jiakesimk.minipika.framework.factory.Factorys;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
@@ -30,6 +33,8 @@ import org.jiakesimk.minipika.framework.util.AutoClose;
 import org.jiakesimk.minipika.framework.util.SQLUtils;
 
 import javax.sql.DataSource;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,18 +42,21 @@ import java.util.List;
 /**
  * @author tiansheng
  */
-public class NativeJdbcImpl implements NativeJdbc {
+
+public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
+
+  private Transaction transaction;
 
   private static final Log LOG = LogFactory.getLog(NativeJdbcImpl.class);
 
   @Override
   public boolean execute(String sql, Object... args) throws SQLException {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("执行SQL - " + sql);
+      LOG.debug("execute sql - " + sql);
     }
     Connection connection = null;
     PreparedStatement statement = null;
-    Transaction transaction = getTransaction();
+    transaction = getTransaction();
     try {
       connection = transaction.getConnection();
       statement = connection.prepareStatement(sql);
@@ -69,12 +77,12 @@ public class NativeJdbcImpl implements NativeJdbc {
   @Override
   public NativeResultSet select(String sql, Object... args) throws SQLException {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("执行SQL - " + sql);
+      LOG.debug("execute sql - " + sql);
     }
     NativeResultSet result = null;
     Connection connection = null;
     PreparedStatement statement = null;
-    Transaction transaction = getTransaction();
+    transaction = getTransaction();
     try {
       connection = transaction.getConnection();
       statement = connection.prepareStatement(sql);
@@ -92,11 +100,11 @@ public class NativeJdbcImpl implements NativeJdbc {
   @Override
   public int update(String sql, Object... args) throws SQLException {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("执行SQL - " + sql);
+      LOG.debug("execute sql - " + sql);
     }
     Connection connection = null;
     PreparedStatement statement = null;
-    Transaction transaction = getTransaction();
+    transaction = getTransaction();
     try {
       connection = transaction.getConnection();
       statement = connection.prepareStatement(sql);
@@ -120,11 +128,11 @@ public class NativeJdbcImpl implements NativeJdbc {
   @Override
   public int[] executeBatch(String sql, Object... args) throws SQLException {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("执行SQL - " + sql);
+      LOG.debug("execute sql - " + sql);
     }
     Connection connection = null;
     PreparedStatement statement = null;
-    Transaction transaction = getTransaction();
+    transaction = getTransaction();
     try {
       int[] result = isMultiSQL(sql, args);
       if (result != null) return result;
@@ -154,12 +162,12 @@ public class NativeJdbcImpl implements NativeJdbc {
   public int[] executeBatch(String[] sql, List<Object[]> args) throws SQLException {
     if (LOG.isDebugEnabled()) {
       for (String it : sql) {
-        LOG.debug("执行SQL - " + it);
+        LOG.debug("execute sql - " + it);
       }
     }
     Connection connection = null;
     Statement statement = null;
-    Transaction transaction = getTransaction();
+    transaction = getTransaction();
     try {
       connection = transaction.getConnection();
       statement = connection.createStatement();
@@ -228,6 +236,29 @@ public class NativeJdbcImpl implements NativeJdbc {
       }
     }
     return statement;
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public <T> T getProxyHandler() {
+    return (T) Proxy.newProxyInstance(this.getClass().getClassLoader(),
+            new Class[]{NativeJdbc.class},
+            this);
+  }
+
+  @Override
+  public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    long startTime = System.currentTimeMillis();
+    Object result = method.invoke(this, args);
+    long endTime = System.currentTimeMillis() - startTime;
+
+    String sql = ((String) args[0]);
+    PooledDataSource dataSource = (PooledDataSource) transaction.getDataSource();
+    PooledState state = dataSource.getState();
+    state.setSqlTimeConsuming(sql, endTime);
+    state.addFrequency(sql);
+
+    return result;
   }
 
 }

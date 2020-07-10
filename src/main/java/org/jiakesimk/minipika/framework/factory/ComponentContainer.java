@@ -20,6 +20,7 @@ package org.jiakesimk.minipika.framework.factory;
  * Creates on 2020/6/1.
  */
 
+import org.jiakesimk.minipika.framework.common.ProxyHandler;
 import org.jiakesimk.minipika.framework.util.ClassUtils;
 import org.jiakesimk.minipika.framework.util.Maps;
 
@@ -51,10 +52,10 @@ public class ComponentContainer implements ComponentFactory {
     try {
       Object component = null;
       String className = clazz.getName();
+
       component = components.get(className);
-      if (component != null) {
-        return (T) component;
-      }
+      if (component != null) return (T) component;
+
       if (ClassUtils.isInterface(clazz)) {
         // 如果是接口的话那么就查找匹配接口类型的类
         component = findMatchesClassType(clazz);
@@ -62,11 +63,12 @@ public class ComponentContainer implements ComponentFactory {
           return (T) component;
         }
       }
+
       // 判断是否执行有参构造器
       if (types == null) {
-        component = InjectUtils.autowired(clazz, components);
+        component = InjectUtils.autowired(clazz);
       } else {
-        component = InjectUtils.autowired(clazz, types, components, parameter);
+        component = InjectUtils.autowired(clazz, types, parameter);
       }
 
       // 如果当前实例化出来的组件不是null, 就添加到组件容器中

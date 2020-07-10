@@ -25,7 +25,7 @@
     如果要设置单个数据源的任务的话可以使用task="READ"或者是task="WRITE"来设置单个数据源的作业
    -->
   <datasource>
-    <master>
+    <master commit="false">
       <url value="jdbc:mysql://127.0.0.1:3306/${database}">
         <property name="useUnicode" value="true"/>
         <property name="characterEncoding" value="utf-8"/>

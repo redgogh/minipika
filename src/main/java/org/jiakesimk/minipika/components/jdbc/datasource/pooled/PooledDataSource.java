@@ -20,6 +20,7 @@ package org.jiakesimk.minipika.components.jdbc.datasource.pooled;
  * Creates on 2020/6/1.
  */
 
+import lombok.Getter;
 import org.jiakesimk.minipika.components.configuration.node.Configuration;
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
 import org.jiakesimk.minipika.components.jdbc.datasource.unpooled.UnpooledDataSource;
@@ -70,6 +71,10 @@ public class PooledDataSource implements DataSource {
         e.printStackTrace();
       }
     }
+  }
+
+  public PooledState getState() {
+    return state;
   }
 
   public UnpooledDataSource getUnpooledDataSource() {
