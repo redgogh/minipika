@@ -4,7 +4,6 @@ import org.jiakesimk.minipika.components.annotation.Batch
 import org.jiakesimk.minipika.components.annotation.Insert
 import org.jiakesimk.minipika.components.annotation.Select
 import org.jiakesimk.minipika.components.annotation.Update
-import org.jiakesimk.minipika.components.mql.MqlCallback
 import org.jiakesimk.minipika.framework.factory.Factorys
 import org.junit.Test
 

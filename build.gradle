@@ -59,6 +59,10 @@ sourceSets {
   }
 }
 
+test {
+  exclude '**/**'
+}
+
 allprojects {
   repositories {
     mavenLocal()
@@ -78,9 +82,9 @@ dependencies {
   implementation "commons-codec:commons-codec:${commonsCodecVersion}"
   implementation "javassist:javassist:${javassistVersion}"
   implementation fileTree(dir: "lib", includes: ["*jar"])
+  testImplementation "junit:junit:$junitVersion"
   testImplementation "ch.qos.logback:logback-core:$logbackVersion"
   testImplementation "ch.qos.logback:logback-classic:$logbackVersion"
-  testImplementation "junit:junit:$junitVersion"
   testImplementation "mysql:mysql-connector-java:$mysqlConnectVersion"
 }
 
