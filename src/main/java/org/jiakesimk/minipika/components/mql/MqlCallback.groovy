@@ -91,7 +91,7 @@ class MqlCallback extends BaseBuilder implements InvocationHandler {
   @SuppressWarnings("GrUnnecessaryPublicModifier")
   public <T> T bind() {
     return Proxy.newProxyInstance(this.class.getClassLoader(),
-            new Class[]{virtual}, this) as T
+            [virtual] as Class[], this)
   }
 
   @Override
