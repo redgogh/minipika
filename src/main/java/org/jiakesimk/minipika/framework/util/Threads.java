@@ -20,7 +20,6 @@ package org.jiakesimk.minipika.framework.util;
  * Creates on 2020/3/24.
  */
 
-import lombok.SneakyThrows;
 
 /**
  * 静态{@code Thread}工具。
@@ -32,11 +31,14 @@ public class Threads {
   /**
    * 获取方法的调用者。
    */
-  @SneakyThrows
   public static Class<?> getCaller() {
     StackTraceElement[] elements = Thread.currentThread().getStackTrace();
     String classname = elements[elements.length - 1].getClassName();
-    return Class.forName(classname);
+    try {
+      return Class.forName(classname);
+    } catch (ClassNotFoundException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   /**

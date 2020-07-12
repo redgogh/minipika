@@ -4,9 +4,8 @@ package org.jiakesimk.minipika.framework.util;
  * Creates on 2020/3/21.
  */
 
-import lombok.SneakyThrows;
-
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -19,10 +18,13 @@ public class ClassUtils {
   /**
    * 创建一个实例。
    */
-  @SneakyThrows
   public static Object newInstance(Class<?> clazz) {
-    Constructor<?> constructor = clazz.getDeclaredConstructor();
-    return constructor.newInstance();
+    try {
+      Constructor<?> constructor = clazz.getDeclaredConstructor();
+      return constructor.newInstance();
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 
   /**
@@ -31,11 +33,15 @@ public class ClassUtils {
    * @param parametersType  构造函数参数类型。
    * @param parametersValue 构造函数参数值。
    */
-  @SneakyThrows
   public static Object newInstance(Class<?> clazz, Class<?>[] parametersType,
                                    Object... parametersValue) {
-    Constructor<?> constructor = clazz.getConstructor(parametersType);
-    return constructor.newInstance(parametersValue);
+    Constructor<?> constructor = null;
+    try {
+      constructor = clazz.getConstructor(parametersType);
+      return constructor.newInstance(parametersValue);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 
   /**

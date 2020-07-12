@@ -4,7 +4,6 @@ package org.jiakesimk.minipika.framework.util;
  * Creates on 2020/5/15.
  */
 
-import lombok.SneakyThrows;
 import org.apache.commons.codec.binary.Base64;
 
 import java.security.MessageDigest;
@@ -64,23 +63,26 @@ public class Eac64 {
    **/
   public static class Md5 {
 
-    @SneakyThrows
     public String digest(byte[] source) {
-      String output;
-      char[] hexDigits = { // 用来将字节转换成 16 进制表示的字符
-              '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-      MessageDigest md = MessageDigest.getInstance("MD5");
-      md.update(source);
-      byte[] tmp = md.digest();
-      char[] str = new char[16 * 2];
-      int k = 0;
-      for (int i = 0; i < 16; i++) {
-        byte byte0 = tmp[i];
-        str[k++] = hexDigits[byte0 >>> 4 & 0xf];
-        str[k++] = hexDigits[byte0 & 0xf];
+      try {
+        String output;
+        char[] hexDigits = { // 用来将字节转换成 16 进制表示的字符
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(source);
+        byte[] tmp = md.digest();
+        char[] str = new char[16 * 2];
+        int k = 0;
+        for (int i = 0; i < 16; i++) {
+          byte byte0 = tmp[i];
+          str[k++] = hexDigits[byte0 >>> 4 & 0xf];
+          str[k++] = hexDigits[byte0 & 0xf];
+        }
+        output = new String(str);
+        return output;
+      } catch (Exception e) {
+        throw new RuntimeException(e);
       }
-      output = new String(str);
-      return output;
     }
 
     public String encode(String input) {
@@ -94,21 +96,24 @@ public class Eac64 {
     /*
      * md5采用32位大写
      */
-    @SneakyThrows
     public String digest32(String text) {
-      MessageDigest digest = MessageDigest.getInstance("md5");
-      byte[] result = digest.digest(text.getBytes());
-      StringBuilder sb = new StringBuilder();
-      for (byte b : result) {
-        int number = b & 0xff;
-        String hex = Integer.toHexString(number);
-        if (hex.length() == 1) {
-          sb.append("0").append(hex);
-        } else {
-          sb.append(hex);
+      try {
+        MessageDigest digest = MessageDigest.getInstance("md5");
+        byte[] result = digest.digest(text.getBytes());
+        StringBuilder sb = new StringBuilder();
+        for (byte b : result) {
+          int number = b & 0xff;
+          String hex = Integer.toHexString(number);
+          if (hex.length() == 1) {
+            sb.append("0").append(hex);
+          } else {
+            sb.append(hex);
+          }
         }
+        return sb.toString().toUpperCase();
+      } catch (Exception e) {
+        throw new RuntimeException(e);
       }
-      return sb.toString().toUpperCase();
     }
 
   }

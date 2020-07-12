@@ -20,7 +20,6 @@ package org.jiakesimk.minipika.framework.context;
  * Creates on 2020/7/2.
  */
 
-import lombok.Getter;
 import org.jiakesimk.minipika.components.configuration.FindStrategy;
 import org.jiakesimk.minipika.components.configuration.XMLConfigBuilder;
 
@@ -34,7 +33,6 @@ public class ContextManager {
   /**
    * 上下文是否已经加载
    */
-  @Getter
   private static boolean load;
 
   public static void loadContext() {
@@ -43,6 +41,10 @@ public class ContextManager {
       configBuilder.load(FindStrategy.getConfigInputStream());
       load = true;
     }
+  }
+
+  public static boolean isLoad() {
+    return load;
   }
 
 }

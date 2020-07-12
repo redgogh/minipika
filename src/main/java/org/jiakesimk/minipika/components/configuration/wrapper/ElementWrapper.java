@@ -20,7 +20,6 @@ package org.jiakesimk.minipika.components.configuration.wrapper;
  * Creates on 2020/7/6.
  */
 
-import lombok.Getter;
 import org.jdom2.*;
 import org.jdom2.filter.Filter;
 import org.jdom2.util.IteratorIterable;
@@ -39,7 +38,6 @@ import java.util.List;
  */
 public class ElementWrapper {
 
-  @Getter
   Element e;
 
   public ElementWrapper() {
@@ -47,6 +45,10 @@ public class ElementWrapper {
 
   public ElementWrapper(Element e) {
     this.e = e;
+  }
+
+  public Element getE() {
+    return e;
   }
 
   public String getName() {

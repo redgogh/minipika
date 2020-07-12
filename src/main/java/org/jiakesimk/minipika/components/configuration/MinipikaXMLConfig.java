@@ -20,19 +20,14 @@ package org.jiakesimk.minipika.components.configuration;
  * Creates on 2020/6/1.
  */
 
-import lombok.Getter;
-import lombok.Setter;
 import org.jiakesimk.minipika.components.configuration.node.DataSourceNode;
 import org.jiakesimk.minipika.components.configuration.node.ElementParser;
 import org.jiakesimk.minipika.components.configuration.node.PropertiesNode;
 import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
-import org.jiakesimk.minipika.framework.factory.Factorys;
 
 /**
  * @author tiansheng
  */
-@Getter
-@Setter
 public class MinipikaXMLConfig implements ElementParser {
 
   private static final String CHIlD_DATASOURCE         = "datasource";
@@ -72,4 +67,31 @@ public class MinipikaXMLConfig implements ElementParser {
     }
   }
 
+  public static String getCHIlD_DATASOURCE() {
+    return CHIlD_DATASOURCE;
+  }
+
+  public static String getCHIlD_PROPERTIES() {
+    return CHIlD_PROPERTIES;
+  }
+
+  public static String getChildConfiguration() {
+    return CHILD_CONFIGURATION;
+  }
+
+  public PropertiesNode getPropertiesNode() {
+    return propertiesNode;
+  }
+
+  public void setPropertiesNode(PropertiesNode propertiesNode) {
+    this.propertiesNode = propertiesNode;
+  }
+
+  public DataSourceNode getDataSourceNode() {
+    return dataSourceNode;
+  }
+
+  public void setDataSourceNode(DataSourceNode dataSourceNode) {
+    this.dataSourceNode = dataSourceNode;
+  }
 }

@@ -20,13 +20,9 @@ package org.jiakesimk.minipika.components.jdbc;
  * Creates on 2020/6/18.
  */
 
-import lombok.Getter;
 import org.jiakesimk.minipika.framework.factory.Factorys;
-
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 动态SQL执行器
@@ -35,7 +31,6 @@ import java.util.Set;
  */
 public class SQLExecutor implements Executor {
 
-  @Getter
   private final NativeJdbc nativeJdbc = Factorys.forClass(NativeJdbc.class);
 
   @Override
@@ -111,6 +106,10 @@ public class SQLExecutor implements Executor {
   @Override
   public int[] batch(String[] sql, List<Object[]> args) throws SQLException {
     return nativeJdbc.executeBatch(sql, args);
+  }
+
+  public NativeJdbc getNativeJdbc() {
+    return nativeJdbc;
   }
 
 }

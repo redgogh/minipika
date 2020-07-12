@@ -20,8 +20,6 @@ package org.jiakesimk.minipika.components.configuration.node;
  * Creates on 2020/6/1.
  */
 
-import lombok.Getter;
-import lombok.Setter;
 import org.jdom2.Attribute;
 import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
@@ -41,8 +39,6 @@ import java.util.Properties;
  *
  * @author tiansheng
  */
-@Getter
-@Setter
 public class Configuration implements ElementParser {
 
   private String url;
@@ -308,6 +304,86 @@ public class Configuration implements ElementParser {
     } else {
       return DataSourceTask.ALL;
     }
+  }
+
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public String getDriver() {
+    return driver;
+  }
+
+  public void setDriver(String driver) {
+    this.driver = driver;
+  }
+
+  public Map<String, String> getUrlParam() {
+    return urlParam;
+  }
+
+  public void setUrlParam(Map<String, String> urlParam) {
+    this.urlParam = urlParam;
+  }
+
+  public DataSourceTask getTask() {
+    return task;
+  }
+
+  public void setTask(DataSourceTask task) {
+    this.task = task;
+  }
+
+  public Databases getType() {
+    return type;
+  }
+
+  public void setType(Databases type) {
+    this.type = type;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public boolean isDesiredAutoCommit() {
+    return desiredAutoCommit;
+  }
+
+  public void setDesiredAutoCommit(boolean desiredAutoCommit) {
+    this.desiredAutoCommit = desiredAutoCommit;
+  }
+
+  public boolean isPooled() {
+    return pooled;
+  }
+
+  public void setPooled(boolean pooled) {
+    this.pooled = pooled;
   }
 
 }

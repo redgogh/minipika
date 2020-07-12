@@ -53,7 +53,7 @@ public class Factorys {
   public static <T> T forMface(Class<T> clazz) {
     String name = clazz.getName();
     T iface = (T) ComponentContainer.components.get(name);
-    if(iface == null) {
+    if (iface == null) {
       MqlCallback callback = Factorys.forClass(MqlCallback.class,
               new Class[]{Class.class}, clazz);
       iface = callback.bind();

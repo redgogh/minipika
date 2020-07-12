@@ -20,8 +20,6 @@ package org.jiakesimk.minipika.components.configuration.node;
  * Creates on 2020/6/1.
  */
 
-import lombok.Getter;
-import lombok.Setter;
 import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
 import org.jiakesimk.minipika.framework.util.StringUtils;
 
@@ -31,8 +29,6 @@ import java.util.Properties;
 /**
  * @author tiansheng
  */
-@Getter
-@Setter
 public class PropertiesNode implements ElementParser {
 
   private Properties properties;

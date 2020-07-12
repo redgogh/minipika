@@ -20,8 +20,6 @@ package org.jiakesimk.minipika.components.configuration.node;
  * Creates on 2020/6/1.
  */
 
-import lombok.Getter;
-import lombok.Setter;
 import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
 import org.jiakesimk.minipika.framework.exception.XMLParseException;
 import org.jiakesimk.minipika.framework.util.Lists;
@@ -33,8 +31,6 @@ import java.util.List;
  *
  * @author tiansheng
  */
-@Getter
-@Setter
 public class DataSourceNode implements ElementParser {
 
   static final String MASTER = "master";

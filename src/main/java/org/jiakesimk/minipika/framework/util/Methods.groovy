@@ -9,7 +9,6 @@ import javassist.NotFoundException
 import javassist.bytecode.CodeAttribute
 import javassist.bytecode.LocalVariableAttribute
 import javassist.bytecode.MethodInfo
-import lombok.SneakyThrows
 import org.jiakesimk.minipika.framework.common.ConstVariable
 import org.jiakesimk.minipika.framework.exception.MinipikaException
 

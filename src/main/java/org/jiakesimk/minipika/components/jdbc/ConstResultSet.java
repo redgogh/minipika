@@ -21,7 +21,6 @@ package org.jiakesimk.minipika.components.jdbc;
  */
 
 import com.alibaba.fastjson.JSONObject;
-import lombok.Getter;
 import org.jiakesimk.minipika.framework.util.Maps;
 import org.jiakesimk.minipika.framework.util.StringUtils;
 
@@ -40,7 +39,6 @@ public class ConstResultSet implements NativeResultSet {
   private int hasNextOffset = 0;
   private List<String> hasNext;
 
-  @Getter
   private List<Map<String, String>> resultSet;
 
   private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

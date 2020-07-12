@@ -4,8 +4,6 @@ package org.jiakesimk.minipika.framework.util;
  * Creates on 2020/3/21.
  */
 
-import lombok.SneakyThrows;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.List;
@@ -169,11 +167,14 @@ public class Fields {
   /**
    * 设置{@code Filed}的值。
    */
-  @SneakyThrows
   public static void set(Object instance, Object value, String name) {
-    Field field = instance.getClass().getDeclaredField(name);
-    field.setAccessible(true);
-    field.set(instance, value);
+    try {
+      Field field = instance.getClass().getDeclaredField(name);
+      field.setAccessible(true);
+      field.set(instance, value);
+    }catch (Exception e){
+      throw new RuntimeException(e);
+    }
   }
 
   /**
