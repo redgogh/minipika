@@ -102,25 +102,19 @@
       <version>4.13-rc-2</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>RELEASE</version>
-      <scope>compile</scope>
-    </dependency>
     <!-- groovy支持 -->
     <dependency>
       <groupId>org.codehaus.groovy</groupId>
       <artifactId>groovy-all</artifactId>
-      <version>${groovy.version}</version>
       <scope>system</scope>
+      <version>4.2.PK</version>
       <systemPath>${pom.basedir}/lib/groovy-all-4.0.1.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>org.codehaus.groovy</groupId>
       <artifactId>groovy-ant</artifactId>
-      <version>${groovy.version}</version>
       <scope>system</scope>
+      <version>4.2.PK</version>
       <systemPath>${pom.basedir}/lib/groovy-ant-4.0.1.jar</systemPath>
     </dependency>
   </dependencies>
@@ -153,5 +147,5 @@
       </plugin>
     </plugins>
   </build>
-  
+
 </project>
