@@ -225,7 +225,8 @@ public class Groovyc extends MatchingTask {
     /**
      * If true, generates metadata for reflection on method parameter names (jdk8+ only).  Defaults to false.
      */
-    private boolean parameters;
+    // set parameters default value true.
+    private boolean parameters = true;
 
     /**
      * If true, enable preview Java features (JEP 12) (jdk12+ only). Defaults to false.

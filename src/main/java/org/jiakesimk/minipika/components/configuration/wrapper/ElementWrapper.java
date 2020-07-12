@@ -20,7 +20,6 @@ package org.jiakesimk.minipika.components.configuration.wrapper;
  * Creates on 2020/7/6.
  */
 
-import groovy.lang.Closure;
 import lombok.Getter;
 import org.jdom2.*;
 import org.jdom2.filter.Filter;

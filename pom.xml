@@ -3,57 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
-  <!--    <entityVersion>4.0.0</entityVersion>-->
-
-  <!--
-       mvn clean install deploy -P release
-  -->
-  <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>9</version>
-  </parent>
-
+  
   <groupId>io.github.raniaia</groupId>
   <artifactId>minipika</artifactId>
-  <version>1.0.0.breathe</version>
+  <version>1.0.0.BETA</version>
   <packaging>jar</packaging>
-
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-
-  <scm>
-    <tag>master</tag>
-    <url>https://github.com/raniaia/avaliable</url>
-    <connection>scm:git@github.com:raniaia/minipika.git</connection>
-    <developerConnection>scm:git@github.com:raniaia/minipika.git</developerConnection>
-  </scm>
-
-  <developers>
-    <developer>
-      <name>2B键盘</name>
-      <email>raniaia@foxmail.com</email>
-      <url>https://github.com/404NotFoundx</url>
-    </developer>
-  </developers>
-
-  <distributionManagement>
-    <repository>
-      <id>repository</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
-
+  
   <properties>
     <java.version>1.8</java.version>
     <jdom.version>2.0.6</jdom.version>
@@ -62,45 +17,26 @@
     <fastjson.version>1.2.62</fastjson.version>
     <javassist.version>3.12.1.GA</javassist.version>
     <mysql.connector.version>8.0.11</mysql.connector.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <logback.version>1.2.3</logback.version>
     <slf4j.version>1.7.21</slf4j.version>
     <gmaven.version>1.0-rc-3</gmaven.version>
-    <groovy.version>2.5.0</groovy.version>
-    <!-- plugin -->
+    <groovy.version>4.0.1</groovy.version>
     <maven.doc.version>2.8</maven.doc.version>
     <surefire.version>2.4.2</surefire.version>
     <maven.compile.version>3.8.0</maven.compile.version>
     <maven.test.skip>true</maven.test.skip>
+    <asmtool.version>0.0.2</asmtool.version>
     <commons-codec.version>1.11</commons-codec.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
+  
   <dependencies>
-
-    <!--
-        Details
-        CVE-2019-2692
-        moderate severity
-        Vulnerable versions: < 8.0.16
-        Patched version: 8.0.16
-
-        ========================================================
-
-        Vulnerability in the MySQL Connectors component of Oracle MySQL (subcomponent: Connector/J).
-        Supported versions that are affected are 8.0.15 and prior.
-        Difficult to exploit vulnerability allows high privileged attacker with logon to the infrastructure
-            where MySQL Connectors executes to compromise MySQL Connectors.
-
-        Successful attacks require human interaction from a person other than the attacker.
-        Successful attacks of this vulnerability can result in takeover of MySQL Connectors.
-        CVSS 3.0 Base Score 6.3 (Confidentiality, Integrity and Availability impacts). CVSS Vector: (CVSS:3.0/AV:L/AC:H/PR:H/UI:R/S:U/C:H/I:H/A:H).
-     -->
-<!--    <dependency>-->
-<!--      <groupId>mysql</groupId>-->
-<!--      <artifactId>mysql-connector-java</artifactId>-->
-<!--      <version>${mysql.connector.version}</version>-->
-<!--    </dependency>-->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql.connector.version}</version>
+    </dependency>
     <!-- 日志支持 -->
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -124,8 +60,22 @@
     <dependency>
       <groupId>org.codehaus.groovy</groupId>
       <artifactId>groovy-all</artifactId>
+      <scope>system</scope>
       <version>${groovy.version}</version>
-      <type>pom</type> <!-- required JUST since Groovy 2.5.0 -->
+      <systemPath>${project.basedir}/lib/groovy-all-4.0.1.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-ant</artifactId>
+      <scope>system</scope>
+      <version>${groovy.version}</version>
+      <systemPath>${project.basedir}/lib/groovy-ant-4.0.1.jar</systemPath>
+    </dependency>
+    <!-- asm method -->
+    <dependency>
+      <groupId>com.github.houbb</groupId>
+      <artifactId>asm-tool</artifactId>
+      <version>${asmtool.version}</version>
     </dependency>
     <!-- common-codec -->
     <dependency>
@@ -182,9 +132,8 @@
       <scope>compile</scope>
     </dependency>
   </dependencies>
-
+  
   <build>
-    <testSourceDirectory>src/main/test/java</testSourceDirectory>
     <plugins>
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
@@ -194,13 +143,13 @@
             <phase>compile</phase>
             <configuration>
               <tasks>
-                <mkdir dir="${basedir}/src/main/groovy"/>
+                <mkdir dir="${basedir}/src/main/java"/>
                 <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc">
                   <classpath refid="maven.compile.classpath"/>
                 </taskdef>
                 <mkdir dir="${project.build.outputDirectory}"/>
                 <groovyc destdir="${project.build.outputDirectory}"
-                         srcdir="${basedir}/src/main/groovy/" listfiles="true">
+                         srcdir="${basedir}/src/main/java/" listfiles="true">
                   <classpath refid="maven.compile.classpath"/>
                 </groovyc>
               </tasks>
@@ -214,7 +163,7 @@
             <phase>test-compile</phase>
             <configuration>
               <tasks>
-                <mkdir dir="${basedir}/src/test/groovy"/>
+                <mkdir dir="${basedir}/src/test/"/>
                 <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc">
                   <classpath refid="maven.test.classpath"/>
                 </taskdef>
@@ -222,7 +171,7 @@
                 <groovyc destdir="${project.build.testOutputDirectory}" srcdir="${basedir}/src/test/groovy/"
                          listfiles="true">
                   <classpath refid="maven.test.classpath"/>
-                  <compilerArgument>-pa</compilerArgument>
+                  <compilerArgument>--parameters</compilerArgument>
                 </groovyc>
               </tasks>
             </configuration>
