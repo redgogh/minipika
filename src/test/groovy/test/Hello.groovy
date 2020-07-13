@@ -1,6 +1,6 @@
 package test
 
-import groovy.User
+
 import org.junit.Test
 
 class Hello {

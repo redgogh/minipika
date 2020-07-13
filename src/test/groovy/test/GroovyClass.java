@@ -1,5 +1,4 @@
-package groovy
-
+package test;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -18,18 +17,18 @@ package groovy
  */
 
 /*
- * Creates on 2020/7/1.
+ * Creates on 2020/6/1.
  */
+
+import org.junit.Test;
 
 /**
  * @author tiansheng
  */
-interface Mapper {
+public class GroovyClass {
 
-  def findUser(User user, String wdnmd)
-
-  def addUser(User user)
-
-  def addBatch(List<User> users)
+  @Test
+  public void test() {
+  }
 
 }

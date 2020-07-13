@@ -1,9 +1,9 @@
-package groovy
+package test
 
-import org.jiakesimk.minipika.framework.util.Matches
+import org.jiakesimk.minipika.framework.util.Methods
 import org.junit.Test
 
-import java.util.regex.Pattern;
+import java.lang.reflect.Method;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -22,30 +22,18 @@ import java.util.regex.Pattern;
  */
 
 /*
- * Creates on 2020/6/17.
+ * Creates on 2020/6/16.
  */
 
 /**
  * @author tiansheng
  */
-class GroovyMatchesTest {
+class MethodsTest {
 
   @Test
-  void test() {
-    def s = "username = #username and password = #password and user = #user.a"
-    def m = s =~ /#(.*?)\S+/
-    while (m.find()) {
-      println m.group().replace('#','')
-    }
-  }
-
-  @Test
-  void test2() {
-    def s = "username = #username and password = #password and user = #user.a"
-    def r = /#(.*?)\S+/
-    Matches.matches(s, r, { value ->
-      value.replace('#','')
-    })
+  void test() throws NoSuchMethodException {
+    Method method = MqlMapper.class.getDeclaredMethod("findUser", User.class, String.class)
+    println Methods.getParameterNames(method)
   }
 
 }

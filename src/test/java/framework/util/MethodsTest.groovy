@@ -1,6 +1,6 @@
 package framework.util
 
-import groovy.MqlMapper;
+import test.MqlMapper;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.

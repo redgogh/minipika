@@ -1,4 +1,4 @@
-package groovy;
+package test;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,18 +17,25 @@ package groovy;
  */
 
 /*
- * Creates on 2020/6/1.
+ * Creates on 2020/6/14.
  */
 
+import org.jiakesimk.minipika.framework.util.Annotations;
 import org.junit.Test;
+
+import java.lang.reflect.Method;
+import java.math.BigDecimal;
 
 /**
  * @author tiansheng
  */
-public class GroovyClass {
+public class GroovyTest {
 
   @Test
-  public void test() {
+  public void test() throws NoSuchMethodException {
+    Integer a = 1;
+    Long b = 1L;
+    System.out.println(a.equals(b));
   }
 
 }

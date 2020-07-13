@@ -1,9 +1,5 @@
-package groovy
+package test
 
-import org.jiakesimk.minipika.framework.util.Methods
-import org.junit.Test
-
-import java.lang.reflect.Method;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -22,18 +18,18 @@ import java.lang.reflect.Method;
  */
 
 /*
- * Creates on 2020/6/16.
+ * Creates on 2020/7/1.
  */
 
 /**
  * @author tiansheng
  */
-class MethodsTest {
+interface Mapper {
 
-  @Test
-  void test() throws NoSuchMethodException {
-    Method method = MqlMapper.class.getDeclaredMethod("findUser", User.class, String.class)
-    println Methods.getParameterNames(method)
-  }
+  def findUser(User user, String wdnmd)
+
+  def addUser(User user)
+
+  def addBatch(List<User> users)
 
 }

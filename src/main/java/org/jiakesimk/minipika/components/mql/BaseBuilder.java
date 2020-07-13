@@ -186,7 +186,7 @@ public class BaseBuilder extends Invoker {
         builder.append("singleArgs[").append(i).append("] = ").append(argument).append(";");
         i++;
       }
-      builder.append("arguments.add(singleArgs);");
+      argsAppend("singleArgs");
     }
   }
 
@@ -217,12 +217,12 @@ public class BaseBuilder extends Invoker {
   private void _sqlparse(String line) {
     String sql = line.replaceAll("#\\{(.*?)}", "?").trim();
     if (!"?".equals(sql)) {
-      builder.append("sql.append(\"").append(sql).append(" ").append("\");");
+      sqlAppend(sql);
     }
     String[] arguments = existArguments(line);
     if (arguments != null && arguments.length != 0) {
       for (String argument : arguments) {
-        builder.append("arguments.add(").append(argument).append(");");
+        argsAppend(argument);
       }
     }
   }
@@ -270,13 +270,39 @@ public class BaseBuilder extends Invoker {
       String objectName = idens[0];
       for (int j = 1; j < idens.length; j++) {
         if (j > 1) {
-          input = "Fields.getValue(".concat(input).concat(",\"").concat(idens[j]).concat("\")");
+          input = getFieldValue(input, idens[j]);
         } else {
-          input = "Fields.getValue(".concat(objectName).concat(",\"").concat(idens[j]).concat("\")");
+          input = getFieldValue(objectName, idens[j]);
         }
       }
     }
     return input;
+  }
+
+  /**
+   * 获取成员属性值
+   * @param object 从object对象中获取
+   * @param name 获取name属性的值
+   * @return code
+   */
+  private String getFieldValue(String object, String name) {
+    return "Fields.getValue(".concat(object).concat(",\"").concat(name).concat("\")");
+  }
+
+  /**
+   * 添加sql单条语句
+   * @param sql SQL语句字符串
+   */
+  private void sqlAppend(String sql) {
+    builder.append("sql.append(\"").append(sql).append(" ").append("\");");
+  }
+
+  /**
+   * 添加当前sql参数
+   * @param argument 参数对象
+   */
+  private void argsAppend(String argument) {
+    builder.append("arguments.add(").append(argument).append(");");
   }
 
   /**

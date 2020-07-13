@@ -1,10 +1,9 @@
 package framework.file
 
-import groovy.MqlMapper
+import test.MqlMapper
 import org.junit.Test
 
 import java.nio.file.Files
-import java.nio.file.Path
 import java.nio.file.Paths;
 
 /*

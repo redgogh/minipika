@@ -1,4 +1,4 @@
-package groovy
+package test
 
 trait add {
 

@@ -1,4 +1,4 @@
-package groovy
+package test
 
 import org.jiakesimk.minipika.components.mql.MqlCallback
 import org.junit.Test

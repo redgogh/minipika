@@ -1,7 +1,7 @@
-package groovy
+package test
 
-import org.codehaus.groovy.ast.ClassNode
-import org.codehaus.groovy.ast.builder.AstBuilder;
+
+import org.junit.Test;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,28 +20,33 @@ import org.codehaus.groovy.ast.builder.AstBuilder;
  */
 
 /*
- * Creates on 2020/6/27.
+ * Creates on 2020/6/18.
  */
 
 /**
  * @author tiansheng
  */
-class AstTest {
+class MatchesDemo {
 
-  @org.junit.Test
-  void test() {
-    AstBuilder builder = new AstBuilder()
-    def nodes = builder.buildFromString("""
-      interface MqlMapper {
-        def findUser(user, wdnmd)
-        def addUser(user)
-      }
-    """)
-    nodes.each {
-      if (it instanceof ClassNode) {
-        println it.name
+  static String[] find(s, r, Closure closure = null) {
+    def group = []
+    def m = s =~ r
+    while (m.find()) {
+      def v = m.group()
+      if (closure != null) {
+        group.add closure.call(v)
+      } else {
+        group.add v
       }
     }
+    return group
+  }
+
+  @Test
+  void test() {
+    println find("username = #username and password = #password", /#(.*?)\S+/, { value ->
+      value.replace("#", "")
+    })
   }
 
 }

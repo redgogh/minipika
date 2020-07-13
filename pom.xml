@@ -105,32 +105,15 @@
   </dependencies>
 
   <build>
-    <sourceDirectory>src/main/java</sourceDirectory>
-    <testSourceDirectory>src/test/java</testSourceDirectory>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.0</version>
         <configuration>
-          <source>11</source>
-          <target>11</target>
           <encoding>UTF-8</encoding>
-          <compilerId>groovy-eclipse-compiler</compilerId>
           <compilerArgs>-parameters</compilerArgs>
         </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-eclipse-batch</artifactId>
-            <version>3.0.4-02</version>
-          </dependency>
-          <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-eclipse-compiler</artifactId>
-            <version>3.6.0-03</version>
-          </dependency>
-        </dependencies>
       </plugin>
     </plugins>
   </build>
