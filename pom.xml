@@ -3,12 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  
+
   <groupId>org.jiakesimk</groupId>
   <artifactId>minipika</artifactId>
   <version>1.0.0.BETA</version>
   <packaging>jar</packaging>
-  
+
   <properties>
     <jdom.version>2.0.6</jdom.version>
     <kotlin.version>1.3.70</kotlin.version>
@@ -28,7 +28,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  
+
   <dependencies>
     <dependency>
       <groupId>mysql</groupId>
@@ -102,24 +102,11 @@
       <version>4.13-rc-2</version>
       <scope>test</scope>
     </dependency>
-    <!-- groovy支持 -->
-    <dependency>
-      <groupId>org.codehaus.groovy</groupId>
-      <artifactId>groovy-all</artifactId>
-      <scope>system</scope>
-      <version>4.2.PK</version>
-      <systemPath>${pom.basedir}/lib/groovy-all-4.0.1.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.groovy</groupId>
-      <artifactId>groovy-ant</artifactId>
-      <scope>system</scope>
-      <version>4.2.PK</version>
-      <systemPath>${pom.basedir}/lib/groovy-ant-4.0.1.jar</systemPath>
-    </dependency>
   </dependencies>
-  
+
   <build>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <testSourceDirectory>src/test/java</testSourceDirectory>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
