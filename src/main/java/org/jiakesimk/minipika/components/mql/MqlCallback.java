@@ -3,21 +3,21 @@ package org.jiakesimk.minipika.components.mql;
 import javassist.NotFoundException;
 import org.jiakesimk.minipika.components.annotation.Batch;
 import org.jiakesimk.minipika.components.annotation.Insert;
-import org.jiakesimk.minipika.components.annotation.Select;
+import org.jiakesimk.minipika.components.annotation.QueryOf;
 import org.jiakesimk.minipika.components.annotation.Update;
 import org.jiakesimk.minipika.components.jdbc.Executor;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
 import org.jiakesimk.minipika.framework.annotations.Inject;
-import org.jiakesimk.minipika.framework.exception.MinipikaException;
 import org.jiakesimk.minipika.framework.util.ArrayUtils;
-import org.jiakesimk.minipika.framework.util.Lists;
+import org.jiakesimk.minipika.framework.util.Methods;
 
 import javax.lang.model.type.NullType;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.SQLException;
+import java.util.List;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -81,9 +81,9 @@ public class MqlCallback<T> extends BaseBuilder implements InvocationHandler {
         Insert insert = method.getDeclaredAnnotation(Insert.class);
         createMethod(method, insert.value());
       }
-      if (method.isAnnotationPresent(Select.class)) {
-        Select select = method.getDeclaredAnnotation(Select.class);
-        createMethod(method, select.value());
+      if (method.isAnnotationPresent(QueryOf.class)) {
+        QueryOf queryOf = method.getDeclaredAnnotation(QueryOf.class);
+        createMethod(method, queryOf.value());
       }
       if (method.isAnnotationPresent(Batch.class)) {
         Batch batch = method.getDeclaredAnnotation(Batch.class);
@@ -103,20 +103,8 @@ public class MqlCallback<T> extends BaseBuilder implements InvocationHandler {
       Object[] objects = invoke(method, args);
       String sql = (String) objects[0];
       Object[] arguments = ArrayUtils.toArray(objects[1]);
-      if (method.isAnnotationPresent(Select.class)) {
-        Select select = method.getDeclaredAnnotation(Select.class);
-        Class<?> returnType = select.forObject();
-        if (returnType != NullType.class) {
-          return executor.queryForObject(sql, returnType, arguments);
-        }
-        returnType = select.forList();
-        if (returnType != NullType.class) {
-          return executor.queryForList(sql, returnType, arguments);
-        }
-        // todo 查询模式实现
-        String error = "Error executed query method failure. Cause: unrecognized return type.";
-        LOG.error(error);
-        throw new SQLException(error);
+      if (method.isAnnotationPresent(QueryOf.class)) {
+        return doSelectQuery(method, sql, arguments);
       }
       if (method.isAnnotationPresent(Update.class)
               || method.isAnnotationPresent(Insert.class)) {
@@ -126,9 +114,30 @@ public class MqlCallback<T> extends BaseBuilder implements InvocationHandler {
         return executor.batch(sql, arguments);
       }
     } catch (Throwable e) {
-      throw new MinipikaException(e.getMessage(), e);
+      e.printStackTrace();
     }
     return null;
+  }
+
+  /**
+   * 做条件查询
+   *
+   * @param method    查询方法
+   * @param sql       sql语句
+   * @param arguments 参数列表
+   * @return 返回对象
+   */
+  private Object doSelectQuery(Method method, String sql, Object[] arguments) throws Exception {
+    Class<?> returnType = method.getReturnType();
+    if (returnType == List.class) {
+      String signature = Methods.getGenericSignature(method);
+      signature = signature.substring(signature.lastIndexOf("<"))
+      .replaceAll("<L","")
+      .replaceAll(";>;","")
+      .replaceAll("/","\\.");
+      return executor.queryForList(sql, Class.forName(signature), arguments);
+    }
+    return executor.queryForObject(sql, returnType, arguments);
   }
 
 }

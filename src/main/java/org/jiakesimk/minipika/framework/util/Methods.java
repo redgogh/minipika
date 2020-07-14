@@ -149,4 +149,22 @@ public class Methods {
     }
   }
 
+  /**
+   * 获取方法签名
+   *
+   * @param method 需要获取签名的方法
+   * @return 方法签名
+   */
+  public static String getGenericSignature(Method method) {
+    String signature = null;
+    try {
+      Method declaredMethod = Method.class.getDeclaredMethod("getGenericSignature");
+      declaredMethod.setAccessible(true);
+      signature = (String) declaredMethod.invoke(method);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return signature;
+  }
+
 }

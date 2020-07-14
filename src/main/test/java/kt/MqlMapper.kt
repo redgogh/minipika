@@ -1,17 +1,17 @@
 package kt
 
 import org.jiakesimk.minipika.components.annotation.Batch
-import org.jiakesimk.minipika.components.annotation.Select
+import org.jiakesimk.minipika.components.annotation.QueryOf
 
 interface MqlMapper {
 
-  @Select(value = """
+  @QueryOf("""
     select * from website_user_info where 1=1
     #IF INE(user.username) && user.username != null
       and username = #{user.username}
     #END
-  """, forObject = User::class)
-  fun findUser(user:User): User
+  """, forList = User::class)
+  fun findUser(user: User): List<User>
 
   @Batch("""
     insert into website_user_info (username, `password`) values (?, ?)
@@ -19,6 +19,6 @@ interface MqlMapper {
       #{user.username},#{user.password}
     #END
   """)
-  fun addBatch(users:List<User>): IntArray
+  fun addBatch(users: List<User>): IntArray
 
 }

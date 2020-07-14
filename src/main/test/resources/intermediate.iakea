@@ -3,7 +3,7 @@
 //
 mapper user_iakea {
 
-    select findUserByName UserEntity {
+    queryOf findUserByName UserEntity {
 
         P:
             Map as map;
@@ -16,7 +16,7 @@ mapper user_iakea {
             #append from sql.append();
 
         C:
-            sql.append("select * from user_entity where 1 = 1");
+            sql.append("queryOf * from user_entity where 1 = 1");
             ifne {username},[NULL]:
                 #append(and user_name = {{username}});
             else:

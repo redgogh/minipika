@@ -13,7 +13,7 @@
 创建dao接口演示: 
 ```groovy
 @Select(value = """
-  select * from website_user_info where 1=1
+  queryOf * from website_user_info where 1=1
   #if INE(user.username) && user.username != null
     and username = #{user.username}
   #end

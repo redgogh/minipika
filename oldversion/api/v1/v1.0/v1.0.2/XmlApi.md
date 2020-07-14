@@ -14,7 +14,7 @@ minipika.entity.mapper = org.jiakesimk.minipika.mapper
 mapper xml目前提供了以下标签：
 
 - mapper
-- select
+- queryOf
 - insert
 - update
 - choose
@@ -38,7 +38,7 @@ mapper标签有个**name**属性，这个属性代表了整个xml。它是唯一
 
 ---
 
-## select
+## queryOf
 
 看完mapper标签后再来看看select标签，这个标签代表一个查询SQL。
 
@@ -66,7 +66,7 @@ mapper标签有个**name**属性，这个属性代表了整个xml。它是唯一
         配置项为：minipika.entity.package
     -->
     <mapper name="findUserByUUID" result="UserEntity">
-        select * from kkb_user_entity where uuid = {{uuid}}
+        queryOf * from kkb_user_entity where uuid = {{uuid}}
     </mapper>
 
 </mapper>
@@ -102,7 +102,7 @@ if标签中有一个属性叫**groovy**，这个属性代表你的判断条件�
 假设我们当前sql语句是：
 
 ```sql
-select * 
+queryOf * 
 from user
 -- 1=1大法好！
 where 1=1
@@ -132,7 +132,7 @@ if(userFriendId != null){
 然而minipika有提供了一个内置参数，可以让你简写if，请看：
 
 ```xml
-select * 
+queryOf * 
 from user
 where 1=1
 <if groovy="$req != null">
@@ -146,7 +146,7 @@ where 1=1
 
 大家这边肯定就有一个问题了，那我else怎么写？莫慌，else需要在choose标签中编写。
 ```xml
-select * 
+queryOf * 
 from user
 where 1=1
 <choose>

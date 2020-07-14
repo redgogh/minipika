@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="productService">
 
-    <select name="findProductName" result="math(BigDecimal)">
-        select product_name from kkb_product_entity where id = {{id}}
-    </select>
+    <queryOf name="findProductName" result="math(BigDecimal)">
+        queryOf product_name from kkb_product_entity where id = {{id}}
+    </queryOf>
 
     <!--
         测试条件查询（不为空则不添加到条件）
     -->
-    <select name="findProduct" result="ProductEntity">
-        select * from kkb_product_entity where 1=1
+    <queryOf name="findProduct" result="ProductEntity">
+        queryOf * from kkb_product_entity where 1=1
         <if test="$req != null">
             <cond>and product_name = {{productName}}</cond>
             <cond>and uuid = {{uuid}}</cond>
         </if>
-    </select>
+    </queryOf>
 
     <!--
         测试普通查询
         result参数代表要返回的对象,这个对象不用加全路径。
         但是要求对象必须在minipika.entity.package配置的包下
     -->
-    <select name="findProductByUUID" result="ProductEntity">
-        select * from kkb_product_entity where uuid = {{uuid}}
-    </select>
+    <queryOf name="findProductByUUID" result="ProductEntity">
+        queryOf * from kkb_product_entity where uuid = {{uuid}}
+    </queryOf>
 
     <!--
         测试批量插入

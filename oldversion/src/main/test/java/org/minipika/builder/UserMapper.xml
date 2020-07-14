@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="UserMapper">
 
-    <select name="findUsernameById" result="lang(String)">
-        select name from kkb_user_info where id = {{id}}
-    </select>
+    <queryOf name="findUsernameById" result="lang(String)">
+        queryOf name from kkb_user_info where id = {{id}}
+    </queryOf>
 
     <update name="updateUsernameById">
         update kkb_user_info set name= {{name}} where id = {{id}}

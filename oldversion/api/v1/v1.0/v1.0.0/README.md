@@ -147,7 +147,7 @@ public class Main{
     static JdbcSupport jdbc = JdbcSupport.getTemplate();
 
     public static void main(String[] args){
-        String sql = "select * from user_entity where user_name = ?";
+        String sql = "queryOf * from user_entity where user_name = ?";
         UserEntity user = jdbc.queryForObject(sql,UserEntity.class,"张三");
         // 这里的话queryForList也是一样的，没什么太大的区别。
         List<UserEntity> user = jdbc.queryForList(sql,UserEntity.class,"张三");
@@ -188,7 +188,7 @@ pageVo.setPageSize(10);
 //
 // 第二步编写SQL
 //
-String sql = "select `user_name` from user_entity";
+String sql = "queryOf `user_name` from user_entity";
 
 //
 // 第三步执行查询

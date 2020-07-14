@@ -3,12 +3,13 @@ package groovy
 import kt.User
 import org.jiakesimk.minipika.components.annotation.Batch
 import org.jiakesimk.minipika.components.annotation.Insert
-import org.jiakesimk.minipika.components.annotation.Select
+import org.jiakesimk.minipika.components.annotation.QueryOf
+import org.jiakesimk.minipika.components.annotation.QueryOf
 import org.jiakesimk.minipika.components.annotation.Update
 
 interface MqlMapper {
 
-  @Select(value = """
+  @QueryOf(value = """
     select * from website_user_info where 1=1
     #IF INE(user.username) && user.username != null
       and username = #{user.username}

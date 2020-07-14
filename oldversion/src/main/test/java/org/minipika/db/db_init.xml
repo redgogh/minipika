@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="userIakea">
 
-    <select name="findUserByName" result="UserEntity">
-        select * from kkb_user_entity
+    <queryOf name="findUserByName" result="UserEntity">
+        queryOf * from kkb_user_entity
         where 1=1
         <if test="username != null">
             and user_name1 = {{username}}
@@ -10,7 +10,7 @@
         <foreach index="index" item="user" collections="users">
             limit {{user.username}},{{user.address}}
         </foreach>
-    </select>
+    </queryOf>
 
     <!-- <update name="updateUserById">
 

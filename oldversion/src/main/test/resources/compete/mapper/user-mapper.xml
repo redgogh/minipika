@@ -2,8 +2,8 @@
 <mapper name="UserMapper">
 
     <!-- 根据id查询 -->
-    <select name="findUserById" result="User">
-        select * from minipika_user where id = {{id}}
-    </select>
+    <queryOf name="findUserById" result="User">
+        queryOf * from minipika_user where id = {{id}}
+    </queryOf>
 
 </mapper>

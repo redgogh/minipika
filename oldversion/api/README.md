@@ -137,7 +137,7 @@ public class Main{
     static JdbcSupport jdbc = JdbcSupport.getTemplate();
 
     public static void main(String[] args){
-        String sql = "select * from user_entity where user_name = ?";
+        String sql = "queryOf * from user_entity where user_name = ?";
         UserEntity user = jdbc.queryForObject(sql,UserEntity.class,"张三");
         // 这里的话queryForList也是一样的，没什么太大的区别。
         List<UserEntity> user = jdbc.queryForList(sql,UserEntity.class,"张三");
@@ -178,7 +178,7 @@ pageVo.setPageSize(10);
 //
 // 第二步编写SQL
 //
-String sql = "select `user_name` from user_entity";
+String sql = "queryOf `user_name` from user_entity";
 
 //
 // 第三步执行查询
@@ -254,9 +254,9 @@ update其实非常简单，提供了一下三种方法：
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="findProductPric">
-    <select name="findProductName" result="math(BigDecimal)">
-        select product_amount from kkb_product_entity where id = {{id}}
-    </select>
+    <queryOf name="findProductName" result="math(BigDecimal)">
+        queryOf product_amount from kkb_product_entity where id = {{id}}
+    </queryOf>
 </mapper>
 ```
 这里面就可以看出来和MyBatis中的一些不同。比如我们的Result。这边的Result采用的不是全类名，我将他简化成了包名加类名。如果你要返回String结果那么使用lang(String)即可。
@@ -266,9 +266,9 @@ update其实非常简单，提供了一下三种方法：
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="findProductPric">
-    <select name="findProduct" result="ProductEntity">
-        select * from kkb_product_entity where id = {{id}}
-    </select>
+    <queryOf name="findProduct" result="ProductEntity">
+        queryOf * from kkb_product_entity where id = {{id}}
+    </queryOf>
 </mapper>
 ```
 不需要加上全类名，因为在配置文件中我已经知道了你Entity类放在哪个位置了。框架会自动帮你添加上。
@@ -281,8 +281,8 @@ update其实非常简单，提供了一下三种方法：
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="findProduct">
-    <select name="findProduct" result="ProductEntity">
-        select * from kkb_product_entity where 1=1
+    <queryOf name="findProduct" result="ProductEntity">
+        queryOf * from kkb_product_entity where 1=1
         <if groovy="id != null">
             and id = {{id}}
         </if>
@@ -292,29 +292,29 @@ update其实非常简单，提供了一下三种方法：
         <if groovy="status != null">
             and status = {{status}}
         </if>
-    </select>
+    </queryOf>
 </mapper>
 ```
 这样就可以进行动态查询了，当然这种方式太繁琐了。我并不推荐大家用这种方法。minipika还提供了一种更简单的方法。
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="findProduct">
-    <select name="findProduct" result="ProductEntity">
-        select * from kkb_product_entity where 1=1
+    <queryOf name="findProduct" result="ProductEntity">
+        queryOf * from kkb_product_entity where 1=1
         <if groovy="$req != null">
             <cond>and id = {{id}}</cond>
             <cond>and name = {{name}}</cond>
             <cond>and status = {{status}}</cond>
         </if>
-    </select>
+    </queryOf>
 </mapper>
 ```
 如果需要使用else的话需要用choose标签
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper name="findProduct">
-    <select name="findProduct" result="ProductEntity">
-        select * from kkb_product_entity where 1=1
+    <queryOf name="findProduct" result="ProductEntity">
+        queryOf * from kkb_product_entity where 1=1
         <choose>
             <if groovy="$req != null">
                 <cond>and id = {{id}}</cond>
@@ -327,7 +327,7 @@ update其实非常简单，提供了一下三种方法：
                 <cond>and status1 = {{status1}}</cond>
             </else>
         </choose>
-    </select>
+    </queryOf>
 </mapper>
 ```
 这个else中的cond是根据顺序的判断的，也就是说if第一个cond的else在else标签下也必须是第一个cond标签。

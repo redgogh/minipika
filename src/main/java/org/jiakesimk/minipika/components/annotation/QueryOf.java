@@ -30,17 +30,12 @@ import java.util.Map;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Select {
+public @interface QueryOf {
 
   /**
    * @return sql语句
    */
   String value() default "";
-
-  /**
-   * @return 查询结果返回单个对象
-   */
-  Class<?> forObject() default NullType.class;
 
   /**
    * @return 查询结果返回List集合

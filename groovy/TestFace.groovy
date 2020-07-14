@@ -1,10 +1,11 @@
 package groovy
 
-import org.jiakesimk.minipika.components.annotation.Select
+import org.jiakesimk.minipika.components.annotation.QueryOf
+import org.jiakesimk.minipika.components.annotation.QueryOf
 
 interface TestFace {
 
-  @Select("")
+  @QueryOf("")
   def addUser()
 
   def select()
