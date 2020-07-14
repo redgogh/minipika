@@ -165,7 +165,7 @@ public final class Maps {
     return null;
   }
 
-  public static String toString(Map map) {
+  public static <K,V> String toString(Map<K,V> map) {
     return JSON.toJSONString(map);
   }
 

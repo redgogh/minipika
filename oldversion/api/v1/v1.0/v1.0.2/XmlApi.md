@@ -80,7 +80,7 @@ mapper标签有个**name**属性，这个属性代表了整个xml。它是唯一
 
 if标签是动态sql中非常重要的一个逻辑判断语句，他能够帮助程序员构建动态sql，那么现在来看下怎么使用吧。
 
-if标签中有一个属性叫**test**，这个属性代表你的判断条件。
+if标签中有一个属性叫**groovy**，这个属性代表你的判断条件。
 
 ```xml
 <!--
@@ -92,7 +92,7 @@ if标签中有一个属性叫**test**，这个属性代表你的判断条件。
     }    
     这样看就很简单了对吧。
 -->
-<if test="uuid != null">
+<if groovy="uuid != null">
     uuid = {{uuid}}
 </if>
 ```
@@ -135,7 +135,7 @@ if(userFriendId != null){
 select * 
 from user
 where 1=1
-<if test="$req != null">
+<if groovy="$req != null">
     <cond>and username = {{username}}</cond>
     <cond>and password = {{password}}</cond>
     <cond>and userAge = {{userAge}}</cond>
@@ -150,7 +150,7 @@ select *
 from user
 where 1=1
 <choose>
-    <if test="$req != null">
+    <if groovy="$req != null">
         <cond>and username = {{username}}</cond>
         <cond>and password = {{password}}</cond>
         <cond>and userAge = {{userAge}}</cond>
@@ -185,7 +185,7 @@ foreach也是一个非常常用的标签，所以我也加入了xml文件的标�
     <foreach index="index" item="item" collections="users">
         insert into user(name,sex) values ({{item.name}},{item.sex}});
         <choose>
-            <if test="$req != username">
+            <if groovy="$req != username">
                 and user_a = {{usera}}
             </if>
             <else>

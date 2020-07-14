@@ -11,7 +11,7 @@
 
   <properties>
     <jdom.version>2.0.6</jdom.version>
-    <kotlin.version>1.3.70</kotlin.version>
+    <kotlin.version>1.3.72</kotlin.version>
     <fastjson.version>1.2.62</fastjson.version>
     <javassist.version>3.12.1.GA</javassist.version>
     <mysql.connector.version>8.0.11</mysql.connector.version>
@@ -28,6 +28,14 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+  <repositories>
+    <repository>
+      <id>ali yun</id>
+      <name>alibaba cloud</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+    </repository>
+  </repositories>
 
   <dependencies>
     <dependency>
@@ -102,16 +110,52 @@
       <version>4.13-rc-2</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib-jdk8</artifactId>
+      <version>${kotlin.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-test</artifactId>
+      <version>${kotlin.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
     <plugins>
       <plugin>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <version>${kotlin.version}</version>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>test-compile</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <jvmTarget>1.8</jvmTarget>
+          <javaParameters>true</javaParameters>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
         <configuration>
-          <encoding>UTF-8</encoding>
+          <source>11</source>
+          <target>11</target>
           <compilerArgs>-parameters</compilerArgs>
         </configuration>
       </plugin>

@@ -44,7 +44,6 @@ public class JDOMHelper {
 
         @Override
         public void startPrefixMapping(String prefix, String uri) throws SAXException {
-          return;
         }
       };
     }

@@ -1,4 +1,7 @@
-package org.jiakesimk.minipika.framework.common;
+package groovy
+
+import org.codehaus.groovy.ast.ClassNode
+import org.codehaus.groovy.ast.builder.AstBuilder;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,26 +20,28 @@ package org.jiakesimk.minipika.framework.common;
  */
 
 /*
- * Creates on 2020/6/1.
+ * Creates on 2020/6/27.
  */
-
-import org.jiakesimk.minipika.framework.factory.Factorys;
-
-import java.lang.reflect.InvocationHandler;
 
 /**
- * 如果实现了这个接口的话, 那么在调用{@link Factorys#forClass}创建对象的时候
- * 会使用{@link #getProxyHandler}返回的对象.
- *
  * @author tiansheng
  */
-public interface ProxyHandler extends InvocationHandler {
+class AstTest {
 
-  /**
-   * 获取代理对象
-   *
-   * @return 代理对象实现
-   */
-  <T> T getProxyHandler();
+  @org.junit.Test
+  void test() {
+    AstBuilder builder = new AstBuilder()
+    def nodes = builder.buildFromString("""
+      interface MqlMapper {
+        def findUser(user, wdnmd)
+        def addUser(user)
+      }
+    """)
+    nodes.each {
+      if (it instanceof ClassNode) {
+        println it.name
+      }
+    }
+  }
 
 }

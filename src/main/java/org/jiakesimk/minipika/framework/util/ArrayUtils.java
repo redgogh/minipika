@@ -26,7 +26,7 @@ public final class ArrayUtils {
   public static boolean isArray(Object o) {
     if (o == null) return false;
     Class c = o.getClass();
-    return c.isArray() || ((Class) o).getName().contains("[");
+    return c.isArray() || o.getClass().getName().contains("[");
   }
 
   /**
@@ -183,12 +183,22 @@ public final class ArrayUtils {
   /**
    * 对象转数组, 传入的对象必须是数组转成的。
    */
-  public static Object[] toArray(Object array) {
-    if (!isArray(array)) return null;
-    int size = Array.getLength(array);
-    Object[] objects = new Object[size];
-    for (int i = 0; i < size; i++) {
-      objects[i] = Array.get(array, i);
+  public static Object[] toArray(Object a) {
+    Object[] objects = null;
+    if (isArray(a)) {
+      int size = Array.getLength(a);
+      objects = new Object[size];
+      for (int i = 0; i < size; i++) {
+        objects[i] = Array.get(a, i);
+      }
+      return objects;
+    } else if (a instanceof List) {
+      List<?> list = (List<?>) a;
+      int len = list.size();
+      objects = new Object[len];
+      for (int i = 0; i < len; i++) {
+        objects[i] = list.get(i);
+      }
     }
     return objects;
   }

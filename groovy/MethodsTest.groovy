@@ -1,4 +1,6 @@
-package org.jiakesimk.minipika.framework.common;
+package framework.util
+
+import MqlMapper;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,26 +19,27 @@ package org.jiakesimk.minipika.framework.common;
  */
 
 /*
- * Creates on 2020/6/1.
+ * Creates on 2020/6/23.
  */
 
-import org.jiakesimk.minipika.framework.factory.Factorys;
-
-import java.lang.reflect.InvocationHandler;
+import javassist.NotFoundException
+import org.jiakesimk.minipika.framework.util.ArrayUtils
+import org.jiakesimk.minipika.framework.util.Methods
+import org.junit.Test
 
 /**
- * 如果实现了这个接口的话, 那么在调用{@link Factorys#forClass}创建对象的时候
- * 会使用{@link #getProxyHandler}返回的对象.
- *
  * @author tiansheng
  */
-public interface ProxyHandler extends InvocationHandler {
+class MethodsTest {
 
-  /**
-   * 获取代理对象
-   *
-   * @return 代理对象实现
-   */
-  <T> T getProxyHandler();
+  @Test
+  void test() throws NotFoundException {
+    ArrayUtils.toString(Methods.getParameterNames(MqlMapper.methods[0]));
+  }
+
+  @Test
+  void test2() {
+
+  }
 
 }

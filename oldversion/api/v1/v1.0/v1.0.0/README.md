@@ -21,7 +21,7 @@ ManualConfig.load("newminipika.properties");
 #####################################
 ### 数据库属性
 #####################################
-minipika.jdbc.url = jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+minipika.jdbc.url = jdbc:mysql://127.0.0.1:3306/groovy?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
 minipika.jdbc.driver = com.mysql.cj.jdbc.Driver
 minipika.jdbc.username = root
 minipika.jdbc.password = root

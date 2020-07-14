@@ -14,11 +14,11 @@
 
     <!-- <update name="updateUserById">
 
-        UPDATE `test`.`user_entity`
+        UPDATE `groovy`.`user_entity`
         SET `user_name` = 'geg|-',
         WHERE
         <choose>
-            <if test="id != null">
+            <if groovy="id != null">
                 `id` = {{id}}
             </if>
         </choose>

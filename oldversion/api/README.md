@@ -89,7 +89,7 @@ minipika.norm.json = norm.json
 - @Pk
 > **@Pk**主键
 
-具体Entity的实现可以参考一下本项目下的 [ExampleEntity](https://github.com/Laniakeamly/minipika/blob/master/src/main/test/org/minipika/experiment/ExampleEntity.java)。
+具体Entity的实现可以参考一下本项目下的 [ExampleEntity](https://github.com/Laniakeamly/minipika/blob/master/src/main/groovy/org/minipika/experiment/ExampleEntity.java)。
 
 当Entity配置好了之后在启动时会自动创建表和字段。
 
@@ -283,13 +283,13 @@ update其实非常简单，提供了一下三种方法：
 <mapper name="findProduct">
     <select name="findProduct" result="ProductEntity">
         select * from kkb_product_entity where 1=1
-        <if test="id != null">
+        <if groovy="id != null">
             and id = {{id}}
         </if>
-        <if test="name != null">
+        <if groovy="name != null">
             and name = {{name}}
         </if>
-        <if test="status != null">
+        <if groovy="status != null">
             and status = {{status}}
         </if>
     </select>
@@ -301,7 +301,7 @@ update其实非常简单，提供了一下三种方法：
 <mapper name="findProduct">
     <select name="findProduct" result="ProductEntity">
         select * from kkb_product_entity where 1=1
-        <if test="$req != null">
+        <if groovy="$req != null">
             <cond>and id = {{id}}</cond>
             <cond>and name = {{name}}</cond>
             <cond>and status = {{status}}</cond>
@@ -316,7 +316,7 @@ update其实非常简单，提供了一下三种方法：
     <select name="findProduct" result="ProductEntity">
         select * from kkb_product_entity where 1=1
         <choose>
-            <if test="$req != null">
+            <if groovy="$req != null">
                 <cond>and id = {{id}}</cond>
                 <cond>and name = {{name}}</cond>
                 <cond>and status = {{status}}</cond>

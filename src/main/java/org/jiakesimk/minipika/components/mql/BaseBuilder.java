@@ -20,7 +20,6 @@ package org.jiakesimk.minipika.components.mql;
  * Creates on 2020/6/22.
  */
 
-import groovy.lang.Closure;
 import javassist.NotFoundException;
 import org.jiakesimk.minipika.framework.compiler.JavaCompiler;
 import org.jiakesimk.minipika.components.logging.Log;
@@ -101,7 +100,7 @@ public class BaseBuilder extends Invoker {
     builder.delete(builder.length() - 1, builder.length());
     builder.delete(builder.length(), builder.length()).append("){"); // 方法头部声明结尾
     // 构建方法体
-    buildBody(src, method);
+    buildBody(src);
     builder.append("Object[] objects = new Object[2];");
     builder.append("objects[0] = sql.toString();");
     builder.append("objects[1] = arguments;");
@@ -116,7 +115,7 @@ public class BaseBuilder extends Invoker {
    *
    * @param src 动态sql
    */
-  private void buildBody(String src, Method method) throws NotFoundException {
+  private void buildBody(String src) {
     _buildHead();
     String[] single = src.split("\n");
     for (String line : single) {
@@ -281,8 +280,9 @@ public class BaseBuilder extends Invoker {
 
   /**
    * 获取成员属性值
+   *
    * @param object 从object对象中获取
-   * @param name 获取name属性的值
+   * @param name   获取name属性的值
    * @return code
    */
   private String getFieldValue(String object, String name) {
@@ -291,6 +291,7 @@ public class BaseBuilder extends Invoker {
 
   /**
    * 添加sql单条语句
+   *
    * @param sql SQL语句字符串
    */
   private void sqlAppend(String sql) {
@@ -299,6 +300,7 @@ public class BaseBuilder extends Invoker {
 
   /**
    * 添加当前sql参数
+   *
    * @param argument 参数对象
    */
   private void argsAppend(String argument) {
@@ -313,17 +315,16 @@ public class BaseBuilder extends Invoker {
    */
   @SuppressWarnings({"rawtypes"})
   private String[] existArguments(String input) {
-    return Matches.find(input, "#\\{(.*?)}\\S*", new Closure(null) {
-      @Override
-      public Object call(Object... args) {
-        String args0 = (String) args[0];
-        args0 = args0.replaceAll("#", "");
-        if (args0.contains(".")) {
-          args0 = invokeToAddGet(args0);
+    if(StringUtils.isNotEmpty(input)) {
+      return Matches.find(input, "#\\{(.*?)}\\S*", value -> {
+        value = value.replaceAll("#", "");
+        if (value.contains(".")) {
+          value = invokeToAddGet(value);
         }
-        return args0;
-      }
-    });
+        return value;
+      });
+    }
+    return null;
   }
 
   /**
@@ -335,7 +336,7 @@ public class BaseBuilder extends Invoker {
     }
     Class<?> clazz = Objects.requireNonNull(JavaCompiler.compile(classname, mtClass.toString()));
     instance = ClassUtils.newInstance(clazz);
-    // 清空springbuilder
+    // 清空SpringBuilder
     builder = null;
   }
 

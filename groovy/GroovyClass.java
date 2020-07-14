@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.common;
+package groovy;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,23 +20,15 @@ package org.jiakesimk.minipika.framework.common;
  * Creates on 2020/6/1.
  */
 
-import org.jiakesimk.minipika.framework.factory.Factorys;
-
-import java.lang.reflect.InvocationHandler;
+import org.junit.Test;
 
 /**
- * 如果实现了这个接口的话, 那么在调用{@link Factorys#forClass}创建对象的时候
- * 会使用{@link #getProxyHandler}返回的对象.
- *
  * @author tiansheng
  */
-public interface ProxyHandler extends InvocationHandler {
+public class GroovyClass {
 
-  /**
-   * 获取代理对象
-   *
-   * @return 代理对象实现
-   */
-  <T> T getProxyHandler();
+  @Test
+  public void test() {
+  }
 
 }

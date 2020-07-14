@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.common;
+package org.jiakesimk.minipika.components.mql;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,26 +17,30 @@ package org.jiakesimk.minipika.framework.common;
  */
 
 /*
- * Creates on 2020/6/1.
+ * Creates on 2020/6/23.
  */
 
-import org.jiakesimk.minipika.framework.factory.Factorys;
+import org.jiakesimk.minipika.framework.util.Methods;
+import org.jiakesimk.minipika.framework.util.Objects;
 
-import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
- * 如果实现了这个接口的话, 那么在调用{@link Factorys#forClass}创建对象的时候
- * 会使用{@link #getProxyHandler}返回的对象.
- *
  * @author tiansheng
  */
-public interface ProxyHandler extends InvocationHandler {
+public class Invoker {
+
+  protected Object instance;
 
   /**
-   * 获取代理对象
-   *
-   * @return 代理对象实现
+   * 执行方法
+   * @param method 方法名称
+   * @param arguments 方法参数
+   * @return 返回值, 返回通用Object
    */
-  <T> T getProxyHandler();
+  public Object[] invoke(Method method, Object... arguments) throws Exception {
+    return (Object[]) Objects.invoke(method, instance, arguments);
+  }
 
 }

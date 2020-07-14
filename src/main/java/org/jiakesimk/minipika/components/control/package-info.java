@@ -19,7 +19,8 @@
  */
 
 /**
- * minipika可视化控制面板
+ * 可视化控制面板
+ *
  * @author tiansheng
  */
 package org.jiakesimk.minipika.components.control;

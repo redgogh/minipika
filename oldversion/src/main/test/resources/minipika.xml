@@ -4,7 +4,7 @@
     <jdbc>
         <!-- url加参数 -->
         <url params="useUnicode=true,characterEncoding=utf-8,useSSL=false,serverTimezone=GMT">
-            jdbc:mysql://127.0.0.1:3306/test
+            jdbc:mysql://127.0.0.1:3306/groovy
         </url>
         <driver>com.mysql.cj.jdbc.Driver</driver>
         <username>root</username>
