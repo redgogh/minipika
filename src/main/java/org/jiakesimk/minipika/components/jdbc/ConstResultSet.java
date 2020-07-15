@@ -22,6 +22,7 @@ package org.jiakesimk.minipika.components.jdbc;
 
 import com.alibaba.fastjson.JSONObject;
 import org.jiakesimk.minipika.framework.util.ClassUtils;
+import org.jiakesimk.minipika.framework.util.Lists;
 import org.jiakesimk.minipika.framework.util.Maps;
 import org.jiakesimk.minipika.framework.util.StringUtils;
 
@@ -138,7 +139,7 @@ public class ConstResultSet implements NativeResultSet {
    * @return 实例化后的实体集合
    */
   private <T> List<T> conversionEntityList(Class<T> target) throws Exception {
-    List<T> javaBeans = new ArrayList<>();
+    List<T> javaBeans = Lists.newCopyOnWriteArrayList();
     for (Map<String, String> resultMap : resultSet) {
       javaBeans.add(conversionJavaBean(target, resultMap));
     }

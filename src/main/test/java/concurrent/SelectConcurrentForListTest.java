@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @author lts
  */
-public class SelectConcurrentTest {
+public class SelectConcurrentForListTest {
 
   static final UserMapper mapper = UserMapper.Companion.getMapper();
 
@@ -22,21 +22,24 @@ public class SelectConcurrentTest {
 
     ThreadFactory.createThread("thread1", () -> {
       while (true) {
-        List<User> user = mapper.findUser("name1");
+        List<User> user = mapper.findUserList("name1");
+        if (user.isEmpty()) continue;
         System.out.println(Threads.getCurrentThreadName() + ": =========>>> " + user.get(0).getId());
       }
     }).start();
 
     ThreadFactory.createThread("thread2", () -> {
       while (true) {
-        List<User> user = mapper.findUser("name2");
+        List<User> user = mapper.findUserList("name2");
+        if (user.isEmpty()) continue;
         System.out.println(Threads.getCurrentThreadName() + ": =========>>> " + user.get(0).getId());
       }
     }).start();
 
     ThreadFactory.createThread("thread3", () -> {
       while (true) {
-        List<User> user = mapper.findUser("name3");
+        List<User> user = mapper.findUserList("name3");
+        if (user.isEmpty()) continue;
         System.out.println(Threads.getCurrentThreadName() + ": =========>>> " + user.get(0).getId());
       }
     }).start();

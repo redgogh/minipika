@@ -1,6 +1,7 @@
 package org.jiakesimk.minipika.framework.util;
 
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 静态的List工具类
@@ -110,9 +111,9 @@ public final class Lists {
 
   /**
    * 创建一个可变的 {@code Vector}
-   * 复制一个{@link Vector}中的数据到新的{@code Vector}中
+   * 复制一个{@link Collection}中的数据到新的{@code Vector}中
    *
-   * @return 新的{@code Vector}且带有传入{@code Vector}数据的实例
+   * @return 新的{@code Vector}且带有传入{@code Collection}数据的实例
    */
   public static <E> Vector<E> newVector(Collection<? extends E> collection) {
     return new Vector<>(collection);
@@ -126,6 +127,25 @@ public final class Lists {
    */
   public static <E> Vector<E> newVector(E[] es) {
     return new Vector<>(Arrays.asList(es));
+  }
+
+  /**
+   * 创建一个线程安全的List{@link CopyOnWriteArrayList}
+   *
+   * @return 空的{@code CopyOnWriteArrayList}
+   */
+  public static <E> List<E> newCopyOnWriteArrayList() {
+    return new CopyOnWriteArrayList<>();
+  }
+
+  /**
+   * 创建一个可变的 {@code CopyOnWriteArrayList}
+   * 复制一个{@link Collection}中的数据到新的{@code CopyOnWriteArrayList}中
+   *
+   * @return 新的{@code CopyOnWriteArrayList}且带有传入{@code CopyOnWriteArrayList}数据的实例
+   */
+  public static <E> CopyOnWriteArrayList<E> newCopyOnWriteArrayList(Collection<? extends E> collection) {
+    return new CopyOnWriteArrayList<>(collection);
   }
 
   /**

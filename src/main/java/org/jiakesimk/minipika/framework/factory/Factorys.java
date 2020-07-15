@@ -34,7 +34,7 @@ public class Factorys {
 
   static {
     ContextManager.loadContext(); // 加载上下文
-    ComponentContainer.components.put(NativeResultSet.class.getName(), forClass(ConstResultSet.class));
+    ComponentContainer.components.put(NativeResultSet.class.getName(), ConstResultSet.class);
     ComponentContainer.components.put(NativeJdbcImpl.class.getName(), forClass(NativeJdbcImpl.class));
     ComponentContainer.components.put(JdbcTransaction.class.getName(), forClass(JdbcTransaction.class));
     ComponentContainer.components.put(TransactionFactory.class.getName(), forClass(JdbcTransactionFactory.class));

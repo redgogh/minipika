@@ -54,7 +54,13 @@ public class ComponentContainer implements ComponentFactory {
       String className = clazz.getName();
 
       component = components.get(className);
+
+      if (component instanceof Class) {
+        component = InjectUtils.autowired((Class<?>) component);
+      }
+
       if (component != null) return (T) component;
+
 
       if (ClassUtils.isInterface(clazz)) {
         // 如果是接口的话那么就查找匹配接口类型的类
@@ -64,7 +70,8 @@ public class ComponentContainer implements ComponentFactory {
         }
       }
 
-      // 判断是否执行有参构造器
+
+        // 判断是否执行有参构造器
       if (types == null) {
         component = InjectUtils.autowired(clazz);
       } else {

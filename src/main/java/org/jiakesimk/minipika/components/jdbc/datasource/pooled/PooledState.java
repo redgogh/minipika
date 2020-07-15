@@ -40,14 +40,14 @@ public class PooledState implements ThreadNotifyStrategy {
   /**
    * sql执行次数统计
    */
-  protected Map<Integer, Long> frequency                        = Maps.newHashMap();
+  protected Map<Integer, Long> frequency                        = Maps.newConcurrentHashMap();
 
   /**
    * sql执行耗时
    */
-  protected Map<Integer, List<Long>> sqlTimeConsuming           = Maps.newHashMap();
+  protected Map<Integer, List<Long>> sqlTimeConsuming           = Maps.newConcurrentHashMap();
 
-  protected Map<Integer, String> sqlKeyCollect                  = Maps.newHashMap();
+  protected Map<Integer, String> sqlKeyCollect                  = Maps.newConcurrentHashMap();
 
   protected List<PooledConnection> idleConnections              = Lists.newArrayList();
 

@@ -16,8 +16,16 @@ interface UserMapper {
     #IF NOT_EMPTY(username)
       and username = #{username}
     #END
-  """, forList = User::class)
-  fun findUser(username: String): List<User>
+  """)
+  fun findUser(username: String): User
+
+  @QueryOf("""
+    select * from website_user_info where 1=1
+    #IF NOT_EMPTY(username)
+      and username = #{username}
+    #END
+  """)
+  fun findUserList(username: String): List<User>
 
   @Batch("""
     insert into website_user_info (username, `password`) values (?, ?)

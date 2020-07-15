@@ -83,7 +83,6 @@ public class BaseBuilder extends Invoker {
    *
    * @param method 方法名
    * @param src    动态sql
-   * @return {@code CtMethod}
    */
   protected void createMethod(Method method, String src)
           throws NotFoundException {
