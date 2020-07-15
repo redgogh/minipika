@@ -89,7 +89,7 @@ public class EntityUtils {
      * @return
      */
     public static List<Field> getEntityField(Object o) {
-        List<Field> values = new ArrayList<>();
+        List<Field> values = Lists.newArrayList();
         try {
             Class<?> target = o.getClass();
             for (Field field : target.getDeclaredFields()) {

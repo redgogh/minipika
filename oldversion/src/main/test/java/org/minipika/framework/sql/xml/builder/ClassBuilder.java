@@ -65,7 +65,7 @@
 //    @Override
 //    public ClassBuilder putMethod(framework.sql.xml.builder.MethodBuilder methodBuilder) {
 //        if(methods == null){
-//            methods = new ArrayList<>();
+//            methods = Lists.newArrayList();
 //        }
 //        methods.add(methodBuilder);
 //        return this;

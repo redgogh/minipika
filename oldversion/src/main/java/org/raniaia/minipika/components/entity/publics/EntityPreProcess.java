@@ -128,7 +128,7 @@ public class EntityPreProcess {
      */
     private List<NormProperties> getNormProperties(String[] packages) throws Exception {
         if (packages == null) return null;
-        List<NormProperties> normPropertiesList = new ArrayList<>();
+        List<NormProperties> normPropertiesList = Lists.newArrayList();
         for (String aPackage : packages) {
             CtClass[] ctClasses = ((MinipikaClassPool) classPool).getCtClassArray(aPackage);
             for (CtClass aClass : ctClasses) {

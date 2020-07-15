@@ -54,7 +54,7 @@ public class MinipikaClassPool extends ClassPool {
      */
     public CtClass[] getCtClassArray(String packageName) {
         // appendClassPath(new LoaderClassPath(this.getClass().getClassLoader()));
-        List<String> classpathList = new ArrayList<>();
+        List<String> classpathList = Lists.newArrayList();
         getFile(packageName, classpathList);
         CtClass[] ctClasses = new CtClass[classpathList.size()];
         for (int i = 0, len = classpathList.size(); i < len; i++) {

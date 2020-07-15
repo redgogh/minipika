@@ -95,7 +95,7 @@ public class Precompiler {
      * @param parameters    参数
      */
     private String processStringMethod(String str, Map<String, Object> parameters) {
-        List<String> names = new ArrayList<>();
+        List<String> names = Lists.newArrayList();
         Pattern pattern = Pattern.compile("#(.*?)#");
         Matcher matcher = pattern.matcher(str);
         while (matcher.find()) {
@@ -120,7 +120,7 @@ public class Precompiler {
         boolean isString = false;
         char[] charArray = str.toCharArray();
         StringBuilder builder = new StringBuilder();
-        List<Position> positions = new ArrayList<>();
+        List<Position> positions = Lists.newArrayList();
         int endPos = 0;
         int startPos = 0;
         for (int i = 0; i < charArray.length; i++) {
@@ -151,7 +151,7 @@ public class Precompiler {
         Collections.reverse(positions);
         builder = new StringBuilder(str);
         for (Position position : positions) {
-            List<String> params = new ArrayList<>();
+            List<String> params = Lists.newArrayList();
             pattern = Pattern.compile("\\{\\{(.*?)}}");
             matcher = pattern.matcher(position.str);
             int count = 0;

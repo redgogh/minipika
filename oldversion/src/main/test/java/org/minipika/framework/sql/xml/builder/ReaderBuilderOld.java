@@ -81,7 +81,7 @@
 //
 //    public void parseXML() throws Exception {
 //
-//        List<ClassBuilder> classBuilderList = new ArrayList<>();
+//        List<ClassBuilder> classBuilderList = Lists.newArrayList();
 //
 //        SAXBuilder saxBuilder = new SAXBuilder();
 //        String sbo = framework.sql.xml.builder.JavaElement.STRING_BUILDER_OBJECT;

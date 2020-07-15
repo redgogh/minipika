@@ -51,7 +51,7 @@ public class ReaderMapperXML {
   private MapperLabelParser xmlparser = new MapperLabelParser();
   private ReaderCrudElement readerCrud = new ReaderCrudElement();
 
-  private List<XMLMapperNode> mappers = new ArrayList<>();
+  private List<XMLMapperNode> mappers = Lists.newArrayList();
 
   /**
    * 获取xml文件列表

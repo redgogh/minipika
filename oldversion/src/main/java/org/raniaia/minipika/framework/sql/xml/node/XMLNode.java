@@ -63,7 +63,7 @@ public class XMLNode {
 
     public void addChild(XMLNode node) {
         if (children == null) {
-            children = new ArrayList<>();
+            children = Lists.newArrayList();
         }
         node.setParent(this);
         children.add(node);

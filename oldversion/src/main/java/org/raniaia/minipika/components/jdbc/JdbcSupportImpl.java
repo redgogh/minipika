@@ -128,14 +128,14 @@ public class JdbcSupportImpl implements JdbcSupport {
   @Override
   public int insert(Object obj) {
     checkCanSave(obj);
-    List<Object> params = new ArrayList<>();
+    List<Object> params = Lists.newArrayList();
     String sql = JdbcUtils.generateInsertSQL(obj, params);
     return nativeJdbc.executeUpdate(sql, params.toArray());
   }
 
   @Override
   public int[] insert(List<Object> entitys) {
-    List<Object[]> params = new ArrayList<>();
+    List<Object[]> params = Lists.newArrayList();
     String sql = JdbcUtils.generateInsertBatchSQL(entitys, params);
     return executeBatch(sql, params);
   }
@@ -204,7 +204,7 @@ public class JdbcSupportImpl implements JdbcSupport {
     try {
       checkCanSave(obj);
       Class<?> target = obj.getClass();
-      List<Object> params = new ArrayList<>();
+      List<Object> params = Lists.newArrayList();
       StringBuffer buffer = new StringBuffer("update ");
       String table = EntityUtils.getEntityAnnotation(target).value();
       buffer.append("`").append(table).append("` set ");

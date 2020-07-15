@@ -197,7 +197,7 @@ public class NativeJdbcImpl implements NativeJdbc {
       String[] sqls = (String[]) Arrays.remove(sql.split(";"), Arrays.Op.LAST);
       // 如果sql包含';'，但是数组中只有一条sql的话就跳出if
       if (sqls.length == 1) break out;
-      List<Object[]> objList = new ArrayList<>();
+      List<Object[]> objList = Lists.newArrayList();
       int argsIndex = 0;
       for (String isql : sqls) {
         int length = 0;

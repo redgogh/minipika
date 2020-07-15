@@ -95,7 +95,7 @@ public class MinipikaCacheImpl implements MinipikaCache {
     public void refresh(String sql) {
         List<String> tables = SQLUtils.getSQLTables(sql);
         if (!tables.isEmpty()) {
-            List<String> keys = new ArrayList<>();
+            List<String> keys = Lists.newArrayList();
             for (Map.Entry<String, CacheKey> cacheKey : keyMap.entrySet()) {
                 for (String table : tables) {
                     if (cacheKey.getValue().getTables().contains(table)) {

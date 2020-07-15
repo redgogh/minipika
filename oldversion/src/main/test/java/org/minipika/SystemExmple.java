@@ -41,7 +41,7 @@ public class SystemExmple {
         // StringUtils.format() 五百万次 1602
         // StringUtils.format() 一亿次 22547ms
 
-        /*List list = new ArrayList<>();
+        /*List list = Lists.newArrayList();
         list.add("1");
         list.add("2");
         System.out.println(JSON.toJSONString(list));*/

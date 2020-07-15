@@ -57,7 +57,7 @@ public class ConstResultSet implements NativeResultSet {
   @Override
   public NativeResultSet build(ResultSet rset) {
     try {
-      resultSet = new ArrayList<>();
+      resultSet = Lists.newArrayList();
       ResultSetMetaData mdata = rset.getMetaData();
       int len = mdata.getColumnCount();
       while (rset.next()) {
@@ -114,7 +114,7 @@ public class ConstResultSet implements NativeResultSet {
 
   private <T> T conversionJavaBean(Class<T> target, Map<String, String> resultMap) throws Exception {
     if (resultSet.isEmpty()) return null;
-    List<String> names = new ArrayList<>();
+    List<String> names = Lists.newArrayList();
     T entity = null;
     if (resultMap == null || resultMap.isEmpty()) return null;
     Object v1 = isBase(target, String.valueOf(Maps.getFirstValue(resultMap)));
@@ -150,7 +150,7 @@ public class ConstResultSet implements NativeResultSet {
    * 将查询结果转换为String集合
    */
   private <T> List<T> conversionJavaStringList() {
-    List<String> strings = new ArrayList<>();
+    List<String> strings = Lists.newArrayList();
     for (Map<String, String> resultMap : resultSet) {
       for (Map.Entry<String, String> v : resultMap.entrySet()) {
         strings.add(v.getValue());
@@ -163,7 +163,7 @@ public class ConstResultSet implements NativeResultSet {
    * 将查询结果转换为Integer集合
    */
   private <T> List<T> conversionJavaIntegerList() {
-    List<Integer> list = new ArrayList<>();
+    List<Integer> list = Lists.newArrayList();
     for (Map<String, String> resultMap : resultSet) {
       for (Map.Entry<String, String> v : resultMap.entrySet()) {
         list.add(Integer.valueOf(v.getValue()));
@@ -176,7 +176,7 @@ public class ConstResultSet implements NativeResultSet {
    * 将查询结果转换为Long集合
    */
   private <T> List<T> conversionJavaLongList() {
-    List<Long> list = new ArrayList<>();
+    List<Long> list = Lists.newArrayList();
     for (Map<String, String> resultMap : resultSet) {
       for (Map.Entry<String, String> v : resultMap.entrySet()) {
         list.add(Long.valueOf(v.getValue()));
@@ -189,7 +189,7 @@ public class ConstResultSet implements NativeResultSet {
    * 将查询结果转换为Short集合
    */
   private <T> List<T> conversionJavaShortList() {
-    List<Short> list = new ArrayList<>();
+    List<Short> list = Lists.newArrayList();
     for (Map<String, String> resultMap : resultSet) {
       for (Map.Entry<String, String> v : resultMap.entrySet()) {
         list.add(Short.valueOf(v.getValue()));
@@ -202,7 +202,7 @@ public class ConstResultSet implements NativeResultSet {
    * 将查询结果转换为Boolean集合
    */
   private <T> List<T> conversionJavaBooleanList() {
-    List<Boolean> list = new ArrayList<>();
+    List<Boolean> list = Lists.newArrayList();
     for (Map<String, String> resultMap : resultSet) {
       for (Map.Entry<String, String> v : resultMap.entrySet()) {
         list.add(Boolean.valueOf(v.getValue()));
@@ -215,7 +215,7 @@ public class ConstResultSet implements NativeResultSet {
    * 将查询结果转换为Double集合
    */
   private <T> List<T> conversionJavaDoubleList() {
-    List<Double> list = new ArrayList<>();
+    List<Double> list = Lists.newArrayList();
     for (Map<String, String> resultMap : resultSet) {
       for (Map.Entry<String, String> v : resultMap.entrySet()) {
         list.add(Double.valueOf(v.getValue()));
@@ -228,7 +228,7 @@ public class ConstResultSet implements NativeResultSet {
    * 将查询结果转换为Float集合
    */
   private <T> List<T> conversionJavaFloatList() {
-    List<Float> list = new ArrayList<>();
+    List<Float> list = Lists.newArrayList();
     for (Map<String, String> resultMap : resultSet) {
       for (Map.Entry<String, String> v : resultMap.entrySet()) {
         list.add(Float.valueOf(v.getValue()));
@@ -241,7 +241,7 @@ public class ConstResultSet implements NativeResultSet {
    * 将查询结果转换为Float集合
    */
   private <T> List<T> conversionJavaByteList() {
-    List<Byte> list = new ArrayList<>();
+    List<Byte> list = Lists.newArrayList();
     for (Map<String, String> resultMap : resultSet) {
       for (Map.Entry<String, String> v : resultMap.entrySet()) {
         list.add(Byte.valueOf(v.getValue()));
@@ -254,7 +254,7 @@ public class ConstResultSet implements NativeResultSet {
    * 将查询结果转换为BigDecimal集合
    */
   private <T> List<T> conversionJavaBigDecimalList() {
-    List<BigDecimal> list = new ArrayList<>();
+    List<BigDecimal> list = Lists.newArrayList();
     for (Map<String, String> resultMap : resultSet) {
       for (Map.Entry<String, String> v : resultMap.entrySet()) {
         list.add(new BigDecimal(v.getValue()));
@@ -267,7 +267,7 @@ public class ConstResultSet implements NativeResultSet {
    * 将查询结果转换为BigInteger集合
    */
   private <T> List<T> conversionJavaBigIntegerList() {
-    List<BigInteger> list = new ArrayList<>();
+    List<BigInteger> list = Lists.newArrayList();
     for (Map<String, String> resultMap : resultSet) {
       for (Map.Entry<String, String> v : resultMap.entrySet()) {
         list.add(new BigInteger(v.getValue()));
@@ -280,7 +280,7 @@ public class ConstResultSet implements NativeResultSet {
    * 将查询结果转换为BigInteger集合
    */
   private <T> List<T> conversionJavaDateList() throws ParseException {
-    List<Date> list = new ArrayList<>();
+    List<Date> list = Lists.newArrayList();
     for (Map<String, String> resultMap : resultSet) {
       for (Map.Entry<String, String> v : resultMap.entrySet()) {
         list.add(formatter.parse(v.getValue()));
