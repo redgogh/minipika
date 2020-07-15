@@ -21,6 +21,8 @@ package org.jiakesimk.minipika.components.jdbc;
  */
 
 import com.alibaba.fastjson.JSONObject;
+import org.jiakesimk.minipika.framework.util.ClassUtils;
+import org.jiakesimk.minipika.framework.util.Lists;
 import org.jiakesimk.minipika.framework.util.Maps;
 import org.jiakesimk.minipika.framework.util.StringUtils;
 
@@ -33,6 +35,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 public class ConstResultSet implements NativeResultSet {
 
   private int nextOffset = 0;
@@ -79,33 +82,6 @@ public class ConstResultSet implements NativeResultSet {
   }
 
   @Override
-  public <T> T conversionJavaBean(Class<T> target) {
-    if (resultSet.isEmpty()) return null;
-    Map<String, String> resultMap;
-    List<String> names = new ArrayList<>();
-    T entity = null;
-    try {
-      resultMap = resultSet.get(0);
-      if (resultMap.isEmpty()) return null;
-      Object v1 = isBase(target, String.valueOf(Maps.getFirstValue(resultMap)));
-      if (v1 instanceof Exception) return null;
-      if (v1 != null) return (T) v1;
-      entity = target.newInstance();
-      for (Field field : target.getDeclaredFields()) names.add(field.getName());
-      for (Map.Entry<String, String> v : resultMap.entrySet()) {
-        String hump = StringUtils.underlineToHump(v.getKey());
-        if (!names.contains(hump)) continue;                                 // 判断Entity中是否含有hump字段
-        Field field = target.getDeclaredField(hump);
-        field.setAccessible(true);
-        setValue(field, v.getValue(), entity);
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return entity;
-  }
-
-  @Override
   public <T> List<T> conversionJavaList(Class<T> target) {
     try {
       if (target.equals(String.class)) return conversionJavaStringList();
@@ -126,6 +102,35 @@ public class ConstResultSet implements NativeResultSet {
     return null;
   }
 
+  @Override
+  public <T> T conversionJavaBean(Class<T> target) {
+    return conversionJavaBean(target, resultSet.get(0));
+  }
+
+  private  <T> T conversionJavaBean(Class<T> target, Map<String, String> resultMap) {
+    if (resultSet.isEmpty()) return null;
+    List<String> names = new ArrayList<>();
+    T entity = null;
+    try {
+      if (resultMap == null || resultMap.isEmpty()) return null;
+      Object v1 = isBase(target, String.valueOf(Maps.getFirstValue(resultMap)));
+      if (v1 instanceof Exception) return null;
+      if (v1 != null) return (T) v1;
+      entity = ClassUtils.newInstance(target);
+      for (Field field : target.getDeclaredFields()) names.add(field.getName());
+      for (Map.Entry<String, String> v : resultMap.entrySet()) {
+        String hump = StringUtils.underlineToHump(v.getKey());
+        if (!names.contains(hump)) continue;                                 // 判断Entity中是否含有hump字段
+        Field field = target.getDeclaredField(hump);
+        field.setAccessible(true);
+        setValue(field, v.getValue(), entity);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return entity;
+  }
+
   /**
    * 转换成Entity List
    *
@@ -133,25 +138,15 @@ public class ConstResultSet implements NativeResultSet {
    * @return 实例化后的实体集合
    */
   private <T> List<T> conversionEntityList(Class<T> target) {
-    List<T> entitys = new ArrayList<>();
-    List<String> names = new ArrayList<>();
+    List<T> javaBeans = new ArrayList<>();
     try {
-      for (Field field : target.getDeclaredFields()) names.add(field.getName());
       for (Map<String, String> resultMap : resultSet) {
-        T entity = target.newInstance();
-        for (Map.Entry<String, String> v : resultMap.entrySet()) {
-          String hump = StringUtils.underlineToHump(v.getKey());
-          if (!names.contains(hump)) continue;                                 // 判断Entity中是否含有hump字段
-          Field field = target.getDeclaredField(hump);
-          field.setAccessible(true);
-          setValue(field, v.getValue(), entity);
-        }
-        entitys.add(entity);
+        javaBeans.add(conversionJavaBean(target, resultMap));
       }
     } catch (Exception e) {
       e.printStackTrace();
     }
-    return entitys;
+    return javaBeans;
   }
 
   /**

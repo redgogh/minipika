@@ -13,15 +13,16 @@ import java.util.List;
  *
  * @author lts
  */
+@SuppressWarnings("unchecked")
 public class ClassUtils {
 
   /**
    * 创建一个实例。
    */
-  public static Object newInstance(Class<?> clazz) {
+  public static <T> T newInstance(Class<?> clazz) {
     try {
       Constructor<?> constructor = clazz.getDeclaredConstructor();
-      return constructor.newInstance();
+      return (T) constructor.newInstance();
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -33,12 +34,12 @@ public class ClassUtils {
    * @param parametersType  构造函数参数类型。
    * @param parametersValue 构造函数参数值。
    */
-  public static Object newInstance(Class<?> clazz, Class<?>[] parametersType,
+  public static <T> T newInstance(Class<?> clazz, Class<?>[] parametersType,
                                    Object... parametersValue) {
     Constructor<?> constructor = null;
     try {
       constructor = clazz.getConstructor(parametersType);
-      return constructor.newInstance(parametersValue);
+      return (T) constructor.newInstance(parametersValue);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }

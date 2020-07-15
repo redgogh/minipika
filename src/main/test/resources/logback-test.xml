@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  scan：当前scan为true的时候,配置文件如果发生改变将会被重新加载。默认为true
+  scanPeriod：设置检测配置文件是否有修改的时间间隔，如果没有给出时间单位默认时间单位为毫秒。
+  debug：当debug为true的时候，将打印出logback内部的日志，实时检测logback运行状态。
+-->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+  <!-- 在控制台输出 -->
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} [%p] %logger%m%n</pattern>
+    </layout>
+  </appender>
+
+  <root level="INFO">
+    <appender-ref ref="STDOUT"/>
+  </root>
+
+</configuration>

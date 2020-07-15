@@ -1,5 +1,3 @@
-package framework.configuration;
-
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
  *
@@ -17,21 +15,10 @@ package framework.configuration;
  */
 
 /*
- * Creates on 2020/6/2.
+ * Creates on 2020/7/15.
  */
-
-import org.jiakesimk.minipika.components.configuration.XMLConfigBuilder;
-import org.jiakesimk.minipika.framework.strategy.FindStrategy;
-import org.xml.sax.InputSource;
 
 /**
- * @author tiansheng
+ * 执行策略
  */
-public class XMLConfigBuilderTest {
-
-  public static void main(String[] args) {
-    InputSource istream = FindStrategy.getConfigInputStream();
-    XMLConfigBuilder configBuilder = new XMLConfigBuilder("minipika2.xml");
-  }
-
-}
+package org.jiakesimk.minipika.framework.strategy;

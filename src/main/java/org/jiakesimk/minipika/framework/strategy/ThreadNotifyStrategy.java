@@ -1,4 +1,4 @@
-package threads;
+package org.jiakesimk.minipika.framework.strategy;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,14 +17,32 @@ package threads;
  */
 
 /*
- * Creates on 2020/6/8.
+ * Creates on 2019/11/13.
  */
 
 /**
- * 多线程测试, 测试线程池以及数据源管理器是否存在
- * 多线程问题
+ * 线程唤醒策略
  *
- * @author tiansheng
+ * @author lts
  */
-public class PooledThreadsTest {
+public interface ThreadNotifyStrategy {
+
+  /**
+   * 线程唤醒
+   */
+  default void notifyAllStrategy(){
+    this.notifyAll();
+  }
+
+  /**
+   * 线程等待
+   */
+  default void waitStrategy() throws InterruptedException {
+    this.wait();
+  }
+
+  default void waitStrategy(long time) throws InterruptedException {
+    this.wait(time);
+  }
+
 }

@@ -50,7 +50,7 @@ public class Factorys {
   }
 
   @SuppressWarnings("unchecked")
-  public static <T> T forMface(Class<T> clazz) {
+  public static <T> T forMapper(Class<T> clazz) {
     String name = clazz.getName();
     T iface = (T) ComponentContainer.components.get(name);
     if (iface == null) {

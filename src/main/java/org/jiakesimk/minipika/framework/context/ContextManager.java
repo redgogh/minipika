@@ -20,7 +20,7 @@ package org.jiakesimk.minipika.framework.context;
  * Creates on 2020/7/2.
  */
 
-import org.jiakesimk.minipika.components.configuration.FindStrategy;
+import org.jiakesimk.minipika.framework.strategy.FindStrategy;
 import org.jiakesimk.minipika.components.configuration.XMLConfigBuilder;
 
 /**

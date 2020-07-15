@@ -21,6 +21,7 @@ package org.jiakesimk.minipika.components.jdbc.datasource.pooled;
  */
 
 import org.jiakesimk.minipika.framework.PropertyNames;
+import org.jiakesimk.minipika.framework.strategy.ThreadNotifyStrategy;
 import org.jiakesimk.minipika.framework.util.Lists;
 import org.jiakesimk.minipika.framework.util.Maps;
 import org.jiakesimk.minipika.framework.util.StringUtils;
@@ -32,8 +33,7 @@ import java.util.Map;
 /**
  * @author tiansheng
  */
-public class
-PooledState {
+public class PooledState implements ThreadNotifyStrategy {
 
   private PooledDataSource pooledDataSource;
 
@@ -111,6 +111,11 @@ PooledState {
       sqlKeyCollect.put(key, sql);
     }
     return key;
+  }
+
+  @Override
+  public void notifyAllStrategy() {
+    this.notifyAll();
   }
 
   public synchronized long getRequestCount() {

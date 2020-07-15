@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.configuration;
+package org.jiakesimk.minipika.framework.strategy;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.

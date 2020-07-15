@@ -1,16 +1,13 @@
 package kt
 
 import com.alibaba.fastjson.JSONObject
-import org.jiakesimk.minipika.components.mql.MqlCallback
 import org.jiakesimk.minipika.framework.factory.Factorys
 import org.jiakesimk.minipika.framework.util.ArrayUtils
-import org.jiakesimk.minipika.framework.util.Lists
 import org.junit.Test
-import kotlin.reflect.KClass
 
 class KtTest {
 
-  private val mapper = Factorys.forMface(MqlMapper::class.java)
+  private val mapper = Factorys.forMapper(MqlMapper::class.java)
 
   @Test
   fun findUserTest() {

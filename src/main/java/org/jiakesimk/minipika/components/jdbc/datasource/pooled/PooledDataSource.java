@@ -95,7 +95,7 @@ public class PooledDataSource implements DataSource {
           if (log.isDebugEnabled()) {
             log.debug("Returned connection " + connection.getRealHasCode() + " to  pool.");
           }
-          state.notifyAll();
+          state.notifyAllStrategy();
         } else {
           connection.invalidate();
           state.badConnectionCount++;
@@ -136,7 +136,7 @@ public class PooledDataSource implements DataSource {
               if (log.isDebugEnabled()) {
                 log.debug(Thread.currentThread().getName() + " thread is waiting for getting a connection.");
               }
-              state.wait(state.maximumWaitTimeout);
+              state.waitStrategy(state.maximumWaitTimeout);
               long wte = (System.currentTimeMillis() - wt);
               state.maximumWaitTimeoutCount += wte;
               if (log.isDebugEnabled()) {

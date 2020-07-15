@@ -31,6 +31,7 @@
         <property name="characterEncoding" value="utf-8"/>
         <property name="useSSL" value="false"/>
         <property name="serverTimezone" value="GMT"/>
+        <property name="allowPublicKeyRetrieval" value="true"/>
       </url>
       <driver value="com.mysql.cj.jdbc.Driver"/>
       <username value="root"/>

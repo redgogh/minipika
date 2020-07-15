@@ -27,43 +27,43 @@ import org.jiakesimk.minipika.components.logging.Log;
  */
 public class Slf4jLog implements Log {
 
-    private org.slf4j.Logger logger;
+  private org.slf4j.Logger logger;
 
-    public Slf4jLog() {
-    }
+  public Slf4jLog() {
+  }
 
-    public Slf4jLog(org.slf4j.Logger logger) {
-        this.logger = logger;
-    }
+  public Slf4jLog(org.slf4j.Logger logger) {
+    this.logger = logger;
+  }
 
-    @Override
-    public boolean isDebugEnabled() {
-        return logger.isDebugEnabled();
-    }
+  @Override
+  public boolean isDebugEnabled() {
+    return logger.isDebugEnabled();
+  }
 
-    @Override
-    public void info(String msg) {
-        logger.info(msg);
-    }
+  @Override
+  public void info(String msg) {
+    logger.info(msg);
+  }
 
-    @Override
-    public void warn(String msg) {
-        logger.warn(msg);
-    }
+  @Override
+  public void warn(String msg) {
+    logger.warn(msg);
+  }
 
-    @Override
-    public void debug(String msg) {
-        logger.debug(msg);
-    }
+  @Override
+  public void debug(String msg) {
+    logger.debug(msg);
+  }
 
-    @Override
-    public void error(String msg) {
-        logger.error(msg);
-    }
+  @Override
+  public void error(String msg) {
+    logger.error(msg);
+  }
 
-    @Override
-    public void error(String msg, Throwable e) {
-        logger.error(msg, e);
-    }
+  @Override
+  public void error(String msg, Throwable e) {
+    logger.error(msg, e);
+  }
 
 }
