@@ -21,6 +21,7 @@ package org.jiakesimk.minipika.components.jdbc;
  */
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +46,7 @@ public interface NativeResultSet {
    * @param target 转换的目标对象类类型
    * @return 对象实例
    */
-  <T> T conversionJavaBean(Class<T> target);
+  <T> T conversionJavaBean(Class<T> target) throws SQLException;
 
   /**
    * 将结果集转换成Java集合

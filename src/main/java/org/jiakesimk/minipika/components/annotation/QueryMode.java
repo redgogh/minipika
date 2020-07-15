@@ -23,7 +23,7 @@ package org.jiakesimk.minipika.components.annotation;
 /**
  * @author tiansheng
  */
-public enum SelectMode {
+public enum QueryMode {
 
   /**
    * NULL

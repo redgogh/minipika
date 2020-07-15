@@ -22,7 +22,6 @@ package org.jiakesimk.minipika.components.annotation;
 
 import javax.lang.model.type.NullType;
 import java.lang.annotation.*;
-import java.util.Map;
 
 /**
  * @author tiansheng
@@ -45,6 +44,6 @@ public @interface QueryOf {
   /**
    * @return 根据查询模式返回结果
    */
-  SelectMode mode() default SelectMode.NULL;
+  QueryMode mode() default QueryMode.NULL;
 
 }

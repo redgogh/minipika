@@ -22,7 +22,6 @@ package org.jiakesimk.minipika.components.jdbc;
 
 import com.alibaba.fastjson.JSONObject;
 import org.jiakesimk.minipika.framework.util.ClassUtils;
-import org.jiakesimk.minipika.framework.util.Lists;
 import org.jiakesimk.minipika.framework.util.Maps;
 import org.jiakesimk.minipika.framework.util.StringUtils;
 
@@ -31,6 +30,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -103,30 +103,30 @@ public class ConstResultSet implements NativeResultSet {
   }
 
   @Override
-  public <T> T conversionJavaBean(Class<T> target) {
-    return conversionJavaBean(target, resultSet.get(0));
+  public <T> T conversionJavaBean(Class<T> target) throws SQLException {
+    try {
+      return conversionJavaBean(target, resultSet.get(0));
+    } catch (Exception e) {
+      throw new SQLException(e.getMessage(), e);
+    }
   }
 
-  private  <T> T conversionJavaBean(Class<T> target, Map<String, String> resultMap) {
+  private <T> T conversionJavaBean(Class<T> target, Map<String, String> resultMap) throws Exception {
     if (resultSet.isEmpty()) return null;
     List<String> names = new ArrayList<>();
     T entity = null;
-    try {
-      if (resultMap == null || resultMap.isEmpty()) return null;
-      Object v1 = isBase(target, String.valueOf(Maps.getFirstValue(resultMap)));
-      if (v1 instanceof Exception) return null;
-      if (v1 != null) return (T) v1;
-      entity = ClassUtils.newInstance(target);
-      for (Field field : target.getDeclaredFields()) names.add(field.getName());
-      for (Map.Entry<String, String> v : resultMap.entrySet()) {
-        String hump = StringUtils.underlineToHump(v.getKey());
-        if (!names.contains(hump)) continue;                                 // 判断Entity中是否含有hump字段
-        Field field = target.getDeclaredField(hump);
-        field.setAccessible(true);
-        setValue(field, v.getValue(), entity);
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
+    if (resultMap == null || resultMap.isEmpty()) return null;
+    Object v1 = isBase(target, String.valueOf(Maps.getFirstValue(resultMap)));
+    if (v1 instanceof Exception) return null;
+    if (v1 != null) return (T) v1;
+    entity = ClassUtils.newInstance(target);
+    for (Field field : target.getDeclaredFields()) names.add(field.getName());
+    for (Map.Entry<String, String> v : resultMap.entrySet()) {
+      String hump = StringUtils.underlineToHump(v.getKey());
+      if (!names.contains(hump)) continue;                                 // 判断Entity中是否含有hump字段
+      Field field = target.getDeclaredField(hump);
+      field.setAccessible(true);
+      setValue(field, v.getValue(), entity);
     }
     return entity;
   }
@@ -137,14 +137,10 @@ public class ConstResultSet implements NativeResultSet {
    * @param target 实例类型
    * @return 实例化后的实体集合
    */
-  private <T> List<T> conversionEntityList(Class<T> target) {
+  private <T> List<T> conversionEntityList(Class<T> target) throws Exception {
     List<T> javaBeans = new ArrayList<>();
-    try {
-      for (Map<String, String> resultMap : resultSet) {
-        javaBeans.add(conversionJavaBean(target, resultMap));
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
+    for (Map<String, String> resultMap : resultSet) {
+      javaBeans.add(conversionJavaBean(target, resultMap));
     }
     return javaBeans;
   }
