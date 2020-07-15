@@ -49,9 +49,9 @@ public class BaseBuilder extends Invoker {
 
   private static final String FOREACH = "#FOREACH";
 
-  private static final String IS_NOT_EMPTY = "INE";
+  private static final String IS_NOT_EMPTY = "NOT_EMPTY";
 
-  private static final String IS_EQUALS_EMPTY = "IE";
+  private static final String IS_EQUALS_EMPTY = "EMPTY";
 
   //
   // 用于识别当前是不是解析到foreach语句

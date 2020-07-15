@@ -25,9 +25,8 @@ import org.jdom2.input.SAXBuilder;
 import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
-import org.jiakesimk.minipika.framework.factory.Factorys;
+import org.jiakesimk.minipika.framework.thread.Threads;
 import org.jiakesimk.minipika.framework.util.JDOMHelper;
-import org.jiakesimk.minipika.framework.util.Threads;
 import org.xml.sax.InputSource;
 
 import java.io.InputStream;

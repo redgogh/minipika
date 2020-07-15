@@ -20,7 +20,7 @@ package org.jiakesimk.minipika.framework.strategy;
  * Creates on 2020/6/1.
  */
 
-import org.jiakesimk.minipika.framework.util.Threads;
+import org.jiakesimk.minipika.framework.thread.Threads;
 import org.xml.sax.InputSource;
 
 import java.io.InputStream;

@@ -13,7 +13,7 @@ interface UserMapper {
 
   @QueryOf("""
     select * from website_user_info where 1=1
-    #IF INE(username) && username != null
+    #IF NOT_EMPTY(username)
       and username = #{username}
     #END
   """, forList = User::class)

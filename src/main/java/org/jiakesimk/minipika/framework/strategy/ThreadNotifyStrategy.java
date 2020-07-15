@@ -28,7 +28,14 @@ package org.jiakesimk.minipika.framework.strategy;
 public interface ThreadNotifyStrategy {
 
   /**
-   * 线程唤醒
+   * 线程一个唤醒
+   */
+  default void notifyStrategy(){
+    this.notify();
+  }
+
+  /**
+   * 唤醒所有线程
    */
   default void notifyAllStrategy(){
     this.notifyAll();

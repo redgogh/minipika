@@ -79,7 +79,6 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
     if (LOG.isDebugEnabled()) {
       LOG.debug("execute sql - " + sql);
     }
-    NativeResultSet result = null;
     Connection connection = null;
     PreparedStatement statement = null;
     transaction = getTransaction();

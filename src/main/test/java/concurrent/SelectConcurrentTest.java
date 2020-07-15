@@ -20,31 +20,26 @@ public class SelectConcurrentTest {
 
   public static void main(String[] args) {
 
-    ThreadFactory.createThreadAndStart("thread1", () -> {
+    ThreadFactory.createThread("thread1", () -> {
       while (true) {
         List<User> user = mapper.findUser("name1");
         System.out.println(Threads.getCurrentThreadName() + ": =========>>> " + user.get(0).getId());
       }
-    });
+    }).start();
 
-    ThreadFactory.createThreadAndStart("thread2", () -> {
+    ThreadFactory.createThread("thread2", () -> {
       while (true) {
         List<User> user = mapper.findUser("name2");
         System.out.println(Threads.getCurrentThreadName() + ": =========>>> " + user.get(0).getId());
       }
-    });
+    }).start();
 
-    ThreadFactory.createThreadAndStart("thread3", () -> {
+    ThreadFactory.createThread("thread3", () -> {
       while (true) {
         List<User> user = mapper.findUser("name3");
         System.out.println(Threads.getCurrentThreadName() + ": =========>>> " + user.get(0).getId());
       }
-    });
-
-    while (true) {
-      List<User> user = mapper.findUser("name4");
-      System.out.println(Threads.getCurrentThreadName() + ": =========>>> " + user.get(0).getId());
-    }
+    }).start();
 
   }
 
