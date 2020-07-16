@@ -20,15 +20,11 @@ package org.jiakesimk.minipika.framework.common;
  * Creates on 2020/6/22.
  */
 
-import javassist.ClassPool;
-
 /**
  * 一些通用的常量定义
  *
  * @author tiansheng
  */
 public interface ConstVariable {
-
-  ClassPool CLASS_POOL = ClassPool.getDefault();
 
 }

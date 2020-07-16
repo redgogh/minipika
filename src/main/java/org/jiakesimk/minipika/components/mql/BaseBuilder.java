@@ -20,10 +20,9 @@ package org.jiakesimk.minipika.components.mql;
  * Creates on 2020/6/22.
  */
 
-import javassist.NotFoundException;
-import org.jiakesimk.minipika.framework.compiler.JavaCompiler;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
+import org.jiakesimk.minipika.framework.compiler.JavaCompiler;
 import org.jiakesimk.minipika.framework.util.ClassUtils;
 import org.jiakesimk.minipika.framework.util.Matches;
 import org.jiakesimk.minipika.framework.util.Methods;
@@ -84,8 +83,7 @@ public class BaseBuilder extends Invoker {
    * @param method 方法名
    * @param src    动态sql
    */
-  protected void createMethod(Method method, String src)
-          throws NotFoundException {
+  protected void createMethod(Method method, String src) {
     StringUtils.clear(builder);
     String methodName = method.getName(); // 方法名
     String[] paramNames = Methods.getParameterNames(method); // 方法参数名

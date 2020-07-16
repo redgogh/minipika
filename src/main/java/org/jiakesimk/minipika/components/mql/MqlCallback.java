@@ -1,6 +1,5 @@
 package org.jiakesimk.minipika.components.mql;
 
-import javassist.NotFoundException;
 import org.jiakesimk.minipika.components.annotation.Batch;
 import org.jiakesimk.minipika.components.annotation.Insert;
 import org.jiakesimk.minipika.components.annotation.QueryOf;
@@ -57,18 +56,14 @@ public class MqlCallback<T> extends BaseBuilder implements InvocationHandler {
   public MqlCallback(Class<T> virtual) {
     super(MQL_PROXY_CLASSNAME.concat(virtual.getSimpleName()));
     this.virtual = virtual;
-    try {
-      initialization();
-    } catch (NotFoundException e) {
-      throw new RuntimeException(e);
-    }
+    initialization();
     buildEnd();
   }
 
   /**
    * 初始化
    */
-  private void initialization() throws NotFoundException {
+  private void initialization() {
     Method[] methods = virtual.getDeclaredMethods();
     for (Method method : methods) {
       if (method.isAnnotationPresent(Update.class)) {

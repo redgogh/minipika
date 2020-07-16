@@ -20,7 +20,6 @@ package Instrumentation;
  * Creates on 2020/6/1.
  */
 
-import javassist.NotFoundException;
 import org.junit.Test;
 
 /**
@@ -29,7 +28,7 @@ import org.junit.Test;
 public class GetObjectSizeTest {
 
   @Test
-  public void test() throws NotFoundException {
+  public void test() {
   }
 
 }
