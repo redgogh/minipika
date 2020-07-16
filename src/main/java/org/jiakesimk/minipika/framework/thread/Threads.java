@@ -4,8 +4,6 @@ package org.jiakesimk.minipika.framework.thread;
  * Creates on 2020/3/24.
  */
 
-import org.jetbrains.annotations.NotNull;
-
 /**
  * 静态{@code Thread}工具。
  *

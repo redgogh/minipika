@@ -56,13 +56,13 @@ public class DataSourceManager {
     Connection connection = null;
     try {
       if (dataSource == null) {
-        LOG.error("Error datasource register fail. Cause: datasource is null.");
-        throw new NullPointerException("Error datasource register fail. Cause: datasource is null.");
+        LOG.error("Error DataSource register fail. Cause: DataSource is null.");
+        throw new NullPointerException("Error DataSource register fail. Cause: DataSource is null.");
       }
       connection = dataSource.getConnection(); // 测试数据源是否可用
       dataSourceMap.put(name, dataSource);
     } catch (SQLException e) {
-      LOG.error("Error datasource register fail. Cause: cannot get conenction.");
+      LOG.error("Error DataSource register fail. Cause: cannot get conenction.");
       e.printStackTrace();
     }finally {
       AutoClose.close(connection); // 关闭连接
@@ -100,7 +100,7 @@ public class DataSourceManager {
     if (dataSource != null) {
       currentDataSource = dataSource;
     } else {
-      throw new MinipikaException("DataSource select failure. Cause: no " + name + " the datasource.");
+      throw new MinipikaException("DataSource select failure. Cause: no " + name + " the DataSource.");
     }
   }
 

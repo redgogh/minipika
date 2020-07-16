@@ -34,7 +34,7 @@ public class MinipikaConfig {
     protected Map<String,String> config = Maps.newHashMap();
 
     /**
-     * Configuration datasource info.
+     * Configuration DataSource info.
      */
     protected
     void datasource(Dsi... dataSources)

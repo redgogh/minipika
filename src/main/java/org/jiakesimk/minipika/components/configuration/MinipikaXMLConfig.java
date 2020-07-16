@@ -30,7 +30,7 @@ import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
  */
 public class MinipikaXMLConfig implements ElementParser {
 
-  private static final String CHIlD_DATASOURCE         = "datasource";
+  private static final String CHIlD_DATASOURCE         = "DataSource";
 
   private static final String CHIlD_PROPERTIES         = "properties";
 

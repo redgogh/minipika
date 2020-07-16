@@ -105,7 +105,7 @@ public class Configuration implements ElementParser {
     ElementWrapper usernameElement = element.getChild(USERNAME);
     Attribute usernameAttribute = usernameElement.getAttribute(VALUE);
     if (usernameAttribute == null) {
-      throw new XMLParseException("Error username node of datasource node undefine.");
+      throw new XMLParseException("Error username node of DataSource node undefine.");
     }
     username = StringUtils.requireNonNull(usernameAttribute.getValue(),
             "Error value of username node cannot empty.", XMLParseException.class);
@@ -156,13 +156,13 @@ public class Configuration implements ElementParser {
     Attribute urlAttribute = urlElement.getAttribute(VALUE);
     if (urlAttribute == null) {
       String def = XMLParseException.buildTrack(urlElement);
-      throw new XMLParseException("Error the url node of datasource require " +
+      throw new XMLParseException("Error the url node of DataSource require " +
               "value attribute in node track " + def + ". " + "Cause: value is required.");
     }
     String urlValue = urlAttribute.getValue();
     if (StringUtils.isEmpty(urlValue)) {
       String def = XMLParseException.buildTrack(urlElement);
-      throw new XMLParseException("Error the url node of datasource the value attribute " +
+      throw new XMLParseException("Error the url node of DataSource the value attribute " +
               "value cannot null in node track " + def + ". " + "Cause: value is required.");
     }
     url = urlValue;

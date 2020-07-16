@@ -2,7 +2,6 @@
 <xs:schema  xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
            targetNamespace="https://github.com/jiakesiws" xmlns="https://github.com/jiakesiws">
   <xs:element name="minipika" type="ContentBody"/>
-  
   <xs:complexType name="ContentBody">
     <xs:all>
       <xs:element name="properties" type="Properties" minOccurs="0"/>
@@ -10,26 +9,23 @@
       <xs:element name="datasource" type="DataSource" minOccurs="0"/>
     </xs:all>
   </xs:complexType>
-  
   <xs:complexType name="Properties">
     <xs:sequence>
       <xs:any maxOccurs="unbounded" processContents="skip"/>
     </xs:sequence>
   </xs:complexType>
-
   <xs:complexType name="Configuration">
     <xs:sequence>
+      <xs:element name="opencache" type="xs:boolean" default="false" minOccurs="0"/>
       <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
     </xs:sequence>
   </xs:complexType>
-
   <xs:complexType name="DataSource">
     <xs:sequence>
       <xs:element name="master" type="SourceBody" minOccurs="0"/>
       <xs:element name="slaves" type="SourceBody" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
-
   <xs:complexType name="SourceBody">
     <xs:all>
       <xs:element name="url" type="Url"/>
@@ -39,26 +35,21 @@
     </xs:all>
     <xs:attributeGroup ref="SourceTag"/>
   </xs:complexType>
-
   <xs:complexType name="Url">
     <xs:sequence>
       <xs:element name="property" type="Property" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attribute name="value" type="xs:string" use="required"/>
   </xs:complexType>
-  
   <xs:complexType name="Driver">
     <xs:attribute name="value" type="xs:string" use="required"/>
   </xs:complexType>
-  
   <xs:complexType name="Username">
     <xs:attribute name="value" type="xs:string" use="required"/>
   </xs:complexType>
-  
   <xs:complexType name="Password">
     <xs:attribute name="value" type="xs:string" use="required"/>
   </xs:complexType>
-  
   <xs:complexType name="Property">
     <xs:complexContent>
       <xs:restriction base="Property">
@@ -67,7 +58,6 @@
       </xs:restriction>
     </xs:complexContent>
   </xs:complexType>
-  
   <xs:attributeGroup name="SourceTag">
     <xs:attribute name="type" type="xs:string"/>
     <xs:attribute name="name" type="xs:string"/>

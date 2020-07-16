@@ -197,7 +197,7 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
   private Transaction getTransaction() throws SQLException {
     DataSource dataSource = DataSourceManager.getDataSource();
     if (dataSource == null) {
-      throw new SQLException("Error get transaction failure. Cause: not obtained datasource.");
+      throw new SQLException("Error get transaction failure. Cause: not obtained DataSource.");
     }
     Transaction transaction = Factorys.forClass(Transaction.class);
     transaction.setDataSource(dataSource);

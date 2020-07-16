@@ -29,7 +29,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 /**
- * Not support connection pool the datasource.
+ * Not support connection pool the DataSource.
  *
  * @author tiansheng
  */

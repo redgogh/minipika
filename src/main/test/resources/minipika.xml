@@ -11,6 +11,11 @@
   </properties>
 
   <configuration>
+    <opencache>true</opencache>
+    <datasourcencies>
+      <datasource name="druid">
+      </datasource>
+    </datasourcencies>
   </configuration>
 
   <!--

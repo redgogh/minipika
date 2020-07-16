@@ -37,7 +37,7 @@ import java.util.logging.Logger;
 
 /**
  * 仅支持连接池的数据源
- * Only support connection pool the datasource.
+ * Only support connection pool the DataSource.
  *
  * @author tiansheng
  */

@@ -28,14 +28,10 @@ public final class Arrays {
 
   /**
    * 插入byte数组
-   * insert byte type array.
    *
    * @param pos  开始下标
-   *             start index
    * @param data 需要插入的数据
-   *             insert the data.
    * @param dest 目标数组
-   *             target array.
    * @return 新的byte数组
    */
   public static byte[] insert(final byte[] dest, int pos, byte... data) {
@@ -46,6 +42,14 @@ public final class Arrays {
     return destCopy;
   }
 
+  /**
+   * 插入short数组
+   *
+   * @param pos  开始下标
+   * @param data 需要插入的数据
+   * @param dest 目标数组
+   * @return 新的short数组
+   */
   public static short[] insert(final short[] dest, int pos, short... data) {
     short[] destCopy = new short[dest.length + data.length];
     System.arraycopy(dest, 0, destCopy, 0, pos);
@@ -55,6 +59,14 @@ public final class Arrays {
   }
 
 
+  /**
+   * 插入int数组
+   *
+   * @param pos  开始下标
+   * @param data 需要插入的数据
+   * @param dest 目标数组
+   * @return 新的int数组
+   */
   public static int[] insert(final int[] dest, int pos, int... data) {
     int[] destCopy = new int[dest.length + data.length];
     System.arraycopy(dest, 0, destCopy, 0, pos);
@@ -63,6 +75,14 @@ public final class Arrays {
     return destCopy;
   }
 
+  /**
+   * 插入long数组
+   *
+   * @param pos  开始下标
+   * @param data 需要插入的数据
+   * @param dest 目标数组
+   * @return 新的long数组
+   */
   public static long[] insert(final long[] dest, int pos, long... data) {
     long[] destCopy = new long[dest.length + data.length];
     System.arraycopy(dest, 0, destCopy, 0, pos);
@@ -71,6 +91,14 @@ public final class Arrays {
     return destCopy;
   }
 
+  /**
+   * 插入float数组
+   *
+   * @param pos  开始下标
+   * @param data 需要插入的数据
+   * @param dest 目标数组
+   * @return 新的float数组
+   */
   public static float[] insert(final float[] dest, int pos, float... data) {
     float[] destCopy = new float[dest.length + data.length];
     System.arraycopy(dest, 0, destCopy, 0, pos);
@@ -79,6 +107,14 @@ public final class Arrays {
     return destCopy;
   }
 
+  /**
+   * 插入double数组
+   *
+   * @param pos  开始下标
+   * @param data 需要插入的数据
+   * @param dest 目标数组
+   * @return 新的double数组
+   */
   public static double[] insert(final double[] dest, int pos, double... data) {
     double[] destCopy = new double[dest.length + data.length];
     System.arraycopy(dest, 0, destCopy, 0, pos);
@@ -87,6 +123,14 @@ public final class Arrays {
     return destCopy;
   }
 
+  /**
+   * 插入boolean数组
+   *
+   * @param pos  开始下标
+   * @param data 需要插入的数据
+   * @param dest 目标数组
+   * @return 新的boolean数组
+   */
   public static boolean[] insert(final boolean[] dest, int pos, boolean... data) {
     boolean[] destCopy = new boolean[dest.length + data.length];
     System.arraycopy(dest, 0, destCopy, 0, pos);
@@ -95,6 +139,14 @@ public final class Arrays {
     return destCopy;
   }
 
+  /**
+   * 插入char数组
+   *
+   * @param pos  开始下标
+   * @param data 需要插入的数据
+   * @param dest 目标数组
+   * @return 新的char数组
+   */
   public static char[] insert(final char[] dest, int pos, char... data) {
     char[] destCopy = new char[dest.length + data.length];
     System.arraycopy(dest, 0, destCopy, 0, pos);
@@ -169,20 +221,23 @@ public final class Arrays {
   }
 
   /**
-   * 数组扩容
+   * 复制数组原始长度，并将数组扩容到capacity长度，使用null填充。
+   *
+   * @param a        数组对象
+   * @param capacity 容量
+   * @return 扩容后的数组
    */
-  public static Object[] expansion(Object[] array, int size, Class<?> type) {
-    Object[] dest = (Object[]) Array.newInstance(type, (array.length + size));
-    System.arraycopy(array, 0, dest, 0, array.length);
-    return dest;
+  public static <T> T[] copyOf(T[] a, int capacity) {
+    return java.util.Arrays.copyOf(a, capacity);
   }
 
   /**
    * 数组转List，调用{@link Lists#ofList}方法转数组
+   *
    * @param a 数组对象
    * @return 实例化的List对象
    */
-  public static <E> List<E> asList(E[] a){
+  public static <E> List<E> asList(E[] a) {
     return Lists.ofList(a);
   }
 

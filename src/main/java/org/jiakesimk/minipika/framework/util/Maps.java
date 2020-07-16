@@ -73,6 +73,24 @@ public final class Maps {
   }
 
   /**
+   * 创建一个新的{@link TreeMap}
+   *
+   * @return 一个新的、空的{@code TreeMap}实例
+   */
+  public static <K, V> TreeMap<K, V> newTreeMap() {
+    return new TreeMap<>();
+  }
+
+  /**
+   * 创建一个新的{@link TreeMap}
+   *
+   * @return 一个新的、空的{@code TreeMap}实例
+   */
+  public static <K, V> TreeMap<K, V> newTreeMap(Map<K,V> map) {
+    return new TreeMap<>(map);
+  }
+
+  /**
    * 创建一个新的{@code ConcurrentHashMap}实例
    *
    * @return 一个新的、空的{@code ConcurrentHashMap}实例
@@ -165,7 +183,7 @@ public final class Maps {
     return null;
   }
 
-  public static <K,V> String toString(Map<K,V> map) {
+  public static <K, V> String toString(Map<K, V> map) {
     return JSON.toJSONString(map);
   }
 

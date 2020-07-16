@@ -56,8 +56,8 @@ public class DataSourceNode implements ElementParser {
    */
   void checkIsExistsMaster(ElementWrapper element) {
     if (element.getChild(MASTER) == null)
-      throw new XMLParseException("minipika config content does not exist master node in datasource node. " +
-              "Cause: master datasource node is required.");
+      throw new XMLParseException("minipika config content does not exist master node in DataSource node. " +
+              "Cause: master DataSource node is required.");
   }
 
 }
