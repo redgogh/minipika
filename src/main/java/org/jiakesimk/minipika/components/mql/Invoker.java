@@ -20,10 +20,8 @@ package org.jiakesimk.minipika.components.mql;
  * Creates on 2020/6/23.
  */
 
-import org.jiakesimk.minipika.framework.util.Methods;
 import org.jiakesimk.minipika.framework.util.Objects;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**

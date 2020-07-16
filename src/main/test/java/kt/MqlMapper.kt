@@ -10,7 +10,7 @@ interface MqlMapper {
     #IF INE(user.username) && user.username != null
       and username = #{user.username}
     #END
-  """, forList = User::class)
+  """)
   fun findUser(user: User): List<User>
 
   @Batch("""

@@ -37,11 +37,6 @@ public @interface QueryOf {
   String value() default "";
 
   /**
-   * @return 查询结果返回List集合
-   */
-  Class<?> forList() default NullType.class;
-
-  /**
    * @return 根据查询模式返回结果
    */
   QueryMode mode() default QueryMode.NULL;
