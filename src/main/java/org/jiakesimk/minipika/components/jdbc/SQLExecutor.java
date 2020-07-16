@@ -77,15 +77,16 @@ public class SQLExecutor implements Executor {
 
   @Override
   public int count(String sql, Object... args) throws SQLException {
-    StringBuilder value = new StringBuilder(sql.toLowerCase());
-    String select = "select";
-    int selectPos = value.indexOf(select) + select.length();
-    int fromPos = value.indexOf("from");
-    value.replace(selectPos, fromPos, " count(*) ");
-    NativeResultSet result = nativeJdbc.select(value.toString(), args);
-    result.hasNext();
-    String next = result.next();
-    return Integer.parseInt(next == null ? "0" : next);
+    // StringBuilder value = new StringBuilder(sql.toLowerCase());
+    // String select = "select";
+    // int selectPos = value.indexOf(select) + select.length();
+    // int fromPos = value.indexOf("from");
+    // value.replace(selectPos, fromPos, " count(*) ");
+    // NativeResultSet result = nativeJdbc.select(value.toString(), args);
+    // result.hasNext();
+    // String next = result.next();
+    // return Integer.parseInt(next == null ? "0" : next);
+    throw new SQLException("Error no execute, Cause: not currently supported count function.");
   }
 
   @Override
