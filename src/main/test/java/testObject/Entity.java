@@ -20,14 +20,14 @@ package testObject;
  * Creates on 2020/6/1.
  */
 
-import org.jiakesimk.minipika.framework.annotations.Inject;
+import org.jiakesimk.minipika.framework.annotations.Component;
 
 /**
  * @author tiansheng
  */
 public class Entity {
 
-  @Inject
+  @Component
   private String a;
 
   private Integer b;

@@ -8,7 +8,7 @@ import org.jiakesimk.minipika.components.annotation.Update;
 import org.jiakesimk.minipika.components.jdbc.Executor;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
-import org.jiakesimk.minipika.framework.annotations.Inject;
+import org.jiakesimk.minipika.framework.annotations.Component;
 import org.jiakesimk.minipika.framework.util.Arrays;
 import org.jiakesimk.minipika.framework.util.Methods;
 
@@ -47,7 +47,7 @@ public class MqlCallback<T> extends BaseBuilder implements InvocationHandler {
 
   private final Class<?> virtual;
 
-  @Inject
+  @Component
   private Executor executor;
 
   private static final Log LOG = LogFactory.getLog(MqlCallback.class);

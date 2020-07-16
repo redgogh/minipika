@@ -23,7 +23,7 @@ package framework.util;
 import org.jiakesimk.minipika.framework.util.Arrays;
 import org.junit.Test;
 import testObject.Entity;
-import org.jiakesimk.minipika.framework.annotations.Inject;
+import org.jiakesimk.minipika.framework.annotations.Component;
 import org.jiakesimk.minipika.framework.util.Fields;
 
 import java.lang.reflect.Field;
@@ -39,7 +39,7 @@ public class FieldsTest {
     Field[] fields = Fields.getDeclaredFieldsIncludeSuper(Entity.class, true);
     System.out.println(Arrays.toString(fields));
     System.out.println("======================================================");
-    fields = Fields.getDeclaredFieldsIncludeSuper(Entity.class, true, new Class[]{Inject.class});
+    fields = Fields.getDeclaredFieldsIncludeSuper(Entity.class, true, new Class[]{Component.class});
     System.out.println(Arrays.toString(fields));
 
   }

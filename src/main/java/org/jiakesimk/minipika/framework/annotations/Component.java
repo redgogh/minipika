@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.plugins;
+package org.jiakesimk.minipika.framework.annotations;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,24 +20,21 @@ package org.jiakesimk.minipika.framework.plugins;
  * Creates on 2020/6/1.
  */
 
-import java.io.InputStream;
+import java.lang.annotation.*;
 
 /**
+ * 被注解的成员代表需要自动注入
+ *
  * @author tiansheng
  */
-public interface Interceptor {
+@Target({ElementType.FIELD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface Component {
 
   /**
-   * 执行当前拦截到的方法
-   *
-   * @param invocation 方法执行接口
-   * @param args       传入的参数
+   * @return 组件名称
    */
-  Object invocation(Invocation invocation, Object[] args);
-
-  /**
-   * 插件内部配置文件读取流
-   */
-  InputStream pluginXMLConfigInputStream();
+  String name() default "";
 
 }

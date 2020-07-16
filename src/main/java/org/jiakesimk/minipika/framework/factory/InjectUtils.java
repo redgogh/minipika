@@ -20,7 +20,7 @@ package org.jiakesimk.minipika.framework.factory;
  * Creates on 2020/6/1.
  */
 
-import org.jiakesimk.minipika.framework.annotations.Inject;
+import org.jiakesimk.minipika.framework.annotations.Component;
 import org.jiakesimk.minipika.framework.common.ProxyHandler;
 import org.jiakesimk.minipika.framework.util.Annotations;
 import org.jiakesimk.minipika.framework.util.ClassUtils;
@@ -59,10 +59,10 @@ public class InjectUtils {
   private static Object autowired(Class<?> clazz, Object instance)
           throws IllegalAccessException {
     Map<String, Object> components = ComponentContainer.components;
-    Field[] fields = Fields.getDeclaredFieldsIncludeSuper(clazz, true, new Class[]{Inject.class});
+    Field[] fields = Fields.getDeclaredFieldsIncludeSuper(clazz, true, new Class[]{Component.class});
     for (Field field : fields) {
-      Inject inject = Annotations.isAnnotation(field, Inject.class);
-      String name = inject.name();
+      Component component = Annotations.isAnnotation(field, Component.class);
+      String name = component.name();
       if (StringUtils.isEmpty(name)) {
         name = field.getName();
       }
