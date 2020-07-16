@@ -23,7 +23,7 @@ import MqlMapper;
  */
 
 import javassist.NotFoundException
-import org.jiakesimk.minipika.framework.util.ArrayUtils
+import org.jiakesimk.minipika.framework.util.Arrays
 import org.jiakesimk.minipika.framework.util.Methods
 import org.junit.Test
 
@@ -34,7 +34,7 @@ class MethodsTest {
 
   @Test
   void test() throws NotFoundException {
-    ArrayUtils.toString(Methods.getParameterNames(MqlMapper.methods[0]));
+    Arrays.toString(Methods.getParameterNames(MqlMapper.methods[0]));
   }
 
   @Test

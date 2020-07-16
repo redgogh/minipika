@@ -20,10 +20,10 @@ package framework.util;
  * Creates on 2020/6/1.
  */
 
+import org.jiakesimk.minipika.framework.util.Arrays;
 import org.junit.Test;
 import testObject.Entity;
 import org.jiakesimk.minipika.framework.annotations.Inject;
-import org.jiakesimk.minipika.framework.util.ArrayUtils;
 import org.jiakesimk.minipika.framework.util.Fields;
 
 import java.lang.reflect.Field;
@@ -37,10 +37,10 @@ public class FieldsTest {
   public void getFieldsIncludeSuper() {
 
     Field[] fields = Fields.getDeclaredFieldsIncludeSuper(Entity.class, true);
-    System.out.println(ArrayUtils.toString(fields));
+    System.out.println(Arrays.toString(fields));
     System.out.println("======================================================");
     fields = Fields.getDeclaredFieldsIncludeSuper(Entity.class, true, new Class[]{Inject.class});
-    System.out.println(ArrayUtils.toString(fields));
+    System.out.println(Arrays.toString(fields));
 
   }
 

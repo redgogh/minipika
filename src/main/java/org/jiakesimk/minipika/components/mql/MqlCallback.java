@@ -9,14 +9,12 @@ import org.jiakesimk.minipika.components.jdbc.Executor;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
 import org.jiakesimk.minipika.framework.annotations.Inject;
-import org.jiakesimk.minipika.framework.util.ArrayUtils;
+import org.jiakesimk.minipika.framework.util.Arrays;
 import org.jiakesimk.minipika.framework.util.Methods;
 
-import javax.lang.model.type.NullType;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.sql.SQLException;
 import java.util.List;
 
 /*
@@ -102,7 +100,7 @@ public class MqlCallback<T> extends BaseBuilder implements InvocationHandler {
     try {
       Object[] objects = invoke(method, args);
       String sql = (String) objects[0];
-      Object[] arguments = ArrayUtils.toArray(objects[1]);
+      Object[] arguments = Arrays.toArray(objects[1]);
       if (method.isAnnotationPresent(QueryOf.class)) {
         return doSelectQuery(method, sql, arguments);
       }

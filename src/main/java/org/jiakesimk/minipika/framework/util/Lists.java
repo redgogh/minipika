@@ -1,7 +1,10 @@
 package org.jiakesimk.minipika.framework.util;
 
 import java.util.*;
+import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Consumer;
+import java.util.function.UnaryOperator;
 
 /**
  * 静态的List工具类
@@ -59,7 +62,7 @@ public final class Lists {
    * @return 新的List且带有传入List数据的实例
    */
   public static <E> ArrayList<E> newArrayList(E[] es) {
-    return new ArrayList<>(Arrays.asList(es));
+    return new ArrayList<>(ofList(es));
   }
 
   /**
@@ -88,7 +91,7 @@ public final class Lists {
    * @return 新的{@code List}且带有传入数组的数据的实例
    */
   public static <E> LinkedList<E> newLinkedList(E[] es) {
-    return new LinkedList<>(Arrays.asList(es));
+    return new LinkedList<>(ofList(es));
   }
 
   /**
@@ -126,7 +129,7 @@ public final class Lists {
    * @return 新的{@code Vector}且带有传入的数组数据的实例
    */
   public static <E> Vector<E> newVector(E[] es) {
-    return new Vector<>(Arrays.asList(es));
+    return new Vector<>(ofList(es));
   }
 
   /**
@@ -182,8 +185,104 @@ public final class Lists {
    * @return List集合对象
    */
   @SafeVarargs
-  public static <E> List<E> asList(E... a) {
-    return ArrayUtils.asList(a);
+  public static <E> List<E> ofList(E... a) {
+    return new CopyArrayList<E>(a);
+  }
+
+  /**
+   * 自定义数组
+   */
+  private static class CopyArrayList<E> extends AbstractList<E>
+          implements RandomAccess, java.io.Serializable {
+
+    private final E[] a;
+
+    CopyArrayList(E[] array) {
+      a = java.util.Objects.requireNonNull(array);
+    }
+
+    @Override
+    public int size() {
+      return a.length;
+    }
+
+    @Override
+    public Object[] toArray() {
+      return a.clone();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T> T[] toArray(T[] a) {
+      int size = size();
+      if (a.length < size)
+        return java.util.Arrays.copyOf(this.a, size,
+                (Class<? extends T[]>) a.getClass());
+      System.arraycopy(this.a, 0, a, 0, size);
+      if (a.length > size)
+        a[size] = null;
+      return a;
+    }
+
+    @Override
+    public E get(int index) {
+      return a[index];
+    }
+
+    @Override
+    public E set(int index, E element) {
+      E oldValue = a[index];
+      a[index] = element;
+      return oldValue;
+    }
+
+    @Override
+    public int indexOf(Object o) {
+      E[] a = this.a;
+      if (o == null) {
+        for (int i = 0; i < a.length; i++)
+          if (a[i] == null)
+            return i;
+      } else {
+        for (int i = 0; i < a.length; i++)
+          if (o.equals(a[i]))
+            return i;
+      }
+      return -1;
+    }
+
+    @Override
+    public boolean contains(Object o) {
+      return indexOf(o) != -1;
+    }
+
+    @Override
+    public Spliterator<E> spliterator() {
+      return Spliterators.spliterator(a, Spliterator.ORDERED);
+    }
+
+    @Override
+    public void forEach(Consumer<? super E> action) {
+      java.util.Objects.requireNonNull(action);
+      for (E e : a) {
+        action.accept(e);
+      }
+    }
+
+    @Override
+    public void replaceAll(UnaryOperator<E> operator) {
+      Objects.requireNonNull(operator);
+      E[] a = this.a;
+      for (int i = 0; i < a.length; i++) {
+        a[i] = operator.apply(a[i]);
+      }
+    }
+
+    @Override
+    public void sort(Comparator<? super E> c) {
+      java.util.Arrays.sort(a, c);
+    }
+
   }
 
   /**

@@ -2,7 +2,7 @@ package kt
 
 import com.alibaba.fastjson.JSONObject
 import org.jiakesimk.minipika.framework.factory.Factorys
-import org.jiakesimk.minipika.framework.util.ArrayUtils
+import org.jiakesimk.minipika.framework.util.Arrays
 import org.junit.Test
 
 class KtTest {
@@ -19,7 +19,7 @@ class KtTest {
   fun addBatchTest() {
     val u1 = User("kotlin1", "kt1")
     val u2 = User("kotlin2", "kt2")
-    println(ArrayUtils.toString(mapper.addBatch(arrayListOf(u1, u2))))
+    println(Arrays.toString(mapper.addBatch(arrayListOf(u1, u2))))
   }
 
 }

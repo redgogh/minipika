@@ -7,7 +7,6 @@ package org.jiakesimk.minipika.framework.util;
 import java.lang.reflect.Array;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,7 +15,7 @@ import java.util.List;
  * @author lts
  */
 @SuppressWarnings({"rawtypes"})
-public final class ArrayUtils {
+public final class Arrays {
 
   public enum OP {FIRST, LAST}
 
@@ -24,9 +23,7 @@ public final class ArrayUtils {
    * 判断对象是否为数组
    */
   public static boolean isArray(Object o) {
-    if (o == null) return false;
-    Class c = o.getClass();
-    return c.isArray() || o.getClass().getName().contains("[");
+    return o != null && o.getClass().isArray();
   }
 
   /**
@@ -39,7 +36,7 @@ public final class ArrayUtils {
    *             insert the data.
    * @param dest 目标数组
    *             target array.
-   * @return
+   * @return 新的byte数组
    */
   public static byte[] insert(final byte[] dest, int pos, byte... data) {
     byte[] destCopy = new byte[dest.length + data.length];
@@ -181,6 +178,15 @@ public final class ArrayUtils {
   }
 
   /**
+   * 数组转List，调用{@link Lists#ofList}方法转数组
+   * @param a 数组对象
+   * @return 实例化的List对象
+   */
+  public static <E> List<E> asList(E[] a){
+    return Lists.ofList(a);
+  }
+
+  /**
    * 对象转数组, 传入的对象必须是数组转成的。
    */
   public static Object[] toArray(Object a) {
@@ -233,18 +239,6 @@ public final class ArrayUtils {
     }
     str = new StringBuilder(str.substring(0, str.length() - 1) + "]");
     return str.toString();
-  }
-
-  /**
-   * 数组转List
-   *
-   * @param a 需要转化的数组
-   * @return List集合对象
-   */
-  public static <E> List<E> asList(E... a) {
-    if (!ArrayUtils.isArray(a))
-      return null;
-    return Arrays.asList(a);
   }
 
 }

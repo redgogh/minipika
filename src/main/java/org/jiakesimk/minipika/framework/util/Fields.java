@@ -82,7 +82,7 @@ public class Fields {
     for (Class<?> single : classes) {
       Field[] f = getDeclaredFields(single, true);
       if (f == null) continue;
-      fields.addAll(Lists.asList(f));
+      fields.addAll(Lists.ofList(f));
     }
     Field[] rf = new Field[fields.size()];
     return fields.toArray(rf);

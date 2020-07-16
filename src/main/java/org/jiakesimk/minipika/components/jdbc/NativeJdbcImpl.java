@@ -28,7 +28,7 @@ import org.jiakesimk.minipika.framework.common.ProxyHandler;
 import org.jiakesimk.minipika.framework.factory.Factorys;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
-import org.jiakesimk.minipika.framework.util.ArrayUtils;
+import org.jiakesimk.minipika.framework.util.Arrays;
 import org.jiakesimk.minipika.framework.util.AutoClose;
 import org.jiakesimk.minipika.framework.util.Lists;
 import org.jiakesimk.minipika.framework.util.SQLUtils;
@@ -37,7 +37,6 @@ import javax.sql.DataSource;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -208,7 +207,7 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
   private int[] isMultiSQL(String sql, Object... args) throws SQLException {
     out:
     if (sql.contains(";")) {
-      String[] sqls = (String[]) ArrayUtils.remove(sql.split(";"), ArrayUtils.OP.LAST);
+      String[] sqls = (String[]) Arrays.remove(sql.split(";"), Arrays.OP.LAST);
       // 如果sql包含';'，但是数组中只有一条sql的话就跳出if
       if (sqls.length == 1) break out;
       List<Object[]> objList = Lists.newArrayList();
