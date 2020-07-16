@@ -20,10 +20,8 @@ package org.jiakesimk.minipika.components.jdbc;
  * Creates on 2019/11/11.
  */
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 增删改查操作

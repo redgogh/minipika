@@ -66,7 +66,6 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
     } catch (Exception e) {
       transaction.rollback();
       LOG.error(e.getMessage(), e);
-      e.printStackTrace();
       return false;
     } finally {
       AutoClose.close(statement);
@@ -88,12 +87,12 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
       ResultSet resultSet = setValues(statement, args).executeQuery();
       return Factorys.forClass(NativeResultSet.class).build(resultSet);
     } catch (Throwable e) {
-      e.printStackTrace();
+      LOG.error(e.getMessage(), e);
+      throw new SQLException(e);
     } finally {
       AutoClose.close(statement);
       transaction.close();
     }
-    return null;
   }
 
   @Override
@@ -112,6 +111,7 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
       return result;
     } catch (Throwable e) {
       transaction.rollback(); // 回滚
+      LOG.error(e.getMessage(), e);
       throw new SQLException(e);
     } finally {
       AutoClose.close(statement);
@@ -151,6 +151,7 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
       return result;
     } catch (Throwable e) {
       transaction.rollback();
+      LOG.error(e.getMessage(), e);
       throw new SQLException(e);
     } finally {
       AutoClose.close(statement);
@@ -183,6 +184,7 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
       return result;
     } catch (Throwable e) {
       transaction.rollback();
+      LOG.error(e.getMessage(), e);
       throw new SQLException(e);
     } finally {
       AutoClose.close(statement);
@@ -195,7 +197,6 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
   private Transaction getTransaction() throws SQLException {
     DataSource dataSource = DataSourceManager.getDataSource();
     if (dataSource == null) {
-      LOG.error("Error get transaction failure. Cause: not obtained datasource.");
       throw new SQLException("Error get transaction failure. Cause: not obtained datasource.");
     }
     Transaction transaction = Factorys.forClass(Transaction.class);

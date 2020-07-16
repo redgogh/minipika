@@ -22,8 +22,6 @@ package org.jiakesimk.minipika.components.logging;
 
 /**
  * 使用自定义的日志框架，如果没有使用默认。
- * <p>
- * Configuration logger framework if there is not use default.
  *
  * @author tiansheng
  */
