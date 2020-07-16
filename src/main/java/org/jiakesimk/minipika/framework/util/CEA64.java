@@ -9,11 +9,11 @@ import org.apache.commons.codec.binary.Base64;
 import java.security.MessageDigest;
 
 /**
- * EAC全称是：通用加密算法（Common encryption algorithm）
+ * CEA是“通用加密算法”的简称（Common encryption algorithm）
  *
  * @author lts
  */
-public class Eac64 {
+public class CEA64 {
 
   public static void main(String[] args) {
     // 15121116101312
