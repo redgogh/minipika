@@ -31,9 +31,19 @@
 
   <repositories>
     <repository>
-      <id>ali yun</id>
-      <name>alibaba cloud</name>
+      <id>alibaba public</id>
+      <name>alibaba</name>
       <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+    </repository>
+    <repository>
+      <id>huawei public</id>
+      <name>huawei</name>
+      <url>https://mirrors.huaweicloud.com/repository/maven</url>
+    </repository>
+    <repository>
+      <id>maven public</id>
+      <name>maven</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
     </repository>
   </repositories>
 
@@ -81,13 +91,13 @@
       <version>${fastjson.version}</version>
     </dependency>
     <!-- sql解析 -->
-<!--
-    <dependency>
-      <groupId>com.github.jsqlparser</groupId>
-      <artifactId>jsqlparser</artifactId>
-      <version>3.1</version>
-    </dependency>
--->
+    <!--
+        <dependency>
+          <groupId>com.github.jsqlparser</groupId>
+          <artifactId>jsqlparser</artifactId>
+          <version>3.1</version>
+        </dependency>
+    -->
     <!-- xml解析 -->
     <dependency>
       <groupId>org.jdom</groupId>
@@ -95,13 +105,13 @@
       <version>${jdom.version}</version>
     </dependency>
     <!-- 字节码操作工具 -->
-<!--
-    <dependency>
-      <groupId>javassist</groupId>
-      <artifactId>javassist</artifactId>
-      <version>${javassist.version}</version>
-    </dependency>
--->
+    <!--
+        <dependency>
+          <groupId>javassist</groupId>
+          <artifactId>javassist</artifactId>
+          <version>${javassist.version}</version>
+        </dependency>
+    -->
     <dependency>
       <groupId>com.carrotsearch</groupId>
       <artifactId>java-sizeof</artifactId>
@@ -124,6 +134,12 @@
       <artifactId>kotlin-test-junit</artifactId>
       <version>${kotlin.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+      <version>3.0.4</version>
+      <type>pom</type>
     </dependency>
   </dependencies>
 
@@ -162,6 +178,21 @@
           <target>11</target>
           <compilerArgs>-parameters</compilerArgs>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.gmaven</groupId>
+        <artifactId>gmaven-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generateStubs</goal>
+              <goal>compile</goal>
+              <goal>generateTestStubs</goal>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

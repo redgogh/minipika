@@ -1,5 +1,5 @@
-properties  {
-  database = 'test'
+ext {
+  a = "dd"
 }
 
 configuration {
