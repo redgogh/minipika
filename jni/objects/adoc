@@ -1,3 +1,3 @@
 gcc -Wall -shared -I "$JAVA_HOME/include/" -I "$JAVA_HOME/include/win32" org_jiakesimk_minipika_framework_util_Objects.c -o objects.dll
 
-gcc org_jiakesimk_minipika_framework_util_Objects.c -shared -o o.dll
+gcc /I"$JAVA_HOME/include/" /I"$JAVA_HOME/include/win32" org_jiakesimk_minipika_framework_util_Objects.c -shared -o o.dll 
