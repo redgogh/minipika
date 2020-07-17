@@ -28,6 +28,7 @@ import org.jiakesimk.minipika.framework.util.Fields;
 import org.jiakesimk.minipika.framework.util.StringUtils;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Proxy;
 import java.util.Map;
 import java.util.Objects;
 
@@ -53,7 +54,7 @@ public class InjectUtils {
     } else {
       instance = ClassUtils.newInstance(clazz, types, parameter);
     }
-    return autowired(clazz, getProxyHandler(instance, clazz));
+    return autowired(clazz, instance);
   }
 
   private static Object autowired(Class<?> clazz, Object instance)
@@ -70,7 +71,7 @@ public class InjectUtils {
       field.set(instance, Objects.requireNonNull(object,
               "Error unable initialize component named " + name)); // 注入对象
     }
-    return instance;
+    return getProxyHandler(instance, clazz);
   }
 
   /**

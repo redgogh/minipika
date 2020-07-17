@@ -20,6 +20,7 @@ package org.jiakesimk.minipika.components.jdbc;
  * Creates on 2020/6/18.
  */
 
+import org.jiakesimk.minipika.framework.annotations.Component;
 import org.jiakesimk.minipika.framework.factory.Factorys;
 import java.sql.SQLException;
 import java.util.List;
@@ -31,7 +32,8 @@ import java.util.List;
  */
 public class SQLExecutor implements Executor {
 
-  private final NativeJdbc nativeJdbc = Factorys.forClass(NativeJdbc.class);
+  @Component
+  private NativeJdbc nativeJdbc;
 
   @Override
   public <T> T queryForObject(String sql, Class<T> obj, Object... args) throws SQLException {

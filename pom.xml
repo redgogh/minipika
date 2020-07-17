@@ -144,6 +144,7 @@
   </dependencies>
 
   <build>
+    <testSourceDirectory>src/test/java</testSourceDirectory>
     <plugins>
       <plugin>
         <groupId>org.jetbrains.kotlin</groupId>
@@ -165,19 +166,19 @@
             </goals>
           </execution>
         </executions>
-        <sourceConfig>
-          <jvmTarget>1.8</jvmTarget>
+        <configuration>
+          <jvmTarget>11</jvmTarget>
           <javaParameters>true</javaParameters>
-        </sourceConfig>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <sourceConfig>
+        <configuration>
           <source>11</source>
           <target>11</target>
           <compilerArgs>-parameters</compilerArgs>
-        </sourceConfig>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.codehaus.gmaven</groupId>
