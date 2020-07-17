@@ -3,12 +3,12 @@
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-compiler-plugin</artifactId>
     <version>${maven.compile.version}</version>
-    <configuration>
+    <sourceConfig>
         <source>${java.version}</source>
         <target>${java.version}</target>
         <!-- 编译参数, 此编译参数可以让.class文件保存原来的参数名 -->
         <compilerArgument>-parameters</compilerArgument>
-    </configuration>
+    </sourceConfig>
 </plugin>
 
 <!-- maven打包时doc插件 -->
@@ -24,9 +24,9 @@
                 <goal>jar</goal>
             </goals>
             <!-- java8版本导致javadoc打包编译失败时候，添加-->
-            <configuration>
+            <sourceConfig>
                 <additionalparam>${javadoc.opts}</additionalparam>
-            </configuration>
+            </sourceConfig>
         </execution>
     </executions>
 </plugin>

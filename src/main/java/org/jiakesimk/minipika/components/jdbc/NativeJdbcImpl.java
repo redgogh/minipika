@@ -20,12 +20,14 @@ package org.jiakesimk.minipika.components.jdbc;
  * Creates on 2020/6/6.
  */
 
+import org.jiakesimk.minipika.components.cache.Cache;
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
 import org.jiakesimk.minipika.components.jdbc.datasource.pooled.PooledDataSource;
 import org.jiakesimk.minipika.components.jdbc.datasource.pooled.PooledState;
 import org.jiakesimk.minipika.components.jdbc.transaction.Transaction;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
+import org.jiakesimk.minipika.framework.annotations.Component;
 import org.jiakesimk.minipika.framework.common.ProxyHandler;
 import org.jiakesimk.minipika.framework.factory.Factorys;
 import org.jiakesimk.minipika.framework.util.Arrays;
@@ -46,6 +48,9 @@ import java.util.List;
 public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
 
   private Transaction transaction;
+
+  @Component
+  private Cache cache;
 
   private static final Log LOG = LogFactory.getLog(NativeJdbcImpl.class);
 

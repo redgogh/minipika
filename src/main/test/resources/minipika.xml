@@ -10,13 +10,13 @@
     <database>test</database>
   </properties>
 
-  <configuration>
+  <sourceConfig>
     <opencache>true</opencache>
     <datasourcencies>
       <datasource name="druid">
       </datasource>
     </datasourcencies>
-  </configuration>
+  </sourceConfig>
 
   <!--
     配置数据源.

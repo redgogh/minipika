@@ -4,7 +4,7 @@
   scanPeriod：设置检测配置文件是否有修改的时间间隔，如果没有给出时间单位默认时间单位为毫秒。
   debug：当debug为true的时候，将打印出logback内部的日志，实时检测logback运行状态。
 -->
-<configuration scan="true" scanPeriod="60 seconds" debug="false">
+<sourceConfig scan="true" scanPeriod="60 seconds" debug="false">
 
   <!-- 在控制台输出 -->
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -17,4 +17,4 @@
     <appender-ref ref="STDOUT"/>
   </root>
 
-</configuration>
+</sourceConfig>

@@ -85,14 +85,6 @@ public class CEA64 {
       }
     }
 
-    public String encode(String input) {
-      return digest(input.getBytes());
-    }
-
-    public String encode32(String input) {
-      return digest32(input);
-    }
-
     /*
      * md5采用32位大写
      */

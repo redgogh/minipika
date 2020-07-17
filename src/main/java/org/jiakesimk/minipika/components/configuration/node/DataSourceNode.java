@@ -35,7 +35,7 @@ public class DataSourceNode implements ElementParser {
 
   static final String MASTER = "master";
 
-  private List<Configuration> dataSourceNodes = Lists.newArrayList();
+  private List<SourceConfig> dataSourceNodes = Lists.newArrayList();
 
   @Override
   public void parse(ElementWrapper element) {
@@ -43,9 +43,9 @@ public class DataSourceNode implements ElementParser {
     checkIsExistsMaster(element);
     List<ElementWrapper> elements = element.getChildren();
     for (ElementWrapper datasource : elements) {
-      Configuration configuration = new Configuration();
-      configuration.parse(datasource);
-      dataSourceNodes.add(configuration);
+      SourceConfig sourceConfig = new SourceConfig();
+      sourceConfig.parse(datasource);
+      dataSourceNodes.add(sourceConfig);
     }
   }
 

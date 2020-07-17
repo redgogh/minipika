@@ -20,7 +20,7 @@ package org.jiakesimk.minipika.components.jdbc.datasource.pooled;
  * Creates on 2020/6/1.
  */
 
-import org.jiakesimk.minipika.components.configuration.node.Configuration;
+import org.jiakesimk.minipika.components.configuration.node.SourceConfig;
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
 import org.jiakesimk.minipika.components.jdbc.datasource.unpooled.UnpooledDataSource;
 import org.jiakesimk.minipika.components.logging.Log;
@@ -44,7 +44,7 @@ public class PooledDataSource implements DataSource {
 
   protected final PooledState state;
 
-  protected Configuration configuration;
+  protected SourceConfig sourceConfig;
 
   protected UnpooledDataSource unpooledDataSource;
 
@@ -53,13 +53,13 @@ public class PooledDataSource implements DataSource {
   public PooledDataSource(UnpooledDataSource unpooledDataSource) {
     {
       this.unpooledDataSource = unpooledDataSource;
-      this.configuration = unpooledDataSource.getConfiguration();
-      this.username = configuration.getUsername();
-      this.password = configuration.getPassword();
+      this.sourceConfig = unpooledDataSource.getSourceConfig();
+      this.username = sourceConfig.getUsername();
+      this.password = sourceConfig.getPassword();
       this.state = new PooledState(this);
     }
     {
-      DataSourceManager.registerDataSource(configuration.getName(), this);
+      DataSourceManager.registerDataSource(sourceConfig.getName(), this);
     }
     {
       try {

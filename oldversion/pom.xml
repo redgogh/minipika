@@ -217,12 +217,12 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compile.version}</version>
-                <configuration>
+                <sourceConfig>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <!-- 编译参数, 此编译参数可以让.class文件保存原来的参数名 -->
                     <compilerArgument>-parameters</compilerArgument>
-                </configuration>
+                </sourceConfig>
             </plugin>
         </plugins>
     </build>

@@ -39,7 +39,7 @@ import java.util.Properties;
  *
  * @author tiansheng
  */
-public class Configuration implements ElementParser {
+public class SourceConfig implements ElementParser {
 
   private String url;
   private String username;

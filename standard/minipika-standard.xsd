@@ -5,7 +5,7 @@
   <xs:complexType name="ContentBody">
     <xs:all>
       <xs:element name="properties" type="Properties" minOccurs="0"/>
-      <xs:element name="configuration" type="Configuration" minOccurs="0"/>
+      <xs:element name="sourceConfig" type="Configuration" minOccurs="0"/>
       <xs:element name="datasource" type="DataSource" minOccurs="0"/>
     </xs:all>
   </xs:complexType>
