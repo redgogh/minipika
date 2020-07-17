@@ -45,7 +45,7 @@ public class PooledState implements ThreadNotifyStrategy {
   /**
    * sql执行耗时
    */
-  protected Map<Integer, List<Long>> sqlTimeConsuming           = Maps.newConcurrentHashMap();
+  protected Map<Integer, Long> sqlTimeConsuming                 = Maps.newConcurrentHashMap();
 
   protected Map<Integer, String> sqlKeyCollect                  = Maps.newConcurrentHashMap();
 
@@ -87,8 +87,7 @@ public class PooledState implements ThreadNotifyStrategy {
 
   public void setSqlTimeConsuming(String sql, Long time) {
     Integer key = getKey(sql);
-    List<Long> times = sqlTimeConsuming.computeIfAbsent(key, k -> Lists.newLinkedList());
-    times.add(time);
+    sqlTimeConsuming.put(key, time);
   }
 
   /**
