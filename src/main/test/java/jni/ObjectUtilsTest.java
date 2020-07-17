@@ -12,8 +12,7 @@ import org.junit.Test;
  */
 public class ObjectUtilsTest {
 
-  @Test
-  public void test() {
+  public static void main(String[] args) {
     System.loadLibrary("o");
     Object o = new Object();
     System.out.println(Objects.sizeof(o));
