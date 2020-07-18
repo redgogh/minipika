@@ -20,9 +20,8 @@ package org.jiakesimk.minipika.framework.factory;
  * Creates on 2020/6/1.
  */
 
-import org.jiakesimk.minipika.framework.common.ProxyHandler;
-import org.jiakesimk.minipika.framework.util.ClassUtils;
-import org.jiakesimk.minipika.framework.util.Maps;
+import org.jiakesimk.minipika.framework.utils.ClassUtils;
+import org.jiakesimk.minipika.framework.utils.Maps;
 
 import java.util.Map;
 
@@ -113,6 +112,10 @@ public class ComponentContainer implements ComponentFactory {
   public void reloading(String key, Object object) {
     checkingComponent(object);
     components.put(key, object);
+  }
+
+  public static Map<String, Object> getComponents() {
+    return components;
   }
 
   @Override

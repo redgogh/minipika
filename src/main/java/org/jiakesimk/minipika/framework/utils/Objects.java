@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.util.agent;
+package org.jiakesimk.minipika.framework.utils;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -17,22 +17,28 @@ package org.jiakesimk.minipika.framework.util.agent;
  */
 
 /*
- * Creates on 2020/7/9.
+ * Creates on 2019/11/13.
  */
 
-import org.jiakesimk.minipika.framework.util.StringUtils;
+import java.lang.reflect.Method;
 
 /**
- * @author tiansheng
+ * @author lts
  */
-public class AgentStringUtils {
+public class Objects {
 
-  public static boolean isEmpty(Object object) {
-    return StringUtils.isEmpty(String.valueOf(object));
+  public static Object invoke(Method method, Object object, Object... args) throws Exception {
+    Class<?> clazz = object.getClass();
+    Method method0 = clazz.getDeclaredMethod(method.getName(), method.getParameterTypes());
+    return method0.invoke(object, args);
   }
 
-  public static boolean isNotEmpty(Object object) {
-    return StringUtils.isNotEmpty(String.valueOf(object));
-  }
+  /**
+   * 获取对象占用内存大小
+   *
+   * @param o 对象实例
+   * @return 对象大小
+   */
+  public static native long sizeof(Object o);
 
 }

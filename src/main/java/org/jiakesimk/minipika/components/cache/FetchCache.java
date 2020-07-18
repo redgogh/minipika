@@ -21,7 +21,7 @@ package org.jiakesimk.minipika.components.cache;
  */
 
 import org.jiakesimk.minipika.components.jdbc.NativeResultSet;
-import org.jiakesimk.minipika.framework.util.Maps;
+import org.jiakesimk.minipika.framework.utils.Maps;
 
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -36,7 +36,7 @@ public class FetchCache implements Cache {
   private final ReentrantReadWriteLock readAndWriteLock = new ReentrantReadWriteLock();
 
   @Override
-  public void set(String key, NativeResultSet resultSet) {
+  public NativeResultSet set(String key, NativeResultSet resultSet) {
     readAndWriteLock.writeLock().lock();
     try {
       map.put(key, resultSet);
@@ -45,11 +45,17 @@ public class FetchCache implements Cache {
     } finally {
       readAndWriteLock.writeLock().unlock();
     }
+    return resultSet;
   }
 
   @Override
   public NativeResultSet fetch(String key) {
     return map.get(key);
+  }
+
+  @Override
+  public void update(String sql) {
+
   }
 
   @Override

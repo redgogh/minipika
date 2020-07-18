@@ -20,11 +20,11 @@ package framework.util;
  * Creates on 2020/6/1.
  */
 
-import org.jiakesimk.minipika.framework.util.Arrays;
+import org.jiakesimk.minipika.framework.utils.Arrays;
 import org.junit.Test;
 import testObject.Entity;
 import org.jiakesimk.minipika.framework.annotations.Component;
-import org.jiakesimk.minipika.framework.util.Fields;
+import org.jiakesimk.minipika.framework.utils.Fields;
 
 import java.lang.reflect.Field;
 

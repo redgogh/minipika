@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.util;
+package org.jiakesimk.minipika.framework.utils;
 
 /*
  * Creates on 2020/3/21.
@@ -6,7 +6,6 @@ package org.jiakesimk.minipika.framework.util;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**

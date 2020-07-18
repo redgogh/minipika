@@ -20,7 +20,7 @@ package org.jiakesimk.minipika.framework.factory;
  * Creates on 2020/6/1.
  */
 
-import org.jiakesimk.minipika.framework.util.UniqueId;
+import org.jiakesimk.minipika.framework.utils.UniqueId;
 
 /**
  * 实现Minipika插件的VersionId，用于在组件管理器中标识出自己的位置

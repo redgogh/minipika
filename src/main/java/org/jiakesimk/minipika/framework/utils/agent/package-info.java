@@ -23,4 +23,4 @@
  *
  * @author tiansheng
  */
-package org.jiakesimk.minipika.framework.util.agent;
+package org.jiakesimk.minipika.framework.utils.agent;

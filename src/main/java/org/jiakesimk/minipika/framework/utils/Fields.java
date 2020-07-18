@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.util;
+package org.jiakesimk.minipika.framework.utils;
 
 /*
  * Creates on 2020/3/21.

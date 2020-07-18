@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.util;
+package org.jiakesimk.minipika.framework.utils;
 
 import java.util.*;
 import java.util.Objects;

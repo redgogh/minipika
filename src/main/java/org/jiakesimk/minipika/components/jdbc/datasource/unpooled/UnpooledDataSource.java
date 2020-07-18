@@ -25,7 +25,7 @@ import org.jiakesimk.minipika.components.configuration.node.SourceConfig;
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
-import org.jiakesimk.minipika.framework.util.ClassUtils;
+import org.jiakesimk.minipika.framework.utils.ClassUtils;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;

@@ -26,8 +26,8 @@ import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
 import org.jiakesimk.minipika.components.jdbc.datasource.pooled.PooledDataSource;
 import org.jiakesimk.minipika.components.jdbc.datasource.unpooled.UnpooledDataSource;
 import org.jiakesimk.minipika.framework.exception.XMLParseException;
-import org.jiakesimk.minipika.framework.util.Maps;
-import org.jiakesimk.minipika.framework.util.StringUtils;
+import org.jiakesimk.minipika.framework.utils.Maps;
+import org.jiakesimk.minipika.framework.utils.StringUtils;
 
 import java.util.List;
 import java.util.Map;

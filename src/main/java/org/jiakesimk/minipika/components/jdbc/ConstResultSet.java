@@ -21,10 +21,10 @@ package org.jiakesimk.minipika.components.jdbc;
  */
 
 import com.alibaba.fastjson.JSONObject;
-import org.jiakesimk.minipika.framework.util.ClassUtils;
-import org.jiakesimk.minipika.framework.util.Lists;
-import org.jiakesimk.minipika.framework.util.Maps;
-import org.jiakesimk.minipika.framework.util.StringUtils;
+import org.jiakesimk.minipika.framework.utils.ClassUtils;
+import org.jiakesimk.minipika.framework.utils.Lists;
+import org.jiakesimk.minipika.framework.utils.Maps;
+import org.jiakesimk.minipika.framework.utils.StringUtils;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;

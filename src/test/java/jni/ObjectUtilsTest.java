@@ -4,8 +4,7 @@ package jni;
  * Creates on 2019/11/13.
  */
 
-import org.jiakesimk.minipika.framework.util.Objects;
-import org.junit.Test;
+import org.jiakesimk.minipika.framework.utils.Objects;
 
 /**
  * @author lts

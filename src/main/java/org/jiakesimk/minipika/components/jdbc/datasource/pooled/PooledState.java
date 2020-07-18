@@ -22,11 +22,10 @@ package org.jiakesimk.minipika.components.jdbc.datasource.pooled;
 
 import org.jiakesimk.minipika.framework.PropertyNames;
 import org.jiakesimk.minipika.framework.strategy.ThreadNotifyStrategy;
-import org.jiakesimk.minipika.framework.util.Lists;
-import org.jiakesimk.minipika.framework.util.Maps;
-import org.jiakesimk.minipika.framework.util.StringUtils;
+import org.jiakesimk.minipika.framework.utils.Lists;
+import org.jiakesimk.minipika.framework.utils.Maps;
+import org.jiakesimk.minipika.framework.utils.StringUtils;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 

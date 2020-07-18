@@ -21,7 +21,7 @@ package org.jiakesimk.minipika.components.cache;
  */
 
 import org.jiakesimk.minipika.components.jdbc.NativeResultSet;
-import org.jiakesimk.minipika.framework.util.CEA64;
+import org.jiakesimk.minipika.framework.utils.CEA64;
 
 /**
  * {@link NativeResultSet}查询数据缓存
@@ -35,8 +35,9 @@ public interface Cache {
    *
    * @param key       key值
    * @param resultSet 查询数据对象
+   * @return resultSet
    */
-  void set(String key, NativeResultSet resultSet);
+  NativeResultSet set(String key, NativeResultSet resultSet);
 
   /**
    * 取出一条数据
@@ -45,6 +46,13 @@ public interface Cache {
    * @return {@link NativeResultSet}实例对象
    */
   NativeResultSet fetch(String key);
+
+  /**
+   * 更新对应的表存在的缓存
+   *
+   * @param sql sql语句
+   */
+  void update(String sql);
 
   /**
    * 刷新所有缓存对象
@@ -64,7 +72,7 @@ public interface Cache {
    */
   static String genKey(String sql, Object... args) {
     StringBuilder key = new StringBuilder(sql);
-    if(args != null) {
+    if (args != null) {
       for (Object arg : args) {
         key.append(arg);
       }

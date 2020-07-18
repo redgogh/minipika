@@ -28,13 +28,13 @@ import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
 /**
  * @author tiansheng
  */
-public class MinipikaXMLConfig implements ElementParser {
+public class XMLConfig implements ElementParser {
 
-  private static final String CHIlD_DATASOURCE         = "datasource";
+  public static final String CHIlD_DATASOURCE         = "datasource";
 
-  private static final String CHIlD_PROPERTIES         = "properties";
+  public static final String CHIlD_PROPERTIES         = "properties";
 
-  private static final String CHILD_CONFIGURATION      = "configuration";
+  public static final String CHILD_CONFIGURATION      = "configuration";
 
   /**
    * 所有配置的属性值
@@ -67,31 +67,4 @@ public class MinipikaXMLConfig implements ElementParser {
     }
   }
 
-  public static String getCHIlD_DATASOURCE() {
-    return CHIlD_DATASOURCE;
-  }
-
-  public static String getCHIlD_PROPERTIES() {
-    return CHIlD_PROPERTIES;
-  }
-
-  public static String getChildConfiguration() {
-    return CHILD_CONFIGURATION;
-  }
-
-  public PropertiesNode getPropertiesNode() {
-    return propertiesNode;
-  }
-
-  public void setPropertiesNode(PropertiesNode propertiesNode) {
-    this.propertiesNode = propertiesNode;
-  }
-
-  public DataSourceNode getDataSourceNode() {
-    return dataSourceNode;
-  }
-
-  public void setDataSourceNode(DataSourceNode dataSourceNode) {
-    this.dataSourceNode = dataSourceNode;
-  }
 }

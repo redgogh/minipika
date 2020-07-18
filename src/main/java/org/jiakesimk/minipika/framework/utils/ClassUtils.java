@@ -1,11 +1,10 @@
-package org.jiakesimk.minipika.framework.util;
+package org.jiakesimk.minipika.framework.utils;
 
 /*
  * Creates on 2020/3/21.
  */
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**

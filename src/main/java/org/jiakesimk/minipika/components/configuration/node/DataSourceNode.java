@@ -22,7 +22,7 @@ package org.jiakesimk.minipika.components.configuration.node;
 
 import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
 import org.jiakesimk.minipika.framework.exception.XMLParseException;
-import org.jiakesimk.minipika.framework.util.Lists;
+import org.jiakesimk.minipika.framework.utils.Lists;
 
 import java.util.List;
 

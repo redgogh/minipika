@@ -26,7 +26,7 @@ import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
 import org.jiakesimk.minipika.framework.thread.Threads;
-import org.jiakesimk.minipika.framework.util.JDOMHelper;
+import org.jiakesimk.minipika.framework.utils.JDOMHelper;
 import org.xml.sax.InputSource;
 
 import java.io.InputStream;
@@ -41,6 +41,8 @@ public class XMLConfigBuilder {
   private ElementWrapper root;
 
   final Log log = LogFactory.getLog(XMLConfigBuilder.class);
+
+  private XMLConfig config;
 
   public XMLConfigBuilder() {
   }
@@ -94,8 +96,13 @@ public class XMLConfigBuilder {
    * 初始化配置类
    */
   public synchronized void initialize() {
-    MinipikaXMLConfig minipikaXMLConfig = new MinipikaXMLConfig();
-    minipikaXMLConfig.parse(root);
+    XMLConfig XMLConfig = new XMLConfig();
+    XMLConfig.parse(root);
+    this.config = XMLConfig;
+  }
+
+  public XMLConfig getConfig() {
+    return this.config;
   }
 
   private String perfectPath(String path) {

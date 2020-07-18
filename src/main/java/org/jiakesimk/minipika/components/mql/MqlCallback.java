@@ -8,8 +8,8 @@ import org.jiakesimk.minipika.components.jdbc.Executor;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
 import org.jiakesimk.minipika.framework.annotations.Component;
-import org.jiakesimk.minipika.framework.util.Arrays;
-import org.jiakesimk.minipika.framework.util.Methods;
+import org.jiakesimk.minipika.framework.utils.Arrays;
+import org.jiakesimk.minipika.framework.utils.Methods;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

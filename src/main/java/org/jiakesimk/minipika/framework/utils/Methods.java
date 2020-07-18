@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.util;
+package org.jiakesimk.minipika.framework.utils;
 
 import com.github.houbb.asm.tool.reflection.AsmMethods;
 import org.jiakesimk.minipika.framework.exception.MinipikaException;

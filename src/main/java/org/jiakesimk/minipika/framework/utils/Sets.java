@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.util;
+package org.jiakesimk.minipika.framework.utils;
 
 /*
  * Copyright (C) 2020 lts All rights reserved.

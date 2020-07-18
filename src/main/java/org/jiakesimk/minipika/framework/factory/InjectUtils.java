@@ -22,13 +22,12 @@ package org.jiakesimk.minipika.framework.factory;
 
 import org.jiakesimk.minipika.framework.annotations.Component;
 import org.jiakesimk.minipika.framework.common.ProxyHandler;
-import org.jiakesimk.minipika.framework.util.Annotations;
-import org.jiakesimk.minipika.framework.util.ClassUtils;
-import org.jiakesimk.minipika.framework.util.Fields;
-import org.jiakesimk.minipika.framework.util.StringUtils;
+import org.jiakesimk.minipika.framework.utils.Annotations;
+import org.jiakesimk.minipika.framework.utils.ClassUtils;
+import org.jiakesimk.minipika.framework.utils.Fields;
+import org.jiakesimk.minipika.framework.utils.StringUtils;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Proxy;
 import java.util.Map;
 import java.util.Objects;
 

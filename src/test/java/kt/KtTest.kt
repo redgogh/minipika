@@ -2,7 +2,7 @@ package kt
 
 import com.alibaba.fastjson.JSONObject
 import org.jiakesimk.minipika.framework.factory.Factorys
-import org.jiakesimk.minipika.framework.util.Arrays
+import org.jiakesimk.minipika.framework.utils.Arrays
 import org.junit.Test
 
 class KtTest {

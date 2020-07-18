@@ -20,6 +20,15 @@ package org.jiakesimk.minipika.framework.context;
  * Creates on 2020/7/2.
  */
 
+import org.jiakesimk.minipika.components.cache.Cache;
+import org.jiakesimk.minipika.components.cache.FetchCache;
+import org.jiakesimk.minipika.components.configuration.XMLConfig;
+import org.jiakesimk.minipika.components.jdbc.*;
+import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransaction;
+import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransactionFactory;
+import org.jiakesimk.minipika.components.jdbc.transaction.TransactionFactory;
+import org.jiakesimk.minipika.framework.factory.ComponentContainer;
+import org.jiakesimk.minipika.framework.factory.Factorys;
 import org.jiakesimk.minipika.framework.strategy.FindStrategy;
 import org.jiakesimk.minipika.components.configuration.XMLConfigBuilder;
 
@@ -30,21 +39,18 @@ import org.jiakesimk.minipika.components.configuration.XMLConfigBuilder;
  */
 public class ContextManager {
 
-  /**
-   * 上下文是否已经加载
-   */
   private static boolean load;
 
   public static void loadContext() {
-    if(!load) {
-      XMLConfigBuilder configBuilder = new XMLConfigBuilder();
-      configBuilder.load(FindStrategy.getConfigInputStream());
-      load = true;
-    }
-  }
-
-  public static boolean isLoad() {
-    return load;
+    XMLConfigBuilder configBuilder = new XMLConfigBuilder();
+    configBuilder.load(FindStrategy.getConfigInputStream());
+    ComponentContainer.getComponents().put(XMLConfig.class.getName(), configBuilder.getConfig());
+    ComponentContainer.getComponents().put(NativeResultSet.class.getName(), ConstResultSet.class);
+    ComponentContainer.getComponents().put(Cache.class.getName(), Factorys.forClass(FetchCache.class));
+    ComponentContainer.getComponents().put(NativeJdbc.class.getName(), Factorys.forClass(NativeJdbcImpl.class));
+    ComponentContainer.getComponents().put(JdbcTransaction.class.getName(), Factorys.forClass(JdbcTransaction.class));
+    ComponentContainer.getComponents().put(TransactionFactory.class.getName(), Factorys.forClass(JdbcTransactionFactory.class));
+    ComponentContainer.getComponents().put(Executor.class.getName(), Factorys.forClass(SQLExecutor.class));
   }
 
 }

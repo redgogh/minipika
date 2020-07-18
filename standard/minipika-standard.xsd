@@ -5,7 +5,7 @@
   <xs:complexType name="ContentBody">
     <xs:all>
       <xs:element name="properties" type="Properties" minOccurs="0"/>
-      <xs:element name="sourceConfig" type="Configuration" minOccurs="0"/>
+      <xs:element name="configuration" type="Configuration" minOccurs="0"/>
       <xs:element name="datasource" type="DataSource" minOccurs="0"/>
     </xs:all>
   </xs:complexType>
@@ -16,7 +16,7 @@
   </xs:complexType>
   <xs:complexType name="Configuration">
     <xs:sequence>
-      <xs:element name="opencache" type="xs:boolean" default="false" minOccurs="0"/>
+      <xs:element name="opencache" type="xs:boolean" default="true" minOccurs="0"/>
       <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
     </xs:sequence>
   </xs:complexType>

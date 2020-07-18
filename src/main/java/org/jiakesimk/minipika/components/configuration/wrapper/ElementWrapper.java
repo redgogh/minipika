@@ -23,9 +23,9 @@ package org.jiakesimk.minipika.components.configuration.wrapper;
 import org.jdom2.*;
 import org.jdom2.filter.Filter;
 import org.jdom2.util.IteratorIterable;
-import org.jiakesimk.minipika.framework.util.Lists;
-import org.jiakesimk.minipika.framework.util.Matches;
-import org.jiakesimk.minipika.framework.util.StringUtils;
+import org.jiakesimk.minipika.framework.utils.Lists;
+import org.jiakesimk.minipika.framework.utils.Matches;
+import org.jiakesimk.minipika.framework.utils.StringUtils;
 
 import java.net.URI;
 import java.net.URISyntaxException;

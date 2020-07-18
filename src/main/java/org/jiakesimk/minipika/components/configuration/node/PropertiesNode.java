@@ -21,7 +21,7 @@ package org.jiakesimk.minipika.components.configuration.node;
  */
 
 import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
-import org.jiakesimk.minipika.framework.util.StringUtils;
+import org.jiakesimk.minipika.framework.utils.StringUtils;
 
 import java.util.List;
 import java.util.Properties;

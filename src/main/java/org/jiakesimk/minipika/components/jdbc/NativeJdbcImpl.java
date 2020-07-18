@@ -21,6 +21,7 @@ package org.jiakesimk.minipika.components.jdbc;
  */
 
 import org.jiakesimk.minipika.components.cache.Cache;
+import org.jiakesimk.minipika.components.configuration.XMLConfig;
 import org.jiakesimk.minipika.components.jdbc.datasource.DataSourceManager;
 import org.jiakesimk.minipika.components.jdbc.datasource.pooled.PooledDataSource;
 import org.jiakesimk.minipika.components.jdbc.datasource.pooled.PooledState;
@@ -30,10 +31,7 @@ import org.jiakesimk.minipika.components.logging.LogFactory;
 import org.jiakesimk.minipika.framework.annotations.Component;
 import org.jiakesimk.minipika.framework.common.ProxyHandler;
 import org.jiakesimk.minipika.framework.factory.Factorys;
-import org.jiakesimk.minipika.framework.util.Arrays;
-import org.jiakesimk.minipika.framework.util.AutoClose;
-import org.jiakesimk.minipika.framework.util.Lists;
-import org.jiakesimk.minipika.framework.util.SQLUtils;
+import org.jiakesimk.minipika.framework.utils.*;
 
 import javax.sql.DataSource;
 import java.lang.reflect.Method;
@@ -52,7 +50,22 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
   @Component
   private Cache cache;
 
+  @Component
+  private XMLConfig config;
+
+  /**
+   * 开启缓存
+   */
+  private boolean opencache = true;
+
   private static final Log LOG = LogFactory.getLog(NativeJdbcImpl.class);
+
+  public NativeJdbcImpl() {
+    String opencache = System.getProperty("opencache");
+    if (StringUtils.isNotEmpty(opencache)) {
+      this.opencache = Boolean.valueOf(opencache);
+    }
+  }
 
   @Override
   public boolean execute(String sql, Object... args) throws SQLException {
@@ -80,17 +93,22 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
 
   @Override
   public NativeResultSet select(String sql, Object... args) throws SQLException {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("execute sql - " + sql);
+    if (LOG.isDebugEnabled()) LOG.debug("execute sql - " + sql);
+    NativeResultSet nResultSet = null;
+    if (opencache) {
+      nResultSet = cache.fetch(Cache.genKey(sql, args));
+      if (nResultSet != null) {
+        return nResultSet;
+      }
     }
     Connection connection = null;
     PreparedStatement statement = null;
-    transaction = getTransaction();
     try {
+      transaction = getTransaction();
       connection = transaction.getConnection();
       statement = connection.prepareStatement(sql);
       ResultSet resultSet = setValues(statement, args).executeQuery();
-      return Factorys.forClass(NativeResultSet.class).build(resultSet);
+      return cache.set(Cache.genKey(sql, args), Factorys.forClass(NativeResultSet.class).build(resultSet));
     } catch (Throwable e) {
       LOG.error(e.getMessage(), e);
       throw new SQLException(e);
@@ -107,8 +125,8 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
     }
     Connection connection = null;
     PreparedStatement statement = null;
-    transaction = getTransaction();
     try {
+      transaction = getTransaction();
       connection = transaction.getConnection();
       statement = connection.prepareStatement(sql);
       int result = setValues(statement, args).executeUpdate();
@@ -136,8 +154,8 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
     }
     Connection connection = null;
     PreparedStatement statement = null;
-    transaction = getTransaction();
     try {
+      transaction = getTransaction();
       int[] result = isMultiSQL(sql, args);
       if (result != null) return result;
       connection = transaction.getConnection();
@@ -172,8 +190,8 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
     }
     Connection connection = null;
     Statement statement = null;
-    transaction = getTransaction();
     try {
+      transaction = getTransaction();
       connection = transaction.getConnection();
       statement = connection.createStatement();
       int index = -1;

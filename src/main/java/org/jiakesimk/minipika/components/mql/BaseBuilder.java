@@ -23,10 +23,10 @@ package org.jiakesimk.minipika.components.mql;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
 import org.jiakesimk.minipika.framework.compiler.JavaCompiler;
-import org.jiakesimk.minipika.framework.util.ClassUtils;
-import org.jiakesimk.minipika.framework.util.Matches;
-import org.jiakesimk.minipika.framework.util.Methods;
-import org.jiakesimk.minipika.framework.util.StringUtils;
+import org.jiakesimk.minipika.framework.utils.ClassUtils;
+import org.jiakesimk.minipika.framework.utils.Matches;
+import org.jiakesimk.minipika.framework.utils.Methods;
+import org.jiakesimk.minipika.framework.utils.StringUtils;
 
 import java.lang.reflect.Method;
 import java.util.Objects;

@@ -20,7 +20,7 @@ package org.jiakesimk.minipika.components.mql;
  * Creates on 2020/6/23.
  */
 
-import org.jiakesimk.minipika.framework.util.Objects;
+import org.jiakesimk.minipika.framework.utils.Objects;
 
 import java.lang.reflect.Method;
 

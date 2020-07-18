@@ -22,12 +22,15 @@ package org.jiakesimk.minipika.framework.factory;
 
 import org.jiakesimk.minipika.components.cache.Cache;
 import org.jiakesimk.minipika.components.cache.FetchCache;
+import org.jiakesimk.minipika.components.configuration.XMLConfig;
+import org.jiakesimk.minipika.components.configuration.XMLConfigBuilder;
 import org.jiakesimk.minipika.components.jdbc.*;
 import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransaction;
 import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransactionFactory;
 import org.jiakesimk.minipika.components.jdbc.transaction.TransactionFactory;
 import org.jiakesimk.minipika.components.mql.MqlCallback;
 import org.jiakesimk.minipika.framework.context.ContextManager;
+import org.jiakesimk.minipika.framework.strategy.FindStrategy;
 
 /**
  * @author tiansheng
@@ -36,12 +39,6 @@ public class Factorys {
 
   static {
     ContextManager.loadContext(); // 加载上下文
-    ComponentContainer.components.put(NativeResultSet.class.getName(), ConstResultSet.class);
-    ComponentContainer.components.put(Cache.class.getName(), forClass(FetchCache.class));
-    ComponentContainer.components.put(NativeJdbc.class.getName(), forClass(NativeJdbcImpl.class));
-    ComponentContainer.components.put(JdbcTransaction.class.getName(), forClass(JdbcTransaction.class));
-    ComponentContainer.components.put(TransactionFactory.class.getName(), forClass(JdbcTransactionFactory.class));
-    ComponentContainer.components.put(Executor.class.getName(), forClass(SQLExecutor.class));
   }
 
   public static <T> T forClass(Class<T> clazz) {

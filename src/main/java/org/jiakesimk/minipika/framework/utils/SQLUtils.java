@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.util;
+package org.jiakesimk.minipika.framework.utils;
 
 /*
  * Copyright (C) 2020 Tiansheng All rights reserved.
@@ -20,6 +20,11 @@ package org.jiakesimk.minipika.framework.util;
  * Creates on 2020/1/30.
  */
 
+import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.parser.CCJSqlParserUtil;
+import net.sf.jsqlparser.statement.Statement;
+import net.sf.jsqlparser.util.TablesNamesFinder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +32,26 @@ import java.util.List;
  * @author tiansheng
  */
 public class SQLUtils {
+
+  /**
+   * 获取sql中的表名
+   * @param sql
+   * @return 表名集合
+   */
+  public static List<String> getSQLTables(String sql) {
+    TablesNamesFinder finder = new TablesNamesFinder();
+    Statement statement = null;
+    try {
+      statement = CCJSqlParserUtil.parse(sql);
+    } catch (JSQLParserException e) {
+      return new ArrayList<>();
+    }
+    List<String> tables = finder.getTableList(statement);
+    for (int i = 0, len = tables.size(); i < len; i++) {
+      tables.set(i, tables.get(i).replace("`", ""));
+    }
+    return tables;
+  }
 
   /**
    * 构建带参数的sql
