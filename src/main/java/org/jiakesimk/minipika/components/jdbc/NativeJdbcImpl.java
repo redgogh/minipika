@@ -126,6 +126,9 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
     Connection connection = null;
     PreparedStatement statement = null;
     try {
+      if (opencache) {
+        cache.update(sql);
+      }
       transaction = getTransaction();
       connection = transaction.getConnection();
       statement = connection.prepareStatement(sql);
@@ -157,7 +160,13 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
     try {
       transaction = getTransaction();
       int[] result = isMultiSQL(sql, args);
-      if (result != null) return result;
+      if (result != null) {
+        return result;
+      } else {
+        if (opencache) {
+          cache.update(sql);
+        }
+      }
       connection = transaction.getConnection();
       statement = connection.prepareStatement(sql);
       for (Object arg : args) {
@@ -186,6 +195,11 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler {
     if (LOG.isDebugEnabled()) {
       for (String it : sql) {
         LOG.debug("execute sql - " + it);
+      }
+    }
+    for (String s : sql) {
+      if (opencache) {
+        cache.update(s);
       }
     }
     Connection connection = null;

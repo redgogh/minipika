@@ -22,6 +22,13 @@ package org.jiakesimk.minipika.components.cache;
 
 import org.jiakesimk.minipika.components.jdbc.NativeResultSet;
 import org.jiakesimk.minipika.framework.utils.CEA64;
+import org.jiakesimk.minipika.framework.utils.Maps;
+import org.jiakesimk.minipika.framework.utils.SQLUtils;
+import org.jiakesimk.minipika.framework.utils.Sets;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * {@link NativeResultSet}查询数据缓存
@@ -29,6 +36,8 @@ import org.jiakesimk.minipika.framework.utils.CEA64;
  * @author lts
  */
 public interface Cache {
+
+  Map<String, Set<String>> KEYS = Maps.newConcurrentHashMap();
 
   /**
    * 存一条数据
@@ -71,13 +80,29 @@ public interface Cache {
    * @param args 参数列表
    */
   static String genKey(String sql, Object... args) {
-    StringBuilder key = new StringBuilder(sql);
+    // 获取SQL中存在的表，并生成MD5作为唯一标识
+    List<String> tables = SQLUtils.getSQLTables(sql);
+    // 生成缓存key
+    StringBuilder keyBuilder = new StringBuilder(sql);
     if (args != null) {
       for (Object arg : args) {
-        key.append(arg);
+        keyBuilder.append(arg);
       }
     }
-    return CEA64.MD5.digest32(key.toString());
+    String key = CEA64.MD5.digest32(keyBuilder.toString());
+    for (String table : tables) {
+      if(KEYS.containsKey(table)) {
+        Set<String> set = KEYS.get(table);
+        if(!set.contains(table)) {
+          set.add(key);
+        }
+      } else {
+        KEYS.put(table, Sets.newHashSet());
+        Set<String> set = KEYS.get(table);
+        set.add(key);
+      }
+    }
+    return key;
   }
 
 }

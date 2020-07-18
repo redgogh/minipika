@@ -22,8 +22,11 @@ package org.jiakesimk.minipika.components.cache;
 
 import org.jiakesimk.minipika.components.jdbc.NativeResultSet;
 import org.jiakesimk.minipika.framework.utils.Maps;
+import org.jiakesimk.minipika.framework.utils.SQLUtils;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
@@ -55,7 +58,16 @@ public class FetchCache implements Cache {
 
   @Override
   public void update(String sql) {
-
+    Map<String, Set<String>> keys = Cache.KEYS;
+    List<String> tables = SQLUtils.getSQLTables(sql);
+    for (String table : tables) {
+      if(keys.containsKey(table)) {
+        Set<String> setKeys = keys.get(table);
+        for (String key : setKeys) {
+          refresh(key);
+        }
+      }
+    }
   }
 
   @Override

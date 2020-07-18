@@ -3,6 +3,7 @@ package mapper
 import kt.User
 import org.jiakesimk.minipika.components.annotation.Batch
 import org.jiakesimk.minipika.components.annotation.QueryOf
+import org.jiakesimk.minipika.components.annotation.Update
 import org.jiakesimk.minipika.framework.factory.Factorys
 
 interface UserMapper {
@@ -28,11 +29,17 @@ interface UserMapper {
   fun findUserList(username: String): List<User>
 
   @Batch("""
-    insert into website_user_info (username, `password`) values (?, ?)
+    insert into website_user_info (username, `password`) values (?, ?) 
     #FOREACH user : users
       #{user.username},#{user.password}
     #END
   """)
-  fun addBatch(users: List<User>): IntArray
+  fun addBatch(users: List<User>, name: String): IntArray
+
+  @Update("""
+    update website_user_info set username = #{newName}
+    where username = #{name}
+  """)
+  fun update(name:String, newName:String)
 
 }

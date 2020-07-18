@@ -70,8 +70,8 @@ public class BaseBuilder extends Invoker {
     mtClass.append("import java.util.*;");
     mtClass.append("import java.lang.*;");
     mtClass.append("import java.math.*;");
-    mtClass.append("import org.jiakesimk.minipika.framework.util.*;");
-    mtClass.append("import org.jiakesimk.minipika.framework.util.agent.*;");
+    mtClass.append("import org.jiakesimk.minipika.framework.utils.*;");
+    mtClass.append("import org.jiakesimk.minipika.framework.utils.agent.*;");
     mtClass.append("@SuppressWarnings(\"unchecked\")");
     mtClass.append("public class ").append(classname, lastIndexOf + 1, classname.length()).append("{}");
     this.classname = classname;

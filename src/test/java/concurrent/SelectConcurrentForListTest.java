@@ -37,10 +37,15 @@ public class SelectConcurrentForListTest {
     }).start();
 
     ThreadFactory.createThread("thread3", () -> {
+      int i=0;
       while (true) {
         List<User> user = mapper.findUserList("name3");
         if (user.isEmpty()) continue;
         System.out.println(Threads.getCurrentThreadName() + ": =========>>> " + user.get(0).getId());
+        i++;
+        if(i == 100) {
+          mapper.update("key1", "key1");
+        }
       }
     }).start();
 
