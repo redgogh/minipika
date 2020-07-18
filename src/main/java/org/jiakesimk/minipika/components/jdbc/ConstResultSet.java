@@ -115,7 +115,7 @@ public class ConstResultSet implements NativeResultSet {
   private <T> T conversionJavaBean(Class<T> target, Map<String, String> resultMap) throws Exception {
     if (resultSet.isEmpty()) return null;
     List<String> names = Lists.newArrayList();
-    T entity = null;
+    T entity;
     if (resultMap == null || resultMap.isEmpty()) return null;
     Object v1 = isBase(target, String.valueOf(Maps.getFirstValue(resultMap)));
     if (v1 instanceof Exception) return null;
