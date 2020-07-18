@@ -1,4 +1,4 @@
-package concurrent;
+package org.jiakesimk.minipika.components.annotation;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -20,18 +20,16 @@ package concurrent;
  * Creates on 2020/7/18.
  */
 
-import mapper.UserMapper;
-import org.junit.Test;
-
 /**
+ * 设置表名
+ *
  * @author lts
  */
-public class UpdateConcurrentTest {
+public @interface TableName {
 
-  static final UserMapper mapper = UserMapper.mapper;
-
-  public static void main(String[] args) {
-    mapper.update("name1", "name__update");
-  }
+  /**
+   * @return 表名
+   */
+  String value() default "";
 
 }

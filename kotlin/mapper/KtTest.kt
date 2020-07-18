@@ -1,4 +1,4 @@
-package kt
+package entity
 
 import com.alibaba.fastjson.JSONObject
 import org.jiakesimk.minipika.framework.factory.Factorys

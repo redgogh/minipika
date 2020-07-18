@@ -1,4 +1,4 @@
-package kt;
+package entity;
 
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.

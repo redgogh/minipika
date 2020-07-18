@@ -1,4 +1,4 @@
-package kt
+package entity
 
 import org.jiakesimk.minipika.components.annotation.Batch
 import org.jiakesimk.minipika.components.annotation.QueryOf

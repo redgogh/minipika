@@ -4,7 +4,7 @@ package concurrent;
  * Creates on 2019/11/13.
  */
 
-import kt.User;
+import entity.User;
 import mapper.UserMapper;
 import org.jiakesimk.minipika.framework.thread.ThreadFactory;
 import org.jiakesimk.minipika.framework.thread.Threads;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class SelectConcurrentForListTest {
 
-  static final UserMapper mapper = UserMapper.Companion.getMapper();
+  static final UserMapper mapper = UserMapper.mapper;
 
   public static void main(String[] args) {
 
