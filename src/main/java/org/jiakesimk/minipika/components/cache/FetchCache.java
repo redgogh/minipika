@@ -34,7 +34,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  */
 public class FetchCache implements Cache {
 
-  private Map<String, NativeResultSet> map = Maps.newConcurrentHashMap();
+  private final Map<String, NativeResultSet> map = Maps.newConcurrentHashMap();
 
   private final ReentrantReadWriteLock readAndWriteLock = new ReentrantReadWriteLock();
 
