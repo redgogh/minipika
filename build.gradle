@@ -17,21 +17,6 @@
 /*
  * Creates on 2020/7/18.
  */
-/*
- * Copyright (C) 2020 tiansheng All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 plugins {
   id 'java'
@@ -39,7 +24,9 @@ plugins {
 }
 
 apply plugin: "java"
+apply plugin: 'maven'
 apply plugin: "groovy"
+apply plugin: "maven-publish"
 
 ext {
   slf4jVersion = "1.7.21"
@@ -75,10 +62,6 @@ sourceSets {
   }
 }
 
-test {
-
-}
-
 allprojects {
   repositories {
     mavenLocal()
@@ -96,17 +79,18 @@ dependencies {
   implementation "com.github.houbb:asm-tool:$asmToolVersion"
   implementation "commons-codec:commons-codec:${commonsCodecVersion}"
   implementation "javassist:javassist:${javassistVersion}"
-  implementation "org.codehaus.groovy:groovy-all:$groovyAllVersion"
   implementation fileTree(dir: "lib", includes: ["*jar"])
   testImplementation "junit:junit:$junitVersion"
   testImplementation "mysql:mysql-connector-java:$mysqlConnectVersion"
+  implementation "org.codehaus.groovy:groovy-all:$groovyAllVersion"
 }
 
-group = "com.jiakesimk"
-version = "1.0.0.BETA"
+group = "org.jiakesimk"
+version = "v1"
 sourceCompatibility = "11"
 
 tasks.withType(GroovyCompile) {
+  groovyOptions.setEncoding "UTF-8"
   groovyOptions.setParameters true
 }
 
