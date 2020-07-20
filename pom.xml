@@ -150,6 +150,7 @@
           </execution>
         </executions>
         <configuration>
+          <parameters>true</parameters>
         </configuration>
       </plugin>
     </plugins>
