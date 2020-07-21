@@ -79,10 +79,10 @@ dependencies {
   implementation "com.github.houbb:asm-tool:$asmToolVersion"
   implementation "commons-codec:commons-codec:${commonsCodecVersion}"
   implementation "javassist:javassist:${javassistVersion}"
+  implementation "org.codehaus.groovy:groovy-all:$groovyAllVersion"
   implementation fileTree(dir: "lib", includes: ["*jar"])
   testImplementation "junit:junit:$junitVersion"
   testImplementation "mysql:mysql-connector-java:$mysqlConnectVersion"
-  implementation "org.codehaus.groovy:groovy-all:$groovyAllVersion"
 }
 
 group = "org.jiakesimk"
