@@ -105,10 +105,13 @@ public class Methods {
     Parameter[] parametersArray = method.getParameters();
     if (parametersArray != null && parametersArray.length != 0) {
       String parameterName = parametersArray[0].getName();
-      if (!"var0".equals(parameterName)) {
+      // 如果是var0 | arg0代表无法获取到字节码中的方法参数名称
+      if (!"var0".equals(parameterName) && !"arg0".equals(parameterName)) {
         for (Parameter parameter : parametersArray) {
           names.add(parameter.getName());
         }
+      } else {
+        // TODO 使用字节码工具获取源码中的参数名
       }
     }
     return names.toArray(new String[names.size()]);

@@ -84,6 +84,23 @@ public class BaseBuilder extends Invoker {
    * @param src    动态sql
    */
   protected void createMethod(Method method, String src) {
+    buildHead(method, src);
+    builder.append("Object[] objects = new Object[2];");
+    builder.append("objects[0] = sql.toString();");
+    builder.append("objects[1] = arguments;");
+    builder.append("return objects;}");
+    mtClass.insert(mtClass.length() - 1, builder);
+    // -- debug使用
+    // System.out.println(mtClass);
+  }
+
+  /**
+   * 构建方法头
+   *
+   * @param method 方法元数据对象
+   * @param src 动态sql
+   */
+  private void buildHead(Method method, String src) {
     StringUtils.clear(builder);
     String methodName = method.getName(); // 方法名
     String[] paramNames = Methods.getParameterNames(method); // 方法参数名
@@ -98,13 +115,6 @@ public class BaseBuilder extends Invoker {
     builder.delete(builder.length(), builder.length()).append("){"); // 方法头部声明结尾
     // 构建方法体
     buildBody(src);
-    builder.append("Object[] objects = new Object[2];");
-    builder.append("objects[0] = sql.toString();");
-    builder.append("objects[1] = arguments;");
-    builder.append("return objects;}");
-    mtClass.insert(mtClass.length() - 1, builder);
-    // -- debug使用
-    // System.out.println(mtClass);
   }
 
   /**
