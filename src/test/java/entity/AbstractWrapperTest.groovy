@@ -1,3 +1,8 @@
+package entity
+
+import org.jiakesimk.minipika.components.wrapper.QueryWrapper
+import org.junit.Test;
+
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
  *
@@ -15,12 +20,17 @@
  */
 
 /*
- * Creates on 2020/7/20.
+ * Creates on 2020/7/21.
  */
 
 /**
- * JavaBean解析
- *
  * @author lts
  */
-package org.jiakesimk.minipika.components.pojo;
+class AbstractWrapperTest {
+
+  @Test
+  void test() {
+    new QueryWrapper<User>()
+  }
+
+}
