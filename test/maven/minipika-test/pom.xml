@@ -50,7 +50,7 @@
       <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+        <maven.compiler.compilerVersion>11</maven.compiler.compilerVersion>
       </properties>
     </profile>
   </profiles>
@@ -78,6 +78,9 @@
               <goal>generateStubs</goal>
               <goal>compile</goal>
               <goal>generateTestStubs</goal>
+              <goal>compileTests</goal>
+              <goal>removeStubs</goal>
+              <goal>removeTestStubs</goal>
             </goals>
           </execution>
         </executions>
