@@ -25,65 +25,65 @@ package org.jiakesimk.minipika.components.wrapper;
 /**
  * @author lts* @email ltsloveyellow@aliyun.com
  */
-class UpdateWrapper<T> extends AbstractWrapper<UpdateWrapper<T>> {
+class UpdateWrapper extends AbstractWrapper {
 
   @Override
-  QueryCompare<UpdateWrapper<T>> eq(column, object) {
+  QueryCompare eq(column, object) {
     return this
   }
 
   @Override
-  QueryCompare<UpdateWrapper<T>> ne(column, object) {
+  QueryCompare ne(column, object) {
     return this
   }
 
   @Override
-  QueryCompare<UpdateWrapper<T>> eqNull(column) {
+  QueryCompare eqNull(column) {
     return this
   }
 
   @Override
-  QueryCompare<UpdateWrapper<T>> neNull(column) {
+  QueryCompare neNull(column) {
     return this
   }
 
   @Override
-  QueryCompare<UpdateWrapper<T>> gt(column, object) {
+  QueryCompare gt(column, object) {
     return this
   }
 
   @Override
-  QueryCompare<UpdateWrapper<T>> ge(column, object) {
+  QueryCompare ge(column, object) {
     return this
   }
 
   @Override
-  QueryCompare<UpdateWrapper<T>> le(column, object) {
+  QueryCompare le(column, object) {
     return this
   }
 
   @Override
-  QueryCompare<UpdateWrapper<T>> lt(column, object) {
+  QueryCompare lt(column, object) {
     return this
   }
 
   @Override
-  QueryCompare<UpdateWrapper<T>> like(column, object) {
+  QueryCompare like(column, object) {
     return this
   }
 
   @Override
-  QueryCompare<UpdateWrapper<T>> da(column, int day) {
+  QueryCompare da(column, int day) {
     return this
   }
 
   @Override
-  QueryCompare<UpdateWrapper<T>> dl(column, int day) {
+  QueryCompare dl(column, int day) {
     return this
   }
 
   @Override
-  QueryCompare<UpdateWrapper<T>> between(column, a, b) {
+  QueryCompare between(column, a, b) {
     return this
   }
 

@@ -30,6 +30,6 @@ import static org.jiakesimk.minipika.framework.utils.Lists.newArrayList
  * @author lts
  * @email ltsloveyellow@aliyun.com
  */
-abstract class AbstractWrapper<T extends AbstractWrapper> implements QueryCompare<T> {
+abstract class AbstractWrapper implements QueryCompare {
 
 }

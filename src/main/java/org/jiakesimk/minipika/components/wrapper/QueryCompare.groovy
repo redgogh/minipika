@@ -1,6 +1,6 @@
 package org.jiakesimk.minipika.components.wrapper
 
-interface QueryCompare<T> {
+interface QueryCompare {
 
   /**
    * 等于
@@ -9,7 +9,7 @@ interface QueryCompare<T> {
    * @param object 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare<T> eq(column, object)
+  QueryCompare eq(column, object)
 
   /**
    * 不等于
@@ -18,7 +18,7 @@ interface QueryCompare<T> {
    * @param object 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare<T> ne(column, object)
+  QueryCompare ne(column, object)
 
   /**
    * 等于空
@@ -26,7 +26,7 @@ interface QueryCompare<T> {
    * @param column 字段名
    * @return 当前比较器（this）
    */
-  QueryCompare<T> eqNull(column)
+  QueryCompare eqNull(column)
 
   /**
    * 不等于空
@@ -34,7 +34,7 @@ interface QueryCompare<T> {
    * @param column 字段名
    * @return 当前比较器（this）
    */
-  QueryCompare<T> neNull(column)
+  QueryCompare neNull(column)
 
   /**
    * 大于
@@ -43,7 +43,7 @@ interface QueryCompare<T> {
    * @param object 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare<T> gt(column, object)
+  QueryCompare gt(column, object)
 
   /**
    * 大于等于
@@ -52,7 +52,7 @@ interface QueryCompare<T> {
    * @param object 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare<T> ge(column, object)
+  QueryCompare ge(column, object)
 
   /**
    * 小于等于
@@ -61,7 +61,7 @@ interface QueryCompare<T> {
    * @param object 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare<T> le(column, object)
+  QueryCompare le(column, object)
 
   /**
    * 小于
@@ -70,7 +70,7 @@ interface QueryCompare<T> {
    * @param object 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare<T> lt(column, object)
+  QueryCompare lt(column, object)
 
   /**
    * 模糊，可以使用 %字段 | 字段% | %字段%
@@ -79,7 +79,7 @@ interface QueryCompare<T> {
    * @param object 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare<T> like(column, object)
+  QueryCompare like(column, object)
 
   /**
    * 当需要查询的数据在多少天前的时候使用此方法
@@ -88,7 +88,7 @@ interface QueryCompare<T> {
    * @param day 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare<T> da(column, int day)
+  QueryCompare da(column, int day)
 
   /**
    * 当需要查询的数据在多少天后的时候使用此方法
@@ -97,7 +97,7 @@ interface QueryCompare<T> {
    * @param day 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare<T> dl(column, int day)
+  QueryCompare dl(column, int day)
 
   /**
    * 当需要查询字段在a-b之间的时候使用此方法，
@@ -108,6 +108,6 @@ interface QueryCompare<T> {
    * @param b b值
    * @return 当前比较器（this）
    */
-  QueryCompare<T> between(column, a, b)
+  QueryCompare between(column, a, b)
 
 }
