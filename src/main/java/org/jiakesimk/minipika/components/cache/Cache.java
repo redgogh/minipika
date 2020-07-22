@@ -34,6 +34,7 @@ import java.util.Set;
  * {@link NativeResultSet}查询数据缓存
  *
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 public interface Cache {
 

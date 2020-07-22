@@ -21,7 +21,68 @@ package org.jiakesimk.minipika.components.wrapper;
  */
 
 /**
- * @author lts
+ * @author lts* @email ltsloveyellow@aliyun.com
  */
-class UpdateWrapper<T> extends AbstractWrapper<T> {
+class UpdateWrapper<T> extends AbstractWrapper<UpdateWrapper<T>> {
+
+  @Override
+  QueryCompare<UpdateWrapper<T>> eq(column, object) {
+    return this
+  }
+
+  @Override
+  QueryCompare<UpdateWrapper<T>> ne(column, object) {
+    return this
+  }
+
+  @Override
+  QueryCompare<UpdateWrapper<T>> eqNull(column) {
+    return this
+  }
+
+  @Override
+  QueryCompare<UpdateWrapper<T>> neNull(column) {
+    return this
+  }
+
+  @Override
+  QueryCompare<UpdateWrapper<T>> gt(column, object) {
+    return this
+  }
+
+  @Override
+  QueryCompare<UpdateWrapper<T>> ge(column, object) {
+    return this
+  }
+
+  @Override
+  QueryCompare<UpdateWrapper<T>> le(column, object) {
+    return this
+  }
+
+  @Override
+  QueryCompare<UpdateWrapper<T>> lt(column, object) {
+    return this
+  }
+
+  @Override
+  QueryCompare<UpdateWrapper<T>> like(column, object) {
+    return this
+  }
+
+  @Override
+  QueryCompare<UpdateWrapper<T>> da(column, int day) {
+    return this
+  }
+
+  @Override
+  QueryCompare<UpdateWrapper<T>> dl(column, int day) {
+    return this
+  }
+
+  @Override
+  QueryCompare<UpdateWrapper<T>> between(column, a, b) {
+    return this
+  }
+
 }

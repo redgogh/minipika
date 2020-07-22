@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Map的大小，那么你设置的Map大小必须是2的幂。
  *
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 public final class Maps {
 

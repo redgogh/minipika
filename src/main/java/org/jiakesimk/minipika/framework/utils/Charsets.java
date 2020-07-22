@@ -16,6 +16,7 @@ import static java.nio.charset.Charset.forName;
  * 设置编码格式, 因为这样减少字符串的查找，能够提升性能
  *
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 public class Charsets {
 

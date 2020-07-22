@@ -22,5 +22,6 @@
  * JavaBean解析
  *
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 package org.jiakesimk.minipika.components.wrapper;

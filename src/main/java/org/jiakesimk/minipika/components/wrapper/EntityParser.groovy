@@ -26,6 +26,7 @@ import java.lang.reflect.Field
  * 实体解析器，生成SQL语句
  *
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 class EntityParser {
 

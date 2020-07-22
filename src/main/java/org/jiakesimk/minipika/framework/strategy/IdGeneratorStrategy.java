@@ -8,6 +8,7 @@ package org.jiakesimk.minipika.framework.strategy;
  * id生成策略
  *
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 public interface IdGeneratorStrategy {
 

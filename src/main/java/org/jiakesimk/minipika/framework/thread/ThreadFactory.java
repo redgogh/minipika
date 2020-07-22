@@ -6,6 +6,7 @@ package org.jiakesimk.minipika.framework.thread;
 
 /**
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 public class ThreadFactory {
 

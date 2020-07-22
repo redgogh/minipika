@@ -10,6 +10,7 @@ import java.net.URLEncoder;
 
 /**
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 public class UrlTools {
 

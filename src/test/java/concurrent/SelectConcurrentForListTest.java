@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 public class SelectConcurrentForListTest {
 

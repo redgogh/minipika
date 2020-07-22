@@ -11,6 +11,7 @@ import java.util.Map;
  * 计算{@code String}中的表达式
  *
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 public final class Calculator {
 

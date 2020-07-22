@@ -24,6 +24,7 @@ package org.jiakesimk.minipika.framework.strategy;
  * 线程唤醒策略
  *
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 public interface ThreadNotifyStrategy {
 

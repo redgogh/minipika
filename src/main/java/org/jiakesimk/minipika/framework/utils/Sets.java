@@ -31,6 +31,7 @@ import java.util.LinkedHashSet;
  * 静态的Set工具类
  *
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 public final class Sets {
 

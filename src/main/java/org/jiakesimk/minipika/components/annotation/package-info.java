@@ -21,5 +21,6 @@
 /**
  * 注解包
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 package org.jiakesimk.minipika.components.annotation;

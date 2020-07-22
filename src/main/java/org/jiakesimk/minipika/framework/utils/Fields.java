@@ -12,6 +12,7 @@ import java.util.List;
  * 静态{@link Field}工具类。
  *
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 public class Fields {
 

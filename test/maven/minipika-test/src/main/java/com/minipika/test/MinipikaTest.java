@@ -8,6 +8,7 @@ import com.minipika.mapper.UserMapper;
 
 /**
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 public class MinipikaTest {
 

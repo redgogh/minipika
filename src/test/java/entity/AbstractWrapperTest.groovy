@@ -25,6 +25,7 @@ import org.junit.Test;
 
 /**
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 class AbstractWrapperTest {
 

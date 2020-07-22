@@ -1,7 +1,4 @@
 package org.jiakesimk.minipika.components.wrapper
-
-import static org.jiakesimk.minipika.framework.utils.Lists.newArrayList
-
 /*
  * Copyright (C) 2020 tiansheng All rights reserved.
  *
@@ -22,24 +19,14 @@ import static org.jiakesimk.minipika.framework.utils.Lists.newArrayList
  * Creates on 2020/7/21.
  */
 
+import static org.jiakesimk.minipika.framework.utils.Lists.newArrayList
+
 /**
+ * 根据数据库类型自动构建查询SQL并解析条件。
+ *
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
-class AbstractWrapper<T> {
-
-  /** sql语句 **/
-  private def sqlBuilder = new StringBuilder()
-
-  /** 参数列表 **/
-  private def arguments = newArrayList()
-
-  protected void append(String paragraphs) {
-    sqlBuilder.append(paragraphs)
-  }
-
-  protected void append(String paragraphs, argument) {
-    sqlBuilder.append(paragraphs)
-    arguments.add(argument)
-  }
+abstract class AbstractWrapper<T extends AbstractWrapper> implements QueryCompare<T> {
 
 }

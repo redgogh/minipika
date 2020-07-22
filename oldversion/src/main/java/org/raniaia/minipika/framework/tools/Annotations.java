@@ -11,6 +11,7 @@ import java.lang.reflect.AccessibleObject;
  * 注解工具类
  *
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 public class Annotations {
 

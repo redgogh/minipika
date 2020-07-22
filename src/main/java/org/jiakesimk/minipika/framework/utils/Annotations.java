@@ -12,6 +12,7 @@ import java.lang.reflect.Method;
  * 注解工具类
  *
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 public class Annotations {
 

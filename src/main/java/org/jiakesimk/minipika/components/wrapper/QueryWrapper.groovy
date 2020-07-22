@@ -23,68 +23,68 @@ package org.jiakesimk.minipika.components.wrapper;
 /**
  * 查询封装
  *
- * @author lts
+ * @author lts* @email ltsloveyellow@aliyun.com
  */
-class QueryWrapper<T> extends AbstractWrapper<T> {
+class QueryWrapper<T> extends AbstractWrapper<QueryWrapper<T>> {
 
-  QueryWrapper() {
+  @Override
+  QueryCompare<QueryWrapper<T>> eq(column, object) {
+    return this
   }
 
-  /**
-   * 设置查询字段
-   *
-   * @param column 字段列表
-   */
-  void select(String... column) {
-
+  @Override
+  QueryCompare<QueryWrapper<T>> ne(column, object) {
+    return this
   }
 
-  /**
-   * 等于
-   *
-   * @param column 字段名称
-   * @param object 比较字段
-   */
-  void eq(column, object) {}
+  @Override
+  QueryCompare<QueryWrapper<T>> eqNull(column) {
+    return this
+  }
 
-  /**
-   * 不等于
-   *
-   * @param column 字段名称
-   * @param object 比较字段
-   */
-  void ne(column, object) {}
+  @Override
+  QueryCompare<QueryWrapper<T>> neNull(column) {
+    return this
+  }
 
-  /**
-   * 大于
-   *
-   * @param column 字段名称
-   * @param object 比较字段
-   */
-  void gt(column, object) {}
+  @Override
+  QueryCompare<QueryWrapper<T>> gt(column, object) {
+    return this
+  }
 
-  /**
-   * 大于等于
-   *
-   * @param column 字段名称
-   * @param object 比较字段
-   */
-  void ge(column, object) {}
+  @Override
+  QueryCompare<QueryWrapper<T>> ge(column, object) {
+    return this
+  }
 
-  /**
-   * 小于
-   *
-   * @param column 字段名称
-   * @param object 比较字段
-   */
-  void le(column, object) {}
+  @Override
+  QueryCompare<QueryWrapper<T>> le(column, object) {
+    return this
+  }
 
-  /**
-   * 小于等于
-   *
-   * @param column 字段名称
-   * @param object 比较字段
-   */
-  void lt(column, object) {}
+  @Override
+  QueryCompare<QueryWrapper<T>> lt(column, object) {
+    return this
+  }
+
+  @Override
+  QueryCompare<QueryWrapper<T>> like(column, object) {
+    return this
+  }
+
+  @Override
+  QueryCompare<QueryWrapper<T>> da(column, int day) {
+    return this
+  }
+
+  @Override
+  QueryCompare<QueryWrapper<T>> dl(column, int day) {
+    return this
+  }
+
+  @Override
+  QueryCompare<QueryWrapper<T>> between(column, a, b) {
+    return this
+  }
 
 }

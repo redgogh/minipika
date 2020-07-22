@@ -11,6 +11,7 @@ import java.util.List;
  * 类的静态工具类
  *
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 @SuppressWarnings("unchecked")
 public class ClassUtils {

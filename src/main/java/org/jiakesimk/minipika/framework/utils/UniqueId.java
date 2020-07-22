@@ -11,6 +11,7 @@ import java.util.UUID;
  * 生成唯一id
  *
  * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 public class UniqueId {
 
