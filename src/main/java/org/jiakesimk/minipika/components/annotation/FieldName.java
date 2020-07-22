@@ -23,7 +23,8 @@ package org.jiakesimk.minipika.components.annotation;
  */
 
 /**
- * 设置属性名
+ * 设置成员属性名
+ *
  * @author lts
  * @email ltsloveyellow@aliyun.com
  */
