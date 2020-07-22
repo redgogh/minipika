@@ -1,7 +1,15 @@
 package org.jiakesimk.minipika.framework.utils;
 
 import com.github.houbb.asm.tool.reflection.AsmMethods;
+import javassist.*;
+import javassist.bytecode.CodeAttribute;
+import javassist.bytecode.LocalVariableAttribute;
+import javassist.bytecode.MethodInfo;
+import org.jiakesimk.minipika.components.logging.Log;
+import org.jiakesimk.minipika.components.logging.LogFactory;
+import org.jiakesimk.minipika.framework.common.ConstVariable;
 import org.jiakesimk.minipika.framework.exception.MinipikaException;
+import org.jiakesimk.minipika.framework.thread.Threads;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -33,6 +41,8 @@ import java.util.Map;
  * @author tiansheng
  */
 public class Methods {
+
+  private static Log LOG = LogFactory.getLog(Methods.class);
 
   /**
    * 通过{@link Class}实例获取方法。
@@ -118,27 +128,34 @@ public class Methods {
   }
 
   /**
-   * +
-   * 获取{@link Method}的参数{@link Parameter}数组, 其中会获取
-   * 真实名称
+   * 使用Javassist获取方法参数名
    *
-   * @param method 方法对象
-   * @return {@code Parameter}数组
+   * @param classname  方法全路径
+   * @param methodname 方法名
+   * @return 方法参数名
    */
-  static Map<String, Parameter> getParameters(Method method) {
+  public static String[] getMethodVariableName(String classname, String methodname,
+                                               Class<?>... parameterTypes) {
     try {
-      Map<String, Parameter> map = Maps.newHashMap();
-      List<String> strValue = AsmMethods.getParamNamesByAsm(method);
-      Parameter[] parameters = method.getParameters();
-      for (int i = 0; i < parameters.length; i++) {
-        Fields.set(parameters[i], strValue.get(i), "name");
-        map.put(strValue.get(i), parameters[i]);
+      ClassPool pool = ConstVariable.CLASS_POOL;
+      pool.insertClassPath(new ClassClassPath(Threads.getCaller()));
+      CtClass cc = pool.get(classname);
+      CtMethod cm = cc.getDeclaredMethod(methodname);
+      MethodInfo methodInfo = cm.getMethodInfo();
+      CodeAttribute codeAttribute = methodInfo.getCodeAttribute();
+      String[] paramNames = new String[cm.getParameterTypes().length];
+      LocalVariableAttribute attr = (LocalVariableAttribute) codeAttribute.getAttribute(LocalVariableAttribute.tag);
+      if (attr != null) {
+        int pos = Modifier.isStatic(cm.getModifiers()) ? 0 : 1;
+        for (int i = 0; i < paramNames.length; i++) {
+          paramNames[i] = attr.variableName(i + pos);
+        }
+        return paramNames;
       }
-      return map;
     } catch (Exception e) {
-      e.printStackTrace();
-      throw new MinipikaException(e);
+      LOG.error("getMethodVariableName fail", e);
     }
+    return null;
   }
 
   /**

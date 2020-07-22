@@ -17,7 +17,7 @@ interface UserMapper {
       and username = #{username}
     #END
   """)
-  User findUser(username)
+  User findUser(String username)
 
   @QueryOf("""
     select * from website_user_info where 1=1
