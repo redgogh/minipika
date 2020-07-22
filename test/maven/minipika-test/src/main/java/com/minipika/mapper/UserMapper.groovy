@@ -6,6 +6,7 @@ import org.jiakesimk.minipika.components.annotation.QueryOf
 import org.jiakesimk.minipika.components.annotation.Update
 import org.jiakesimk.minipika.framework.factory.Factorys
 
+@Mapper
 interface UserMapper {
 
   UserMapper mapper = Factorys.forMapper(this)

@@ -33,7 +33,7 @@ public class CopyingClassLoader extends ClassLoader {
   /**
    * 根据字节码来加载类
    */
-  public Class<?> findClassByBytes(String name, byte[] classBytes) {
+  public Class<?> findClass(String name, byte[] classBytes) {
     return defineClass(name, classBytes, 0, classBytes.length);
   }
 
