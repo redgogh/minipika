@@ -22,17 +22,8 @@ package org.jiakesimk.minipika.framework.factory;
  * Creates on 2020/6/2.
  */
 
-import org.jiakesimk.minipika.components.cache.Cache;
-import org.jiakesimk.minipika.components.cache.FetchCache;
-import org.jiakesimk.minipika.components.configuration.XMLConfig;
-import org.jiakesimk.minipika.components.configuration.XMLConfigBuilder;
-import org.jiakesimk.minipika.components.jdbc.*;
-import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransaction;
-import org.jiakesimk.minipika.components.jdbc.transaction.JdbcTransactionFactory;
-import org.jiakesimk.minipika.components.jdbc.transaction.TransactionFactory;
 import org.jiakesimk.minipika.components.mql.MqlCallback;
 import org.jiakesimk.minipika.framework.context.ContextManager;
-import org.jiakesimk.minipika.framework.strategy.FindStrategy;
 
 /**
  * @author tiansheng
