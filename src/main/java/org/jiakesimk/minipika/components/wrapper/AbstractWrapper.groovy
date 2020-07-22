@@ -32,4 +32,64 @@ import static org.jiakesimk.minipika.framework.utils.Lists.newArrayList
  */
 abstract class AbstractWrapper implements QueryCompare {
 
+  @Override
+  QueryCompare eq(Object column, Object object) {
+    return null
+  }
+
+  @Override
+  QueryCompare ne(Object column, Object object) {
+    return null
+  }
+
+  @Override
+  QueryCompare eqNull(Object column) {
+    return null
+  }
+
+  @Override
+  QueryCompare neNull(Object column) {
+    return null
+  }
+
+  @Override
+  QueryCompare gt(Object column, Object object) {
+    return null
+  }
+
+  @Override
+  QueryCompare ge(Object column, Object object) {
+    return null
+  }
+
+  @Override
+  QueryCompare le(Object column, Object object) {
+    return null
+  }
+
+  @Override
+  QueryCompare lt(Object column, Object object) {
+    return null
+  }
+
+  @Override
+  QueryCompare like(Object column, Object object) {
+    return null
+  }
+
+  @Override
+  QueryCompare da(Object column, int day) {
+    return null
+  }
+
+  @Override
+  QueryCompare dl(Object column, int day) {
+    return null
+  }
+
+  @Override
+  QueryCompare between(Object column, Object a, Object b) {
+    return null
+  }
+
 }

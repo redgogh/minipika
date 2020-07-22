@@ -25,68 +25,9 @@ package org.jiakesimk.minipika.components.wrapper;
 /**
  * 查询封装
  *
- * @author lts* @email ltsloveyellow@aliyun.com
+ * @author lts
+ * @email ltsloveyellow@aliyun.com
  */
 class QueryWrapper extends AbstractWrapper {
-
-  @Override
-  QueryCompare eq(column, object) {
-    return this
-  }
-
-  @Override
-  QueryCompare ne(column, object) {
-    return this
-  }
-
-  @Override
-  QueryCompare eqNull(column) {
-    return this
-  }
-
-  @Override
-  QueryCompare neNull(column) {
-    return this
-  }
-
-  @Override
-  QueryCompare gt(column, object) {
-    return this
-  }
-
-  @Override
-  QueryCompare ge(column, object) {
-    return this
-  }
-
-  @Override
-  QueryCompare le(column, object) {
-    return this
-  }
-
-  @Override
-  QueryCompare lt(column, object) {
-    return this
-  }
-
-  @Override
-  QueryCompare like(column, object) {
-    return this
-  }
-
-  @Override
-  QueryCompare da(column, int day) {
-    return this
-  }
-
-  @Override
-  QueryCompare dl(column, int day) {
-    return this
-  }
-
-  @Override
-  QueryCompare between(column, a, b) {
-    return this
-  }
 
 }
