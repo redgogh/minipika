@@ -1,24 +1,58 @@
 package org.jiakesimk.minipika.components.wrapper
 
-interface QueryCompare {
+/* ************************************************************************
+ *
+ * Copyright (C) 2020 tiansheng All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * ************************************************************************/
+
+/*
+ * Creates on 2020/7/20.
+ */
+
+/**
+ * 比较接口
+ */
+interface Compare {
 
   /**
    * 等于
    *
    * @param column 字段名
-   * @param object 比较值
+   * @param val 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare eq(column, object)
+  Compare eq(column, val)
 
   /**
    * 不等于
    *
    * @param column 字段名
-   * @param object 比较值
+   * @param val 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare ne(column, object)
+  Compare ne(column, val)
+
+  /**
+   * 或
+   *
+   * @param column 字段
+   * @param val 值
+   * @return 当前比较器（this）
+   */
+  Compare or(column, val)
 
   /**
    * 等于空
@@ -26,7 +60,7 @@ interface QueryCompare {
    * @param column 字段名
    * @return 当前比较器（this）
    */
-  QueryCompare eqNull(column)
+  Compare eqNull(column)
 
   /**
    * 不等于空
@@ -34,52 +68,52 @@ interface QueryCompare {
    * @param column 字段名
    * @return 当前比较器（this）
    */
-  QueryCompare neNull(column)
+  Compare neNull(column)
 
   /**
    * 大于
    *
    * @param column 字段名
-   * @param object 比较值
+   * @param val 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare gt(column, object)
+  Compare gt(column, val)
 
   /**
    * 大于等于
    *
    * @param column 字段名
-   * @param object 比较值
+   * @param val 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare ge(column, object)
+  Compare ge(column, val)
 
   /**
    * 小于等于
    *
    * @param column 字段名
-   * @param object 比较值
+   * @param val 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare le(column, object)
+  Compare le(column, val)
 
   /**
    * 小于
    *
    * @param column 字段名
-   * @param object 比较值
+   * @param val 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare lt(column, object)
+  Compare lt(column, val)
 
   /**
    * 模糊，可以使用 %字段 | 字段% | %字段%
    *
    * @param column 字段名
-   * @param object 比较值
+   * @param val 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare like(column, object)
+  Compare like(column, val)
 
   /**
    * 当需要查询的数据在多少天前的时候使用此方法
@@ -88,7 +122,7 @@ interface QueryCompare {
    * @param day 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare da(column, int day)
+  Compare da(column, int day)
 
   /**
    * 当需要查询的数据在多少天后的时候使用此方法
@@ -97,7 +131,7 @@ interface QueryCompare {
    * @param day 比较值
    * @return 当前比较器（this）
    */
-  QueryCompare dl(column, int day)
+  Compare dl(column, int day)
 
   /**
    * 当需要查询字段在a-b之间的时候使用此方法，
@@ -108,6 +142,6 @@ interface QueryCompare {
    * @param b b值
    * @return 当前比较器（this）
    */
-  QueryCompare between(column, a, b)
+  Compare between(column, a, b)
 
 }
