@@ -1,5 +1,8 @@
 package org.jiakesimk.minipika.components.wrapper
 
+import org.jiakesimk.minipika.framework.utils.Lists
+import org.w3c.dom.Node
+
 /* ************************************************************************
  *
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -97,43 +100,61 @@ abstract class AbstractWrapper implements QueryCompare {
    */
   class MySqlBuilder implements QueryCompare {
 
+    List<String> compare = Lists.newArrayList()
+
+    List<Object> arguments = Lists.newArrayList()
+
     @Override
     QueryCompare eq(column, object) {
+      compare.add("and $column = ?")
+      arguments.add(object)
       return this
     }
 
     @Override
     QueryCompare ne(column, object) {
+      compare.add("and $column != ?")
+      arguments.add(object)
       return this
     }
 
     @Override
     QueryCompare eqNull(column) {
+      compare.add("and $column = null")
       return this
     }
 
     @Override
     QueryCompare neNull(column) {
+      compare.add("and $column != null")
       return this
     }
 
     @Override
     QueryCompare gt(column, object) {
+      compare.add("and $column > ?")
+      arguments.add(object)
       return this
     }
 
     @Override
     QueryCompare ge(column, object) {
+      compare.add("and $column >= ?")
+      arguments.add(object)
       return this
     }
 
     @Override
     QueryCompare le(column, object) {
+      compare.add("and $column < ?")
+      arguments.add(object)
       return this
     }
 
     @Override
     QueryCompare lt(column, object) {
+      compare.add("and $column <= ?")
+      arguments.add(object)
       return this
     }
 
@@ -144,11 +165,15 @@ abstract class AbstractWrapper implements QueryCompare {
 
     @Override
     QueryCompare da(column, int day) {
+      compare.add("and to_days(now()) – to_days($column) <= ?")
+      arguments.add(day)
       return this
     }
 
     @Override
     QueryCompare dl(column, int day) {
+      compare.add("and to_days(now()) – to_days($column) <= ?")
+      arguments.add(day)
       return this
     }
 

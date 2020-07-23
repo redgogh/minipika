@@ -1,7 +1,6 @@
 package entity
 
 import org.jiakesimk.minipika.components.wrapper.QueryWrapper
-import org.junit.Test;
 
 /* ************************************************************************
  *
@@ -30,10 +29,5 @@ import org.junit.Test;
  * @email jiakesiws@gmail.com
  */
 class AbstractWrapperTest {
-
-  @Test
-  void test() {
-    new QueryWrapper<User>()
-  }
 
 }
