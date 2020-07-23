@@ -23,6 +23,6 @@
 /**
  * 注解包
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 package org.jiakesimk.minipika.components.annotation;

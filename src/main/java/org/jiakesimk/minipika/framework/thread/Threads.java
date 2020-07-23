@@ -26,7 +26,7 @@ package org.jiakesimk.minipika.framework.thread;
  * 静态{@code Thread}工具。
  *
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 public class Threads {
 

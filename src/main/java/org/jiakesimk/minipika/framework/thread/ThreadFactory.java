@@ -24,7 +24,7 @@ package org.jiakesimk.minipika.framework.thread;
 
 /**
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 public class ThreadFactory {
 

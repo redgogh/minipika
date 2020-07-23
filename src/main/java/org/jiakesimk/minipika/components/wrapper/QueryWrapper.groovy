@@ -26,7 +26,7 @@ package org.jiakesimk.minipika.components.wrapper;
  * 查询封装
  *
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 class QueryWrapper extends AbstractWrapper {
 

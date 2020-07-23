@@ -27,7 +27,7 @@ import java.net.URI;
 
 /**
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 class JavaFileSource extends SimpleJavaFileObject {
 

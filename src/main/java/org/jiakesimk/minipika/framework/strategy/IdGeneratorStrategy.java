@@ -26,7 +26,7 @@ package org.jiakesimk.minipika.framework.strategy;
  * id生成策略
  *
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 public interface IdGeneratorStrategy {
 

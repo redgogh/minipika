@@ -8,7 +8,7 @@ import org.jiakesimk.minipika.framework.utils.Objects;
 
 /**
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 public class ObjectUtilsTest {
 

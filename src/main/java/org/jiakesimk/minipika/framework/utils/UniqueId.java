@@ -29,7 +29,7 @@ import java.util.UUID;
  * 生成唯一id
  *
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 public class UniqueId {
 

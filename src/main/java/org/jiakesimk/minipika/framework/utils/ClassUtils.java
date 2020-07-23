@@ -29,7 +29,7 @@ import java.util.List;
  * 类的静态工具类
  *
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 @SuppressWarnings("unchecked")
 public class ClassUtils {

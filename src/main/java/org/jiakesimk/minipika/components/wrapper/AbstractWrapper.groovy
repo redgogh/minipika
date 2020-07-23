@@ -22,74 +22,141 @@ package org.jiakesimk.minipika.components.wrapper
  * Creates on 2020/7/21.
  */
 
-import static org.jiakesimk.minipika.framework.utils.Lists.newArrayList
-
 /**
  * 根据数据库类型自动构建查询SQL并解析条件。
  *
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 abstract class AbstractWrapper implements QueryCompare {
 
+  private QueryCompare compare;
+
   @Override
-  QueryCompare eq(Object column, Object object) {
-    return null
+  QueryCompare eq(column, object) {
+    return compare.eq(column, object)
   }
 
   @Override
-  QueryCompare ne(Object column, Object object) {
-    return null
+  QueryCompare ne(column, object) {
+    return compare.ne(column, object)
   }
 
   @Override
-  QueryCompare eqNull(Object column) {
-    return null
+  QueryCompare eqNull(column) {
+    return compare.eqNull(column)
   }
 
   @Override
-  QueryCompare neNull(Object column) {
-    return null
+  QueryCompare neNull(column) {
+    return compare.neNull(column)
   }
 
   @Override
-  QueryCompare gt(Object column, Object object) {
-    return null
+  QueryCompare gt(column, object) {
+    return compare.gt(column, object)
   }
 
   @Override
-  QueryCompare ge(Object column, Object object) {
-    return null
+  QueryCompare ge(column, object) {
+    return compare.ge(column, object)
   }
 
   @Override
-  QueryCompare le(Object column, Object object) {
-    return null
+  QueryCompare le(column, object) {
+    return compare.le(column, object)
   }
 
   @Override
-  QueryCompare lt(Object column, Object object) {
-    return null
+  QueryCompare lt(column, object) {
+    return compare.lt(column, object)
   }
 
   @Override
-  QueryCompare like(Object column, Object object) {
-    return null
+  QueryCompare like(column, object) {
+    return compare.like(column, object)
   }
 
   @Override
-  QueryCompare da(Object column, int day) {
-    return null
+  QueryCompare da(column, int day) {
+    return compare.da(column, day)
   }
 
   @Override
-  QueryCompare dl(Object column, int day) {
-    return null
+  QueryCompare dl(column, int day) {
+    return compare.dl(column, day)
   }
 
   @Override
-  QueryCompare between(Object column, Object a, Object b) {
-    return null
+  QueryCompare between(column, a, b) {
+    return compare.between(column, a, b)
+  }
+
+  /**
+   * mysql sql脚本构建
+   */
+  class MySqlBuilder implements QueryCompare {
+
+    @Override
+    QueryCompare eq(column, object) {
+      return this
+    }
+
+    @Override
+    QueryCompare ne(column, object) {
+      return this
+    }
+
+    @Override
+    QueryCompare eqNull(column) {
+      return this
+    }
+
+    @Override
+    QueryCompare neNull(column) {
+      return this
+    }
+
+    @Override
+    QueryCompare gt(column, object) {
+      return this
+    }
+
+    @Override
+    QueryCompare ge(column, object) {
+      return this
+    }
+
+    @Override
+    QueryCompare le(column, object) {
+      return this
+    }
+
+    @Override
+    QueryCompare lt(column, object) {
+      return this
+    }
+
+    @Override
+    QueryCompare like(column, object) {
+      return this
+    }
+
+    @Override
+    QueryCompare da(column, int day) {
+      return this
+    }
+
+    @Override
+    QueryCompare dl(column, int day) {
+      return this
+    }
+
+    @Override
+    QueryCompare between(column, a, b) {
+      return this
+    }
+
   }
 
 }

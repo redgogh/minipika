@@ -6,7 +6,7 @@ package com.minipika.mapper;
 
 /**
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 public interface AMapper {
 

@@ -26,7 +26,7 @@ package org.jiakesimk.minipika.components.annotation;
  * 设置表名
  *
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 public @interface TableName {
 

@@ -32,7 +32,7 @@ import java.util.function.UnaryOperator;
  * 静态的List工具类
  *
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  * @since 1.8
  */
 public final class Lists {

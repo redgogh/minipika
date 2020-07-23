@@ -31,7 +31,7 @@ import java.util.List;
  * 静态数组工具类
  *
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 @SuppressWarnings({"rawtypes"})
 public final class Arrays {

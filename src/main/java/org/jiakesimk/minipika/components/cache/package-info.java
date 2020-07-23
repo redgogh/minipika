@@ -24,6 +24,6 @@
  * 结果缓存
  *
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 package org.jiakesimk.minipika.components.cache;

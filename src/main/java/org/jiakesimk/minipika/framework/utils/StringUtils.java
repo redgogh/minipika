@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
  * String工具类
  *
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 public
 class StringUtils {

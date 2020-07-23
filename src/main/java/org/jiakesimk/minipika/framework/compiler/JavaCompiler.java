@@ -36,7 +36,7 @@ import java.util.Collections;
  * Java compiler
  *
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 public class JavaCompiler {
 

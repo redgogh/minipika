@@ -11,7 +11,7 @@ import org.jiakesimk.minipika.framework.thread.Threads;
 
 /**
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 public class SelectConcurrentForObjectTest {
 

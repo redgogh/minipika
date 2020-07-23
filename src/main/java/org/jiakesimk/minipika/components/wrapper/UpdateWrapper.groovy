@@ -24,7 +24,7 @@ package org.jiakesimk.minipika.components.wrapper;
 
 /**
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 class UpdateWrapper extends AbstractWrapper {
 

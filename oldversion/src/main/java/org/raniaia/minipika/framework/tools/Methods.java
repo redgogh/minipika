@@ -15,7 +15,7 @@ import java.util.List;
  * 方法的静态工具类
  *
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  * @since 8
  */
 public class Methods {

@@ -33,7 +33,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 public class FetchCache implements Cache {
 

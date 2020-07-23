@@ -29,7 +29,7 @@ import java.util.Map;
  * 计算{@code String}中的表达式
  *
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 public final class Calculator {
 

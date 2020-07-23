@@ -30,7 +30,7 @@ import java.security.MessageDigest;
  * CEA是“通用加密算法”的简称（Common encryption algorithm）
  *
  * @author lts
- * @email ltsloveyellow@aliyun.com
+ * @email jiakesiws@gmail.com
  */
 public class CEA64 {
 
