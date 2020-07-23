@@ -49,6 +49,7 @@ import java.lang.annotation.*;
  * just execute{@link JdbcSupport#insert(Object)} or {@link JdbcSupport#update(Object)} etc similar method.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.CLASS)

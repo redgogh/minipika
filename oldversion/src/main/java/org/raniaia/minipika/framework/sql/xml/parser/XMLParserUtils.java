@@ -30,6 +30,7 @@ import org.jiakesimk.minipika.framework.tools.StringUtils;
 /**
  * 解析工具类
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class XMLParserUtils {
 

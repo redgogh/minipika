@@ -26,6 +26,7 @@ package org.jiakesimk.minipika.components.configuration.node;
  * 支持的数据库类型
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public enum Databases {
 

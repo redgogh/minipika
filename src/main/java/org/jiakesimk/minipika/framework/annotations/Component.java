@@ -28,6 +28,7 @@ import java.lang.annotation.*;
  * 被注解的成员代表需要自动注入
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

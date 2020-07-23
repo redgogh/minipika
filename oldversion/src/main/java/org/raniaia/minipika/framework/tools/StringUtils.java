@@ -29,6 +29,7 @@ import java.util.regex.Pattern;
  * String工具类
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public final class StringUtils {
 

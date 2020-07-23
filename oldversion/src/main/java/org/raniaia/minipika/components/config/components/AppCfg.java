@@ -31,6 +31,7 @@ import java.io.IOException;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class AppCfg extends AbstractConfig {
 

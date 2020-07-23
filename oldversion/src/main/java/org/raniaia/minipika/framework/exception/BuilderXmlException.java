@@ -25,6 +25,7 @@ package org.jiakesimk.minipika.framework.exception;
 /**
  * mapper xml文件异常
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class BuilderXmlException extends MinipikaException {
 

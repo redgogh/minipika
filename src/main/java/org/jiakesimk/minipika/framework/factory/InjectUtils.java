@@ -37,6 +37,7 @@ import java.util.Objects;
  * 自动注入工具类
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @SuppressWarnings({"unchecked"})
 public class InjectUtils {

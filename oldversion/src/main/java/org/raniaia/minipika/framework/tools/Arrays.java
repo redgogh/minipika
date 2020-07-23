@@ -34,6 +34,7 @@ import java.util.ArrayList;
  * Static utility methods to {@code Array} instance.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public final class Arrays {
 

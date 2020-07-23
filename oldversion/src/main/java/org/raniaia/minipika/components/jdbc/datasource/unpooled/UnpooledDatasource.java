@@ -34,6 +34,7 @@ import java.util.logging.Logger;
  * Not support connection pool the DataSource.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class UnpooledDatasource implements DataSource {
 

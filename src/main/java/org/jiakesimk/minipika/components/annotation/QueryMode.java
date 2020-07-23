@@ -24,6 +24,7 @@ package org.jiakesimk.minipika.components.annotation;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public enum QueryMode {
 

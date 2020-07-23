@@ -32,6 +32,7 @@ import java.util.*;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class SqlMapper {
 

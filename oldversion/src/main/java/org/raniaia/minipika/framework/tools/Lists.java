@@ -30,7 +30,8 @@ import java.util.*;
 /**
  * Static {@link List} tools class.
  *
- * @author TianSheng
+ * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public final class Lists {
 

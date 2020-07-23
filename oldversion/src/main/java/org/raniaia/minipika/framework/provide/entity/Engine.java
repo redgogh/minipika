@@ -28,6 +28,7 @@ package org.jiakesimk.minipika.framework.provide.entity;
  * Mysql support engine list.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public enum Engine {
 

@@ -36,6 +36,7 @@ import java.util.Map;
 /**
  * Entity parser, extends {@code BaseModuleAdapter}
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface EntityParser {
 

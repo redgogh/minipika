@@ -28,6 +28,7 @@ import org.jiakesimk.minipika.framework.tools.StringUtils;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Data
 public class TokenValue {

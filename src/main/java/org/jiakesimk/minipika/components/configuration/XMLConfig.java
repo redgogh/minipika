@@ -29,6 +29,7 @@ import org.jiakesimk.minipika.components.configuration.wrapper.ElementWrapper;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class XMLConfig implements ElementParser {
 

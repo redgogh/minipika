@@ -26,6 +26,7 @@ package org.jiakesimk.minipika.components.entity;
  * Database table entity loader, and entity process.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface EntityLoader {
 

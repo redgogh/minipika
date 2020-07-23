@@ -24,6 +24,9 @@ package org.jiakesimk.minipika.components.wrapper
 
 /**
  * 比较接口
+ *
+ * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 interface Compare {
 

@@ -27,6 +27,7 @@ import java.util.Objects;
 /**
  * 关于路径的一些静态操作。
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class Paths {
 

@@ -35,6 +35,7 @@ import java.util.Map;
 /**
  * 编译解析后的Java代码
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class Converter {
 

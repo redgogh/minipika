@@ -39,6 +39,7 @@ import java.util.*;
  * jap config loader.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class JapLoader {
 

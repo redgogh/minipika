@@ -42,6 +42,7 @@ import java.util.logging.Logger;
  * Only support connection pool the DataSource.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Component
 public class PooledDataSource implements DataSource {

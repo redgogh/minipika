@@ -33,7 +33,8 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * Static {@code Map} tools class.
  *
- * @author TianSheng
+ * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public final class Maps {
 

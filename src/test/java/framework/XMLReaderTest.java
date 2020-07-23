@@ -29,6 +29,7 @@ import java.io.FileNotFoundException;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class XMLReaderTest {
 

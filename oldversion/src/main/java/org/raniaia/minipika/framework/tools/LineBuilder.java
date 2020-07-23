@@ -28,6 +28,7 @@ package org.jiakesimk.minipika.framework.tools;
  * 不过这个实现类已经准备移除了,bug有点多,当前存在的意义就是只有参考
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface LineBuilder {
 

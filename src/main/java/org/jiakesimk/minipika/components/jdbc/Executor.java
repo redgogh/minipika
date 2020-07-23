@@ -29,6 +29,7 @@ import java.util.List;
  * 增删改查操作
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface Executor {
 

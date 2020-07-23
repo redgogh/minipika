@@ -27,6 +27,7 @@ import org.jiakesimk.minipika.framework.factory.VersionId;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class VersionIdTest implements VersionId {
 

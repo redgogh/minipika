@@ -37,6 +37,7 @@ import java.sql.SQLException;
  * 默认的事务管理器
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class JdbcTransaction implements Transaction, InvocationHandler {
 

@@ -33,7 +33,8 @@ import java.util.Set;
 /**
  * Static {@link Set} tools class.
  *
- * @author TianSheng
+ * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public final class Sets {
 

@@ -69,6 +69,7 @@ import org.jiakesimk.minipika.framework.sql.SqlExecute;
  * new page second parameter is you customize the column name.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface MinipikaMonitor {
 

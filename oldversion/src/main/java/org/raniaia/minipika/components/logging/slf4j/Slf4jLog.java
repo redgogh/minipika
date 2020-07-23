@@ -27,6 +27,7 @@ import org.jiakesimk.minipika.framework.provide.component.Component;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Component
 public class Slf4jLog implements Log {

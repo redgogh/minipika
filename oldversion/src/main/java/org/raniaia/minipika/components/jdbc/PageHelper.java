@@ -25,6 +25,7 @@ package org.jiakesimk.minipika.components.jdbc;
 /**
  * 分页插件
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class PageHelper extends NativePageHelper {
 

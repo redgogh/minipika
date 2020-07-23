@@ -30,6 +30,7 @@ import java.util.*;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public final class MinipikaUtils {
 

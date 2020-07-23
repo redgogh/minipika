@@ -37,6 +37,7 @@ import java.lang.annotation.*;
  * Entity class the column property annotation.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

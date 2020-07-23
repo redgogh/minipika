@@ -26,6 +26,7 @@ package org.jiakesimk.minipika.components.logging;
  * 使用自定义的日志框架，如果没有使用默认。
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface Log {
 

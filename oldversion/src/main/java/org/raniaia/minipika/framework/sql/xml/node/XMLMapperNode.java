@@ -29,6 +29,7 @@ import java.util.LinkedList;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Getter
 @Setter

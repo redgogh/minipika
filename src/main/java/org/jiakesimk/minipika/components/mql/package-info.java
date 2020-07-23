@@ -24,5 +24,6 @@
  * 动态SQL支持基础包, 提供SQL模板引擎重写功能。以及可像插件
  * 一样下载外部的动态SQL模板进行开发，或者是重写。
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 package org.jiakesimk.minipika.components.mql;

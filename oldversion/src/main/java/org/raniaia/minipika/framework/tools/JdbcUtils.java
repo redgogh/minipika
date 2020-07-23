@@ -30,6 +30,7 @@ import java.util.List;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class JdbcUtils {
 

@@ -30,6 +30,7 @@ import java.util.Properties;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class PropertiesNode implements ElementParser {
 

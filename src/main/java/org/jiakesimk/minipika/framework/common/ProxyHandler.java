@@ -31,6 +31,7 @@ import java.lang.reflect.InvocationHandler;
  * 会使用{@link #getProxyHandler}返回的对象.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface ProxyHandler extends InvocationHandler {
 

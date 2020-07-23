@@ -33,6 +33,7 @@ import java.util.Properties;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Component
 public class JdbcTransactionFactory implements TransactionFactory {

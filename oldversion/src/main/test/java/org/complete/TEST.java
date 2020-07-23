@@ -31,6 +31,7 @@ import org.jiakesimk.minipika.framework.provide.Minipika;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class TEST {
 

@@ -24,6 +24,7 @@ package org.jiakesimk.minipika.components.logging;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface LogAdapter {
     Log getLog(String key);

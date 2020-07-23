@@ -31,6 +31,7 @@ import java.lang.annotation.*;
  * comment in {@link Comment#value()}.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

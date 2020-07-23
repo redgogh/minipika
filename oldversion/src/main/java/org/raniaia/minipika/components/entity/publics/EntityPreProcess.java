@@ -49,6 +49,7 @@ import java.util.Map;
  *
  * end according to {@link NormProperties} modify class bytecode.
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class EntityPreProcess {
 

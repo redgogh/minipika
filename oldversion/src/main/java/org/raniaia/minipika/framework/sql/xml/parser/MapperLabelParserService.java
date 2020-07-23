@@ -30,6 +30,7 @@ import org.jiakesimk.minipika.framework.sql.xml.node.XMLNode;
  * 解析XML
  * 为了整理所以写了这么一个接口
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 interface MapperLabelParserService {
 

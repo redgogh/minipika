@@ -25,6 +25,7 @@ package org.jiakesimk.minipika.framework.exception;
 /**
  * Entity异常
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class EntityException extends MinipikaException {
 

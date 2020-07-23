@@ -56,6 +56,7 @@ import java.util.Map;
  * </code>
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class Cfg {
 

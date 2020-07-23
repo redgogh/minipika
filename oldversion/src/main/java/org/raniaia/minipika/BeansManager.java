@@ -32,6 +32,7 @@ import org.jiakesimk.minipika.framework.sql.SqlMapper;
  * from this object.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @SuppressWarnings("unchecked")
 public class BeansManager {

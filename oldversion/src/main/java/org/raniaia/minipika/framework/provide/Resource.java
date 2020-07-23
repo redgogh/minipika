@@ -30,6 +30,7 @@ import java.lang.annotation.*;
  * 如果name为空，则默认为对象名称
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

@@ -32,6 +32,7 @@ import java.util.Map;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Getter
 public class XMLNode {

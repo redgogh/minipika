@@ -37,6 +37,7 @@ import java.util.Properties;
  * DataSource info
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Getter
 @Setter

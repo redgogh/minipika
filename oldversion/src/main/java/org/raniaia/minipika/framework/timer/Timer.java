@@ -25,6 +25,7 @@ package org.jiakesimk.minipika.framework.timer;
 /**
  * 定时器
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface Timer {
 

@@ -27,6 +27,7 @@ import java.lang.annotation.*;
 /**
  * Query annotation, annotated method no need write sql in sql mapper xml file.
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

@@ -50,6 +50,7 @@ import org.jiakesimk.minipika.components.entity.EntityParser;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class ModulesManagerTest {
 

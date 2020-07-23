@@ -31,6 +31,7 @@ import java.lang.reflect.Constructor;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class LogFactory {
 

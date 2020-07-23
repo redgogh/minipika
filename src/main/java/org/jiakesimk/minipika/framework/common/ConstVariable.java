@@ -28,8 +28,10 @@ import javassist.ClassPool;
  * 一些通用的常量定义
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface ConstVariable {
 
   ClassPool CLASS_POOL = new ClassPool();
+
 }

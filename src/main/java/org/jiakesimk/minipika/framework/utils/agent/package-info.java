@@ -24,5 +24,6 @@
  * 专门为代理类创建的工具包，只提供给代理类使用
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 package org.jiakesimk.minipika.framework.utils.agent;

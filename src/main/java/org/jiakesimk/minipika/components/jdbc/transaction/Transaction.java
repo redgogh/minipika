@@ -30,6 +30,7 @@ import java.sql.SQLException;
  * 事务管理器接口
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface Transaction {
 

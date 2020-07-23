@@ -24,6 +24,7 @@ package org.jiakesimk.minipika;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 class Container extends AbstractContainer {
 

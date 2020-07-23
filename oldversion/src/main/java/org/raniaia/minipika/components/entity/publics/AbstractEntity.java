@@ -31,6 +31,7 @@ import java.lang.reflect.Field;
  *
  * The parent class of entity class.
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public abstract class AbstractEntity {
 

@@ -25,6 +25,7 @@ package com.minipika.entity;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class User {
 

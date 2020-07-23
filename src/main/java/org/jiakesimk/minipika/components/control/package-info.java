@@ -24,5 +24,6 @@
  * 可视化控制面板
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 package org.jiakesimk.minipika.components.control;

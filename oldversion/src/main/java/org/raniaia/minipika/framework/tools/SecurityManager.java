@@ -27,6 +27,7 @@ import org.jiakesimk.minipika.framework.provide.entity.Entity;
 /**
  * 检查一些类是否遵守标准
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class SecurityManager {
 

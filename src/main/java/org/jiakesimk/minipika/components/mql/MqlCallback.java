@@ -42,6 +42,7 @@ import java.util.List;
  * 动态SQL构建
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @SuppressWarnings("unchecked")
 public class MqlCallback<T> extends BaseBuilder implements InvocationHandler {

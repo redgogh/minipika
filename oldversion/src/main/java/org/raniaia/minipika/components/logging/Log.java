@@ -28,6 +28,7 @@ package org.jiakesimk.minipika.components.logging;
  * Configuration logger framework if there is not use default.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface Log {
 

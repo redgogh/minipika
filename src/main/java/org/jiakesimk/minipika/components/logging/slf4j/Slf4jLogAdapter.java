@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class Slf4jLogAdapter implements LogAdapter {
 

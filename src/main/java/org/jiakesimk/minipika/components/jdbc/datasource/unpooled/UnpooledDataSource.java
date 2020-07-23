@@ -39,6 +39,7 @@ import java.util.logging.Logger;
  * 未池化的数据源
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class UnpooledDataSource implements DataSource {
 

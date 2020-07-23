@@ -27,6 +27,7 @@ import org.jiakesimk.minipika.components.logging.LogAdapter;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class StdLogAdapter implements LogAdapter {
 

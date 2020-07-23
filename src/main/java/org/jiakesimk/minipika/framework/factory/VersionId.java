@@ -28,6 +28,7 @@ import org.jiakesimk.minipika.framework.utils.UniqueId;
  * 实现Minipika插件的VersionId，用于在组件管理器中标识出自己的位置
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface VersionId {
 

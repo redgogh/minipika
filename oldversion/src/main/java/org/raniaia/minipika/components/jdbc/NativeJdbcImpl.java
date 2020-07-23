@@ -48,6 +48,7 @@ import java.util.List;
  * JDBC操作
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Component
 @SuppressWarnings("SpellCheckingInspection")

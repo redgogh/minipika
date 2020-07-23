@@ -37,6 +37,7 @@ import java.util.logging.Logger;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class PooledDataSource implements DataSource {
 

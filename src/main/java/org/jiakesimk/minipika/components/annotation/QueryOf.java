@@ -27,6 +27,7 @@ import java.lang.annotation.*;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

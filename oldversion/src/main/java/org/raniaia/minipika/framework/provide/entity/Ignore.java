@@ -32,6 +32,7 @@ import java.lang.annotation.*;
  * Ignore column, be ignored column will not impact on the database.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

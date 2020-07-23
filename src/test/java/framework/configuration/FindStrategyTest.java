@@ -28,6 +28,7 @@ import org.junit.Test;
  * 配置文件寻找策略
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class FindStrategyTest {
 

@@ -36,6 +36,7 @@ import java.util.List;
 /**
  * xml mapper下的标签解析
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class MapperLabelParser implements MapperLabelParserService {

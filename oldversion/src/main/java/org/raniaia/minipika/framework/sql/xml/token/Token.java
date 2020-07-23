@@ -24,6 +24,7 @@ package org.jiakesimk.minipika.framework.sql.xml.token;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @SuppressWarnings("SpellCheckingInspection")
 public enum Token {

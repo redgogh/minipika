@@ -26,6 +26,7 @@ import org.jiakesimk.minipika.components.logging.Log;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class StdLog implements Log {
 

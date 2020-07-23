@@ -40,6 +40,7 @@ import java.util.Properties;
  * 单个数据源节点下的数据, 比如master、slaves
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class SourceConfig implements ElementParser {
 

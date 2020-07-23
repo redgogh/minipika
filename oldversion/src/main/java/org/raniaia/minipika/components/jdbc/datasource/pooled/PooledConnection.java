@@ -38,6 +38,7 @@ import java.sql.SQLException;
  * Pooled connection.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class PooledConnection implements InvocationHandler {
 

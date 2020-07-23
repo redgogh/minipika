@@ -30,6 +30,7 @@ import java.util.Date;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public final class DateUtils {
 

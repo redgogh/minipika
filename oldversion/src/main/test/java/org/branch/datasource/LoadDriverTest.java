@@ -27,6 +27,7 @@ import org.jiakesimk.minipika.framework.loader.NativeClassLoader;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class LoadDriverTest {
 

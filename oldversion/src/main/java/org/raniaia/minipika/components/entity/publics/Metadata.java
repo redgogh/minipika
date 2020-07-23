@@ -35,6 +35,7 @@ import java.util.Map;
 /**
  * Data table metadata object.
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class Metadata {
 

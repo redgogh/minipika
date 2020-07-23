@@ -26,6 +26,7 @@ import org.jiakesimk.minipika.framework.utils.StringUtils;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class AgentStringUtils {
 

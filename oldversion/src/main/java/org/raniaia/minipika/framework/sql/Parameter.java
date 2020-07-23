@@ -26,6 +26,7 @@ import java.util.Map;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface Parameter {
 

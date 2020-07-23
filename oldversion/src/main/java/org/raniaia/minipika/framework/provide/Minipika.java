@@ -30,6 +30,7 @@ import java.lang.annotation.*;
  * bean container minipika annotation.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

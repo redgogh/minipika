@@ -24,6 +24,7 @@ package org.jiakesimk.minipika.framework.tools;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public final class NewlineBuilder extends StringNewline {
 

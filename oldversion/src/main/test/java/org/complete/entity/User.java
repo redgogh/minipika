@@ -33,6 +33,7 @@ import org.jiakesimk.minipika.framework.provide.entity.PK;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Entity("user")
 @Getter

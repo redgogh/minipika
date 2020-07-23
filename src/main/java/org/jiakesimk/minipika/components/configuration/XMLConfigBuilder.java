@@ -37,6 +37,7 @@ import java.util.Objects;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class XMLConfigBuilder {
 

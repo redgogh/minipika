@@ -29,6 +29,7 @@ import java.util.List;
  * 封装原生结果集，用于缓存结果从而使ResultSet提前关闭。
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface NativeResult {
 

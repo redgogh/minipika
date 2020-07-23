@@ -32,6 +32,7 @@ import java.util.List;
 /**
  * 语法错误检测
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class GrammarCheck {
 

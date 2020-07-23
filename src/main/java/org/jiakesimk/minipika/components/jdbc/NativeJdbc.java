@@ -29,6 +29,7 @@ import java.util.List;
  * sql执行器
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface NativeJdbc {
 

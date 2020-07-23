@@ -24,6 +24,7 @@ package org.jiakesimk.minipika.framework.sql;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public enum QueryTag {
 

@@ -34,6 +34,7 @@ import java.util.regex.Pattern;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @SuppressWarnings({"unchecked"})
 public class ProvideVar {

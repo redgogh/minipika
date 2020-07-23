@@ -24,6 +24,7 @@ package org.jiakesimk.minipika.framework.factory;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface ComponentFactory {
 

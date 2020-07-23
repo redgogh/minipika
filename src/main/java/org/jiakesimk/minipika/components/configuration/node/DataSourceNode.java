@@ -32,6 +32,7 @@ import java.util.List;
  * 数据源节点下的数据
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class DataSourceNode implements ElementParser {
 

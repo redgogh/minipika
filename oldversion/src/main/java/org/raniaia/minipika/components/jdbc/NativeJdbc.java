@@ -34,6 +34,7 @@ import java.util.List;
  * 将关闭操作统一控制在NativeJdbc中
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface NativeJdbc {
 

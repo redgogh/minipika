@@ -24,6 +24,7 @@ package org.jiakesimk.minipika.framework.exception;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class
 ReadException extends MinipikaException {

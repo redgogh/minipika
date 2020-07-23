@@ -28,6 +28,7 @@ import java.util.List;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @SuppressWarnings("deprecation")
 public class TimerManager {

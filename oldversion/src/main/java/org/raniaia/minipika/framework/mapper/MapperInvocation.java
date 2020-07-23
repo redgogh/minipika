@@ -37,6 +37,7 @@ import java.util.List;
 /**
  * Mapper接口代理类
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class MapperInvocation implements InvocationHandler {
 

@@ -24,6 +24,7 @@ package org.jiakesimk.minipika.framework;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface PropertyNames {
 

@@ -28,6 +28,7 @@ import java.io.Serializable;
  * 为了方便能够以行读取数据设计的String类
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 abstract class StringNewline
         implements LineBuilder, Serializable {

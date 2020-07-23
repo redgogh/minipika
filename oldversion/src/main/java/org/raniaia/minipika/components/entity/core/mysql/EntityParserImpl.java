@@ -39,6 +39,7 @@ import java.util.Map;
  * Parse annotation in entity, and generator database table.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Component
 public class EntityParserImpl implements EntityParser {

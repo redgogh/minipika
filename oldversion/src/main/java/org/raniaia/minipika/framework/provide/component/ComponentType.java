@@ -24,6 +24,7 @@ package org.jiakesimk.minipika.framework.provide.component;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public enum ComponentType {
 

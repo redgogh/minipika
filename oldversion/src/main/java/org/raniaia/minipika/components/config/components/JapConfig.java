@@ -35,6 +35,7 @@ import java.util.Map;
  * this config file create by minipika.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class JapConfig extends AbstractConfig {
 

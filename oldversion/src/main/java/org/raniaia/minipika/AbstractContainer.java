@@ -37,6 +37,7 @@ import java.util.Map;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @SuppressWarnings("unchecked")
 public abstract class AbstractContainer extends RootContainer<String, Object> {

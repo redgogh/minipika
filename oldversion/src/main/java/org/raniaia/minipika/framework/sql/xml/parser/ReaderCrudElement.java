@@ -38,6 +38,7 @@ import java.util.List;
 /**
  * 读取Mapper并解析
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class ReaderCrudElement {

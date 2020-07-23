@@ -37,6 +37,7 @@ import java.util.List;
 /**
  * Scan components,
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class ComponentScan {
 

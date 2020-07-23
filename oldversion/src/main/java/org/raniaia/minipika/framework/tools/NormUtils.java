@@ -28,6 +28,7 @@ import java.util.regex.Pattern;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class NormUtils {
 

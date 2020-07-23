@@ -28,6 +28,7 @@ import lombok.SneakyThrows;
  * 静态{@code Thread}工具。
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class Threads {
 

@@ -30,6 +30,7 @@ import javax.sql.DataSource;
  * 默认的事务创建工厂类
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class JdbcTransactionFactory implements TransactionFactory {
 

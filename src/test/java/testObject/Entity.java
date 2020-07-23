@@ -26,6 +26,7 @@ import org.jiakesimk.minipika.framework.annotations.Component;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class Entity {
 

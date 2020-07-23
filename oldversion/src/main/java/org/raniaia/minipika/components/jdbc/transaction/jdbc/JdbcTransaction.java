@@ -36,6 +36,7 @@ import java.sql.SQLException;
  * This class refers to the Mybatis source code.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Component
 public class JdbcTransaction implements Transaction {

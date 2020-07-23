@@ -35,6 +35,7 @@ import java.util.Properties;
  * Transaction factory.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface TransactionFactory {
 

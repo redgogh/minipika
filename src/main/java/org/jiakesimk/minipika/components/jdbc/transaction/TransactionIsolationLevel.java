@@ -26,7 +26,8 @@ import java.sql.Connection;
 
 /**
  * 事务隔离级别
- * @author TianSheng
+ * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public enum TransactionIsolationLevel {
 

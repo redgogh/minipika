@@ -28,6 +28,7 @@ import org.jiakesimk.minipika.components.logging.LogFactory;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class LogTest {
 

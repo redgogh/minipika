@@ -23,5 +23,6 @@
 /**
  * jdbc支持基础包
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 package org.jiakesimk.minipika.components.jdbc;

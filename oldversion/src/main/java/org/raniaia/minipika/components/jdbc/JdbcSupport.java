@@ -31,6 +31,7 @@ import java.util.Set;
  * 增删改查操作
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface JdbcSupport {
 

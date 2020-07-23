@@ -34,6 +34,7 @@ import java.util.List;
  * 子类可以去继承NativePageHelper,并实现自己的功能
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Getter
 @Setter

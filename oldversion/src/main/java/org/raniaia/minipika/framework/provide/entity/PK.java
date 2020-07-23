@@ -27,6 +27,7 @@ import java.lang.annotation.*;
 /**
  * 主键注解 | Primary key
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

@@ -33,6 +33,7 @@ import java.util.Objects;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Component
 public class MinipikaClassPool extends ClassPool {

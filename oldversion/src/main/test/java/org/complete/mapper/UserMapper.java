@@ -28,6 +28,7 @@ import org.complete.entity.User;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface UserMapper {
 

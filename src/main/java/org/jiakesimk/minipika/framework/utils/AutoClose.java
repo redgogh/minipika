@@ -24,6 +24,7 @@ package org.jiakesimk.minipika.framework.utils;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class AutoClose {
 

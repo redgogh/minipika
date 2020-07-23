@@ -27,6 +27,7 @@ import lombok.Setter;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @SuppressWarnings("deprecation")
 public class Execute extends Thread {

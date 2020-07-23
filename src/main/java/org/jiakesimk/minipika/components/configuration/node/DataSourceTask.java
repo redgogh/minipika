@@ -23,7 +23,8 @@ package org.jiakesimk.minipika.components.configuration.node;
  */
 
 /**
- * @author TianSheng
+ * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public enum DataSourceTask {
 

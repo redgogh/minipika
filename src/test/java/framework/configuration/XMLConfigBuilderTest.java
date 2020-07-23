@@ -28,6 +28,7 @@ import org.xml.sax.InputSource;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class XMLConfigBuilderTest {
 

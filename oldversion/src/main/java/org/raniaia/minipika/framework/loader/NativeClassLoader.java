@@ -26,6 +26,7 @@ import java.lang.reflect.Field;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class NativeClassLoader extends ClassLoader{
 

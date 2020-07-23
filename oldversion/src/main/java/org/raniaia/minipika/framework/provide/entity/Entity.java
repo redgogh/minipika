@@ -32,6 +32,7 @@ import java.lang.annotation.*;
  * No need use sql create table.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

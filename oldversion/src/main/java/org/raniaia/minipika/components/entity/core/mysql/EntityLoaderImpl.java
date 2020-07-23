@@ -49,6 +49,7 @@ import java.util.*;
  * or other metadata have changes. like <code>varchar(255) id</code> change to <code>int(10) id</code>.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Component
 public class EntityLoaderImpl implements EntityLoader {

@@ -28,6 +28,7 @@ import java.lang.annotation.*;
  *
  * Update annotation, if have more sql will execute batch.
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

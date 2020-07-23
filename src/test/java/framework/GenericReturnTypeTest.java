@@ -26,6 +26,7 @@ import java.lang.reflect.Method;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class GenericReturnTypeTest {
 

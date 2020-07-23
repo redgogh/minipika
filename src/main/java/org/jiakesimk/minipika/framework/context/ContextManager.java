@@ -38,6 +38,7 @@ import org.jiakesimk.minipika.components.configuration.XMLConfigBuilder;
  * 上下文管理
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class ContextManager {
 

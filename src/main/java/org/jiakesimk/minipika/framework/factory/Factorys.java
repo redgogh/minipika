@@ -27,6 +27,7 @@ import org.jiakesimk.minipika.framework.context.ContextManager;
 
 /**
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class Factorys {
 

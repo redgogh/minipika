@@ -31,6 +31,7 @@ import java.util.List;
  * 动态SQL执行器
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public class SQLExecutor implements Executor {
 

@@ -30,6 +30,7 @@ import java.sql.Connection;
  * 是为true的，如果AutoCommit属性不为true则没办法启动事务管理。
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public interface TransactionFactory {
 

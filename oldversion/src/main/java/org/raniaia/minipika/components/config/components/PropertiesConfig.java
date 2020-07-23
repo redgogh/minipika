@@ -31,6 +31,7 @@ import org.jiakesimk.minipika.framework.tools.*;
  * Config object.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public final class PropertiesConfig extends AbstractConfig {
 

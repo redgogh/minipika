@@ -34,6 +34,7 @@ import java.util.Map;
  * Calculator utility methods to {@link String} instance.
  *
  * @author tiansheng
+ * @email jiakesiws@gmail.com
  */
 public final class Calculator {
 
