@@ -36,7 +36,8 @@ public class Invoker {
 
   /**
    * 执行方法
-   * @param method 方法名称
+   *
+   * @param method    方法名称
    * @param arguments 方法参数
    * @return 返回值, 返回通用Object
    */
