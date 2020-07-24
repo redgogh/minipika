@@ -122,6 +122,7 @@ public class Methods {
         }
       } else {
         // TODO 使用字节码工具获取源码中的参数名
+        return getMethodVariableName(method.getDeclaringClass().getName(), method.getName());
       }
     }
     return names.toArray(new String[names.size()]);
