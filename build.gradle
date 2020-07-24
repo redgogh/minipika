@@ -1,4 +1,4 @@
-/*************************************************************************
+/* ************************************************************************
  *
  * Copyright (C) 2020 tiansheng All rights reserved.
  *
@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- *************************************************************************/
+ * ************************************************************************/
 
 /*
  * Creates on 2020/7/18.
@@ -99,4 +99,20 @@ tasks.withType(GroovyCompile) {
 tasks.withType(JavaCompile) {
   options.encoding = "UTF-8"
   options.compilerArgs << "-parameters"
+}
+
+
+task buildPom {
+  pom {
+    project {
+      groupId getGroupId()
+      artifactId getArtifactId()
+      version getGroupId()
+    }
+  }.writeTo("pom.xml")
+}
+
+def pag(o) {
+  println "==============>" + o.toString()
+  return o
 }
