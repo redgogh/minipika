@@ -115,13 +115,31 @@ task buildMaven {
     def asNode = (asNode() as Node)
     // 删除原有的dependencies节点
     MavenBuilder.removeNode(asNode, 'dependencies')
-    // 添加dependencies节点
     MavenBuilder.addDependencies(asNode, implementations)
-    // 添加plugins节点
-    MavenBuilder.addPlugins(asNode) {
-      MavenBuilder.plugin {
-
-      }
+    // 添加maven-compiler-plugin插件
+    MavenBuilder.addPluginNode(asNode) {
+      it.appendNode('groupId', 'org.apache.maven.plugins')
+      it.appendNode('artifactId', 'maven-compiler-plugin')
+      def configuration = it.appendNode('configuration')
+      configuration.appendNode('compilerArgs', '-parameters')
+    }
+    // 添加gmavenplus插件
+    MavenBuilder.addPluginNode(asNode) {
+      it.appendNode('groupId', 'org.codehaus.gmavenplus')
+      it.appendNode('artifactId', 'gmavenplus-plugin')
+      it.appendNode('version', '1.9.0')
+      def goals = it.appendNode('executions').appendNode('execution').appendNode('goals')
+      goals.appendNode('goal', 'addSources')
+      goals.appendNode('goal', 'addTestSources')
+      goals.appendNode('goal', 'generateStubs')
+      goals.appendNode('goal', 'compile')
+      goals.appendNode('goal', 'generateTestStubs')
+      // 设置编译时保留参数名
+      def configuration = it.appendNode('configuration')
+      configuration.appendNode('parameters', 'true')
+      def source = configuration.appendNode('sources').appendNode('source')
+      source.appendNode('directory', '${project.basedir}/src/main/')
+      source.appendNode('includes').appendNode('include', '**/*.groovy')
     }
   }.writeTo("pom.xml")
 }

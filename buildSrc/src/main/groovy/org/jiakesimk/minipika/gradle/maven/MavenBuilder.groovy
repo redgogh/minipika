@@ -1,6 +1,8 @@
 package org.jiakesimk.minipika.gradle.maven
 
-abstract class MavenBuilder {
+import groovy.xml.QName
+
+class MavenBuilder {
 
   /**
    * 删除节点
@@ -37,20 +39,38 @@ abstract class MavenBuilder {
     }
   }
 
-  /**
-   * 添加POM插件
-   *
-   * @param node 根节点
-   * @param closure 闭包
-   */
-  static void addPlugins(asNode, Closure<PluginNode> pluginClosure) {
-    pluginClosure.call()
+  static void addPluginNode(asNode, Closure closure) {
+    def buildNode = exist(asNode, 'build')
+    def pluginsNode = exist(buildNode, 'plugins')
+    closure.call(pluginsNode.appendNode('plugin'))
   }
 
-  static PluginNode plugin(Closure<PluginNode> pluginClosure) {}
 
-  class PluginNode {
+  /**
+   * 获取Build节点
+   *
+   * @param asNode 根结点
+   * @return build节点
+   */
+  static Node exist(asNode, nodeName) {
+    def children = asNode.children()
+    def node = null
+    children.each {
+      if (nameEq(it, nodeName)) node = it
+    }
+    node != null ? node : asNode.appendNode(nodeName) as Node
+  }
 
+  static boolean nameEq(node, compare) {
+    if (node instanceof Node) {
+      def name = node.name()
+      if (name instanceof QName) {
+        name = name.localPart
+      }
+      return name == compare
+    } else {
+      return false
+    }
   }
 
 }

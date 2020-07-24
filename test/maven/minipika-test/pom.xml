@@ -54,15 +54,13 @@
       </properties>
     </profile>
   </profiles>
-
+  
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>11</source>
-          <target>11</target>
           <compilerArgs>-parameters</compilerArgs>
         </configuration>
       </plugin>
@@ -78,13 +76,11 @@
               <goal>generateStubs</goal>
               <goal>compile</goal>
               <goal>generateTestStubs</goal>
-              <goal>compileTests</goal>
-              <goal>removeStubs</goal>
-              <goal>removeTestStubs</goal>
             </goals>
           </execution>
         </executions>
         <configuration>
+          <parameters>true</parameters>
           <sources>
             <source>
               <directory>${project.basedir}/src/main/</directory>
@@ -93,7 +89,6 @@
               </includes>
             </source>
           </sources>
-          <parameters>true</parameters>
         </configuration>
       </plugin>
     </plugins>
