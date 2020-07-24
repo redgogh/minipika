@@ -1,4 +1,4 @@
-package org.minipika.column;
+package org.jiakesimk.minipika.column;
 
 /* ************************************************************************
  *

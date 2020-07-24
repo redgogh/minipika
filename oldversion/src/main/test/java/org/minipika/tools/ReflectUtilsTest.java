@@ -1,4 +1,4 @@
-package org.minipika.tools;
+package org.jiakesimk.minipika.tools;
 
 /* ************************************************************************
  *

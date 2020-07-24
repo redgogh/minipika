@@ -1,4 +1,4 @@
-package org.minipika.loader;
+package org.jiakesimk.minipika.loader;
 
 /* ************************************************************************
  *

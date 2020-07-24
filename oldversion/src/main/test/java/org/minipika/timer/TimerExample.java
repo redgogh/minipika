@@ -1,4 +1,4 @@
-package org.minipika.timer;
+package org.jiakesimk.minipika.timer;
 
 /* ************************************************************************
  *

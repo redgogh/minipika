@@ -20,7 +20,7 @@ class minipika: MinipikaConfig()
         cache(false)
         transaction(false)
         pool(10,50)
-        entity("org.minipika.experiment")
-        mapper("org.minipika.builder")
+        entity("org.jiakesimk.minipika.experiment")
+        mapper("org.jiakesimk.minipika.builder")
     }
 }

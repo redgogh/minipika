@@ -1,4 +1,4 @@
-package org.minipika.service;
+package org.jiakesimk.minipika.service;
 
 /* ************************************************************************
  *

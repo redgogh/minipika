@@ -20,6 +20,8 @@
  * Creates on 2020/7/18.
  */
 
+import org.jiakesimk.minipika.gradle.maven.MavenBuilder
+
 plugins {
   id 'java'
   id 'groovy'
@@ -52,14 +54,14 @@ sourceSets {
     java { srcDirs = [] }
     groovy {
       // noinspection GroovyAssignabilityCheck
-      srcDirs "src/main/java"
+      srcDirs = ["src/main/java", "src/main/groovy"]
     }
   }
   test {
     java { srcDirs = [] }
     groovy {
       // noinspection GroovyAssignabilityCheck
-      srcDirs "src/test/java"
+      srcDirs = ["src/test/java"]
     }
   }
 }
@@ -101,18 +103,26 @@ tasks.withType(JavaCompile) {
   options.compilerArgs << "-parameters"
 }
 
-
-task buildPom {
+task buildMaven {
   pom {
     project {
       groupId getGroupId()
       artifactId getArtifactId()
       version getGroupId()
     }
+  }.withXml {
+    def implementations = configurations.implementation.allDependencies
+    def asNode = (asNode() as Node)
+    // 删除原有的dependencies节点
+    MavenBuilder.removeNode(asNode, 'dependencies')
+    // 添加dependencies节点
+    MavenBuilder.addDependencies(asNode, implementations)
+    // 添加plugins节点
+    MavenBuilder.addPlugins(asNode) {
+      MavenBuilder.plugin {
+
+      }
+    }
   }.writeTo("pom.xml")
 }
 
-def pag(o) {
-  println "==============>" + o.toString()
-  return o
-}

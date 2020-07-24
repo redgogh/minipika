@@ -54,7 +54,7 @@ public class MqlCallback<T> extends BaseBuilder implements InvocationHandler {
 
   private static final Log LOG = LogFactory.getLog(MqlCallback.class);
 
-  private static final String MQL_PROXY_CLASSNAME = "org.minipika.components.proxy.$";
+  private static final String MQL_PROXY_CLASSNAME = "org.jiakesimk.minipika.components.proxy.$";
 
   public MqlCallback(Class<T> virtual) {
     super(MQL_PROXY_CLASSNAME.concat(virtual.getSimpleName()));

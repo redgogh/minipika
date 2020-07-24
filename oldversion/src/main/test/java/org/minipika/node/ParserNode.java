@@ -1,4 +1,4 @@
-package org.minipika.node;
+package org.jiakesimk.minipika.node;
 
 /* ************************************************************************
  *

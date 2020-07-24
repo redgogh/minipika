@@ -19,11 +19,11 @@
     </connection>
 
     <entity>
-        <mapper>org.minipika.builder</mapper>
+        <mapper>org.jiakesimk.minipika.builder</mapper>
         <package>
-            org.minipika.experiment,
-            org.minipika.experiment,
-            org.minipika.experiment
+          org.jiakesimk.minipika.experiment,
+          org.jiakesimk.minipika.experiment,
+          org.jiakesimk.minipika.experiment
         </package>
     </entity>
 

@@ -1,5 +1,3 @@
-package org.jiakesimk.minipika.javassist;
-
 /* ************************************************************************
  *
  * Copyright (C) 2020 tiansheng All rights reserved.
@@ -18,20 +16,12 @@ package org.jiakesimk.minipika.javassist;
  *
  * ************************************************************************/
 
-
-
-import org.junit.Test;
-
-/**
- * Copyright by tiansheng on 2020/2/29 2:19
- * @author tiansheng
- * @version 1.0.0
- * @since 1.8
+/*
+ * Creates on 2020/7/24.
  */
-public class MyClassPool {
 
-    @Test
-    public void test0() {
-    }
-
+ext.srcSpec = copySpec {
+  from (projectDir) {
+    exclude 'buildSrc/target'
+  }
 }

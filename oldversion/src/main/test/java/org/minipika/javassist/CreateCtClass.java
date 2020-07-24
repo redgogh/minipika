@@ -1,4 +1,4 @@
-package org.minipika.javassist;
+package org.jiakesimk.minipika.javassist;
 
 /* ************************************************************************
  *
@@ -33,7 +33,7 @@ public class CreateCtClass {
     @Test
     public void create() throws CannotCompileException {
         MinipikaClassPool pool = new MinipikaClassPool(true);
-        CtClass[] ctClasses = pool.getCtClassArray("org.minipika.experiment");
+        CtClass[] ctClasses = pool.getCtClassArray("org.jiakesimk.minipika.experiment");
         System.out.println();
     }
 

@@ -1,4 +1,4 @@
-package org.minipika.components.proxy;
+package org.jiakesimk.minipika.components.proxy;
 
 import java.lang.*;
 import java.util.*;

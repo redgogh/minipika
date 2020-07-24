@@ -1,4 +1,4 @@
-package org.minipika.javassist;
+package org.jiakesimk.minipika.javassist;
 
 /* ************************************************************************
  *
