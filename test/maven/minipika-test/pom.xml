@@ -64,33 +64,6 @@
           <compilerArgs>-parameters</compilerArgs>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.codehaus.gmavenplus</groupId>
-        <artifactId>gmavenplus-plugin</artifactId>
-        <version>1.9.0</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>addSources</goal>
-              <goal>addTestSources</goal>
-              <goal>generateStubs</goal>
-              <goal>compile</goal>
-              <goal>generateTestStubs</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <parameters>true</parameters>
-          <sources>
-            <source>
-              <directory>${project.basedir}/src/main/</directory>
-              <includes>
-                <include>**/*.groovy</include>
-              </includes>
-            </source>
-          </sources>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
 

@@ -39,6 +39,12 @@ class MavenBuilder {
     }
   }
 
+  /**
+   * 添加plugin节点
+   *
+   * @param asNode 根节点
+   * @param closure 闭包
+   */
   static void addPluginNode(asNode, Closure closure) {
     def buildNode = exist(asNode, 'build')
     def pluginsNode = exist(buildNode, 'plugins')
@@ -61,6 +67,13 @@ class MavenBuilder {
     node != null ? node : asNode.appendNode(nodeName) as Node
   }
 
+  /**
+   * 节点名称比较
+   *
+   * @param node 节点对象
+   * @param compare 比较名称
+   * @return true/false
+   */
   static boolean nameEq(node, compare) {
     if (node instanceof Node) {
       def name = node.name()
@@ -70,6 +83,38 @@ class MavenBuilder {
       return name == compare
     } else {
       return false
+    }
+  }
+
+  @SuppressWarnings("all")
+  static void buildMaven(implementations, asNode) {
+    // 删除原有的dependencies节点
+    removeNode(asNode, 'dependencies')
+    addDependencies(asNode, implementations)
+    // 添加maven-compiler-plugin插件
+    addPluginNode(asNode) {
+      it.appendNode('groupId', 'org.apache.maven.plugins')
+      it.appendNode('artifactId', 'maven-compiler-plugin')
+      def configuration = it.appendNode('configuration')
+      configuration.appendNode('compilerArgs', '-parameters')
+    }
+    // 添加gmavenplus插件
+    addPluginNode(asNode) {
+      it.appendNode('groupId', 'org.codehaus.gmavenplus')
+      it.appendNode('artifactId', 'gmavenplus-plugin')
+      it.appendNode('version', '1.9.0')
+      def goals = it.appendNode('executions').appendNode('execution').appendNode('goals')
+      goals.appendNode('goal', 'addSources')
+      goals.appendNode('goal', 'addTestSources')
+      goals.appendNode('goal', 'generateStubs')
+      goals.appendNode('goal', 'compile')
+      goals.appendNode('goal', 'generateTestStubs')
+      // 设置编译时保留参数名
+      def configuration = it.appendNode('configuration')
+      configuration.appendNode('parameters', 'true')
+      def source = configuration.appendNode('sources').appendNode('source')
+      source.appendNode('directory', '${project.basedir}/src/main/')
+      source.appendNode('includes').appendNode('include', '**/*.groovy')
     }
   }
 
