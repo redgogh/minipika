@@ -17,21 +17,14 @@
 # #************************************************************************#
 
 # ##################################
-#  Creates on 2020/7/18.
+#  Creates on 2020/7/26.
 # ##################################
 
-language: java
-
-install:
-  - git clone https://github.com/jiakesimk/minipika.git
-
-matrix:
-  include:
-    - evn: EVN='dev'
-      jdk: openjdk9+
-    - evn: EVN='prod'
-      jdk: openjdk9+
-
-
-
-
+github:
+  description: "Jiakesimk Minipika: 一个基于Groovy的轻量级的对象映射框架"
+  homtpage: https://github.com/jiakesimk/minipika
+  labels:
+    - minipika
+    - orm
+    - mapper
+    - java-orm
