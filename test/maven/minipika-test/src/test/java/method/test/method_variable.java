@@ -13,7 +13,7 @@ import org.jiakesimk.minipika.framework.thread.Threads;
 /**
  * @author lts
  */
-public class MethodVariable {
+public class method_variable {
 
   /**
    * @param args

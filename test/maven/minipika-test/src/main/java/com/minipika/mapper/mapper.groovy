@@ -12,6 +12,6 @@ import java.lang.annotation.Target
 @Retention(RetentionPolicy.SOURCE)
 @Target([ElementType.FIELD, ElementType.TYPE])
 @GroovyASTTransformationClass("com.minipika.mapper.GroovyAstTest")
-@interface Mapper {
+@interface mapper {
 
 }

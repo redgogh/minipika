@@ -25,9 +25,9 @@ import org.objectweb.asm.Type;
  * @author dixingxing
  * @date Apr 23, 2012
  */
-public final class Classes {
+public final class classes {
 
-  private Classes() {
+  private classes() {
   }
 
   /**
@@ -109,11 +109,11 @@ public final class Classes {
 
   public static void main(String[] args) throws SecurityException,
           NoSuchMethodException {
-    String[] s = getMethodParamNames(Classes.class.getMethod(
+    String[] s = getMethodParamNames(classes.class.getMethod(
             "getMethodParamNames", Method.class));
     System.out.println(Arrays.toString(s));
 
-    s = getMethodParamNames(Classes.class.getDeclaredMethod("sameType",
+    s = getMethodParamNames(classes.class.getDeclaredMethod("sameType",
             Type[].class, Class[].class));
     System.out.println(Arrays.toString(s));
 

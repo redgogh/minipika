@@ -5,7 +5,7 @@ package test;
  */
 
 import com.alibaba.fastjson.JSONObject;
-import com.minipika.mapper.UserMapper;
+import com.minipika.mapper.user_mapper;
 import javassist.*;
 import javassist.bytecode.CodeAttribute;
 import javassist.bytecode.LocalVariableAttribute;
@@ -16,7 +16,7 @@ import org.junit.Test;
  * @author lts
  * @email jiakesiws@gmail.com
  */
-public class JavassistTest {
+public class javassist_test {
 
   @Test
   public void test() throws NotFoundException {
@@ -26,7 +26,7 @@ public class JavassistTest {
   public static String[] getMethodVariableName(String classname, String methodname) {
     try {
       ClassPool pool = ClassPool.getDefault();
-      ClassClassPath path = new ClassClassPath(UserMapper.class);
+      ClassClassPath path = new ClassClassPath(user_mapper.class);
       pool.insertClassPath(path);
       CtClass cc = pool.get(classname);
       CtMethod cm = cc.getDeclaredMethod(methodname);

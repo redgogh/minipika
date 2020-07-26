@@ -9,10 +9,10 @@ import com.alibaba.fastjson.JSONObject;
 /**
  * @author lts
  */
-public class MethodTest {
+public class method_test {
 
   public static void main(String[] args) {
-    String[] names = MethodVariable.getMethodVariableName("method.test.MethodTest", "test");
+    String[] names = method_variable.getMethodVariableName("method.test.MethodTest", "test");
     System.out.println(JSONObject.toJSONString(names));
   }
 

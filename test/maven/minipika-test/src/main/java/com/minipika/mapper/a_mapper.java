@@ -8,7 +8,7 @@ package com.minipika.mapper;
  * @author lts
  * @email jiakesiws@gmail.com
  */
-public interface AMapper {
+public interface a_mapper {
 
   int findUser(String name);
 

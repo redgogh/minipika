@@ -27,16 +27,16 @@ package com.minipika.entity;
  * @author tiansheng
  * @email jiakesiws@gmail.com
  */
-public class User {
+public class user {
 
   private Integer id;
   private String username;
   private String password;
 
-  public User() {
+  public user() {
   }
 
-  public User(String username, String password) {
+  public user(String username, String password) {
     this.username = username;
     this.password = password;
   }
