@@ -26,4 +26,9 @@ package com.minipika;
  * @author lts
  */
 class groovy_ast_test {
+
+  void test() {
+    println "test"
+  }
+
 }
