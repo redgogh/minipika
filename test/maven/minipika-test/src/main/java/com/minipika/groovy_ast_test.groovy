@@ -1,4 +1,6 @@
-package com.minipika;
+package com.minipika
+
+import org.junit.Test;
 
 /* ************************************************************************
  *
@@ -27,6 +29,7 @@ package com.minipika;
  */
 class groovy_ast_test {
 
+  @Test
   void test() {
     println "test"
   }
