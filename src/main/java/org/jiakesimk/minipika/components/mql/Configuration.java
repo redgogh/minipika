@@ -25,6 +25,7 @@ package org.jiakesimk.minipika.components.mql;
 import org.jiakesimk.minipika.components.annotation.*;
 import org.jiakesimk.minipika.components.jdbc.Executor;
 import org.jiakesimk.minipika.framework.annotations.Component;
+import org.jiakesimk.minipika.framework.common.ConstVariable;
 import org.jiakesimk.minipika.framework.utils.Lists;
 
 import java.lang.reflect.InvocationTargetException;
@@ -111,8 +112,7 @@ public class Configuration {
    * @throws NoSuchMethodException 反射找不到方法异常
    */
   public void initMemberProperty(Method method) throws NoSuchMethodException, ClassNotFoundException {
-    if (method.isAnnotationPresent(QueryOf.class)) {
-      QueryOf queryOf = method.getDeclaredAnnotation(QueryOf.class);
+    if (method.isAnnotationPresent(ConstVariable.A_QUERY_OF)) {
       this.executeMethod = getSQLExecuteMethod("queryForList", String.class,
               Class.class, Object[].class);
       Class<?> returnType = this.executeMethod.getReturnType();
@@ -122,14 +122,11 @@ public class Configuration {
         returnType = Class.forName(Lists.getGenericType(method));
       }
       this.returnType = returnType;
-    } else if (method.isAnnotationPresent(Update.class)) {
-      Update update = method.getDeclaredAnnotation(Update.class);
+    } else if (method.isAnnotationPresent(ConstVariable.A_UPDATE)) {
       this.executeMethod = getSQLExecuteMethod("update", String.class, Object[].class);
-    } else if (method.isAnnotationPresent(Insert.class)) {
-      Insert insert = method.getDeclaredAnnotation(Insert.class);
+    } else if (method.isAnnotationPresent(ConstVariable.A_INSERT)) {
       this.executeMethod = getSQLExecuteMethod("insert", String.class, Object[].class);
-    } else if (method.isAnnotationPresent(Batch.class)) {
-      Batch batch = method.getDeclaredAnnotation(Batch.class);
+    } else if (method.isAnnotationPresent(ConstVariable.A_BATCH)) {
       this.executeMethod = getSQLExecuteMethod("batch", String.class, Object[].class);
     }
   }

@@ -36,7 +36,7 @@ public class DynamicUpdate {
         CtMethod newMethod = CtNewMethod.make("public static void fuck(){ System.out.println(\"hello world by dynamic create!\"); }", ctClass);
         ctClass.addMethod(newMethod);
 
-        Class<?> target = DynamicUpdate.class;
+        Class<?> target = DynamicConstVariable.A_UPDATE;
         Object obj = target.newInstance();
 
         Method method = target.getDeclaredMethod("fuck");

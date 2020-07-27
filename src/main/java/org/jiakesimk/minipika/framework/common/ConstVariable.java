@@ -23,6 +23,12 @@ package org.jiakesimk.minipika.framework.common;
  */
 
 import javassist.ClassPool;
+import org.jiakesimk.minipika.components.annotation.Batch;
+import org.jiakesimk.minipika.components.annotation.Insert;
+import org.jiakesimk.minipika.components.annotation.QueryOf;
+import org.jiakesimk.minipika.components.annotation.Update;
+
+import java.lang.annotation.Annotation;
 
 /**
  * 一些通用的常量定义
@@ -32,6 +38,11 @@ import javassist.ClassPool;
  */
 public interface ConstVariable {
 
-  ClassPool CLASS_POOL = new ClassPool();
+  ClassPool CLASS_POOL                        = new ClassPool();
+
+  Class<? extends Annotation> A_BATCH         = Batch.class;
+  Class<? extends Annotation> A_UPDATE        = Update.class;
+  Class<? extends Annotation> A_INSERT        = Insert.class;
+  Class<? extends Annotation> A_QUERY_OF      = QueryOf.class;
 
 }

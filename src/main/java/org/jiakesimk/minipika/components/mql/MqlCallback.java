@@ -9,6 +9,7 @@ import org.jiakesimk.minipika.components.jdbc.Executor;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
 import org.jiakesimk.minipika.framework.annotations.Component;
+import org.jiakesimk.minipika.framework.common.ConstVariable;
 import org.jiakesimk.minipika.framework.factory.Factorys;
 import org.jiakesimk.minipika.framework.utils.*;
 
@@ -74,20 +75,20 @@ public class MqlCallback<T> extends BaseBuilder implements InvocationHandler {
   private void initialization() {
     Method[] methods = virtual.getDeclaredMethods();
     for (Method method : methods) {
-      if (method.isAnnotationPresent(Update.class)) {
-        Update update = method.getDeclaredAnnotation(Update.class);
+      if (method.isAnnotationPresent(ConstVariable.A_UPDATE)) {
+        Update update = (Update) method.getDeclaredAnnotation(ConstVariable.A_UPDATE);
         createMethod(method, update.value());
       }
-      if (method.isAnnotationPresent(Insert.class)) {
-        Insert insert = method.getDeclaredAnnotation(Insert.class);
+      if (method.isAnnotationPresent(ConstVariable.A_INSERT)) {
+        Insert insert = (Insert) method.getDeclaredAnnotation(ConstVariable.A_INSERT);
         createMethod(method, insert.value());
       }
-      if (method.isAnnotationPresent(QueryOf.class)) {
-        QueryOf queryOf = method.getDeclaredAnnotation(QueryOf.class);
+      if (method.isAnnotationPresent(ConstVariable.A_QUERY_OF)) {
+        QueryOf queryOf = (QueryOf) method.getDeclaredAnnotation(ConstVariable.A_QUERY_OF);
         createMethod(method, queryOf.value());
       }
-      if (method.isAnnotationPresent(Batch.class)) {
-        Batch batch = method.getDeclaredAnnotation(Batch.class);
+      if (method.isAnnotationPresent(ConstVariable.A_INSERT)) {
+        Batch batch = (Batch) method.getDeclaredAnnotation(ConstVariable.A_INSERT);
         createMethod(method, batch.value());
       }
     }

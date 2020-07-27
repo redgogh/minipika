@@ -14,7 +14,7 @@ interface MqlMapper {
     #IF INE(user.username) && user.username != null
       and username = #{user.username}
     #END
-  """, forList = User.class)
+  """)
   def findUser(user)
 
   @Insert("""
