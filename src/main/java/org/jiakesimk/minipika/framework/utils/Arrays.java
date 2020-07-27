@@ -265,19 +265,21 @@ public final class Arrays {
    */
   public static Object[] toArray(Object a) {
     Object[] objects = null;
-    if (isArray(a)) {
-      int size = Array.getLength(a);
-      objects = new Object[size];
-      for (int i = 0; i < size; i++) {
-        objects[i] = Array.get(a, i);
-      }
-      return objects;
-    } else if (a instanceof List) {
-      List<?> list = (List<?>) a;
-      int len = list.size();
-      objects = new Object[len];
-      for (int i = 0; i < len; i++) {
-        objects[i] = list.get(i);
+    if(a != null) {
+      if (isArray(a)) {
+        int size = Array.getLength(a);
+        objects = new Object[size];
+        for (int i = 0; i < size; i++) {
+          objects[i] = Array.get(a, i);
+        }
+        return objects;
+      } else if (a instanceof List) {
+        List<?> list = (List<?>) a;
+        int len = list.size();
+        objects = new Object[len];
+        for (int i = 0; i < len; i++) {
+          objects[i] = list.get(i);
+        }
       }
     }
     return objects;

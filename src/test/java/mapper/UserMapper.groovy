@@ -24,6 +24,11 @@ interface UserMapper {
   """)
   List<User> findUserList(username)
 
+  @QueryOf("""
+    select * from website_user_info
+  """)
+  List<User> findAll()
+
   @Batch("""
     insert into website_user_info (username, `password`) values (?, ?) 
     #FOREACH user : users

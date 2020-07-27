@@ -4,18 +4,20 @@ import org.jiakesimk.minipika.components.annotation.Batch;
 import org.jiakesimk.minipika.components.annotation.Insert;
 import org.jiakesimk.minipika.components.annotation.QueryOf;
 import org.jiakesimk.minipika.components.annotation.Update;
+import org.jiakesimk.minipika.components.cache.Cache;
 import org.jiakesimk.minipika.components.jdbc.Executor;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
 import org.jiakesimk.minipika.framework.annotations.Component;
-import org.jiakesimk.minipika.framework.utils.Arrays;
-import org.jiakesimk.minipika.framework.utils.Lists;
-import org.jiakesimk.minipika.framework.utils.Methods;
+import org.jiakesimk.minipika.framework.factory.Factorys;
+import org.jiakesimk.minipika.framework.utils.*;
 
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.List;
+import java.util.Map;
 
 /* ************************************************************************
  *
@@ -52,6 +54,8 @@ public class MqlCallback<T> extends BaseBuilder implements InvocationHandler {
 
   @Component
   private Executor executor;
+
+  private final Map<String, Configuration> configurations = Maps.newConcurrentHashMap();
 
   private static final Log LOG = LogFactory.getLog(MqlCallback.class);
 
@@ -95,25 +99,23 @@ public class MqlCallback<T> extends BaseBuilder implements InvocationHandler {
   }
 
   @Override
-  public Object invoke(Object proxy, Method method, Object[] args) {
-    try {
+  public Object invoke(Object proxy, Method method, Object[] args) throws Exception {
+    String name = method.getName();
+    if (!"toString".equals(name)) {
+      Configuration configuration;
       Object[] objects = invoke(method, args);
-      String sql = (String) objects[0];
-      Object[] arguments = Arrays.toArray(objects[1]);
-      if (method.isAnnotationPresent(QueryOf.class)) {
-        return doSelectQuery(method, sql, arguments);
+      String key = UniqueId.genKey(name, method.getParameters());
+      if (configurations.containsKey(key)) {
+        configuration = configurations.get(key);
+      } else {
+        configuration = Factorys.forClass(Configuration.class,
+                new Class[]{Method.class, Object.class}, method, instance);
+        configuration.setConfigurationId(key);
+        configurations.put(key, configuration);
       }
-      if (method.isAnnotationPresent(Update.class)
-              || method.isAnnotationPresent(Insert.class)) {
-        return executor.update(sql, arguments);
-      }
-      if (method.isAnnotationPresent(Batch.class)) {
-        return executor.batch(sql, arguments);
-      }
-    } catch (Throwable e) {
-      e.printStackTrace();
+      return configuration.execute((String) objects[0], Arrays.toArray(objects[1]));
     }
-    return null;
+    return method.invoke(proxy, method, args);
   }
 
   /**

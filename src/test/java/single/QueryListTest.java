@@ -17,7 +17,8 @@ public class QueryListTest {
 
   @Test
   public void test() {
-    System.out.println(JSONObject.toJSONString(mapper.findUserList("name1")));
+//    System.out.println(JSONObject.toJSONString(mapper.findUserList("name1")));
+    System.out.println(JSONObject.toJSONString(mapper.findAll()));
   }
 
 }

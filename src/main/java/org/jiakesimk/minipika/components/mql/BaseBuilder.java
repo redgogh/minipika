@@ -101,7 +101,7 @@ public class BaseBuilder extends Invoker {
    * 构建方法头
    *
    * @param method 方法元数据对象
-   * @param src 动态sql
+   * @param src    动态sql
    */
   private void buildHead(Method method, String src) {
     StringUtils.clear(builder);
@@ -114,7 +114,9 @@ public class BaseBuilder extends Invoker {
       builder.append(paramTypes[i].getName()).append(" ").append(paramNames[i]);
       builder.append(",");
     }
-    builder.delete(builder.length() - 1, builder.length());
+    if (',' == (builder.charAt(builder.length() - 1))) {
+      builder.delete(builder.length() - 1, builder.length());
+    }
     builder.delete(builder.length(), builder.length()).append("){"); // 方法头部声明结尾
     // 构建方法体
     buildBody(src);
@@ -325,7 +327,7 @@ public class BaseBuilder extends Invoker {
    */
   @SuppressWarnings({"rawtypes"})
   private String[] existArguments(String input) {
-    if(StringUtils.isNotEmpty(input)) {
+    if (StringUtils.isNotEmpty(input)) {
       return Matches.find(input, "#\\{(.*?)}\\S*", value -> {
         value = value.replaceAll("#", "");
         if (value.contains(".")) {
