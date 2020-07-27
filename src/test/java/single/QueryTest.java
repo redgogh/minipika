@@ -11,14 +11,18 @@ import org.junit.Test;
 /**
  * @author lts
  */
-public class QueryListTest {
+public class QueryTest {
 
   UserMapper mapper = UserMapper.mapper;
 
   @Test
-  public void test() {
-//    System.out.println(JSONObject.toJSONString(mapper.findUserList("name1")));
+  public void queryList() {
     System.out.println(JSONObject.toJSONString(mapper.findAll()));
+  }
+
+  @Test
+  public void queryObject() {
+    System.out.println(JSONObject.toJSONString(mapper.findUserList("name1")));
   }
 
 }

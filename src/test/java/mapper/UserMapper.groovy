@@ -43,4 +43,10 @@ interface UserMapper {
   """)
   int update(name, newName)
 
+  @Update("""
+    UPDATE `website_user_info` SET `username` = #{user.username}, 
+    `password` = #{user.password} WHERE `id` = #{id};
+  """)
+  def updateUser(id, user)
+
 }

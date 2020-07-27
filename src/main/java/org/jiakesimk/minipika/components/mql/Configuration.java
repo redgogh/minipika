@@ -97,7 +97,11 @@ public class Configuration {
    */
   @SuppressWarnings("unchecked")
   public <T> T execute(String sql, Object[] args) throws InvocationTargetException, IllegalAccessException {
-    return (T) executeMethod.invoke(executor, sql, returnType, args);
+    if(returnType != null) {
+      return (T) executeMethod.invoke(executor, sql, returnType, args);
+    } else {
+      return (T) executeMethod.invoke(executor, sql, args);
+    }
   }
 
   /**

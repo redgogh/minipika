@@ -118,20 +118,4 @@ public class MqlCallback<T> extends BaseBuilder implements InvocationHandler {
     return method.invoke(proxy, method, args);
   }
 
-  /**
-   * 做条件查询
-   *
-   * @param method    查询方法
-   * @param sql       sql语句
-   * @param arguments 参数列表
-   * @return 返回对象
-   */
-  private Object doSelectQuery(Method method, String sql, Object[] arguments) throws Exception {
-    Class<?> returnType = method.getReturnType();
-    if (returnType == List.class) {
-      return executor.queryForList(sql, Class.forName(Lists.getGenericType(method)), arguments);
-    }
-    return executor.queryForObject(sql, returnType, arguments);
-  }
-
 }
