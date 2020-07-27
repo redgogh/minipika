@@ -42,8 +42,6 @@ import org.jiakesimk.minipika.components.configuration.XMLConfigBuilder;
  */
 public class ContextManager {
 
-  private static boolean load;
-
   public static void loadContext() {
     XMLConfigBuilder configBuilder = new XMLConfigBuilder();
     configBuilder.load(FindStrategy.getConfigInputStream());

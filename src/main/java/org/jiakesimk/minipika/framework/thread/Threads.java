@@ -37,7 +37,7 @@ public class Threads {
     Class<?> clazz = null;
     try {
       StackTraceElement[] elements = Thread.currentThread().getStackTrace();
-      String classname = elements[elements.length - 1].getClassName();
+      String classname = elements[3].getClassName();
       clazz = Class.forName(classname);
     } catch (ClassNotFoundException e) {
       e.printStackTrace();

@@ -34,6 +34,16 @@ public enum QueryMode {
   NULL,
 
   /**
+   * 查询单个对象
+   */
+  FOR_OBJECT,
+
+  /**
+   * 查询集合对象
+   */
+  FOR_LIST,
+
+  /**
    * 查询结果集返回Map
    */
   FOR_MAP,
