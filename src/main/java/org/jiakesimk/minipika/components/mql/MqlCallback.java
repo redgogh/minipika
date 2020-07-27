@@ -9,6 +9,7 @@ import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
 import org.jiakesimk.minipika.framework.annotations.Component;
 import org.jiakesimk.minipika.framework.utils.Arrays;
+import org.jiakesimk.minipika.framework.utils.Lists;
 import org.jiakesimk.minipika.framework.utils.Methods;
 
 import java.lang.reflect.InvocationHandler;
@@ -126,12 +127,7 @@ public class MqlCallback<T> extends BaseBuilder implements InvocationHandler {
   private Object doSelectQuery(Method method, String sql, Object[] arguments) throws Exception {
     Class<?> returnType = method.getReturnType();
     if (returnType == List.class) {
-      String signature = Methods.getGenericSignature(method);
-      signature = signature.substring(signature.lastIndexOf("<"))
-      .replaceAll("<L","")
-      .replaceAll(";>;","")
-      .replaceAll("/","\\.");
-      return executor.queryForList(sql, Class.forName(signature), arguments);
+      return executor.queryForList(sql, Class.forName(Lists.getGenericType(method)), arguments);
     }
     return executor.queryForObject(sql, returnType, arguments);
   }

@@ -147,7 +147,7 @@ class Methods {
       LocalVariableAttribute attr = (LocalVariableAttribute) codeAttribute.getAttribute(LocalVariableAttribute.tag)
       if (attr != null) {
         int pos = Modifier.isStatic(cm.getModifiers()) ? 0 : 1
-        for (int i = 0; i < paramNames.length; i ++) {
+        for (int i = 0; i < paramNames.length; i++) {
           paramNames[i] = attr.variableName(i + pos)
         }
         return paramNames
@@ -164,16 +164,8 @@ class Methods {
    * @param method 需要获取签名的方法
    * @return 方法签名
    */
-  static String getGenericSignature(Method method) {
-    String signature = null
-    try {
-      Method declaredMethod = Method.class.getDeclaredMethod("getGenericSignature")
-      declaredMethod.setAccessible(true)
-      signature = (String) declaredMethod.invoke(method)
-    } catch (Exception e) {
-      e.printStackTrace()
-    }
-    return signature
+  static String getGenericReturnType(Method method) {
+    return method.genericReturnType
   }
 
 }

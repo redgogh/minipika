@@ -22,6 +22,10 @@ package org.jiakesimk.minipika.framework.utils;
  * Creates on 2020/3/21.
  */
 
+import groovyjarjarpicocli.CommandLine;
+import org.jiakesimk.minipika.framework.exception.MinipikaException;
+
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -199,6 +203,22 @@ public final class Lists {
         break;
       default:
     }
+  }
+
+  /**
+   * 获取方法返回List集合泛型中的返回值
+   *
+   * @param method 方法对象
+   * @return 泛型类型的类名全称
+   */
+  public static String getGenericType(Method method) {
+    if(method.getReturnType() == List.class){
+      int listGenericLength = "java.util.List<".length();
+      String generic = Methods.getGenericReturnType(method);
+      return generic.substring(listGenericLength, generic.length() - 1);
+    }
+    throw new MinipikaException("Error get generic type failure of java.util.List. " +
+            "Cause: the return type of method not java.util.List.");
   }
 
   /**
