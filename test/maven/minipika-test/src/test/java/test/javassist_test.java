@@ -5,7 +5,7 @@ package test;
  */
 
 import com.alibaba.fastjson.JSONObject;
-import com.minipika.mapper.user_mapper;
+import com.minipika.mapper.UserMapper;
 import javassist.*;
 import javassist.bytecode.CodeAttribute;
 import javassist.bytecode.LocalVariableAttribute;
@@ -26,7 +26,7 @@ public class javassist_test {
   public static String[] getMethodVariableName(String classname, String methodname) {
     try {
       ClassPool pool = ClassPool.getDefault();
-      ClassClassPath path = new ClassClassPath(user_mapper.class);
+      ClassClassPath path = new ClassClassPath(UserMapper.class);
       pool.insertClassPath(path);
       CtClass cc = pool.get(classname);
       CtMethod cm = cc.getDeclaredMethod(methodname);

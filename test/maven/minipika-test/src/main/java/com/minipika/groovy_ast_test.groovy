@@ -1,5 +1,6 @@
 package com.minipika
 
+import org.codehaus.groovy.ant.Groovyc
 import org.junit.Test;
 
 /* ************************************************************************
