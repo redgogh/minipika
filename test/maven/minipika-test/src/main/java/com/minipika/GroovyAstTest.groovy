@@ -1,5 +1,6 @@
 package com.minipika
 
+import com.minipika.mapper.UserMapper
 import org.codehaus.groovy.ant.Groovyc
 import org.junit.Test;
 
@@ -28,11 +29,13 @@ import org.junit.Test;
 /**
  * @author lts
  */
-class groovy_ast_test {
+class GroovyAstTest {
 
   @Test
   void test() {
-    println "test"
+    def clazz = UserMapper.class
+    def method = clazz.getDeclaredMethod("findUser")
+    println ""
   }
 
 }

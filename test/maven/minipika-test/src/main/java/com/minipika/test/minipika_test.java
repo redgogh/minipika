@@ -13,7 +13,7 @@ import com.minipika.mapper.UserMapper;
 public class minipika_test {
 
   public static void main(String[] args) {
-    System.out.println(UserMapper.mapper.findUser("name1").getUsername());
+//    System.out.println(UserMapper.mapper.findUser("name1").getUsername());
   }
 
 }

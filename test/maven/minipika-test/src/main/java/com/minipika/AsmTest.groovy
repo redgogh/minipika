@@ -16,7 +16,7 @@ import org.junit.Test
  * @author lts
  * @email jiakesiws@gmail.com
  */
-class asm_test {
+class AsmTest {
 
   @Test
   void test1() {
