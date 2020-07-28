@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.annotation;
+package org.jiakesimk.minipika.groovy.ast;
 
 /* ************************************************************************
  *

@@ -5,6 +5,7 @@ package com.minipika.test;
  */
 
 import com.minipika.mapper.UserMapper;
+import groovy.lang.GroovyClassLoader;
 
 /**
  * @author lts
@@ -13,7 +14,7 @@ import com.minipika.mapper.UserMapper;
 public class minipika_test {
 
   public static void main(String[] args) {
-//    System.out.println(UserMapper.mapper.findUser("name1").getUsername());
+    new GroovyClassLoader(UserMapper.class.getClassLoader());
   }
 
 }

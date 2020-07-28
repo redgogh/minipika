@@ -33,16 +33,14 @@ import java.lang.annotation.Annotation;
 /**
  * @author lts
  */
-@GroovyASTTransformation
+@GroovyASTTransformation(phase = CompilePhase.CANONICALIZATION)
 class GroovyAstProcess implements ASTTransformation  {
 
   static def nodess = []
 
   @Override
   void visit(ASTNode[] nodes, SourceUnit source) {
-    nodes.each {
-      nodess.add it
-    }
+    println("MyASTTransformation visit()  $nodes")
   }
 
 }
