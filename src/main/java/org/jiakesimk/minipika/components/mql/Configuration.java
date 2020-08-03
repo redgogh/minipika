@@ -113,13 +113,14 @@ public class Configuration {
    */
   public void initMemberProperty(Method method) throws NoSuchMethodException, ClassNotFoundException {
     if (method.isAnnotationPresent(ConstVariable.A_QUERY_OF)) {
-      this.executeMethod = getSQLExecuteMethod("queryForList", String.class,
-              Class.class, Object[].class);
-      Class<?> returnType = this.executeMethod.getReturnType();
-      this.queryMode = QueryMode.FOR_OBJECT; // 默认查询单个对象
+      Class<?> returnType = method.getReturnType();
       if (returnType == List.class) {
         this.queryMode = QueryMode.FOR_LIST;
         returnType = Class.forName(Lists.getGenericType(method));
+        this.executeMethod = getSQLExecuteMethod("queryForList", String.class, Class.class, Object[].class);
+      } else {
+        this.queryMode = QueryMode.FOR_OBJECT; // 默认查询单个对象
+        this.executeMethod = getSQLExecuteMethod("queryForObject", String.class, Class.class, Object[].class);
       }
       this.returnType = returnType;
     } else if (method.isAnnotationPresent(ConstVariable.A_UPDATE)) {

@@ -1,4 +1,4 @@
-package com.test
+package task
 
 
 import org.jiakesimk.minipika.components.annotation.Batch

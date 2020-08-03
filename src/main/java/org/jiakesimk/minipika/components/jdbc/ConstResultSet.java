@@ -108,10 +108,13 @@ public class ConstResultSet implements NativeResultSet {
   @Override
   public <T> T conversionJavaBean(Class<T> target) throws SQLException {
     try {
-      return conversionJavaBean(target, resultSet.get(0));
+      if (!resultSet.isEmpty()) {
+        return conversionJavaBean(target, resultSet.get(0));
+      }
     } catch (Exception e) {
       throw new SQLException(e.getMessage(), e);
     }
+    return null;
   }
 
   private <T> T conversionJavaBean(Class<T> target, Map<String, String> resultMap) throws Exception {

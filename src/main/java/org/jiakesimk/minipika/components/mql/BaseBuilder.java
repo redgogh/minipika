@@ -106,7 +106,8 @@ public class BaseBuilder extends Invoker {
   private void buildHead(Method method, String src) {
     StringUtils.clear(builder);
     String methodName = method.getName(); // 方法名
-    String[] paramNames = Methods.getParameterNames(method); // 方法参数名
+    String[] paramNames = Objects.requireNonNull(Methods.getParameterNames(method),
+            "The real parameters name of method is not obtained."); // 方法参数名
     Class<?>[] paramTypes = method.getParameterTypes();
     // 创建方法声明
     builder.append("public Object[] ").append(methodName).append("(");
@@ -325,7 +326,6 @@ public class BaseBuilder extends Invoker {
    * @param input 传入类似"#{xxx}"这样的字符串, 截取出xxx
    * @return 截取到的参数名称
    */
-  @SuppressWarnings({"rawtypes"})
   private String[] existArguments(String input) {
     if (StringUtils.isNotEmpty(input)) {
       return Matches.find(input, "#\\{(.*?)}\\S*", value -> {
