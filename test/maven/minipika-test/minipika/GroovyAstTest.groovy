@@ -1,6 +1,6 @@
 package com.minipika
 
-import com.minipika.mapper.UserMapper
+import UserMapper
 import org.codehaus.groovy.ant.Groovyc
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
 package com.minipika.test
 
-import com.minipika.mapper.UserMapper
+import UserMapper
 import org.junit.Test
 
 class groovy_test {
