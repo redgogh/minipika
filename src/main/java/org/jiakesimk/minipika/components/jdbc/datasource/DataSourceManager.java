@@ -39,7 +39,8 @@ import java.util.Map;
  * @author tiansheng
  * @email jiakesiws@gmail.com
  */
-public class DataSourceManager {
+public class DataSourceManager
+{
 
   public static final String MASTER = "master";
 
@@ -55,19 +56,24 @@ public class DataSourceManager {
    * @param name       数据源名称
    * @param dataSource 数据源对象
    */
-  public synchronized static void registerDataSource(String name, DataSource dataSource) {
+  public synchronized static void registerDataSource(String name, DataSource dataSource)
+  {
     Connection connection = null;
-    try {
-      if (dataSource == null) {
+    try
+    {
+      if (dataSource == null)
+      {
         LOG.error("Error DataSource register fail. Cause: DataSource is null.");
         throw new NullPointerException("Error DataSource register fail. Cause: DataSource is null.");
       }
       connection = dataSource.getConnection(); // 测试数据源是否可用
       dataSourceMap.put(name, dataSource);
-    } catch (SQLException e) {
+    } catch (SQLException e)
+    {
       LOG.error("Error DataSource register fail. Cause: cannot get conenction.");
       e.printStackTrace();
-    }finally {
+    } finally
+    {
       AutoClose.close(connection); // 关闭连接
     }
   }
@@ -75,21 +81,24 @@ public class DataSourceManager {
   /**
    * @return 当前正在使用的数据源
    */
-  public synchronized static DataSource getDataSource() {
+  public synchronized static DataSource getDataSource()
+  {
     return currentDataSource;
   }
 
   /**
    * 通过名称获取
    */
-  public synchronized static DataSource getDataSource(String name) {
+  public synchronized static DataSource getDataSource(String name)
+  {
     return dataSourceMap.get(name);
   }
 
   /**
    * 获取主数据源
    */
-  public synchronized static DataSource getMasterDataSource() {
+  public synchronized static DataSource getMasterDataSource()
+  {
     return dataSourceMap.get(MASTER);
   }
 
@@ -98,11 +107,14 @@ public class DataSourceManager {
    *
    * @param name 注册时的数据源名称
    */
-  public synchronized static void select(String name) {
+  public synchronized static void select(String name)
+  {
     DataSource dataSource = dataSourceMap.get(name);
-    if (dataSource != null) {
+    if (dataSource != null)
+    {
       currentDataSource = dataSource;
-    } else {
+    } else
+    {
       throw new MinipikaException("DataSource select failure. Cause: no " + name + " the DataSource.");
     }
   }

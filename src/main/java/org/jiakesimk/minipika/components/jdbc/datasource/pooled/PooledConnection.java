@@ -34,22 +34,25 @@ import java.sql.SQLException;
  * @author tiansheng
  * @email jiakesiws@gmail.com
  */
-public class PooledConnection implements InvocationHandler {
+public class PooledConnection implements InvocationHandler
+{
 
   private static final String CLOSE = "close";
   public static final Class<?>[] IFACE = new Class[]{Connection.class};
 
-  protected boolean             valid = true;
-  protected PooledState         state;
-  protected PooledDataSource    dataSource;
-  protected Connection          proxyConnection;        // 代理链接
-  protected Connection          realConnection;         // 真实链接
-  protected long                lastUsedTimestamp;      // 上次使用时间
+  protected boolean valid = true;
+  protected PooledState state;
+  protected PooledDataSource dataSource;
+  protected Connection proxyConnection;        // 代理链接
+  protected Connection realConnection;         // 真实链接
+  protected long lastUsedTimestamp;      // 上次使用时间
 
-  public PooledConnection() {
+  public PooledConnection()
+  {
   }
 
-  public PooledConnection(Connection connection, PooledDataSource dataSource) {
+  public PooledConnection(Connection connection, PooledDataSource dataSource)
+  {
     this.dataSource = dataSource;
     this.realConnection = connection;
     this.state = dataSource.state;
@@ -60,28 +63,32 @@ public class PooledConnection implements InvocationHandler {
   /**
    * 验证链接是否可以正常使用
    */
-  public boolean isValid() throws SQLException {
+  public boolean isValid() throws SQLException
+  {
     return this.valid && (realConnection != null) && !realConnection.isClosed();
   }
 
   /**
    * 使链接失效
    */
-  public void invalidate() {
+  public void invalidate()
+  {
     this.valid = false;
   }
 
   /**
    * 归还链接
    */
-  public void close() throws SQLException {
+  public void close() throws SQLException
+  {
     dataSource.pushConnection(this);
   }
 
   /**
    * 强制关闭链接
    */
-  void forceClose() throws SQLException {
+  void forceClose() throws SQLException
+  {
     this.realConnection.close();
     state.currentConnectionsCount--;
   }
@@ -89,18 +96,21 @@ public class PooledConnection implements InvocationHandler {
   /**
    * 获取真实链接
    */
-  public Connection getRealConnection() {
+  public Connection getRealConnection()
+  {
     return this.realConnection;
   }
 
-  public int getRealHasCode() {
+  public int getRealHasCode()
+  {
     return realConnection.hashCode();
   }
 
   /**
    * 检查链接是否可用
    */
-  public boolean ping() {
+  public boolean ping()
+  {
     return false;
   }
 
@@ -109,20 +119,26 @@ public class PooledConnection implements InvocationHandler {
    *
    * @param lastUsedTimestamp 时间戳
    */
-  public void setLastUsedTimestamp(long lastUsedTimestamp) {
+  public void setLastUsedTimestamp(long lastUsedTimestamp)
+  {
     this.lastUsedTimestamp = lastUsedTimestamp;
   }
 
   @Override
-  public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+  public Object invoke(Object proxy, Method method, Object[] args) throws Throwable
+  {
     String methodName = method.getName();
-    if (CLOSE.equals(methodName)) {
+    if (CLOSE.equals(methodName))
+    {
       dataSource.pushConnection(this);
       return null;
-    } else {
-      try {
+    } else
+    {
+      try
+      {
         return method.invoke(realConnection, args);
-      } catch (Exception e) {
+      } catch (Exception e)
+      {
         throw new MinipikaException(e);
       }
     }

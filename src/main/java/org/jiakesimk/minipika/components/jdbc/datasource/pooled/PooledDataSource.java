@@ -39,7 +39,8 @@ import java.util.logging.Logger;
  * @author tiansheng
  * @email jiakesiws@gmail.com
  */
-public class PooledDataSource implements DataSource {
+public class PooledDataSource implements DataSource
+{
 
   protected String username;
 
@@ -53,7 +54,8 @@ public class PooledDataSource implements DataSource {
 
   private static final Log log = LogFactory.getLog(PooledConnection.class);
 
-  public PooledDataSource(UnpooledDataSource unpooledDataSource) {
+  public PooledDataSource(UnpooledDataSource unpooledDataSource)
+  {
     {
       this.unpooledDataSource = unpooledDataSource;
       this.sourceConfig = unpooledDataSource.getSourceConfig();
@@ -65,21 +67,26 @@ public class PooledDataSource implements DataSource {
       DataSourceManager.registerDataSource(sourceConfig.getName(), this);
     }
     {
-      try {
-        for (int i = 0; i < state.minimumConnections; i++) {
+      try
+      {
+        for (int i = 0; i < state.minimumConnections; i++)
+        {
           state.idleConnections.add(createConnection(username, password));
         }
-      } catch (SQLException e) {
+      } catch (SQLException e)
+      {
         e.printStackTrace();
       }
     }
   }
 
-  public PooledState getState() {
+  public PooledState getState()
+  {
     return state;
   }
 
-  public UnpooledDataSource getUnpooledDataSource() {
+  public UnpooledDataSource getUnpooledDataSource()
+  {
     return unpooledDataSource;
   }
 
@@ -88,23 +95,31 @@ public class PooledDataSource implements DataSource {
    *
    * @param connection 归还的链接对象
    */
-  public void pushConnection(PooledConnection connection) throws SQLException {
-    synchronized (state) {
+  public void pushConnection(PooledConnection connection) throws SQLException
+  {
+    synchronized (state)
+    {
       state.activeConnections.remove(connection);
-      if (connection.isValid()) {
+      if (connection.isValid())
+      {
         // 判断总连接数是否大于或等于最大连接数
-        if (state.currentConnectionsCount < state.maximumConnections) {
+        if (state.currentConnectionsCount < state.maximumConnections)
+        {
           state.idleConnections.add(connection);
-          if (log.isDebugEnabled()) {
+          if (log.isDebugEnabled())
+          {
             log.debug("Returned connection " + connection.getRealHasCode() + " to  pool.");
           }
           state.notifyAllStrategy();
-        } else {
+        } else
+        {
           connection.invalidate();
           state.badConnectionCount++;
         }
-      } else {
-        if (log.isDebugEnabled()) {
+      } else
+      {
+        if (log.isDebugEnabled())
+        {
           log.debug("A bad connection (" + connection.getRealHasCode() + ") close.");
         }
         connection.forceClose();
@@ -112,52 +127,69 @@ public class PooledDataSource implements DataSource {
     }
   }
 
-  protected PooledConnection popConnection() throws SQLException {
+  protected PooledConnection popConnection() throws SQLException
+  {
     return popConnection(username, password);
   }
 
   /**
    * 弹出链接
    */
-  protected PooledConnection popConnection(String username, String password) throws SQLException {
+  protected PooledConnection popConnection(String username, String password) throws SQLException
+  {
     PooledConnection connection = null;
     long startTime = System.currentTimeMillis();
-    synchronized (state) {
-      while (connection == null) {
-        if (!state.idleConnections.isEmpty()) {
+    synchronized (state)
+    {
+      while (connection == null)
+      {
+        if (!state.idleConnections.isEmpty())
+        {
           connection = state.idleConnections.remove(0);
-          if (log.isDebugEnabled()) {
+          if (log.isDebugEnabled())
+          {
             log.debug("pop out connection " + connection.getRealHasCode() + " from pool,");
           }
-        } else {
-          if (state.currentConnectionsCount < state.maximumConnections) {
+        } else
+        {
+          if (state.currentConnectionsCount < state.maximumConnections)
+          {
             connection = createConnection(username, password);
             state.accumulateCreatesCount++;
-          } else {
-            try {
+          } else
+          {
+            try
+            {
               long wt = System.currentTimeMillis();
-              if (log.isDebugEnabled()) {
+              if (log.isDebugEnabled())
+              {
                 log.debug(Thread.currentThread().getName() + " thread is waiting for getting a connection.");
               }
               state.waitStrategy(state.maximumWaitTimeout);
               long wte = (System.currentTimeMillis() - wt);
               state.maximumWaitTimeoutCount += wte;
-              if (log.isDebugEnabled()) {
+              if (log.isDebugEnabled())
+              {
                 log.debug(Thread.currentThread().getName() + " thread is woken up, waiting time: " + wte);
               }
-            } catch (InterruptedException e) {
+            } catch (InterruptedException e)
+            {
               break;
             }
           }
         }
-        if (connection != null) {
-          if (connection.isValid()) {
+        if (connection != null)
+        {
+          if (connection.isValid())
+          {
             connection.setLastUsedTimestamp(System.currentTimeMillis());
             state.requestCount++;
             state.activeConnections.add(connection);
             state.requestAccumulateTime += (System.currentTimeMillis() - startTime);
-          } else {
-            if (log.isDebugEnabled()) {
+          } else
+          {
+            if (log.isDebugEnabled())
+            {
               log.debug("A bad connection (" + connection.getRealHasCode() + ") close. return to another connection.");
             }
             state.badConnectionCount++;
@@ -171,52 +203,62 @@ public class PooledDataSource implements DataSource {
   }
 
   protected synchronized PooledConnection createConnection(
-          String username, String password) throws SQLException {
+          String username, String password) throws SQLException
+  {
     return new PooledConnection(unpooledDataSource.getConnection(username, password), this);
   }
 
   @Override
-  public Connection getConnection() throws SQLException {
+  public Connection getConnection() throws SQLException
+  {
     return popConnection().proxyConnection;
   }
 
   @Override
-  public Connection getConnection(String username, String password) throws SQLException {
+  public Connection getConnection(String username, String password) throws SQLException
+  {
     return unpooledDataSource.getConnection(username, password);
   }
 
   @Override
-  public PrintWriter getLogWriter() throws SQLException {
+  public PrintWriter getLogWriter() throws SQLException
+  {
     return unpooledDataSource.getLogWriter();
   }
 
   @Override
-  public void setLogWriter(PrintWriter out) throws SQLException {
+  public void setLogWriter(PrintWriter out) throws SQLException
+  {
     unpooledDataSource.setLogWriter(out);
   }
 
   @Override
-  public void setLoginTimeout(int seconds) throws SQLException {
+  public void setLoginTimeout(int seconds) throws SQLException
+  {
     unpooledDataSource.setLoginTimeout(seconds);
   }
 
   @Override
-  public int getLoginTimeout() throws SQLException {
+  public int getLoginTimeout() throws SQLException
+  {
     return unpooledDataSource.getLoginTimeout();
   }
 
   @Override
-  public <T> T unwrap(Class<T> iface) throws SQLException {
+  public <T> T unwrap(Class<T> iface) throws SQLException
+  {
     return unpooledDataSource.unwrap(iface);
   }
 
   @Override
-  public boolean isWrapperFor(Class<?> iface) throws SQLException {
+  public boolean isWrapperFor(Class<?> iface) throws SQLException
+  {
     return unpooledDataSource.isWrapperFor(iface);
   }
 
   @Override
-  public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+  public Logger getParentLogger() throws SQLFeatureNotSupportedException
+  {
     return unpooledDataSource.getParentLogger();
   }
 

@@ -10,7 +10,7 @@ import org.junit.Test;
 /**
  * @author lts
  */
-class Task {
+class GroovyTask {
 
   /**
    * 测试查询
@@ -26,8 +26,15 @@ class Task {
    * 获取抽象类的真实参数名。
    */
   @Test
-  void realArgumentsName() {
-    println ""
+  void javaSourcePath() {
+    println System.getProperty("user.dir")
+    println UserMapper.classLoader.getResource("")
+    println System.getProperty("java.class.path")
+    println "--------------------------------------"
+    System.getProperties().each {
+      println it
+    }
+
   }
 
 }

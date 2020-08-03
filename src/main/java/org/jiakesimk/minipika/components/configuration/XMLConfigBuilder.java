@@ -39,7 +39,8 @@ import java.util.Objects;
  * @author tiansheng
  * @email jiakesiws@gmail.com
  */
-public class XMLConfigBuilder {
+public class XMLConfigBuilder
+{
 
   private ElementWrapper root;
 
@@ -47,49 +48,63 @@ public class XMLConfigBuilder {
 
   private XMLConfig config;
 
-  public XMLConfigBuilder() {
+  public XMLConfigBuilder()
+  {
+    this(null);
   }
 
-  public XMLConfigBuilder(String file) {
-    load(file);
+  public XMLConfigBuilder(String file)
+  {
+    if (file != null)
+    {
+      load(file);
+    }
   }
 
   /**
    * 根据输入流去加载配置
    */
-  public void load(InputStream in) {
+  public void load(InputStream in)
+  {
     parseRoot(in);
   }
 
   /**
    * 根据输入流去加载配置
    */
-  public void load(InputSource in) {
+  public void load(InputSource in)
+  {
     parseRoot(in);
   }
 
   /**
    * 根据输出流去加载配置
    */
-  public void load(String file) {
+  public void load(String file)
+  {
     parseRoot(file);
   }
 
-  private void parseRoot(Object object) {
-    try {
+  private void parseRoot(Object object)
+  {
+    try
+    {
       Document document = null;
       SAXBuilder builder = JDOMHelper.getSAXBuilder();
-      if (object instanceof String) {
+      if (object instanceof String)
+      {
         document = builder.build((String) object);
-      } else if (object instanceof InputStream) {
+      } else if (object instanceof InputStream)
+      {
         document = builder.build(new InputStreamReader((InputStream) object));
-      }
-      else if (object instanceof InputSource) {
+      } else if (object instanceof InputSource)
+      {
         document = builder.build((InputSource) object);
       }
       this.root = new ElementWrapper(document.getRootElement());
       initialize();
-    } catch (Exception e) {
+    } catch (Exception e)
+    {
       e.printStackTrace();
       log.error("Error xml file reading. Cause: " + e.getMessage());
     }
@@ -98,17 +113,20 @@ public class XMLConfigBuilder {
   /**
    * 初始化配置类
    */
-  public synchronized void initialize() {
+  public synchronized void initialize()
+  {
     XMLConfig XMLConfig = new XMLConfig();
     XMLConfig.parse(root);
     this.config = XMLConfig;
   }
 
-  public XMLConfig getConfig() {
+  public XMLConfig getConfig()
+  {
     return this.config;
   }
 
-  private String perfectPath(String path) {
+  private String perfectPath(String path)
+  {
     return Objects.requireNonNull(Threads.getCallerLoader().getResource(path)).toString();
   }
 
