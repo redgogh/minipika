@@ -5,29 +5,40 @@ package task;
  */
 
 import com.alibaba.fastjson.JSON
-import org.codehaus.groovy.control.CompilerConfiguration;
-import org.junit.Test;
+import org.codehaus.groovy.control.CompilerConfiguration
+import org.codehaus.groovy.tools.GroovyClass
+import org.jiakesimk.minipika.framework.factory.Factorys;
+import org.junit.Test
+
+import java.lang.reflect.Method;
 
 /**
  * @author lts
  */
 class GroovyTask {
 
+  UserMapper mapper = Factorys.forMapper(UserMapper)
+
   /**
+   * 132
    * 测试查询
    */
   @Test
   void task() {
-    UserMapper mapper = UserMapper.mapper;
-    System.out.println(JSON.toJSONString(mapper.findUser("update1")));
+    int start = System.currentTimeMillis()
+    System.out.println(JSON.toJSONString(mapper.findUser("update1")))
+    int end = System.currentTimeMillis()
+    println end - start
   }
 
   /**
+   * 24
    * 测试在编译不保存抽象类真实参数名的情况下应该如何
    * 获取抽象类的真实参数名。
    */
   @Test
   void javaSourcePath() {
+    int start = System.currentTimeMillis()
     println System.getProperty("user.dir")
     println UserMapper.classLoader.getResource("")
     println System.getProperty("java.class.path")
@@ -47,6 +58,30 @@ class GroovyTask {
         println p
       }
     }
+    int end = System.currentTimeMillis()
+    println end - start
+  }
+
+  /**
+   * 判断一个类是不是groovy class
+   */
+  @Test
+  void groovyString() {
+    Class clazz = UserMapper.class
+    println "a/${clazz.package.name}/b"
+  }
+
+  /**
+   * 16
+   * 测试获取方法参数名
+   */
+  @Test
+  void methods() {
+    int start = System.currentTimeMillis()
+    Method method = UserMapper.methods[0]
+    println Methods.getParameterNames(method)
+    int end = System.currentTimeMillis()
+    println end - start
   }
 
 }

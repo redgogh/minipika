@@ -7,8 +7,6 @@ import org.jiakesimk.minipika.framework.factory.Factorys
 
 interface UserMapper {
 
-  UserMapper mapper = Factorys.forMapper(this)
-
   @QueryOf("""
     select * from website_user_info where 1=1
     #IF NOT_EMPTY(username)
