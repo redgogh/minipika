@@ -38,7 +38,7 @@ public class DataSourceNode implements ElementParser {
 
   static final String MASTER = "master";
 
-  private List<SourceConfig> dataSourceNodes = Lists.newArrayList();
+  private final List<SourceConfig> dataSourceNodes = Lists.newArrayList();
 
   @Override
   public void parse(ElementWrapper element) {

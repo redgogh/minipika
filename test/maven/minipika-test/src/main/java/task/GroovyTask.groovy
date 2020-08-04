@@ -4,7 +4,8 @@ package task;
  * Creates on 2019/11/13.
  */
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSON
+import org.codehaus.groovy.control.CompilerConfiguration;
 import org.junit.Test;
 
 /**
@@ -34,7 +35,18 @@ class GroovyTask {
     System.getProperties().each {
       println it
     }
-
+    println "--------------------------------------"
+    ClassLoader classLoader = Thread.currentThread().getContextClassLoader()
+    CompilerConfiguration configuration = new CompilerConfiguration()
+    configuration.parameters = true
+    GroovyClassLoader loader = new GroovyClassLoader(classLoader, configuration)
+    Class clazz = loader.parseClass(new File("src/main/java/task/UserMapper.groovy"))
+    clazz.methods.each {
+      println it
+      it.parameters.each { p ->
+        println p
+      }
+    }
   }
 
 }
