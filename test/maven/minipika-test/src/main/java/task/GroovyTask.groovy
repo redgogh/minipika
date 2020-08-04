@@ -1,16 +1,16 @@
-package task;
+package task
+
+import com.alibaba.fastjson.JSON;
 
 /*
  * Creates on 2019/11/13.
  */
 
-import com.alibaba.fastjson.JSON
 import org.codehaus.groovy.control.CompilerConfiguration
-import org.codehaus.groovy.tools.GroovyClass
-import org.jiakesimk.minipika.framework.factory.Factorys;
+import org.jiakesimk.minipika.framework.factory.Factorys
 import org.junit.Test
 
-import java.lang.reflect.Method;
+import java.lang.reflect.Method
 
 /**
  * @author lts
