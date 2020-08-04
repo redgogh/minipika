@@ -26,6 +26,6 @@ package org.jiakesimk.minipika.framework.common;
  * @author lts
  * @email jiakesiws@gmail.com
  */
-public interface Closure<T> {
+public interface Callback<T> {
   T accept(T o);
 }

@@ -27,6 +27,10 @@ class GroovyTask {
   void task() {
     int start = System.currentTimeMillis()
     System.out.println(JSON.toJSONString(mapper.findUser("update1")))
+    System.out.println(JSON.toJSONString(mapper.findUser("name2")))
+    System.out.println(JSON.toJSONString(mapper.findUser("name3")))
+    System.out.println(JSON.toJSONString(mapper.findUser("name4")))
+    System.out.println(JSON.toJSONString(mapper.findUser("name5")))
     int end = System.currentTimeMillis()
     println end - start
   }

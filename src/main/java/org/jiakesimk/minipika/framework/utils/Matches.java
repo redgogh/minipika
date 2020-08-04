@@ -22,7 +22,7 @@ package org.jiakesimk.minipika.framework.utils;
  * Creates on 2020/6/18.
  */
 
-import org.jiakesimk.minipika.framework.common.Closure;
+import org.jiakesimk.minipika.framework.common.Callback;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -57,7 +57,7 @@ public class Matches {
    *                并实现{@link Consumer#accept}方法，进行处理
    * @return 匹配结果数组，如果没有匹配到结果则返回空数组(不是空对象)
    */
-  public static String[] find(String s, String r, Closure<String> closure) {
+  public static String[] find(String s, String r, Callback<String> closure) {
     Pattern par = Pattern.compile(r);
     Matcher matcher = par.matcher(s);
     List<String> groups = Lists.newArrayList();

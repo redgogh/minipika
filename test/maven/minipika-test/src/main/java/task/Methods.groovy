@@ -59,10 +59,7 @@ class Methods {
         Class declaringClass = method.declaringClass
         String[] ns = getMethodVariableName(declaringClass.name, method.getName())
         if (ns == null) {
-          ClassLoader classLoader = Thread.currentThread().getContextClassLoader()
-          CompilerConfiguration configuration = new CompilerConfiguration()
-          configuration.parameters = true
-          GroovyClassLoader loader = new GroovyClassLoader(classLoader, configuration)
+          GroovyClassLoader loader = ConstVariable.groovyClassLoader
           Class clazz = loader.parseClass(new File("src/main/java/${declaringClass.package.name}/${declaringClass.simpleName}.groovy"))
           Method newMethod = clazz.getDeclaredMethod(method.name, method.getParameterTypes())
           if (newMethod != null) {

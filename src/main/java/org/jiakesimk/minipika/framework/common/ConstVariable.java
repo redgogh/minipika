@@ -22,7 +22,9 @@ package org.jiakesimk.minipika.framework.common;
  * Creates on 2020/6/22.
  */
 
+import groovy.lang.GroovyClassLoader;
 import javassist.ClassPool;
+import org.codehaus.groovy.control.CompilerConfiguration;
 import org.jiakesimk.minipika.components.annotation.Batch;
 import org.jiakesimk.minipika.components.annotation.Insert;
 import org.jiakesimk.minipika.components.annotation.QueryOf;
@@ -36,13 +38,23 @@ import java.lang.annotation.Annotation;
  * @author tiansheng
  * @email jiakesiws@gmail.com
  */
-public interface ConstVariable {
+public class ConstVariable
+{
 
-  ClassPool CLASS_POOL                        = new ClassPool();
+  public static final ClassPool CLASS_POOL = new ClassPool();
+  public static final Class<? extends Annotation> A_BATCH = Batch.class;
+  public static final Class<? extends Annotation> A_UPDATE = Update.class;
+  public static final Class<? extends Annotation> A_INSERT = Insert.class;
+  public static final Class<? extends Annotation> A_QUERY_OF = QueryOf.class;
 
-  Class<? extends Annotation> A_BATCH         = Batch.class;
-  Class<? extends Annotation> A_UPDATE        = Update.class;
-  Class<? extends Annotation> A_INSERT        = Insert.class;
-  Class<? extends Annotation> A_QUERY_OF      = QueryOf.class;
+  /**
+   * groovy类加载器
+   */
+  public static final GroovyClassLoader groovyClassLoader = ((Callback<GroovyClassLoader>) o ->
+  {
+    CompilerConfiguration configuration = new CompilerConfiguration();
+    configuration.setParameters(true);
+    return new GroovyClassLoader(Thread.currentThread().getContextClassLoader(), configuration);
+  }).accept(null);
 
 }
