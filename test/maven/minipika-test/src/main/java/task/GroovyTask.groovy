@@ -25,13 +25,10 @@ class GroovyTask {
    */
   @Test
   void task() {
-    int start = System.currentTimeMillis()
-    System.out.println(JSON.toJSONString(mapper.findUser("update1")))
-    System.out.println(JSON.toJSONString(mapper.findUser("name2")))
-    System.out.println(JSON.toJSONString(mapper.findUser("name3")))
-    System.out.println(JSON.toJSONString(mapper.findUser("name4")))
-    System.out.println(JSON.toJSONString(mapper.findUser("name5")))
-    int end = System.currentTimeMillis()
+    long start = System.currentTimeMillis()
+    System.out.println(JSON.toJSONString(mapper.findUser("key1")))
+    System.out.println(JSON.toJSONString(mapper.findUserList("name3")))
+    long end = System.currentTimeMillis()
     println end - start
   }
 
@@ -42,7 +39,7 @@ class GroovyTask {
    */
   @Test
   void javaSourcePath() {
-    int start = System.currentTimeMillis()
+    long start = System.currentTimeMillis()
     println System.getProperty("user.dir")
     println UserMapper.classLoader.getResource("")
     println System.getProperty("java.class.path")
@@ -62,7 +59,7 @@ class GroovyTask {
         println p
       }
     }
-    int end = System.currentTimeMillis()
+    long end = System.currentTimeMillis()
     println end - start
   }
 
@@ -81,10 +78,10 @@ class GroovyTask {
    */
   @Test
   void methods() {
-    int start = System.currentTimeMillis()
+    long start = System.currentTimeMillis()
     Method method = UserMapper.methods[0]
     println Methods.getParameterNames(method)
-    int end = System.currentTimeMillis()
+    long end = System.currentTimeMillis()
     println end - start
   }
 

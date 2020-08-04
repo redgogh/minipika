@@ -22,6 +22,7 @@ package org.jiakesimk.minipika.framework.factory;
  * Creates on 2020/6/1.
  */
 
+import org.jiakesimk.minipika.components.mql.Configuration;
 import org.jiakesimk.minipika.framework.utils.ClassUtils;
 import org.jiakesimk.minipika.framework.utils.Maps;
 
@@ -32,7 +33,8 @@ import java.util.Map;
  * @email jiakesiws@gmail.com
  */
 @SuppressWarnings("unchecked")
-public class ComponentContainer implements ComponentFactory {
+public class ComponentContainer implements ComponentFactory
+{
 
   /**
    * 组件容器
@@ -41,51 +43,63 @@ public class ComponentContainer implements ComponentFactory {
 
   static final ComponentFactory factory = new ComponentContainer();
 
-  private ComponentContainer() {
+  private ComponentContainer()
+  {
   }
 
   @Override
-  public <T> T forClass(Class<?> clazz) {
-     return forClass(clazz, null);
+  public <T> T forClass(Class<?> clazz)
+  {
+    return forClass(clazz, null);
   }
 
   @Override
-  public <T> T forClass(Class<?> clazz, Class<?>[] types, Object... parameter) {
-    try {
+  public <T> T forClass(Class<?> clazz, Class<?>[] types, Object... parameter)
+  {
+    try
+    {
       Object component = null;
       String className = clazz.getName();
 
       component = components.get(className);
 
-      if (component instanceof Class) {
+      if (component instanceof Class)
+      {
         component = InjectUtils.autowired((Class<?>) component);
       }
 
       if (component != null) return (T) component;
 
 
-      if (ClassUtils.isInterface(clazz)) {
+      if (ClassUtils.isInterface(clazz))
+      {
         // 如果是接口的话那么就查找匹配接口类型的类
         component = findMatchesClassType(clazz);
-        if (component != null) {
+        if (component != null)
+        {
           return (T) component;
         }
       }
 
 
-        // 判断是否执行有参构造器
-      if (types == null) {
+      // 判断是否执行有参构造器
+      if (types == null)
+      {
         component = InjectUtils.autowired(clazz);
-      } else {
+      } else
+      {
         component = InjectUtils.autowired(clazz, types, parameter);
       }
 
-      // 如果当前实例化出来的组件不是null, 就添加到组件容器中
-      if (component != null) {
+      // 如果当前实例化出来的组件不是null并且不是方法的配置信息的话, 就添加到组件容器中
+      if (component != null && !(component instanceof Configuration))
+      {
         components.put(className, component);
       }
+
       return (T) component;
-    } catch (IllegalAccessException e) {
+    } catch (IllegalAccessException e)
+    {
       e.printStackTrace();
       return null;
     }
@@ -97,12 +111,17 @@ public class ComponentContainer implements ComponentFactory {
    * @param IFACE 接口对象
    * @return 对应的实现类
    */
-  private static Object findMatchesClassType(Class<?> IFACE) {
-    for (Object value : components.values()) {
+  private static Object findMatchesClassType(Class<?> IFACE)
+  {
+    for (Object value : components.values())
+    {
       Class<?>[] interfaces = value.getClass().getInterfaces();
-      if (interfaces.length != 0) {
-        for (Class<?> IFACES : interfaces) {
-          if (IFACE == IFACES) {
+      if (interfaces.length != 0)
+      {
+        for (Class<?> IFACES : interfaces)
+        {
+          if (IFACE == IFACES)
+          {
             return value;
           }
         }
@@ -112,22 +131,26 @@ public class ComponentContainer implements ComponentFactory {
   }
 
   @Override
-  public void reloading(String key, Object object) {
+  public void reloading(String key, Object object)
+  {
     checkingComponent(object);
     components.put(key, object);
   }
 
-  public static Map<String, Object> getComponents() {
+  public static Map<String, Object> getComponents()
+  {
     return components;
   }
 
   @Override
-  public void registerObjectToComponentFactory(String key, Object object) {
+  public void registerObjectToComponentFactory(String key, Object object)
+  {
     components.put(key, object);
   }
 
   @Override
-  public void removeObjectFromComponentFactory(String key) {
+  public void removeObjectFromComponentFactory(String key)
+  {
     components.remove(key);
   }
 
