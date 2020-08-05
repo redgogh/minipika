@@ -32,6 +32,24 @@ class GroovyTask {
     println end - start
   }
 
+  @Test
+  void initMapper() {
+    long start = System.currentTimeMillis()
+    UserMapper userMapper = Factorys.forMapper(UserMapper) // 计算第一次初始化耗时
+    long end = System.currentTimeMillis()
+    println end - start
+
+    start = System.currentTimeMillis()
+    PhoneMapper phoneMapper = Factorys.forMapper(PhoneMapper) // 计算第二次初始化耗时
+    end = System.currentTimeMillis()
+    println end - start
+
+    start = System.currentTimeMillis()
+    MemberMapper memberMapper = Factorys.forMapper(MemberMapper) // 计算第三次初始化耗时
+    end = System.currentTimeMillis()
+    println end - start
+  }
+
   /**
    * 24
    * 测试在编译不保存抽象类真实参数名的情况下应该如何
@@ -83,6 +101,11 @@ class GroovyTask {
     println Methods.getParameterNames(method)
     long end = System.currentTimeMillis()
     println end - start
+  }
+
+  @Test
+  void thisPlus() {
+    println getClass().getName() + "@" + Integer.toHexString(hashCode())
   }
 
 }

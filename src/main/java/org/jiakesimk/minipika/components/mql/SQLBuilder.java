@@ -37,7 +37,8 @@ import java.util.Objects;
  * @author tiansheng
  * @email jiakesiws@gmail.com
  */
-public class SQLBuilder extends Invoker {
+public class SQLBuilder extends Invoker
+{
 
   private final String classname;
 
@@ -64,9 +65,10 @@ public class SQLBuilder extends Invoker {
   //
   // 构建方法的StringBuilder, 最后会将它设置为null
   //
-  private static StringBuilder builder = new StringBuilder();
+  private StringBuilder builder = new StringBuilder();
 
-  public SQLBuilder(String classname) {
+  public SQLBuilder(String classname)
+  {
     int lastIndexOf = classname.lastIndexOf(".");
     mtClass.append("package ").append(classname, 0, lastIndexOf).append(";");
     mtClass.append("import java.lang.*;");
@@ -86,7 +88,8 @@ public class SQLBuilder extends Invoker {
    * @param method 方法名
    * @param src    动态sql
    */
-  protected void createMethod(Method method, String src) {
+  protected void createMethod(Method method, String src)
+  {
     buildHead(method, src);
     builder.append("Object[] objects = new Object[2];");
     builder.append("objects[0] = sql.toString();");
@@ -103,7 +106,8 @@ public class SQLBuilder extends Invoker {
    * @param method 方法元数据对象
    * @param src    动态sql
    */
-  private void buildHead(Method method, String src) {
+  private void buildHead(Method method, String src)
+  {
     StringUtils.clear(builder);
     String methodName = method.getName(); // 方法名
     String[] paramNames = Objects.requireNonNull(Methods.getParameterNames(method),
@@ -111,11 +115,13 @@ public class SQLBuilder extends Invoker {
     Class<?>[] paramTypes = method.getParameterTypes();
     // 创建方法声明
     builder.append("public Object[] ").append(methodName).append("(");
-    for (int i = 0; i < paramNames.length; i++) {
+    for (int i = 0; i < paramNames.length; i++)
+    {
       builder.append(paramTypes[i].getName()).append(" ").append(paramNames[i]);
       builder.append(",");
     }
-    if (',' == (builder.charAt(builder.length() - 1))) {
+    if (',' == (builder.charAt(builder.length() - 1)))
+    {
       builder.delete(builder.length() - 1, builder.length());
     }
     builder.delete(builder.length(), builder.length()).append("){"); // 方法头部声明结尾
@@ -128,32 +134,39 @@ public class SQLBuilder extends Invoker {
    *
    * @param src 动态sql
    */
-  private void buildBody(String src) {
+  private void buildBody(String src)
+  {
     _buildHead();
     String[] single = src.split("\n");
-    for (String line : single) {
+    for (String line : single)
+    {
       line = line.trim();
 
-      if (line.contains(IF)) {
+      if (line.contains(IF))
+      {
         _if(line);
         continue;
       }
 
-      if (line.contains(FOREACH)) {
+      if (line.contains(FOREACH))
+      {
         _foreach(line);
         continue;
       }
 
-      if (line.contains(END)) {
+      if (line.contains(END))
+      {
         _end();
         continue;
       }
 
       {
         line = _check(line);
-        if (foreach) {
+        if (foreach)
+        {
           _eachContent(line);
-        } else {
+        } else
+        {
           _sqlparse(line);
         }
       }
@@ -163,7 +176,8 @@ public class SQLBuilder extends Invoker {
   /**
    * 构建方法所需的成员
    */
-  private void _buildHead() {
+  private void _buildHead()
+  {
     builder.append("StringBuilder sql = new StringBuilder();");
     builder.append("List arguments = new LinkedList();");
   }
@@ -171,7 +185,8 @@ public class SQLBuilder extends Invoker {
   /**
    * 构建if语句
    */
-  private void _if(String line) {
+  private void _if(String line)
+  {
     line = line.replace(IF, "").trim();
     line = "".concat("if(").concat(parseIfStatement(line)).concat("){");
     builder.append(line);
@@ -180,7 +195,8 @@ public class SQLBuilder extends Invoker {
   /**
    * 构建foreach语句
    */
-  private void _foreach(String line) {
+  private void _foreach(String line)
+  {
     line = line.replace(FOREACH, "for(Object").concat("").concat("){");
     builder.append(line);
     foreach = true;
@@ -189,12 +205,15 @@ public class SQLBuilder extends Invoker {
   /**
    * 构建foreach内容
    */
-  private void _eachContent(String line) {
+  private void _eachContent(String line)
+  {
     String[] arguments = existArguments(line);
-    if (arguments != null && arguments.length != 0) {
+    if (arguments != null && arguments.length != 0)
+    {
       builder.append("Object[] singleArgs = new Object[").append(arguments.length).append("];");
       int i = 0;
-      for (String argument : arguments) {
+      for (String argument : arguments)
+      {
         builder.append("singleArgs[").append(i).append("] = ").append(argument).append(";");
         i++;
       }
@@ -205,8 +224,10 @@ public class SQLBuilder extends Invoker {
   /**
    * 结束
    */
-  private void _end() {
-    if (foreach) {
+  private void _end()
+  {
+    if (foreach)
+    {
       foreach = false;
     }
     builder.append("}");
@@ -215,9 +236,11 @@ public class SQLBuilder extends Invoker {
   /**
    * 参数检查
    */
-  private String _check(String line) {
+  private String _check(String line)
+  {
     // 如果参数存在逗号需要特殊处理
-    if (line.contains(",")) {
+    if (line.contains(","))
+    {
       line = line.replaceAll(",", ", ");
     }
     return line;
@@ -226,14 +249,18 @@ public class SQLBuilder extends Invoker {
   /**
    * sql解析
    */
-  private void _sqlparse(String line) {
+  private void _sqlparse(String line)
+  {
     String sql = line.replaceAll("#\\{(.*?)}", "?").trim();
-    if (!"?".equals(sql)) {
+    if (!"?".equals(sql))
+    {
       sqlAppend(sql);
     }
     String[] arguments = existArguments(line);
-    if (arguments != null && arguments.length != 0) {
-      for (String argument : arguments) {
+    if (arguments != null && arguments.length != 0)
+    {
+      for (String argument : arguments)
+      {
         argsAppend(argument);
       }
     }
@@ -244,17 +271,21 @@ public class SQLBuilder extends Invoker {
    *
    * @param input if语句块
    */
-  private String parseIfStatement(String input) {
+  private String parseIfStatement(String input)
+  {
     input = input.concat(" ");
     char[] charArray = input.toCharArray();
     StringBuilder builder = new StringBuilder();
     StringBuilder temp = new StringBuilder();
-    for (char ch : charArray) {
+    for (char ch : charArray)
+    {
       if (('a' <= ch && 'z' >= ch) ||
               ('A' <= ch && 'Z' >= ch) ||
-              (ch == '_' || ch == '$' || ch == '.')) {
+              (ch == '_' || ch == '$' || ch == '.'))
+      {
         temp.append(ch);
-      } else {
+      } else
+      {
         String content = invokeToAddGet(temp.toString());
         builder.append(content);
         builder.append(ch);
@@ -270,20 +301,27 @@ public class SQLBuilder extends Invoker {
    * @param input 判断当前字符是不是方法或者是对象
    * @return 处理过后的字符串
    */
-  private String invokeToAddGet(String input) {
-    if (IS_EQUALS_EMPTY.equals(input)) {
+  private String invokeToAddGet(String input)
+  {
+    if (IS_EQUALS_EMPTY.equals(input))
+    {
       return "AgentStringUtils.isEmpty";
     }
-    if (IS_NOT_EMPTY.equals(input)) {
+    if (IS_NOT_EMPTY.equals(input))
+    {
       return "AgentStringUtils.isNotEmpty";
     }
-    if (input.contains(".")) {
+    if (input.contains("."))
+    {
       String[] idens = input.split("\\.");
       String objectName = idens[0];
-      for (int j = 1; j < idens.length; j++) {
-        if (j > 1) {
+      for (int j = 1; j < idens.length; j++)
+      {
+        if (j > 1)
+        {
           input = getFieldValue(input, idens[j]);
-        } else {
+        } else
+        {
           input = getFieldValue(objectName, idens[j]);
         }
       }
@@ -298,7 +336,8 @@ public class SQLBuilder extends Invoker {
    * @param name   获取name属性的值
    * @return code
    */
-  private String getFieldValue(String object, String name) {
+  private String getFieldValue(String object, String name)
+  {
     return "Fields.getValue(".concat(object).concat(",\"").concat(name).concat("\")");
   }
 
@@ -307,7 +346,8 @@ public class SQLBuilder extends Invoker {
    *
    * @param sql SQL语句字符串
    */
-  private void sqlAppend(String sql) {
+  private void sqlAppend(String sql)
+  {
     builder.append("sql.append(\"").append(sql).append(" ").append("\");");
   }
 
@@ -316,7 +356,8 @@ public class SQLBuilder extends Invoker {
    *
    * @param argument 参数对象
    */
-  private void argsAppend(String argument) {
+  private void argsAppend(String argument)
+  {
     builder.append("arguments.add(").append(argument).append(");");
   }
 
@@ -326,11 +367,15 @@ public class SQLBuilder extends Invoker {
    * @param input 传入类似"#{xxx}"这样的字符串, 截取出xxx
    * @return 截取到的参数名称
    */
-  private String[] existArguments(String input) {
-    if (StringUtils.isNotEmpty(input)) {
-      return Matches.find(input, "#\\{(.*?)}\\S*", value -> {
+  private String[] existArguments(String input)
+  {
+    if (StringUtils.isNotEmpty(input))
+    {
+      return Matches.find(input, "#\\{(.*?)}\\S*", value ->
+      {
         value = value.replaceAll("#", "");
-        if (value.contains(".")) {
+        if (value.contains("."))
+        {
           value = invokeToAddGet(value);
         }
         return value;
@@ -342,8 +387,10 @@ public class SQLBuilder extends Invoker {
   /**
    * 构建结束
    */
-  protected void buildEnd() {
-    if (LOG.isDebugEnabled()) {
+  protected void buildEnd()
+  {
+    if (LOG.isDebugEnabled())
+    {
       LOG.debug(mtClass.toString());
     }
     Class<?> clazz = Objects.requireNonNull(JavaCompiler.compile(classname, mtClass.toString()));

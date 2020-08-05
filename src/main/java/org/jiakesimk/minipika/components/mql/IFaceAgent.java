@@ -46,7 +46,8 @@ import java.util.Map;
  * @email jiakesiws@gmail.com
  */
 @SuppressWarnings("unchecked")
-public class FaceAgent<T> extends SQLBuilder implements InvocationHandler {
+public class IFaceAgent<T> extends SQLBuilder implements InvocationHandler
+{
 
   private final Class<?> virtual;
 
@@ -55,11 +56,12 @@ public class FaceAgent<T> extends SQLBuilder implements InvocationHandler {
 
   private final Map<String, Configuration> configurations = Maps.newConcurrentHashMap();
 
-  private static final Log LOG = LogFactory.getLog(FaceAgent.class);
+  private static final Log LOG = LogFactory.getLog(IFaceAgent.class);
 
   private static final String MQL_PROXY_CLASSNAME = "org.jiakesimk.minipika.components.proxy.$";
 
-  public FaceAgent(Class<T> virtual) {
+  public IFaceAgent(Class<T> virtual)
+  {
     super(MQL_PROXY_CLASSNAME.concat(virtual.getSimpleName()));
     this.virtual = virtual;
     initialization();
@@ -69,51 +71,64 @@ public class FaceAgent<T> extends SQLBuilder implements InvocationHandler {
   /**
    * 初始化
    */
-  private void initialization() {
+  private void initialization()
+  {
     Method[] methods = virtual.getDeclaredMethods();
-    for (Method method : methods) {
-      if (method.isAnnotationPresent(ConstVariable.A_UPDATE)) {
+    for (Method method : methods)
+    {
+      if (method.isAnnotationPresent(ConstVariable.A_UPDATE))
+      {
         Update update = (Update) method.getDeclaredAnnotation(ConstVariable.A_UPDATE);
         createMethod(method, update.value());
       }
-      if (method.isAnnotationPresent(ConstVariable.A_INSERT)) {
+      if (method.isAnnotationPresent(ConstVariable.A_INSERT))
+      {
         Insert insert = (Insert) method.getDeclaredAnnotation(ConstVariable.A_INSERT);
         createMethod(method, insert.value());
       }
-      if (method.isAnnotationPresent(ConstVariable.A_QUERY_OF)) {
+      if (method.isAnnotationPresent(ConstVariable.A_QUERY_OF))
+      {
         QueryOf queryOf = (QueryOf) method.getDeclaredAnnotation(ConstVariable.A_QUERY_OF);
         createMethod(method, queryOf.value());
       }
-      if (method.isAnnotationPresent(ConstVariable.A_INSERT)) {
+      if (method.isAnnotationPresent(ConstVariable.A_INSERT))
+      {
         Batch batch = (Batch) method.getDeclaredAnnotation(ConstVariable.A_INSERT);
         createMethod(method, batch.value());
       }
     }
   }
 
-  public T bind() {
+  public T bind()
+  {
     return (T) Proxy.newProxyInstance(this.getClass().getClassLoader(),
             new Class[]{virtual}, this);
   }
 
   @Override
-  public Object invoke(Object proxy, Method method, Object[] args) throws Exception {
+  public Object invoke(Object proxy, Method method, Object[] args) throws Exception
+  {
     String name = method.getName();
-    if (!"toString".equals(name)) {
+    if (!"toString".equals(name))
+    {
       Configuration configuration;
       Object[] objects = invoke(method, args);
       String key = UniqueId.genKey(name, method.getParameters());
-      if (configurations.containsKey(key)) {
+      if (configurations.containsKey(key))
+      {
         configuration = configurations.get(key);
-      } else {
+      } else
+      {
         configuration = Factorys.forClass(Configuration.class,
                 new Class[]{Method.class, Object.class}, method, instance);
         configuration.setConfigurationId(key);
         configurations.put(key, configuration);
       }
       return configuration.execute((String) objects[0], Arrays.toArray(objects[1]));
+    } else
+    {
+      return getClass().getName() + "@" + Integer.toHexString(hashCode());
     }
-    return method.invoke(proxy, method, args);
   }
 
 }
