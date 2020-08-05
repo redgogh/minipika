@@ -4,7 +4,6 @@ import org.jiakesimk.minipika.components.annotation.Batch;
 import org.jiakesimk.minipika.components.annotation.Insert;
 import org.jiakesimk.minipika.components.annotation.QueryOf;
 import org.jiakesimk.minipika.components.annotation.Update;
-import org.jiakesimk.minipika.components.cache.Cache;
 import org.jiakesimk.minipika.components.jdbc.Executor;
 import org.jiakesimk.minipika.components.logging.Log;
 import org.jiakesimk.minipika.components.logging.LogFactory;
@@ -14,10 +13,8 @@ import org.jiakesimk.minipika.framework.factory.Factorys;
 import org.jiakesimk.minipika.framework.utils.*;
 
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.List;
 import java.util.Map;
 
 /* ************************************************************************
@@ -49,7 +46,7 @@ import java.util.Map;
  * @email jiakesiws@gmail.com
  */
 @SuppressWarnings("unchecked")
-public class MqlCallback<T> extends BaseBuilder implements InvocationHandler {
+public class FaceAgent<T> extends SQLBuilder implements InvocationHandler {
 
   private final Class<?> virtual;
 
@@ -58,11 +55,11 @@ public class MqlCallback<T> extends BaseBuilder implements InvocationHandler {
 
   private final Map<String, Configuration> configurations = Maps.newConcurrentHashMap();
 
-  private static final Log LOG = LogFactory.getLog(MqlCallback.class);
+  private static final Log LOG = LogFactory.getLog(FaceAgent.class);
 
   private static final String MQL_PROXY_CLASSNAME = "org.jiakesimk.minipika.components.proxy.$";
 
-  public MqlCallback(Class<T> virtual) {
+  public FaceAgent(Class<T> virtual) {
     super(MQL_PROXY_CLASSNAME.concat(virtual.getSimpleName()));
     this.virtual = virtual;
     initialization();

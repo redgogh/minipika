@@ -22,7 +22,7 @@ package org.jiakesimk.minipika.framework.factory;
  * Creates on 2020/6/2.
  */
 
-import org.jiakesimk.minipika.components.mql.MqlCallback;
+import org.jiakesimk.minipika.components.mql.FaceAgent;
 import org.jiakesimk.minipika.framework.context.ContextManager;
 
 /**
@@ -48,7 +48,7 @@ public class Factorys {
     String name = clazz.getName();
     T iface = (T) ComponentContainer.components.get(name);
     if (iface == null) {
-      MqlCallback<T> callback = Factorys.forClass(MqlCallback.class,
+      FaceAgent<T> callback = Factorys.forClass(FaceAgent.class,
               new Class[]{Class.class}, clazz);
       iface = callback.bind();
       ComponentContainer.components.put(name, iface);

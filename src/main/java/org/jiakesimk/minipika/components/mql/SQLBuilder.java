@@ -37,13 +37,13 @@ import java.util.Objects;
  * @author tiansheng
  * @email jiakesiws@gmail.com
  */
-public class BaseBuilder extends Invoker {
+public class SQLBuilder extends Invoker {
 
   private final String classname;
 
   private final StringBuilder mtClass = new StringBuilder();
 
-  private static final Log LOG = LogFactory.getLog(BaseBuilder.class);
+  private static final Log LOG = LogFactory.getLog(SQLBuilder.class);
 
   private static final String IF = "#IF";
 
@@ -66,7 +66,7 @@ public class BaseBuilder extends Invoker {
   //
   private static StringBuilder builder = new StringBuilder();
 
-  public BaseBuilder(String classname) {
+  public SQLBuilder(String classname) {
     int lastIndexOf = classname.lastIndexOf(".");
     mtClass.append("package ").append(classname, 0, lastIndexOf).append(";");
     mtClass.append("import java.lang.*;");

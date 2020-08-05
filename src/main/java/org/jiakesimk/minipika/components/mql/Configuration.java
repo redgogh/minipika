@@ -80,6 +80,7 @@ public class Configuration {
    * 唯一有参构造器
    *
    * @param method 调用方法
+   * @see FaceAgent#invoke(Object, Method, Object[])
    */
   public Configuration(Method method, Object instance) throws NoSuchMethodException, ClassNotFoundException {
     this.method = method;
