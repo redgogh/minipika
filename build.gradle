@@ -92,7 +92,6 @@ install {
     }
   }
 }
-
 dependencies {
   implementation "org.jdom:jdom2:$jom2Version"
   implementation "org.slf4j:slf4j-api:$slf4jVersion"
@@ -109,12 +108,13 @@ dependencies {
   testImplementation "mysql:mysql-connector-java:$mysqlConnectVersion"
 }
 
-tasks.withType(GroovyCompile) {
-  groovyOptions.setEncoding "UTF-8"
-  groovyOptions.setParameters true
-}
-
 tasks.withType(JavaCompile) {
   options.encoding = "UTF-8"
-  options.compilerArgs << "-parameters"
+  options.compilerArgs << "-parameters" << "-Xlint:unchecked"
 }
+
+tasks.withType(GroovyCompile) {
+  groovyOptions.encoding = "UTF-8"
+  groovyOptions.parameters = true
+}
+
