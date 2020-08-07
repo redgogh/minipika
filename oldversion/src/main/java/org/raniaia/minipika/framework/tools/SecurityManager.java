@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.tools;
+package org.jiakesiws.minipika.framework.tools;
 
 /* ************************************************************************
  *
@@ -22,7 +22,7 @@ package org.jiakesimk.minipika.framework.tools;
  * Creates on 2019/11/27.
  */
 
-import org.jiakesimk.minipika.framework.provide.entity.Entity;
+import org.jiakesiws.minipika.framework.provide.entity.Entity;
 
 /**
  * 检查一些类是否遵守标准

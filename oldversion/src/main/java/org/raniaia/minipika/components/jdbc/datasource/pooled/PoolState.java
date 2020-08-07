@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.jdbc.datasource.pooled;
+package org.jiakesiws.minipika.components.jdbc.datasource.pooled;
 
 /*
  * Copyright (C) 2020 2B键盘 All rights reserved.
@@ -21,7 +21,7 @@ package org.jiakesimk.minipika.components.jdbc.datasource.pooled;
  */
 
 
-import org.jiakesimk.minipika.framework.tools.Lists;
+import org.jiakesiws.minipika.framework.tools.Lists;
 
 import java.util.List;
 

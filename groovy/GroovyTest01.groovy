@@ -1,6 +1,6 @@
 package groovy
 
-import org.jiakesimk.minipika.framework.util.Maps
+import org.jiakesiws.minipika.framework.util.Maps
 
 class GroovyTest01 {
 

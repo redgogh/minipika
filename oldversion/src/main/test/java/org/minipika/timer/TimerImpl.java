@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.timer;
+package org.jiakesiws.minipika.timer;
 
 /* ************************************************************************
  *
@@ -20,7 +20,7 @@ package org.jiakesimk.minipika.timer;
 
 
 
-import org.jiakesimk.minipika.framework.timer.Timer;
+import org.jiakesiws.minipika.framework.timer.Timer;
 
 /**
  * Copyright: Create by 2B键盘 on 2019/12/6 21:53

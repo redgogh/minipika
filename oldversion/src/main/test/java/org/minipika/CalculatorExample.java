@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika;
+package org.jiakesiws.minipika;
 
 /* ************************************************************************
  *
@@ -20,7 +20,7 @@ package org.jiakesimk.minipika;
 
 
 
-import org.jiakesimk.minipika.framework.tools.Calculator;
+import org.jiakesiws.minipika.framework.tools.Calculator;
 
 /**
  * Copyright: Create by 2B键盘 on 2019/12/7 21:35

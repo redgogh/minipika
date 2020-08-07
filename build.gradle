@@ -20,7 +20,7 @@
  * Creates on 2020/7/18.
  */
 
-import org.jiakesimk.minipika.gradle.maven.MavenBuilder
+import org.jiakesiws.minipika.gradle.maven.MavenBuilder
 
 plugins {
   id 'java'
@@ -32,7 +32,7 @@ apply plugin: 'maven'
 apply plugin: "groovy"
 apply plugin: "maven-publish"
 
-group = "org.jiakesimk"
+group = "org.jiakesiws"
 version = "v1"
 sourceCompatibility = "11"
 

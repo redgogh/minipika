@@ -28,10 +28,10 @@ minipika: {
     entity.prefix = kkb
 
     // ģ�����ڵİ�
-    entity.package = ["org.jiakesimk.minipika.experiment"]
+    entity.package = ["org.jiakesiws.minipika.experiment"]
     
     // mapper��̬sql�ļ����ڵ�·��
-    entity.mapper = ["org.jiakesimk.minipika.builder"]
+    entity.mapper = ["org.jiakesiws.minipika.builder"]
 
     // ����norm.json�ļ�·��
     entity.norm = norm.json

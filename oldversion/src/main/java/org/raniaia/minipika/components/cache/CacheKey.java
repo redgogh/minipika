@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.cache;
+package org.jiakesiws.minipika.components.cache;
 
 /* ************************************************************************
  *
@@ -24,7 +24,7 @@ package org.jiakesimk.minipika.components.cache;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.jiakesimk.minipika.components.jdbc.NativeJdbc;
+import org.jiakesiws.minipika.components.jdbc.NativeJdbc;
 
 import java.util.List;
 

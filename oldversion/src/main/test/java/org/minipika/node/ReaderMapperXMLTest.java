@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.node;
+package org.jiakesiws.minipika.node;
 
 /* ************************************************************************
  *
@@ -21,8 +21,8 @@ package org.jiakesimk.minipika.node;
 
 
 import org.junit.Test;
-import org.jiakesimk.minipika.framework.sql.xml.node.XMLMapperNode;
-import org.jiakesimk.minipika.framework.sql.xml.parser.ReaderMapperXML;
+import org.jiakesiws.minipika.framework.sql.xml.node.XMLMapperNode;
+import org.jiakesiws.minipika.framework.sql.xml.parser.ReaderMapperXML;
 
 import java.util.List;
 

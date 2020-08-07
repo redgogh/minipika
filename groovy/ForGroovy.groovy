@@ -1,6 +1,6 @@
 package groovy
 
-import org.jiakesimk.minipika.components.mql.MqlCallback
+import org.jiakesiws.minipika.components.mql.MqlCallback
 import org.junit.Test
 
 class ForGroovy {

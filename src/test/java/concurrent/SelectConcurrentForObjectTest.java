@@ -6,8 +6,8 @@ package concurrent;
 
 import entity.User;
 import mapper.UserMapper;
-import org.jiakesimk.minipika.framework.thread.ThreadFactory;
-import org.jiakesimk.minipika.framework.thread.Threads;
+import org.jiakesiws.minipika.framework.thread.ThreadFactory;
+import org.jiakesiws.minipika.framework.thread.Threads;
 
 /**
  * @author lts

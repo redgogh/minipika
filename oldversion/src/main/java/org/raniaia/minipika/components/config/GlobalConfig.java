@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.config;
+package org.jiakesiws.minipika.components.config;
 
 /* ************************************************************************
  *
@@ -23,14 +23,14 @@ package org.jiakesimk.minipika.components.config;
  */
 
 
-import org.jiakesimk.minipika.BeansManager;
-import org.jiakesimk.minipika.components.config.components.AppCfg;
-import org.jiakesimk.minipika.components.config.components.JapConfig;
-import org.jiakesimk.minipika.components.config.components.PropertiesConfig;
-import org.jiakesimk.minipika.components.entity.core.mysql.EntityLoaderImpl;
-import org.jiakesimk.minipika.framework.exception.ConfigException;
-import org.jiakesimk.minipika.components.entity.EntityLoader;
-import org.jiakesimk.minipika.framework.provide.component.Component;
+import org.jiakesiws.minipika.BeansManager;
+import org.jiakesiws.minipika.components.config.components.AppCfg;
+import org.jiakesiws.minipika.components.config.components.JapConfig;
+import org.jiakesiws.minipika.components.config.components.PropertiesConfig;
+import org.jiakesiws.minipika.components.entity.core.mysql.EntityLoaderImpl;
+import org.jiakesiws.minipika.framework.exception.ConfigException;
+import org.jiakesiws.minipika.components.entity.EntityLoader;
+import org.jiakesiws.minipika.framework.provide.component.Component;
 
 /**
  * 统一配置调用

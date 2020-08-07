@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.tools;
+package org.jiakesiws.minipika.tools;
 
 /* ************************************************************************
  *
@@ -22,7 +22,7 @@ package org.jiakesimk.minipika.tools;
 
 import lombok.Setter;
 import org.junit.Test;
-import org.jiakesimk.minipika.framework.tools.ReflectUtils;
+import org.jiakesiws.minipika.framework.tools.ReflectUtils;
 
 /**
  * Copyright: Create by 2B键盘 on 2019/12/20 11:55

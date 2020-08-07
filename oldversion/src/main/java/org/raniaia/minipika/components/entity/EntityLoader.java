@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.entity;
+package org.jiakesiws.minipika.components.entity;
 
 /* ************************************************************************
  *
@@ -32,7 +32,7 @@ public interface EntityLoader {
 
     /**
      * execute entity scanner, and process entity bytecode
-     * add supper class {@link org.jiakesimk.minipika.components.entity.publics.AbstractEntity}.
+     * add supper class {@link org.jiakesiws.minipika.components.entity.publics.AbstractEntity}.
      */
     void run();
 

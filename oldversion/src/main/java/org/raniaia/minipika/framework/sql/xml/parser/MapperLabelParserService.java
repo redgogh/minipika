@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.sql.xml.parser;
+package org.jiakesiws.minipika.framework.sql.xml.parser;
 
 /* ************************************************************************
  *
@@ -24,7 +24,7 @@ package org.jiakesimk.minipika.framework.sql.xml.parser;
 
 import org.jdom2.Content;
 import org.jdom2.Element;
-import org.jiakesimk.minipika.framework.sql.xml.node.XMLNode;
+import org.jiakesiws.minipika.framework.sql.xml.node.XMLNode;
 
 /**
  * 解析XML

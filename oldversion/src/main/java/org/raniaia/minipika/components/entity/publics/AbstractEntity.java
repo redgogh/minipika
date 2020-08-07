@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.entity.publics;
+package org.jiakesiws.minipika.components.entity.publics;
 
 /* ************************************************************************
  *

@@ -1,6 +1,6 @@
 package groovy
 
-import org.jiakesimk.minipika.framework.factory.Factorys
+import org.jiakesiws.minipika.framework.factory.Factorys
 import org.junit.Test
 
 class MqlMapperTest {

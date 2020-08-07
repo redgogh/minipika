@@ -22,7 +22,7 @@ package framework;
  * Creates on 2020/6/1.
  */
 
-import org.jiakesimk.minipika.components.configuration.XMLConfigBuilder;
+import org.jiakesiws.minipika.components.configuration.XMLConfigBuilder;
 import org.xml.sax.InputSource;
 
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika;
+package org.jiakesiws.minipika;
 
 /* ************************************************************************
  *
@@ -19,7 +19,7 @@ package org.jiakesimk.minipika;
  * ************************************************************************/
 
 
-import org.jiakesimk.minipika.framework.provide.SQL;
+import org.jiakesiws.minipika.framework.provide.SQL;
 
 /**
  * Copyright by 2B键盘 on 2020/2/29 23:48

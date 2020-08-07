@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.sql;
+package org.jiakesiws.minipika.framework.sql;
 
 /* ************************************************************************
  *
@@ -22,11 +22,11 @@ package org.jiakesimk.minipika.framework.sql;
  * Creates on 2019/12/23.
  */
 
-import org.jiakesimk.minipika.BeansManager;
-import org.jiakesimk.minipika.framework.container.PrecompileContainer;
-import org.jiakesimk.minipika.framework.provide.Minipika;
-import org.jiakesimk.minipika.framework.sql.xml.build.PrecompiledClass;
-import org.jiakesimk.minipika.framework.sql.xml.build.PrecompiledMethod;
+import org.jiakesiws.minipika.BeansManager;
+import org.jiakesiws.minipika.framework.container.PrecompileContainer;
+import org.jiakesiws.minipika.framework.provide.Minipika;
+import org.jiakesiws.minipika.framework.sql.xml.build.PrecompiledClass;
+import org.jiakesiws.minipika.framework.sql.xml.build.PrecompiledMethod;
 
 import java.util.*;
 

@@ -1,15 +1,15 @@
-gcc -Wall -shared -I "$JAVA_HOME/include/" -I "$JAVA_HOME/include/win32" org_jiakesimk_minipika_framework_util_Objects.c -o objects.dll
+gcc -Wall -shared -I "$JAVA_HOME/include/" -I "$JAVA_HOME/include/win32" org_jiakesiws_minipika_framework_util_Objects.c -o objects.dll
 
-gcc /I"$JAVA_HOME/include/" /I"$JAVA_HOME/include/win32" org_jiakesimk_minipika_framework_util_Objects.c -shared -o o.dll 
+gcc /I"$JAVA_HOME/include/" /I"$JAVA_HOME/include/win32" org_jiakesiws_minipika_framework_util_Objects.c -shared -o o.dll
 
 gcc TestNative.cpp -I"${JAVA_HOME}/include" -I"${JAVA_HOME}/include/linux" -fPIC -shared -o testnative.so
 
 C:/Users/Administrator/.jdks/azul-11.0.7/include/win32
 
-gcc -c org_jiakesimk_minipika_framework_util_Objects.c -I "C:/Users/Administrator/.jdks/azul-11.0.7/include/"  -I "C:/Users/Administrator/.jdks/azul-11.0.7/include/win32" -o o.dll
+gcc -c org_jiakesiws_minipika_framework_util_Objects.c -I "C:/Users/Administrator/.jdks/azul-11.0.7/include/"  -I "C:/Users/Administrator/.jdks/azul-11.0.7/include/win32" -o o.dll
 
-gcc -c org_jiakesimk_minipika_framework_util_Objects.c -I "C:/Users/Administrator/.jdks/azul-11.0.7/include/"  -I "C:/Users/Administrator/.jdks/azul-11.0.7/include/win32" -o C:/U
+gcc -c org_jiakesiws_minipika_framework_util_Objects.c -I "C:/Users/Administrator/.jdks/azul-11.0.7/include/"  -I "C:/Users/Administrator/.jdks/azul-11.0.7/include/win32" -o C:/U
 sers/Administrator/.jdks/azul-11.0.7/bin/o.dll
 
-gcc -c org_jiakesimk_minipika_framework_util_Objects.c -I "E:/develop/jdk/JDK_11/jdk-11.0.2/include/"  -I "E:/develop/jdk/JDK_11/jdk-11.0.2/include/win32" -o o.dll
+gcc -c org_jiakesiws_minipika_framework_util_Objects.c -I "E:/develop/jdk/JDK_11/jdk-11.0.2/include/"  -I "E:/develop/jdk/JDK_11/jdk-11.0.2/include/win32" -o o.dll
 

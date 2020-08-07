@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.groovy.ast
+package org.jiakesiws.minipika.groovy.ast
 
 import org.codehaus.groovy.ast.ASTNode
 import org.codehaus.groovy.control.CompilePhase

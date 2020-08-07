@@ -2,7 +2,7 @@ Jiakesimk Minipika
 Copyright 2020-200 The 2B键盘 author
 
 This software product release at
-The JiakesiMk Open Source Organization(https://github.com/jiakesimk).
+The JiakesiMk Open Source Organization(https://github.com/jiakesiws).
 
 This product bundles groovy from the apache(http://www.apache.org/).
 And modify AsmClassGenerator class in Groovy.
@@ -15,6 +15,6 @@ NOTICE:
 
 (2 New release version conspicuous place the statement source release version.
 
-(3 Create notice and statement (https://github.com/jiakesimk) in New release version.
+(3 Create notice and statement (https://github.com/jiakesiws) in New release version.
 
 PS: If you are interested this project, you can send email to jiakesiws@foxmail.com join us.

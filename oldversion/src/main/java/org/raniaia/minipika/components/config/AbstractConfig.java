@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.config;
+package org.jiakesiws.minipika.components.config;
 
 /* ************************************************************************
  *
@@ -27,14 +27,14 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 
 
-import org.jiakesimk.minipika.components.jdbc.datasource.unpooled.Dsi;
-import org.jiakesimk.minipika.framework.config.Cfg;
-import org.jiakesimk.minipika.framework.exception.ConfigException;
-import org.jiakesimk.minipika.framework.jap.JapLoader;
-import org.jiakesimk.minipika.framework.tools.Calculator;
-import org.jiakesimk.minipika.framework.tools.Files;
-import org.jiakesimk.minipika.framework.tools.StringUtils;
-import org.jiakesimk.minipika.framework.tools.DateUtils;
+import org.jiakesiws.minipika.components.jdbc.datasource.unpooled.Dsi;
+import org.jiakesiws.minipika.framework.config.Cfg;
+import org.jiakesiws.minipika.framework.exception.ConfigException;
+import org.jiakesiws.minipika.framework.jap.JapLoader;
+import org.jiakesiws.minipika.framework.tools.Calculator;
+import org.jiakesiws.minipika.framework.tools.Files;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.framework.tools.DateUtils;
 
 import java.util.Map;
 import java.util.Properties;

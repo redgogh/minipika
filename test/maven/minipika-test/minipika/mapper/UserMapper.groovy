@@ -1,11 +1,11 @@
 package com.minipika.mapper
 
 import com.minipika.entity.User
-import org.jiakesimk.minipika.components.annotation.Batch
-import org.jiakesimk.minipika.components.annotation.Mapper
-import org.jiakesimk.minipika.components.annotation.QueryOf
-import org.jiakesimk.minipika.components.annotation.Update
-import org.jiakesimk.minipika.framework.factory.Factorys
+import org.jiakesiws.minipika.components.annotation.Batch
+import org.jiakesiws.minipika.components.annotation.Mapper
+import org.jiakesiws.minipika.components.annotation.QueryOf
+import org.jiakesiws.minipika.components.annotation.Update
+import org.jiakesiws.minipika.framework.factory.Factorys
 
 @Mapper
 interface UserMapper {

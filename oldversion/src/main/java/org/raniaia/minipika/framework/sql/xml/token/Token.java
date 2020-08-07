@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.sql.xml.token;
+package org.jiakesiws.minipika.framework.sql.xml.token;
 
 /* ************************************************************************
  *

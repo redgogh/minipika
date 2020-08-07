@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.db;
+package org.jiakesiws.minipika.db;
 
 /* ************************************************************************
  *

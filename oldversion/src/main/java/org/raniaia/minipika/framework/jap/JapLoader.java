@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.jap;
+package org.jiakesiws.minipika.framework.jap;
 
 /* ************************************************************************
  *
@@ -23,11 +23,11 @@ package org.jiakesimk.minipika.framework.jap;
  */
 
 
-import org.jiakesimk.minipika.components.config.GlobalConfig;
-import org.jiakesimk.minipika.framework.exception.ConfigException;
-import org.jiakesimk.minipika.framework.tools.Files;
-import org.jiakesimk.minipika.framework.tools.MinipikaIOUtils;
-import org.jiakesimk.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.components.config.GlobalConfig;
+import org.jiakesiws.minipika.framework.exception.ConfigException;
+import org.jiakesiws.minipika.framework.tools.Files;
+import org.jiakesiws.minipika.framework.tools.MinipikaIOUtils;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.io.FileInputStream;
 import java.util.*;

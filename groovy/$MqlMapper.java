@@ -1,12 +1,12 @@
-package org.jiakesimk.minipika.components.proxy;
+package org.jiakesiws.minipika.components.proxy;
 
 import java.lang.*;
 import java.util.*;
 import java.lang.*;
 import java.math.*;
 
-import org.jiakesimk.minipika.framework.utils.*;
-import org.jiakesimk.minipika.framework.utils.agent.*;
+import org.jiakesiws.minipika.framework.utils.*;
+import org.jiakesiws.minipika.framework.utils.agent.*;
 
 @SuppressWarnings("unchecked")
 public class $UserMapper {

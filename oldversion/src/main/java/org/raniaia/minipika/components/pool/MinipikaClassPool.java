@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.pool;
+package org.jiakesiws.minipika.components.pool;
 
 /* ************************************************************************
  *
@@ -23,7 +23,7 @@ package org.jiakesimk.minipika.components.pool;
  */
 
 import javassist.*;
-import org.jiakesimk.minipika.framework.provide.component.Component;
+import org.jiakesiws.minipika.framework.provide.component.Component;
 
 import java.io.File;
 import java.net.URL;

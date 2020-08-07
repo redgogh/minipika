@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.logging.stdlog;
+package org.jiakesiws.minipika.components.logging.stdlog;
 
 /* ************************************************************************
  *
@@ -22,7 +22,7 @@ package org.jiakesimk.minipika.components.logging.stdlog;
  * Creates on 2020/3/27.
  */
 
-import org.jiakesimk.minipika.components.logging.Log;
+import org.jiakesiws.minipika.components.logging.Log;
 
 /**
  * @author 2B键盘

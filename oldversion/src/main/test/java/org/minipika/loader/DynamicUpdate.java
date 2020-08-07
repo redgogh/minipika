@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.loader;
+package org.jiakesiws.minipika.loader;
 
 /* ************************************************************************
  *
@@ -24,7 +24,7 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
 import javassist.CtNewMethod;
-import org.jiakesimk.minipika.framework.loader.NativeClassLoader;
+import org.jiakesiws.minipika.framework.loader.NativeClassLoader;
 
 /**
  * Copyright: Create by 2B键盘 on 2019/12/19 10:24

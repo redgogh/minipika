@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.config;
+package org.jiakesiws.minipika.framework.config;
 
 /* ************************************************************************
  *
@@ -22,7 +22,7 @@ package org.jiakesimk.minipika.framework.config;
  * Creates on 2020/4/2.
  */
 
-import org.jiakesimk.minipika.framework.tools.*;
+import org.jiakesiws.minipika.framework.tools.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;

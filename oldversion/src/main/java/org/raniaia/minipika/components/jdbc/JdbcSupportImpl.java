@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.jdbc;
+package org.jiakesiws.minipika.components.jdbc;
 
 /* ************************************************************************
  *
@@ -22,21 +22,21 @@ package org.jiakesimk.minipika.components.jdbc;
  * Creates on 2020/03/24.
  */
 
-import org.jiakesimk.minipika.components.jdbc.transaction.TransactionFactory;
-import org.jiakesimk.minipika.components.logging.Log;
-import org.jiakesimk.minipika.components.logging.LogFactory;
-import org.jiakesimk.minipika.framework.exception.MinipikaException;
-import org.jiakesimk.minipika.framework.provide.ProvideVar;
-import org.jiakesimk.minipika.framework.provide.Minipika;
-import org.jiakesimk.minipika.components.config.GlobalConfig;
-import org.jiakesimk.minipika.components.entity.publics.AbstractEntity;
-import org.jiakesimk.minipika.framework.provide.component.Component;
-import org.jiakesimk.minipika.framework.tools.SecurityManager;
-import org.jiakesimk.minipika.components.entity.publics.Metadata;
-import org.jiakesimk.minipika.components.entity.database.ColumnEntity;
-import org.jiakesimk.minipika.framework.tools.JdbcUtils;
-import org.jiakesimk.minipika.framework.tools.EntityUtils;
-import org.jiakesimk.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.components.jdbc.transaction.TransactionFactory;
+import org.jiakesiws.minipika.components.logging.Log;
+import org.jiakesiws.minipika.components.logging.LogFactory;
+import org.jiakesiws.minipika.framework.exception.MinipikaException;
+import org.jiakesiws.minipika.framework.provide.ProvideVar;
+import org.jiakesiws.minipika.framework.provide.Minipika;
+import org.jiakesiws.minipika.components.config.GlobalConfig;
+import org.jiakesiws.minipika.components.entity.publics.AbstractEntity;
+import org.jiakesiws.minipika.framework.provide.component.Component;
+import org.jiakesiws.minipika.framework.tools.SecurityManager;
+import org.jiakesiws.minipika.components.entity.publics.Metadata;
+import org.jiakesiws.minipika.components.entity.database.ColumnEntity;
+import org.jiakesiws.minipika.framework.tools.JdbcUtils;
+import org.jiakesiws.minipika.framework.tools.EntityUtils;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

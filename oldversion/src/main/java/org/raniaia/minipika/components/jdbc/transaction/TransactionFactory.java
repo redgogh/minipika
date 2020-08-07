@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.jdbc.transaction;
+package org.jiakesiws.minipika.components.jdbc.transaction;
 
 /* ************************************************************************
  *
@@ -22,7 +22,7 @@ package org.jiakesimk.minipika.components.jdbc.transaction;
  * Creates on 2020/3/26.
  */
 
-import org.jiakesimk.minipika.components.jdbc.NativeJdbcImpl;
+import org.jiakesiws.minipika.components.jdbc.NativeJdbcImpl;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

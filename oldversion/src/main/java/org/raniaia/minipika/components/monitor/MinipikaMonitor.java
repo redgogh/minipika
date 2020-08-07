@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.monitor;
+package org.jiakesiws.minipika.components.monitor;
 
 /* ************************************************************************
  *
@@ -23,7 +23,7 @@ package org.jiakesimk.minipika.components.monitor;
  */
 
 
-import org.jiakesimk.minipika.framework.sql.SqlExecute;
+import org.jiakesiws.minipika.framework.sql.SqlExecute;
 
 /**
  *

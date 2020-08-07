@@ -24,10 +24,10 @@ package components.jdbc;
 
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
-import org.jiakesimk.minipika.components.jdbc.NativeResultSet;
-import org.jiakesimk.minipika.components.jdbc.NativeJdbc;
-import org.jiakesimk.minipika.components.configuration.XMLConfigBuilder;
-import org.jiakesimk.minipika.framework.factory.Factorys;
+import org.jiakesiws.minipika.components.jdbc.NativeResultSet;
+import org.jiakesiws.minipika.components.jdbc.NativeJdbc;
+import org.jiakesiws.minipika.components.configuration.XMLConfigBuilder;
+import org.jiakesiws.minipika.framework.factory.Factorys;
 
 import java.sql.SQLException;
 

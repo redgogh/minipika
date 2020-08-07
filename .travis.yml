@@ -23,7 +23,7 @@
 language: java
 
 install:
-  - git clone https://github.com/jiakesimk/minipika.git
+  - git clone https://github.com/jiakesiws/minipika.git
 
 matrix:
   include:

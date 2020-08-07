@@ -25,9 +25,9 @@ package org.complete;
 import com.alibaba.fastjson.JSONObject;
 import org.complete.entity.User;
 import org.complete.mapper.UserMapper;
-import org.jiakesimk.minipika.BeansManager;
-import org.jiakesimk.minipika.components.config.ConfigLoader;
-import org.jiakesimk.minipika.framework.provide.Minipika;
+import org.jiakesiws.minipika.BeansManager;
+import org.jiakesiws.minipika.components.config.ConfigLoader;
+import org.jiakesiws.minipika.framework.provide.Minipika;
 
 /**
  * @author 2B键盘

@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.gradle.maven
+package org.jiakesiws.minipika.gradle.maven
 
 import groovy.xml.QName
 

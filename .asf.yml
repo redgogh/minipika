@@ -22,7 +22,7 @@
 
 github:
   description: "Jiakesimk Minipika: 一个基于Groovy的轻量级的对象映射框架"
-  homtpage: https://github.com/jiakesimk/minipika
+  homtpage: https://github.com/jiakesiws/minipika
   labels:
     - minipika
     - orm

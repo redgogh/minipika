@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.groovy.ast;
+package org.jiakesiws.minipika.groovy.ast;
 
 /* ************************************************************************
  *
@@ -36,7 +36,7 @@ import java.lang.annotation.Target
 @Documented
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.TYPE)
-@GroovyASTTransformationClass("org.jiakesimk.minipika.groovy.ast.GroovyAstProcess")
+@GroovyASTTransformationClass("org.jiakesiws.minipika.groovy.ast.GroovyAstProcess")
 @interface Mapper {
 
 }

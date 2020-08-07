@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.entity.core.mysql;
+package org.jiakesiws.minipika.components.entity.core.mysql;
 
 /* ************************************************************************
  *
@@ -22,13 +22,13 @@ package org.jiakesimk.minipika.components.entity.core.mysql;
  * Creates on 2019/11/12.
  */
 
-import org.jiakesimk.minipika.framework.provide.component.Component;
-import org.jiakesimk.minipika.framework.provide.entity.*;
-import org.jiakesimk.minipika.framework.exception.MinipikaException;
-import org.jiakesimk.minipika.components.entity.EntityParser;
-import org.jiakesimk.minipika.components.entity.publics.Metadata;
-import org.jiakesimk.minipika.framework.tools.EntityUtils;
-import org.jiakesimk.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.framework.provide.component.Component;
+import org.jiakesiws.minipika.framework.provide.entity.*;
+import org.jiakesiws.minipika.framework.exception.MinipikaException;
+import org.jiakesiws.minipika.components.entity.EntityParser;
+import org.jiakesiws.minipika.components.entity.publics.Metadata;
+import org.jiakesiws.minipika.framework.tools.EntityUtils;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.lang.reflect.Field;
 import java.util.LinkedHashMap;

@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.service;
+package org.jiakesiws.minipika.service;
 
 /* ************************************************************************
  *
@@ -21,7 +21,7 @@ package org.jiakesimk.minipika.service;
 
 
 
-import org.jiakesimk.minipika.BeansManager;
+import org.jiakesiws.minipika.BeansManager;
 
 /**
  * @author 2B键盘

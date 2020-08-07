@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.tools;
+package org.jiakesiws.minipika.framework.tools;
 
 /* ************************************************************************
  *
@@ -120,7 +120,7 @@ public final class Lists {
     }
 
     public static <T> List<T> asList(Object objects) {
-        if(!org.jiakesimk.minipika.framework.tools.Arrays.isArray(objects)) return null;
+        if(!org.jiakesiws.minipika.framework.tools.Arrays.isArray(objects)) return null;
         return (List<T>) Arrays.asList(objects);
     }
 

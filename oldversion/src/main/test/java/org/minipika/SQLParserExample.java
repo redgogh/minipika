@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika;
+package org.jiakesiws.minipika;
 
 /* ************************************************************************
  *
@@ -21,7 +21,7 @@ package org.jiakesimk.minipika;
 
 
 import net.sf.jsqlparser.JSQLParserException;
-import org.jiakesimk.minipika.framework.tools.SQLUtils;
+import org.jiakesiws.minipika.framework.tools.SQLUtils;
 
 /**
  * Copyright: Create by 2B键盘 on 2019/12/6 16:02

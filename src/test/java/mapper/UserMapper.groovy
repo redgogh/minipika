@@ -1,8 +1,8 @@
 package mapper
 
 import entity.User
-import org.jiakesimk.minipika.components.annotation.*
-import org.jiakesimk.minipika.framework.factory.Factorys
+import org.jiakesiws.minipika.components.annotation.*
+import org.jiakesiws.minipika.framework.factory.Factorys
 
 interface UserMapper {
 

@@ -34,7 +34,7 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.jiakesimk</groupId>
+      <groupId>org.jiakesiws</groupId>
       <artifactId>minipika</artifactId>
       <version>v1</version>
     </dependency>

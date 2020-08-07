@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika;
+package org.jiakesiws.minipika;
 
 /* ************************************************************************
  *
@@ -22,10 +22,10 @@ package org.jiakesimk.minipika;
  * Creates on 2020/3/21.
  */
 
-import org.jiakesimk.minipika.components.MyComponents;
-import org.jiakesimk.minipika.components.jdbc.NativeResult;
-import org.jiakesimk.minipika.components.jdbc.NativeResultMysql;
-import org.jiakesimk.minipika.framework.sql.SqlMapper;
+import org.jiakesiws.minipika.components.MyComponents;
+import org.jiakesiws.minipika.components.jdbc.NativeResult;
+import org.jiakesiws.minipika.components.jdbc.NativeResultMysql;
+import org.jiakesiws.minipika.framework.sql.SqlMapper;
 
 /**
  * Bean container management object, all beans will be created

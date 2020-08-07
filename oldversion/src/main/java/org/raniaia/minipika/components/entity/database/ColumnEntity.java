@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.entity.database;
+package org.jiakesiws.minipika.components.entity.database;
 
 /* ************************************************************************
  *

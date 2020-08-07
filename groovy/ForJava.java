@@ -23,9 +23,9 @@ package groovy;
  */
 
 import groovy.lang.Closure;
-import org.jiakesimk.minipika.components.mql.MqlCallback;
-import org.jiakesimk.minipika.framework.utils.ArrayUtils;
-import org.jiakesimk.minipika.framework.utils.Lists;
+import org.jiakesiws.minipika.components.mql.MqlCallback;
+import org.jiakesiws.minipika.framework.utils.ArrayUtils;
+import org.jiakesiws.minipika.framework.utils.Lists;
 import org.junit.Test;
 
 import java.lang.reflect.Method;

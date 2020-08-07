@@ -24,10 +24,10 @@ package org.complete.entity;
  * Creates on 2020/3/23 23:16
  */
 
-import org.jiakesimk.minipika.framework.provide.entity.Column;
-import org.jiakesimk.minipika.framework.provide.entity.Comment;
-import org.jiakesimk.minipika.framework.provide.entity.Entity;
-import org.jiakesimk.minipika.framework.provide.entity.PK;
+import org.jiakesiws.minipika.framework.provide.entity.Column;
+import org.jiakesiws.minipika.framework.provide.entity.Comment;
+import org.jiakesiws.minipika.framework.provide.entity.Entity;
+import org.jiakesiws.minipika.framework.provide.entity.PK;
 
 /**
  * @author 2B键盘

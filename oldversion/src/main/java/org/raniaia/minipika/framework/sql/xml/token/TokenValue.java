@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.sql.xml.token;
+package org.jiakesiws.minipika.framework.sql.xml.token;
 
 /* ************************************************************************
  *
@@ -23,8 +23,8 @@ package org.jiakesimk.minipika.framework.sql.xml.token;
  */
 
 import lombok.Data;
-import org.jiakesimk.minipika.framework.provide.ProvideVar;
-import org.jiakesimk.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.framework.provide.ProvideVar;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 /**
  * @author 2B键盘

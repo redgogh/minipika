@@ -1,8 +1,8 @@
 package entity
 
 import com.alibaba.fastjson.JSONObject
-import org.jiakesimk.minipika.framework.factory.Factorys
-import org.jiakesimk.minipika.framework.utils.Arrays
+import org.jiakesiws.minipika.framework.factory.Factorys
+import org.jiakesiws.minipika.framework.utils.Arrays
 import org.junit.Test
 
 class KtTest {

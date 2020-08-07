@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.jdbc;
+package org.jiakesiws.minipika.components.jdbc;
 
 /* ************************************************************************
  *
@@ -22,7 +22,7 @@ package org.jiakesimk.minipika.components.jdbc;
  * Creates on 2019/11/11.
  */
 
-import org.jiakesimk.minipika.components.entity.database.ColumnEntity;
+import org.jiakesiws.minipika.components.entity.database.ColumnEntity;
 
 import java.util.List;
 import java.util.Set;

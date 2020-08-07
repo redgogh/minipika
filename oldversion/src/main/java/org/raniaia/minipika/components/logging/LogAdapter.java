@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.logging;
+package org.jiakesiws.minipika.components.logging;
 
 /* ************************************************************************
  *

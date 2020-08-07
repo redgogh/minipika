@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.entity.publics;
+package org.jiakesiws.minipika.components.entity.publics;
 
 /* ************************************************************************
  *
@@ -22,11 +22,11 @@ package org.jiakesimk.minipika.components.entity.publics;
  * Creates on 2019/11/12.
  */
 
-import org.jiakesimk.minipika.framework.provide.entity.Engine;
-import org.jiakesimk.minipika.framework.provide.entity.Entity;
-import org.jiakesimk.minipika.framework.tools.SecurityManager;
-import org.jiakesimk.minipika.components.entity.database.ColumnEntity;
-import org.jiakesimk.minipika.framework.tools.EntityUtils;
+import org.jiakesiws.minipika.framework.provide.entity.Engine;
+import org.jiakesiws.minipika.framework.provide.entity.Entity;
+import org.jiakesiws.minipika.framework.tools.SecurityManager;
+import org.jiakesiws.minipika.components.entity.database.ColumnEntity;
+import org.jiakesiws.minipika.framework.tools.EntityUtils;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.node;
+package org.jiakesiws.minipika.node;
 
 /* ************************************************************************
  *
@@ -21,8 +21,8 @@ package org.jiakesimk.minipika.node;
 
 
 import org.junit.Test;
-import org.jiakesimk.minipika.framework.sql.xml.build.ParserMapperNode;
-import org.jiakesimk.minipika.framework.sql.xml.build.PrecompiledClass;
+import org.jiakesiws.minipika.framework.sql.xml.build.ParserMapperNode;
+import org.jiakesiws.minipika.framework.sql.xml.build.PrecompiledClass;
 
 import java.util.Map;
 

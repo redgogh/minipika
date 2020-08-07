@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSON;
  */
 
 import org.codehaus.groovy.control.CompilerConfiguration
-import org.jiakesimk.minipika.framework.factory.Factorys
+import org.jiakesiws.minipika.framework.factory.Factorys
 import org.junit.Test
 
 import java.lang.reflect.Method

@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.jdbc.datasource.unpooled;
+package org.jiakesiws.minipika.components.jdbc.datasource.unpooled;
 
 /* ************************************************************************
  *
@@ -25,9 +25,9 @@ package org.jiakesimk.minipika.components.jdbc.datasource.unpooled;
 import lombok.Getter;
 import lombok.Setter;
 
-import org.jiakesimk.minipika.framework.loader.NativeClassLoader;
-import org.jiakesimk.minipika.framework.tools.Maps;
-import org.jiakesimk.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.framework.loader.NativeClassLoader;
+import org.jiakesiws.minipika.framework.tools.Maps;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.sql.Driver;
 import java.util.Map;

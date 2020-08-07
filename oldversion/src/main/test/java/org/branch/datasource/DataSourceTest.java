@@ -23,10 +23,10 @@ package org.branch.datasource;
  */
 
 import org.junit.Test;
-import org.jiakesimk.minipika.components.jdbc.datasource.pooled.PooledConnection;
-import org.jiakesimk.minipika.components.jdbc.datasource.pooled.PooledDataSource;
-import org.jiakesimk.minipika.components.jdbc.datasource.unpooled.Dsi;
-import org.jiakesimk.minipika.components.jdbc.datasource.unpooled.UnpooledDatasource;
+import org.jiakesiws.minipika.components.jdbc.datasource.pooled.PooledConnection;
+import org.jiakesiws.minipika.components.jdbc.datasource.pooled.PooledDataSource;
+import org.jiakesiws.minipika.components.jdbc.datasource.unpooled.Dsi;
+import org.jiakesiws.minipika.components.jdbc.datasource.unpooled.UnpooledDatasource;
 
 import java.sql.Connection;
 import java.sql.SQLException;

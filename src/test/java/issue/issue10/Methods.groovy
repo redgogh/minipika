@@ -5,10 +5,10 @@ import javassist.bytecode.CodeAttribute
 import javassist.bytecode.LocalVariableAttribute
 import javassist.bytecode.MethodInfo
 import org.codehaus.groovy.control.CompilerConfiguration
-import org.jiakesimk.minipika.framework.common.ConstVariable
-import org.jiakesimk.minipika.framework.exception.MinipikaException
-import org.jiakesimk.minipika.framework.thread.Threads
-import org.jiakesimk.minipika.framework.utils.Lists
+import org.jiakesiws.minipika.framework.common.ConstVariable
+import org.jiakesiws.minipika.framework.exception.MinipikaException
+import org.jiakesiws.minipika.framework.thread.Threads
+import org.jiakesiws.minipika.framework.utils.Lists
 
 import java.lang.reflect.Method
 import java.lang.reflect.Parameter

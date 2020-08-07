@@ -23,7 +23,7 @@ package org.branch.datasource;
  */
 
 import org.junit.Test;
-import org.jiakesimk.minipika.framework.loader.NativeClassLoader;
+import org.jiakesiws.minipika.framework.loader.NativeClassLoader;
 
 /**
  * @author 2B键盘

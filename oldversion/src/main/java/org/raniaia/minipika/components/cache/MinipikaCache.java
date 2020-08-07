@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.cache;
+package org.jiakesiws.minipika.components.cache;
 
 /* ************************************************************************
  *
@@ -22,7 +22,7 @@ package org.jiakesimk.minipika.components.cache;
  * Creates on 2019/12/9.
  */
 
-import org.jiakesimk.minipika.components.jdbc.NativeResult;
+import org.jiakesiws.minipika.components.jdbc.NativeResult;
 
 /**
  * 缓存接口.

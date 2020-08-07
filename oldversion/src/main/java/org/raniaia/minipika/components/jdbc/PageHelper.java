@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.jdbc;
+package org.jiakesiws.minipika.components.jdbc;
 
 /* ************************************************************************
  *

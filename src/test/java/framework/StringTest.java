@@ -29,7 +29,7 @@ package framework;
 public class StringTest {
 
   public static void main(String[] args) {
-    String aname = "org.jiakesimk.minipika.components.annotation.Batch";
+    String aname = "org.jiakesiws.minipika.components.annotation.Batch";
     System.out.println(aname.substring(0, aname.lastIndexOf(".")));
   }
 

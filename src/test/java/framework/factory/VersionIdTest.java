@@ -23,7 +23,7 @@ package framework.factory;
  */
 
 import org.junit.Test;
-import org.jiakesimk.minipika.framework.factory.VersionId;
+import org.jiakesiws.minipika.framework.factory.VersionId;
 
 /**
  * @author 2B键盘

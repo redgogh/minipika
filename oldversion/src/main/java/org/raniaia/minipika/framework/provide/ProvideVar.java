@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.provide;
+package org.jiakesiws.minipika.framework.provide;
 
 /* ************************************************************************
  *
@@ -23,8 +23,8 @@ package org.jiakesimk.minipika.framework.provide;
  */
 
 import com.alibaba.fastjson.JSONObject;
-import org.jiakesimk.minipika.components.config.GlobalConfig;
-import org.jiakesimk.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.components.config.GlobalConfig;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.util.Date;
 import java.util.List;

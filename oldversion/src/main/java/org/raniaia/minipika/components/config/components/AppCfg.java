@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.config.components;
+package org.jiakesiws.minipika.components.config.components;
 
 /* ************************************************************************
  *
@@ -23,8 +23,8 @@ package org.jiakesimk.minipika.components.config.components;
  */
 
 import lombok.SneakyThrows;
-import org.jiakesimk.minipika.components.config.AbstractConfig;
-import org.jiakesimk.minipika.framework.config.Cfg;
+import org.jiakesiws.minipika.components.config.AbstractConfig;
+import org.jiakesiws.minipika.framework.config.Cfg;
 
 
 import java.io.IOException;

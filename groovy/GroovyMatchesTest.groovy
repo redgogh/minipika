@@ -1,6 +1,6 @@
 package groovy
 
-import org.jiakesimk.minipika.framework.util.Matches
+import org.jiakesiws.minipika.framework.util.Matches
 import org.junit.Test
 
 /* ************************************************************************

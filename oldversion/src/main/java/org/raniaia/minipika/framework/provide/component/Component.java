@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.provide.component;
+package org.jiakesiws.minipika.framework.provide.component;
 
 /* ************************************************************************
  *
@@ -39,14 +39,14 @@ public @interface Component {
     /**
      * component type.
      *
-     * @see org.jiakesimk.minipika.AbstractContainer#loadComponents
+     * @see org.jiakesiws.minipika.AbstractContainer#loadComponents
      */
     ComponentType type() default ComponentType.DEFAULT;
 
     /**
      * component name.
      * 
-     * @see org.jiakesimk.minipika.AbstractContainer#loadComponents
+     * @see org.jiakesiws.minipika.AbstractContainer#loadComponents
      */
     String name() default "";
 

@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.exception;
+package org.jiakesiws.minipika.framework.exception;
 
 /* ************************************************************************
  *

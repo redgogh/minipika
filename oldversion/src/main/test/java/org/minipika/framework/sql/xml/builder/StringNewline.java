@@ -22,8 +22,8 @@ package framework.sql.xml.builder;
  * Creates on 2019/12/11 23:16
  */
 
-import org.jiakesimk.minipika.framework.tools.Arrays;
-import org.jiakesimk.minipika.framework.tools.LineBuilder;
+import org.jiakesiws.minipika.framework.tools.Arrays;
+import org.jiakesiws.minipika.framework.tools.LineBuilder;
 
 import java.io.Serializable;
 

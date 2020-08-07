@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.jdbc.transaction;
+package org.jiakesiws.minipika.components.jdbc.transaction;
 
 /* ************************************************************************
  *

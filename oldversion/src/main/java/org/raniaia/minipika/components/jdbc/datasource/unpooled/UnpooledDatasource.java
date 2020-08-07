@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.jdbc.datasource.unpooled;
+package org.jiakesiws.minipika.components.jdbc.datasource.unpooled;
 
 /* ************************************************************************
  *

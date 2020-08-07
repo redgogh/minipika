@@ -35,14 +35,14 @@ private String email;
 ```properties
 
 # entity所在的包
-minipika.entity.package[0] = org.jiakesimk.minipika.experiment
-minipika.entity.package[1] = org.jiakesimk.minipika.experiment
-minipika.entity.package[2] = org.jiakesimk.minipika.experiment
-minipika.entity.package[3] = org.jiakesimk.minipika.experiment
+minipika.entity.package[0] = org.jiakesiws.minipika.experiment
+minipika.entity.package[1] = org.jiakesiws.minipika.experiment
+minipika.entity.package[2] = org.jiakesiws.minipika.experiment
+minipika.entity.package[3] = org.jiakesiws.minipika.experiment
 # builder xml模板文件所在的路径
-minipika.entity.mapper[0] = org.jiakesimk.minipika.builder
-minipika.entity.mapper[1] = org.jiakesimk.minipika.builder
-minipika.entity.mapper[2] = org.jiakesimk.minipika.builder
-minipika.entity.mapper[3] = org.jiakesimk.minipika.builder
+minipika.entity.mapper[0] = org.jiakesiws.minipika.builder
+minipika.entity.mapper[1] = org.jiakesiws.minipika.builder
+minipika.entity.mapper[2] = org.jiakesiws.minipika.builder
+minipika.entity.mapper[3] = org.jiakesiws.minipika.builder
 
 ```

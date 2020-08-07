@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.modules;
+package org.jiakesiws.minipika.modules;
 
 /* ************************************************************************
  *
@@ -45,8 +45,8 @@ package org.jiakesimk.minipika.modules;
  */
 
 
-import org.jiakesimk.minipika.BeansManager;
-import org.jiakesimk.minipika.components.entity.EntityParser;
+import org.jiakesiws.minipika.BeansManager;
+import org.jiakesiws.minipika.components.entity.EntityParser;
 
 /**
  * @author 2B键盘

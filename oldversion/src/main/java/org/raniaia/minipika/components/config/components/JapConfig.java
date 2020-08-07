@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.config.components;
+package org.jiakesiws.minipika.components.config.components;
 
 /* ************************************************************************
  *
@@ -22,8 +22,8 @@ package org.jiakesimk.minipika.components.config.components;
  * Creates on 2020/2/13.
  */
 
-import org.jiakesimk.minipika.components.config.AbstractConfig;
-import org.jiakesimk.minipika.framework.jap.JapLoader;
+import org.jiakesiws.minipika.components.config.AbstractConfig;
+import org.jiakesiws.minipika.framework.jap.JapLoader;
 
 import java.util.Map;
 

@@ -25,8 +25,8 @@ import MqlMapper;
  */
 
 import javassist.NotFoundException
-import org.jiakesimk.minipika.framework.util.Arrays
-import org.jiakesimk.minipika.framework.util.Methods
+import org.jiakesiws.minipika.framework.util.Arrays
+import org.jiakesiws.minipika.framework.util.Methods
 import org.junit.Test
 
 /**

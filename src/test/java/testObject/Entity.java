@@ -22,7 +22,7 @@ package testObject;
  * Creates on 2020/6/1.
  */
 
-import org.jiakesimk.minipika.framework.annotations.Component;
+import org.jiakesiws.minipika.framework.annotations.Component;
 
 /**
  * @author 2B键盘

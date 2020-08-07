@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.sql.xml.parser;
+package org.jiakesiws.minipika.framework.sql.xml.parser;
 
 /* ************************************************************************
  *
@@ -25,15 +25,15 @@ package org.jiakesimk.minipika.framework.sql.xml.parser;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
-import org.jiakesimk.minipika.components.config.GlobalConfig;
-import org.jiakesimk.minipika.components.logging.Log;
-import org.jiakesimk.minipika.components.logging.LogFactory;
-import org.jiakesimk.minipika.framework.sql.xml.node.XMLNode;
-import org.jiakesimk.minipika.framework.exception.BuilderXmlException;
-import org.jiakesimk.minipika.framework.sql.xml.node.XMLMapperNode;
-import org.jiakesimk.minipika.framework.tools.Arrays;
-import org.jiakesimk.minipika.framework.tools.MinipikaUtils;
-import org.jiakesimk.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.components.config.GlobalConfig;
+import org.jiakesiws.minipika.components.logging.Log;
+import org.jiakesiws.minipika.components.logging.LogFactory;
+import org.jiakesiws.minipika.framework.sql.xml.node.XMLNode;
+import org.jiakesiws.minipika.framework.exception.BuilderXmlException;
+import org.jiakesiws.minipika.framework.sql.xml.node.XMLMapperNode;
+import org.jiakesiws.minipika.framework.tools.Arrays;
+import org.jiakesiws.minipika.framework.tools.MinipikaUtils;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 
 import java.io.File;

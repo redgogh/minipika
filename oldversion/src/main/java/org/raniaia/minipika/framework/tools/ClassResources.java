@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.tools;
+package org.jiakesiws.minipika.framework.tools;
 
 /* ************************************************************************
  *

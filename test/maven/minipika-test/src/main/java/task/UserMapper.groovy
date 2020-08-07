@@ -1,8 +1,8 @@
 package task
 
-import org.jiakesimk.minipika.components.annotation.Batch
-import org.jiakesimk.minipika.components.annotation.QueryOf
-import org.jiakesimk.minipika.components.annotation.Update
+import org.jiakesiws.minipika.components.annotation.Batch
+import org.jiakesiws.minipika.components.annotation.QueryOf
+import org.jiakesiws.minipika.components.annotation.Update
 
 interface UserMapper {
 

@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika;
+package org.jiakesiws.minipika;
 
 /* ************************************************************************
  *
@@ -23,8 +23,8 @@ package org.jiakesimk.minipika;
  */
 
 
-import org.jiakesimk.minipika.framework.tools.Maps;
-import org.jiakesimk.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.framework.tools.Maps;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 import java.util.List;
 import java.util.Map;

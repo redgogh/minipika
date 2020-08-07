@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.config.components;
+package org.jiakesiws.minipika.components.config.components;
 
 /* ************************************************************************
  *
@@ -22,8 +22,8 @@ package org.jiakesimk.minipika.components.config.components;
  * Creates on 2019/11/4.
  */
 
-import org.jiakesimk.minipika.components.config.AbstractConfig;
-import org.jiakesimk.minipika.framework.tools.*;
+import org.jiakesiws.minipika.components.config.AbstractConfig;
+import org.jiakesiws.minipika.framework.tools.*;
 
 /**
  * 配置类

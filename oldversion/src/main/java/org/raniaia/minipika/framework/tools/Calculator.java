@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.tools;
+package org.jiakesiws.minipika.framework.tools;
 
 /* ************************************************************************
  *
@@ -22,7 +22,7 @@ package org.jiakesimk.minipika.framework.tools;
  * Creates on 2019/12/7.
  */
 
-import org.jiakesimk.minipika.framework.exception.ExpressionException;
+import org.jiakesiws.minipika.framework.exception.ExpressionException;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

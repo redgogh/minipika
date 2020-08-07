@@ -1,7 +1,7 @@
 package groovy
 
-import org.jiakesimk.minipika.components.annotation.QueryOf
-import org.jiakesimk.minipika.components.annotation.QueryOf
+import org.jiakesiws.minipika.components.annotation.QueryOf
+import org.jiakesiws.minipika.components.annotation.QueryOf
 
 interface TestFace {
 

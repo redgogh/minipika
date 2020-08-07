@@ -12,6 +12,6 @@ minipika:
     maximum: 10
   entity:
     prefix: kkb
-    package: org.jiakesimk.minipika.experiment
+    package: org.jiakesiws.minipika.experiment
   mapper:
-    pacakge: org.jiakesimk.minipika.builder
+    pacakge: org.jiakesiws.minipika.builder

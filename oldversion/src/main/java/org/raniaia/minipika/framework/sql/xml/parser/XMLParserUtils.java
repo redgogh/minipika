@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.framework.sql.xml.parser;
+package org.jiakesiws.minipika.framework.sql.xml.parser;
 
 /* ************************************************************************
  *
@@ -23,9 +23,9 @@ package org.jiakesimk.minipika.framework.sql.xml.parser;
  */
 
 import org.jdom2.Element;
-import org.jiakesimk.minipika.framework.exception.ExpressionException;
-import org.jiakesimk.minipika.framework.provide.ProvideVar;
-import org.jiakesimk.minipika.framework.tools.StringUtils;
+import org.jiakesiws.minipika.framework.exception.ExpressionException;
+import org.jiakesiws.minipika.framework.provide.ProvideVar;
+import org.jiakesiws.minipika.framework.tools.StringUtils;
 
 /**
  * 解析工具类

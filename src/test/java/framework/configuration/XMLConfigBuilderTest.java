@@ -22,8 +22,8 @@ package framework.configuration;
  * Creates on 2020/6/2.
  */
 
-import org.jiakesimk.minipika.components.configuration.XMLConfigBuilder;
-import org.jiakesimk.minipika.framework.strategy.FindStrategy;
+import org.jiakesiws.minipika.components.configuration.XMLConfigBuilder;
+import org.jiakesiws.minipika.framework.strategy.FindStrategy;
 import org.xml.sax.InputSource;
 
 /**

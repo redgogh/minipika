@@ -2,7 +2,7 @@
 <minipika xmlns="https://github.com/jiakesiws"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="https://github.com/jiakesiws
-          https://raw.githubusercontent.com/jiakesimk/minipika/master/standard/minipika-standard.xsd">
+          https://raw.githubusercontent.com/jiakesiws/minipika/master/standard/minipika-standard.xsd">
   
   <!-- 支持全局使用的属性配置, 这个大家都清楚就不再赘述了 -->
   <properties>

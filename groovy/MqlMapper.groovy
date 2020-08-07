@@ -1,11 +1,11 @@
 package groovy
 
 import kt.User
-import org.jiakesimk.minipika.components.annotation.Batch
-import org.jiakesimk.minipika.components.annotation.Insert
-import org.jiakesimk.minipika.components.annotation.QueryOf
-import org.jiakesimk.minipika.components.annotation.QueryOf
-import org.jiakesimk.minipika.components.annotation.Update
+import org.jiakesiws.minipika.components.annotation.Batch
+import org.jiakesiws.minipika.components.annotation.Insert
+import org.jiakesiws.minipika.components.annotation.QueryOf
+import org.jiakesiws.minipika.components.annotation.QueryOf
+import org.jiakesiws.minipika.components.annotation.Update
 
 interface MqlMapper {
 

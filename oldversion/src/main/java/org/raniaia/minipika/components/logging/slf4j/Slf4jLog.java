@@ -1,4 +1,4 @@
-package org.jiakesimk.minipika.components.logging.slf4j;
+package org.jiakesiws.minipika.components.logging.slf4j;
 
 /* ************************************************************************
  *
@@ -22,8 +22,8 @@ package org.jiakesimk.minipika.components.logging.slf4j;
  * Creates on 2019/12/17.
  */
 
-import org.jiakesimk.minipika.components.logging.Log;
-import org.jiakesimk.minipika.framework.provide.component.Component;
+import org.jiakesiws.minipika.components.logging.Log;
+import org.jiakesiws.minipika.framework.provide.component.Component;
 
 /**
  * @author 2B键盘

@@ -1,7 +1,7 @@
 package entity
 
-import org.jiakesimk.minipika.components.annotation.Batch
-import org.jiakesimk.minipika.components.annotation.QueryOf
+import org.jiakesiws.minipika.components.annotation.Batch
+import org.jiakesiws.minipika.components.annotation.QueryOf
 
 interface MqlMapper {
 
