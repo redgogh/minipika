@@ -2,7 +2,7 @@ package org.jiakesimk.minipika.components.entity.core.mysql;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ import java.util.*;
  * Parse the entity at initialization, which includes whether the entity has new fields
  * or other metadata have changes. like <code>varchar(255) id</code> change to <code>int(10) id</code>.
  *
- * @author tiansheng
+ * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
 @Component

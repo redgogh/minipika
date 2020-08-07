@@ -2,7 +2,7 @@ package org.jiakesimk.minipika.framework.strategy;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import java.io.InputStream;
 /**
  * 配置文件寻找策略
  *
- * @author tiansheng
+ * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
 public class FindStrategy {

@@ -2,7 +2,7 @@ package org.jiakesimk.minipika.components.jdbc.transaction;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import java.sql.Connection;
  * 如果使用了事务管理器，那么框架将假定你的{@link Connection#getAutoCommit()}值
  * 是为true的，如果AutoCommit属性不为true则没办法启动事务管理。
  *
- * @author tiansheng
+ * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
 public interface TransactionFactory {

@@ -2,7 +2,7 @@ package org.jiakesimk.minipika.components.jdbc;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import java.util.List;
  * NativeJdbc存在的意义是为了方便关闭流和归还连接。
  * 将关闭操作统一控制在NativeJdbc中
  *
- * @author tiansheng
+ * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
 public interface NativeJdbc {

@@ -2,7 +2,7 @@ package org.jiakesimk.minipika.javassist;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@ package org.jiakesimk.minipika.javassist;
 
 
 /**
- * Copyright by tiansheng on 2020/2/29 2:53
- * @author tiansheng
+ * Copyright by 2B键盘 on 2020/2/29 2:53
+ * @author 2B键盘
  * @version 1.0.0
  * @since 1.8
  */

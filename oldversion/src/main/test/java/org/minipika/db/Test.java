@@ -2,7 +2,7 @@ package org.jiakesimk.minipika.db;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ package org.jiakesimk.minipika.db;
 
 
 /**
- * Copyright: Create by tiansheng on 2019/12/20 10:07
+ * Copyright: Create by 2B键盘 on 2019/12/20 10:07
  */
 public class Test {
 

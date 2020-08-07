@@ -2,7 +2,7 @@ package org.jiakesimk.minipika.components.jdbc;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import java.util.List;
  * 由于扩展原因，所以NativePageHelper是抽象类
  * 子类可以去继承NativePageHelper,并实现自己的功能
  *
- * @author tiansheng
+ * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
 @Getter

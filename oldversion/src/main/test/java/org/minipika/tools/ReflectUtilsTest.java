@@ -2,7 +2,7 @@ package org.jiakesimk.minipika.tools;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import org.junit.Test;
 import org.jiakesimk.minipika.framework.tools.ReflectUtils;
 
 /**
- * Copyright: Create by tiansheng on 2019/12/20 11:55
+ * Copyright: Create by 2B键盘 on 2019/12/20 11:55
  */
 public class ReflectUtilsTest {
 

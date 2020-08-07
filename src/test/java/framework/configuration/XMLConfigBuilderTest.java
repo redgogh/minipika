@@ -2,7 +2,7 @@ package framework.configuration;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import org.jiakesimk.minipika.framework.strategy.FindStrategy;
 import org.xml.sax.InputSource;
 
 /**
- * @author tiansheng
+ * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
 public class XMLConfigBuilderTest {

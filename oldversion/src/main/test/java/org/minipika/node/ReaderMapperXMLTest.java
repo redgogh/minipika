@@ -2,7 +2,7 @@ package org.jiakesimk.minipika.node;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import org.jiakesimk.minipika.framework.sql.xml.parser.ReaderMapperXML;
 import java.util.List;
 
 /**
- * Copyright: Create by tiansheng on 2019/12/20 20:49
+ * Copyright: Create by 2B键盘 on 2019/12/20 20:49
  */
 public class ReaderMapperXMLTest {
 

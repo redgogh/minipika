@@ -2,7 +2,7 @@ package org.jiakesimk.minipika.components.configuration.node;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * @author tiansheng
+ * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
 public class PropertiesNode implements ElementParser {

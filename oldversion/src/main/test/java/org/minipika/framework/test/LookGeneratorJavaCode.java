@@ -2,7 +2,7 @@ package framework.test;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Copyright: Create by tiansheng on 2019/12/14 21:50
+ * Copyright: Create by 2B键盘 on 2019/12/14 21:50
  */
 public class LookGeneratorJavaCode {
 

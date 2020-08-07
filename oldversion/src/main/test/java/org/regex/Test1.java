@@ -2,7 +2,7 @@ package org.regex;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +26,8 @@ import org.jiakesimk.minipika.framework.tools.MinipikaIOUtils;
 import java.util.Arrays;
 
 /**
- * Copyright by tiansheng on 2020/2/14 23:57
- * @author tiansheng
+ * Copyright by 2B键盘 on 2020/2/14 23:57
+ * @author 2B键盘
  * @version 1.0.0
  * @since 1.8
  */

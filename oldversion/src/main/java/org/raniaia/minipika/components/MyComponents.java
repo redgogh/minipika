@@ -2,7 +2,7 @@ package org.jiakesimk.minipika.components;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import org.jiakesimk.minipika.framework.provide.component.Component;
 import org.jiakesimk.minipika.framework.provide.component.ComponentType;
 
 /**
- * @author tiansheng
+ * @author 2B键盘
  * @see AbstractContainer#loadComponents
  */
 public class MyComponents {

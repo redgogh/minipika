@@ -1,6 +1,6 @@
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@
 /**
  * 动态SQL支持基础包, 提供SQL模板引擎重写功能。以及可像插件
  * 一样下载外部的动态SQL模板进行开发，或者是重写。
- * @author tiansheng
+ * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
 package org.jiakesimk.minipika.components.mql;

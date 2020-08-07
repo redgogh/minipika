@@ -2,7 +2,7 @@ package org.jiakesimk.minipika;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import javax.sql.DataSource;
 import java.net.MalformedURLException;
 
 /**
- * @author tiansheng
+ * @author 2B键盘
  * @version 1.0.0
  * @date 2019/11/21 19:36
  * @since 1.8

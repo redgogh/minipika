@@ -2,7 +2,7 @@ package org.jiakesimk.minipika.service;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ package org.jiakesimk.minipika.service;
 import org.jiakesimk.minipika.BeansManager;
 
 /**
- * @author tiansheng
+ * @author 2B键盘
  * @version 1.0.0
  * @date 2019/11/27 17:33
  * @since 1.8

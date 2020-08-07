@@ -2,7 +2,7 @@ package org.jiakesimk.minipika.framework.common;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import java.lang.reflect.InvocationHandler;
  * 如果实现了这个接口的话, 那么在调用{@link Factorys#forClass}创建对象的时候
  * 会使用{@link #getProxyHandler}返回的对象.
  *
- * @author tiansheng
+ * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
 public interface ProxyHandler extends InvocationHandler {

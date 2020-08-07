@@ -2,7 +2,7 @@ package org.jiakesimk.minipika.framework.provide;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import java.lang.annotation.*;
  * 标记Bean容器中的对象名称
  * 如果name为空，则默认为对象名称
  *
- * @author tiansheng
+ * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
 @Target(ElementType.METHOD)

@@ -2,7 +2,7 @@ package org.recycle.compiler;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
 
 /**
  * 预编译处理
- * Copyright: Create by tiansheng on 2019/12/19 11:18
+ * Copyright: Create by 2B键盘 on 2019/12/19 11:18
  */
 public class Precompiler {
 

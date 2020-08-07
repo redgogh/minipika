@@ -2,7 +2,7 @@ package org.jiakesimk.minipika;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +25,8 @@ package org.jiakesimk.minipika;
  * <p/>
  * License: <a href="https://github.com/Laniakeamly/minipika/blob/master/LICENSE">Apache License 2.0</a>
  * <p/>
- * Copyright: Create by tiansheng on 2019/12/17 18:29
- * @author tiansheng
+ * Copyright: Create by 2B键盘 on 2019/12/17 18:29
+ * @author 2B键盘
  * @version 1.0.0
  * @since 1.8
  */

@@ -2,7 +2,7 @@ package org.jiakesimk.minipika.framework.tools;
 
 /* ************************************************************************
  *
- * Copyright (C) 2020 tiansheng All rights reserved.
+ * Copyright (C) 2020 2B键盘 All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ package org.jiakesimk.minipika.framework.tools;
  * 已经有一个实现类了{@link StringNewline}
  * 不过这个实现类已经准备移除了,bug有点多,当前存在的意义就是只有参考
  *
- * @author tiansheng
+ * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
 public interface LineBuilder {
