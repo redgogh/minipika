@@ -108,4 +108,9 @@ class GroovyTask {
     println getClass().getName() + "@" + Integer.toHexString(hashCode())
   }
 
+  @Test
+  void testBaseMapper() {
+    mapper.selectById("test")
+  }
+
 }

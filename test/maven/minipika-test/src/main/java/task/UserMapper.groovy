@@ -5,7 +5,7 @@ import org.jiakesiws.minipika.components.annotation.QueryOf
 import org.jiakesiws.minipika.components.annotation.Update
 import org.jiakesiws.minipika.components.wrapper.BaseMapper
 
-interface UserMapper {
+interface UserMapper extends BaseMapper<User> {
 
   @QueryOf("""
     select * from website_user_info where 1=1
