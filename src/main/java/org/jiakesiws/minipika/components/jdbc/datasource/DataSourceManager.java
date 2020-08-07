@@ -39,7 +39,7 @@ import java.util.Map;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class DataSourceManager
+public final class DataSourceManager
 {
 
   public static final String MASTER = "master";

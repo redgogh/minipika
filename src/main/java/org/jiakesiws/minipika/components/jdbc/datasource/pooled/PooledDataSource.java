@@ -64,6 +64,7 @@ public class PooledDataSource implements DataSource
       this.state = new PooledState(this);
     }
     {
+      // 将自己注册到数据源管理器中
       DataSourceManager.registerDataSource(sourceConfig.getName(), this);
     }
     {
