@@ -29,16 +29,19 @@ import org.jiakesiws.minipika.components.logging.LogAdapter;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class StdLogAdapter implements LogAdapter {
+public class StdLogAdapter implements LogAdapter
+{
 
-    @Override
-    public Log getLog(String key) {
-        return new StdLog(key);
-    }
+  @Override
+  public Log getLog(String key)
+  {
+    return new StdLog(key);
+  }
 
-    @Override
-    public Log getLog(Class<?> key) {
-        return new StdLog(key);
-    }
+  @Override
+  public Log getLog(Class<?> key)
+  {
+    return new StdLog(key);
+  }
 
 }

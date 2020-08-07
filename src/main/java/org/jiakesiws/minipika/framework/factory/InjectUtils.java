@@ -22,6 +22,7 @@ package org.jiakesiws.minipika.framework.factory;
  * Creates on 2020/6/1.
  */
 
+import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import org.jiakesiws.minipika.framework.annotations.Component;
 import org.jiakesiws.minipika.framework.common.ProxyHandler;
 import org.jiakesiws.minipika.framework.utils.Annotations;
@@ -40,33 +41,41 @@ import java.util.Objects;
  * @email jiakesiws@gmail.com
  */
 @SuppressWarnings({"unchecked"})
-public class InjectUtils {
+public class InjectUtils
+{
 
   private static final Class<?> IFACE = ProxyHandler.class;
 
-  public static Object autowired(Class<?> clazz) throws IllegalAccessException {
+  public static Object autowired(Class<?> clazz) throws IllegalAccessException
+  {
     return autowired(clazz, null, 0);
   }
 
   public static Object autowired(Class<?> clazz, Class<?>[] types,
-                                 Object... parameter) throws IllegalAccessException {
+                                 Object... parameter) throws IllegalAccessException
+  {
     Object instance;
-    if (types == null) {
+    if (types == null)
+    {
       instance = ClassUtils.newInstance(clazz);
-    } else {
+    } else
+    {
       instance = ClassUtils.newInstance(clazz, types, parameter);
     }
     return autowired(clazz, instance);
   }
 
   private static Object autowired(Class<?> clazz, Object instance)
-          throws IllegalAccessException {
+          throws IllegalAccessException
+  {
     Map<String, Object> components = ComponentContainer.components;
     Field[] fields = Fields.getDeclaredFieldsIncludeSuper(clazz, true, new Class[]{Component.class});
-    for (Field field : fields) {
+    for (Field field : fields)
+    {
       Component component = Annotations.isAnnotation(field, Component.class);
       String name = component.name();
-      if (StringUtils.isEmpty(name)) {
+      if (StringUtils.isEmpty(name))
+      {
         name = field.getName();
       }
       Object object = components.get(field.getType().getName());
@@ -83,10 +92,13 @@ public class InjectUtils {
    * @param clazz    类信息
    * @return 如果有代理程序返回代理, 没有返回instance
    */
-  private static Object getProxyHandler(Object instance, Class<?> clazz) {
+  private static Object getProxyHandler(Object instance, Class<?> clazz)
+  {
     Class<?>[] ifaces = clazz.getInterfaces();
-    for (Class<?> iface : ifaces) {
-      if (iface == IFACE) {
+    for (Class<?> iface : ifaces)
+    {
+      if (iface == IFACE)
+      {
         ProxyHandler handler = (ProxyHandler) instance;
         return handler.getProxyHandler();
       }

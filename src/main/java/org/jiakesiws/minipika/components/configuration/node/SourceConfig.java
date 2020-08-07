@@ -42,7 +42,8 @@ import java.util.Properties;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class SourceConfig implements ElementParser {
+public class SourceConfig implements ElementParser
+{
 
   private String url;
   private String username;
@@ -61,23 +62,23 @@ public class SourceConfig implements ElementParser {
 
   private boolean pooled = true; // 当前数据源是不是池化的数据源
 
-  public static final String URL                = "url";
+  public static final String URL = "url";
 
-  public static final String USERNAME           = "username";
+  public static final String USERNAME = "username";
 
-  public static final String PASSWORD           = "password";
+  public static final String PASSWORD = "password";
 
-  public static final String DRIVER             = "driver";
+  public static final String DRIVER = "driver";
 
-  public static final String VALUE              = "value";
+  public static final String VALUE = "value";
 
-  public static final String TYPE               = "type";
+  public static final String TYPE = "type";
 
-  public static final String TASK               = "task";
+  public static final String TASK = "task";
 
-  public static final String AUTO_COMMIT        = "commit";
+  public static final String AUTO_COMMIT = "commit";
 
-  public static final String NAME               = "name";
+  public static final String NAME = "name";
 
   /**
    * 链接属性
@@ -87,18 +88,22 @@ public class SourceConfig implements ElementParser {
   /**
    * 解析完后将当前数据源注册到{@link DataSourceManager}
    */
-  private void register() {
+  private void register()
+  {
     UnpooledDataSource dataSource = new UnpooledDataSource(this);
-    if (pooled) {
+    if (pooled)
+    {
       new PooledDataSource(dataSource);
     }
-    if(DataSourceManager.MASTER.equals(name)) {
+    if (DataSourceManager.MASTER.equals(name))
+    {
       DataSourceManager.select(DataSourceNode.MASTER);
     }
   }
 
   @Override
-  public void parse(ElementWrapper element) {
+  public void parse(ElementWrapper element)
+  {
     // 解析URL属性
     ElementWrapper urlElement = element.getChild(URL);
     checkUndefine(urlElement, URL);
@@ -107,7 +112,8 @@ public class SourceConfig implements ElementParser {
     // 解析username
     ElementWrapper usernameElement = element.getChild(USERNAME);
     Attribute usernameAttribute = usernameElement.getAttribute(VALUE);
-    if (usernameAttribute == null) {
+    if (usernameAttribute == null)
+    {
       throw new XMLParseException("Error username node of DataSource node undefine.");
     }
     username = StringUtils.requireNonNull(usernameAttribute.getValue(),
@@ -116,9 +122,11 @@ public class SourceConfig implements ElementParser {
     // 解析password， password可以为NULL
     ElementWrapper passwordElement = element.getChild(PASSWORD);
     checkUndefine(passwordElement, PASSWORD);
-    if (passwordElement != null) {
+    if (passwordElement != null)
+    {
       Attribute passwordAttribute = passwordElement.getAttribute(VALUE);
-      if (passwordAttribute != null && StringUtils.isNotEmpty(passwordAttribute.getValue())) {
+      if (passwordAttribute != null && StringUtils.isNotEmpty(passwordAttribute.getValue()))
+      {
         password = passwordAttribute.getValue();
       }
     }
@@ -143,7 +151,8 @@ public class SourceConfig implements ElementParser {
   /**
    * 构建链接属性并静态化,避免二次创建
    */
-  private void buildConnectProperties() {
+  private void buildConnectProperties()
+  {
     Properties properties = new Properties();
     properties.setProperty(USERNAME, username);
     properties.setProperty(PASSWORD, password);
@@ -155,15 +164,18 @@ public class SourceConfig implements ElementParser {
    *
    * @param urlElement url节点元素
    */
-  private void parseURLElementNode(ElementWrapper urlElement) {
+  private void parseURLElementNode(ElementWrapper urlElement)
+  {
     Attribute urlAttribute = urlElement.getAttribute(VALUE);
-    if (urlAttribute == null) {
+    if (urlAttribute == null)
+    {
       String def = XMLParseException.buildTrack(urlElement);
       throw new XMLParseException("Error the url node of DataSource require " +
               "value attribute in node track " + def + ". " + "Cause: value is required.");
     }
     String urlValue = urlAttribute.getValue();
-    if (StringUtils.isEmpty(urlValue)) {
+    if (StringUtils.isEmpty(urlValue))
+    {
       String def = XMLParseException.buildTrack(urlElement);
       throw new XMLParseException("Error the url node of DataSource the value attribute " +
               "value cannot null in node track " + def + ". " + "Cause: value is required.");
@@ -171,8 +183,10 @@ public class SourceConfig implements ElementParser {
     url = urlValue;
     // 判断URL节点下是否存在子节点
     List<ElementWrapper> urlElementParam = urlElement.getChildren("property");
-    if (urlElementParam != null && !urlElementParam.isEmpty()) {
-      for (ElementWrapper param : urlElementParam) {
+    if (urlElementParam != null && !urlElementParam.isEmpty())
+    {
+      for (ElementWrapper param : urlElementParam)
+      {
         String def = XMLParseException.buildTrack(urlElement);
         Attribute nameAttribute = Objects.requireNonNull(param.getAttribute(NAME),
                 "Error attribute key not obtained in " + def + ".");
@@ -191,16 +205,21 @@ public class SourceConfig implements ElementParser {
   /**
    * 将url参数组装到url的字符串中
    */
-  void buildURL() {
+  void buildURL()
+  {
     String splice = "";
-    for (Map.Entry<String, String> param : urlParam.entrySet()) {
+    for (Map.Entry<String, String> param : urlParam.entrySet())
+    {
       String key = param.getKey();
       String value = param.getValue();
       String paramValue = key.concat("=").concat(value);
-      if (!splice.contains("?")) {
+      if (!splice.contains("?"))
+      {
         splice = splice.concat("?");
-      } else {
-        if (!"&".equals(StringUtils.getLast(url))) {
+      } else
+      {
+        if (!"&".equals(StringUtils.getLast(url)))
+        {
           splice = splice.concat("&");
         }
       }
@@ -215,8 +234,10 @@ public class SourceConfig implements ElementParser {
    * @param element 元素对象
    * @param name    节点名称
    */
-  void checkUndefine(ElementWrapper element, String name) {
-    if (element == null) {
+  void checkUndefine(ElementWrapper element, String name)
+  {
+    if (element == null)
+    {
       throw new NullPointerException("Error " + name + " node undeine.");
     }
   }
@@ -224,23 +245,30 @@ public class SourceConfig implements ElementParser {
   /**
    * 设置数据源节点属性值
    */
-  void setting(ElementWrapper element) {
+  void setting(ElementWrapper element)
+  {
     // 获取数据源名称, 必要名称master
     String name = element.getName();
-    if (DataSourceNode.MASTER.equals(name)) {
+    if (DataSourceNode.MASTER.equals(name))
+    {
       this.name = name;
-    } else {
-      try {
+    } else
+    {
+      try
+      {
         this.name = element.getAttribute("name").getValue();
-      }catch (Exception e) {
-        if(e instanceof NullPointerException) {
+      } catch (Exception e)
+      {
+        if (e instanceof NullPointerException)
+        {
           throw new NullPointerException("Error: can be null except master tag. All other tag must speify name.");
         }
       }
     }
     // 获取数据源是否需要池化
     Attribute pooledAttribute = element.getAttribute("pooled");
-    if (pooledAttribute != null) {
+    if (pooledAttribute != null)
+    {
       this.pooled = Boolean.parseBoolean(pooledAttribute.getValue());
     }
     // 获取数据库类型
@@ -249,29 +277,36 @@ public class SourceConfig implements ElementParser {
     // 如果没有设置类型的话就自动匹配类型，如果自动匹配类型还是匹配不到的话那么就使用默认的JDBC
     //
     String typeKey = null;
-    if (typeAttribute != null) {
+    if (typeAttribute != null)
+    {
       typeKey = typeAttribute.getValue();
     }
-    if(StringUtils.isEmpty(typeKey)) {
+    if (StringUtils.isEmpty(typeKey))
+    {
       type = getDataBaseSupport(driver);
     }
     // 获取数据源对应的任务
     String taskAttributeValue = null;
     Attribute taskAttribute = element.getAttribute(TASK);
-    if (taskAttribute != null) {
+    if (taskAttribute != null)
+    {
       taskAttributeValue = taskAttribute.getValue();
-      if (StringUtils.isEmpty(taskAttributeValue)) {
+      if (StringUtils.isEmpty(taskAttributeValue))
+      {
         task = DataSourceTask.ALL;
       }
       task = getDataSourceTask(taskAttributeValue);
-    } else {
+    } else
+    {
       task = DataSourceTask.ALL;
     }
     // 获取数据源是否需要自动提交
     Attribute desiredAutoCommitAttribute = element.getAttribute(AUTO_COMMIT);
-    if (desiredAutoCommitAttribute == null) {
+    if (desiredAutoCommitAttribute == null)
+    {
       desiredAutoCommit = false;
-    } else {
+    } else
+    {
       String value = desiredAutoCommitAttribute.getValue();
       desiredAutoCommit = Boolean.parseBoolean(value);
     }
@@ -282,13 +317,17 @@ public class SourceConfig implements ElementParser {
    *
    * @param key 配置的数据库类型
    */
-  Databases getDataBaseSupport(String key) {
+  Databases getDataBaseSupport(String key)
+  {
     key = StringUtils.toLowerCase(key);
-    if (key.contains("mysql")) {
+    if (key.contains("mysql"))
+    {
       return Databases.MYSQL;
-    } else if (key.contains("oracle")) {
+    } else if (key.contains("oracle"))
+    {
       return Databases.ORACLE;
-    } else {
+    } else
+    {
       return Databases.JDBC;
     }
   }
@@ -298,94 +337,118 @@ public class SourceConfig implements ElementParser {
    *
    * @param key 配置的任务类型
    */
-  DataSourceTask getDataSourceTask(String key) {
+  DataSourceTask getDataSourceTask(String key)
+  {
     key = StringUtils.toLowerCase(key);
-    if (key.contains("read")) {
+    if (key.contains("read"))
+    {
       return DataSourceTask.READ;
-    } else if (key.contains("write")) {
+    } else if (key.contains("write"))
+    {
       return DataSourceTask.WRITE;
-    } else {
+    } else
+    {
       return DataSourceTask.ALL;
     }
   }
 
-  public String getUrl() {
+  public String getUrl()
+  {
     return url;
   }
 
-  public void setUrl(String url) {
+  public void setUrl(String url)
+  {
     this.url = url;
   }
 
-  public String getUsername() {
+  public String getUsername()
+  {
     return username;
   }
 
-  public void setUsername(String username) {
+  public void setUsername(String username)
+  {
     this.username = username;
   }
 
-  public String getPassword() {
+  public String getPassword()
+  {
     return password;
   }
 
-  public void setPassword(String password) {
+  public void setPassword(String password)
+  {
     this.password = password;
   }
 
-  public String getDriver() {
+  public String getDriver()
+  {
     return driver;
   }
 
-  public void setDriver(String driver) {
+  public void setDriver(String driver)
+  {
     this.driver = driver;
   }
 
-  public Map<String, String> getUrlParam() {
+  public Map<String, String> getUrlParam()
+  {
     return urlParam;
   }
 
-  public void setUrlParam(Map<String, String> urlParam) {
+  public void setUrlParam(Map<String, String> urlParam)
+  {
     this.urlParam = urlParam;
   }
 
-  public DataSourceTask getTask() {
+  public DataSourceTask getTask()
+  {
     return task;
   }
 
-  public void setTask(DataSourceTask task) {
+  public void setTask(DataSourceTask task)
+  {
     this.task = task;
   }
 
-  public Databases getType() {
+  public Databases getType()
+  {
     return type;
   }
 
-  public void setType(Databases type) {
+  public void setType(Databases type)
+  {
     this.type = type;
   }
 
-  public String getName() {
+  public String getName()
+  {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(String name)
+  {
     this.name = name;
   }
 
-  public boolean isDesiredAutoCommit() {
+  public boolean isDesiredAutoCommit()
+  {
     return desiredAutoCommit;
   }
 
-  public void setDesiredAutoCommit(boolean desiredAutoCommit) {
+  public void setDesiredAutoCommit(boolean desiredAutoCommit)
+  {
     this.desiredAutoCommit = desiredAutoCommit;
   }
 
-  public boolean isPooled() {
+  public boolean isPooled()
+  {
     return pooled;
   }
 
-  public void setPooled(boolean pooled) {
+  public void setPooled(boolean pooled)
+  {
     this.pooled = pooled;
   }
 

@@ -33,12 +33,14 @@ import java.util.LinkedHashSet;
  * @author lts
  * @email jiakesiws@gmail.com
  */
-public final class Sets {
+public final class Sets
+{
 
   /**
    * 创建一个新的且空的{@code HashSet}实例
    */
-  public static <E> HashSet<E> newHashSet() {
+  public static <E> HashSet<E> newHashSet()
+  {
     return new HashSet<>();
   }
 
@@ -46,14 +48,16 @@ public final class Sets {
    * 创建一个可变的 {@code HashSet}实例
    * 拷贝{@link Collection}中的数据到新的{@code HashSet}中。
    */
-  public static <E> HashSet<E> newHashSet(Collection<? extends E> collection) {
+  public static <E> HashSet<E> newHashSet(Collection<? extends E> collection)
+  {
     return new HashSet<>(collection);
   }
 
   /**
    * 创建一个新的{@code LinkedHashSet}实例
    */
-  public static <E> LinkedHashSet<E> newLinkedHashSet() {
+  public static <E> LinkedHashSet<E> newLinkedHashSet()
+  {
     return new LinkedHashSet<>();
   }
 
@@ -61,11 +65,13 @@ public final class Sets {
    * 创建一个新的{@code LinkedHashSet}实例
    * 拷贝{@link Collection}中的数据到新的{@code LinkedHashSet}中。
    */
-  public static <E> LinkedHashSet<E> newLinkedHashSet(Collection<? extends E> collection) {
+  public static <E> LinkedHashSet<E> newLinkedHashSet(Collection<? extends E> collection)
+  {
     return new LinkedHashSet<>(collection);
   }
 
-  public static String toString(Collection<?> list) {
+  public static String toString(Collection<?> list)
+  {
     return JSON.toJSONString(list);
   }
 

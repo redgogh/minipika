@@ -32,20 +32,25 @@ import java.util.Properties;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class PropertiesNode implements ElementParser {
+public class PropertiesNode implements ElementParser
+{
 
   private Properties properties;
 
   @Override
-  public void parse(ElementWrapper element) {
+  public void parse(ElementWrapper element)
+  {
     List<ElementWrapper> children = element.getChildren();
-    if (children != null && !children.isEmpty()) {
+    if (children != null && !children.isEmpty())
+    {
       properties = new Properties();
-      for (ElementWrapper child : children) {
+      for (ElementWrapper child : children)
+      {
         String key = child.getName();
         String value = child.getText();
         // 如果key和value都不等于空的话那么将属性设置到系统的properties对象中
-        if (StringUtils.isNotEmpty(key) && StringUtils.isNotEmpty(value)) {
+        if (StringUtils.isNotEmpty(key) && StringUtils.isNotEmpty(value))
+        {
           System.setProperty(key, value);
           properties.put(key, value);
         }

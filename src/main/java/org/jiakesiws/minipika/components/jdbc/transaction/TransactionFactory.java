@@ -32,7 +32,8 @@ import java.sql.Connection;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public interface TransactionFactory {
+public interface TransactionFactory
+{
 
   /**
    * 设置事务的隔离级别

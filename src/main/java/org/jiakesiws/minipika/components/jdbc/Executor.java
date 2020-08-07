@@ -31,7 +31,8 @@ import java.util.List;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public interface Executor {
+public interface Executor
+{
 
   /**
    * 查询并返回对象

@@ -28,9 +28,11 @@ import java.lang.reflect.Method;
  * @author lts
  * @email jiakesiws@gmail.com
  */
-public class Objects {
+public class Objects
+{
 
-  public static Object invoke(Method method, Object object, Object... args) throws Exception {
+  public static Object invoke(Method method, Object object, Object... args) throws Exception
+  {
     Class<?> clazz = object.getClass();
     Method method0 = clazz.getDeclaredMethod(method.getName(), method.getParameterTypes());
     return method0.invoke(object, args);

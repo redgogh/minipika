@@ -57,6 +57,7 @@ public class Matches {
    *                并实现{@link Consumer#accept}方法，进行处理
    * @return 匹配结果数组，如果没有匹配到结果则返回空数组(不是空对象)
    */
+  @SuppressWarnings("ToArrayCallWithZeroLengthArrayArgument")
   public static String[] find(String s, String r, Callback<String> closure) {
     Pattern par = Pattern.compile(r);
     Matcher matcher = par.matcher(s);

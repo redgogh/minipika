@@ -25,6 +25,7 @@ package org.jiakesiws.minipika.components.wrapper;
 /**
  * @author lts
  */
-public abstract class Wrapper<Entity> implements Compare {
+public abstract class Wrapper<Entity> implements Compare
+{
 
 }

@@ -28,18 +28,22 @@ package org.jiakesiws.minipika.framework.thread;
  * @author lts
  * @email jiakesiws@gmail.com
  */
-public class Threads {
+public class Threads
+{
 
   /**
    * 获取方法的调用者。
    */
-  public static Class<?> getCaller() {
+  public static Class<?> getCaller()
+  {
     Class<?> clazz = null;
-    try {
+    try
+    {
       StackTraceElement[] elements = Thread.currentThread().getStackTrace();
       String classname = elements[3].getClassName();
       clazz = Class.forName(classname);
-    } catch (ClassNotFoundException e) {
+    } catch (ClassNotFoundException e)
+    {
       e.printStackTrace();
     }
     return clazz;
@@ -48,28 +52,32 @@ public class Threads {
   /**
    * @return 调用者名称
    */
-  public static String getCallerName() {
+  public static String getCallerName()
+  {
     return getStackTraceElement().getClassName();
   }
 
   /**
    * @return 当前线程名称
    */
-  public static String getCurrentThreadName() {
+  public static String getCurrentThreadName()
+  {
     return Thread.currentThread().getName();
   }
 
-    /**
-     * @return 堆栈调用信息
-     */
-  public static StackTraceElement getStackTraceElement() {
+  /**
+   * @return 堆栈调用信息
+   */
+  public static StackTraceElement getStackTraceElement()
+  {
     return getStackTraceElement(3);
   }
 
   /**
    * @return 第n个堆栈调用信息
    */
-  public static StackTraceElement getStackTraceElement(int n) {
+  public static StackTraceElement getStackTraceElement(int n)
+  {
     StackTraceElement[] elements = Thread.currentThread().getStackTrace();
     return elements[n];
   }
@@ -77,7 +85,8 @@ public class Threads {
   /**
    * @return 获取调用者的类加载器
    */
-  public static ClassLoader getCallerLoader() {
+  public static ClassLoader getCallerLoader()
+  {
     return getCaller().getClassLoader();
   }
 

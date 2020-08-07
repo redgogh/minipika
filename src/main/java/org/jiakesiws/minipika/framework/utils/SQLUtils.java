@@ -34,23 +34,29 @@ import java.util.List;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class SQLUtils {
+public class SQLUtils
+{
 
   /**
    * 获取sql中的表名
+   *
    * @param sql
    * @return 表名集合
    */
-  public static List<String> getSQLTables(String sql) {
+  public static List<String> getSQLTables(String sql)
+  {
     TablesNamesFinder finder = new TablesNamesFinder();
     Statement statement = null;
-    try {
+    try
+    {
       statement = CCJSqlParserUtil.parse(sql);
-    } catch (JSQLParserException e) {
+    } catch (JSQLParserException e)
+    {
       return new ArrayList<>();
     }
     List<String> tables = finder.getTableList(statement);
-    for (int i = 0, len = tables.size(); i < len; i++) {
+    for (int i = 0, len = tables.size(); i < len; i++)
+    {
       tables.set(i, tables.get(i).replace("`", ""));
     }
     return tables;
@@ -59,22 +65,28 @@ public class SQLUtils {
   /**
    * 构建带参数的sql
    */
-  public static String buildPreSQL(String sql, Object[] args) {
+  public static String buildPreSQL(String sql, Object[] args)
+  {
     StringBuilder builder = new StringBuilder();
     char[] charArray = sql.toCharArray();
     int index = -1;
-    for (int i = 0; i < charArray.length; i++) {
+    for (int i = 0; i < charArray.length; i++)
+    {
       char ch = charArray[i];
-      if (ch == '?') {
+      if (ch == '?')
+      {
         Object object = args[index = (index + 1)];
-        if (object instanceof String) {
+        if (object instanceof String)
+        {
           builder.append("'");
           builder.append(object);
           builder.append("'");
-        } else {
+        } else
+        {
           builder.append(object);
         }
-      } else {
+      } else
+      {
         builder.append(ch);
       }
     }

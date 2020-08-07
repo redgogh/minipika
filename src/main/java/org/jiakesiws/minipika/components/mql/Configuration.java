@@ -38,7 +38,8 @@ import java.util.List;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class Configuration {
+public class Configuration
+{
 
   /**
    * 配置Id标识，用于快速查找配置信息
@@ -82,7 +83,8 @@ public class Configuration {
    * @param method 调用方法
    * @see IFaceAgent#invoke(Object, Method, Object[])
    */
-  public Configuration(Method method, Object instance) throws NoSuchMethodException, ClassNotFoundException {
+  public Configuration(Method method, Object instance) throws NoSuchMethodException, ClassNotFoundException
+  {
     this.method = method;
     this.instance = instance;
     initMemberProperty(method);
@@ -98,10 +100,13 @@ public class Configuration {
    * @throws IllegalAccessException    非法访问异常
    */
   @SuppressWarnings("unchecked")
-  public <T> T execute(String sql, Object[] args) throws InvocationTargetException, IllegalAccessException {
-    if(returnType != null) {
+  public <T> T execute(String sql, Object[] args) throws InvocationTargetException, IllegalAccessException
+  {
+    if (returnType != null)
+    {
       return (T) executeMethod.invoke(executor, sql, returnType, args);
-    } else {
+    } else
+    {
       return (T) executeMethod.invoke(executor, sql, args);
     }
   }
@@ -112,23 +117,30 @@ public class Configuration {
    * @param method mapper中定义的方法
    * @throws NoSuchMethodException 反射找不到方法异常
    */
-  public void initMemberProperty(Method method) throws NoSuchMethodException, ClassNotFoundException {
-    if (method.isAnnotationPresent(ConstVariable.A_QUERY_OF)) {
+  public void initMemberProperty(Method method) throws NoSuchMethodException, ClassNotFoundException
+  {
+    if (method.isAnnotationPresent(ConstVariable.A_QUERY_OF))
+    {
       Class<?> returnType = method.getReturnType();
-      if (returnType == List.class) {
+      if (returnType == List.class)
+      {
         this.queryMode = QueryMode.FOR_LIST;
         returnType = Class.forName(Lists.getGenericType(method));
         this.executeMethod = getSQLExecuteMethod("queryForList", String.class, Class.class, Object[].class);
-      } else {
+      } else
+      {
         this.queryMode = QueryMode.FOR_OBJECT; // 默认查询单个对象
         this.executeMethod = getSQLExecuteMethod("queryForObject", String.class, Class.class, Object[].class);
       }
       this.returnType = returnType;
-    } else if (method.isAnnotationPresent(ConstVariable.A_UPDATE)) {
+    } else if (method.isAnnotationPresent(ConstVariable.A_UPDATE))
+    {
       this.executeMethod = getSQLExecuteMethod("update", String.class, Object[].class);
-    } else if (method.isAnnotationPresent(ConstVariable.A_INSERT)) {
+    } else if (method.isAnnotationPresent(ConstVariable.A_INSERT))
+    {
       this.executeMethod = getSQLExecuteMethod("insert", String.class, Object[].class);
-    } else if (method.isAnnotationPresent(ConstVariable.A_BATCH)) {
+    } else if (method.isAnnotationPresent(ConstVariable.A_BATCH))
+    {
       this.executeMethod = getSQLExecuteMethod("batch", String.class, Object[].class);
     }
   }
@@ -141,64 +153,79 @@ public class Configuration {
    * @return 对应的方法对象
    * @throws NoSuchMethodException 找不到方法异常
    */
-  private Method getSQLExecuteMethod(String name, Class<?>... parameterTypes) throws NoSuchMethodException {
+  private Method getSQLExecuteMethod(String name, Class<?>... parameterTypes) throws NoSuchMethodException
+  {
     Class<?> executeClass = Executor.class;
     return executeClass.getDeclaredMethod(name, parameterTypes);
   }
 
-  public String getConfigurationId() {
+  public String getConfigurationId()
+  {
     return configurationId;
   }
 
-  public void setConfigurationId(String configurationId) {
+  public void setConfigurationId(String configurationId)
+  {
     this.configurationId = configurationId;
   }
 
-  public Executor getExecutor() {
+  public Executor getExecutor()
+  {
     return executor;
   }
 
-  public void setExecutor(Executor executor) {
+  public void setExecutor(Executor executor)
+  {
     this.executor = executor;
   }
 
-  public Object getInstance() {
+  public Object getInstance()
+  {
     return instance;
   }
 
-  public void setInstance(Object instance) {
+  public void setInstance(Object instance)
+  {
     this.instance = instance;
   }
 
-  public Method getMethod() {
+  public Method getMethod()
+  {
     return method;
   }
 
-  public void setMethod(Method method) {
+  public void setMethod(Method method)
+  {
     this.method = method;
   }
 
-  public Class<?> getReturnType() {
+  public Class<?> getReturnType()
+  {
     return returnType;
   }
 
-  public void setReturnType(Class<?> returnType) {
+  public void setReturnType(Class<?> returnType)
+  {
     this.returnType = returnType;
   }
 
-  public QueryMode getQueryMode() {
+  public QueryMode getQueryMode()
+  {
     return queryMode;
   }
 
-  public void setQueryMode(QueryMode queryMode) {
+  public void setQueryMode(QueryMode queryMode)
+  {
     this.queryMode = queryMode;
   }
 
-  public Method getExecuteMethod() {
+  public Method getExecuteMethod()
+  {
     return executeMethod;
   }
 
-  public void setExecuteMethod(Method executeMethod) {
+  public void setExecuteMethod(Method executeMethod)
+  {
     this.executeMethod = executeMethod;
   }
 

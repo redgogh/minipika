@@ -26,17 +26,23 @@ package org.jiakesiws.minipika.framework.utils;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class AutoClose {
+public class AutoClose
+{
 
   // 关闭流
-  public static void close(AutoCloseable... closeables) {
-    try {
-      for (AutoCloseable closeable : closeables) {
-        if (closeable != null) {
+  public static void close(AutoCloseable... closeables)
+  {
+    try
+    {
+      for (AutoCloseable closeable : closeables)
+      {
+        if (closeable != null)
+        {
           closeable.close();
         }
       }
-    } catch (Exception e) {
+    } catch (Exception e)
+    {
       e.printStackTrace();
     }
   }

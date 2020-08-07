@@ -26,7 +26,8 @@ package org.jiakesiws.minipika.components.logging;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public interface LogAdapter {
-    Log getLog(String key);
-    Log getLog(Class<?> key);
+public interface LogAdapter
+{
+  Log getLog(String key);
+  Log getLog(Class<?> key);
 }

@@ -28,7 +28,8 @@ package org.jiakesiws.minipika.framework.strategy;
  * @author lts
  * @email jiakesiws@gmail.com
  */
-public interface IdGeneratorStrategy {
+public interface IdGeneratorStrategy
+{
 
   /**
    * @return 自定义的ID生成策略生成出来的ID

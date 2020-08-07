@@ -34,18 +34,21 @@ import java.util.List;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class DataSourceNode implements ElementParser {
+public class DataSourceNode implements ElementParser
+{
 
   static final String MASTER = "master";
 
   private final List<SourceConfig> dataSourceNodes = Lists.newArrayList();
 
   @Override
-  public void parse(ElementWrapper element) {
+  public void parse(ElementWrapper element)
+  {
     // 判断是否存在主数据源
     checkIsExistsMaster(element);
     List<ElementWrapper> elements = element.getChildren();
-    for (ElementWrapper datasource : elements) {
+    for (ElementWrapper datasource : elements)
+    {
       SourceConfig sourceConfig = new SourceConfig();
       sourceConfig.parse(datasource);
       dataSourceNodes.add(sourceConfig);
@@ -57,7 +60,8 @@ public class DataSourceNode implements ElementParser {
    *
    * @param element 被检查的元素对象
    */
-  void checkIsExistsMaster(ElementWrapper element) {
+  void checkIsExistsMaster(ElementWrapper element)
+  {
     if (element.getChild(MASTER) == null)
       throw new XMLParseException("minipika config content does not exist master node in DataSource node. " +
               "Cause: master DataSource node is required.");

@@ -33,7 +33,8 @@ import java.lang.reflect.InvocationHandler;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public interface ProxyHandler extends InvocationHandler {
+public interface ProxyHandler extends InvocationHandler
+{
 
   /**
    * 获取代理对象

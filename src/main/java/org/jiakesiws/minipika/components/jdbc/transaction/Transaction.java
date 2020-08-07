@@ -32,7 +32,8 @@ import java.sql.SQLException;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public interface Transaction {
+public interface Transaction
+{
 
   /**
    * 设置数据源

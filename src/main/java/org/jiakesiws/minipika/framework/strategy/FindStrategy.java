@@ -33,23 +33,29 @@ import java.io.InputStream;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class FindStrategy {
+public class FindStrategy
+{
 
   // 默认配置文件名称
   static final String DEFAULT_NAME = "minipika.xml";
 
   private static InputSource systemId;
 
-  private FindStrategy() {
+  private FindStrategy()
+  {
   }
 
-  public static InputSource getConfigInputStream() {
-    try {
-      if (systemId == null) {
+  public static InputSource getConfigInputStream()
+  {
+    try
+    {
+      if (systemId == null)
+      {
         usingConfigFromClassPath();
       }
       return systemId;
-    } catch (Exception e) {
+    } catch (Exception e)
+    {
       e.printStackTrace();
     }
     return null;
@@ -58,7 +64,8 @@ public class FindStrategy {
   /**
    * 从{@code classpath}中寻找配置文件
    */
-  private static void usingConfigFromClassPath() {
+  private static void usingConfigFromClassPath()
+  {
     InputStream stream = Threads.getCallerLoader().getResourceAsStream(DEFAULT_NAME);
     systemId = new InputSource(stream);
   }

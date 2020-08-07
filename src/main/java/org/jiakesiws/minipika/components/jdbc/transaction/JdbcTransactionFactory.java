@@ -32,17 +32,20 @@ import javax.sql.DataSource;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class JdbcTransactionFactory implements TransactionFactory {
+public class JdbcTransactionFactory implements TransactionFactory
+{
 
   private TransactionIsolationLevel level;
 
   @Override
-  public void setTransactionIsolationLevel(TransactionIsolationLevel level) {
+  public void setTransactionIsolationLevel(TransactionIsolationLevel level)
+  {
     this.level = level;
   }
 
   @Override
-  public Transaction newTransaction(DataSource dataSource) {
+  public Transaction newTransaction(DataSource dataSource)
+  {
     Transaction transaction = Factorys.forClass(Transaction.class);
     transaction.setDataSource(dataSource);
     transaction.setTransactionIsolationLevel(level);

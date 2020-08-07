@@ -38,7 +38,8 @@ import java.util.Set;
  * @author lts
  * @email jiakesiws@gmail.com
  */
-public interface Cache {
+public interface Cache
+{
 
   Map<String, Set<String>> KEYS = Maps.newConcurrentHashMap();
 
@@ -82,24 +83,31 @@ public interface Cache {
    * @param sql  sql语句
    * @param args 参数列表
    */
-  static String genKey(String sql, Object... args) {
+  static String genKey(String sql, Object... args)
+  {
     // 获取SQL中存在的表，并生成MD5作为唯一标识
     List<String> tables = SQLUtils.getSQLTables(sql);
     // 生成缓存key
     StringBuilder keyBuilder = new StringBuilder(sql);
-    if (args != null) {
-      for (Object arg : args) {
+    if (args != null)
+    {
+      for (Object arg : args)
+      {
         keyBuilder.append(arg);
       }
     }
     String key = CEA64.MD5.digest32(keyBuilder.toString());
-    for (String table : tables) {
-      if(KEYS.containsKey(table)) {
+    for (String table : tables)
+    {
+      if (KEYS.containsKey(table))
+      {
         Set<String> set = KEYS.get(table);
-        if(!set.contains(table)) {
+        if (!set.contains(table))
+        {
           set.add(key);
         }
-      } else {
+      } else
+      {
         KEYS.put(table, Sets.newHashSet());
         Set<String> set = KEYS.get(table);
         set.add(key);

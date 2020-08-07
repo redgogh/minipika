@@ -31,7 +31,8 @@ import java.util.Map;
  * @author lts
  * @email jiakesiws@gmail.com
  */
-public final class Calculator {
+public final class Calculator
+{
 
   private String exps;
 
@@ -42,9 +43,11 @@ public final class Calculator {
   /**
    * 状态
    */
-  enum Status {ADD, SUBTRACT, MULTIPLY, DIVIDE}
+  enum Status
+  {ADD, SUBTRACT, MULTIPLY, DIVIDE}
 
-  public Long express(String exps) {
+  public Long express(String exps)
+  {
     this.exps = clearSpace(exps);
     getPosition(); // 获取运算符的位置
     calc();
@@ -53,7 +56,8 @@ public final class Calculator {
 
 
   // 测试
-  public static void main(String[] args) {
+  public static void main(String[] args)
+  {
     Calculator calculator = new Calculator();
     Long sum = calculator.express("2 * ((( 2 + 3 ) * (4 * 2) + ( 3 * 3)) * ( 2 + 3 ) * (4 * 2) + ( 3 * 3))");
     System.err.println(sum);
@@ -63,25 +67,32 @@ public final class Calculator {
   /**
    * 获取各个运算符号的位置
    */
-  private void getPosition() {
+  private void getPosition()
+  {
     posMap = new LinkedHashMap<>();
     char[] chars = exps.toCharArray();
-    for (int i = 0; i < chars.length; i++) {
+    for (int i = 0; i < chars.length; i++)
+    {
       char value = chars[i];
-      switch (value) {
-        case '+': {
+      switch (value)
+      {
+        case '+':
+        {
           posMap.put(i + 1, Status.ADD);
           break;
         }
-        case '-': {
+        case '-':
+        {
           posMap.put(i + 1, Status.SUBTRACT);
           break;
         }
-        case '*': {
+        case '*':
+        {
           posMap.put(i + 1, Status.MULTIPLY);
           break;
         }
-        case '/': {
+        case '/':
+        {
           posMap.put(i + 1, Status.DIVIDE);
           break;
         }
@@ -94,29 +105,35 @@ public final class Calculator {
    *
    * @return
    */
-  private void calc() {
+  private void calc()
+  {
     if (!exps.contains("+")
             && !exps.contains("-")
             && !exps.contains("*")
-            && !exps.contains("/")) {
+            && !exps.contains("/"))
+    {
       SUM = Long.valueOf(exps);
     }
     // 首先处理括号中的运算
     brackets(this.exps);
     // 第一次做乘除运算
-    for (Map.Entry<Integer, Status> pos : posMap.entrySet()) {
+    for (Map.Entry<Integer, Status> pos : posMap.entrySet())
+    {
       if (posMap.size() == 0) break;
       Status status = pos.getValue();
-      if (status == Status.MULTIPLY || status == Status.DIVIDE) {
+      if (status == Status.MULTIPLY || status == Status.DIVIDE)
+      {
         multiplyDivide(pos.getKey(), status);
         calc();
       }
     }
     // 第二次做加减运算
-    for (Map.Entry<Integer, Status> pos : posMap.entrySet()) {
+    for (Map.Entry<Integer, Status> pos : posMap.entrySet())
+    {
       if (posMap.size() == 0) break;
       Status status = pos.getValue();
-      if (status == Status.ADD || status == Status.SUBTRACT) {
+      if (status == Status.ADD || status == Status.SUBTRACT)
+      {
         addSubtract(pos.getKey(), status);
         calc();
       }
@@ -129,11 +146,14 @@ public final class Calculator {
    * @param position
    * @param status
    */
-  private void multiplyDivide(Integer position, Status status) {
-    if (status == Status.MULTIPLY) {
+  private void multiplyDivide(Integer position, Status status)
+  {
+    if (status == Status.MULTIPLY)
+    {
       include(position, Status.MULTIPLY);
     }
-    if (status == Status.DIVIDE) {
+    if (status == Status.DIVIDE)
+    {
       include(position, Status.DIVIDE);
     }
   }
@@ -144,11 +164,14 @@ public final class Calculator {
    * @param position
    * @param status
    */
-  private void addSubtract(Integer position, Status status) {
-    if (status == Status.ADD) {
+  private void addSubtract(Integer position, Status status)
+  {
+    if (status == Status.ADD)
+    {
       include(position, Status.ADD);
     }
-    if (status == Status.SUBTRACT) {
+    if (status == Status.SUBTRACT)
+    {
       include(position, Status.SUBTRACT);
     }
   }
@@ -156,18 +179,22 @@ public final class Calculator {
   /**
    * 处理括号中的运算
    */
-  private void brackets(String exps) {
+  private void brackets(String exps)
+  {
     Integer[] offset = new Integer[2];
     char[] chars = exps.toCharArray();
-    for (int i = 0; i < chars.length; i++) {
+    for (int i = 0; i < chars.length; i++)
+    {
       char value = chars[i];
       if (value == '(') offset[0] = i + 1;
-      if (value == ')' && offset[1] == null) {
+      if (value == ')' && offset[1] == null)
+      {
         offset[1] = i;
         break;
       }
     }
-    if (offset[0] != null && offset[1] != null) {
+    if (offset[0] != null && offset[1] != null)
+    {
       String exp1 = exps.substring(offset[0], offset[1]);
       Calculator calculator = new Calculator();
       Long value = calculator.express(exp1);
@@ -185,7 +212,8 @@ public final class Calculator {
    * @param position
    * @return
    */
-  private long include(int position, Status status) {
+  private long include(int position, Status status)
+  {
     int[] offset = new int[2];
     Long first = null;
     Long second = null;
@@ -198,15 +226,19 @@ public final class Calculator {
     if (temp.contains("+")
             || temp.contains("-")
             || temp.contains("*")
-            || temp.contains("/")) {
+            || temp.contains("/"))
+    {
       int iPos = position - 1;
-      for (int i = iPos - 1; i > 0; i--) {
+      for (int i = iPos - 1; i > 0; i--)
+      {
         char value = chars[i];
-        switch (value) {
+        switch (value)
+        {
           case '+':
           case '-':
           case '*':
-          case '/': {
+          case '/':
+          {
             i = i + 1;
             temp = exps.substring(i, iPos);
             offset[0] = i;
@@ -216,7 +248,8 @@ public final class Calculator {
         }
       }
       first = Long.valueOf(temp);
-    } else {
+    } else
+    {
       first = Long.valueOf(temp);
       offset[0] = 0;
     }
@@ -227,16 +260,20 @@ public final class Calculator {
     if (temp.contains("+")
             || temp.contains("-")
             || temp.contains("*")
-            || temp.contains("/")) {
+            || temp.contains("/"))
+    {
 
       int iPos = position + 1;
-      for (int i = iPos; i < chars.length; i++) {
+      for (int i = iPos; i < chars.length; i++)
+      {
         char value = chars[i];
-        switch (value) {
+        switch (value)
+        {
           case '+':
           case '-':
           case '*':
-          case '/': {
+          case '/':
+          {
             iPos = iPos - 1;
             temp = exps.substring(iPos, i);
             offset[1] = i;
@@ -246,7 +283,8 @@ public final class Calculator {
         }
       }
       second = Long.valueOf(temp);
-    } else {
+    } else
+    {
       second = Long.valueOf(temp);
       offset[1] = chars.length;
     }
@@ -270,11 +308,14 @@ public final class Calculator {
    * @param exps
    * @return
    */
-  private String clearSpace(String exps) {
+  private String clearSpace(String exps)
+  {
     StringBuilder builder = new StringBuilder();
     char[] chars = exps.toCharArray();
-    for (char value : chars) {
-      switch (value) {
+    for (char value : chars)
+    {
+      switch (value)
+      {
         case ' ':
           break;
         default:
@@ -289,7 +330,8 @@ public final class Calculator {
    *
    * @param exps
    */
-  private void reset(String exps) {
+  private void reset(String exps)
+  {
     this.exps = clearSpace(exps);
     getPosition(); // 获取运算符的位置
   }

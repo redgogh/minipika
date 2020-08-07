@@ -28,15 +28,18 @@ import java.lang.reflect.Field;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class CopyingClassLoader extends ClassLoader {
+public class CopyingClassLoader extends ClassLoader
+{
 
-  public CopyingClassLoader() {
+  public CopyingClassLoader()
+  {
   }
 
   /**
    * 根据字节码来加载类
    */
-  public Class<?> findClass(String name, byte[] classBytes) {
+  public Class<?> findClass(String name, byte[] classBytes)
+  {
     return defineClass(name, classBytes, 0, classBytes.length);
   }
 
@@ -46,12 +49,15 @@ public class CopyingClassLoader extends ClassLoader {
    * @param src 源对象信息
    * @return 新的一个对象
    */
-  public static Object getObject(Object src) {
-    try {
+  public static Object getObject(Object src)
+  {
+    try
+    {
       Class<?> clazz = src.getClass();
       Object instance = clazz.getDeclaredConstructor().newInstance();
       Field[] fields = src.getClass().getDeclaredFields();
-      for (Field oldField : fields) {
+      for (Field oldField : fields)
+      {
         String fieldName = oldField.getName();
         oldField.setAccessible(true);
         Field newInstanceField = instance.getClass().getDeclaredField(fieldName);
@@ -59,7 +65,8 @@ public class CopyingClassLoader extends ClassLoader {
         newInstanceField.set(instance, oldField.get(src));
       }
       return instance;
-    } catch (Exception e) {
+    } catch (Exception e)
+    {
       e.printStackTrace();
     }
     return null;

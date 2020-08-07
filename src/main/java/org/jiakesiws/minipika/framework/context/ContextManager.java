@@ -40,9 +40,11 @@ import org.jiakesiws.minipika.components.configuration.XMLConfigBuilder;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class ContextManager {
+public class ContextManager
+{
 
-  public static void loadContext() {
+  public static void loadContext()
+  {
     XMLConfigBuilder configBuilder = new XMLConfigBuilder();
     configBuilder.load(FindStrategy.getConfigInputStream());
     ComponentContainer.getComponents().put(XMLConfig.class.getName(), configBuilder.getConfig());

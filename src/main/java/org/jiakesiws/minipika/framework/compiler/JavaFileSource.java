@@ -29,16 +29,19 @@ import java.net.URI;
  * @author lts
  * @email jiakesiws@gmail.com
  */
-class JavaFileSource extends SimpleJavaFileObject {
+class JavaFileSource extends SimpleJavaFileObject
+{
 
   private String code;
 
-  public JavaFileSource(String name, String code) {
+  public JavaFileSource(String name, String code)
+  {
     super(URI.create("string:///" + name.replace('.', '/') + Kind.SOURCE.extension), Kind.SOURCE);
     this.code = code;
   }
 
-  public CharSequence getCharContent(boolean ignoreEncodingErrors) {
+  public CharSequence getCharContent(boolean ignoreEncodingErrors)
+  {
     return this.code;
   }
 

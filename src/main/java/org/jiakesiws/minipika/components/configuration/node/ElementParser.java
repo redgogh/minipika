@@ -26,9 +26,11 @@ import org.jiakesiws.minipika.components.configuration.wrapper.ElementWrapper;
 
 /**
  * 每个节点只解析对应的元素内容
+ *
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public interface ElementParser {
+public interface ElementParser
+{
   void parse(ElementWrapper element);
 }

@@ -24,6 +24,7 @@ package org.jiakesiws.minipika.components.jdbc;
 
 import org.jiakesiws.minipika.framework.annotations.Component;
 import org.jiakesiws.minipika.framework.factory.Factorys;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -33,55 +34,66 @@ import java.util.List;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class SQLExecutor implements Executor {
+public class SQLExecutor implements Executor
+{
 
   @Component
   private NativeJdbc nativeJdbc;
 
   @Override
-  public <T> T queryForObject(String sql, Class<T> obj, Object... args) throws SQLException {
+  public <T> T queryForObject(String sql, Class<T> obj, Object... args) throws SQLException
+  {
     NativeResultSet resultSet = nativeJdbc.select(sql, args);
-    if (resultSet != null) {
+    if (resultSet != null)
+    {
       return resultSet.conversionJavaBean(obj);
     }
     return null;
   }
 
   @Override
-  public <T> List<T> queryForList(String sql, Class<T> obj, Object... args) throws SQLException {
+  public <T> List<T> queryForList(String sql, Class<T> obj, Object... args) throws SQLException
+  {
     NativeResultSet resultSet = nativeJdbc.select(sql, args);
-    if (resultSet != null) {
+    if (resultSet != null)
+    {
       return resultSet.conversionJavaList(obj);
     }
     return null;
   }
 
   @Override
-  public String queryForJson(String sql, Object... args) throws SQLException {
+  public String queryForJson(String sql, Object... args) throws SQLException
+  {
     NativeResultSet resultSet = nativeJdbc.select(sql, args);
-    if (resultSet != null) {
+    if (resultSet != null)
+    {
       return resultSet.toJSONString();
     }
     return null;
   }
 
   @Override
-  public NativeResultSet queryForNativeResult(String sql, Object... args) throws SQLException {
+  public NativeResultSet queryForNativeResult(String sql, Object... args) throws SQLException
+  {
     return nativeJdbc.select(sql, args);
   }
 
   @Override
-  public int update(String sql, Object... args) throws SQLException {
+  public int update(String sql, Object... args) throws SQLException
+  {
     return nativeJdbc.update(sql, args);
   }
 
   @Override
-  public int insert(String sql, Object... args) throws SQLException {
+  public int insert(String sql, Object... args) throws SQLException
+  {
     return nativeJdbc.update(sql, args);
   }
 
   @Override
-  public int count(String sql, Object... args) throws SQLException {
+  public int count(String sql, Object... args) throws SQLException
+  {
     // StringBuilder value = new StringBuilder(sql.toLowerCase());
     // String select = "select";
     // int selectPos = value.indexOf(select) + select.length();
@@ -95,26 +107,31 @@ public class SQLExecutor implements Executor {
   }
 
   @Override
-  public boolean execute(String sql, Object... args) throws SQLException {
+  public boolean execute(String sql, Object... args) throws SQLException
+  {
     return nativeJdbc.execute(sql, args);
   }
 
   @Override
-  public int[] batch(String sql, List<Object[]> args) throws SQLException {
+  public int[] batch(String sql, List<Object[]> args) throws SQLException
+  {
     return nativeJdbc.executeBatch(sql, args);
   }
 
   @Override
-  public int[] batch(String sql, Object[] args) throws SQLException {
+  public int[] batch(String sql, Object[] args) throws SQLException
+  {
     return nativeJdbc.executeBatch(sql, args);
   }
 
   @Override
-  public int[] batch(String[] sql, List<Object[]> args) throws SQLException {
+  public int[] batch(String[] sql, List<Object[]> args) throws SQLException
+  {
     return nativeJdbc.executeBatch(sql, args);
   }
 
-  public NativeJdbc getNativeJdbc() {
+  public NativeJdbc getNativeJdbc()
+  {
     return nativeJdbc;
   }
 

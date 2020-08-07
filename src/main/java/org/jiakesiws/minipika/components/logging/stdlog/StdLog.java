@@ -28,47 +28,57 @@ import org.jiakesiws.minipika.components.logging.Log;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class StdLog implements Log {
+public class StdLog implements Log
+{
 
-    public StdLog() {
-    }
+  public StdLog()
+  {
+  }
 
-    public StdLog(Class<?> name){
-        this(name.getName());
-    }
+  public StdLog(Class<?> name)
+  {
+    this(name.getName());
+  }
 
-    public StdLog(String name){
-        // Do Noting
-    }
+  public StdLog(String name)
+  {
+    // Do Noting
+  }
 
-    @Override
-    public boolean isDebugEnabled() {
-        return true;
-    }
+  @Override
+  public boolean isDebugEnabled()
+  {
+    return true;
+  }
 
-    @Override
-    public void info(String msg) {
-        System.out.println(msg);
-    }
+  @Override
+  public void info(String msg)
+  {
+    System.out.println(msg);
+  }
 
-    @Override
-    public void warn(String msg) {
-        System.out.println(msg);
-    }
+  @Override
+  public void warn(String msg)
+  {
+    System.out.println(msg);
+  }
 
-    @Override
-    public void debug(String msg) {
-        System.out.println(msg);
-    }
+  @Override
+  public void debug(String msg)
+  {
+    System.out.println(msg);
+  }
 
-    @Override
-    public void error(String msg) {
-        System.out.println(msg);
-    }
+  @Override
+  public void error(String msg)
+  {
+    System.out.println(msg);
+  }
 
-    @Override
-    public void error(String msg, Throwable e) {
-        System.out.println(msg);
-    }
+  @Override
+  public void error(String msg, Throwable e)
+  {
+    System.out.println(msg);
+  }
 
 }

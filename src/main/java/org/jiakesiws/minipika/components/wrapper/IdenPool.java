@@ -36,6 +36,7 @@ public interface IdenPool {
   String LE             = "<=";
   String LT             = "<";
   String EQUALS         = "=";
+  String NOT_EQUALS     = "!=";
   String LIKE           = "like";
   String R_LIKE         = LIKE.concat(" '{}%'");
   String L_LIKE         = LIKE.concat(" '%{}'");
@@ -45,4 +46,5 @@ public interface IdenPool {
   String DIV            = "/";
 
 
+  String OR             = "or";
 }

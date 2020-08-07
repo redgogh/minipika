@@ -35,38 +35,48 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @author lts
  * @email jiakesiws@gmail.com
  */
-public class FetchCache implements Cache {
+public class FetchCache implements Cache
+{
 
   private final Map<String, NativeResultSet> map = Maps.newConcurrentHashMap();
 
   private final ReentrantReadWriteLock readAndWriteLock = new ReentrantReadWriteLock();
 
   @Override
-  public NativeResultSet set(String key, NativeResultSet resultSet) {
+  public NativeResultSet set(String key, NativeResultSet resultSet)
+  {
     readAndWriteLock.writeLock().lock();
-    try {
+    try
+    {
       map.put(key, resultSet);
-    } catch (Exception e) {
+    } catch (Exception e)
+    {
       e.printStackTrace();
-    } finally {
+    } finally
+    {
       readAndWriteLock.writeLock().unlock();
     }
     return resultSet;
   }
 
   @Override
-  public NativeResultSet fetch(String key) {
+  public NativeResultSet fetch(String key)
+  {
     return map.get(key);
   }
 
   @Override
-  public void update(String sql) {
+  public void update(String sql)
+  {
     Map<String, Set<String>> keys = Cache.KEYS;
     List<String> tables = SQLUtils.getSQLTables(sql);
-    for (String table : tables) {
-      if(keys.containsKey(table)) {
+    for (String table : tables)
+    {
+      if (keys.containsKey(table))
+      {
         Set<String> setKeys = keys.get(table);
-        for (String key : setKeys) {
+        for (String key : setKeys)
+        {
           refresh(key);
         }
       }
@@ -74,18 +84,23 @@ public class FetchCache implements Cache {
   }
 
   @Override
-  public void refresh() {
+  public void refresh()
+  {
     map.clear();
   }
 
   @Override
-  public void refresh(String key) {
+  public void refresh(String key)
+  {
     readAndWriteLock.writeLock().lock();
-    try {
+    try
+    {
       map.remove(key);
-    } catch (Exception e) {
+    } catch (Exception e)
+    {
       e.printStackTrace();
-    } finally {
+    } finally
+    {
       readAndWriteLock.writeLock().unlock();
     }
   }

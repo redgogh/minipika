@@ -34,14 +34,17 @@ import java.util.List;
  * @email jiakesiws@gmail.com
  */
 @SuppressWarnings({"rawtypes"})
-public final class Arrays {
+public final class Arrays
+{
 
-  public enum OP {FIRST, LAST}
+  public enum OP
+  {FIRST, LAST}
 
   /**
    * 判断对象是否为数组
    */
-  public static boolean isArray(Object o) {
+  public static boolean isArray(Object o)
+  {
     return o != null && o.getClass().isArray();
   }
 
@@ -53,7 +56,8 @@ public final class Arrays {
    * @param dest 目标数组
    * @return 新的byte数组
    */
-  public static byte[] insert(final byte[] dest, int pos, byte... data) {
+  public static byte[] insert(final byte[] dest, int pos, byte... data)
+  {
     byte[] destCopy = new byte[dest.length + data.length];
     System.arraycopy(dest, 0, destCopy, 0, pos);
     System.arraycopy(data, 0, destCopy, pos, data.length);
@@ -69,7 +73,8 @@ public final class Arrays {
    * @param dest 目标数组
    * @return 新的short数组
    */
-  public static short[] insert(final short[] dest, int pos, short... data) {
+  public static short[] insert(final short[] dest, int pos, short... data)
+  {
     short[] destCopy = new short[dest.length + data.length];
     System.arraycopy(dest, 0, destCopy, 0, pos);
     System.arraycopy(data, 0, destCopy, pos, data.length);
@@ -86,7 +91,8 @@ public final class Arrays {
    * @param dest 目标数组
    * @return 新的int数组
    */
-  public static int[] insert(final int[] dest, int pos, int... data) {
+  public static int[] insert(final int[] dest, int pos, int... data)
+  {
     int[] destCopy = new int[dest.length + data.length];
     System.arraycopy(dest, 0, destCopy, 0, pos);
     System.arraycopy(data, 0, destCopy, pos, data.length);
@@ -102,7 +108,8 @@ public final class Arrays {
    * @param dest 目标数组
    * @return 新的long数组
    */
-  public static long[] insert(final long[] dest, int pos, long... data) {
+  public static long[] insert(final long[] dest, int pos, long... data)
+  {
     long[] destCopy = new long[dest.length + data.length];
     System.arraycopy(dest, 0, destCopy, 0, pos);
     System.arraycopy(data, 0, destCopy, pos, data.length);
@@ -118,7 +125,8 @@ public final class Arrays {
    * @param dest 目标数组
    * @return 新的float数组
    */
-  public static float[] insert(final float[] dest, int pos, float... data) {
+  public static float[] insert(final float[] dest, int pos, float... data)
+  {
     float[] destCopy = new float[dest.length + data.length];
     System.arraycopy(dest, 0, destCopy, 0, pos);
     System.arraycopy(data, 0, destCopy, pos, data.length);
@@ -134,7 +142,8 @@ public final class Arrays {
    * @param dest 目标数组
    * @return 新的double数组
    */
-  public static double[] insert(final double[] dest, int pos, double... data) {
+  public static double[] insert(final double[] dest, int pos, double... data)
+  {
     double[] destCopy = new double[dest.length + data.length];
     System.arraycopy(dest, 0, destCopy, 0, pos);
     System.arraycopy(data, 0, destCopy, pos, data.length);
@@ -150,7 +159,8 @@ public final class Arrays {
    * @param dest 目标数组
    * @return 新的boolean数组
    */
-  public static boolean[] insert(final boolean[] dest, int pos, boolean... data) {
+  public static boolean[] insert(final boolean[] dest, int pos, boolean... data)
+  {
     boolean[] destCopy = new boolean[dest.length + data.length];
     System.arraycopy(dest, 0, destCopy, 0, pos);
     System.arraycopy(data, 0, destCopy, pos, data.length);
@@ -166,7 +176,8 @@ public final class Arrays {
    * @param dest 目标数组
    * @return 新的char数组
    */
-  public static char[] insert(final char[] dest, int pos, char... data) {
+  public static char[] insert(final char[] dest, int pos, char... data)
+  {
     char[] destCopy = new char[dest.length + data.length];
     System.arraycopy(dest, 0, destCopy, 0, pos);
     System.arraycopy(data, 0, destCopy, pos, data.length);
@@ -180,8 +191,10 @@ public final class Arrays {
    * @param array 需要删除的数组
    * @param index 需要删除的下标
    */
-  public static <T> Object[] remove(T[] array, int index) {
-    try {
+  public static <T> Object[] remove(T[] array, int index)
+  {
+    try
+    {
       ArrayList<T> list = new ArrayList<>(java.util.Arrays.asList(array));
       String typeName = array.getClass().getTypeName();
       typeName = typeName.substring(0, typeName.length() - 2); // 去除 '[]'
@@ -189,7 +202,8 @@ public final class Arrays {
       Class clazz = Class.forName(typeName);
       Object arrayObject = Array.newInstance(clazz, array.length - 1);
       return list.toArray((Object[]) arrayObject);
-    } catch (Exception e) {
+    } catch (Exception e)
+    {
       e.printStackTrace();
     }
     return null;
@@ -198,10 +212,13 @@ public final class Arrays {
   /**
    * 根据OP枚举来删除
    */
-  public static <T> Object[] remove(T[] array, OP op) {
-    if (op == OP.FIRST) {
+  public static <T> Object[] remove(T[] array, OP op)
+  {
+    if (op == OP.FIRST)
+    {
       return remove(array, 0);
-    } else if (op == OP.LAST) {
+    } else if (op == OP.LAST)
+    {
       return remove(array, array.length - 1);
     }
     throw new InvalidParameterException("invalid parameter for op: " + op);
@@ -214,9 +231,12 @@ public final class Arrays {
    * @param value 需要追加的数据 | append value
    * @return false代表数组已经满了不能追加 | false express array full
    */
-  public static <T> boolean append(T[] array, T value) {
-    for (int i = 0; i < array.length; i++) {
-      if (array[i] == null) {
+  public static <T> boolean append(T[] array, T value)
+  {
+    for (int i = 0; i < array.length; i++)
+    {
+      if (array[i] == null)
+      {
         array[i] = value;
         return true;
       }
@@ -232,7 +252,8 @@ public final class Arrays {
    * @param index 在哪个位置追加数据 | append data by index
    * @return false代表数组已经满了不能追加 | false express array full
    */
-  public static <T> boolean append(T[] array, T value, int index) {
+  public static <T> boolean append(T[] array, T value, int index)
+  {
     if (array.length < index)
       return false;
     array[index] = value;
@@ -246,7 +267,8 @@ public final class Arrays {
    * @param capacity 容量
    * @return 扩容后的数组
    */
-  public static <T> T[] copyOf(T[] a, int capacity) {
+  public static <T> T[] copyOf(T[] a, int capacity)
+  {
     return java.util.Arrays.copyOf(a, capacity);
   }
 
@@ -256,28 +278,35 @@ public final class Arrays {
    * @param a 数组对象
    * @return 实例化的List对象
    */
-  public static <E> List<E> asList(E[] a) {
+  public static <E> List<E> asList(E[] a)
+  {
     return Lists.ofList(a);
   }
 
   /**
    * 对象转数组, 传入的对象必须是数组转成的。
    */
-  public static Object[] toArray(Object a) {
+  public static Object[] toArray(Object a)
+  {
     Object[] objects = null;
-    if(a != null) {
-      if (isArray(a)) {
+    if (a != null)
+    {
+      if (isArray(a))
+      {
         int size = Array.getLength(a);
         objects = new Object[size];
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++)
+        {
           objects[i] = Array.get(a, i);
         }
         return objects;
-      } else if (a instanceof List) {
+      } else if (a instanceof List)
+      {
         List<?> list = (List<?>) a;
         int len = list.size();
         objects = new Object[len];
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < len; i++)
+        {
           objects[i] = list.get(i);
         }
       }
@@ -288,13 +317,16 @@ public final class Arrays {
   /**
    * 数组的{@code toString}方法
    */
-  public static String toString(Object array) {
-    if (!isArray(array)) {
+  public static String toString(Object array)
+  {
+    if (!isArray(array))
+    {
       throw new Error("parameter object not array.");
     }
     Object[] array0 = toArray(array);
     String str = "[";
-    for (Object o : array0) {
+    for (Object o : array0)
+    {
       str += o + ",";
     }
     str = str.substring(0, str.length() - 1) + "]";
@@ -304,13 +336,16 @@ public final class Arrays {
   /**
    * 数组的{@code toString}方法
    */
-  public static String toString(Object array, String delimiter) {
-    if (!isArray(array)) {
+  public static String toString(Object array, String delimiter)
+  {
+    if (!isArray(array))
+    {
       throw new Error("parameter object not array.");
     }
     Object[] array0 = toArray(array);
     StringBuilder str = new StringBuilder("[");
-    for (Object o : array0) {
+    for (Object o : array0)
+    {
       str.append(o).append(delimiter);
     }
     str = new StringBuilder(str.substring(0, str.length() - 1) + "]");

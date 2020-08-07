@@ -41,7 +41,8 @@ import java.util.logging.Logger;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class UnpooledDataSource implements DataSource {
+public class UnpooledDataSource implements DataSource
+{
 
   protected Driver driver;
 
@@ -49,24 +50,29 @@ public class UnpooledDataSource implements DataSource {
 
   protected Properties properties = new Properties();
 
-  public UnpooledDataSource() {
+  public UnpooledDataSource()
+  {
     this(null);
   }
 
-  public UnpooledDataSource(SourceConfig sourceConfig) {
+  public UnpooledDataSource(SourceConfig sourceConfig)
+  {
     this.sourceConfig = sourceConfig;
     DataSourceManager.registerDataSource(getSourceConfig().getName(), this);
   }
 
-  public SourceConfig getSourceConfig() {
+  public SourceConfig getSourceConfig()
+  {
     return sourceConfig;
   }
 
-  public void setSourceConfig(SourceConfig sourceConfig) {
+  public void setSourceConfig(SourceConfig sourceConfig)
+  {
     this.sourceConfig = sourceConfig;
   }
 
-  private Connection doGetConnection(String username, String password) throws SQLException {
+  private Connection doGetConnection(String username, String password) throws SQLException
+  {
     initializeDriver();
     properties.setProperty(SourceConfig.USERNAME, username);
     properties.setProperty(SourceConfig.PASSWORD, password);
@@ -74,8 +80,10 @@ public class UnpooledDataSource implements DataSource {
     return configurationConnection(connection);
   }
 
-  private Connection configurationConnection(Connection connection) throws SQLException {
-    if (sourceConfig.isDesiredAutoCommit() != connection.getAutoCommit()) {
+  private Connection configurationConnection(Connection connection) throws SQLException
+  {
+    if (sourceConfig.isDesiredAutoCommit() != connection.getAutoCommit())
+    {
       connection.setAutoCommit(sourceConfig.isDesiredAutoCommit());
     }
     return connection;
@@ -84,14 +92,18 @@ public class UnpooledDataSource implements DataSource {
   /**
    * 初始化驱动程序
    */
-  private synchronized void initializeDriver() throws SQLException {
-    if (this.driver == null) {
-      try {
+  private synchronized void initializeDriver() throws SQLException
+  {
+    if (this.driver == null)
+    {
+      try
+      {
         Class<?> driverClass = Class.forName(sourceConfig.getDriver(), true, this.getClass().getClassLoader());
         Driver driver0 = (Driver) ClassUtils.newInstance(driverClass);
         DriverManager.registerDriver(driver0);
         this.driver = new DriverProxy(driver0);
-      } catch (Exception e) {
+      } catch (Exception e)
+      {
         throw new SQLException("Error failed to initialize driver. Cause: " + e.getMessage());
       }
     }
@@ -100,19 +112,23 @@ public class UnpooledDataSource implements DataSource {
   /**
    * 驱动代理
    */
-  static class DriverProxy implements Driver {
+  static class DriverProxy implements Driver
+  {
 
     Driver d;
 
     final Log LOG = LogFactory.getLog(DriverProxy.class);
 
-    DriverProxy(Driver d) {
+    DriverProxy(Driver d)
+    {
       this.d = d;
     }
 
     @Override
-    public Connection connect(String url, Properties info) throws SQLException {
-      if (LOG.isDebugEnabled()) {
+    public Connection connect(String url, Properties info) throws SQLException
+    {
+      if (LOG.isDebugEnabled())
+      {
         LOG.debug(" using url: " + url);
       }
       String name = info.getProperty(SourceConfig.USERNAME);
@@ -121,78 +137,93 @@ public class UnpooledDataSource implements DataSource {
     }
 
     @Override
-    public boolean acceptsURL(String url) throws SQLException {
+    public boolean acceptsURL(String url) throws SQLException
+    {
       return d.acceptsURL(url);
     }
 
     @Override
-    public DriverPropertyInfo[] getPropertyInfo(String url, Properties info) throws SQLException {
+    public DriverPropertyInfo[] getPropertyInfo(String url, Properties info) throws SQLException
+    {
       return d.getPropertyInfo(url, info);
     }
 
     @Override
-    public int getMajorVersion() {
+    public int getMajorVersion()
+    {
       return d.getMajorVersion();
     }
 
     @Override
-    public int getMinorVersion() {
+    public int getMinorVersion()
+    {
       return d.getMinorVersion();
     }
 
     @Override
-    public boolean jdbcCompliant() {
+    public boolean jdbcCompliant()
+    {
       return d.jdbcCompliant();
     }
 
     @Override
-    public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+    public Logger getParentLogger() throws SQLFeatureNotSupportedException
+    {
       return d.getParentLogger();
     }
   }
 
   @Override
-  public Connection getConnection() throws SQLException {
+  public Connection getConnection() throws SQLException
+  {
     return doGetConnection(sourceConfig.getUsername(), sourceConfig.getPassword());
   }
 
   @Override
-  public Connection getConnection(String username, String password) throws SQLException {
+  public Connection getConnection(String username, String password) throws SQLException
+  {
     return doGetConnection(username, password);
   }
 
   @Override
-  public PrintWriter getLogWriter() throws SQLException {
+  public PrintWriter getLogWriter() throws SQLException
+  {
     return DriverManager.getLogWriter();
   }
 
   @Override
-  public void setLogWriter(PrintWriter out) throws SQLException {
+  public void setLogWriter(PrintWriter out) throws SQLException
+  {
     DriverManager.setLogWriter(out);
   }
 
   @Override
-  public void setLoginTimeout(int seconds) throws SQLException {
+  public void setLoginTimeout(int seconds) throws SQLException
+  {
     DriverManager.setLoginTimeout(seconds);
   }
 
   @Override
-  public int getLoginTimeout() throws SQLException {
+  public int getLoginTimeout() throws SQLException
+  {
     return DriverManager.getLoginTimeout();
   }
 
   @Override
-  public <T> T unwrap(Class<T> iface) throws SQLException {
+  public <T> T unwrap(Class<T> iface) throws SQLException
+  {
     throw new SQLException(getClass().getName() + " is not a wrapper");
   }
 
   @Override
-  public boolean isWrapperFor(Class<?> iface) throws SQLException {
+  public boolean isWrapperFor(Class<?> iface) throws SQLException
+  {
     return false;
   }
 
   @Override
-  public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+  public Logger getParentLogger() throws SQLFeatureNotSupportedException
+  {
     return Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
   }
 

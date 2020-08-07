@@ -32,9 +32,11 @@ import java.security.MessageDigest;
  * @author lts
  * @email jiakesiws@gmail.com
  */
-public class CEA64 {
+public class CEA64
+{
 
-  public static void main(String[] args) {
+  public static void main(String[] args)
+  {
     // 15121116101312
     long x = 15121116101312L;
     long r = x / 32;
@@ -58,12 +60,14 @@ public class CEA64 {
   /**
    * base64工具类
    **/
-  public static class Base64Util {
+  public static class Base64Util
+  {
 
     /*
      * base64加密
      */
-    public String encode(String input) {
+    public String encode(String input)
+    {
       byte[] encodeBase64 = Base64.encodeBase64(input.getBytes(Charsets.UTF_8));
       return new String(encodeBase64, Charsets.UTF_8);
     }
@@ -71,7 +75,8 @@ public class CEA64 {
     /*
      * base64解密
      */
-    public String decode(String base64) {
+    public String decode(String base64)
+    {
       byte[] decodes = Base64.decodeBase64(base64.getBytes(Charsets.UTF_8));
       return new String(decodes, Charsets.UTF_8);
     }
@@ -80,10 +85,13 @@ public class CEA64 {
   /**
    * MD5工具类
    **/
-  public static class Md5 {
+  public static class Md5
+  {
 
-    public String digest(byte[] source) {
-      try {
+    public String digest(byte[] source)
+    {
+      try
+      {
         String output;
         char[] hexDigits = { // 用来将字节转换成 16 进制表示的字符
                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
@@ -92,14 +100,16 @@ public class CEA64 {
         byte[] tmp = md.digest();
         char[] str = new char[16 * 2];
         int k = 0;
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 16; i++)
+        {
           byte byte0 = tmp[i];
           str[k++] = hexDigits[byte0 >>> 4 & 0xf];
           str[k++] = hexDigits[byte0 & 0xf];
         }
         output = new String(str);
         return output;
-      } catch (Exception e) {
+      } catch (Exception e)
+      {
         throw new RuntimeException(e);
       }
     }
@@ -107,22 +117,28 @@ public class CEA64 {
     /*
      * md5采用32位大写
      */
-    public String digest32(String text) {
-      try {
+    public String digest32(String text)
+    {
+      try
+      {
         MessageDigest digest = MessageDigest.getInstance("md5");
         byte[] result = digest.digest(text.getBytes());
         StringBuilder sb = new StringBuilder();
-        for (byte b : result) {
+        for (byte b : result)
+        {
           int number = b & 0xff;
           String hex = Integer.toHexString(number);
-          if (hex.length() == 1) {
+          if (hex.length() == 1)
+          {
             sb.append("0").append(hex);
-          } else {
+          } else
+          {
             sb.append(hex);
           }
         }
         return sb.toString().toUpperCase();
-      } catch (Exception e) {
+      } catch (Exception e)
+      {
         throw new RuntimeException(e);
       }
     }

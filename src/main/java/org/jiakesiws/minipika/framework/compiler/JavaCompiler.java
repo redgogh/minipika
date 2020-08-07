@@ -38,7 +38,8 @@ import java.util.Collections;
  * @author lts
  * @email jiakesiws@gmail.com
  */
-public class JavaCompiler {
+public class JavaCompiler
+{
 
   /**
    * 将String类型的字符串编译成Java代码并返回Class对象。
@@ -47,7 +48,8 @@ public class JavaCompiler {
    * @param code          需要编译的字符串源码.
    * @return {@code Class}对象实例.
    */
-  public static Class<?> compile(String fullClassname, String code) {
+  public static Class<?> compile(String fullClassname, String code)
+  {
     javax.tools.JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
     StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null,
             Charsets.GBK);
@@ -55,20 +57,25 @@ public class JavaCompiler {
     Iterable<? extends JavaFileObject> fileObjects = Collections.singletonList(srcObject);
     String flag = "-d";
     String outDir = "";
-    try {
+    try
+    {
       File classPath = new File(Thread.currentThread().getContextClassLoader().getResource("").toURI());
       outDir = classPath.getAbsolutePath() + File.separator;
-    } catch (URISyntaxException e1) {
+    } catch (URISyntaxException e1)
+    {
       e1.printStackTrace();
     }
     Iterable<String> options = Arrays.asList(flag, outDir);
     javax.tools.JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager,
             null, options, null, fileObjects);
     boolean result = task.call();
-    if (result) {
-      try {
+    if (result)
+    {
+      try
+      {
         return Class.forName(fullClassname);
-      } catch (ClassNotFoundException e) {
+      } catch (ClassNotFoundException e)
+      {
         e.printStackTrace();
       }
     }

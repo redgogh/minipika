@@ -28,7 +28,8 @@ package org.jiakesiws.minipika.components.logging;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public interface Log {
+public interface Log
+{
 
   boolean isDebugEnabled();
 

@@ -39,7 +39,8 @@ import java.sql.SQLException;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class JdbcTransaction implements Transaction, InvocationHandler {
+public class JdbcTransaction implements Transaction, InvocationHandler
+{
 
   private DataSource dataSource;
   private TransactionIsolationLevel level;
@@ -48,34 +49,43 @@ public class JdbcTransaction implements Transaction, InvocationHandler {
   private static final Log LOG = LogFactory.getLog(JdbcTransaction.class);
 
   @Override
-  public void setDataSource(DataSource dataSource) {
+  public void setDataSource(DataSource dataSource)
+  {
     this.dataSource = dataSource;
   }
 
   @Override
-  public DataSource getDataSource() {
+  public DataSource getDataSource()
+  {
     return dataSource;
   }
 
   @Override
-  public Connection getConnection() {
+  public Connection getConnection()
+  {
     return getConnection(true);
   }
 
   @Override
-  public Connection getConnection(boolean openTransaction) {
-    try {
-      if (dataSource == null) {
+  public Connection getConnection(boolean openTransaction)
+  {
+    try
+    {
+      if (dataSource == null)
+      {
         throw new SQLException("Current transaction manager not support create connection.");
       }
       connection = dataSource.getConnection();
-      if (openTransaction) {
+      if (openTransaction)
+      {
         return (Connection) Proxy.newProxyInstance(getClass().getClassLoader(), PooledConnection.IFACE, this);
-      } else {
+      } else
+      {
         connection.setAutoCommit(true);
         return connection;
       }
-    } catch (SQLException e) {
+    } catch (SQLException e)
+    {
       LOG.error("Error getConnection failure, Cause: " + e.getMessage());
       e.printStackTrace();
     }
@@ -83,82 +93,109 @@ public class JdbcTransaction implements Transaction, InvocationHandler {
   }
 
   @Override
-  public void setTransactionIsolationLevel(TransactionIsolationLevel level) {
+  public void setTransactionIsolationLevel(TransactionIsolationLevel level)
+  {
     this.level = level;
   }
 
   @Override
-  public TransactionIsolationLevel getTransactionIsolationLevel() {
+  public TransactionIsolationLevel getTransactionIsolationLevel()
+  {
     return level;
   }
 
   @Override
-  public void commit() throws SQLException {
-    try {
-      if (connection != null && !connection.getAutoCommit()) {
-        if (LOG.isDebugEnabled()) {
+  public void commit() throws SQLException
+  {
+    try
+    {
+      if (connection != null && !connection.getAutoCommit())
+      {
+        if (LOG.isDebugEnabled())
+        {
           LOG.debug("An error occurred while commit the connection[" + connection.hashCode() + "].");
         }
         this.connection.commit();
-      } else {
-        if (LOG.isDebugEnabled()) {
+      } else
+      {
+        if (LOG.isDebugEnabled())
+        {
           LOG.debug("An error occurred while commit the connection, but no rollback. " +
                   "Cause: connection is null or autoCommit property is true of connection.");
         }
       }
-    } catch (SQLException e) {
+    } catch (SQLException e)
+    {
       LOG.error("Error execute commit failure, Cause: " + e.getMessage());
       throw new SQLException(e);
     }
   }
 
   @Override
-  public void rollback() throws SQLException {
-    try {
-      if (connection != null && !connection.getAutoCommit()) {
-        if (LOG.isDebugEnabled()) {
+  public void rollback() throws SQLException
+  {
+    try
+    {
+      if (connection != null && !connection.getAutoCommit())
+      {
+        if (LOG.isDebugEnabled())
+        {
           LOG.debug("executing commit rollback for connection[" + connection.hashCode() + "]");
         }
         this.connection.rollback();
-      } else {
-        if (LOG.isDebugEnabled()) {
+      } else
+      {
+        if (LOG.isDebugEnabled())
+        {
           LOG.debug("Do not execute rollback. Cause: connection is null or " +
                   "autoCommit property is true of connection.");
         }
       }
-    } catch (SQLException e) {
+    } catch (SQLException e)
+    {
       LOG.error("Error rollback failure, Cause: " + e.getMessage());
       throw new SQLException(e);
     }
   }
 
-  public void close() throws SQLException {
-    if (connection != null) {
+  public void close() throws SQLException
+  {
+    if (connection != null)
+    {
       connection.close();
     }
   }
 
   @SuppressWarnings("MagicConstant")
-  private void configurationConnection(Connection connection) {
+  private void configurationConnection(Connection connection)
+  {
     setDesiredAutoCommit(connection);
-    if (level != null) {
-      try {
+    if (level != null)
+    {
+      try
+      {
         connection.setTransactionIsolation(level.getLevel());
-      } catch (SQLException throwables) {
+      } catch (SQLException throwables)
+      {
         throwables.printStackTrace();
       }
     }
   }
 
-  private void setDesiredAutoCommit(Connection connection) {
-    try {
-      if (connection.getAutoCommit()) {
-        if (LOG.isDebugEnabled()) {
+  private void setDesiredAutoCommit(Connection connection)
+  {
+    try
+    {
+      if (connection.getAutoCommit())
+      {
+        if (LOG.isDebugEnabled())
+        {
           LOG.debug("set " + connection.hashCode() + " connection autoCommit property to true");
         }
         connection.setAutoCommit(false);
       }
-    } catch (SQLException throwables) {
+    } catch (SQLException throwables)
+    {
       throwables.printStackTrace();
     }
   }
@@ -167,11 +204,14 @@ public class JdbcTransaction implements Transaction, InvocationHandler {
    * 检测连接是否出现异常
    */
   @Override
-  public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+  public Object invoke(Object proxy, Method method, Object[] args) throws Throwable
+  {
     Object object = null;
-    try {
+    try
+    {
       object = method.invoke(connection, args);
-    } catch (Exception e) {
+    } catch (Exception e)
+    {
       // 发生任何异常都进行回滚
       rollback();
       // 记录异常信息

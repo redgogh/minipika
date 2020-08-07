@@ -34,28 +34,28 @@ interface Compare {
    * 等于
    *
    * @param column 字段名
-   * @param val 比较值
+   * @param value 比较值
    * @return 当前比较器（this）
    */
-  Compare eq(column, val)
+  Compare eq(column, value)
 
   /**
    * 不等于
    *
    * @param column 字段名
-   * @param val 比较值
+   * @param value 比较值
    * @return 当前比较器（this）
    */
-  Compare ne(column, val)
+  Compare ne(column, value)
 
   /**
    * 或
    *
    * @param column 字段
-   * @param val 值
+   * @param value 值
    * @return 当前比较器（this）
    */
-  Compare or(column, val)
+  Compare or(column, value)
 
   /**
    * 等于空
@@ -77,46 +77,46 @@ interface Compare {
    * 大于
    *
    * @param column 字段名
-   * @param val 比较值
+   * @param value 比较值
    * @return 当前比较器（this）
    */
-  Compare gt(column, val)
+  Compare gt(column, value)
 
   /**
    * 大于等于
    *
    * @param column 字段名
-   * @param val 比较值
+   * @param value 比较值
    * @return 当前比较器（this）
    */
-  Compare ge(column, val)
+  Compare ge(column, value)
 
   /**
    * 小于等于
    *
    * @param column 字段名
-   * @param val 比较值
+   * @param value 比较值
    * @return 当前比较器（this）
    */
-  Compare le(column, val)
+  Compare le(column, value)
 
   /**
    * 小于
    *
    * @param column 字段名
-   * @param val 比较值
+   * @param value 比较值
    * @return 当前比较器（this）
    */
-  Compare lt(column, val)
+  Compare lt(column, value)
 
   /**
    * 模糊，可以使用 %字段 | 字段% | %字段%
    *
    * @param column 字段名
-   * @param val 比较值
+   * @param value 比较值
    * @return 当前比较器（this）
    */
-  Compare like(column, val)
+  Compare like(column, value)
 
   /**
    * 当需要查询的数据在多少天前的时候使用此方法

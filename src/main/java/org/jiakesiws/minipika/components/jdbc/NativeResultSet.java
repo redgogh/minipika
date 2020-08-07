@@ -33,7 +33,8 @@ import java.util.Map;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public interface NativeResultSet {
+public interface NativeResultSet
+{
 
   /**
    * 构建一个{@link NativeResultSet}结果集

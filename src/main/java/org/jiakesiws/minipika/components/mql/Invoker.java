@@ -30,7 +30,8 @@ import java.lang.reflect.Method;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class Invoker {
+public class Invoker
+{
 
   protected Object instance;
 
@@ -41,7 +42,8 @@ public class Invoker {
    * @param arguments 方法参数
    * @return 返回值, 返回通用Object
    */
-  public Object[] invoke(Method method, Object... arguments) throws Exception {
+  public Object[] invoke(Method method, Object... arguments) throws Exception
+  {
     return (Object[]) Objects.invoke(method, instance, arguments);
   }
 

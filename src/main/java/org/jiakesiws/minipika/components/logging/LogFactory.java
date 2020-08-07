@@ -33,54 +33,69 @@ import java.lang.reflect.Constructor;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class LogFactory {
+public class LogFactory
+{
 
   private static Constructor<? extends LogAdapter> logAdapterConstructor;
 
-  static {
+  static
+  {
     tryFindLogImplementation(LogFactory::useSlf4jLogging);
     tryFindLogImplementation(LogFactory::useStdLogging);
   }
 
-  public static Log getLog(Class<?> key) {
+  public static Log getLog(Class<?> key)
+  {
     return getLog(key.getName());
   }
 
-  public static Log getLog(String key) {
+  public static Log getLog(String key)
+  {
     Log log;
-    try {
+    try
+    {
       log = logAdapterConstructor.newInstance().getLog(key);
-    } catch (Exception e) {
+    } catch (Exception e)
+    {
       throw new LogException("Error creates logger for " + key + " logger. Cause: " + e, e);
     }
     return log;
   }
 
-  private static void useSlf4jLogging() {
+  private static void useSlf4jLogging()
+  {
     setLogImplementation(Slf4jLogAdapter.class);
   }
 
-  private static void useStdLogging() {
+  private static void useStdLogging()
+  {
     setLogImplementation(StdLogAdapter.class);
   }
 
-  private static void tryFindLogImplementation(Runnable runnable) {
-    try {
-      if (logAdapterConstructor == null) {
+  private static void tryFindLogImplementation(Runnable runnable)
+  {
+    try
+    {
+      if (logAdapterConstructor == null)
+      {
         runnable.run();
       }
-    } catch (Throwable e) {
+    } catch (Throwable e)
+    {
       // 忽略异常
     }
   }
 
-  private static void setLogImplementation(Class<? extends LogAdapter> implClass) {
-    try {
+  private static void setLogImplementation(Class<? extends LogAdapter> implClass)
+  {
+    try
+    {
       Constructor<? extends LogAdapter> candidate = implClass.getConstructor();
       Log log = candidate.newInstance().getLog(LogFactory.class.getName());
       log.debug("Logger using '" + implClass + "' adapter.");
       logAdapterConstructor = candidate;
-    } catch (Throwable e) {
+    } catch (Throwable e)
+    {
       // 忽略异常
     }
   }

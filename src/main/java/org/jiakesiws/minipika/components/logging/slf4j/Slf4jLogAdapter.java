@@ -30,14 +30,17 @@ import org.slf4j.LoggerFactory;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class Slf4jLogAdapter implements LogAdapter {
+public class Slf4jLogAdapter implements LogAdapter
+{
 
-    public Log getLog(String key){
-        return new Slf4jLog(LoggerFactory.getLogger(key));
-    }
+  public Log getLog(String key)
+  {
+    return new Slf4jLog(LoggerFactory.getLogger(key));
+  }
 
-    public Log getLog(Class<?> key){
-        return new Slf4jLog(LoggerFactory.getLogger(key));
-    }
+  public Log getLog(Class<?> key)
+  {
+    return new Slf4jLog(LoggerFactory.getLogger(key));
+  }
 
 }

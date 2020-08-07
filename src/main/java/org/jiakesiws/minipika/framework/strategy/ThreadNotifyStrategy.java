@@ -28,30 +28,35 @@ package org.jiakesiws.minipika.framework.strategy;
  * @author lts
  * @email jiakesiws@gmail.com
  */
-public interface ThreadNotifyStrategy {
+public interface ThreadNotifyStrategy
+{
 
   /**
    * 线程一个唤醒
    */
-  default void notifyStrategy(){
+  default void notifyStrategy()
+  {
     this.notify();
   }
 
   /**
    * 唤醒所有线程
    */
-  default void notifyAllStrategy(){
+  default void notifyAllStrategy()
+  {
     this.notifyAll();
   }
 
   /**
    * 线程等待
    */
-  default void waitStrategy() throws InterruptedException {
+  default void waitStrategy() throws InterruptedException
+  {
     this.wait();
   }
 
-  default void waitStrategy(long time) throws InterruptedException {
+  default void waitStrategy(long time) throws InterruptedException
+  {
     this.wait(time);
   }
 
