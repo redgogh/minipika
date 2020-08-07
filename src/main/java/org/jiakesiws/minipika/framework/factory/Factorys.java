@@ -22,7 +22,7 @@ package org.jiakesiws.minipika.framework.factory;
  * Creates on 2020/6/2.
  */
 
-import org.jiakesiws.minipika.components.mql.IFaceAgent;
+import org.jiakesiws.minipika.components.groovy.builder.Behalf;
 import org.jiakesiws.minipika.framework.context.ContextManager;
 
 /**
@@ -48,7 +48,7 @@ public class Factorys {
     String name = clazz.getName();
     T iface = (T) ComponentContainer.components.get(name);
     if (iface == null) {
-      IFaceAgent<T> callback = Factorys.forClass(IFaceAgent.class,
+      Behalf<T> callback = Factorys.forClass(Behalf.class,
               new Class[]{Class.class}, clazz);
       iface = callback.bind();
       ComponentContainer.components.put(name, iface);

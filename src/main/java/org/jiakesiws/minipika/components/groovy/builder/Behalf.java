@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components.mql;
+package org.jiakesiws.minipika.components.groovy.builder;
 
 import org.jiakesiws.minipika.components.annotation.Batch;
 import org.jiakesiws.minipika.components.annotation.Insert;
@@ -46,7 +46,7 @@ import java.util.Map;
  * @email jiakesiws@gmail.com
  */
 @SuppressWarnings("unchecked")
-public class IFaceAgent<T> extends SQLBuilder implements InvocationHandler
+public class Behalf<T> extends InvokeBuilder implements InvocationHandler
 {
 
   private final Class<?> virtual;
@@ -56,16 +56,16 @@ public class IFaceAgent<T> extends SQLBuilder implements InvocationHandler
 
   private final Map<String, Configuration> configurations = Maps.newConcurrentHashMap();
 
-  private static final Log LOG = LogFactory.getLog(IFaceAgent.class);
+  private static final Log LOG = LogFactory.getLog(Behalf.class);
 
   private static final String MQL_PROXY_CLASSNAME = "org.jiakesiws.minipika.components.proxy.$";
 
-  public IFaceAgent(Class<T> virtual)
+  public Behalf(Class<T> virtual)
   {
     super(MQL_PROXY_CLASSNAME.concat(virtual.getSimpleName()));
     this.virtual = virtual;
     initialization();
-    buildEnd();
+    over();
   }
 
   /**

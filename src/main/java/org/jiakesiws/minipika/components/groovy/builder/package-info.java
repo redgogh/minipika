@@ -26,4 +26,4 @@
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-package org.jiakesiws.minipika.components.mql;
+package org.jiakesiws.minipika.components.groovy.builder;

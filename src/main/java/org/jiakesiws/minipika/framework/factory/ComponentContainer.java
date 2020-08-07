@@ -22,8 +22,8 @@ package org.jiakesiws.minipika.framework.factory;
  * Creates on 2020/6/1.
  */
 
-import org.jiakesiws.minipika.components.mql.Configuration;
-import org.jiakesiws.minipika.components.mql.IFaceAgent;
+import org.jiakesiws.minipika.components.groovy.builder.Configuration;
+import org.jiakesiws.minipika.components.groovy.builder.Behalf;
 import org.jiakesiws.minipika.framework.utils.ClassUtils;
 import org.jiakesiws.minipika.framework.utils.Maps;
 
@@ -93,7 +93,7 @@ public class ComponentContainer implements ComponentFactory
       }
 
       // 如果当前实例化出来的组件不是null并且不是方法的配置信息的话, 就添加到组件容器中
-      if (component != null && !(component instanceof Configuration) && !(component instanceof IFaceAgent))
+      if (component != null && !(component instanceof Configuration) && !(component instanceof Behalf))
       {
         components.put(className, component);
       }

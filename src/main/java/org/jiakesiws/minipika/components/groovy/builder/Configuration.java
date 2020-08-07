@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components.mql;
+package org.jiakesiws.minipika.components.groovy.builder;
 
 /* ************************************************************************
  *
@@ -81,7 +81,7 @@ public class Configuration
    * 唯一有参构造器
    *
    * @param method 调用方法
-   * @see IFaceAgent#invoke(Object, Method, Object[])
+   * @see Behalf#invoke(Object, Method, Object[])
    */
   public Configuration(Method method, Object instance) throws NoSuchMethodException, ClassNotFoundException
   {

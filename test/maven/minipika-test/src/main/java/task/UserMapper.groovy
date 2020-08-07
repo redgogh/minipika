@@ -3,6 +3,7 @@ package task
 import org.jiakesiws.minipika.components.annotation.Batch
 import org.jiakesiws.minipika.components.annotation.QueryOf
 import org.jiakesiws.minipika.components.annotation.Update
+import org.jiakesiws.minipika.components.wrapper.BaseMapper
 
 interface UserMapper {
 

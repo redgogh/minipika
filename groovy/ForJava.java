@@ -23,7 +23,7 @@ package groovy;
  */
 
 import groovy.lang.Closure;
-import org.jiakesiws.minipika.components.mql.MqlCallback;
+import org.jiakesiws.minipika.components.groovy.MqlCallback;
 import org.jiakesiws.minipika.framework.utils.ArrayUtils;
 import org.jiakesiws.minipika.framework.utils.Lists;
 import org.junit.Test;

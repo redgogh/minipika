@@ -35,7 +35,7 @@ public interface BaseMapper<Entity>
    *
    * @param id id
    */
-  Entity select(String id);
+  Entity selectById(String id);
 
   /**
    * 根据查询条件查询单个对象
@@ -56,10 +56,10 @@ public interface BaseMapper<Entity>
   /**
    * 保存单个对象
    *
-   * @param entity 实体对象
+   * @param Entity 实体对象
    * @return 主键
    */
-  String save(Entity entity);
+  String save(Entity Entity);
 
   /**
    * 批量保存多个对象

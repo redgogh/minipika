@@ -1,4 +1,4 @@
-package org.jiakesiws.minipika.components.mql;
+package org.jiakesiws.minipika.components.groovy.builder;
 
 /* ************************************************************************
  *
@@ -37,14 +37,14 @@ import java.util.Objects;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class SQLBuilder extends Invoker
+public class InvokeBuilder
 {
 
   private final String classname;
 
   private final StringBuilder mtClass = new StringBuilder();
 
-  private static final Log LOG = LogFactory.getLog(SQLBuilder.class);
+  private static final Log LOG = LogFactory.getLog(InvokeBuilder.class);
 
   private static final String IF = "#IF";
 
@@ -55,6 +55,8 @@ public class SQLBuilder extends Invoker
   private static final String IS_NOT_EMPTY = "NOT_EMPTY";
 
   private static final String IS_EQUALS_EMPTY = "EMPTY";
+
+  protected Object instance;
 
   //
   // 用于识别当前是不是解析到foreach语句
@@ -67,7 +69,7 @@ public class SQLBuilder extends Invoker
   //
   private StringBuilder builder = new StringBuilder();
 
-  public SQLBuilder(String classname)
+  public InvokeBuilder(String classname)
   {
     int lastIndexOf = classname.lastIndexOf(".");
     mtClass.append("package ").append(classname, 0, lastIndexOf).append(";");
@@ -387,7 +389,7 @@ public class SQLBuilder extends Invoker
   /**
    * 构建结束
    */
-  protected void buildEnd()
+  protected void over()
   {
     if (LOG.isDebugEnabled())
     {
@@ -397,6 +399,18 @@ public class SQLBuilder extends Invoker
     instance = ClassUtils.newInstance(clazz);
     // 清空SpringBuilder
     builder = null;
+  }
+
+  /**
+   * 执行方法
+   *
+   * @param method    方法名称
+   * @param arguments 方法参数
+   * @return 返回值, 返回通用Object
+   */
+  protected Object[] invoke(Method method, Object... arguments) throws Exception
+  {
+    return (Object[]) org.jiakesiws.minipika.framework.utils.Objects.invoke(method, instance, arguments);
   }
 
 }
