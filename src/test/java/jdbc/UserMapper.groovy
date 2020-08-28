@@ -7,8 +7,8 @@ interface UserMapper
 {
 
   @QueryOf("""
-    select * from storage_user_info where age = #{age}
+    select * from storage_user_info where username = #{name}
   """)
-  List<User> queryUser(String age)
+  List<UserInfo> queryUser(String name)
 
 }
