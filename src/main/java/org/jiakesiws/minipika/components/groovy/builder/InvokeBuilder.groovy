@@ -31,13 +31,11 @@ import org.jiakesiws.minipika.framework.utils.Methods;
 import org.jiakesiws.minipika.framework.utils.StringUtils;
 
 import java.lang.reflect.Method;
-import java.util.Objects;
 
 /**
- * @author 2B键盘
- * @email jiakesiws@gmail.com
+ * @author 2B键盘* @email jiakesiws@gmail.com
  */
-public class InvokeBuilder
+class InvokeBuilder
 {
 
   private final String classname;
@@ -69,7 +67,7 @@ public class InvokeBuilder
   //
   private StringBuilder builder = new StringBuilder();
 
-  public InvokeBuilder(String classname)
+  InvokeBuilder(String classname)
   {
     int lastIndexOf = classname.lastIndexOf(".");
     mtClass.append("package ").append(classname, 0, lastIndexOf).append(";");
@@ -80,7 +78,7 @@ public class InvokeBuilder
     mtClass.append("import org.jiakesiws.minipika.framework.utils.*;");
     mtClass.append("import org.jiakesiws.minipika.framework.utils.agent.*;");
     mtClass.append("@SuppressWarnings(\"unchecked\")");
-    mtClass.append("public class ").append(classname, lastIndexOf + 1, classname.length()).append("{}");
+    mtClass.append(" class ").append(classname, lastIndexOf + 1, classname.length()).append("{}");
     this.classname = classname;
   }
 
@@ -88,7 +86,7 @@ public class InvokeBuilder
    * 创建一个方法
    *
    * @param method 方法名
-   * @param src    动态sql
+   * @param src 动态sql
    */
   protected void createMethod(Method method, String src)
   {
@@ -106,7 +104,7 @@ public class InvokeBuilder
    * 构建方法头
    *
    * @param method 方法元数据对象
-   * @param src    动态sql
+   * @param src 动态sql
    */
   private void buildHead(Method method, String src)
   {
@@ -116,7 +114,7 @@ public class InvokeBuilder
             "The real parameters name of method is not obtained."); // 方法参数名
     Class<?>[] paramTypes = method.getParameterTypes();
     // 创建方法声明
-    builder.append("public Object[] ").append(methodName).append("(");
+    builder.append(" Object[] ").append(methodName).append("(");
     for (int i = 0; i < paramNames.length; i++)
     {
       builder.append(paramTypes[i].getName()).append(" ").append(paramNames[i]);
@@ -253,6 +251,7 @@ public class InvokeBuilder
    */
   private void _sqlparse(String line)
   {
+    line = like(line);
     String sql = line.replaceAll("#\\{(.*?)}", "?").trim();
     if (!"?".equals(sql))
     {
@@ -335,7 +334,7 @@ public class InvokeBuilder
    * 获取成员属性值
    *
    * @param object 从object对象中获取
-   * @param name   获取name属性的值
+   * @param name 获取name属性的值
    * @return code
    */
   private String getFieldValue(String object, String name)
@@ -405,13 +404,27 @@ public class InvokeBuilder
   /**
    * 执行方法
    *
-   * @param method    方法名称
+   * @param method 方法名称
    * @param arguments 方法参数
    * @return 返回值, 返回通用Object
    */
   protected Object[] invoke(Method method, Object... arguments) throws Exception
   {
     return (Object[]) org.jiakesiws.minipika.framework.utils.Objects.invoke(method, instance, arguments);
+  }
+
+  /**
+   * like函数
+   */
+  private static String like(String line)
+  {
+    if (line.contains("like("))
+    {
+      line = line.replace("(%", "('%'")
+              .replace("%)", "'%')")
+              .replaceAll('#\\{(.*?)}', ',$0,')
+    }
+    return line;
   }
 
 }

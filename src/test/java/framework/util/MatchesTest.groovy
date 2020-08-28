@@ -9,12 +9,19 @@ class MatchesTest
   @Test
   void test()
   {
-    String sql = "where username like(%#{name}%)"
+    String sql = "where username like(%#{name}%) and password like(%#{password}%)"
     Matches.find(sql, "like\\((.*?)\\)", value -> {
       println value
       def v = value as String
-      println 'concat(' + v.replace("%", "'%'") + ")"
+      println 'concat(' + v.replace("%", "'%'")
+              .replaceAll("#\\{(.*?)}", ',$0,') + ")"
     })
+
+    println "--------------------------"
+
+    println "concat(".concat(sql.replace("%", "'%'"))
+            .replaceAll("#\\{(.*?)}", ',$0,') + ")";
+
   }
 
 }
