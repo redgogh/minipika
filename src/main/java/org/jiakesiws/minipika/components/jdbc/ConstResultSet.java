@@ -31,6 +31,7 @@ import org.jiakesiws.minipika.framework.utils.StringUtils;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Clob;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -72,8 +73,11 @@ public class ConstResultSet implements NativeResultSet
         Map<String, String> resultMap = new LinkedHashMap<>(len);
         for (int j = 0; j < len; j++)
         {
-          String name = mdata.getColumnLabel(j + 1);
+          int jtemp = j + 1;
+
+          String name = mdata.getColumnLabel(jtemp);
           String value = rset.getString(name);
+
           resultMap.put(name, value);
         }
         resultSet.add(resultMap);
