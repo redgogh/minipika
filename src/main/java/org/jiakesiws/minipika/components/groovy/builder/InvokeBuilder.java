@@ -350,6 +350,7 @@ public class InvokeBuilder
    */
   private void sqlAppend(String sql)
   {
+    // 判断是否存在like()函数
     builder.append("sql.append(\"").append(sql).append(" ").append("\");");
   }
 

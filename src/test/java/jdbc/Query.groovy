@@ -12,7 +12,7 @@ class Query
   @Test
   void queryUser()
   {
-    println JSONObject.toJSONString(userMapper.queryUser('aa'))
+    println JSONObject.toJSONString(userMapper.queryUser('a'))
   }
 
 }
