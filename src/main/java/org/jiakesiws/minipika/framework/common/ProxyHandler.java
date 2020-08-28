@@ -22,12 +22,12 @@ package org.jiakesiws.minipika.framework.common;
  * Creates on 2020/6/1.
  */
 
-import org.jiakesiws.minipika.framework.factory.Factorys;
+import org.jiakesiws.minipika.framework.factory.ClassLoaders;
 
 import java.lang.reflect.InvocationHandler;
 
 /**
- * 如果实现了这个接口的话, 那么在调用{@link Factorys#forClass}创建对象的时候
+ * 如果实现了这个接口的话, 那么在调用{@link ClassLoaders#forClass}创建对象的时候
  * 会使用{@link #getProxyHandler}返回的对象.
  *
  * @author 2B键盘

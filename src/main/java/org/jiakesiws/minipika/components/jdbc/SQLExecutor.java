@@ -23,7 +23,6 @@ package org.jiakesiws.minipika.components.jdbc;
  */
 
 import org.jiakesiws.minipika.framework.annotations.Component;
-import org.jiakesiws.minipika.framework.factory.Factorys;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -27,7 +27,7 @@ import org.junit.Test;
 import org.jiakesiws.minipika.components.jdbc.NativeResultSet;
 import org.jiakesiws.minipika.components.jdbc.NativeJdbc;
 import org.jiakesiws.minipika.components.configuration.XMLConfigBuilder;
-import org.jiakesiws.minipika.framework.factory.Factorys;
+import org.jiakesiws.minipika.framework.factory.ClassLoaders;
 
 import java.sql.SQLException;
 
@@ -41,7 +41,7 @@ public class NativeJdbcTest {
   public void testSQLExecutor() throws SQLException {
     XMLConfigBuilder builder = new XMLConfigBuilder("minipika2.xml");
     builder.initialize();
-    NativeJdbc executor = Factorys.forClass(NativeJdbc.class);
+    NativeJdbc executor = ClassLoaders.forClass(NativeJdbc.class);
     NativeResultSet resultSet = executor.select("select * from sys_config");
     System.out.println(JSON.toJSONString(resultSet));
   }

@@ -30,7 +30,7 @@ import org.jiakesiws.minipika.components.jdbc.transaction.JdbcTransaction;
 import org.jiakesiws.minipika.components.jdbc.transaction.JdbcTransactionFactory;
 import org.jiakesiws.minipika.components.jdbc.transaction.TransactionFactory;
 import org.jiakesiws.minipika.framework.factory.ComponentContainer;
-import org.jiakesiws.minipika.framework.factory.Factorys;
+import org.jiakesiws.minipika.framework.factory.ClassLoaders;
 import org.jiakesiws.minipika.framework.strategy.FindStrategy;
 import org.jiakesiws.minipika.components.configuration.XMLConfigBuilder;
 
@@ -49,11 +49,11 @@ public class ContextManager
     configBuilder.load(FindStrategy.getConfigInputStream());
     ComponentContainer.getComponents().put(XMLConfig.class.getName(), configBuilder.getConfig());
     ComponentContainer.getComponents().put(NativeResultSet.class.getName(), ConstResultSet.class);
-    ComponentContainer.getComponents().put(Cache.class.getName(), Factorys.forClass(FetchCache.class));
-    ComponentContainer.getComponents().put(NativeJdbc.class.getName(), Factorys.forClass(NativeJdbcImpl.class));
-    ComponentContainer.getComponents().put(JdbcTransaction.class.getName(), Factorys.forClass(JdbcTransaction.class));
-    ComponentContainer.getComponents().put(TransactionFactory.class.getName(), Factorys.forClass(JdbcTransactionFactory.class));
-    ComponentContainer.getComponents().put(Executor.class.getName(), Factorys.forClass(SQLExecutor.class));
+    ComponentContainer.getComponents().put(Cache.class.getName(), ClassLoaders.forClass(FetchCache.class));
+    ComponentContainer.getComponents().put(NativeJdbc.class.getName(), ClassLoaders.forClass(NativeJdbcImpl.class));
+    ComponentContainer.getComponents().put(JdbcTransaction.class.getName(), ClassLoaders.forClass(JdbcTransaction.class));
+    ComponentContainer.getComponents().put(TransactionFactory.class.getName(), ClassLoaders.forClass(JdbcTransactionFactory.class));
+    ComponentContainer.getComponents().put(Executor.class.getName(), ClassLoaders.forClass(SQLExecutor.class));
   }
 
 }

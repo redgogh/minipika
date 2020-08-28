@@ -29,7 +29,8 @@ import org.jiakesiws.minipika.framework.context.ContextManager;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-public class Factorys {
+public class ClassLoaders
+{
 
   static {
     ContextManager.loadContext(); // 加载上下文
@@ -48,7 +49,7 @@ public class Factorys {
     String name = clazz.getName();
     T iface = (T) ComponentContainer.components.get(name);
     if (iface == null) {
-      Behalf<T> callback = Factorys.forClass(Behalf.class,
+      Behalf<T> callback = ClassLoaders.forClass(Behalf.class,
               new Class[]{Class.class}, clazz);
       iface = callback.bind();
       ComponentContainer.components.put(name, iface);

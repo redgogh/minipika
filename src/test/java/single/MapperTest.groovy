@@ -2,7 +2,6 @@ package single
 
 import entity.User
 import mapper.UserMapper
-import org.jiakesiws.minipika.framework.factory.Factorys
 import org.junit.Test
 
 class MapperTest {

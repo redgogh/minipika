@@ -9,7 +9,7 @@ import org.jiakesiws.minipika.components.logging.Log;
 import org.jiakesiws.minipika.components.logging.LogFactory;
 import org.jiakesiws.minipika.framework.annotations.Component;
 import org.jiakesiws.minipika.framework.common.ConstVariable;
-import org.jiakesiws.minipika.framework.factory.Factorys;
+import org.jiakesiws.minipika.framework.factory.ClassLoaders;
 import org.jiakesiws.minipika.framework.utils.*;
 
 import java.lang.reflect.InvocationHandler;
@@ -119,7 +119,7 @@ public class Behalf<T> extends InvokeBuilder implements InvocationHandler
         configuration = configurations.get(key);
       } else
       {
-        configuration = Factorys.forClass(Configuration.class,
+        configuration = ClassLoaders.forClass(Configuration.class,
                 new Class[]{Method.class, Object.class}, method, instance);
         configuration.setConfigurationId(key);
         configurations.put(key, configuration);

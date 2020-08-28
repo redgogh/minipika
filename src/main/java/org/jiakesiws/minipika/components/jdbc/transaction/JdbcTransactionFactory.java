@@ -22,7 +22,7 @@ package org.jiakesiws.minipika.components.jdbc.transaction;
  * Creates on 2020/6/6.
  */
 
-import org.jiakesiws.minipika.framework.factory.Factorys;
+import org.jiakesiws.minipika.framework.factory.ClassLoaders;
 
 import javax.sql.DataSource;
 
@@ -46,7 +46,7 @@ public class JdbcTransactionFactory implements TransactionFactory
   @Override
   public Transaction newTransaction(DataSource dataSource)
   {
-    Transaction transaction = Factorys.forClass(Transaction.class);
+    Transaction transaction = ClassLoaders.forClass(Transaction.class);
     transaction.setDataSource(dataSource);
     transaction.setTransactionIsolationLevel(level);
     return transaction;

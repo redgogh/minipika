@@ -22,7 +22,7 @@ package org.jiakesiws.minipika.framework.utils;
  * Creates on 2020/3/11.
  */
 
-import org.jiakesiws.minipika.framework.factory.Factorys;
+import org.jiakesiws.minipika.framework.factory.ClassLoaders;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -91,7 +91,7 @@ class StringUtils {
 
   public static String requireNonNull(String input, String message, Class<? extends RuntimeException> e) {
     if (isEmpty(input)) {
-      throw Factorys.<RuntimeException>forClass(e, new Class[]{String.class}, message);
+      throw ClassLoaders.<RuntimeException>forClass(e, new Class[]{String.class}, message);
     }
     return input;
   }

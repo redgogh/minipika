@@ -7,7 +7,7 @@
   <!-- 支持全局使用的属性配置, 这个大家都清楚就不再赘述了 -->
   <properties>
     <log.home>/var/log</log.home>
-    <database>test</database>
+    <database>demo</database>
   </properties>
   
   <configuration>

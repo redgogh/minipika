@@ -32,7 +32,7 @@ import org.jiakesiws.minipika.components.logging.Log;
 import org.jiakesiws.minipika.components.logging.LogFactory;
 import org.jiakesiws.minipika.framework.annotations.Component;
 import org.jiakesiws.minipika.framework.common.ProxyHandler;
-import org.jiakesiws.minipika.framework.factory.Factorys;
+import org.jiakesiws.minipika.framework.factory.ClassLoaders;
 import org.jiakesiws.minipika.framework.utils.*;
 
 import javax.sql.DataSource;
@@ -123,7 +123,7 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler
       connection = transaction.getConnection();
       statement = connection.prepareStatement(sql);
       ResultSet resultSet = setValues(statement, args).executeQuery();
-      return cache.set(Cache.genKey(sql, args), Factorys.forClass(NativeResultSet.class).build(resultSet));
+      return cache.set(Cache.genKey(sql, args), ClassLoaders.forClass(NativeResultSet.class).build(resultSet));
     } catch (Throwable e)
     {
       LOG.error(e.getMessage(), e);
@@ -283,7 +283,7 @@ public class NativeJdbcImpl implements NativeJdbc, ProxyHandler
     {
       throw new SQLException("Error get transaction failure. Cause: not obtained DataSource.");
     }
-    Transaction transaction = Factorys.forClass(Transaction.class);
+    Transaction transaction = ClassLoaders.forClass(Transaction.class);
     transaction.setDataSource(dataSource);
     return transaction;
   }

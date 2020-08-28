@@ -2,11 +2,11 @@ package mapper
 
 import entity.User
 import org.jiakesiws.minipika.components.annotation.*
-import org.jiakesiws.minipika.framework.factory.Factorys
+import org.jiakesiws.minipika.framework.factory.ClassLoaders
 
 interface UserMapper {
 
-  UserMapper mapper = Factorys.forMapper(this)
+  UserMapper mapper = ClassLoaders.forMapper(this)
 
   @QueryOf("""
     select * from website_user_info where 1=1
