@@ -62,12 +62,12 @@ public class UserInfo
   /**
    * 总空间
    */
-  private Long space;
+  private BigDecimal space;
 
   /**
    * 剩余空间
    */
-  private Long remSpace;
+  private BigDecimal remSpace;
 
   /**
    * 账号状态

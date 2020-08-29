@@ -40,7 +40,7 @@ class InvokeBuilder
 
   private final String classname;
 
-  private final StringBuilder mtClass = new StringBuilder();
+  final StringBuilder mtClass = new StringBuilder();
 
   private static final Log LOG = LogFactory.getLog(InvokeBuilder.class);
 
@@ -78,7 +78,7 @@ class InvokeBuilder
     mtClass.append("import org.jiakesiws.minipika.framework.utils.*;");
     mtClass.append("import org.jiakesiws.minipika.framework.utils.agent.*;");
     mtClass.append("@SuppressWarnings(\"unchecked\")");
-    mtClass.append(" class ").append(classname, lastIndexOf + 1, classname.length()).append("{}");
+    mtClass.append("public class ").append(classname, lastIndexOf + 1, classname.length()).append("{}");
     this.classname = classname;
   }
 
@@ -114,7 +114,7 @@ class InvokeBuilder
             "The real parameters name of method is not obtained."); // 方法参数名
     Class<?>[] paramTypes = method.getParameterTypes();
     // 创建方法声明
-    builder.append(" Object[] ").append(methodName).append("(");
+    builder.append("public Object[] ").append(methodName).append("(");
     for (int i = 0; i < paramNames.length; i++)
     {
       builder.append(paramTypes[i].getName()).append(" ").append(paramNames[i]);
@@ -178,8 +178,8 @@ class InvokeBuilder
    */
   private void _buildHead()
   {
-    builder.append("StringBuilder sql = new StringBuilder();");
-    builder.append("List arguments = new LinkedList();");
+    builder.append("StringBuilder sql = new StringBuilder();")
+    builder.append("List arguments = new LinkedList();")
   }
 
   /**
@@ -187,9 +187,9 @@ class InvokeBuilder
    */
   private void _if(String line)
   {
-    line = line.replace(IF, "").trim();
-    line = "".concat("if(").concat(parseIfStatement(line)).concat("){");
-    builder.append(line);
+    line = line.replace(IF, "").trim()
+    line = "".concat("if(").concat(parseIfStatement(line)).concat("){")
+    builder.append(line)
   }
 
   /**
@@ -197,9 +197,9 @@ class InvokeBuilder
    */
   private void _foreach(String line)
   {
-    line = line.replace(FOREACH, "for(Object").concat("").concat("){");
-    builder.append(line);
-    foreach = true;
+    line = line.replace(FOREACH, "for(Object").concat("").concat("){")
+    builder.append(line)
+    foreach = true
   }
 
   /**
@@ -265,6 +265,7 @@ class InvokeBuilder
         argsAppend(argument);
       }
     }
+    println ""
   }
 
   /**
@@ -349,7 +350,6 @@ class InvokeBuilder
    */
   private void sqlAppend(String sql)
   {
-    // 判断是否存在like()函数
     builder.append("sql.append(\"").append(sql).append(" ").append("\");");
   }
 
@@ -420,9 +420,16 @@ class InvokeBuilder
   {
     if (line.contains("like("))
     {
+      line = line.replaceAll("like\\(", "like concat(")
       line = line.replace("(%", "('%'")
               .replace("%)", "'%')")
-              .replaceAll('#\\{(.*?)}', ',$0,')
+      Matches.find(line, 'concat\\((.*?)\\)', {
+        String[] apost = it.split("'")
+        def name = "#{" + apost[2] + "}"
+        def finalLike = "'" + apost[1] + "'," +
+                name + ",'" + apost[3] + "'"
+        line = line.replace(it, finalLike)
+      })
     }
     return line;
   }

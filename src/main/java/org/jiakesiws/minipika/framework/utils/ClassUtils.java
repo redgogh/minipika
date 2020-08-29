@@ -59,8 +59,9 @@ public class ClassUtils {
       constructor = clazz.getConstructor(parametersType);
       return (T) constructor.newInstance(parametersValue);
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      e.printStackTrace();
     }
+    return null;
   }
 
   /**

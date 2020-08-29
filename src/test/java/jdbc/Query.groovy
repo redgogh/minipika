@@ -12,7 +12,8 @@ class Query
   @Test
   void queryUser()
   {
-    println JSONObject.toJSONString(userMapper.queryUser('a'))
+    List<UserInfo> infoList = userMapper.queryUser('a')
+    println JSONObject.toJSONString(infoList)
   }
 
 }
