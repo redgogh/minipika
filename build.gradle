@@ -40,7 +40,7 @@ ext {
   slf4jVersion = "1.7.21"
   mysqlConnectVersion = "8.0.20"
   commonsCodecVersion = "1.11"
-  lombokVersion = "1.18.10"
+  lombokVersion = "1.18.12"
   fastjsonVersion = "1.2.62"
   jsqlparseVersion = "3.1"
   jom2Version = "2.0.6"
@@ -92,10 +92,10 @@ install {
     }
   }
 }
+
 dependencies {
   implementation "org.jdom:jdom2:$jom2Version"
   implementation "org.slf4j:slf4j-api:$slf4jVersion"
-  implementation "org.projectlombok:lombok:$lombokVersion"
   implementation "com.alibaba:fastjson:$fastjsonVersion"
   implementation "commons-codec:commons-codec:$commonsCodecVersion"
   implementation "com.github.jsqlparser:jsqlparser:$jsqlparseVersion"
@@ -106,6 +106,7 @@ dependencies {
   implementation fileTree(dir: "lib", includes: ["*jar"])
   testImplementation "junit:junit:$junitVersion"
   testImplementation "mysql:mysql-connector-java:$mysqlConnectVersion"
+  testImplementation "org.projectlombok:lombok:$lombokVersion"
 }
 
 tasks.withType(JavaCompile) {

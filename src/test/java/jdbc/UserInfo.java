@@ -11,7 +11,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author wyz
+ * @author 2B键盘
+ * @email jiakesiws@gmail.com
  */
 @Getter
 @Setter

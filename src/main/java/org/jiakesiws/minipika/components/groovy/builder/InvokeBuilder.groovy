@@ -426,8 +426,7 @@ class InvokeBuilder
       Matches.find(line, 'concat\\((.*?)\\)', {
         String[] apost = it.split("'")
         def name = "#{" + apost[2] + "}"
-        def finalLike = "'" + apost[1] + "'," +
-                name + ",'" + apost[3] + "'"
+        def finalLike = "'" + apost[1] + "'," + name + ",'" + apost[3] + "'"
         line = line.replace(it, finalLike)
       })
     }

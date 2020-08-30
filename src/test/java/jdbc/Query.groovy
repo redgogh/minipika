@@ -1,7 +1,7 @@
 package jdbc
 
-import com.alibaba.fastjson.JSONObject
 import org.jiakesiws.minipika.framework.factory.ClassLoaders
+import org.jiakesiws.minipika.framework.utils.FastJsonHelper
 import org.junit.Test
 
 class Query
@@ -13,7 +13,7 @@ class Query
   void queryUser()
   {
     List<UserInfo> infoList = userMapper.queryUser('a')
-    println JSONObject.toJSONString(infoList)
+    println FastJsonHelper.toJSONString(infoList)
   }
 
 }
