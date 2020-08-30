@@ -12,11 +12,9 @@
 
 创建dao接口演示: 
 ```groovy
-@Select(value = """
-  queryOf * from website_user_info where 1=1
-  #if INE(user.username) && user.username != null
-    and username = #{user.username}
-  #end
-""", forList = User.class)
-def findUser(User user)
+@QueryOf(value = """
+  select * from website_user_info 
+  where username = #{username}
+""")
+User findUser(String username)
 ```
