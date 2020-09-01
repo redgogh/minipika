@@ -14,8 +14,6 @@ import java.util.Date;
  * @author 2B键盘
  * @email jiakesiws@gmail.com
  */
-@Getter
-@Setter
 public class UserInfo
 {
 
@@ -75,4 +73,133 @@ public class UserInfo
    */
   private Integer status;
 
+  public String getId()
+  {
+    return id;
+  }
+
+  public void setId(String id)
+  {
+    this.id = id;
+  }
+
+  public Date getCreateTime()
+  {
+    return createTime;
+  }
+
+  public void setCreateTime(Date createTime)
+  {
+    this.createTime = createTime;
+  }
+
+  public Date getUpdateTime()
+  {
+    return updateTime;
+  }
+
+  public void setUpdateTime(Date updateTime)
+  {
+    this.updateTime = updateTime;
+  }
+
+  public String getUsername()
+  {
+    return username;
+  }
+
+  public void setUsername(String username)
+  {
+    this.username = username;
+  }
+
+  public String getNickname()
+  {
+    return nickname;
+  }
+
+  public void setNickname(String nickname)
+  {
+    this.nickname = nickname;
+  }
+
+  public String getPassword()
+  {
+    return password;
+  }
+
+  public void setPassword(String password)
+  {
+    this.password = password;
+  }
+
+  public String getPhone()
+  {
+    return phone;
+  }
+
+  public void setPhone(String phone)
+  {
+    this.phone = phone;
+  }
+
+  public int getSex()
+  {
+    return sex;
+  }
+
+  public void setSex(int sex)
+  {
+    this.sex = sex;
+  }
+
+  public String getAvatar()
+  {
+    return avatar;
+  }
+
+  public void setAvatar(String avatar)
+  {
+    this.avatar = avatar;
+  }
+
+  public BigDecimal getBalance()
+  {
+    return balance;
+  }
+
+  public void setBalance(BigDecimal balance)
+  {
+    this.balance = balance;
+  }
+
+  public BigDecimal getSpace()
+  {
+    return space;
+  }
+
+  public void setSpace(BigDecimal space)
+  {
+    this.space = space;
+  }
+
+  public BigDecimal getRemSpace()
+  {
+    return remSpace;
+  }
+
+  public void setRemSpace(BigDecimal remSpace)
+  {
+    this.remSpace = remSpace;
+  }
+
+  public Integer getStatus()
+  {
+    return status;
+  }
+
+  public void setStatus(Integer status)
+  {
+    this.status = status;
+  }
 }
